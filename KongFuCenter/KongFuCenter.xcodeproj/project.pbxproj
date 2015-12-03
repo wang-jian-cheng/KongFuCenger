@@ -139,10 +139,6 @@
 				B59408CB1C0FC9E8003DC15D /* AppDelegate.m */,
 				B59408CD1C0FC9E8003DC15D /* ViewController.h */,
 				B59408CE1C0FC9E8003DC15D /* ViewController.m */,
-				B59408D01C0FC9E8003DC15D /* Main.storyboard */,
-				B59408D31C0FC9E8003DC15D /* Assets.xcassets */,
-				B59408D51C0FC9E8003DC15D /* LaunchScreen.storyboard */,
-				B59408D81C0FC9E8003DC15D /* Info.plist */,
 				B59408C71C0FC9E8003DC15D /* Supporting Files */,
 			);
 			path = KongFuCenter;
@@ -151,6 +147,10 @@
 		B59408C71C0FC9E8003DC15D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B59408D01C0FC9E8003DC15D /* Main.storyboard */,
+				B59408D31C0FC9E8003DC15D /* Assets.xcassets */,
+				B59408D51C0FC9E8003DC15D /* LaunchScreen.storyboard */,
+				B59408D81C0FC9E8003DC15D /* Info.plist */,
 				B59408C81C0FC9E8003DC15D /* main.m */,
 				B594091A1C0FD96A003DC15D /* PrefixHeader.pch */,
 			);
