@@ -7,6 +7,8 @@
 //
 
 #import "BaseNavigationController.h"
+#import "StudyOnLineViewController.h"
+
 
 @interface KongFuerViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 

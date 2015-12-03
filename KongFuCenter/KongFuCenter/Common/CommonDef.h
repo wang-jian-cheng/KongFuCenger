@@ -38,6 +38,12 @@
 #define ItemsBaseColor  [UIColor colorWithRed:45/255.0 green:46/255.0 blue:50/255.0 alpha:1.0]
 #define RGB(a, b, c) [UIColor colorWithRed:(a) / 255.0 green:(b) / 255.0 blue:(c) / 255.0 alpha:1.0]
 
+
+#ifndef DEBUG
+#define DEBUG  //开启debug
+#endif
+
+
 //use dlog to print while in debug model
 #ifdef DEBUG
 #   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);

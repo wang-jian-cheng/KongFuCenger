@@ -58,21 +58,26 @@
     _lblTitle.font=[UIFont boldSystemFontOfSize:18];
     _lblTitle.textAlignment = NSTextAlignmentCenter;
     _lblTitle.lineBreakMode = NSLineBreakByTruncatingTail;
+    if(self.navtitle != nil)
+    {
+        _lblTitle.text = self.navtitle ;
+    }
+    
     _lblTitle.numberOfLines = 0;
     _lblTitle.center = CGPointMake(_topView.center.x, _lblTitle.center.y);
     [self.view addSubview:_lblTitle];
     
-    _imgLeft = [[UIImageView alloc] initWithFrame:CGRectMake(0, _orginY, 60, NavigationBar_HEIGHT)];
+    _imgLeft = [[UIImageView alloc] initWithFrame:CGRectMake(0, _orginY, 40, NavigationBar_HEIGHT)];
     _imgLeft.backgroundColor = [UIColor clearColor];
     _imgLeft.center = CGPointMake(_imgLeft.center.x, _lblTitle.center.y);
     [self.view addSubview:_imgLeft];
     
-    _lblLeft = [[UILabel alloc] initWithFrame:CGRectMake(0,_orginY+NavigationBar_HEIGHT-10 ,60,10)];
+    _lblLeft = [[UILabel alloc] initWithFrame:CGRectMake(_imgLeft.frame.size.width+_imgLeft.frame.origin.x,_orginY,60 ,NavigationBar_HEIGHT)];
     
     _lblLeft.numberOfLines = 0;
     _lblLeft.textAlignment=NSTextAlignmentCenter;
-    _lblLeft.font = [UIFont systemFontOfSize:8];
-    _lblLeft.textColor = [UIColor darkGrayColor];
+    _lblLeft.font = [UIFont systemFontOfSize:16];
+    _lblLeft.textColor = [UIColor whiteColor];
     _lblLeft.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_lblLeft];
     
@@ -103,6 +108,13 @@
     _btnRight.backgroundColor = [UIColor clearColor];
     [_btnRight addTarget:self action:@selector(clickRightButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_btnRight];
+}
+
+
+-(void)setNavtitle:(NSString *)navtitle
+{
+    _navtitle = navtitle;
+    [self setBarTitle:_navtitle];
 }
 
 - (void)setBarTitle:(NSString *)strTitle

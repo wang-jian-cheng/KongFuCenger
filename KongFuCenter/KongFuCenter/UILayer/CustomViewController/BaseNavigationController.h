@@ -34,6 +34,8 @@ Useage:
     NSInteger _orginY;
 }
 
+@property(nonatomic)NSString *navtitle;
+
 - (void)setBarTitle:(NSString *)strTitle;
 - (void)addLeftButton:(NSString *)strImage;
 - (void)addRightButton:(NSString *)strImage;

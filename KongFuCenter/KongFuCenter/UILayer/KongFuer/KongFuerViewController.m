@@ -89,6 +89,28 @@
     
 }
 
+
+#pragma mark - click Btns
+
+#define DreamBtn  0
+#define StudyOnLineBtn  1
+#define KongFuHomeLineBtn  2
+#define MySendLineBtn  3
+-(void)cateHBtnClick:(UIButton *)sender
+{
+    switch (sender.tag) {
+        case StudyOnLineBtn:
+        {
+            StudyOnLineViewController *studyOnlineViewCtl = [[StudyOnLineViewController alloc]init];
+            studyOnlineViewCtl.navtitle = cateGoryH[StudyOnLineBtn];
+            [self.navigationController pushViewController:studyOnlineViewCtl animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
 //指定每个分区中有多少行，默认为1
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -130,12 +152,16 @@
         {
             UIButton *cateHBtn = [[UIButton alloc] initWithFrame:CGRectMake(0 + i*(SCREEN_WIDTH/cateGoryH.count), 0,(SCREEN_WIDTH/cateGoryH.count) , _cellHeight)];
             [cateHBtn setTitle:cateGoryH[i] forState:UIControlStateNormal];
+            cateHBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+            cateHBtn.tag = i;
             if(i!=cateGoryH.count - 1)
             {
-                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake((1+i)*(SCREEN_WIDTH/cateGoryH.count), 5, 1, _cellHeight - 10)];
-                lineView.backgroundColor = [UIColor whiteColor];
+                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake((1+i)*(SCREEN_WIDTH/cateGoryH.count), 10, 1, _cellHeight - 20)];
+                lineView.backgroundColor = BACKGROUND_COLOR;
                 [cell addSubview:lineView];
             }
+            
+            [cateHBtn addTarget:self action:@selector(cateHBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:cateHBtn];
         }
     }
@@ -149,6 +175,7 @@
         gategoryNameLab.text =cateGoryV[categoryVIndex];
         gategoryNameLab.textColor  = [UIColor whiteColor];
         categoryVIndex++;
+        gategoryNameLab.font = [UIFont systemFontOfSize:16];
         [cell addSubview:gategoryNameLab];
     }
     

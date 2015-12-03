@@ -24,6 +24,7 @@
 		B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409151C0FD669003DC15D /* UIImage+NSBundle.m */; };
 		B59409191C0FD720003DC15D /* Toolkit.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409181C0FD720003DC15D /* Toolkit.m */; };
 		B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */; };
+		B59409201C102719003DC15D /* StudyOnLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B594091F1C102719003DC15D /* StudyOnLineViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,8 @@
 		B59409181C0FD720003DC15D /* Toolkit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Toolkit.m; sourceTree = "<group>"; };
 		B594091A1C0FD96A003DC15D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		B594091E1C102719003DC15D /* StudyOnLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudyOnLineViewController.h; sourceTree = "<group>"; };
+		B594091F1C102719003DC15D /* StudyOnLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudyOnLineViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +242,8 @@
 			children = (
 				B59409081C0FCEE4003DC15D /* KongFuerViewController.h */,
 				B59409091C0FCEE4003DC15D /* KongFuerViewController.m */,
+				B594091E1C102719003DC15D /* StudyOnLineViewController.h */,
+				B594091F1C102719003DC15D /* StudyOnLineViewController.m */,
 			);
 			path = KongFuer;
 			sourceTree = "<group>";
@@ -318,6 +323,7 @@
 				TargetAttributes = {
 					B59408C31C0FC9E8003DC15D = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = M7YC435M3S;
 					};
 					B59408DC1C0FC9E9003DC15D = {
 						CreatedOnToolsVersion = 7.1;
@@ -385,6 +391,7 @@
 				B59409131C0FCF1F003DC15D /* KongFuUnionViewController.m in Sources */,
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
 				B594090A1C0FCEE4003DC15D /* KongFuerViewController.m in Sources */,
+				B59409201C102719003DC15D /* StudyOnLineViewController.m in Sources */,
 				B59409001C0FCB0F003DC15D /* BaseNavigationController.m in Sources */,
 				B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */,
 				B59409101C0FCF05003DC15D /* KongFuPowerViewController.m in Sources */,
@@ -531,6 +538,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -544,6 +552,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -620,6 +629,7 @@
 				B59408F31C0FC9E9003DC15D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B59408F41C0FC9E9003DC15D /* Build configuration list for PBXNativeTarget "KongFuCenterTests" */ = {
 			isa = XCConfigurationList;
@@ -628,6 +638,7 @@
 				B59408F61C0FC9E9003DC15D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B59408F71C0FC9E9003DC15D /* Build configuration list for PBXNativeTarget "KongFuCenterUITests" */ = {
 			isa = XCConfigurationList;
@@ -636,6 +647,7 @@
 				B59408F91C0FC9E9003DC15D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
