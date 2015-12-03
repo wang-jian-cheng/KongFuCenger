@@ -1,0 +1,643 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B59408C91C0FC9E8003DC15D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408C81C0FC9E8003DC15D /* main.m */; };
+		B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408CB1C0FC9E8003DC15D /* AppDelegate.m */; };
+		B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408CE1C0FC9E8003DC15D /* ViewController.m */; };
+		B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B59408D01C0FC9E8003DC15D /* Main.storyboard */; };
+		B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B59408D31C0FC9E8003DC15D /* Assets.xcassets */; };
+		B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B59408D51C0FC9E8003DC15D /* LaunchScreen.storyboard */; };
+		B59408E21C0FC9E9003DC15D /* KongFuCenterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408E11C0FC9E9003DC15D /* KongFuCenterTests.m */; };
+		B59408ED1C0FC9E9003DC15D /* KongFuCenterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408EC1C0FC9E9003DC15D /* KongFuCenterUITests.m */; };
+		B59409001C0FCB0F003DC15D /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408FD1C0FCB0F003DC15D /* BaseNavigationController.m */; };
+		B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408FF1C0FCB0F003DC15D /* CustomTabBarViewController.m */; };
+		B594090A1C0FCEE4003DC15D /* KongFuerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409091C0FCEE4003DC15D /* KongFuerViewController.m */; };
+		B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B594090C1C0FCEF3003DC15D /* MoreViewController.m */; };
+		B59409101C0FCF05003DC15D /* KongFuPowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B594090F1C0FCF05003DC15D /* KongFuPowerViewController.m */; };
+		B59409131C0FCF1F003DC15D /* KongFuUnionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409121C0FCF1F003DC15D /* KongFuUnionViewController.m */; };
+		B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409151C0FD669003DC15D /* UIImage+NSBundle.m */; };
+		B59409191C0FD720003DC15D /* Toolkit.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409181C0FD720003DC15D /* Toolkit.m */; };
+		B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B59408DE1C0FC9E9003DC15D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B59408BC1C0FC9E8003DC15D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B59408C31C0FC9E8003DC15D;
+			remoteInfo = KongFuCenter;
+		};
+		B59408E91C0FC9E9003DC15D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B59408BC1C0FC9E8003DC15D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B59408C31C0FC9E8003DC15D;
+			remoteInfo = KongFuCenter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B59408C41C0FC9E8003DC15D /* KongFuCenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KongFuCenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B59408C81C0FC9E8003DC15D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B59408CA1C0FC9E8003DC15D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B59408CB1C0FC9E8003DC15D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B59408CD1C0FC9E8003DC15D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		B59408CE1C0FC9E8003DC15D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B59408D11C0FC9E8003DC15D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B59408D31C0FC9E8003DC15D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B59408D61C0FC9E8003DC15D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B59408D81C0FC9E8003DC15D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B59408DD1C0FC9E9003DC15D /* KongFuCenterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KongFuCenterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B59408E11C0FC9E9003DC15D /* KongFuCenterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KongFuCenterTests.m; sourceTree = "<group>"; };
+		B59408E31C0FC9E9003DC15D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B59408E81C0FC9E9003DC15D /* KongFuCenterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KongFuCenterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B59408EC1C0FC9E9003DC15D /* KongFuCenterUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KongFuCenterUITests.m; sourceTree = "<group>"; };
+		B59408EE1C0FC9E9003DC15D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B59408FC1C0FCB0F003DC15D /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
+		B59408FD1C0FCB0F003DC15D /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
+		B59408FE1C0FCB0F003DC15D /* CustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarViewController.h; sourceTree = "<group>"; };
+		B59408FF1C0FCB0F003DC15D /* CustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarViewController.m; sourceTree = "<group>"; };
+		B59409031C0FCD56003DC15D /* CommonDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonDef.h; sourceTree = "<group>"; };
+		B59409081C0FCEE4003DC15D /* KongFuerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KongFuerViewController.h; sourceTree = "<group>"; };
+		B59409091C0FCEE4003DC15D /* KongFuerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KongFuerViewController.m; sourceTree = "<group>"; };
+		B594090B1C0FCEF3003DC15D /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
+		B594090C1C0FCEF3003DC15D /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
+		B594090E1C0FCF05003DC15D /* KongFuPowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KongFuPowerViewController.h; sourceTree = "<group>"; };
+		B594090F1C0FCF05003DC15D /* KongFuPowerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KongFuPowerViewController.m; sourceTree = "<group>"; };
+		B59409111C0FCF1F003DC15D /* KongFuUnionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KongFuUnionViewController.h; sourceTree = "<group>"; };
+		B59409121C0FCF1F003DC15D /* KongFuUnionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KongFuUnionViewController.m; sourceTree = "<group>"; };
+		B59409141C0FD669003DC15D /* UIImage+NSBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NSBundle.h"; sourceTree = "<group>"; };
+		B59409151C0FD669003DC15D /* UIImage+NSBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NSBundle.m"; sourceTree = "<group>"; };
+		B59409171C0FD720003DC15D /* Toolkit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Toolkit.h; sourceTree = "<group>"; };
+		B59409181C0FD720003DC15D /* Toolkit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Toolkit.m; sourceTree = "<group>"; };
+		B594091A1C0FD96A003DC15D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B59408C11C0FC9E8003DC15D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B59408DA1C0FC9E9003DC15D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B59408E51C0FC9E9003DC15D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B59408BB1C0FC9E8003DC15D = {
+			isa = PBXGroup;
+			children = (
+				B59408C61C0FC9E8003DC15D /* KongFuCenter */,
+				B59408E01C0FC9E9003DC15D /* KongFuCenterTests */,
+				B59408EB1C0FC9E9003DC15D /* KongFuCenterUITests */,
+				B59408C51C0FC9E8003DC15D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B59408C51C0FC9E8003DC15D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B59408C41C0FC9E8003DC15D /* KongFuCenter.app */,
+				B59408DD1C0FC9E9003DC15D /* KongFuCenterTests.xctest */,
+				B59408E81C0FC9E9003DC15D /* KongFuCenterUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B59408C61C0FC9E8003DC15D /* KongFuCenter */ = {
+			isa = PBXGroup;
+			children = (
+				B594091B1C0FDB6A003DC15D /* Image */,
+				B59409021C0FCD36003DC15D /* Common */,
+				B59408FA1C0FCAEC003DC15D /* UILayer */,
+				B59408CA1C0FC9E8003DC15D /* AppDelegate.h */,
+				B59408CB1C0FC9E8003DC15D /* AppDelegate.m */,
+				B59408CD1C0FC9E8003DC15D /* ViewController.h */,
+				B59408CE1C0FC9E8003DC15D /* ViewController.m */,
+				B59408D01C0FC9E8003DC15D /* Main.storyboard */,
+				B59408D31C0FC9E8003DC15D /* Assets.xcassets */,
+				B59408D51C0FC9E8003DC15D /* LaunchScreen.storyboard */,
+				B59408D81C0FC9E8003DC15D /* Info.plist */,
+				B59408C71C0FC9E8003DC15D /* Supporting Files */,
+			);
+			path = KongFuCenter;
+			sourceTree = "<group>";
+		};
+		B59408C71C0FC9E8003DC15D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B59408C81C0FC9E8003DC15D /* main.m */,
+				B594091A1C0FD96A003DC15D /* PrefixHeader.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B59408E01C0FC9E9003DC15D /* KongFuCenterTests */ = {
+			isa = PBXGroup;
+			children = (
+				B59408E11C0FC9E9003DC15D /* KongFuCenterTests.m */,
+				B59408E31C0FC9E9003DC15D /* Info.plist */,
+			);
+			path = KongFuCenterTests;
+			sourceTree = "<group>";
+		};
+		B59408EB1C0FC9E9003DC15D /* KongFuCenterUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B59408EC1C0FC9E9003DC15D /* KongFuCenterUITests.m */,
+				B59408EE1C0FC9E9003DC15D /* Info.plist */,
+			);
+			path = KongFuCenterUITests;
+			sourceTree = "<group>";
+		};
+		B59408FA1C0FCAEC003DC15D /* UILayer */ = {
+			isa = PBXGroup;
+			children = (
+				B59409071C0FCE60003DC15D /* KongFuer */,
+				B59409061C0FCE49003DC15D /* More */,
+				B59409051C0FCE36003DC15D /* KongFuPower */,
+				B59409041C0FCE1B003DC15D /* KongFuUnion */,
+				B59408FB1C0FCB0F003DC15D /* CustomViewController */,
+			);
+			path = UILayer;
+			sourceTree = "<group>";
+		};
+		B59408FB1C0FCB0F003DC15D /* CustomViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B59409141C0FD669003DC15D /* UIImage+NSBundle.h */,
+				B59409151C0FD669003DC15D /* UIImage+NSBundle.m */,
+				B59408FC1C0FCB0F003DC15D /* BaseNavigationController.h */,
+				B59408FD1C0FCB0F003DC15D /* BaseNavigationController.m */,
+				B59408FE1C0FCB0F003DC15D /* CustomTabBarViewController.h */,
+				B59408FF1C0FCB0F003DC15D /* CustomTabBarViewController.m */,
+			);
+			path = CustomViewController;
+			sourceTree = "<group>";
+		};
+		B59409021C0FCD36003DC15D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B59409171C0FD720003DC15D /* Toolkit.h */,
+				B59409181C0FD720003DC15D /* Toolkit.m */,
+				B59409031C0FCD56003DC15D /* CommonDef.h */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B59409041C0FCE1B003DC15D /* KongFuUnion */ = {
+			isa = PBXGroup;
+			children = (
+				B59409111C0FCF1F003DC15D /* KongFuUnionViewController.h */,
+				B59409121C0FCF1F003DC15D /* KongFuUnionViewController.m */,
+			);
+			path = KongFuUnion;
+			sourceTree = "<group>";
+		};
+		B59409051C0FCE36003DC15D /* KongFuPower */ = {
+			isa = PBXGroup;
+			children = (
+				B594090E1C0FCF05003DC15D /* KongFuPowerViewController.h */,
+				B594090F1C0FCF05003DC15D /* KongFuPowerViewController.m */,
+			);
+			path = KongFuPower;
+			sourceTree = "<group>";
+		};
+		B59409061C0FCE49003DC15D /* More */ = {
+			isa = PBXGroup;
+			children = (
+				B594090B1C0FCEF3003DC15D /* MoreViewController.h */,
+				B594090C1C0FCEF3003DC15D /* MoreViewController.m */,
+			);
+			path = More;
+			sourceTree = "<group>";
+		};
+		B59409071C0FCE60003DC15D /* KongFuer */ = {
+			isa = PBXGroup;
+			children = (
+				B59409081C0FCEE4003DC15D /* KongFuerViewController.h */,
+				B59409091C0FCEE4003DC15D /* KongFuerViewController.m */,
+			);
+			path = KongFuer;
+			sourceTree = "<group>";
+		};
+		B594091B1C0FDB6A003DC15D /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B59408C31C0FC9E8003DC15D /* KongFuCenter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B59408F11C0FC9E9003DC15D /* Build configuration list for PBXNativeTarget "KongFuCenter" */;
+			buildPhases = (
+				B59408C01C0FC9E8003DC15D /* Sources */,
+				B59408C11C0FC9E8003DC15D /* Frameworks */,
+				B59408C21C0FC9E8003DC15D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KongFuCenter;
+			productName = KongFuCenter;
+			productReference = B59408C41C0FC9E8003DC15D /* KongFuCenter.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B59408DC1C0FC9E9003DC15D /* KongFuCenterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B59408F41C0FC9E9003DC15D /* Build configuration list for PBXNativeTarget "KongFuCenterTests" */;
+			buildPhases = (
+				B59408D91C0FC9E9003DC15D /* Sources */,
+				B59408DA1C0FC9E9003DC15D /* Frameworks */,
+				B59408DB1C0FC9E9003DC15D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B59408DF1C0FC9E9003DC15D /* PBXTargetDependency */,
+			);
+			name = KongFuCenterTests;
+			productName = KongFuCenterTests;
+			productReference = B59408DD1C0FC9E9003DC15D /* KongFuCenterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B59408E71C0FC9E9003DC15D /* KongFuCenterUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B59408F71C0FC9E9003DC15D /* Build configuration list for PBXNativeTarget "KongFuCenterUITests" */;
+			buildPhases = (
+				B59408E41C0FC9E9003DC15D /* Sources */,
+				B59408E51C0FC9E9003DC15D /* Frameworks */,
+				B59408E61C0FC9E9003DC15D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B59408EA1C0FC9E9003DC15D /* PBXTargetDependency */,
+			);
+			name = KongFuCenterUITests;
+			productName = KongFuCenterUITests;
+			productReference = B59408E81C0FC9E9003DC15D /* KongFuCenterUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B59408BC1C0FC9E8003DC15D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = zykj;
+				TargetAttributes = {
+					B59408C31C0FC9E8003DC15D = {
+						CreatedOnToolsVersion = 7.1;
+					};
+					B59408DC1C0FC9E9003DC15D = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = B59408C31C0FC9E8003DC15D;
+					};
+					B59408E71C0FC9E9003DC15D = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = B59408C31C0FC9E8003DC15D;
+					};
+				};
+			};
+			buildConfigurationList = B59408BF1C0FC9E8003DC15D /* Build configuration list for PBXProject "KongFuCenter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B59408BB1C0FC9E8003DC15D;
+			productRefGroup = B59408C51C0FC9E8003DC15D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B59408C31C0FC9E8003DC15D /* KongFuCenter */,
+				B59408DC1C0FC9E9003DC15D /* KongFuCenterTests */,
+				B59408E71C0FC9E9003DC15D /* KongFuCenterUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B59408C21C0FC9E8003DC15D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */,
+				B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */,
+				B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */,
+				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B59408DB1C0FC9E9003DC15D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B59408E61C0FC9E9003DC15D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B59408C01C0FC9E8003DC15D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B59409131C0FCF1F003DC15D /* KongFuUnionViewController.m in Sources */,
+				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
+				B594090A1C0FCEE4003DC15D /* KongFuerViewController.m in Sources */,
+				B59409001C0FCB0F003DC15D /* BaseNavigationController.m in Sources */,
+				B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */,
+				B59409101C0FCF05003DC15D /* KongFuPowerViewController.m in Sources */,
+				B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */,
+				B59409191C0FD720003DC15D /* Toolkit.m in Sources */,
+				B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */,
+				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
+				B59408C91C0FC9E8003DC15D /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B59408D91C0FC9E9003DC15D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B59408E21C0FC9E9003DC15D /* KongFuCenterTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B59408E41C0FC9E9003DC15D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B59408ED1C0FC9E9003DC15D /* KongFuCenterUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B59408DF1C0FC9E9003DC15D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B59408C31C0FC9E8003DC15D /* KongFuCenter */;
+			targetProxy = B59408DE1C0FC9E9003DC15D /* PBXContainerItemProxy */;
+		};
+		B59408EA1C0FC9E9003DC15D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B59408C31C0FC9E8003DC15D /* KongFuCenter */;
+			targetProxy = B59408E91C0FC9E9003DC15D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B59408D01C0FC9E8003DC15D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B59408D11C0FC9E8003DC15D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B59408D51C0FC9E8003DC15D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B59408D61C0FC9E8003DC15D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B59408EF1C0FC9E9003DC15D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		B59408F01C0FC9E9003DC15D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B59408F21C0FC9E9003DC15D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
+				INFOPLIST_FILE = KongFuCenter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B59408F31C0FC9E9003DC15D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
+				INFOPLIST_FILE = KongFuCenter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		B59408F51C0FC9E9003DC15D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = KongFuCenterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KongFuCenter.app/KongFuCenter";
+			};
+			name = Debug;
+		};
+		B59408F61C0FC9E9003DC15D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = KongFuCenterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KongFuCenter.app/KongFuCenter";
+			};
+			name = Release;
+		};
+		B59408F81C0FC9E9003DC15D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = KongFuCenterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = KongFuCenter;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		B59408F91C0FC9E9003DC15D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = KongFuCenterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = KongFuCenter;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B59408BF1C0FC9E8003DC15D /* Build configuration list for PBXProject "KongFuCenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B59408EF1C0FC9E9003DC15D /* Debug */,
+				B59408F01C0FC9E9003DC15D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B59408F11C0FC9E9003DC15D /* Build configuration list for PBXNativeTarget "KongFuCenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B59408F21C0FC9E9003DC15D /* Debug */,
+				B59408F31C0FC9E9003DC15D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		B59408F41C0FC9E9003DC15D /* Build configuration list for PBXNativeTarget "KongFuCenterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B59408F51C0FC9E9003DC15D /* Debug */,
+				B59408F61C0FC9E9003DC15D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		B59408F71C0FC9E9003DC15D /* Build configuration list for PBXNativeTarget "KongFuCenterUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B59408F81C0FC9E9003DC15D /* Debug */,
+				B59408F91C0FC9E9003DC15D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B59408BC1C0FC9E8003DC15D /* Project object */;
+}
