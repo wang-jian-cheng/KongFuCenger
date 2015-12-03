@@ -136,10 +136,6 @@
 				B59408CB1C0FC9E8003DC15D /* AppDelegate.m */,
 				B59408CD1C0FC9E8003DC15D /* ViewController.h */,
 				B59408CE1C0FC9E8003DC15D /* ViewController.m */,
-				B59408D01C0FC9E8003DC15D /* Main.storyboard */,
-				B59408D31C0FC9E8003DC15D /* Assets.xcassets */,
-				B59408D51C0FC9E8003DC15D /* LaunchScreen.storyboard */,
-				B59408D81C0FC9E8003DC15D /* Info.plist */,
 				B59408C71C0FC9E8003DC15D /* Supporting Files */,
 			);
 			path = KongFuCenter;
@@ -148,6 +144,10 @@
 		B59408C71C0FC9E8003DC15D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B59408D01C0FC9E8003DC15D /* Main.storyboard */,
+				B59408D31C0FC9E8003DC15D /* Assets.xcassets */,
+				B59408D51C0FC9E8003DC15D /* LaunchScreen.storyboard */,
+				B59408D81C0FC9E8003DC15D /* Info.plist */,
 				B59408C81C0FC9E8003DC15D /* main.m */,
 				B594091A1C0FD96A003DC15D /* PrefixHeader.pch */,
 			);
@@ -318,6 +318,7 @@
 				TargetAttributes = {
 					B59408C31C0FC9E8003DC15D = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = M7YC435M3S;
 					};
 					B59408DC1C0FC9E9003DC15D = {
 						CreatedOnToolsVersion = 7.1;
@@ -531,6 +532,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -544,6 +546,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -620,6 +623,7 @@
 				B59408F31C0FC9E9003DC15D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B59408F41C0FC9E9003DC15D /* Build configuration list for PBXNativeTarget "KongFuCenterTests" */ = {
 			isa = XCConfigurationList;
@@ -628,6 +632,7 @@
 				B59408F61C0FC9E9003DC15D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B59408F71C0FC9E9003DC15D /* Build configuration list for PBXNativeTarget "KongFuCenterUITests" */ = {
 			isa = XCConfigurationList;
@@ -636,6 +641,7 @@
 				B59408F91C0FC9E9003DC15D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -14,10 +14,7 @@
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
     CGFloat _cellHeight;
-    
     UITableView *_mainTableView;
-    
-    
 }
 @end
 
@@ -31,7 +28,6 @@
     _cellHeight = SCREEN_HEIGHT / 12;
     [self setBarTitle:@"核联盟"];
     [self initViews];
-    // Do any additional setup after loading the view.
 }
 
 
@@ -42,12 +38,9 @@
     
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
-    _mainTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;//UITableViewCellSeparatorStyleSingleLine;
-
-    _mainTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _mainTableView.separatorColor =  BACKGROUND_COLOR;
     _mainTableView.tableFooterView = [[UIView alloc] init];
-    //设置cell分割线从最左边开始
+    _mainTableView.scrollEnabled = NO;
     [self.view addSubview:_mainTableView];
     
 }
@@ -89,9 +82,26 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, _cellHeight)];
-    
-    
     cell.backgroundColor = ItemsBaseColor;
+    if (indexPath.section == 0) {
+        [self setCell:cell andImg:@"" andName:@"武者动态"];
+    }else if(indexPath.section == 1){
+        if (indexPath.row == 0) {
+            [self setCell:cell andImg:@"" andName:@"战队动态"];
+        }else{
+            [self setCell:cell andImg:@"" andName:@"加入战队"];
+        }
+    }else if(indexPath.section == 2){
+        [self setCell:cell andImg:@"" andName:@"联盟动态"];
+    }else{
+        if (indexPath.row == 0) {
+            [self setCell:cell andImg:@"" andName:@"武者大赛"];
+        }else if (indexPath.row == 0) {
+            [self setCell:cell andImg:@"" andName:@"江湖故事"];
+        }else{
+            [self setCell:cell andImg:@"" andName:@"扫一扫"];
+        }
+    }
     
     return cell;
     
@@ -161,50 +171,39 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *tempView = [[UIView alloc] init];
-    
-    
-    tempView.backgroundColor = [UIColor grayColor];
     return tempView;
 }
-
-//设置section的footer view
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *tempView = [[UIView alloc] init];
-    
-    
-    
-    return tempView;
-    
-}
-
 
 //设置section header 的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10;
+    if(section == 0){
+        return 10;
+    }else{
+        return 8;
+    }
 }
-//设置section footer的高度
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+
+#pragma mark - 自定义方法
+
+-(void)setCell:(UITableViewCell *)cell andImg:(NSString *)img andName:(NSString *)name{
     
-    return 0;
+    //图标
+    UIImageView *img_icon;
+    if (img_icon == nil) {
+        img_icon = [[UIImageView alloc] initWithFrame:CGRectMake(14, 0, 20, cell.frame.size.height)];
+    }
+    [cell addSubview:img_icon];
+    
+    //名称
+    UILabel *lbl_name;
+    if (lbl_name == nil) {
+        lbl_name = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, 100, cell.frame.size.height)];
+        lbl_name.textColor = [UIColor whiteColor];
+        lbl_name.font = [UIFont systemFontOfSize:18];
+    }
+    lbl_name.text = name;
+    [cell addSubview:lbl_name];
 }
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
