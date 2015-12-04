@@ -10,9 +10,7 @@
 
 @interface KongFuUnionViewController ()
 {
-    
-#pragma mark - pram for tableView
-    NSInteger _sectionNum;
+    //tableview参数
     CGFloat _cellHeight;
     UITableView *_mainTableView;
 }
@@ -24,7 +22,6 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = BACKGROUND_COLOR;
-    _sectionNum = 4;
     _cellHeight = SCREEN_HEIGHT / 12;
     [self setBarTitle:@"核联盟"];
     [self initViews];
@@ -50,7 +47,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return _sectionNum;
+    return 4;
     
 }
 
@@ -60,16 +57,13 @@
     
     switch (section) {
         case 0:
-            return 1;
+            return 3;
             break;
         case 1:
             return 2;
             break;
         case 2:
-            return 1;
-            break;
-        case 3:
-            return 3;
+            return 2;
             break;
         default:
             return 1;
@@ -84,23 +78,27 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, _cellHeight)];
     cell.backgroundColor = ItemsBaseColor;
     if (indexPath.section == 0) {
-        [self setCell:cell andImg:@"" andName:@"武者动态"];
+        if (indexPath.row == 0) {
+            [self setCell:cell andImg:@"" andName:@"武友动态"];
+        }else if(indexPath.row == 1){
+            [self setCell:cell andImg:@"" andName:@"战队动态"];
+        }else{
+            [self setCell:cell andImg:@"" andName:@"联盟动态"];
+        }
     }else if(indexPath.section == 1){
         if (indexPath.row == 0) {
-            [self setCell:cell andImg:@"" andName:@"战队动态"];
+            [self setCell:cell andImg:@"" andName:@"结交武者"];
         }else{
             [self setCell:cell andImg:@"" andName:@"加入战队"];
         }
     }else if(indexPath.section == 2){
-        [self setCell:cell andImg:@"" andName:@"联盟动态"];
-    }else{
         if (indexPath.row == 0) {
-            [self setCell:cell andImg:@"" andName:@"武者大赛"];
-        }else if (indexPath.row == 0) {
-            [self setCell:cell andImg:@"" andName:@"江湖故事"];
+            [self setCell:cell andImg:@"" andName:@"武者赛事"];
         }else{
-            [self setCell:cell andImg:@"" andName:@"扫一扫"];
+            [self setCell:cell andImg:@"" andName:@"江湖故事"];
         }
+    }else{
+        [self setCell:cell andImg:@"" andName:@"扫一扫"];
     }
     
     return cell;
@@ -121,22 +119,8 @@
     
 }
 
-
-- (void)drawRect:(CGRect)rect {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor); CGContextFillRect(context, rect); //上分割线，
-    
-    CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
-    CGContextStrokeRect(context, CGRectMake(5, -1, rect.size.width - 10, 1)); //下分割线
-    CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
-    CGContextStrokeRect(context, CGRectMake(5, 10, 100, 10));
-}
-
-
 //设置划动cell是否出现del按钮，可供删除数据里进行处理
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     return NO;
 }
 
