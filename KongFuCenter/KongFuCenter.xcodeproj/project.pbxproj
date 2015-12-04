@@ -25,6 +25,10 @@
 		B59409191C0FD720003DC15D /* Toolkit.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409181C0FD720003DC15D /* Toolkit.m */; };
 		B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */; };
 		B59409201C102719003DC15D /* StudyOnLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B594091F1C102719003DC15D /* StudyOnLineViewController.m */; };
+		B79022A81C1178FF00E02FFB /* JHStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B79022A61C1178FF00E02FFB /* JHStoryViewController.m */; };
+		B79022A91C1178FF00E02FFB /* JHStoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B79022A71C1178FF00E02FFB /* JHStoryViewController.xib */; };
+		B79022AE1C117E3E00E02FFB /* JHStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B79022AC1C117E3E00E02FFB /* JHStoryTableViewCell.m */; };
+		B79022AF1C117E3E00E02FFB /* JHStoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B79022AD1C117E3E00E02FFB /* JHStoryTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +86,12 @@
 		B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B594091E1C102719003DC15D /* StudyOnLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudyOnLineViewController.h; sourceTree = "<group>"; };
 		B594091F1C102719003DC15D /* StudyOnLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudyOnLineViewController.m; sourceTree = "<group>"; };
+		B79022A51C1178FF00E02FFB /* JHStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryViewController.h; sourceTree = "<group>"; };
+		B79022A61C1178FF00E02FFB /* JHStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryViewController.m; sourceTree = "<group>"; };
+		B79022A71C1178FF00E02FFB /* JHStoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHStoryViewController.xib; sourceTree = "<group>"; };
+		B79022AB1C117E3E00E02FFB /* JHStoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryTableViewCell.h; sourceTree = "<group>"; };
+		B79022AC1C117E3E00E02FFB /* JHStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryTableViewCell.m; sourceTree = "<group>"; };
+		B79022AD1C117E3E00E02FFB /* JHStoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHStoryTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +223,7 @@
 		B59409041C0FCE1B003DC15D /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
+				B79022AA1C117E0800E02FFB /* JHStory */,
 				B59409111C0FCF1F003DC15D /* KongFuUnionViewController.h */,
 				B59409121C0FCF1F003DC15D /* KongFuUnionViewController.m */,
 			);
@@ -254,6 +265,19 @@
 				B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		B79022AA1C117E0800E02FFB /* JHStory */ = {
+			isa = PBXGroup;
+			children = (
+				B79022A51C1178FF00E02FFB /* JHStoryViewController.h */,
+				B79022A61C1178FF00E02FFB /* JHStoryViewController.m */,
+				B79022A71C1178FF00E02FFB /* JHStoryViewController.xib */,
+				B79022AB1C117E3E00E02FFB /* JHStoryTableViewCell.h */,
+				B79022AC1C117E3E00E02FFB /* JHStoryTableViewCell.m */,
+				B79022AD1C117E3E00E02FFB /* JHStoryTableViewCell.xib */,
+			);
+			name = JHStory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,8 +384,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B79022A91C1178FF00E02FFB /* JHStoryViewController.xib in Resources */,
 				B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */,
 				B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */,
+				B79022AF1C117E3E00E02FFB /* JHStoryTableViewCell.xib in Resources */,
 				B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */,
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
 			);
@@ -399,7 +425,9 @@
 				B59409191C0FD720003DC15D /* Toolkit.m in Sources */,
 				B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */,
 				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
+				B79022AE1C117E3E00E02FFB /* JHStoryTableViewCell.m in Sources */,
 				B59408C91C0FC9E8003DC15D /* main.m in Sources */,
+				B79022A81C1178FF00E02FFB /* JHStoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
