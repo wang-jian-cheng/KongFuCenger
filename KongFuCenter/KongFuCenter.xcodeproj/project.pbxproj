@@ -25,6 +25,16 @@
 		B59409191C0FD720003DC15D /* Toolkit.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409181C0FD720003DC15D /* Toolkit.m */; };
 		B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */; };
 		B59409201C102719003DC15D /* StudyOnLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B594091F1C102719003DC15D /* StudyOnLineViewController.m */; };
+		B5D899F91C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */; };
+		B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899F81C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m */; };
+		B5D899FD1C113CDB00F55BFA /* btnFlag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */; };
+		B5D89A001C11439E00F55BFA /* WuGuanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899FF1C11439E00F55BFA /* WuGuanViewController.m */; };
+		B5D89A041C11641000F55BFA /* WuGuanTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D89A021C11641000F55BFA /* WuGuanTableViewCell.m */; };
+		B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D89A031C11641000F55BFA /* WuGuanTableViewCell.xib */; };
+		B5D89A071C1165E400F55BFA /* temp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D89A061C1165E400F55BFA /* temp@2x.png */; };
+		B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D89A091C117A4100F55BFA /* MyCollectViewController.m */; };
+		B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D89A0C1C118BB800F55BFA /* MyCollectTableViewCell.m */; };
+		B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D89A0D1C118BB800F55BFA /* MyCollectTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +92,22 @@
 		B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B594091E1C102719003DC15D /* StudyOnLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudyOnLineViewController.h; sourceTree = "<group>"; };
 		B594091F1C102719003DC15D /* StudyOnLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudyOnLineViewController.m; sourceTree = "<group>"; };
+		B5D899F51C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayout.h; sourceTree = "<group>"; };
+		B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMCollectionViewFlemishBondLayout.m; sourceTree = "<group>"; };
+		B5D899F71C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayoutAttributes.h; sourceTree = "<group>"; };
+		B5D899F81C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMCollectionViewFlemishBondLayoutAttributes.m; sourceTree = "<group>"; };
+		B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnFlag@2x.png"; sourceTree = "<group>"; };
+		B5D899FE1C11439E00F55BFA /* WuGuanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WuGuanViewController.h; sourceTree = "<group>"; };
+		B5D899FF1C11439E00F55BFA /* WuGuanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WuGuanViewController.m; sourceTree = "<group>"; };
+		B5D89A011C11641000F55BFA /* WuGuanTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WuGuanTableViewCell.h; sourceTree = "<group>"; };
+		B5D89A021C11641000F55BFA /* WuGuanTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WuGuanTableViewCell.m; sourceTree = "<group>"; };
+		B5D89A031C11641000F55BFA /* WuGuanTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WuGuanTableViewCell.xib; sourceTree = "<group>"; };
+		B5D89A061C1165E400F55BFA /* temp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp@2x.png"; sourceTree = "<group>"; };
+		B5D89A081C117A4000F55BFA /* MyCollectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCollectViewController.h; sourceTree = "<group>"; };
+		B5D89A091C117A4100F55BFA /* MyCollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
+		B5D89A0B1C118BB800F55BFA /* MyCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCollectTableViewCell.h; sourceTree = "<group>"; };
+		B5D89A0C1C118BB800F55BFA /* MyCollectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCollectTableViewCell.m; sourceTree = "<group>"; };
+		B5D89A0D1C118BB800F55BFA /* MyCollectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCollectTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +204,7 @@
 		B59408FA1C0FCAEC003DC15D /* UILayer */ = {
 			isa = PBXGroup;
 			children = (
+				B5D899F31C11211900F55BFA /* RamCollectionView */,
 				B59409071C0FCE60003DC15D /* KongFuer */,
 				B59409061C0FCE49003DC15D /* More */,
 				B59409051C0FCE36003DC15D /* KongFuPower */,
@@ -244,6 +271,16 @@
 				B59409091C0FCEE4003DC15D /* KongFuerViewController.m */,
 				B594091E1C102719003DC15D /* StudyOnLineViewController.h */,
 				B594091F1C102719003DC15D /* StudyOnLineViewController.m */,
+				B5D899FE1C11439E00F55BFA /* WuGuanViewController.h */,
+				B5D899FF1C11439E00F55BFA /* WuGuanViewController.m */,
+				B5D89A011C11641000F55BFA /* WuGuanTableViewCell.h */,
+				B5D89A021C11641000F55BFA /* WuGuanTableViewCell.m */,
+				B5D89A031C11641000F55BFA /* WuGuanTableViewCell.xib */,
+				B5D89A081C117A4000F55BFA /* MyCollectViewController.h */,
+				B5D89A091C117A4100F55BFA /* MyCollectViewController.m */,
+				B5D89A0B1C118BB800F55BFA /* MyCollectTableViewCell.h */,
+				B5D89A0C1C118BB800F55BFA /* MyCollectTableViewCell.m */,
+				B5D89A0D1C118BB800F55BFA /* MyCollectTableViewCell.xib */,
 			);
 			path = KongFuer;
 			sourceTree = "<group>";
@@ -251,9 +288,38 @@
 		B594091B1C0FDB6A003DC15D /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B5D899FB1C113CB900F55BFA /* other */,
 				B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		B5D899F31C11211900F55BFA /* RamCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				B5D899F41C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout */,
+			);
+			path = RamCollectionView;
+			sourceTree = "<group>";
+		};
+		B5D899F41C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout */ = {
+			isa = PBXGroup;
+			children = (
+				B5D899F51C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.h */,
+				B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */,
+				B5D899F71C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.h */,
+				B5D899F81C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m */,
+			);
+			path = RAMCollectionViewFlemishBondLayout;
+			sourceTree = "<group>";
+		};
+		B5D899FB1C113CB900F55BFA /* other */ = {
+			isa = PBXGroup;
+			children = (
+				B5D89A061C1165E400F55BFA /* temp@2x.png */,
+				B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */,
+			);
+			path = other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,10 +426,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
 				B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */,
+				B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */,
 				B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */,
+				B5D89A071C1165E400F55BFA /* temp@2x.png in Resources */,
 				B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */,
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
+				B5D899FD1C113CDB00F55BFA /* btnFlag@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,13 +462,19 @@
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
 				B594090A1C0FCEE4003DC15D /* KongFuerViewController.m in Sources */,
 				B59409201C102719003DC15D /* StudyOnLineViewController.m in Sources */,
+				B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */,
 				B59409001C0FCB0F003DC15D /* BaseNavigationController.m in Sources */,
 				B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */,
+				B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */,
 				B59409101C0FCF05003DC15D /* KongFuPowerViewController.m in Sources */,
+				B5D899F91C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m in Sources */,
 				B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */,
 				B59409191C0FD720003DC15D /* Toolkit.m in Sources */,
+				B5D89A041C11641000F55BFA /* WuGuanTableViewCell.m in Sources */,
 				B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */,
 				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
+				B5D89A001C11439E00F55BFA /* WuGuanViewController.m in Sources */,
+				B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */,
 				B59408C91C0FC9E8003DC15D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

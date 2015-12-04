@@ -8,8 +8,8 @@
 
 #import "BaseNavigationController.h"
 #import "StudyOnLineViewController.h"
-
-
+#import "WuGuanViewController.h"
+#import "MyCollectViewController.h"
 @interface KongFuerViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
-
-@interface StudyOnLineViewController : BaseNavigationController<UICollectionViewDelegate,UICollectionViewDataSource>
-
+#import "RAMCollectionViewFlemishBondLayout.h"
+@interface StudyOnLineViewController : BaseNavigationController<UICollectionViewDelegate,UICollectionViewDataSource,RAMCollectionViewFlemishBondLayoutDelegate>
+@property (nonatomic, strong) RAMCollectionViewFlemishBondLayout *collectionViewLayout;
 @end

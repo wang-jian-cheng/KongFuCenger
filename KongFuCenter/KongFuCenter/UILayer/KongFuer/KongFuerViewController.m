@@ -46,11 +46,15 @@
     categoryVIndex = 0;
     
     cateGoryH = [NSMutableArray array];
-    [cateGoryH addObjectsFromArray:@[@"放飞梦想",@"在线学习",@"武馆推荐",@"我的发布"]];
+    [cateGoryH addObjectsFromArray:@[@"放飞梦想",@"在线学习",@"武馆推荐",@"我的收藏"]];
     
     cateGoryV = [NSMutableArray array];
-    [cateGoryV addObjectsFromArray:@[@"视频直播",@"训练计划",@"成长记录",@"我的积分"]];
+    [cateGoryV addObjectsFromArray:@[@[@"视频直播"],
+                                     @[@"训练计划",@"成长记录"],
+                                     @[@"我的积分"]]
+                                    ];
 }
+
 
 -(void)initViews
 {
@@ -81,6 +85,12 @@
 }
 
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
+}
+
+
 #pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -94,8 +104,8 @@
 
 #define DreamBtn  0
 #define StudyOnLineBtn  1
-#define KongFuHomeLineBtn  2
-#define MySendLineBtn  3
+#define KongFuHomeSugBtn  2
+#define MyCollectBtn  3
 -(void)cateHBtnClick:(UIButton *)sender
 {
     switch (sender.tag) {
@@ -106,7 +116,20 @@
             [self.navigationController pushViewController:studyOnlineViewCtl animated:YES];
         }
             break;
-            
+        case KongFuHomeSugBtn:
+        {
+            WuGuanViewController *wuGuanSugViewCtl= [[WuGuanViewController alloc]init];
+            wuGuanSugViewCtl.navtitle = cateGoryH[KongFuHomeSugBtn];
+            [self.navigationController pushViewController:wuGuanSugViewCtl animated:YES];
+        }
+            break;
+        case MyCollectBtn:
+        {
+            MyCollectViewController *myCollectViewCtl= [[MyCollectViewController alloc]init];
+            myCollectViewCtl.navtitle = cateGoryH[MyCollectBtn];
+            [self.navigationController pushViewController:myCollectViewCtl animated:YES];
+        }
+            break;
         default:
             break;
     }
@@ -172,9 +195,9 @@
             return cell;
         
         UILabel *gategoryNameLab = [[UILabel alloc ] initWithFrame:CGRectMake(10, 0, 100, _cellHeight)];
-        gategoryNameLab.text =cateGoryV[categoryVIndex];
+        gategoryNameLab.text =cateGoryV[indexPath.section-2][indexPath.row];
         gategoryNameLab.textColor  = [UIColor whiteColor];
-        categoryVIndex++;
+        
         gategoryNameLab.font = [UIFont systemFontOfSize:16];
         [cell addSubview:gategoryNameLab];
     }
