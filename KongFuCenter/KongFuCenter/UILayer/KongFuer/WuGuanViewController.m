@@ -8,6 +8,8 @@
 
 #import "WuGuanViewController.h"
 #import "WuGuanTableViewCell.h"
+
+
 @interface WuGuanViewController ()
 {
 #pragma mark - pram for tableView
@@ -32,7 +34,7 @@
     _sectionNum = 10;
     
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - TabBar_HEIGHT)];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;

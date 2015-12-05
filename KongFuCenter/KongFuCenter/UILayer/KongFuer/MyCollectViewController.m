@@ -47,7 +47,7 @@
 {
     cateArr = @[@"视频",@"文章"];
     btnArr  = [NSMutableArray array];
-    
+    EditMode = NO;
     _cellCollectionCount = 6;
 }
 
@@ -100,7 +100,7 @@
     
     [layout setHeaderReferenceSize:CGSizeMake(mainCollectionView.frame.size.width, 0)];//暂不现实时间
     
-    [mainCollectionView registerClass :[ UICollectionViewCell class ] forCellWithReuseIdentifier : _CELL ];
+    [mainCollectionView registerClass :[ UICollectionViewCell class ] forCellWithReuseIdentifier : @"BaseVideoCell" ];
     
     mainCollectionView.delegate= self;
     mainCollectionView.dataSource =self;
@@ -134,6 +134,16 @@
 
 
 #pragma mark - btn Click
+
+-(void)clickRightButton:(UIButton *)sender
+{
+    DLog(@" Click ");
+    
+    EditMode = !EditMode;
+    
+    [_mainTableView reloadData];
+}
+
 -(void)cateBtnClick:(UIButton *)sender
 {
     sender.selected = YES;
@@ -205,6 +215,42 @@
     cell.layer.masksToBounds=YES;
     cell.frame=CGRectMake(cell.frame.origin.x, cell.frame.origin.y, SCREEN_WIDTH, cell.frame.size.height);
     
+  //  cell.editingStyle = UITableViewCellEditingStyleInsert;
+    if(EditMode == YES)
+    {
+        
+        NSArray *subViews;
+        
+        subViews = cell.contentView.subviews;
+        
+//        for(UIView *tempView in subViews)
+//        {
+//            //            tempRect = tempView.frame;
+//            //            tempRect.origin.x += gapSize;
+//            tempView.frame = CGRectMake(30, 0, 100, 100);
+//        }
+//        
+        
+        for (int i =0 ; i<cell.contentView.subviews.count; i++) {
+            UIView *tempView ;
+            
+            
+            tempView = [cell.contentView.subviews objectAtIndex:i];
+            tempView.frame = CGRectMake(30, 0, 100, 100);
+            
+            
+            [cell.contentView layoutSubviews];
+            
+//            [ [cell.subviews objectAtIndex:i] removeFromSuperview];//清空一下原来cell上面的view'防止cell的重用影响到后面section的显示
+        }
+        
+        [cell setCellEditMode:YES andGapSize:30];
+    }
+    else
+    {
+        [cell setCellEditMode:NO andGapSize:0];
+    }
+    
     return cell;
     
 }
@@ -239,7 +285,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return NO;
+    return YES;
 }
 
 - (UITableViewCellEditingStyle)tableView: (UITableView *)tableView editingStyleForRowAtIndexPath: (NSIndexPath *)indexPath
@@ -319,10 +365,17 @@
 {
     
     
-    UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier : _CELL forIndexPath :indexPath];
+    UINib *nib = [UINib nibWithNibName:@"BaseVideoCollectionViewCell"
+                                bundle: [NSBundle mainBundle]];
+    [collectionView registerNib:nib forCellWithReuseIdentifier:@"BaseVideoCell"];
+    BaseVideoCollectionViewCell *cell = [[BaseVideoCollectionViewCell alloc]init];
+    
+    // Set up the reuse identifier
+    cell = [collectionView dequeueReusableCellWithReuseIdentifier: @"BaseVideoCell"
+                                                     forIndexPath:indexPath];
+    
     
     cell.backgroundColor = ItemsBaseColor;
-    
     return cell;
     
     

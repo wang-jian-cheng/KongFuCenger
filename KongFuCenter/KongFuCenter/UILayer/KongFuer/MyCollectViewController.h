@@ -8,6 +8,10 @@
 
 #import "BaseNavigationController.h"
 #import "MyCollectTableViewCell.h"
+#import "BaseVideoCollectionViewCell.h"
+#import "UITableViewCell+EditMode.h"
 @interface MyCollectViewController : BaseNavigationController<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDelegate,UITableViewDataSource>
-
+{
+    BOOL EditMode;
+}
 @end

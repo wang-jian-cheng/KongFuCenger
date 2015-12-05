@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */; };
+		B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */; };
+		B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B569DB901C126F1C00325CFA /* temp2@2x.png */; };
+		B569DB941C12822900325CFA /* GrowHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B569DB931C12822900325CFA /* GrowHistoryViewController.m */; };
+		B569DB961C12888800325CFA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B569DB951C12888800325CFA /* QuartzCore.framework */; };
+		B569DB9C1C12B6C000325CFA /* UITableViewCell+EditMode.m in Sources */ = {isa = PBXBuildFile; fileRef = B569DB9B1C12B6C000325CFA /* UITableViewCell+EditMode.m */; };
 		B59408C91C0FC9E8003DC15D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408C81C0FC9E8003DC15D /* main.m */; };
 		B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408CB1C0FC9E8003DC15D /* AppDelegate.m */; };
 		B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408CE1C0FC9E8003DC15D /* ViewController.m */; };
@@ -55,6 +61,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B569DB8A1C126BC600325CFA /* BaseVideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVideoCollectionViewCell.h; sourceTree = "<group>"; };
+		B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVideoCollectionViewCell.m; sourceTree = "<group>"; };
+		B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseVideoCollectionViewCell.xib; sourceTree = "<group>"; };
+		B569DB901C126F1C00325CFA /* temp2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp2@2x.png"; sourceTree = "<group>"; };
+		B569DB921C12822900325CFA /* GrowHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowHistoryViewController.h; sourceTree = "<group>"; };
+		B569DB931C12822900325CFA /* GrowHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowHistoryViewController.m; sourceTree = "<group>"; };
+		B569DB951C12888800325CFA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B569DB9A1C12B6C000325CFA /* UITableViewCell+EditMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+EditMode.h"; sourceTree = "<group>"; };
+		B569DB9B1C12B6C000325CFA /* UITableViewCell+EditMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+EditMode.m"; sourceTree = "<group>"; };
 		B59408C41C0FC9E8003DC15D /* KongFuCenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KongFuCenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B59408C81C0FC9E8003DC15D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B59408CA1C0FC9E8003DC15D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -115,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B569DB961C12888800325CFA /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,9 +151,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B569DB8F1C126F1C00325CFA /* temp */ = {
+			isa = PBXGroup;
+			children = (
+				B569DB901C126F1C00325CFA /* temp2@2x.png */,
+			);
+			path = temp;
+			sourceTree = "<group>";
+		};
 		B59408BB1C0FC9E8003DC15D = {
 			isa = PBXGroup;
 			children = (
+				B569DB951C12888800325CFA /* QuartzCore.framework */,
 				B59408C61C0FC9E8003DC15D /* KongFuCenter */,
 				B59408E01C0FC9E9003DC15D /* KongFuCenterTests */,
 				B59408EB1C0FC9E9003DC15D /* KongFuCenterUITests */,
@@ -233,6 +258,8 @@
 				B59409171C0FD720003DC15D /* Toolkit.h */,
 				B59409181C0FD720003DC15D /* Toolkit.m */,
 				B59409031C0FCD56003DC15D /* CommonDef.h */,
+				B569DB9A1C12B6C000325CFA /* UITableViewCell+EditMode.h */,
+				B569DB9B1C12B6C000325CFA /* UITableViewCell+EditMode.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -281,6 +308,11 @@
 				B5D89A0B1C118BB800F55BFA /* MyCollectTableViewCell.h */,
 				B5D89A0C1C118BB800F55BFA /* MyCollectTableViewCell.m */,
 				B5D89A0D1C118BB800F55BFA /* MyCollectTableViewCell.xib */,
+				B569DB8A1C126BC600325CFA /* BaseVideoCollectionViewCell.h */,
+				B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */,
+				B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */,
+				B569DB921C12822900325CFA /* GrowHistoryViewController.h */,
+				B569DB931C12822900325CFA /* GrowHistoryViewController.m */,
 			);
 			path = KongFuer;
 			sourceTree = "<group>";
@@ -316,6 +348,7 @@
 		B5D899FB1C113CB900F55BFA /* other */ = {
 			isa = PBXGroup;
 			children = (
+				B569DB8F1C126F1C00325CFA /* temp */,
 				B5D89A061C1165E400F55BFA /* temp@2x.png */,
 				B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */,
 			);
@@ -429,11 +462,13 @@
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
 				B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */,
 				B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */,
+				B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */,
 				B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */,
 				B5D89A071C1165E400F55BFA /* temp@2x.png in Resources */,
 				B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */,
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
 				B5D899FD1C113CDB00F55BFA /* btnFlag@2x.png in Resources */,
+				B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +495,7 @@
 			files = (
 				B59409131C0FCF1F003DC15D /* KongFuUnionViewController.m in Sources */,
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
+				B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */,
 				B594090A1C0FCEE4003DC15D /* KongFuerViewController.m in Sources */,
 				B59409201C102719003DC15D /* StudyOnLineViewController.m in Sources */,
 				B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */,
@@ -467,11 +503,13 @@
 				B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */,
 				B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */,
 				B59409101C0FCF05003DC15D /* KongFuPowerViewController.m in Sources */,
+				B569DB941C12822900325CFA /* GrowHistoryViewController.m in Sources */,
 				B5D899F91C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m in Sources */,
 				B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */,
 				B59409191C0FD720003DC15D /* Toolkit.m in Sources */,
 				B5D89A041C11641000F55BFA /* WuGuanTableViewCell.m in Sources */,
 				B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */,
+				B569DB9C1C12B6C000325CFA /* UITableViewCell+EditMode.m in Sources */,
 				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
 				B5D89A001C11439E00F55BFA /* WuGuanViewController.m in Sources */,
 				B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */,

@@ -222,6 +222,35 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
+    
+    switch (indexPath.section - 2) {
+        case 0:
+            
+            break;
+        case 1:
+        {
+            switch (indexPath.row) {
+                case 0:
+                    
+                    break;
+                case 1://成长记录
+                {
+                    GrowHistoryViewController *growHistoryViewCtl= [[GrowHistoryViewController alloc] init];
+                    growHistoryViewCtl.navtitle = cateGoryV[indexPath.section-2][indexPath.row];
+                    [self.navigationController pushViewController:growHistoryViewCtl animated:YES];
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 2:
+            break;
+        default:
+            break;
+    }
+    
 }
 
 

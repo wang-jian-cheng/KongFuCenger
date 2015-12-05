@@ -15,11 +15,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="temp.png" translatesAutoresizingMaskIntoConstraints="NO" id="PzI-wN-5IR">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="temp.png" translatesAutoresizingMaskIntoConstraints="NO" id="PzI-wN-5IR">
                         <rect key="frame" x="8" y="8" width="66" height="63"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="咏春拳公益巡回演出" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLd-Mo-jCv">
-                        <rect key="frame" x="91" y="8" width="164" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="咏春拳公益巡回演出" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLd-Mo-jCv">
+                        <rect key="frame" x="91" y="8" width="128" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -33,20 +33,23 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="咏春拳是最快的制敌拳法，公益巡回演出，让大家更好的了解咏春拳" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6pI-5E-5iL">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="咏春拳是最快的制敌拳法，公益巡回演出，让大家更好的了解咏春拳" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6pI-5E-5iL">
                         <rect key="frame" x="91" y="32" width="221" height="34"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfg-8X-nO3">
-                        <rect key="frame" x="282" y="45" width="30" height="30"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCh-k0-ft5">
+                        <rect key="frame" x="271" y="62" width="41" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="41" id="982-cA-La0"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="300"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8E9-OB-RTQ">
-                        <rect key="frame" x="249" y="45" width="30" height="30"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rNn-Zi-Rua">
+                        <rect key="frame" x="226" y="62" width="42" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="200"/>
                     </button>
                 </subviews>
@@ -58,18 +61,26 @@
                     <constraint firstAttribute="leadingMargin" secondItem="PzI-wN-5IR" secondAttribute="leading" id="642-Id-6aV"/>
                     <constraint firstItem="6pI-5E-5iL" firstAttribute="leading" secondItem="PzI-wN-5IR" secondAttribute="trailing" constant="17" id="Aok-2f-uhp"/>
                     <constraint firstItem="rLd-Mo-jCv" firstAttribute="leading" secondItem="PzI-wN-5IR" secondAttribute="trailing" constant="17" id="EoZ-VU-8st"/>
+                    <constraint firstItem="iAA-8E-8ZV" firstAttribute="leading" secondItem="rLd-Mo-jCv" secondAttribute="trailing" constant="25" id="Esh-6A-LWF"/>
                     <constraint firstAttribute="topMargin" secondItem="rLd-Mo-jCv" secondAttribute="top" id="HQf-rV-EEf"/>
+                    <constraint firstItem="rNn-Zi-Rua" firstAttribute="leading" secondItem="PzI-wN-5IR" secondAttribute="trailing" constant="152" id="IA4-mh-JaJ"/>
                     <constraint firstAttribute="topMargin" secondItem="PzI-wN-5IR" secondAttribute="top" id="Jmm-Vq-Jca"/>
                     <constraint firstAttribute="bottomMargin" secondItem="PzI-wN-5IR" secondAttribute="bottom" id="ONU-rh-Rf7"/>
                     <constraint firstAttribute="bottomMargin" secondItem="iAA-8E-8ZV" secondAttribute="bottom" constant="42" id="R0d-cu-CbZ"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="PzI-wN-5IR" secondAttribute="trailing" constant="238" id="Vzb-qJ-TqI"/>
-                    <constraint firstItem="iAA-8E-8ZV" firstAttribute="leading" secondItem="rLd-Mo-jCv" secondAttribute="trailing" constant="-11" id="WO9-t5-vB6"/>
                     <constraint firstAttribute="trailingMargin" secondItem="6pI-5E-5iL" secondAttribute="trailing" id="YGj-7b-qTv"/>
+                    <constraint firstItem="vCh-k0-ft5" firstAttribute="top" secondItem="6pI-5E-5iL" secondAttribute="bottom" constant="-4" id="czY-Og-vw4"/>
+                    <constraint firstItem="6pI-5E-5iL" firstAttribute="leading" secondItem="PzI-wN-5IR" secondAttribute="trailing" constant="17" id="dy0-Tb-hFL"/>
+                    <constraint firstItem="rNn-Zi-Rua" firstAttribute="top" secondItem="6pI-5E-5iL" secondAttribute="bottom" constant="-4" id="jir-Pj-KmY"/>
                     <constraint firstAttribute="bottomMargin" secondItem="rLd-Mo-jCv" secondAttribute="bottom" constant="42" id="mth-fm-eku"/>
+                    <constraint firstItem="vCh-k0-ft5" firstAttribute="leading" secondItem="rNn-Zi-Rua" secondAttribute="trailing" constant="3" id="uge-42-BgD"/>
                     <constraint firstAttribute="bottomMargin" secondItem="6pI-5E-5iL" secondAttribute="bottom" constant="5" id="xQm-Rs-0jv"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="vCh-k0-ft5" secondAttribute="bottom" constant="1" id="Dmm-Ij-wkF"/>
+                <constraint firstAttribute="bottom" secondItem="rNn-Zi-Rua" secondAttribute="bottom" constant="1" id="wv9-7O-dIU"/>
+            </constraints>
             <point key="canvasLocation" x="471" y="323"/>
         </tableViewCell>
     </objects>
