@@ -41,7 +41,7 @@
     mTableView.delegate = self;
     mTableView.dataSource = self;
     mTableView.backgroundColor = BACKGROUND_COLOR;
-    mTableView.separatorColor = BACKGROUND_COLOR;
+    mTableView.separatorColor = Separator_Color;
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
 }
@@ -52,16 +52,25 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return 6;
 }
 
 #pragma mark setting for section
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 6;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 6;
+}
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     return [[UIView alloc] init];
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = BACKGROUND_COLOR;
+    return view;
 }
 
 #pragma mark setting for cell
@@ -73,11 +82,11 @@
         cell.backgroundColor = ItemsBaseColor;
     }
     
-    cell.mImageView.image = [UIImage imageNamed:@"temp@2x.png"];
+    cell.mImageView.image = [UIImage imageNamed:@"img1"];
     cell.mName.text = @"咏春拳公益巡回演出";
     cell.mDetail.text = @"咏春拳是最快的制敌拳法,公益巡回演出,让大家更好的理解咏春拳";
     cell.mDate.text = @"4月20日";
-    cell.mCommentNum.text = @"200";
+    cell.mReadNum.text = @"200";
     cell.mCollectionNum.text = @"100";
     
     return cell;
@@ -85,6 +94,10 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return mCellHeight;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [mTableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
