@@ -7,6 +7,7 @@
 //
 
 #import "KongFuUnionViewController.h"
+#import "JHStoryViewController.h"
 
 @interface KongFuUnionViewController ()
 {
@@ -115,7 +116,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
-    NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
+    if (indexPath.section == 0) {
+        
+    }else if(indexPath.section == 1){
+        
+    }else if(indexPath.section == 2){
+        if (indexPath.row == 0) {
+            
+        }else if(indexPath.row == 1){
+            JHStoryViewController *jhStoryVC = [[JHStoryViewController alloc] init];
+            [self.navigationController pushViewController:jhStoryVC animated:YES];
+        }
+    }else if(indexPath.section == 3){
+        
+    }
     
 }
 
