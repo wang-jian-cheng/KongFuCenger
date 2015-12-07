@@ -1,5 +1,5 @@
 //
-//  UserHeadView.h
+//  CustomButton.h
 //  KongFuCenter
 //
 //  Created by 王建成 on 15/12/7.
@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserHeadView : UIView
--(id)initWithFrame:(CGRect)frame andImgName:(NSString *)name;
--(void)makeSelfRound;
+@interface CustomButton : UIButton
+
 @end

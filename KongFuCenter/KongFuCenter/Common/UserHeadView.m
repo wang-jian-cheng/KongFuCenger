@@ -16,14 +16,24 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        UIButton *headBtn = [[UIButton alloc] initWithFrame:frame];
-        [headBtn setImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
+        UIButton *headBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        //[headBtn setImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
+        [headBtn addTarget:self action:@selector(UserHeadBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        UIImageView *headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        headImgView.image = [UIImage imageNamed:name];
+        [headBtn addSubview:headImgView];
+        
         [self addSubview:headBtn];
         
     }
     return self;
 }
 
+
+-(void)UserHeadBtnClick:(UIButton *)sender
+{
+    DLog(@"Click Btn");
+}
 
 
 -(void)makeSelfRound

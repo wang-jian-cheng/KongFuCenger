@@ -7,6 +7,15 @@
 //
 
 #import "VideoDetailViewController.h"
+#import "UserHeadView.h"
+
+#define VideoPlaySection    0
+#define VideoDetailSection  1
+#define OtherVideoSection   2
+#define CommentSection      3
+
+#define GapToLeft           10
+#define TextColors          [UIColor whiteColor]
 
 @interface VideoDetailViewController ()
 {
@@ -39,7 +48,8 @@
     
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
-    _mainTableView.separatorColor =  BACKGROUND_COLOR;
+    _mainTableView.separatorColor = Separator_Color;
+    _mainTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.scrollEnabled = NO;
     
@@ -61,6 +71,19 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+    switch (section) {
+        case VideoDetailSection:
+            return 2;
+            break;
+        case OtherVideoSection:
+            return 2;
+            break;
+        case CommentSection:
+            return 3;
+            break;
+        default:
+            break;
+    }
     return 1;
     
 }
@@ -70,14 +93,142 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
-
     cell.backgroundColor = ItemsBaseColor;
+    
+    
+    switch (indexPath.section) {
+        case VideoDetailSection:
+        {
+            if(indexPath.row == 0)
+            {
+                
+                CGFloat FontSize = 12;
+                
+                /*head */
+                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 10, 44, 44) andImgName:@"me"];
+                [headView makeSelfRound];
+                [cell addSubview:headView];
+                
+                /*name*/
+                UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
+                                                                             10, 60, 20)];
+                nameLab.text = @"鹿晗";
+                nameLab.textColor = TextColors;
+                nameLab.font = [UIFont systemFontOfSize:FontSize];
+                [cell addSubview:nameLab];
+                
+                
+                /*举报*/
+                UIButton *jubaoBtn = [[UIButton alloc] initWithFrame:CGRectMake((nameLab.frame.origin.x +nameLab.frame.size.width + 10),
+                                                                                10, 40, 20)];
+                [jubaoBtn setTitle:@"举报" forState:UIControlStateNormal];
+                jubaoBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                [cell addSubview:jubaoBtn];
+                
+                /*date*/
+                UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLab.frame.origin.x,
+                                                                            (nameLab.frame.origin.y + nameLab.frame.size.height + 2),
+                                                                             100, 20)];
+                dateLab.text = @"发布于2015年04月20日";
+                dateLab.textColor = TextColors;
+                dateLab.font = [UIFont systemFontOfSize:FontSize];
+                [cell addSubview:dateLab];
+                
+                /* 四个点击图标 放到一个新的view上方便计算位置*/
+                
+                UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 200 ), 0, 200 , _cellHeight)];
+                backView.backgroundColor = cell.backgroundColor;
+                [cell addSubview:backView];
+                CGFloat btnW = 44;
+                CGFloat btnGap = 5;
+                CustomButton *SupportBtn = [[CustomButton alloc] initWithFrame:CGRectMake(0, 0, btnW, backView.frame.size.height)];
+                [SupportBtn setTitle:@"点赞" forState:UIControlStateNormal];
+                SupportBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                [backView addSubview:SupportBtn];
+                
+                CustomButton *collectBtn = [[CustomButton alloc] initWithFrame:CGRectMake(btnW+btnGap, 0, btnW, backView.frame.size.height)];
+                [collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
+                collectBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                [backView addSubview:collectBtn];
+                
+                CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 0, btnW, backView.frame.size.height)];
+                [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
+                shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                [backView addSubview:shareBtn];
+                
+                CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 0, btnW, backView.frame.size.height)];
+                [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
+                relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                [backView addSubview:relayBtn];
+                
+            }
+            
+            if(indexPath.row == 1)
+            {
+                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 10, SCREEN_WIDTH, 30)];
+                titleLab.textColor = TextColors;
+                titleLab.text = @"名字：咏春拳最快制敌方法";
+                titleLab.font = [UIFont boldSystemFontOfSize:14];
+                [cell addSubview:titleLab];
+                
+                
+                UILabel *detailLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft,
+                                                                               (titleLab.frame.origin.y+titleLab.frame.size.height+5),
+                                                                               SCREEN_WIDTH, 3*_cellHeight - 30)];
+                detailLab.textColor = TextColors;
+                detailLab.text = @"简介：咏春拳是一门传统的中国武术，是一门禁止侵袭技术，是一个积极、精简的正当防卫系统";
+                detailLab.numberOfLines = 0;
+                [cell addSubview:detailLab];
+                
+            }
+        }
+            break;
+        case OtherVideoSection:
+        {
+            if(indexPath.row == 0)
+            {
+                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 150, _cellHeight)];
+                titleLab.text = @"其他作品";
+                titleLab.font = [UIFont systemFontOfSize:14];
+                titleLab.textColor = TextColors;
+                [cell addSubview:titleLab];
+                
+                
+                UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
+                numLab.text = @"共100部";
+                numLab.font = [UIFont systemFontOfSize:12];
+                numLab.textColor = TextColors;
+                [cell addSubview:numLab];
+                
+                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(numLab.frame.origin.x - 10, 5, 1, _cellHeight-10)];
+                lineView.backgroundColor = Separator_Color;
+                [cell addSubview:lineView];
+                
+            }
+        }
+            
+            break;
+        default:
+            break;
+    }
+    
+    
+    
+
     return cell;
     
 }
 
 //设置cell每行间隔的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if(indexPath.section != 0)
+    {
+        if(indexPath.row == 0)
+        {
+            return _cellHeight;
+        }
+    }
     
     switch (indexPath.section) {
         case 0:
@@ -159,6 +310,16 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *tempView = [[UIView alloc] init];
+    
+//    switch (section) {
+//        case 1:
+//     
+//            break;
+//            
+//        default:
+//            break;
+//    }
+    
     return tempView;
 }
 
@@ -166,10 +327,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    if(section != 0)
-        return _cellHeight;
-    else
-        return 0;
+//    if(section != 0)
+//        return _cellHeight;
+//    else
+    return 0;
 }
 
 //设置section footer的高度

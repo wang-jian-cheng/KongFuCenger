@@ -7,6 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
+#import "CustomButton.h"
 
 @interface VideoDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
