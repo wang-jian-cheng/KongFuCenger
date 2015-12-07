@@ -1,5 +1,5 @@
 //
-//  KongFuUnionViewController.h
+//  RecruitComment.h
 //  KongFuCenter
 //
 //  Created by Rain on 15/12/7.
@@ -8,6 +8,6 @@
 
 #import "BaseNavigationController.h"
 
-@interface KongFuUnionViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
+@interface RecruitComment : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end

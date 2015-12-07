@@ -42,7 +42,6 @@
 		B594090A1C0FCEE4003DC15D /* KongFuerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409091C0FCEE4003DC15D /* KongFuerViewController.m */; };
 		B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B594090C1C0FCEF3003DC15D /* MoreViewController.m */; };
 		B59409101C0FCF05003DC15D /* KongFuPowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B594090F1C0FCF05003DC15D /* KongFuPowerViewController.m */; };
-		B59409131C0FCF1F003DC15D /* KongFuUnionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409121C0FCF1F003DC15D /* KongFuUnionViewController.m */; };
 		B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409151C0FD669003DC15D /* UIImage+NSBundle.m */; };
 		B59409191C0FD720003DC15D /* Toolkit.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409181C0FD720003DC15D /* Toolkit.m */; };
 		B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */; };
@@ -57,6 +56,16 @@
 		B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D89A091C117A4100F55BFA /* MyCollectViewController.m */; };
 		B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D89A0C1C118BB800F55BFA /* MyCollectTableViewCell.m */; };
 		B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D89A0D1C118BB800F55BFA /* MyCollectTableViewCell.xib */; };
+		B72C3CBE1C1558F000D3250A /* KongFuUnionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */; };
+		B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CC21C15668800D3250A /* RecruitComment.m */; };
+		B72C3CC81C1568C900D3250A /* RecruitCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CC61C1568C900D3250A /* RecruitCommentCell.m */; };
+		B72C3CC91C1568C900D3250A /* RecruitCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72C3CC71C1568C900D3250A /* RecruitCommentCell.xib */; };
+		B72C3CCE1C157AB700D3250A /* img1.png in Resources */ = {isa = PBXBuildFile; fileRef = B72C3CCB1C157AB700D3250A /* img1.png */; };
+		B72C3CCF1C157AB700D3250A /* img2.png in Resources */ = {isa = PBXBuildFile; fileRef = B72C3CCC1C157AB700D3250A /* img2.png */; };
+		B72C3CD01C157AB700D3250A /* img3.png in Resources */ = {isa = PBXBuildFile; fileRef = B72C3CCD1C157AB700D3250A /* img3.png */; };
+		B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */; };
+		B7C428051C1524F3003F504F /* JHStoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C428001C1524F3003F504F /* JHStoryTableViewCell.xib */; };
+		B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C428021C1524F3003F504F /* JHStoryViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,8 +144,6 @@
 		B594090C1C0FCEF3003DC15D /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 		B594090E1C0FCF05003DC15D /* KongFuPowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KongFuPowerViewController.h; sourceTree = "<group>"; };
 		B594090F1C0FCF05003DC15D /* KongFuPowerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KongFuPowerViewController.m; sourceTree = "<group>"; };
-		B59409111C0FCF1F003DC15D /* KongFuUnionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KongFuUnionViewController.h; sourceTree = "<group>"; };
-		B59409121C0FCF1F003DC15D /* KongFuUnionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KongFuUnionViewController.m; sourceTree = "<group>"; };
 		B59409141C0FD669003DC15D /* UIImage+NSBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NSBundle.h"; sourceTree = "<group>"; };
 		B59409151C0FD669003DC15D /* UIImage+NSBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NSBundle.m"; sourceTree = "<group>"; };
 		B59409171C0FD720003DC15D /* Toolkit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Toolkit.h; sourceTree = "<group>"; };
@@ -161,6 +168,21 @@
 		B5D89A0B1C118BB800F55BFA /* MyCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCollectTableViewCell.h; sourceTree = "<group>"; };
 		B5D89A0C1C118BB800F55BFA /* MyCollectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCollectTableViewCell.m; sourceTree = "<group>"; };
 		B5D89A0D1C118BB800F55BFA /* MyCollectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCollectTableViewCell.xib; sourceTree = "<group>"; };
+		B72C3CBB1C1558F000D3250A /* KongFuUnionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KongFuUnionViewController.h; sourceTree = "<group>"; };
+		B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KongFuUnionViewController.m; sourceTree = "<group>"; };
+		B72C3CC11C15668800D3250A /* RecruitComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecruitComment.h; sourceTree = "<group>"; };
+		B72C3CC21C15668800D3250A /* RecruitComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecruitComment.m; sourceTree = "<group>"; };
+		B72C3CC51C1568C900D3250A /* RecruitCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecruitCommentCell.h; sourceTree = "<group>"; };
+		B72C3CC61C1568C900D3250A /* RecruitCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecruitCommentCell.m; sourceTree = "<group>"; };
+		B72C3CC71C1568C900D3250A /* RecruitCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecruitCommentCell.xib; sourceTree = "<group>"; };
+		B72C3CCB1C157AB700D3250A /* img1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img1.png; sourceTree = "<group>"; };
+		B72C3CCC1C157AB700D3250A /* img2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img2.png; sourceTree = "<group>"; };
+		B72C3CCD1C157AB700D3250A /* img3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img3.png; sourceTree = "<group>"; };
+		B7C427FE1C1524F3003F504F /* JHStoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryTableViewCell.h; sourceTree = "<group>"; };
+		B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryTableViewCell.m; sourceTree = "<group>"; };
+		B7C428001C1524F3003F504F /* JHStoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHStoryTableViewCell.xib; sourceTree = "<group>"; };
+		B7C428011C1524F3003F504F /* JHStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryViewController.h; sourceTree = "<group>"; };
+		B7C428021C1524F3003F504F /* JHStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,7 +279,7 @@
 		B59408BB1C0FC9E8003DC15D = {
 			isa = PBXGroup;
 			children = (
-				B569DB951C12888800325CFA /* QuartzCore.framework */,
+				B72C3CC41C15682000D3250A /* Framework */,
 				B59408C61C0FC9E8003DC15D /* KongFuCenter */,
 				B59408E01C0FC9E9003DC15D /* KongFuCenterTests */,
 				B59408EB1C0FC9E9003DC15D /* KongFuCenterUITests */,
@@ -364,8 +386,10 @@
 		B59409041C0FCE1B003DC15D /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
-				B59409111C0FCF1F003DC15D /* KongFuUnionViewController.h */,
-				B59409121C0FCF1F003DC15D /* KongFuUnionViewController.m */,
+				B72C3CC01C15660800D3250A /* RecruitComment */,
+				B7C427FD1C15248C003F504F /* JHStory */,
+				B72C3CBB1C1558F000D3250A /* KongFuUnionViewController.h */,
+				B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */,
 			);
 			path = KongFuUnion;
 			sourceTree = "<group>";
@@ -419,7 +443,11 @@
 		B594091B1C0FDB6A003DC15D /* Image */ = {
 			isa = PBXGroup;
 			children = (
+
 				B53791B71C1579B100C45BA7 /* HeWuzhe */,
+
+				B72C3CCA1C157A9F00D3250A /* KongFuUnion */,
+
 				B5D899FB1C113CB900F55BFA /* other */,
 				B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */,
 			);
@@ -453,6 +481,48 @@
 				B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */,
 			);
 			path = other;
+			sourceTree = "<group>";
+		};
+		B72C3CC01C15660800D3250A /* RecruitComment */ = {
+			isa = PBXGroup;
+			children = (
+				B72C3CC11C15668800D3250A /* RecruitComment.h */,
+				B72C3CC21C15668800D3250A /* RecruitComment.m */,
+				B72C3CC51C1568C900D3250A /* RecruitCommentCell.h */,
+				B72C3CC61C1568C900D3250A /* RecruitCommentCell.m */,
+				B72C3CC71C1568C900D3250A /* RecruitCommentCell.xib */,
+			);
+			name = RecruitComment;
+			sourceTree = "<group>";
+		};
+		B72C3CC41C15682000D3250A /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				B569DB951C12888800325CFA /* QuartzCore.framework */,
+			);
+			name = Framework;
+			sourceTree = "<group>";
+		};
+		B72C3CCA1C157A9F00D3250A /* KongFuUnion */ = {
+			isa = PBXGroup;
+			children = (
+				B72C3CCB1C157AB700D3250A /* img1.png */,
+				B72C3CCC1C157AB700D3250A /* img2.png */,
+				B72C3CCD1C157AB700D3250A /* img3.png */,
+			);
+			name = KongFuUnion;
+			sourceTree = "<group>";
+		};
+		B7C427FD1C15248C003F504F /* JHStory */ = {
+			isa = PBXGroup;
+			children = (
+				B7C428011C1524F3003F504F /* JHStoryViewController.h */,
+				B7C428021C1524F3003F504F /* JHStoryViewController.m */,
+				B7C427FE1C1524F3003F504F /* JHStoryTableViewCell.h */,
+				B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */,
+				B7C428001C1524F3003F504F /* JHStoryTableViewCell.xib */,
+			);
+			name = JHStory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -559,12 +629,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B72C3CC91C1568C900D3250A /* RecruitCommentCell.xib in Resources */,
+				B72C3CCF1C157AB700D3250A /* img2.png in Resources */,
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
+				B72C3CCE1C157AB700D3250A /* img1.png in Resources */,
 				B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */,
 				B53791C01C1579F500C45BA7 /* hezhuangbei@2x.png in Resources */,
 				B53791CD1C15821E00C45BA7 /* right@2x.png in Resources */,
 				B53791C71C157ED000C45BA7 /* showimg@2x.png in Resources */,
+
+				B72C3CD01C157AB700D3250A /* img3.png in Resources */,
+
 				B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */,
+				B7C428051C1524F3003F504F /* JHStoryTableViewCell.xib in Resources */,
 				B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */,
 				B53791B61C15724900C45BA7 /* temp3@2x.png in Resources */,
 				B53791BF1C1579F500C45BA7 /* hewuzhe@2x.png in Resources */,
@@ -604,13 +681,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B53791AC1C152BFD00C45BA7 /* CustomButton.m in Sources */,
-				B59409131C0FCF1F003DC15D /* KongFuUnionViewController.m in Sources */,
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
+				B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */,
 				B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */,
 				B594090A1C0FCEE4003DC15D /* KongFuerViewController.m in Sources */,
 				B59409201C102719003DC15D /* StudyOnLineViewController.m in Sources */,
 				B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */,
 				B59409001C0FCB0F003DC15D /* BaseNavigationController.m in Sources */,
+				B72C3CC81C1568C900D3250A /* RecruitCommentCell.m in Sources */,
 				B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */,
 				B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */,
 				B53791A41C151AED00C45BA7 /* VideoDetailViewController.m in Sources */,
@@ -623,13 +701,16 @@
 				B59409191C0FD720003DC15D /* Toolkit.m in Sources */,
 				B53791C51C157CFF00C45BA7 /* KongFuStoreViewController.m in Sources */,
 				B5D89A041C11641000F55BFA /* WuGuanTableViewCell.m in Sources */,
+				B72C3CBE1C1558F000D3250A /* KongFuUnionViewController.m in Sources */,
 				B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */,
 				B569DB9C1C12B6C000325CFA /* UITableViewCell+EditMode.m in Sources */,
+				B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */,
 				B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */,
 				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
 				B5D89A001C11439E00F55BFA /* WuGuanViewController.m in Sources */,
 				B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */,
 				B59408C91C0FC9E8003DC15D /* main.m in Sources */,
+				B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
