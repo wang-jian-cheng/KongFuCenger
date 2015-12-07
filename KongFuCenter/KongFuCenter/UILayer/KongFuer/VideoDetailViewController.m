@@ -14,7 +14,7 @@
 #define OtherVideoSection   2
 #define CommentSection      3
 
-#define GapToLeft           10
+#define GapToLeft           20
 #define TextColors          [UIColor whiteColor]
 
 @interface VideoDetailViewController ()
@@ -23,6 +23,8 @@
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    
+    NSIndexPath *tempIndexPath;
 }
 @end
 
@@ -55,6 +57,70 @@
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
+    [self.view addGestureRecognizer:tapGesture];
+    
+    
+    //    //注册通知,监听键盘弹出事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    //
+    //    //注册通知,监听键盘消失事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHidden) name:UIKeyboardDidHideNotification object:nil];
+    
+
+    
+}
+
+-(void)tapViewAction:(id)sender
+{
+    [self.view endEditing:YES];
+
+}
+#pragma mark - 键盘操作
+
+// 键盘弹出时
+-(void)keyboardDidShow:(NSNotification *)notification
+{
+    
+    //获取键盘高度
+    NSValue *keyboardObject = [[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    CGRect keyboardRect;
+    [keyboardObject getValue:&keyboardRect];
+    
+    
+    _keyHeight = keyboardRect.size.height;
+    //调整放置有textView的view的位置
+    
+    //设置动画
+    [UIView beginAnimations:nil context:nil];
+    
+    //定义动画时间
+    [UIView setAnimationDuration:0.5];
+    //               CGRectMake(0, self.view.frame.size.height-keyboardRect.size.height-kViewHeight, 320, kViewHeight)]
+    //设置view的frame，往上平移
+    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height -Header_Height -keyboardRect.size.height)];
+
+    [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+
+    
+    //[_mainTableView reloadData];
+    [UIView commitAnimations];
+    
+}
+
+//键盘消失时
+-(void)keyboardDidHidden
+{
+    //定义动画
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+    //设置view的frame，往下平移
+    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,SCREEN_HEIGHT - Header_Height)];
+    
+    //[_mainTableView reloadData];
+    [UIView commitAnimations];
     
 }
 
@@ -105,13 +171,13 @@
                 CGFloat FontSize = 12;
                 
                 /*head */
-                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 10, 44, 44) andImgName:@"me"];
+                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10) andImgName:@"me"];
                 [headView makeSelfRound];
                 [cell addSubview:headView];
                 
                 /*name*/
                 UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
-                                                                             10, 60, 20)];
+                                                                             headView.frame.origin.y, 40, headView.frame.size.height/2)];
                 nameLab.text = @"鹿晗";
                 nameLab.textColor = TextColors;
                 nameLab.font = [UIFont systemFontOfSize:FontSize];
@@ -120,7 +186,7 @@
                 
                 /*举报*/
                 UIButton *jubaoBtn = [[UIButton alloc] initWithFrame:CGRectMake((nameLab.frame.origin.x +nameLab.frame.size.width + 10),
-                                                                                10, 40, 20)];
+                                                                                headView.frame.origin.y, 40, headView.frame.size.height/2)];
                 [jubaoBtn setTitle:@"举报" forState:UIControlStateNormal];
                 jubaoBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
                 [cell addSubview:jubaoBtn];
@@ -128,7 +194,7 @@
                 /*date*/
                 UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLab.frame.origin.x,
                                                                             (nameLab.frame.origin.y + nameLab.frame.size.height + 2),
-                                                                             100, 20)];
+                                                                             100, headView.frame.size.height/2)];
                 dateLab.text = @"发布于2015年04月20日";
                 dateLab.textColor = TextColors;
                 dateLab.font = [UIFont systemFontOfSize:FontSize];
@@ -136,10 +202,10 @@
                 
                 /* 四个点击图标 放到一个新的view上方便计算位置*/
                 
-                UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 200 ), 0, 200 , _cellHeight)];
+                UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/2 ), 0, SCREEN_WIDTH/2 , _cellHeight)];
                 backView.backgroundColor = cell.backgroundColor;
                 [cell addSubview:backView];
-                CGFloat btnW = 44;
+                CGFloat btnW = backView.frame.size.width/4 - 5;
                 CGFloat btnGap = 5;
                 CustomButton *SupportBtn = [[CustomButton alloc] initWithFrame:CGRectMake(0, 0, btnW, backView.frame.size.height)];
                 [SupportBtn setTitle:@"点赞" forState:UIControlStateNormal];
@@ -171,13 +237,17 @@
                 titleLab.font = [UIFont boldSystemFontOfSize:14];
                 [cell addSubview:titleLab];
                 
+                NSString *detailStr = @"简介：咏春拳是一门传统的中国武术，是一门禁止侵袭技术，是一个积极、精简的正当防卫系统";
+                CGFloat detailWidth = SCREEN_WIDTH-GapToLeft*2;
+                CGFloat detailHeight = [Toolkit heightWithString:detailStr fontSize:12 width:detailWidth];
                 
                 UILabel *detailLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft,
                                                                                (titleLab.frame.origin.y+titleLab.frame.size.height+5),
-                                                                               SCREEN_WIDTH, 3*_cellHeight - 30)];
+                                                                               detailWidth, detailHeight)];
                 detailLab.textColor = TextColors;
-                detailLab.text = @"简介：咏春拳是一门传统的中国武术，是一门禁止侵袭技术，是一个积极、精简的正当防卫系统";
+                detailLab.text = detailStr;
                 detailLab.numberOfLines = 0;
+                detailLab.font = [UIFont boldSystemFontOfSize:12];
                 [cell addSubview:detailLab];
                 
             }
@@ -205,8 +275,115 @@
                 [cell addSubview:lineView];
                 
             }
+            
+            if(indexPath.row == 1)
+            {
+                for(int i = 0;i< 3;i++)
+                {
+                    
+                    CGFloat gapWidth;
+                    gapWidth =(SCREEN_WIDTH - GapToLeft*2)/3 - (2*_cellHeight -30);
+                    
+                    UIImageView *tempView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"temp"]];
+                    
+                    tempView.frame = CGRectMake(GapToLeft+i*(2*_cellHeight -30 + gapWidth), 10, 2*_cellHeight -30,(2*_cellHeight -30) );
+                    
+                    [cell addSubview:tempView];
+                    UILabel *templab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft+i*(2*_cellHeight -30 + gapWidth),
+                                                                                 (tempView.frame.origin.y+tempView.frame.size.height+2),
+                                                                                 2*_cellHeight -30,
+                                                                                 2*_cellHeight - (tempView.frame.origin.y+tempView.frame.size.height+2) )];
+                    templab.text = @"咏春拳";
+                    templab.textColor = TextColors;
+                    templab.font = [UIFont systemFontOfSize:14];
+                    templab.textAlignment = NSTextAlignmentCenter;
+                    [cell addSubview:templab];
+                    
+                }
+            }
         }
             
+            break;
+        case CommentSection:
+        {
+            if(indexPath.row == 0)
+            {
+                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 150, _cellHeight)];
+                titleLab.text = @"用户评论";
+                titleLab.font = [UIFont systemFontOfSize:14];
+                titleLab.textColor = TextColors;
+                [cell addSubview:titleLab];
+                
+                
+                UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
+                numLab.text = @"共100条";
+                numLab.font = [UIFont systemFontOfSize:12];
+                numLab.textColor = TextColors;
+                [cell addSubview:numLab];
+                
+                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(numLab.frame.origin.x - 10, 5, 1, _cellHeight-10)];
+                lineView.backgroundColor = Separator_Color;
+                [cell addSubview:lineView];
+                
+            }
+            else if(indexPath.row == 1)
+            {
+                /*head */
+                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10) andImgName:@"me"];
+                [headView makeSelfRound];
+                [cell addSubview:headView];
+                
+                UITextView *commentTextView = [[UITextView alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width+5),
+                                                                                      5,
+                                                                                       (SCREEN_WIDTH -(headView.frame.origin.x + headView.frame.size.width+5) - 10),(_cellHeight - 5*2) )];
+                
+                tempIndexPath = indexPath;
+                [cell addSubview:commentTextView];
+            }
+            else
+            {
+                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10) andImgName:@"me"];
+                [headView makeSelfRound];
+                [cell addSubview:headView];
+                
+                /*name*/
+                UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
+                                                                             headView.frame.origin.y, 40, headView.frame.size.height/2)];
+                nameLab.text = @"鹿晗";
+                nameLab.textColor = TextColors;
+                nameLab.font = [UIFont systemFontOfSize:12];
+                [cell addSubview:nameLab];
+                
+                UIButton *supportBtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 44),headView.frame.origin.y , 44, headView.frame.size.height/2)];
+                
+                [supportBtn setTitle:@"20" forState:UIControlStateNormal];
+                [cell addSubview:supportBtn];
+                
+                
+                NSString *commentStr = @"666 很好 很好 很好，666 很好 很好 很好，666 很好 很好 很好，666 很好 很好 很好，666 很好 很好 很好";
+                CGFloat commentWidth = (SCREEN_WIDTH-(headView.frame.origin.x +headView.frame.size.width + 10) - 10);
+                CGFloat commentHeight = [Toolkit heightWithString:commentStr fontSize:12 width:commentWidth];
+                
+                UILabel *commentLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
+                                                                               headView.frame.size.height/2,
+                                                                               commentWidth,
+                                                                               commentHeight)];
+                commentLab.text = commentStr;
+                commentLab.font = [UIFont systemFontOfSize:12];
+                commentLab.numberOfLines = 0;
+                [cell addSubview:commentLab];
+                
+                UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100),
+                                                                            (commentLab.frame.size.height+commentLab.frame.origin.y),
+                                                                            100, 30)];
+                dateLab.text = @"2015年04月12日";
+                dateLab.font = [UIFont systemFontOfSize:12];
+                
+                [cell addSubview:dateLab];
+                
+                
+            }
+        }
             break;
         default:
             break;
@@ -242,6 +419,8 @@
             return 2*_cellHeight;
             break;
         case 3:
+            if(indexPath.row == 1)
+                return _cellHeight;
             return 2*_cellHeight;
             break;
 

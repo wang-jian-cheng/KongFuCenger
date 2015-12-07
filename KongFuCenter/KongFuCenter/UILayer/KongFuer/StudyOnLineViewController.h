@@ -8,6 +8,8 @@
 
 #import "BaseNavigationController.h"
 #import "RAMCollectionViewFlemishBondLayout.h"
+#import "VideoListForStudyViewController.h"
+
 @interface StudyOnLineViewController : BaseNavigationController<UICollectionViewDelegate,UICollectionViewDataSource,RAMCollectionViewFlemishBondLayoutDelegate>
 @property (nonatomic, strong) RAMCollectionViewFlemishBondLayout *collectionViewLayout;
 @end

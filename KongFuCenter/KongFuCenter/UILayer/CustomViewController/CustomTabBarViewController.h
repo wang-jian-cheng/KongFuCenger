@@ -5,7 +5,7 @@
 //  Created by Sugar on 13-8-12.
 //  Copyright (c) 2013年 Sugar Hou. All rights reserved.
 //
-
+#import "KongFuStoreViewController.h"
 #import <UIKit/UIKit.h>
 //#import "JSBadgeView.h"
 @interface CustomTabBarViewController : UITabBarController<UITabBarDelegate, UINavigationBarDelegate,UIScrollViewDelegate>

@@ -191,6 +191,9 @@
     
     NSLog(@"click cell");
     
+    VideoListForStudyViewController *videoList = [[VideoListForStudyViewController alloc] init];
+    videoList.navtitle = secondCateArr[indexPath.row];
+    [self.navigationController pushViewController:videoList animated:YES];
     
 }
 

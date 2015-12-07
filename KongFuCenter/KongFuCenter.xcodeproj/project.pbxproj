@@ -10,6 +10,19 @@
 		B53791A41C151AED00C45BA7 /* VideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */; };
 		B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791A61C151FEB00C45BA7 /* UserHeadView.m */; };
 		B53791AC1C152BFD00C45BA7 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791AB1C152BFD00C45BA7 /* CustomButton.m */; };
+		B53791B01C156B8C00C45BA7 /* VideoListForStudyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791AF1C156B8C00C45BA7 /* VideoListForStudyViewController.m */; };
+		B53791B41C15709B00C45BA7 /* WuGuanDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791B31C15709B00C45BA7 /* WuGuanDetailViewController.m */; };
+		B53791B61C15724900C45BA7 /* temp3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791B51C15724900C45BA7 /* temp3@2x.png */; };
+		B53791BD1C1579F500C45BA7 /* hedongli@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791B81C1579F500C45BA7 /* hedongli@2x.png */; };
+		B53791BE1C1579F500C45BA7 /* helianmeng@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791B91C1579F500C45BA7 /* helianmeng@2x.png */; };
+		B53791BF1C1579F500C45BA7 /* hewuzhe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791BA1C1579F500C45BA7 /* hewuzhe@2x.png */; };
+		B53791C01C1579F500C45BA7 /* hezhuangbei@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791BB1C1579F500C45BA7 /* hezhuangbei@2x.png */; };
+		B53791C11C1579F500C45BA7 /* more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791BC1C1579F500C45BA7 /* more@2x.png */; };
+		B53791C51C157CFF00C45BA7 /* KongFuStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791C41C157CFF00C45BA7 /* KongFuStoreViewController.m */; };
+		B53791C71C157ED000C45BA7 /* showimg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791C61C157ED000C45BA7 /* showimg@2x.png */; };
+		B53791CB1C15821E00C45BA7 /* headImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791C81C15821E00C45BA7 /* headImg@2x.png */; };
+		B53791CC1C15821E00C45BA7 /* liubianxing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791C91C15821E00C45BA7 /* liubianxing@2x.png */; };
+		B53791CD1C15821E00C45BA7 /* right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791CA1C15821E00C45BA7 /* right@2x.png */; };
 		B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */; };
 		B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */; };
 		B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B569DB901C126F1C00325CFA /* temp2@2x.png */; };
@@ -70,6 +83,22 @@
 		B53791A61C151FEB00C45BA7 /* UserHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserHeadView.m; path = ../Common/UserHeadView.m; sourceTree = "<group>"; };
 		B53791AA1C152BFD00C45BA7 /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomButton.h; path = CommonUI/CustomButton.h; sourceTree = "<group>"; };
 		B53791AB1C152BFD00C45BA7 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomButton.m; path = CommonUI/CustomButton.m; sourceTree = "<group>"; };
+		B53791AE1C156B8C00C45BA7 /* VideoListForStudyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListForStudyViewController.h; sourceTree = "<group>"; };
+		B53791AF1C156B8C00C45BA7 /* VideoListForStudyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListForStudyViewController.m; sourceTree = "<group>"; };
+		B53791B21C15709B00C45BA7 /* WuGuanDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WuGuanDetailViewController.h; sourceTree = "<group>"; };
+		B53791B31C15709B00C45BA7 /* WuGuanDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WuGuanDetailViewController.m; sourceTree = "<group>"; };
+		B53791B51C15724900C45BA7 /* temp3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp3@2x.png"; sourceTree = "<group>"; };
+		B53791B81C1579F500C45BA7 /* hedongli@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hedongli@2x.png"; sourceTree = "<group>"; };
+		B53791B91C1579F500C45BA7 /* helianmeng@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "helianmeng@2x.png"; sourceTree = "<group>"; };
+		B53791BA1C1579F500C45BA7 /* hewuzhe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hewuzhe@2x.png"; sourceTree = "<group>"; };
+		B53791BB1C1579F500C45BA7 /* hezhuangbei@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hezhuangbei@2x.png"; sourceTree = "<group>"; };
+		B53791BC1C1579F500C45BA7 /* more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more@2x.png"; sourceTree = "<group>"; };
+		B53791C31C157CFF00C45BA7 /* KongFuStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KongFuStoreViewController.h; sourceTree = "<group>"; };
+		B53791C41C157CFF00C45BA7 /* KongFuStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KongFuStoreViewController.m; sourceTree = "<group>"; };
+		B53791C61C157ED000C45BA7 /* showimg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "showimg@2x.png"; sourceTree = "<group>"; };
+		B53791C81C15821E00C45BA7 /* headImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headImg@2x.png"; sourceTree = "<group>"; };
+		B53791C91C15821E00C45BA7 /* liubianxing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "liubianxing@2x.png"; sourceTree = "<group>"; };
+		B53791CA1C15821E00C45BA7 /* right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right@2x.png"; sourceTree = "<group>"; };
 		B569DB8A1C126BC600325CFA /* BaseVideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVideoCollectionViewCell.h; sourceTree = "<group>"; };
 		B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVideoCollectionViewCell.m; sourceTree = "<group>"; };
 		B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseVideoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -173,9 +202,53 @@
 			name = CommonUI;
 			sourceTree = "<group>";
 		};
+		B53791AD1C156AF100C45BA7 /* StudyOnline */ = {
+			isa = PBXGroup;
+			children = (
+				B53791AE1C156B8C00C45BA7 /* VideoListForStudyViewController.h */,
+				B53791AF1C156B8C00C45BA7 /* VideoListForStudyViewController.m */,
+			);
+			path = StudyOnline;
+			sourceTree = "<group>";
+		};
+		B53791B11C15707900C45BA7 /* WuGuan */ = {
+			isa = PBXGroup;
+			children = (
+				B53791B21C15709B00C45BA7 /* WuGuanDetailViewController.h */,
+				B53791B31C15709B00C45BA7 /* WuGuanDetailViewController.m */,
+			);
+			path = WuGuan;
+			sourceTree = "<group>";
+		};
+		B53791B71C1579B100C45BA7 /* HeWuzhe */ = {
+			isa = PBXGroup;
+			children = (
+				B53791C81C15821E00C45BA7 /* headImg@2x.png */,
+				B53791C91C15821E00C45BA7 /* liubianxing@2x.png */,
+				B53791CA1C15821E00C45BA7 /* right@2x.png */,
+				B53791C61C157ED000C45BA7 /* showimg@2x.png */,
+				B53791B81C1579F500C45BA7 /* hedongli@2x.png */,
+				B53791B91C1579F500C45BA7 /* helianmeng@2x.png */,
+				B53791BA1C1579F500C45BA7 /* hewuzhe@2x.png */,
+				B53791BB1C1579F500C45BA7 /* hezhuangbei@2x.png */,
+				B53791BC1C1579F500C45BA7 /* more@2x.png */,
+			);
+			path = HeWuzhe;
+			sourceTree = "<group>";
+		};
+		B53791C21C157CEC00C45BA7 /* KongFuStore */ = {
+			isa = PBXGroup;
+			children = (
+				B53791C31C157CFF00C45BA7 /* KongFuStoreViewController.h */,
+				B53791C41C157CFF00C45BA7 /* KongFuStoreViewController.m */,
+			);
+			path = KongFuStore;
+			sourceTree = "<group>";
+		};
 		B569DB8F1C126F1C00325CFA /* temp */ = {
 			isa = PBXGroup;
 			children = (
+				B53791B51C15724900C45BA7 /* temp3@2x.png */,
 				B569DB901C126F1C00325CFA /* temp2@2x.png */,
 			);
 			path = temp;
@@ -251,6 +324,7 @@
 		B59408FA1C0FCAEC003DC15D /* UILayer */ = {
 			isa = PBXGroup;
 			children = (
+				B53791C21C157CEC00C45BA7 /* KongFuStore */,
 				B53791A91C1525CD00C45BA7 /* CommonUI */,
 				B5D899F31C11211900F55BFA /* RamCollectionView */,
 				B59409071C0FCE60003DC15D /* KongFuer */,
@@ -317,6 +391,8 @@
 		B59409071C0FCE60003DC15D /* KongFuer */ = {
 			isa = PBXGroup;
 			children = (
+				B53791B11C15707900C45BA7 /* WuGuan */,
+				B53791AD1C156AF100C45BA7 /* StudyOnline */,
 				B59409081C0FCEE4003DC15D /* KongFuerViewController.h */,
 				B59409091C0FCEE4003DC15D /* KongFuerViewController.m */,
 				B594091E1C102719003DC15D /* StudyOnLineViewController.h */,
@@ -343,6 +419,7 @@
 		B594091B1C0FDB6A003DC15D /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B53791B71C1579B100C45BA7 /* HeWuzhe */,
 				B5D899FB1C113CB900F55BFA /* other */,
 				B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */,
 			);
@@ -484,13 +561,23 @@
 			files = (
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
 				B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */,
+				B53791C01C1579F500C45BA7 /* hezhuangbei@2x.png in Resources */,
+				B53791CD1C15821E00C45BA7 /* right@2x.png in Resources */,
+				B53791C71C157ED000C45BA7 /* showimg@2x.png in Resources */,
 				B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */,
 				B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */,
+				B53791B61C15724900C45BA7 /* temp3@2x.png in Resources */,
+				B53791BF1C1579F500C45BA7 /* hewuzhe@2x.png in Resources */,
 				B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */,
 				B5D89A071C1165E400F55BFA /* temp@2x.png in Resources */,
+				B53791CC1C15821E00C45BA7 /* liubianxing@2x.png in Resources */,
+				B53791CB1C15821E00C45BA7 /* headImg@2x.png in Resources */,
 				B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */,
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
+				B53791C11C1579F500C45BA7 /* more@2x.png in Resources */,
+				B53791BE1C1579F500C45BA7 /* helianmeng@2x.png in Resources */,
 				B5D899FD1C113CDB00F55BFA /* btnFlag@2x.png in Resources */,
+				B53791BD1C1579F500C45BA7 /* hedongli@2x.png in Resources */,
 				B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,8 +617,11 @@
 				B59409101C0FCF05003DC15D /* KongFuPowerViewController.m in Sources */,
 				B569DB941C12822900325CFA /* GrowHistoryViewController.m in Sources */,
 				B5D899F91C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m in Sources */,
+				B53791B41C15709B00C45BA7 /* WuGuanDetailViewController.m in Sources */,
 				B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */,
+				B53791B01C156B8C00C45BA7 /* VideoListForStudyViewController.m in Sources */,
 				B59409191C0FD720003DC15D /* Toolkit.m in Sources */,
+				B53791C51C157CFF00C45BA7 /* KongFuStoreViewController.m in Sources */,
 				B5D89A041C11641000F55BFA /* WuGuanTableViewCell.m in Sources */,
 				B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */,
 				B569DB9C1C12B6C000325CFA /* UITableViewCell+EditMode.m in Sources */,

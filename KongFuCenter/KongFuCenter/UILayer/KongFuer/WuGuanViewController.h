@@ -7,7 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "WuGuan/WuGuanDetailViewController.h"
 @interface WuGuanViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end

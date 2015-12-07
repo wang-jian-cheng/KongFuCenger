@@ -20,4 +20,9 @@
 //+ (void)setExtraCellLineHidden: (UITableView *)tableView; //隐藏多余的seperator
 
 + (NSString *)base64EncodedStringFrom:(NSData *)data;
+
+/**
+ *根据nsstring 和 view的宽度计算高度
+ */
++(CGFloat)heightWithString:(NSString*)string fontSize:(CGFloat)fontSize width:(CGFloat)width;
 @end

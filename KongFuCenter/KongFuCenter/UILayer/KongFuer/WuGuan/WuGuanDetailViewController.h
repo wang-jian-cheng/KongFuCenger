@@ -1,5 +1,5 @@
 //
-//  VideoDetailViewController.h
+//  WuGuanDetailViewController.h
 //  KongFuCenter
 //
 //  Created by 王建成 on 15/12/7.
@@ -8,9 +8,6 @@
 
 #import "BaseNavigationController.h"
 #import "CustomButton.h"
+@interface WuGuanDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
-@interface VideoDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
-{
- CGFloat _keyHeight;
-}
 @end

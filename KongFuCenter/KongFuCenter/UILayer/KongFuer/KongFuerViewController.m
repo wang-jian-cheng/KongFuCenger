@@ -169,23 +169,57 @@
     
     cell.backgroundColor = ItemsBaseColor;
     
-    if(indexPath.section == 0&&indexPath.row == 1)
+    if(indexPath.section == 0)
     {
-        for(int i = 0;i < cateGoryH.count;i++)
+        if(indexPath.row == 1)
         {
-            UIButton *cateHBtn = [[UIButton alloc] initWithFrame:CGRectMake(0 + i*(SCREEN_WIDTH/cateGoryH.count), 0,(SCREEN_WIDTH/cateGoryH.count) , _cellHeight)];
-            [cateHBtn setTitle:cateGoryH[i] forState:UIControlStateNormal];
-            cateHBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-            cateHBtn.tag = i;
-            if(i!=cateGoryH.count - 1)
+            for(int i = 0;i < cateGoryH.count;i++)
             {
-                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake((1+i)*(SCREEN_WIDTH/cateGoryH.count), 10, 1, _cellHeight - 20)];
-                lineView.backgroundColor = BACKGROUND_COLOR;
-                [cell addSubview:lineView];
+                UIButton *cateHBtn = [[UIButton alloc] initWithFrame:CGRectMake(0 + i*(SCREEN_WIDTH/cateGoryH.count), 0,(SCREEN_WIDTH/cateGoryH.count) , _cellHeight)];
+                [cateHBtn setTitle:cateGoryH[i] forState:UIControlStateNormal];
+                cateHBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+                cateHBtn.tag = i;
+                if(i!=cateGoryH.count - 1)
+                {
+                    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake((1+i)*(SCREEN_WIDTH/cateGoryH.count), 10, 1, _cellHeight - 20)];
+                    lineView.backgroundColor = BACKGROUND_COLOR;
+                    [cell addSubview:lineView];
+                }
+                
+                [cateHBtn addTarget:self action:@selector(cateHBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:cateHBtn];
+            }
+        }
+        if(indexPath.row == 0)
+        {
+            {//天气
+            
             }
             
-            [cateHBtn addTarget:self action:@selector(cateHBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            [cell addSubview:cateHBtn];
+            {//账号
+                //head
+                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -80)/2 ,
+                                                                                        _cellHeight/2, 80, 80) andImgName:@"headImg"];
+                [headView makeSelfRound];
+                [cell addSubview:headView];
+                
+                //vip
+                UIImageView *vipImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liubianxing"]];
+                vipImgView.frame = CGRectMake( 20 , 1.5*_cellHeight , 60, 1.5*_cellHeight - 20);
+                vipImgView.contentMode = UIViewContentModeScaleAspectFit;
+                [cell addSubview:vipImgView];
+                
+                
+            }
+        }
+    }
+    if(indexPath.section == 1)
+    {
+        if(indexPath.row == 0)
+        {
+            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
+            imgView.image = [UIImage imageNamed:@"showimg"];
+            [cell addSubview:imgView];
         }
     }
     
@@ -200,6 +234,12 @@
         
         gategoryNameLab.font = [UIFont systemFontOfSize:16];
         [cell addSubview:gategoryNameLab];
+        
+        UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
+        rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 20, 20);
+        rightView.center = CGPointMake((SCREEN_WIDTH - 20 -10), _cellHeight/2);
+        rightView.contentMode = UIViewContentModeScaleAspectFit;
+        [cell addSubview:rightView];
     }
     
     return cell;
