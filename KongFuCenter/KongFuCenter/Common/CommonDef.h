@@ -33,9 +33,9 @@
 
 
 
-#define navi_bar_bg_color   [UIColor blackColor]
-#define BACKGROUND_COLOR [UIColor colorWithRed:64/255.0 green:64/255.0 blue:66/255.0 alpha:1.0]
-#define ItemsBaseColor  [UIColor colorWithRed:45/255.0 green:46/255.0 blue:50/255.0 alpha:1.0]
+#define navi_bar_bg_color   [UIColor colorWithRed:0x1e/255.0 green:0x1d/255.0 blue:0x22/255.0 alpha:1.0]
+#define BACKGROUND_COLOR [UIColor colorWithRed:0x3e/255.0 green:0x3e/255.0 blue:0x40/255.0 alpha:1.0]
+#define ItemsBaseColor  [UIColor colorWithRed:0x29/255.0 green:0x2a/255.0 blue:0x2f/255.0 alpha:1.0]
 #define RGB(a, b, c) [UIColor colorWithRed:(a) / 255.0 green:(b) / 255.0 blue:(c) / 255.0 alpha:1.0]
 
 

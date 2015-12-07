@@ -390,6 +390,11 @@
 -( void )collectionView:( UICollectionView *)collectionView didSelectItemAtIndexPath:( NSIndexPath *)indexPath
 {
     
+    VideoDetailViewController *viewDetailViewCtl = [[VideoDetailViewController alloc] init];
+    
+    [self.navigationController pushViewController:viewDetailViewCtl animated:YES];
+    
+    
     NSLog(@"click cell");
     
     
