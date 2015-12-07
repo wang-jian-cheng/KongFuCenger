@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B53791A41C151AED00C45BA7 /* VideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */; };
 		B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791A61C151FEB00C45BA7 /* UserHeadView.m */; };
+		B53791AC1C152BFD00C45BA7 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791AB1C152BFD00C45BA7 /* CustomButton.m */; };
 		B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */; };
 		B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */; };
 		B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B569DB901C126F1C00325CFA /* temp2@2x.png */; };
@@ -67,10 +68,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B53791A21C151AED00C45BA7 /* VideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDetailViewController.h; sourceTree = "<group>"; };
-		B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDetailViewController.m; sourceTree = "<group>"; };
-		B53791A51C151FEB00C45BA7 /* UserHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHeadView.h; sourceTree = "<group>"; };
-		B53791A61C151FEB00C45BA7 /* UserHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHeadView.m; sourceTree = "<group>"; };
+		B53791A21C151AED00C45BA7 /* VideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoDetailViewController.h; path = KongFuer/VideoDetailViewController.h; sourceTree = "<group>"; };
+		B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoDetailViewController.m; path = KongFuer/VideoDetailViewController.m; sourceTree = "<group>"; };
+		B53791A51C151FEB00C45BA7 /* UserHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserHeadView.h; path = ../Common/UserHeadView.h; sourceTree = "<group>"; };
+		B53791A61C151FEB00C45BA7 /* UserHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserHeadView.m; path = ../Common/UserHeadView.m; sourceTree = "<group>"; };
+		B53791AA1C152BFD00C45BA7 /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomButton.h; path = CommonUI/CustomButton.h; sourceTree = "<group>"; };
+		B53791AB1C152BFD00C45BA7 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomButton.m; path = CommonUI/CustomButton.m; sourceTree = "<group>"; };
 		B569DB8A1C126BC600325CFA /* BaseVideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVideoCollectionViewCell.h; sourceTree = "<group>"; };
 		B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVideoCollectionViewCell.m; sourceTree = "<group>"; };
 		B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseVideoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -167,6 +170,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B53791A91C1525CD00C45BA7 /* CommonUI */ = {
+			isa = PBXGroup;
+			children = (
+				B53791A21C151AED00C45BA7 /* VideoDetailViewController.h */,
+				B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */,
+				B53791A51C151FEB00C45BA7 /* UserHeadView.h */,
+				B53791A61C151FEB00C45BA7 /* UserHeadView.m */,
+				B53791AA1C152BFD00C45BA7 /* CustomButton.h */,
+				B53791AB1C152BFD00C45BA7 /* CustomButton.m */,
+			);
+			name = CommonUI;
+			sourceTree = "<group>";
+		};
 		B569DB8F1C126F1C00325CFA /* temp */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +261,7 @@
 		B59408FA1C0FCAEC003DC15D /* UILayer */ = {
 			isa = PBXGroup;
 			children = (
+				B53791A91C1525CD00C45BA7 /* CommonUI */,
 				B5D899F31C11211900F55BFA /* RamCollectionView */,
 				B59409071C0FCE60003DC15D /* KongFuer */,
 				B59409061C0FCE49003DC15D /* More */,
@@ -276,8 +293,6 @@
 				B59409031C0FCD56003DC15D /* CommonDef.h */,
 				B569DB9A1C12B6C000325CFA /* UITableViewCell+EditMode.h */,
 				B569DB9B1C12B6C000325CFA /* UITableViewCell+EditMode.m */,
-				B53791A51C151FEB00C45BA7 /* UserHeadView.h */,
-				B53791A61C151FEB00C45BA7 /* UserHeadView.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -332,8 +347,6 @@
 				B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */,
 				B569DB921C12822900325CFA /* GrowHistoryViewController.h */,
 				B569DB931C12822900325CFA /* GrowHistoryViewController.m */,
-				B53791A21C151AED00C45BA7 /* VideoDetailViewController.h */,
-				B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */,
 			);
 			path = KongFuer;
 			sourceTree = "<group>";
@@ -529,6 +542,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B53791AC1C152BFD00C45BA7 /* CustomButton.m in Sources */,
 				B59409131C0FCF1F003DC15D /* KongFuUnionViewController.m in Sources */,
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
 				B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */,
