@@ -62,14 +62,14 @@
                         <color key="textColor" red="0.43137254899999999" green="0.43137254899999999" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img3.png" translatesAutoresizingMaskIntoConstraints="NO" id="jKk-FP-p54">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xin.png" translatesAutoresizingMaskIntoConstraints="NO" id="jKk-FP-p54">
                         <rect key="frame" x="241" y="67" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="Q2k-if-RXJ"/>
                             <constraint firstAttribute="width" constant="15" id="sez-aU-ceW"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img2.png" translatesAutoresizingMaskIntoConstraints="NO" id="Tuk-wh-zha">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xing.png" translatesAutoresizingMaskIntoConstraints="NO" id="Tuk-wh-zha">
                         <rect key="frame" x="295" y="65" width="18" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="18" id="FRm-xS-6Ze"/>
@@ -108,11 +108,11 @@
                 <outlet property="mName" destination="iwu-I1-7VE" id="4se-zx-bKA"/>
                 <outlet property="mReadNum" destination="CAM-10-fS7" id="ab4-cB-ldl"/>
             </connections>
-            <point key="canvasLocation" x="349" y="242"/>
+            <point key="canvasLocation" x="18" y="143"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="img2.png" width="25" height="25"/>
-        <image name="img3.png" width="24" height="22"/>
+        <image name="xin.png" width="24" height="22"/>
+        <image name="xing.png" width="25" height="25"/>
     </resources>
 </document>
