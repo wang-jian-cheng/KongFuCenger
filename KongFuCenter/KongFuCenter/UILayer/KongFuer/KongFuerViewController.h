@@ -12,6 +12,8 @@
 #import "MyCollectViewController.h"
 #import "GrowHistoryViewController.h"
 #import "UserHeadView.h"
+#import "JiFenViewController.h"
+#import "MyDreamViewController.h"
 @interface KongFuerViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end

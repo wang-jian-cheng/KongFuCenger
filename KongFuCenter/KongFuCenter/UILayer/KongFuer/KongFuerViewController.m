@@ -66,7 +66,7 @@
     _mainTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;//UITableViewCellSeparatorStyleSingleLine;
     _mainTableView.separatorInset = UIEdgeInsetsZero;
     _mainTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    _mainTableView.separatorColor =  BACKGROUND_COLOR;
+    _mainTableView.separatorColor =  Separator_Color;
     _mainTableView.tableFooterView = [[UIView alloc] init];
     //设置cell分割线从最左边开始
     if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
@@ -109,6 +109,14 @@
 -(void)cateHBtnClick:(UIButton *)sender
 {
     switch (sender.tag) {
+        case DreamBtn:
+        {
+            MyDreamViewController *myDreamViewCtl = [[MyDreamViewController alloc] init];
+            myDreamViewCtl.navtitle= cateGoryH[DreamBtn];
+            [self.navigationController pushViewController:myDreamViewCtl animated:YES];
+            
+        }
+            break;
         case StudyOnLineBtn:
         {
             StudyOnLineViewController *studyOnlineViewCtl = [[StudyOnLineViewController alloc]init];
@@ -171,6 +179,7 @@
     
     if(indexPath.section == 0)
     {
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
         if(indexPath.row == 1)
         {
             for(int i = 0;i < cateGoryH.count;i++)
@@ -198,8 +207,9 @@
             
             {//账号
                 //head
-                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -80)/2 ,
-                                                                                        _cellHeight/2, 80, 80) andImgName:@"headImg"];
+                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -80)/2 ,_cellHeight/2, 80, 80)
+                                                                  andImgName:@"headImg"
+                                                                      andNav:self.navigationController];
                 [headView makeSelfRound];
                 [cell addSubview:headView];
                 
@@ -208,6 +218,11 @@
                 vipImgView.frame = CGRectMake( 20 , 1.5*_cellHeight , 60, 1.5*_cellHeight - 20);
                 vipImgView.contentMode = UIViewContentModeScaleAspectFit;
                 [cell addSubview:vipImgView];
+                
+                UIImageView *jiFenImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liubianxing"]];
+                jiFenImgView.frame = CGRectMake( (SCREEN_WIDTH -60 - 20) , 1.5*_cellHeight , 60, 1.5*_cellHeight - 20);
+                jiFenImgView.contentMode = UIViewContentModeScaleAspectFit;
+                [cell addSubview:jiFenImgView];
                 
                 
             }
@@ -236,8 +251,8 @@
         [cell addSubview:gategoryNameLab];
         
         UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
-        rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 20, 20);
-        rightView.center = CGPointMake((SCREEN_WIDTH - 20 -10), _cellHeight/2);
+        rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
+        rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
         rightView.contentMode = UIViewContentModeScaleAspectFit;
         [cell addSubview:rightView];
     }
@@ -285,7 +300,13 @@
             }
         }
             break;
-        case 2:
+        case 2://积分
+        {
+            JiFenViewController *jiFenViewCtl = [[JiFenViewController alloc] init];
+            jiFenViewCtl.navtitle = cateGoryV[indexPath.section-2][indexPath.row];
+            [self.navigationController pushViewController:jiFenViewCtl animated:YES];
+            
+        }
             break;
         default:
             break;

@@ -127,7 +127,8 @@
 
 - (void)addLeftButton:(NSString *)strImage
 {
-    UIImage *imgBtn = [UIImage imageWithBundleName:strImage];
+    //UIImage *imgBtn = [UIImage imageWithBundleName:strImage];
+    UIImage *imgBtn = [UIImage imageNamed:strImage];
     _imgLeft.image = imgBtn;
     [_imgLeft setFrame:CGRectMake(_btnLeft.frame.origin.x + 10, _btnLeft.frame.origin.y, imgBtn.size.width , imgBtn.size.height )];
     _imgLeft.center = CGPointMake(_imgLeft.center.x, _lblTitle.center.y);

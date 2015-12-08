@@ -23,6 +23,23 @@
 		B53791CB1C15821E00C45BA7 /* headImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791C81C15821E00C45BA7 /* headImg@2x.png */; };
 		B53791CC1C15821E00C45BA7 /* liubianxing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791C91C15821E00C45BA7 /* liubianxing@2x.png */; };
 		B53791CD1C15821E00C45BA7 /* right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53791CA1C15821E00C45BA7 /* right@2x.png */; };
+		B53E737A1C166389009E7878 /* collect_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E73741C166389009E7878 /* collect_h@2x.png */; };
+		B53E737B1C166389009E7878 /* collect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E73751C166389009E7878 /* collect@2x.png */; };
+		B53E737C1C166389009E7878 /* relay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E73761C166389009E7878 /* relay@2x.png */; };
+		B53E737D1C166389009E7878 /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E73771C166389009E7878 /* share@2x.png */; };
+		B53E737E1C166389009E7878 /* support_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E73781C166389009E7878 /* support_h@2x.png */; };
+		B53E737F1C166389009E7878 /* support@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E73791C166389009E7878 /* support@2x.png */; };
+		B53E73811C166BF9009E7878 /* left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E73801C166BF9009E7878 /* left@2x.png */; };
+		B53E73851C166FCB009E7878 /* JiFenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53E73841C166FCB009E7878 /* JiFenViewController.m */; };
+		B53E73891C167080009E7878 /* JiFenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B53E73871C167080009E7878 /* JiFenTableViewCell.m */; };
+		B53E738A1C167080009E7878 /* JiFenTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B53E73881C167080009E7878 /* JiFenTableViewCell.xib */; };
+		B53E738C1C1673B3009E7878 /* tip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E738B1C1673B3009E7878 /* tip@2x.png */; };
+		B53E73901C168BDA009E7878 /* MyDreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53E738F1C168BDA009E7878 /* MyDreamViewController.m */; };
+		B53E73921C16AB0C009E7878 /* wuguanimg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E73911C16AB0C009E7878 /* wuguanimg@2x.png */; };
+		B53E73961C16CF01009E7878 /* PersonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53E73951C16CF01009E7878 /* PersonInfoViewController.m */; };
+		B53E73991C16E1EF009E7878 /* point@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E73971C16E1EF009E7878 /* point@2x.png */; };
+		B53E739A1C16E1EF009E7878 /* pointH@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E73981C16E1EF009E7878 /* pointH@2x.png */; };
+		B53E739C1C16E676009E7878 /* btnCorner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E739B1C16E676009E7878 /* btnCorner@2x.png */; };
 		B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */; };
 		B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */; };
 		B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B569DB901C126F1C00325CFA /* temp2@2x.png */; };
@@ -108,6 +125,27 @@
 		B53791C81C15821E00C45BA7 /* headImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headImg@2x.png"; sourceTree = "<group>"; };
 		B53791C91C15821E00C45BA7 /* liubianxing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "liubianxing@2x.png"; sourceTree = "<group>"; };
 		B53791CA1C15821E00C45BA7 /* right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right@2x.png"; sourceTree = "<group>"; };
+		B53E73741C166389009E7878 /* collect_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collect_h@2x.png"; sourceTree = "<group>"; };
+		B53E73751C166389009E7878 /* collect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collect@2x.png"; sourceTree = "<group>"; };
+		B53E73761C166389009E7878 /* relay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relay@2x.png"; sourceTree = "<group>"; };
+		B53E73771C166389009E7878 /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share@2x.png"; sourceTree = "<group>"; };
+		B53E73781C166389009E7878 /* support_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "support_h@2x.png"; sourceTree = "<group>"; };
+		B53E73791C166389009E7878 /* support@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "support@2x.png"; sourceTree = "<group>"; };
+		B53E73801C166BF9009E7878 /* left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left@2x.png"; sourceTree = "<group>"; };
+		B53E73831C166FCB009E7878 /* JiFenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JiFenViewController.h; sourceTree = "<group>"; };
+		B53E73841C166FCB009E7878 /* JiFenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JiFenViewController.m; sourceTree = "<group>"; };
+		B53E73861C167080009E7878 /* JiFenTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JiFenTableViewCell.h; sourceTree = "<group>"; };
+		B53E73871C167080009E7878 /* JiFenTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JiFenTableViewCell.m; sourceTree = "<group>"; };
+		B53E73881C167080009E7878 /* JiFenTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JiFenTableViewCell.xib; sourceTree = "<group>"; };
+		B53E738B1C1673B3009E7878 /* tip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tip@2x.png"; sourceTree = "<group>"; };
+		B53E738E1C168BDA009E7878 /* MyDreamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDreamViewController.h; sourceTree = "<group>"; };
+		B53E738F1C168BDA009E7878 /* MyDreamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDreamViewController.m; sourceTree = "<group>"; };
+		B53E73911C16AB0C009E7878 /* wuguanimg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wuguanimg@2x.png"; sourceTree = "<group>"; };
+		B53E73941C16CF01009E7878 /* PersonInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInfoViewController.h; sourceTree = "<group>"; };
+		B53E73951C16CF01009E7878 /* PersonInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInfoViewController.m; sourceTree = "<group>"; };
+		B53E73971C16E1EF009E7878 /* point@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "point@2x.png"; sourceTree = "<group>"; };
+		B53E73981C16E1EF009E7878 /* pointH@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pointH@2x.png"; sourceTree = "<group>"; };
+		B53E739B1C16E676009E7878 /* btnCorner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnCorner@2x.png"; sourceTree = "<group>"; };
 		B569DB8A1C126BC600325CFA /* BaseVideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVideoCollectionViewCell.h; sourceTree = "<group>"; };
 		B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVideoCollectionViewCell.m; sourceTree = "<group>"; };
 		B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseVideoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -245,6 +283,17 @@
 		B53791B71C1579B100C45BA7 /* HeWuzhe */ = {
 			isa = PBXGroup;
 			children = (
+				B53E738B1C1673B3009E7878 /* tip@2x.png */,
+				B53E73801C166BF9009E7878 /* left@2x.png */,
+				B53E73971C16E1EF009E7878 /* point@2x.png */,
+				B53E73981C16E1EF009E7878 /* pointH@2x.png */,
+				B53E73741C166389009E7878 /* collect_h@2x.png */,
+				B53E739B1C16E676009E7878 /* btnCorner@2x.png */,
+				B53E73751C166389009E7878 /* collect@2x.png */,
+				B53E73761C166389009E7878 /* relay@2x.png */,
+				B53E73771C166389009E7878 /* share@2x.png */,
+				B53E73781C166389009E7878 /* support_h@2x.png */,
+				B53E73791C166389009E7878 /* support@2x.png */,
 				B53791C81C15821E00C45BA7 /* headImg@2x.png */,
 				B53791C91C15821E00C45BA7 /* liubianxing@2x.png */,
 				B53791CA1C15821E00C45BA7 /* right@2x.png */,
@@ -253,6 +302,7 @@
 				B53791B91C1579F500C45BA7 /* helianmeng@2x.png */,
 				B53791BA1C1579F500C45BA7 /* hewuzhe@2x.png */,
 				B53791BB1C1579F500C45BA7 /* hezhuangbei@2x.png */,
+				B53E73911C16AB0C009E7878 /* wuguanimg@2x.png */,
 				B53791BC1C1579F500C45BA7 /* more@2x.png */,
 			);
 			path = HeWuzhe;
@@ -265,6 +315,36 @@
 				B53791C41C157CFF00C45BA7 /* KongFuStoreViewController.m */,
 			);
 			path = KongFuStore;
+			sourceTree = "<group>";
+		};
+		B53E73821C166FB9009E7878 /* JiFen */ = {
+			isa = PBXGroup;
+			children = (
+				B53E73831C166FCB009E7878 /* JiFenViewController.h */,
+				B53E73841C166FCB009E7878 /* JiFenViewController.m */,
+				B53E73861C167080009E7878 /* JiFenTableViewCell.h */,
+				B53E73871C167080009E7878 /* JiFenTableViewCell.m */,
+				B53E73881C167080009E7878 /* JiFenTableViewCell.xib */,
+			);
+			path = JiFen;
+			sourceTree = "<group>";
+		};
+		B53E738D1C168B47009E7878 /* MyDream */ = {
+			isa = PBXGroup;
+			children = (
+				B53E738E1C168BDA009E7878 /* MyDreamViewController.h */,
+				B53E738F1C168BDA009E7878 /* MyDreamViewController.m */,
+			);
+			path = MyDream;
+			sourceTree = "<group>";
+		};
+		B53E73931C16CEA4009E7878 /* PersonInfo */ = {
+			isa = PBXGroup;
+			children = (
+				B53E73941C16CF01009E7878 /* PersonInfoViewController.h */,
+				B53E73951C16CF01009E7878 /* PersonInfoViewController.m */,
+			);
+			path = PersonInfo;
 			sourceTree = "<group>";
 		};
 		B569DB8F1C126F1C00325CFA /* temp */ = {
@@ -415,6 +495,9 @@
 		B59409071C0FCE60003DC15D /* KongFuer */ = {
 			isa = PBXGroup;
 			children = (
+				B53E73931C16CEA4009E7878 /* PersonInfo */,
+				B53E738D1C168B47009E7878 /* MyDream */,
+				B53E73821C166FB9009E7878 /* JiFen */,
 				B53791B11C15707900C45BA7 /* WuGuan */,
 				B53791AD1C156AF100C45BA7 /* StudyOnline */,
 				B59409081C0FCEE4003DC15D /* KongFuerViewController.h */,
@@ -443,11 +526,8 @@
 		B594091B1C0FDB6A003DC15D /* Image */ = {
 			isa = PBXGroup;
 			children = (
-
 				B53791B71C1579B100C45BA7 /* HeWuzhe */,
-
 				B72C3CCA1C157A9F00D3250A /* KongFuUnion */,
-
 				B5D899FB1C113CB900F55BFA /* other */,
 				B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */,
 			);
@@ -631,28 +711,39 @@
 			files = (
 				B72C3CC91C1568C900D3250A /* RecruitCommentCell.xib in Resources */,
 				B72C3CCF1C157AB700D3250A /* img2.png in Resources */,
+				B53E737C1C166389009E7878 /* relay@2x.png in Resources */,
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
+				B53E738A1C167080009E7878 /* JiFenTableViewCell.xib in Resources */,
 				B72C3CCE1C157AB700D3250A /* img1.png in Resources */,
 				B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */,
 				B53791C01C1579F500C45BA7 /* hezhuangbei@2x.png in Resources */,
 				B53791CD1C15821E00C45BA7 /* right@2x.png in Resources */,
 				B53791C71C157ED000C45BA7 /* showimg@2x.png in Resources */,
-
+				B53E739C1C16E676009E7878 /* btnCorner@2x.png in Resources */,
+				B53E739A1C16E1EF009E7878 /* pointH@2x.png in Resources */,
+				B53E738C1C1673B3009E7878 /* tip@2x.png in Resources */,
 				B72C3CD01C157AB700D3250A /* img3.png in Resources */,
-
+				B53E73921C16AB0C009E7878 /* wuguanimg@2x.png in Resources */,
+				B53E737B1C166389009E7878 /* collect@2x.png in Resources */,
 				B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */,
+				B53E73991C16E1EF009E7878 /* point@2x.png in Resources */,
 				B7C428051C1524F3003F504F /* JHStoryTableViewCell.xib in Resources */,
 				B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */,
 				B53791B61C15724900C45BA7 /* temp3@2x.png in Resources */,
 				B53791BF1C1579F500C45BA7 /* hewuzhe@2x.png in Resources */,
+				B53E737F1C166389009E7878 /* support@2x.png in Resources */,
 				B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */,
 				B5D89A071C1165E400F55BFA /* temp@2x.png in Resources */,
+				B53E73811C166BF9009E7878 /* left@2x.png in Resources */,
 				B53791CC1C15821E00C45BA7 /* liubianxing@2x.png in Resources */,
+				B53E737D1C166389009E7878 /* share@2x.png in Resources */,
 				B53791CB1C15821E00C45BA7 /* headImg@2x.png in Resources */,
+				B53E737E1C166389009E7878 /* support_h@2x.png in Resources */,
 				B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */,
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
 				B53791C11C1579F500C45BA7 /* more@2x.png in Resources */,
 				B53791BE1C1579F500C45BA7 /* helianmeng@2x.png in Resources */,
+				B53E737A1C166389009E7878 /* collect_h@2x.png in Resources */,
 				B5D899FD1C113CDB00F55BFA /* btnFlag@2x.png in Resources */,
 				B53791BD1C1579F500C45BA7 /* hedongli@2x.png in Resources */,
 				B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */,
@@ -702,12 +793,16 @@
 				B53791C51C157CFF00C45BA7 /* KongFuStoreViewController.m in Sources */,
 				B5D89A041C11641000F55BFA /* WuGuanTableViewCell.m in Sources */,
 				B72C3CBE1C1558F000D3250A /* KongFuUnionViewController.m in Sources */,
+				B53E73961C16CF01009E7878 /* PersonInfoViewController.m in Sources */,
 				B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */,
 				B569DB9C1C12B6C000325CFA /* UITableViewCell+EditMode.m in Sources */,
 				B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */,
 				B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */,
 				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
+				B53E73851C166FCB009E7878 /* JiFenViewController.m in Sources */,
+				B53E73891C167080009E7878 /* JiFenTableViewCell.m in Sources */,
 				B5D89A001C11439E00F55BFA /* WuGuanViewController.m in Sources */,
+				B53E73901C168BDA009E7878 /* MyDreamViewController.m in Sources */,
 				B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */,
 				B59408C91C0FC9E8003DC15D /* main.m in Sources */,
 				B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */,

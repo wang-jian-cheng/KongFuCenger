@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PersonInfoViewController.h"
 @interface UserHeadView : UIView
+{
+    UINavigationController *tempNav;
+}
+@property(nonatomic) BOOL enableRespondClick;
+
 -(id)initWithFrame:(CGRect)frame andImgName:(NSString *)name;
+-(id)initWithFrame:(CGRect)frame andImgName:(NSString *)name andNav:(UINavigationController *)navCtl;
 -(void)makeSelfRound;
 @end

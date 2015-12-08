@@ -32,8 +32,8 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self initDatas];
     [self initViews];
-    [self addLeftbuttontitle:@"返回"];
     
+    [self addLeftButton:@"left"];
     // Do any additional setup after loading the view.
 }
 

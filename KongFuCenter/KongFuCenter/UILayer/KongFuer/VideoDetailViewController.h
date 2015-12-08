@@ -11,6 +11,7 @@
 
 @interface VideoDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
- CGFloat _keyHeight;
+    CGFloat _keyHeight;
+    NSIndexPath *tempIndexPath;
 }
 @end

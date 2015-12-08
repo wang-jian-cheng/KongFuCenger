@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="temp.png" translatesAutoresizingMaskIntoConstraints="NO" id="ErP-Dx-7bU">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wuguanimg.png" translatesAutoresizingMaskIntoConstraints="NO" id="ErP-Dx-7bU">
                         <rect key="frame" x="8" y="8" width="78" height="82"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="78" id="zVN-UY-nYs"/>
@@ -74,6 +74,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="temp.png" width="67" height="62"/>
+        <image name="wuguanimg.png" width="158" height="100"/>
     </resources>
 </document>

@@ -32,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self addLeftButton:@"left"];
     [self initViews];
     // Do any additional setup after loading the view.
 }
@@ -56,6 +56,11 @@
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
+    
+}
+
+-(void)btnClick:(UIButton *)sender
+{
     
 }
 
@@ -115,14 +120,26 @@
                 CGFloat btnGap = 5;
                 
                 
-                CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 0, btnW, backView.frame.size.height)];
+                CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 5, btnW, backView.frame.size.height-10)];
                 [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
                 shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                
+                [shareBtn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+                shareBtn.imageView.contentMode = UIViewContentModeCenter;
+                shareBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                shareBtn.tag = 2;
+                [shareBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                
                 [backView addSubview:shareBtn];
                 
-                CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 0, btnW, backView.frame.size.height)];
+                CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 5, btnW, backView.frame.size.height-10)];
                 [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
                 relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
+                relayBtn.imageView.contentMode = UIViewContentModeCenter;
+                relayBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                relayBtn.tag = 2;
+                [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                 [backView addSubview:relayBtn];
             }
 

@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addLeftbuttontitle:@"返回"];
+    [self addLeftButton:@"left"];
     [self initViews];
     // Do any additional setup after loading the view.
 }
@@ -39,7 +39,7 @@
     
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
-    _mainTableView.separatorColor =  BACKGROUND_COLOR;
+    _mainTableView.separatorColor =  Separator_Color;
     _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.scrollEnabled = NO;
     

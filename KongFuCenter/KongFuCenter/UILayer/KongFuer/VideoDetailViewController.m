@@ -24,7 +24,6 @@
     CGFloat _cellHeight;
     UITableView *_mainTableView;
     
-    NSIndexPath *tempIndexPath;
 }
 @end
 
@@ -32,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self addLeftButton:@"left"];
     [self initViews];
     // Do any additional setup after loading the view.
 }
@@ -71,12 +70,20 @@
 
     
 }
+#pragma mark - click actions
 
 -(void)tapViewAction:(id)sender
 {
     [self.view endEditing:YES];
 
 }
+
+-(void)btnClick:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+}
+
+
 #pragma mark - 键盘操作
 
 // 键盘弹出时
@@ -171,7 +178,9 @@
                 CGFloat FontSize = 12;
                 
                 /*head */
-                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10) andImgName:@"me"];
+                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
+                                                                  andImgName:@"me"
+                                                                      andNav:self.navigationController];
                 [headView makeSelfRound];
                 [cell addSubview:headView];
                 
@@ -207,24 +216,51 @@
                 [cell addSubview:backView];
                 CGFloat btnW = backView.frame.size.width/4 - 5;
                 CGFloat btnGap = 5;
-                CustomButton *SupportBtn = [[CustomButton alloc] initWithFrame:CGRectMake(0, 0, btnW, backView.frame.size.height)];
+                CustomButton *SupportBtn = [[CustomButton alloc] initWithFrame:CGRectMake(0, 5, btnW, backView.frame.size.height-10)];
                 [SupportBtn setTitle:@"点赞" forState:UIControlStateNormal];
                 SupportBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                [SupportBtn setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
+                [SupportBtn setImage:[UIImage imageNamed:@"support_h"] forState:UIControlStateSelected];
+                SupportBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+                SupportBtn.tag = 0;
+                SupportBtn.imageView.contentMode = UIViewContentModeCenter;
+                [SupportBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+            //SupportBtn.backgroundColor = [UIColor redColor];
                 [backView addSubview:SupportBtn];
                 
-                CustomButton *collectBtn = [[CustomButton alloc] initWithFrame:CGRectMake(btnW+btnGap, 0, btnW, backView.frame.size.height)];
+                
+                
+                
+                CustomButton *collectBtn = [[CustomButton alloc] initWithFrame:CGRectMake(btnW+btnGap, 5, btnW, backView.frame.size.height-10)];
                 [collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
                 collectBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                [collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
+                [collectBtn setImage:[UIImage imageNamed:@"collect_h"] forState:UIControlStateSelected];
+                collectBtn.imageView.contentMode = UIViewContentModeCenter;
+                collectBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                collectBtn.tag = 1;
+                [collectBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                 [backView addSubview:collectBtn];
                 
-                CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 0, btnW, backView.frame.size.height)];
+                CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 5, btnW, backView.frame.size.height-10)];
                 [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
                 shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                [shareBtn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+                shareBtn.imageView.contentMode = UIViewContentModeCenter;
+                shareBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                shareBtn.tag = 2;
+                [shareBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                 [backView addSubview:shareBtn];
                 
-                CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 0, btnW, backView.frame.size.height)];
+                CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 5, btnW, backView.frame.size.height-10)];
                 [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
                 relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                relayBtn.imageView.contentMode = UIViewContentModeCenter;
+                relayBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
+                relayBtn.tag = 3;
+                [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                 [backView addSubview:relayBtn];
                 
             }
@@ -329,7 +365,9 @@
             else if(indexPath.row == 1)
             {
                 /*head */
-                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10) andImgName:@"me"];
+                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
+                                                                  andImgName:@"me"
+                                                                      andNav:self.navigationController];
                 [headView makeSelfRound];
                 [cell addSubview:headView];
                 
@@ -342,7 +380,9 @@
             }
             else
             {
-                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10) andImgName:@"me"];
+                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
+                                                                  andImgName:@"me"
+                                                                      andNav:self.navigationController];
                 [headView makeSelfRound];
                 [cell addSubview:headView];
                 
