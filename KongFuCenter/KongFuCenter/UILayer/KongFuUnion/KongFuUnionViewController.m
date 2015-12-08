@@ -9,6 +9,8 @@
 #import "KongFuUnionViewController.h"
 #import "JHStoryViewController.h"
 #import "RecruitComment.h"
+#import "MushaMatch.h"
+#import "JoinTeamViewController.h"
 
 @interface KongFuUnionViewController ()
 {
@@ -111,10 +113,16 @@
     if (indexPath.section == 0) {
         
     }else if(indexPath.section == 1){
-        
-    }else if(indexPath.section == 2){
         if (indexPath.row == 0) {
             
+        }else if (indexPath.row == 1){
+            JoinTeamViewController *joinTeamVC = [[JoinTeamViewController alloc] init];
+            [self.navigationController pushViewController:joinTeamVC animated:YES];
+        }
+    }else if(indexPath.section == 2){
+        if (indexPath.row == 0) {
+            MushaMatch *mushaMatchVC = [[MushaMatch alloc] init];
+            [self.navigationController pushViewController:mushaMatchVC animated:YES];
         }else if(indexPath.row == 1){
             JHStoryViewController *jhStoryVC = [[JHStoryViewController alloc] init];
             [self.navigationController pushViewController:jhStoryVC animated:YES];

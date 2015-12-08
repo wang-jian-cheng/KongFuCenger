@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/KongFuUnionViewController.m"
-            timestampString = "471165603.413964"
+            timestampString = "471256893.016046"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "508"
-            endingLineNumber = "508">
+            startingLineNumber = "516"
+            endingLineNumber = "516">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

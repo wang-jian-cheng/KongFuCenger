@@ -1,17 +1,16 @@
 //
-//  RecruitComment.m
+//  MushaMatch.m
 //  KongFuCenter
 //
-//  Created by Rain on 15/12/7.
+//  Created by Rain on 15/12/8.
 //  Copyright © 2015年 zykj. All rights reserved.
 //
 
-#import "RecruitComment.h"
-#import "RecruitCommentCell.h"
+#import "MushaMatch.h"
+#import "MushaMatchCell.h"
 
-@interface RecruitComment (){
-    
-    //datatable
+@interface MushaMatch (){
+    //tableview
     UITableView *mTableView;
     CGFloat mCellHeight;
     
@@ -24,15 +23,15 @@
 
 @end
 
-@implementation RecruitComment
+@implementation MushaMatch
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     //初始化参数
     //self.view.backgroundColor = BACKGROUND_COLOR;
-    mCellHeight = SCREEN_HEIGHT / 6;
-    [self setBarTitle:@"招聘合作"];
+    mCellHeight = SCREEN_HEIGHT / 7;
+    [self setBarTitle:@"武者大赛"];
     self.view.backgroundColor = BACKGROUND_COLOR;
     
     //初始化数据
@@ -50,7 +49,7 @@
 #pragma mark 自定义方法
 -(void)initDatas{
     menuArray = [[NSMutableArray alloc] init];
-    [menuArray addObjectsFromArray:@[@"招聘",@"合作"]];
+    [menuArray addObjectsFromArray:@[@"武者赛事",@"战队赛事"]];
 }
 
 -(void)initViews{
@@ -110,19 +109,28 @@
 
 #pragma mark setting for cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *CellIdentifier = @"RecruitCommentCellIdentifier";
-    RecruitCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    NSString *CellIdentifier = @"MushaMatchCellIdentifier";
+    MushaMatchCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"RecruitCommentCell" owner:self options:nil] objectAtIndex:0];
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"MushaMatchCell" owner:self options:nil] objectAtIndex:0];
         cell.backgroundColor = ItemsBaseColor;
     }
-    
-    cell.mImageView.image = [UIImage imageNamed:@"jhstory.png"];
-    cell.mName.text = @"咏春拳公益巡回演出";
+    cell.mImageView.image = [UIImage imageNamed:@"jhstory"];
+    cell.mName.text = @"永春拳公益巡回演出";
     cell.mDetail.text = @"咏春拳是最快的制敌拳法,公益巡回演出,让大家更好的理解咏春拳";
     cell.mDate.text = @"4月20日";
-    cell.mReadNum.text = @"200";
-    cell.mCollectionNum.text = @"100";
+    cell.mEndDate.text = @"结束时间:2015年10月30日";
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.mState.frame.size.width, cell.mState.frame.size.height)];
+    imageView.image = [UIImage imageNamed:@"weikaishi"];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [cell.mState addSubview:imageView];
+//    
+//    
+//    [cell.mState setTitle:@"未开始" forState:UIControlStateNormal];
+//    [cell.mState setTitleColor:[UIColor colorWithRed:0.94 green:0.61 blue:0 alpha:1] forState:UIControlStateNormal];
+//    cell.mState.layer.cornerRadius = 5;
+//    cell.mState.layer.borderWidth = 1;
+//    cell.mState.layer.borderColor = [UIColor colorWithRed:0.94 green:0.61 blue:0 alpha:1].CGColor;
     
     return cell;
 }

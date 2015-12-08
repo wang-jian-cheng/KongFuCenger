@@ -1,30 +1,31 @@
 //
-//  JHStoryViewController.m
+//  JoinTeamViewController.m
 //  KongFuCenter
 //
-//  Created by Rain on 15/12/4.
+//  Created by Rain on 15/12/8.
 //  Copyright © 2015年 zykj. All rights reserved.
 //
 
-#import "JHStoryViewController.h"
-#import "JHStoryTableViewCell.h"
+#import "JoinTeamViewController.h"
+#import "JoinTeamCell.h"
 
-@interface JHStoryViewController (){
+@interface JoinTeamViewController (){
+    //tableview
     UITableView *mTableView;
     CGFloat mCellHeight;
 }
 
 @end
 
-@implementation JHStoryViewController
+@implementation JoinTeamViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     //初始化参数
     //self.view.backgroundColor = BACKGROUND_COLOR;
-    mCellHeight = SCREEN_HEIGHT / 6;
-    [self setBarTitle:@"江湖故事"];
+    mCellHeight = 70;
+    [self setBarTitle:@"加入战队"];
     
     //初始化View
     [self initViews];
@@ -57,38 +58,23 @@
 
 #pragma mark setting for section
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 6;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 6;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    return [[UIView alloc] init];
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = BACKGROUND_COLOR;
-    return view;
+    return 2;
 }
 
 #pragma mark setting for cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *CellIdentifier = @"JHStoryCellIdentifier";
-    JHStoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    NSString *CellIdentifier = @"JoinTeamCellIdentifier";
+    JoinTeamCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"JHStoryTableViewCell" owner:self options:nil] objectAtIndex:0];
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"JoinTeamCell" owner:self options:nil] objectAtIndex:0];
         cell.backgroundColor = ItemsBaseColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.mImageView.image = [UIImage imageNamed:@"jhstory"];
-    cell.mName.text = @"咏春拳公益巡回演出";
-    cell.mDetail.text = @"咏春拳是最快的制敌拳法,公益巡回演出,让大家更好的理解咏春拳";
-    cell.mDate.text = @"4月20日";
-    cell.mReadNum.text = @"200";
-    cell.mCollectionNum.text = @"100";
-    
+    cell.mImageView.image = [UIImage imageNamed:@"jointeam"];
+    cell.mName.text = @"跆拳道战队(123456789)";
+    cell.mAddress.text = @"所在地:山东临沂";
+    [cell.mJoin setTitle:@"加入" forState:UIControlStateNormal];
     return cell;
 }
 
