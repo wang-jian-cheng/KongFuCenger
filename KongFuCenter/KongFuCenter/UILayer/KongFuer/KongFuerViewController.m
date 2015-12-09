@@ -102,6 +102,14 @@
 
 #pragma mark - click Btns
 
+-(void)vipClickBtn:(UIButton *)sender
+{
+    VipViewController *vipViewCtl = [[VipViewController alloc] init];
+    vipViewCtl.navtitle = @"会员详情";
+    [self.navigationController pushViewController:vipViewCtl animated:YES];
+    
+}
+
 #define DreamBtn  0
 #define StudyOnLineBtn  1
 #define KongFuHomeSugBtn  2
@@ -214,10 +222,17 @@
                 [cell addSubview:headView];
                 
                 //vip
-                UIImageView *vipImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liubianxing"]];
-                vipImgView.frame = CGRectMake( 20 , 1.5*_cellHeight , 60, 1.5*_cellHeight - 20);
-                vipImgView.contentMode = UIViewContentModeScaleAspectFit;
-                [cell addSubview:vipImgView];
+//                UIImageView *vipImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liubianxing"]];
+//                vipImgView.frame = CGRectMake( 20 , 1.5*_cellHeight , 60, 1.5*_cellHeight - 20);
+//                vipImgView.contentMode = UIViewContentModeScaleAspectFit;
+//                [cell addSubview:vipImgView];
+                UIButton *vipBtnView = [[UIButton alloc] init];
+                vipBtnView.frame = CGRectMake( 20 , 1.5*_cellHeight , 60, 1.5*_cellHeight - 20);
+                vipBtnView.contentMode = UIViewContentModeScaleAspectFit;
+                [vipBtnView setImage:[UIImage imageNamed:@"liubianxing"] forState:UIControlStateNormal];
+                [vipBtnView addTarget:self action:@selector(vipClickBtn:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:vipBtnView];
+                
                 
                 UIImageView *jiFenImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liubianxing"]];
                 jiFenImgView.frame = CGRectMake( (SCREEN_WIDTH -60 - 20) , 1.5*_cellHeight , 60, 1.5*_cellHeight - 20);
@@ -280,13 +295,21 @@
     
     switch (indexPath.section - 2) {
         case 0:
-            
+        {
+            ZhiBoViewController *zhiboViewCtl = [[ZhiBoViewController alloc] init];
+            zhiboViewCtl.navtitle = cateGoryV[indexPath.section-2][indexPath.row];
+            [self.navigationController pushViewController:zhiboViewCtl animated:YES];
+        }
             break;
         case 1:
         {
             switch (indexPath.row) {
-                case 0:
-                    
+                case 0://训练计划
+                {
+                    TrainsPlanViewController *trainsPlanViewCtl = [[TrainsPlanViewController alloc] init];
+                    trainsPlanViewCtl.navtitle = cateGoryV[indexPath.section-2][indexPath.row];
+                    [self.navigationController pushViewController:trainsPlanViewCtl animated:YES];
+                }
                     break;
                 case 1://成长记录
                 {

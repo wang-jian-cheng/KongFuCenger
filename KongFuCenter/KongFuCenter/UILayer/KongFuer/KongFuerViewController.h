@@ -14,6 +14,9 @@
 #import "UserHeadView.h"
 #import "JiFenViewController.h"
 #import "MyDreamViewController.h"
+#import "ZhiBo/ZhiBoViewController.h"
+#import "VipViewController.h"
+#import "TrainsPlanViewController.h"
 @interface KongFuerViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end

@@ -8,6 +8,14 @@
 
 #import "PersonInfoViewController.h"
 
+#define HighTAG         (2015+1)
+#define WeightTAG       (2015+2)
+#define AgeTAG          (2015+3)
+#define LearnTimeTAG    (2015+4)
+#define ProvinceTAG     (2015+5)
+#define CityTAG         (2015+6)
+#define AreaTAG         (2015+7)
+
 @interface PersonInfoViewController ()
 {
 #pragma mark - pram for tableView
@@ -17,6 +25,12 @@
     
     UITextView *myPlan;
     UITextView *myDream;
+    
+#pragma mark - pickerView data arr
+    NSArray *weightArr;
+    NSArray *highArr;
+    NSMutableArray *infoArr;
+    
 }
 @end
 
@@ -25,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
+    infoArr = [NSMutableArray array];
     [self initViews];
     // Do any additional setup after loading the view.
 }
@@ -73,14 +88,104 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHidden) name:UIKeyboardDidHideNotification object:nil];
     
     
+    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - 216), SCREEN_WIDTH, 216)];
+    // 显示选中框
+    _pickerView.showsSelectionIndicator=YES;
+    _pickerView.dataSource = self;
+    _pickerView.delegate = self;
+    _pickerView.backgroundColor = [UIColor whiteColor];
     
+    introductionText = [[UITextView alloc] init];
+    
+    [self initBtns];
+   
 }
 
+
+-(void)initBtns
+{
+    CGFloat btnFont = 14;
+    
+    boyBtn  = [[UIButton alloc] init];
+    boyBtn.titleLabel.font = [UIFont systemFontOfSize:btnFont];
+    grilBtn= [[UIButton alloc] init];
+    grilBtn.titleLabel.font = [UIFont systemFontOfSize:btnFont];
+    
+    weightBtn= [[UIButton alloc] init];
+    weightBtn.titleLabel.font = [UIFont systemFontOfSize:btnFont];
+    highBtn= [[UIButton alloc] init];
+    highBtn.titleLabel.font = [UIFont systemFontOfSize:btnFont];
+    
+    ageBtn= [[UIButton alloc] init];
+    ageBtn.titleLabel.font = [UIFont systemFontOfSize:btnFont];
+    learnTimeBtn= [[UIButton alloc] init];
+    learnTimeBtn.titleLabel.font = [UIFont systemFontOfSize:btnFont];
+    
+    provinceBtn= [[UIButton alloc] init];
+    provinceBtn.titleLabel.font = [UIFont systemFontOfSize:btnFont];
+    cityBtn= [[UIButton alloc] init];
+    cityBtn.titleLabel.font = [UIFont systemFontOfSize:btnFont];
+    areaBtn= [[UIButton alloc] init];
+    areaBtn.titleLabel.font = [UIFont systemFontOfSize:btnFont];
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
+
+
+-(void)reLayoutTableViewHeight:(CGFloat)height
+{
+    tempIndexPath = [NSIndexPath indexPathForRow:4 inSection:1];
+    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height -Header_Height -height)];
+    [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+}
+
+#pragma mark - uipickerview
+
+                 
+ // pickerView 列数
+ - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+     return 1;
+ }
+ 
+ // pickerView 每列个数
+ - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+     return infoArr.count;
+ }
+ 
+ // 每列宽度
+ - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+     
+     return 180;
+ }
+ // 返回选中的行
+ - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    switch (pickerView.tag  ) {
+        case ProvinceTAG:
+            [provinceBtn setTitle:[infoArr objectAtIndex:row] forState:UIControlStateNormal];
+            break;
+        case CityTAG:
+            [cityBtn setTitle:[infoArr objectAtIndex:row] forState:UIControlStateNormal];
+            break;
+        case AreaTAG:
+            [areaBtn setTitle:[infoArr objectAtIndex:row] forState:UIControlStateNormal];
+            break;
+        default:
+            break;
+    }
+    
+}
+                 
+                 //返回当前行的内容,此处是将数组中数值添加到滚动的那个显示栏上
+-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return  infoArr[row];
+}
+
 
 #pragma mark - 键盘操作
 
@@ -136,7 +241,170 @@
 
 }
 
+
 #pragma mark - click action
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    UITextField *textNum=[alertView textFieldAtIndex:0];
+    switch (alertView.tag) {
+        case HighTAG:
+        {
+            if ([textNum.text intValue]==0) {
+            // [Dialog simpleToast:@"请正确"];
+            return;
+            }
+            else
+            {
+                [highBtn setTitle:[NSString stringWithFormat:@"%@cm",textNum.text] forState:UIControlStateNormal];
+            }
+        }
+            break;
+        case WeightTAG:
+        {
+            if ([textNum.text intValue]==0) {
+                // [Dialog simpleToast:@"请正确"];
+                return;
+            }
+            else
+            {
+                [weightBtn setTitle:[NSString stringWithFormat:@"%@Kg",textNum.text] forState:UIControlStateNormal];
+            }
+
+        }
+            break;
+            
+        case AgeTAG:
+        {
+            if ([textNum.text intValue]==0) {
+                // [Dialog simpleToast:@"请正确"];
+                return;
+            }
+            else
+            {
+                [ageBtn setTitle:[NSString stringWithFormat:@"%@岁",textNum.text] forState:UIControlStateNormal];
+            }
+        }
+            break;
+        case LearnTimeTAG:
+        {
+            if ([textNum.text intValue]==0) {
+                // [Dialog simpleToast:@"请正确"];
+                return;
+            }
+            else
+            {
+                [learnTimeBtn setTitle:[NSString stringWithFormat:@"%@年",textNum.text] forState:UIControlStateNormal];
+            }
+            
+        }
+            break;
+
+        default:
+            break;
+    }
+  
+}
+
+
+-(void)infoBtnClick:(UIButton *)sender
+{
+    _pickerView.tag = sender.tag;
+   // [self.view addSubview:_pickerView];
+    
+    if(infoArr.count>0&&infoArr != nil)
+    {
+        [infoArr removeAllObjects];
+    }
+    
+    switch (sender.tag) {
+        case HighTAG:
+        {
+            
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"请输入身高（Cm）" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            
+            alert.tag=sender.tag;
+            alert.alertViewStyle=UIAlertViewStylePlainTextInput;
+            UITextField *tf = [alert textFieldAtIndex:0];
+            tf.keyboardType = UIKeyboardTypeNumberPad;
+            
+            [alert show];
+            
+        }
+            break;
+        case WeightTAG:
+        {
+            
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"请输入体重（Kg）" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            
+            alert.tag=sender.tag;
+            alert.alertViewStyle=UIAlertViewStylePlainTextInput;
+            UITextField *tf = [alert textFieldAtIndex:0];
+            tf.keyboardType = UIKeyboardTypeNumberPad;
+            
+            [alert show];
+            
+        }
+            break;
+        case AgeTAG:
+        {
+            
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"请输入年龄（岁）" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            
+            alert.tag=sender.tag;
+            alert.alertViewStyle=UIAlertViewStylePlainTextInput;
+            UITextField *tf = [alert textFieldAtIndex:0];
+            tf.keyboardType = UIKeyboardTypeNumberPad;
+            
+            [alert show];
+            
+        }
+            break;
+        case LearnTimeTAG:
+        {
+            
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"请输入习武时间（年）" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            
+            alert.tag=sender.tag;
+            alert.alertViewStyle=UIAlertViewStylePlainTextInput;
+            UITextField *tf = [alert textFieldAtIndex:0];
+            tf.keyboardType = UIKeyboardTypeNumberPad;
+            
+            [alert show];
+            
+        }
+            break;
+        case ProvinceTAG:
+        {
+            [infoArr addObjectsFromArray:@[@"山东",@"山西"]];
+            [self.view addSubview:_pickerView];
+            [_pickerView reloadAllComponents];
+            [self reLayoutTableViewHeight:_pickerView.frame.size.height];
+        }
+            break;
+        case CityTAG:
+        {
+            [infoArr addObjectsFromArray:@[@"临沂",@"青岛",@"济宁"]];
+            [self.view addSubview:_pickerView];
+            [_pickerView reloadAllComponents];
+            [self reLayoutTableViewHeight:_pickerView.frame.size.height];
+        }
+            break;
+        case AreaTAG:
+        {
+            [infoArr addObjectsFromArray:@[@"兰山",@"罗庄",@"沂南",@"沂水"]];
+            [self.view addSubview:_pickerView];
+            [_pickerView reloadAllComponents];
+            [self reLayoutTableViewHeight:_pickerView.frame.size.height];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+
 
 -(void)sexBtnClick:(UIButton *)sender
 {
@@ -154,6 +422,13 @@
 
 -(void)tapViewAction:(id)sender
 {
+    if( _pickerView.superview != nil)
+    {
+        [_pickerView removeFromSuperview];
+        [self reLayoutTableViewHeight:0];
+    }
+    
+    
     [self.view endEditing:YES];
     
 }
@@ -198,6 +473,8 @@
 }
 #define GapToLeft   20
 #pragma mark - setting for cell
+
+#define BtnWidth    60
 //设置每行调用的cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -277,8 +554,8 @@
                 titlLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titlLab];
                 
-                boyBtn = [[UIButton alloc]initWithFrame:CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
-                                                                             5, 50, _cellHeight - 10)];
+                boyBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
+                                                                             5, 50, _cellHeight - 10);
                 
                 [boyBtn setTitle:@"男" forState:UIControlStateNormal];
                 [boyBtn setImage:[UIImage imageNamed:@"point"] forState:UIControlStateNormal];
@@ -287,8 +564,8 @@
                 boyBtn.selected = YES;
                 [cell addSubview:boyBtn];
                 
-                grilBtn = [[UIButton alloc]initWithFrame:CGRectMake((boyBtn.frame.size.width + boyBtn.frame.origin.x+20),
-                                                                             5, 50, _cellHeight - 10)];
+                grilBtn.frame = CGRectMake((boyBtn.frame.size.width + boyBtn.frame.origin.x+20),
+                                                                             5, 50, _cellHeight - 10);
                 
                 [grilBtn setTitle:@"女" forState:UIControlStateNormal];
                 [grilBtn setImage:[UIImage imageNamed:@"point"] forState:UIControlStateNormal];
@@ -307,56 +584,121 @@
                 [cell addSubview:titlLab];
                 
                 
-                UIButton *highBtn = [[UIButton alloc] initWithFrame:CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
-                                                                               5, 80, _cellHeight - 10)];
+                highBtn.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
+                                                                               5, BtnWidth, _cellHeight - 10);
                 highBtn.backgroundColor = BACKGROUND_COLOR;
                 [highBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                UIImageView *btnCornerView = [[UIImageView alloc] initWithFrame:CGRectMake((highBtn.frame.size.width - 15),
-                                                                                          (highBtn.frame.size.height - 15),
-                                                                                          13, 13)];
-                btnCornerView.image = [UIImage imageNamed:@"btnCorner"];
-                [highBtn addSubview:btnCornerView];
+//                UIImageView *btnCornerView = [[UIImageView alloc] initWithFrame:CGRectMake((highBtn.frame.size.width - 15),
+//                                                                                          (highBtn.frame.size.height - 15),
+//                                                                                          13, 13)];
+//                btnCornerView.image = [UIImage imageNamed:@"btnCorner"];
+//                [highBtn addSubview:btnCornerView];
+                [highBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                highBtn.tag = HighTAG;
                 [cell addSubview:highBtn];
                 
-                UILabel * weightTitlLab = [[UILabel alloc] initWithFrame:CGRectMake((highBtn.frame.size.width + highBtn.frame.origin.x + 10), 0, 60, _cellHeight)];
+                UILabel * weightTitlLab = [[UILabel alloc] initWithFrame:CGRectMake((highBtn.frame.size.width + highBtn.frame.origin.x + 10), 0, 65, _cellHeight)];
                 weightTitlLab.text =@"体重:";
                 weightTitlLab.textColor = [UIColor whiteColor];
                 weightTitlLab.font = [UIFont systemFontOfSize:14];
+                
                 [cell addSubview:weightTitlLab];
                 
-                UIButton *weightBtn = [[UIButton alloc] initWithFrame:CGRectMake((weightTitlLab.frame.size.width + weightTitlLab.frame.origin.x + 10),
-                                                                               5, 80, _cellHeight - 10)];
+                weightBtn.frame = CGRectMake((weightTitlLab.frame.size.width + weightTitlLab.frame.origin.x + 10),
+                                                                               5, BtnWidth, _cellHeight - 10);
                 weightBtn.backgroundColor = BACKGROUND_COLOR;
                 [weightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            
-                UIImageView *btnCornerView2 = [[UIImageView alloc] initWithFrame:CGRectMake((highBtn.frame.size.width - 15),
-                                                                                           (highBtn.frame.size.height - 15),
-                                                                                           13, 13)];
-                btnCornerView2.image = [UIImage imageNamed:@"btnCorner"];
-                
-                [weightBtn addSubview:btnCornerView2];
+                weightBtn.tag = WeightTAG;
+
+                [weightBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
                 [cell addSubview:weightBtn];
-                
                 
                 
             }
                 break;
             case 3:
             {
-                UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 80, _cellHeight)];
-                titlLab.text =@"所在地:";
+                UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 40, _cellHeight)];
+                titlLab.text =@"年龄:";
                 titlLab.textColor = [UIColor whiteColor];
                 titlLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titlLab];
+                
+                
+                ageBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
+                                                                     5, BtnWidth, _cellHeight - 10);
+                ageBtn.backgroundColor = BACKGROUND_COLOR;
+                [ageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
+                [ageBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                ageBtn.tag = AgeTAG;
+                [cell addSubview:ageBtn];
+                
+                UILabel * timeTitlLab = [[UILabel alloc] initWithFrame:CGRectMake((ageBtn.frame.size.width + ageBtn.frame.origin.x + 10), 0, 65, _cellHeight)];
+                timeTitlLab.text =@"习武时间:";
+                timeTitlLab.textColor = [UIColor whiteColor];
+                timeTitlLab.font = [UIFont systemFontOfSize:14];
+                
+                [cell addSubview:timeTitlLab];
+                
+                learnTimeBtn.frame = CGRectMake((timeTitlLab.frame.size.width + timeTitlLab.frame.origin.x + 10),
+                                                                       5, BtnWidth, _cellHeight - 10);
+                learnTimeBtn.backgroundColor = BACKGROUND_COLOR;
+                [learnTimeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                learnTimeBtn.tag = LearnTimeTAG;
+
+                [learnTimeBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:learnTimeBtn];
+                
             }
                 break;
             case 4:
             {
-                UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 80, _cellHeight)];
-                titlLab.text =@"习武时间:";
+                UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 60, _cellHeight)];
+                titlLab.text =@"所在地:";
                 titlLab.textColor = [UIColor whiteColor];
                 titlLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titlLab];
+                
+                provinceBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
+                                                                     5, BtnWidth, _cellHeight - 10);
+                provinceBtn.backgroundColor = BACKGROUND_COLOR;
+                [provinceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                UIImageView *btnCornerView = [[UIImageView alloc] initWithFrame:CGRectMake((provinceBtn.frame.size.width - 15),
+                                                                                          (provinceBtn.frame.size.height - 15),
+                                                                                          13, 13)];
+                btnCornerView.image = [UIImage imageNamed:@"btnCorner"];
+                [provinceBtn addSubview:btnCornerView];
+                [provinceBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                provinceBtn.tag = ProvinceTAG;
+                [cell addSubview:provinceBtn];
+                
+                cityBtn.frame = CGRectMake((provinceBtn.frame.size.width + provinceBtn.frame.origin.x + 2), 5, BtnWidth, _cellHeight - 10);
+                cityBtn.backgroundColor = BACKGROUND_COLOR;
+                [cityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                UIImageView *btnCornerView2 = [[UIImageView alloc] initWithFrame:CGRectMake((cityBtn.frame.size.width - 15),
+                                                                                           (cityBtn.frame.size.height - 15),
+                                                                                           13, 13)];
+                btnCornerView2.image = [UIImage imageNamed:@"btnCorner"];
+                [cityBtn addSubview:btnCornerView2];
+                [cityBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                cityBtn.tag = CityTAG;
+                [cell addSubview:cityBtn];
+                
+                
+                areaBtn.frame = CGRectMake((cityBtn.frame.size.width + cityBtn.frame.origin.x + 2),
+                                                                       5, BtnWidth, _cellHeight - 10);
+                areaBtn.backgroundColor = BACKGROUND_COLOR;
+                [areaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                areaBtn.tag = AreaTAG;
+                UIImageView *btnCornerView3 = [[UIImageView alloc] initWithFrame:CGRectMake((cityBtn.frame.size.width - 15),
+                                                                                            (cityBtn.frame.size.height - 15),
+                                                                                            13, 13)];
+                btnCornerView3.image = [UIImage imageNamed:@"btnCorner"];
+                [areaBtn addSubview:btnCornerView3];
+                [areaBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:areaBtn];
+                
             }
                 break;
             case 5:
@@ -366,6 +708,19 @@
                 titlLab.textColor = [UIColor whiteColor];
                 titlLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titlLab];
+                
+                
+                introductionText.frame = CGRectMake((titlLab.frame.size.width+introductionText.frame.origin.x + 5), 5,
+                                                    (SCREEN_WIDTH - 10 - (titlLab.frame.size.width+introductionText.frame.origin.x + 5)),
+                                                    (3*_cellHeight - 5*2) ) ;
+                
+                introductionText.text = @"喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武";
+                introductionText.textColor = [UIColor whiteColor];
+                introductionText.backgroundColor = BACKGROUND_COLOR;
+                introductionText.font = [UIFont systemFontOfSize:14];
+                introductionText.textAlignment = NSTextAlignmentLeft;
+                tempIndexPath = indexPath;
+                [cell addSubview:introductionText];
             }
                 break;
                 
@@ -380,6 +735,31 @@
         }
         return cell;
         
+    }
+    else if(indexPath.section == 2)
+    {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
+        cell.backgroundColor = ItemsBaseColor;
+        
+        UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 80, _cellHeight)];
+        titlLab.text =@"修改密码:";
+        titlLab.textColor = [UIColor whiteColor];
+        titlLab.font = [UIFont systemFontOfSize:14];
+        [cell addSubview:titlLab];
+        
+        UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
+        rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
+        rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
+        rightView.contentMode = UIViewContentModeScaleAspectFit;
+        [cell addSubview:rightView];
+        
+        if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
+        {
+            [cell setSeparatorInset:UIEdgeInsetsZero];
+            [cell setLayoutMargins:UIEdgeInsetsZero];
+        }
+        return cell;
+
     }
     else
     {
@@ -489,7 +869,7 @@
 
 //设置section footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if(section ==0)
+    if(section ==0||section ==1)
         return 10;
     else
         return 0;
