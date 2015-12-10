@@ -10,7 +10,7 @@
 
 @interface UITableViewCell (EditMode)
 
--(void)setCellEditMode:(BOOL)enableEditMode andGapSize:(CGFloat)gapSize;
+-(void)setCellEditMode:(BOOL)enableEditMode andBtnCenter:(CGPoint)point;
 
 
 @end

@@ -1,35 +1,36 @@
 //
-//  MoreViewController.m
+//  ChoosePlanTypeViewController.m
 //  KongFuCenter
 //
-//  Created by 王建成 on 15/12/3.
+//  Created by 王建成 on 15/12/10.
 //  Copyright © 2015年 zykj. All rights reserved.
 //
 
-#import "MoreViewController.h"
+#import "ChoosePlanTypeViewController.h"
 
-@interface MoreViewController ()
+@interface ChoosePlanTypeViewController ()
 {
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    
+    NSArray *dataArr;
 }
 @end
 
-@implementation MoreViewController
+@implementation ChoosePlanTypeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"更多"];
+    [self addLeftButton:@"left"];
     [self initViews];
     // Do any additional setup after loading the view.
 }
 -(void)initViews
 {
     _cellHeight = SCREEN_HEIGHT/12;
-    _sectionNum = 2;
+    _sectionNum = 1;
     
     
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
@@ -42,19 +43,17 @@
     //_mainTableView.scrollEnabled = NO;
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
+    
+    dataArr = @[@"周计划",@"月计划",@"季计划",@"年计划"];
     [self.view addSubview:_mainTableView];
-    
-    
-    UIButton *outBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, _cellHeight*5+20,
-                                                                  (SCREEN_WIDTH - 20*2), _cellHeight)];
-    [outBtn setTitle:@"退出" forState:UIControlStateNormal];
-    [outBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    outBtn.backgroundColor = ItemsBaseColor;
-    
-    [_mainTableView addSubview:outBtn];
     
 }
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
 
 
 #pragma mark -  tableview  Delegate
@@ -69,61 +68,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 2;
+    return 4;
     
 }
 
 #pragma mark - setting for cell
 //设置每行调用的cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
+
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
+    
     cell.backgroundColor = ItemsBaseColor;
+    cell.textLabel.text = dataArr[indexPath.row];
     cell.textLabel.textColor = [UIColor whiteColor];
-    if(indexPath.section == 0)
-    {
-        switch (indexPath.row) {
-            case 0:
-            {
-                cell.textLabel.text  = @"聊天通知设置";
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//                UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
-//                rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
-//                rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
-//                rightView.contentMode = UIViewContentModeScaleAspectFit;
-//                [cell addSubview:rightView];
-            }
-                break;
-            case 1:
-                cell.textLabel.text = @"当前版本";
-                break;
-            default:
-                break;
-        }
-    }
-    else if(indexPath.section == 1)
-    {
-        switch (indexPath.row) {
-            case 0:
-            {
-                cell.textLabel.text  = @"清除缓存";
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//                
-//                UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
-//                rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
-//                rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
-//                rightView.contentMode = UIViewContentModeScaleAspectFit;
-//                [cell addSubview:rightView];
-            }
-                break;
-            case 1:
-                cell.textLabel.text = @"在线客服";
-                break;
-            default:
-                break;
-        }
-    }
+    
     return cell;
     
 }
@@ -140,6 +98,24 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
+    if([self.delegate respondsToSelector:@selector(outView:)])
+    {
+        [self.delegate outView:dataArr[indexPath.row]];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    
+}
+
+
+- (void)drawRect:(CGRect)rect {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor); CGContextFillRect(context, rect); //上分割线，
+    
+    CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
+    CGContextStrokeRect(context, CGRectMake(5, -1, rect.size.width - 10, 1)); //下分割线
+    CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
+    CGContextStrokeRect(context, CGRectMake(5, 10, 100, 10));
 }
 
 
@@ -187,13 +163,13 @@
 //设置section header 的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10;
+    return 0;
 }
 
 //设置section footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 0;
+    return 10;
     
 }
 

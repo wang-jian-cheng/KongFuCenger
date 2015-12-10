@@ -9,7 +9,7 @@
 #import "BaseNavigationController.h"
 #import "SelectRoundBtn.h"
 #import "NewPlanViewController.h"
-
+#import "UITableViewCell+EditMode.h"
 @interface TrainsPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
 {
     UIView *moreSettingBackView;

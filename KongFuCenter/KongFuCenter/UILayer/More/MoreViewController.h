@@ -8,6 +8,6 @@
 
 #import "BaseNavigationController.h"
 
-@interface MoreViewController : BaseNavigationController
+@interface MoreViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end

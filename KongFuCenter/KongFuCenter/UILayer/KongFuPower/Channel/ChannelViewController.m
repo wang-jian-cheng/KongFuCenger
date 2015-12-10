@@ -1,14 +1,14 @@
 //
-//  StudyOnLineViewController.m
+//  ChannelViewController.m
 //  KongFuCenter
 //
-//  Created by 王建成 on 15/12/3.
+//  Created by 王建成 on 15/12/10.
 //  Copyright © 2015年 zykj. All rights reserved.
 //
 
-#import "StudyOnLineViewController.h"
+#import "ChannelViewController.h"
 
-@interface StudyOnLineViewController ()
+@interface ChannelViewController ()
 {
     //Views
     UICollectionView *mainCollectionView;
@@ -22,22 +22,19 @@
     
 }
 @end
-
 #define _CELL @ "acell"
-@implementation StudyOnLineViewController
+@implementation ChannelViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = BACKGROUND_COLOR;
+    [self addLeftButton:@"left"];
     
     [self initDatas];
     [self initViews];
-    self.view.backgroundColor = BACKGROUND_COLOR;
-    [self addLeftButton:@"left"];
     // Do any additional setup after loading the view.
 }
-
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
@@ -50,41 +47,15 @@
     [studyCateArr addObjectsFromArray:@[@"正向品格",@"极限武术",@"教练核能",@"运营管理"]];
     
     secondCateArr= [NSMutableArray array];
-    [secondCateArr addObjectsFromArray:@[@"野心",@"坚毅",@"激情",@"自制",@"好奇",@"感恩",@"乐观",@"社交",@"其他",@"4",@"3",@"2",@"1"]];
-
+    [secondCateArr addObjectsFromArray:@[@"电影",@"励志",@"表演",@"理念",@"技术",@"赛事",@"运营",@"教学",@"大师",@"4",@"3",@"2",@"1"]];
+    
     btnArr = [NSMutableArray array];
 }
 
 -(void)initViews
 {
-    UIView *viewForBtns = [[UIView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, 44)];
-    btnImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btnFlag"]];
-    btnImgView.contentMode = UIViewContentModeScaleAspectFit;
-    for (int i = 0;i< studyCateArr.count; i++) {
-        UIButton *cateBtn = [[UIButton alloc] initWithFrame:CGRectMake(0 + i*(SCREEN_WIDTH/studyCateArr.count), 0,(SCREEN_WIDTH/studyCateArr.count) , viewForBtns.frame.size.height)];
-        
-        if(i == 0)
-        {
-            cateBtn.selected = YES;
-            btnImgView.frame = CGRectMake((cateBtn.frame.size.width - 15)/2, (cateBtn.frame.size.height - 15), 15, 15);
-            [cateBtn addSubview:btnImgView];
-        }
-        
-        [cateBtn setTitle:studyCateArr[i] forState:UIControlStateNormal];
-        cateBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-        cateBtn.backgroundColor = ItemsBaseColor;
-        [cateBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [cateBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
-        cateBtn.tag = i;
-        
-        [cateBtn addTarget:self action:@selector(cateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [viewForBtns addSubview:cateBtn];
-        [btnArr addObject:cateBtn];
-    }
     
-    [self.view addSubview:viewForBtns];
     
-
     self.collectionViewLayout = [[RAMCollectionViewFlemishBondLayout alloc] init];
     self.collectionViewLayout.delegate = self;
     self.collectionViewLayout.numberOfElements = 3;
@@ -94,7 +65,7 @@
     
     // layout.sectionInset = UIEdgeInsetsMake(5, 0, 5, 0);
     
-    mainCollectionView = [[UICollectionView alloc]  initWithFrame:CGRectMake(0, 44+Header_Height, SCREEN_WIDTH , SCREEN_HEIGHT-(44+Header_Height)) collectionViewLayout:self.collectionViewLayout];
+    mainCollectionView = [[UICollectionView alloc]  initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH , SCREEN_HEIGHT-(Header_Height)) collectionViewLayout:self.collectionViewLayout];
     
     
     [mainCollectionView registerClass :[ UICollectionViewCell class ] forCellWithReuseIdentifier : _CELL ];
@@ -107,7 +78,7 @@
     mainCollectionView.backgroundColor = BACKGROUND_COLOR;
     
     
-   // [mainCollectionView registerClass:[MYCollectionHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
+    // [mainCollectionView registerClass:[MYCollectionHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
     //#pragma mark -- 注册尾部视图
     //    [mainCollectionView registerClass:[MyCollectionFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FooterView"];
     [self.view addSubview:mainCollectionView];
@@ -138,7 +109,7 @@
 
 -( NSInteger )collectionView:( UICollectionView *)collectionView numberOfItemsInSection:( NSInteger )section
 {
-
+    
     return secondCateArr.count  ;
     
 }
@@ -159,7 +130,7 @@
     
     UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:_CELL forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
-
+    
     if(cell != nil)
     {
         for (int i =0 ; i<cell.subviews.count; i++) {
@@ -191,7 +162,7 @@
     
     NSLog(@"click cell");
     
-    VideoListForStudyViewController *videoList = [[VideoListForStudyViewController alloc] init];
+    ChannelVideosViewController *videoList = [[ChannelVideosViewController alloc] init];
     videoList.navtitle = secondCateArr[indexPath.row];
     [self.navigationController pushViewController:videoList animated:YES];
     
@@ -210,7 +181,7 @@
 //
 //- ( CGSize )collectionView:( UICollectionView *)collectionView layout:( UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:( NSIndexPath *)indexPath
 //{
-//    
+//
 //   return  CGSizeMake ( (SCREEN_WIDTH - 10)/2 , SCREEN_HEIGHT/4 -10);
 //}
 //
@@ -218,10 +189,10 @@
 //
 -( UIEdgeInsets )collectionView:( UICollectionView *)collectionView layout:( UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:( NSInteger )section
 {
-
-
+    
+    
     return UIEdgeInsetsMake ( 10 ,10 , 10 , 10 );
-
+    
 }
 
 
@@ -240,7 +211,7 @@
 {
     RAMCollectionViewFlemishBondLayoutGroupDirection direction;
     
-   
+    
     
     if ((indexPath.row/3) % 2) {
         direction = RAMCollectionViewFlemishBondLayoutGroupDirectionRight;
@@ -257,7 +228,7 @@
         direction |= RAMCollectionViewUnHighlightedCellInBottom;
     }
     
-   
+    
     
     return direction;
 }

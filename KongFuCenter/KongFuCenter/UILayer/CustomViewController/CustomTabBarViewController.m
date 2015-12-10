@@ -124,7 +124,7 @@
 
     //加入到真正的tabbar
     //fix me 商铺选项卡暂时隐藏
-    self.viewControllers=[NSArray arrayWithObjects:homeviewnav,typeViewnav,shoplistView,store,ShoppingCart,nil];
+    self.viewControllers=[NSArray arrayWithObjects:homeviewnav,typeViewnav,shoplistViewnav,storenav,ShoppingCartnav,nil];
     
     UIButton *btnSender = (UIButton *)[self.view viewWithTag:0 + 1000];
     [self onTabButtonPressed:btnSender];

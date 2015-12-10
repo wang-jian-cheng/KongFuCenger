@@ -7,7 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
-
-@interface NewPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate>
+#import "ChoosePlanTypeViewController.h"
+@interface NewPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate,ChoosePlanTypeDelegate>
 
 @end

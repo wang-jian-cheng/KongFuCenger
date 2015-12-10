@@ -19,6 +19,7 @@
     UITextField *_titleField;//标题
     UITextView *_textView;
     CGFloat _keyHeight;
+    UIButton *tipbtn;
 }
 @end
 
@@ -145,10 +146,21 @@
     
 }
 
+-(void)pushViewAction:(UIButton *)sender
+{
+    ChoosePlanTypeViewController *choosePlanViewCtl = [[ChoosePlanTypeViewController alloc] init];
+    choosePlanViewCtl.navtitle = @"选择计划选项";
+    choosePlanViewCtl.delegate = self;
+    [self.navigationController pushViewController:choosePlanViewCtl animated:YES];
+}
+
 
 -(void)tapViewAction:(id)sender
 {
     NSLog(@"tap view---");
+
+    
+//    [self.view endEditing:YES];
     
     if(_keyShow == true)
     {
@@ -175,6 +187,12 @@
     
     return _cellCount;
 }
+-(void)outView:(NSString *)planType
+{
+    [tipbtn setTitle:planType forState:UIControlStateNormal];
+    tipbtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+}
+
 #pragma mark -textField
 //-(void)textFieldDidBeginEditing:(UITextField *)textField
 //{
@@ -253,11 +271,17 @@
         {
             cell.textLabel.text = @"发帖内容";
             
+            tipbtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150 ), 0, 150, _cellHeight)];
+            tipbtn.backgroundColor = BACKGROUND_COLOR;
+            [tipbtn addTarget:self action:@selector(pushViewAction:) forControlEvents:UIControlEventTouchUpInside];
+            
             UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
-            rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
-            rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
+            rightView.frame = CGRectMake((tipbtn.frame.size.width - 20 -20), 0, 15, 15);
+            rightView.center = CGPointMake((tipbtn.frame.size.width - 15 -10), _cellHeight/2);
             rightView.contentMode = UIViewContentModeScaleAspectFit;
-            [cell addSubview:rightView];
+            [tipbtn addSubview:rightView];
+            
+            [cell addSubview:tipbtn];
         }
         case 2:
         {
@@ -316,11 +340,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
-    if(indexPath.row == 1)
-    {
-        
-        
-    }
+
     
 }
 

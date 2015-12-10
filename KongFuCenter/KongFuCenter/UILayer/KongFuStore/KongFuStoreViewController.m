@@ -18,6 +18,17 @@
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"核装备"];
+    
+    
+    UILabel *tipLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    tipLab.text = @"敬请期待";
+    tipLab.textColor = [UIColor whiteColor];
+    tipLab.textAlignment = NSTextAlignmentCenter ;
+    
+    [self.view addSubview:tipLab];
+    
+    
     // Do any additional setup after loading the view.
 }
 

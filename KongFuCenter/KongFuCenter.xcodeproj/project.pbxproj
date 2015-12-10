@@ -94,6 +94,27 @@
 		B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D89A091C117A4100F55BFA /* MyCollectViewController.m */; };
 		B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D89A0C1C118BB800F55BFA /* MyCollectTableViewCell.m */; };
 		B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D89A0D1C118BB800F55BFA /* MyCollectTableViewCell.xib */; };
+		B5F90ACD1C190CF900D7879D /* ChoosePlanTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F90ACC1C190CF900D7879D /* ChoosePlanTypeViewController.m */; };
+		B5F90AD01C1928C200D7879D /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90ACF1C1928C200D7879D /* plus@2x.png */; };
+		B5F90AD41C192A2200D7879D /* chenglong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AD11C192A2200D7879D /* chenglong@2x.png */; };
+		B5F90AD51C192A2200D7879D /* lixiaolong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AD21C192A2200D7879D /* lixiaolong@2x.png */; };
+		B5F90AD61C192A2200D7879D /* zhenzidan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AD31C192A2200D7879D /* zhenzidan@2x.png */; };
+		B5F90AD91C194FCA00D7879D /* chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AD71C194FCA00D7879D /* chat@2x.png */; };
+		B5F90ADA1C194FCA00D7879D /* clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AD81C194FCA00D7879D /* clock@2x.png */; };
+		B5F90ADE1C196AB800D7879D /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F90ADD1C196AB800D7879D /* ChannelViewController.m */; };
+		B5F90AE11C19702400D7879D /* ChannelVideosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F90AE01C19702400D7879D /* ChannelVideosViewController.m */; };
+		B5F90AED1C197D3D00D7879D /* InputText.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F90AE41C197D3D00D7879D /* InputText.m */; };
+		B5F90AEE1C197D3D00D7879D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F90AE61C197D3D00D7879D /* LoginViewController.m */; };
+		B5F90AEF1C197D3D00D7879D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AE71C197D3D00D7879D /* LoginViewController.xib */; };
+		B5F90AF01C197D3D00D7879D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F90AE91C197D3D00D7879D /* RegisterViewController.m */; };
+		B5F90AF11C197D3D00D7879D /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AEA1C197D3D00D7879D /* RegisterViewController.xib */; };
+		B5F90AF21C197D3D00D7879D /* UIView+XD.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F90AEC1C197D3D00D7879D /* UIView+XD.m */; };
+		B5F90AF51C197F1700D7879D /* DataDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F90AF41C197F1700D7879D /* DataDefine.m */; };
+		B5F90AFC1C1985A100D7879D /* LoginAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AF71C1985A100D7879D /* LoginAccount@2x.png */; };
+		B5F90AFD1C1985A100D7879D /* LoginPassword@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AF81C1985A100D7879D /* LoginPassword@2x.png */; };
+		B5F90AFE1C1985A100D7879D /* LoginQQ@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AF91C1985A100D7879D /* LoginQQ@2x.png */; };
+		B5F90AFF1C1985A100D7879D /* Logintitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AFA1C1985A100D7879D /* Logintitle@2x.png */; };
+		B5F90B001C1985A100D7879D /* Loginweixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AFB1C1985A100D7879D /* Loginweixin@2x.png */; };
 		B72C3CBE1C1558F000D3250A /* KongFuUnionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */; };
 		B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CC21C15668800D3250A /* RecruitComment.m */; };
 		B72C3CC81C1568C900D3250A /* RecruitCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CC61C1568C900D3250A /* RecruitCommentCell.m */; };
@@ -267,6 +288,35 @@
 		B5D89A0B1C118BB800F55BFA /* MyCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCollectTableViewCell.h; sourceTree = "<group>"; };
 		B5D89A0C1C118BB800F55BFA /* MyCollectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCollectTableViewCell.m; sourceTree = "<group>"; };
 		B5D89A0D1C118BB800F55BFA /* MyCollectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCollectTableViewCell.xib; sourceTree = "<group>"; };
+		B5F90ACB1C190CF900D7879D /* ChoosePlanTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePlanTypeViewController.h; sourceTree = "<group>"; };
+		B5F90ACC1C190CF900D7879D /* ChoosePlanTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePlanTypeViewController.m; sourceTree = "<group>"; };
+		B5F90ACF1C1928C200D7879D /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
+		B5F90AD11C192A2200D7879D /* chenglong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chenglong@2x.png"; sourceTree = "<group>"; };
+		B5F90AD21C192A2200D7879D /* lixiaolong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lixiaolong@2x.png"; sourceTree = "<group>"; };
+		B5F90AD31C192A2200D7879D /* zhenzidan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zhenzidan@2x.png"; sourceTree = "<group>"; };
+		B5F90AD71C194FCA00D7879D /* chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat@2x.png"; sourceTree = "<group>"; };
+		B5F90AD81C194FCA00D7879D /* clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock@2x.png"; sourceTree = "<group>"; };
+		B5F90ADC1C196AB800D7879D /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
+		B5F90ADD1C196AB800D7879D /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
+		B5F90ADF1C19702400D7879D /* ChannelVideosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelVideosViewController.h; sourceTree = "<group>"; };
+		B5F90AE01C19702400D7879D /* ChannelVideosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelVideosViewController.m; sourceTree = "<group>"; };
+		B5F90AE31C197D3D00D7879D /* InputText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputText.h; sourceTree = "<group>"; };
+		B5F90AE41C197D3D00D7879D /* InputText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputText.m; sourceTree = "<group>"; };
+		B5F90AE51C197D3D00D7879D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		B5F90AE61C197D3D00D7879D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		B5F90AE71C197D3D00D7879D /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		B5F90AE81C197D3D00D7879D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		B5F90AE91C197D3D00D7879D /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		B5F90AEA1C197D3D00D7879D /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		B5F90AEB1C197D3D00D7879D /* UIView+XD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XD.h"; sourceTree = "<group>"; };
+		B5F90AEC1C197D3D00D7879D /* UIView+XD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XD.m"; sourceTree = "<group>"; };
+		B5F90AF31C197F1700D7879D /* DataDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataDefine.h; sourceTree = "<group>"; };
+		B5F90AF41C197F1700D7879D /* DataDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataDefine.m; sourceTree = "<group>"; };
+		B5F90AF71C1985A100D7879D /* LoginAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoginAccount@2x.png"; sourceTree = "<group>"; };
+		B5F90AF81C1985A100D7879D /* LoginPassword@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoginPassword@2x.png"; sourceTree = "<group>"; };
+		B5F90AF91C1985A100D7879D /* LoginQQ@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoginQQ@2x.png"; sourceTree = "<group>"; };
+		B5F90AFA1C1985A100D7879D /* Logintitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Logintitle@2x.png"; sourceTree = "<group>"; };
+		B5F90AFB1C1985A100D7879D /* Loginweixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loginweixin@2x.png"; sourceTree = "<group>"; };
 		B72C3CBB1C1558F000D3250A /* KongFuUnionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KongFuUnionViewController.h; sourceTree = "<group>"; };
 		B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KongFuUnionViewController.m; sourceTree = "<group>"; };
 		B72C3CC11C15668800D3250A /* RecruitComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecruitComment.h; sourceTree = "<group>"; };
@@ -513,6 +563,7 @@
 		B59408FA1C0FCAEC003DC15D /* UILayer */ = {
 			isa = PBXGroup;
 			children = (
+				B5F90AE21C197D3D00D7879D /* Login */,
 				B53791C21C157CEC00C45BA7 /* KongFuStore */,
 				B53791A91C1525CD00C45BA7 /* CommonUI */,
 				B5D899F31C11211900F55BFA /* RamCollectionView */,
@@ -566,6 +617,7 @@
 		B59409051C0FCE36003DC15D /* KongFuPower */ = {
 			isa = PBXGroup;
 			children = (
+				B5F90ADB1C196A2D00D7879D /* Channel */,
 				B594090E1C0FCF05003DC15D /* KongFuPowerViewController.h */,
 				B594090F1C0FCF05003DC15D /* KongFuPowerViewController.m */,
 			);
@@ -618,6 +670,8 @@
 		B594091B1C0FDB6A003DC15D /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B5F90AF61C19848E00D7879D /* login */,
+				B5F90ACE1C1928C200D7879D /* HeDongLi */,
 				B53791B71C1579B100C45BA7 /* HeWuzhe */,
 				B72C3CCA1C157A9F00D3250A /* KongFuUnion */,
 				B5D899FB1C113CB900F55BFA /* other */,
@@ -685,6 +739,8 @@
 				B5AF70791C18293F00C041AF /* TrainsPlanViewController.m */,
 				B5AF707D1C1837F600C041AF /* NewPlanViewController.h */,
 				B5AF707E1C1837F600C041AF /* NewPlanViewController.m */,
+				B5F90ACB1C190CF900D7879D /* ChoosePlanTypeViewController.h */,
+				B5F90ACC1C190CF900D7879D /* ChoosePlanTypeViewController.m */,
 			);
 			path = TrainsPlan;
 			sourceTree = "<group>";
@@ -716,6 +772,61 @@
 				B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */,
 			);
 			path = other;
+			sourceTree = "<group>";
+		};
+		B5F90ACE1C1928C200D7879D /* HeDongLi */ = {
+			isa = PBXGroup;
+			children = (
+				B5F90AD71C194FCA00D7879D /* chat@2x.png */,
+				B5F90AD81C194FCA00D7879D /* clock@2x.png */,
+				B5F90AD11C192A2200D7879D /* chenglong@2x.png */,
+				B5F90AD21C192A2200D7879D /* lixiaolong@2x.png */,
+				B5F90AD31C192A2200D7879D /* zhenzidan@2x.png */,
+				B5F90ACF1C1928C200D7879D /* plus@2x.png */,
+			);
+			path = HeDongLi;
+			sourceTree = "<group>";
+		};
+		B5F90ADB1C196A2D00D7879D /* Channel */ = {
+			isa = PBXGroup;
+			children = (
+				B5F90ADC1C196AB800D7879D /* ChannelViewController.h */,
+				B5F90ADD1C196AB800D7879D /* ChannelViewController.m */,
+				B5F90ADF1C19702400D7879D /* ChannelVideosViewController.h */,
+				B5F90AE01C19702400D7879D /* ChannelVideosViewController.m */,
+			);
+			path = Channel;
+			sourceTree = "<group>";
+		};
+		B5F90AE21C197D3D00D7879D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B5F90AF31C197F1700D7879D /* DataDefine.h */,
+				B5F90AF41C197F1700D7879D /* DataDefine.m */,
+				B5F90AE31C197D3D00D7879D /* InputText.h */,
+				B5F90AE41C197D3D00D7879D /* InputText.m */,
+				B5F90AE51C197D3D00D7879D /* LoginViewController.h */,
+				B5F90AE61C197D3D00D7879D /* LoginViewController.m */,
+				B5F90AE71C197D3D00D7879D /* LoginViewController.xib */,
+				B5F90AE81C197D3D00D7879D /* RegisterViewController.h */,
+				B5F90AE91C197D3D00D7879D /* RegisterViewController.m */,
+				B5F90AEA1C197D3D00D7879D /* RegisterViewController.xib */,
+				B5F90AEB1C197D3D00D7879D /* UIView+XD.h */,
+				B5F90AEC1C197D3D00D7879D /* UIView+XD.m */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		B5F90AF61C19848E00D7879D /* login */ = {
+			isa = PBXGroup;
+			children = (
+				B5F90AF71C1985A100D7879D /* LoginAccount@2x.png */,
+				B5F90AF81C1985A100D7879D /* LoginPassword@2x.png */,
+				B5F90AF91C1985A100D7879D /* LoginQQ@2x.png */,
+				B5F90AFA1C1985A100D7879D /* Logintitle@2x.png */,
+				B5F90AFB1C1985A100D7879D /* Loginweixin@2x.png */,
+			);
+			path = login;
 			sourceTree = "<group>";
 		};
 		B72C3CC01C15660800D3250A /* RecruitComment */ = {
@@ -893,6 +1004,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5AF705B1C17C21400C041AF /* SVProgressHUD.bundle in Resources */,
+				B5F90AD91C194FCA00D7879D /* chat@2x.png in Resources */,
 				B72C3CC91C1568C900D3250A /* RecruitCommentCell.xib in Resources */,
 				B5AF70711C181FAD00C041AF /* zhifubao@2x.png in Resources */,
 				B72C3CCF1C157AB700D3250A /* xing.png in Resources */,
@@ -906,14 +1018,18 @@
 				B7CE7F511C16CBAA0035D8CA /* weikaishi.png in Resources */,
 				B5AF70701C181FAD00C041AF /* weixin@2x.png in Resources */,
 				B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */,
+				B5F90AF11C197D3D00D7879D /* RegisterViewController.xib in Resources */,
 				B53791C01C1579F500C45BA7 /* hezhuangbei@2x.png in Resources */,
 				B53791CD1C15821E00C45BA7 /* right@2x.png in Resources */,
 				B53791C71C157ED000C45BA7 /* showimg@2x.png in Resources */,
 				B53E739C1C16E676009E7878 /* btnCorner@2x.png in Resources */,
 				B5AF707C1C1830BA00C041AF /* moreNoword@2x.png in Resources */,
 				B5AF706A1C18032B00C041AF /* VipViewController.xib in Resources */,
+				B5F90ADA1C194FCA00D7879D /* clock@2x.png in Resources */,
 				B53E739A1C16E1EF009E7878 /* pointH@2x.png in Resources */,
 				B53E738C1C1673B3009E7878 /* tip@2x.png in Resources */,
+				B5F90AFC1C1985A100D7879D /* LoginAccount@2x.png in Resources */,
+				B5F90AFE1C1985A100D7879D /* LoginQQ@2x.png in Resources */,
 				B72C3CD01C157AB700D3250A /* xin.png in Resources */,
 				B5AF70621C17F69B00C041AF /* ZhiBoViewController.xib in Resources */,
 				B53E73921C16AB0C009E7878 /* wuguanimg@2x.png in Resources */,
@@ -923,28 +1039,36 @@
 				B72C3CD01C157AB700D3250A /* xin.png in Resources */,
 				B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */,
 				B53E73991C16E1EF009E7878 /* point@2x.png in Resources */,
+				B5F90AFD1C1985A100D7879D /* LoginPassword@2x.png in Resources */,
+				B5F90AEF1C197D3D00D7879D /* LoginViewController.xib in Resources */,
 				B7C428051C1524F3003F504F /* JHStoryTableViewCell.xib in Resources */,
 				B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */,
 				B5AF70871C183A9F00C041AF /* smilies@2x.png in Resources */,
 				B53791B61C15724900C45BA7 /* temp3@2x.png in Resources */,
+				B5F90AD51C192A2200D7879D /* lixiaolong@2x.png in Resources */,
 				B7CE7F481C16C6F30035D8CA /* JoinTeamCell.xib in Resources */,
+				B5F90AD41C192A2200D7879D /* chenglong@2x.png in Resources */,
 				B5AF70851C183A9F00C041AF /* photo@2x.png in Resources */,
 				B5AF70861C183A9F00C041AF /* picture@2x.png in Resources */,
 				B7CE7F4D1C16CB160035D8CA /* jointeam.png in Resources */,
 				B53791BF1C1579F500C45BA7 /* hewuzhe@2x.png in Resources */,
+				B5F90AFF1C1985A100D7879D /* Logintitle@2x.png in Resources */,
 				B53E737F1C166389009E7878 /* support@2x.png in Resources */,
 				B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */,
 				B5D89A071C1165E400F55BFA /* temp@2x.png in Resources */,
 				B5AF70731C18216C00C041AF /* selectRound@2x.png in Resources */,
 				B53E73811C166BF9009E7878 /* left@2x.png in Resources */,
 				B53791CC1C15821E00C45BA7 /* liubianxing@2x.png in Resources */,
+				B5F90AD01C1928C200D7879D /* plus@2x.png in Resources */,
 				B53E737D1C166389009E7878 /* share@2x.png in Resources */,
 				B53791CB1C15821E00C45BA7 /* headImg@2x.png in Resources */,
+				B5F90B001C1985A100D7879D /* Loginweixin@2x.png in Resources */,
 				B53E737E1C166389009E7878 /* support_h@2x.png in Resources */,
 				B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */,
 				B5AF70841C183A9F00C041AF /* down@2x.png in Resources */,
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
 				B53791C11C1579F500C45BA7 /* more@2x.png in Resources */,
+				B5F90AD61C192A2200D7879D /* zhenzidan@2x.png in Resources */,
 				B7CE7F521C16CBAA0035D8CA /* jinxingzhong.png in Resources */,
 				B53791BE1C1579F500C45BA7 /* helianmeng@2x.png in Resources */,
 				B53E737A1C166389009E7878 /* collect_h@2x.png in Resources */,
@@ -992,18 +1116,24 @@
 				B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */,
 				B5AF70591C17C21400C041AF /* Dialog.m in Sources */,
 				B53791A41C151AED00C45BA7 /* VideoDetailViewController.m in Sources */,
+				B5F90ADE1C196AB800D7879D /* ChannelViewController.m in Sources */,
 				B59409101C0FCF05003DC15D /* KongFuPowerViewController.m in Sources */,
 				B569DB941C12822900325CFA /* GrowHistoryViewController.m in Sources */,
 				B5D899F91C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m in Sources */,
+				B5F90AF51C197F1700D7879D /* DataDefine.m in Sources */,
 				B53791B41C15709B00C45BA7 /* WuGuanDetailViewController.m in Sources */,
+				B5F90AF21C197D3D00D7879D /* UIView+XD.m in Sources */,
 				B5AF705C1C17C21400C041AF /* SVProgressHUD.m in Sources */,
 				B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */,
 				B53791B01C156B8C00C45BA7 /* VideoListForStudyViewController.m in Sources */,
 				B7CE7F3A1C16AF780035D8CA /* MushaMatch.m in Sources */,
+				B5F90ACD1C190CF900D7879D /* ChoosePlanTypeViewController.m in Sources */,
+				B5F90AEE1C197D3D00D7879D /* LoginViewController.m in Sources */,
 				B7CE7F471C16C6F30035D8CA /* JoinTeamCell.m in Sources */,
 				B59409191C0FD720003DC15D /* Toolkit.m in Sources */,
 				B53791C51C157CFF00C45BA7 /* KongFuStoreViewController.m in Sources */,
 				B5D89A041C11641000F55BFA /* WuGuanTableViewCell.m in Sources */,
+				B5F90AF01C197D3D00D7879D /* RegisterViewController.m in Sources */,
 				B72C3CBE1C1558F000D3250A /* KongFuUnionViewController.m in Sources */,
 				B53E73961C16CF01009E7878 /* PersonInfoViewController.m in Sources */,
 				B7CE7F431C16C61E0035D8CA /* JoinTeamViewController.m in Sources */,
@@ -1011,6 +1141,7 @@
 				B569DB9C1C12B6C000325CFA /* UITableViewCell+EditMode.m in Sources */,
 				B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */,
 				B5AF707A1C18293F00C041AF /* TrainsPlanViewController.m in Sources */,
+				B5F90AE11C19702400D7879D /* ChannelVideosViewController.m in Sources */,
 				B7CE7F3E1C16B0B00035D8CA /* MushaMatchCell.m in Sources */,
 				B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */,
 				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
@@ -1024,6 +1155,7 @@
 				B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */,
 				B59408C91C0FC9E8003DC15D /* main.m in Sources */,
 				B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */,
+				B5F90AED1C197D3D00D7879D /* InputText.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

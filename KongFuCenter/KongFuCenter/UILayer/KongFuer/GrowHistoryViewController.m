@@ -97,7 +97,9 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];;
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.backgroundColor = BACKGROUND_COLOR;
    // cell.selectionStyle = UITableViewCellSelectionStyleGray;
@@ -157,30 +159,30 @@
     [backImg addSubview:timeLabInImg];
     
     
-    [cell setEditing:YES];
+    //[cell setEditing:YES];
     
     if(EnditMode)
     {
         
         
-        for (int i =0 ; i<cell.contentView.subviews.count; i++) {
-            UIView *tempView ;
-            
-            
-            tempView = [cell.contentView.subviews objectAtIndex:i];
-            tempView.frame = CGRectMake(30, 0, 100, 100);
-            
-            
-            [cell layoutSubviews];
-            
-            //            [ [cell.subviews objectAtIndex:i] removeFromSuperview];//清空一下原来cell上面的view'防止cell的重用影响到后面section的显示
-        }
-        
-        [cell setCellEditMode:YES andGapSize:30];
+//        for (int i =0 ; i<cell.contentView.subviews.count; i++) {
+//            UIView *tempView ;
+//            
+//            
+//            tempView = [cell.contentView.subviews objectAtIndex:i];
+//            tempView.frame = CGRectMake(30, 0, 100, 100);
+//            
+//            
+//            [cell layoutSubviews];
+//            
+//            //            [ [cell.subviews objectAtIndex:i] removeFromSuperview];//清空一下原来cell上面的view'防止cell的重用影响到后面section的显示
+//        }
+//        
+        [cell setCellEditMode:YES andBtnCenter:CGPointMake(15, _cellHeight/2) ];
     }
     else
     {
-        [cell setCellEditMode:NO andGapSize:0];
+
     }
     
     

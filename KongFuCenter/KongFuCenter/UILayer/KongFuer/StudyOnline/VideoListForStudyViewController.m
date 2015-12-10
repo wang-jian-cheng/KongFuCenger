@@ -22,6 +22,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self initViews];
+    [self addLeftButton:@"left"];
     // Do any additional setup after loading the view.
 }
 

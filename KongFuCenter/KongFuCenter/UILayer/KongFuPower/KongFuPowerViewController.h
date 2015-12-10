@@ -7,7 +7,10 @@
 //
 
 #import "BaseNavigationController.h"
-
-@interface KongFuPowerViewController : BaseNavigationController
-
+#import "UserHeadView.h"
+#import "ChannelViewController.h"
+@interface KongFuPowerViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+{
+    UIView *moreSettingBackView;
+}
 @end

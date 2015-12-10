@@ -29,7 +29,7 @@
     NSMutableArray *btnArr;
     
     
-    
+    BOOL moreSettingBackViewFlag;
     
 }
 @end
@@ -127,9 +127,14 @@
     [delBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     delBtn.tag = DEL_BtnTag;
     
+    
+    
     [moreSettingBackView addSubview:newBtn];
     [moreSettingBackView addSubview:delBtn];
     [moreSettingBackView addSubview:lineView2];
+    
+    [self.view addSubview:moreSettingBackView];
+    moreSettingBackView.hidden = YES;
     
 }
 
@@ -180,47 +185,110 @@
 
 -(void)clickRightButton:(UIButton *)sender
 {
-    //EnditMode = !EnditMode;
-    //[_mainTableView reloadData];
+
     
-    if(moreSettingBackView.superview == nil)
+    if(moreSettingBackView.hidden == YES)
     {
-        [self.view addSubview:moreSettingBackView];
+        moreSettingBackView.hidden = NO;
         [self positionShowView:moreSettingBackView];
     }
     else
     {
-        [moreSettingBackView removeFromSuperview];
+
+       [self positionDismissView:moreSettingBackView];
     }
     
     
 }
 
+#define SHOW_ANIM_KEY   @"showSettingView"
+#define DISMISS_ANIM_KEY   @"dismissSettingView"
 -(void)positionShowView:(UIView *)tempView
 {
     
     
-//    CABasicAnimation *scale=[CABasicAnimation animationWithKeyPath:@"transform"];
-//    [scale setFromValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 0.2, 1.0)]];
-//    [scale setToValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
-//    
-//    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-//   
-//    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2), 0)];
-//    animation.toValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2),
-//                                                              (moreSettingBackView.frame.size.height/2 + moreSettingBackView.frame.origin.y))];
-//    //动画执行后保持显示状态 但是属性值不会改变 只会保持显示状态
-//    animation.fillMode = kCAFillModeForwards;
-//    animation.removedOnCompletion = NO;
-//    
-////    animation.autoreverses = YES;//动画返回
-//    
-//    CAAnimationGroup *group=[CAAnimationGroup animation];
-//    [group setAnimations:[NSArray arrayWithObjects:scale,animation, nil]];
-//    [group setDuration:0.5];
-////    animation.repeatCount = MAXFLOAT;//重复
-//    
-//    [tempView.layer addAnimation:group forKey:nil];
+    CABasicAnimation *scale=[CABasicAnimation animationWithKeyPath:@"transform"];
+    [scale setFromValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 0, 1.0)]];
+    [scale setToValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+   
+    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2), Header_Height)];
+    animation.toValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2),
+                                                              (moreSettingBackView.frame.size.height/2 + moreSettingBackView.frame.origin.y))];
+    //动画执行后保持显示状态 但是属性值不会改变 只会保持显示状态
+    animation.fillMode = kCAFillModeForwards;
+    animation.removedOnCompletion = NO;
+    
+//    animation.autoreverses = YES;//动画返回
+    
+    CAAnimationGroup *group=[CAAnimationGroup animation];
+    [group setAnimations:[NSArray arrayWithObjects:scale,animation, nil]];
+    [group setDuration:0.5];
+//    animation.repeatCount = MAXFLOAT;//重复
+    //tempView.layer.delegate = self;
+    group.delegate= self;
+    [moreSettingBackView.layer addAnimation:group forKey:SHOW_ANIM_KEY];
+}
+
+
+-(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    NSLog(@"anim stop");
+//    if([moreSettingBackView.layer  animationForKey:SHOW_ANIM_KEY] ==anim)//不好用！！！
+//    {
+//        CGRect tempRect =  moreSettingBackView.frame;
+//        tempRect.size.height = 88;
+//        moreSettingBackView.frame = tempRect;
+//        
+//    }
+//    else if ([moreSettingBackView.layer  animationForKey:DISMISS_ANIM_KEY]==anim)
+//    {
+//        CGRect tempRect =  moreSettingBackView.frame;
+//        tempRect.size.height = 0;
+//        moreSettingBackView.frame = tempRect;
+//    }
+////    
+//    if(moreSettingBackViewFlag == NO)
+//    {
+//   //     moreSettingBackView.alpha = 0;
+//        [moreSettingBackView removeFromSuperview];
+//    }
+//
+}
+
+-(void)positionDismissView:(UIView *)tempView
+{
+    
+    
+    CABasicAnimation *scale=[CABasicAnimation animationWithKeyPath:@"transform"];
+    [scale setFromValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1, 1.0)]];
+    [scale setToValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 0.0, 1.0)]];
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    
+    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2),
+                                                                (moreSettingBackView.frame.size.height/2 + moreSettingBackView.frame.origin.y))];
+    animation.toValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2),
+                                                              Header_Height)];
+    //动画执行后保持显示状态 但是属性值不会改变 只会保持显示状态
+    animation.fillMode = kCAFillModeForwards;
+    animation.removedOnCompletion = NO;
+    
+    //    animation.autoreverses = YES;//动画返回
+    
+    CAAnimationGroup *group=[CAAnimationGroup animation];
+    [group setAnimations:[NSArray arrayWithObjects:scale,animation, nil]];
+    [group setDuration:0.5];
+    //    animation.repeatCount = MAXFLOAT;//重复
+    group.delegate= self;
+    [tempView.layer addAnimation:group forKey:DISMISS_ANIM_KEY];
+    
+    [self performSelector:@selector(viewSetHidden:) withObject:[NSNumber numberWithBool:YES] afterDelay:0.5 - 0.1];
+}
+-(void)viewSetHidden:(id)info
+{
+    moreSettingBackView.hidden = YES;
 }
 
 #pragma mark -  tableview  Delegate
@@ -311,10 +379,12 @@
     
     if(EnditMode)
     {
-        SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake(15, _cellHeight/2)];
-        roundBtn.backgroundColor = Separator_Color;
-        [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [cell addSubview:roundBtn];
+//        SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake(15, _cellHeight/2)];
+//        roundBtn.backgroundColor = Separator_Color;
+//        [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//        [cell addSubview:roundBtn];
+        
+        [cell setCellEditMode:YES andBtnCenter:CGPointMake(15, _cellHeight/2)];
     }
     else
     {

@@ -8,9 +8,11 @@
 
 #import "AppDelegate.h"
 #import "CustomTabBarViewController.h"
+#import "LoginViewController.h"
 @interface AppDelegate ()
 {
     CustomTabBarViewController *_tabBarViewCol;
+    LoginViewController *_loginViewCtl;
 }
 @end
 
@@ -22,15 +24,46 @@
     
     _tabBarViewCol = [[CustomTabBarViewController alloc] init];
 
-    
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds] ];
-    self.window.rootViewController =_tabBarViewCol;
+    _loginViewCtl = [[LoginViewController alloc] init];
+    if(self.window == nil)
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds] ];
+   
     [self.window makeKeyAndVisible];
+    
+    self.window.rootViewController = _loginViewCtl;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView:) name:@"changeRootView" object:nil];
     
     return YES;
 }
 
+
+-(void)changeRootView:(id)sender
+{
+    NSString *viewName = [[sender userInfo]objectForKey:@"rootView"];
+    
+    NSLog(@"ViewName = %@",viewName);
+    
+    if([viewName isEqualToString:@"mainpage"])
+    {
+        self.window.rootViewController=_tabBarViewCol;
+        
+        return;
+    }
+    
+    
+    if([viewName isEqualToString:@"loginpage"])
+    {
+        self.window.rootViewController = [[LoginViewController alloc] init];
+        return;
+    }
+    
+    if([viewName isEqualToString:@"optionspage"])
+    {
+        //  self.window.rootViewController = _loginViewCtl;
+        return;
+    }
+    
+}
 
 
 - (void)showTabBar

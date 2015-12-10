@@ -244,11 +244,11 @@
 //            [ [cell.subviews objectAtIndex:i] removeFromSuperview];//清空一下原来cell上面的view'防止cell的重用影响到后面section的显示
         }
         
-        [cell setCellEditMode:YES andGapSize:30];
+       // [cell setCellEditMode:YES andGapSize:30];
     }
     else
     {
-        [cell setCellEditMode:NO andGapSize:0];
+       
     }
     
     return cell;
