@@ -8,6 +8,7 @@
 
 #import "VideoDetailViewController.h"
 #import "UserHeadView.h"
+#import "MoviePlayer.h"
 
 #define VideoPlaySection    0
 #define VideoDetailSection  1
@@ -56,6 +57,16 @@
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
+    
+    
+    MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
+    //     MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:self.view.bounds URL:[NSURL URLWithString:@"http://192.168.1.136/4.flv"]];
+    [self.view addSubview:view];
+    
+    
+    
+    
+    
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
     [self.view addGestureRecognizer:tapGesture];
