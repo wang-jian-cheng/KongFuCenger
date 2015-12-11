@@ -11,6 +11,7 @@
 #import "RecruitComment.h"
 #import "MushaMatch.h"
 #import "JoinTeamViewController.h"
+#import "MakeMushaViewController.h"
 
 @interface KongFuUnionViewController ()
 {
@@ -38,7 +39,6 @@
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     _mainTableView.separatorColor =  Separator_Color;
     _mainTableView.tableFooterView = [[UIView alloc] init];
-    _mainTableView.scrollEnabled = NO;
     [self.view addSubview:_mainTableView];
 }
 
@@ -114,7 +114,8 @@
         
     }else if(indexPath.section == 1){
         if (indexPath.row == 0) {
-            
+            MakeMushaViewController *makeMushaVC = [[MakeMushaViewController alloc] init];
+            [self.navigationController pushViewController:makeMushaVC animated:YES];
         }else if (indexPath.row == 1){
             JoinTeamViewController *joinTeamVC = [[JoinTeamViewController alloc] init];
             [self.navigationController pushViewController:joinTeamVC animated:YES];

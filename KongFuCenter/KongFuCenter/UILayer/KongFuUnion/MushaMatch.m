@@ -29,10 +29,10 @@
     [super viewDidLoad];
     
     //初始化参数
-    //self.view.backgroundColor = BACKGROUND_COLOR;
     mCellHeight = SCREEN_HEIGHT / 7;
     [self setBarTitle:@"武者大赛"];
     self.view.backgroundColor = BACKGROUND_COLOR;
+    [self addLeftButton:@"left"];
     
     //初始化数据
     [self initDatas];

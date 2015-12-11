@@ -122,6 +122,12 @@
 		B72C3CCE1C157AB700D3250A /* jhstory.png in Resources */ = {isa = PBXBuildFile; fileRef = B72C3CCB1C157AB700D3250A /* jhstory.png */; };
 		B72C3CCF1C157AB700D3250A /* xing.png in Resources */ = {isa = PBXBuildFile; fileRef = B72C3CCC1C157AB700D3250A /* xing.png */; };
 		B72C3CD01C157AB700D3250A /* xin.png in Resources */ = {isa = PBXBuildFile; fileRef = B72C3CCD1C157AB700D3250A /* xin.png */; };
+		B72E39EF1C1A9DF7007356C4 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = B72E39ED1C1A9DF7007356C4 /* search.png */; };
+		B72E39F01C1A9DF7007356C4 /* down_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B72E39EE1C1A9DF7007356C4 /* down_icon.png */; };
+		B72E39F41C1AB4D0007356C4 /* MakeMushaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F31C1AB4D0007356C4 /* MakeMushaViewController.m */; };
+		B72E39F81C1AB5AD007356C4 /* MakeMushaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */; };
+		B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */; };
+		B72E39FB1C1AB844007356C4 /* friend_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = B72E39FA1C1AB844007356C4 /* friend_avatar.png */; };
 		B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */; };
 		B7C428051C1524F3003F504F /* JHStoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C428001C1524F3003F504F /* JHStoryTableViewCell.xib */; };
 		B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C428021C1524F3003F504F /* JHStoryViewController.m */; };
@@ -327,6 +333,14 @@
 		B72C3CCB1C157AB700D3250A /* jhstory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jhstory.png; sourceTree = "<group>"; };
 		B72C3CCC1C157AB700D3250A /* xing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xing.png; sourceTree = "<group>"; };
 		B72C3CCD1C157AB700D3250A /* xin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xin.png; sourceTree = "<group>"; };
+		B72E39ED1C1A9DF7007356C4 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
+		B72E39EE1C1A9DF7007356C4 /* down_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down_icon.png; sourceTree = "<group>"; };
+		B72E39F21C1AB4D0007356C4 /* MakeMushaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeMushaViewController.h; sourceTree = "<group>"; };
+		B72E39F31C1AB4D0007356C4 /* MakeMushaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeMushaViewController.m; sourceTree = "<group>"; };
+		B72E39F51C1AB5AD007356C4 /* MakeMushaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeMushaCell.h; sourceTree = "<group>"; };
+		B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeMushaCell.m; sourceTree = "<group>"; };
+		B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeMushaCell.xib; sourceTree = "<group>"; };
+		B72E39FA1C1AB844007356C4 /* friend_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friend_avatar.png; sourceTree = "<group>"; };
 		B7C427FE1C1524F3003F504F /* JHStoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryTableViewCell.h; sourceTree = "<group>"; };
 		B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryTableViewCell.m; sourceTree = "<group>"; };
 		B7C428001C1524F3003F504F /* JHStoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHStoryTableViewCell.xib; sourceTree = "<group>"; };
@@ -604,6 +618,7 @@
 		B59409041C0FCE1B003DC15D /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
+				B72E39F11C1AB4A6007356C4 /* MakeMusha */,
 				B7CE7F401C16C5EA0035D8CA /* JoinTeam */,
 				B7CE7F371C16AF1C0035D8CA /* MushaMatch */,
 				B72C3CC01C15660800D3250A /* RecruitComment */,
@@ -852,6 +867,9 @@
 		B72C3CCA1C157A9F00D3250A /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
+				B72E39FA1C1AB844007356C4 /* friend_avatar.png */,
+				B72E39ED1C1A9DF7007356C4 /* search.png */,
+				B72E39EE1C1A9DF7007356C4 /* down_icon.png */,
 				B7CE7F4E1C16CBAA0035D8CA /* weikaishi.png */,
 				B7CE7F4F1C16CBAA0035D8CA /* jinxingzhong.png */,
 				B7CE7F501C16CBAA0035D8CA /* yijieshu.png */,
@@ -861,6 +879,18 @@
 				B72C3CCD1C157AB700D3250A /* xin.png */,
 			);
 			name = KongFuUnion;
+			sourceTree = "<group>";
+		};
+		B72E39F11C1AB4A6007356C4 /* MakeMusha */ = {
+			isa = PBXGroup;
+			children = (
+				B72E39F21C1AB4D0007356C4 /* MakeMushaViewController.h */,
+				B72E39F31C1AB4D0007356C4 /* MakeMushaViewController.m */,
+				B72E39F51C1AB5AD007356C4 /* MakeMushaCell.h */,
+				B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */,
+				B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */,
+			);
+			name = MakeMusha;
 			sourceTree = "<group>";
 		};
 		B7C427FD1C15248C003F504F /* JHStory */ = {
@@ -1004,11 +1034,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5AF705B1C17C21400C041AF /* SVProgressHUD.bundle in Resources */,
+				B72E39FB1C1AB844007356C4 /* friend_avatar.png in Resources */,
 				B5F90AD91C194FCA00D7879D /* chat@2x.png in Resources */,
 				B72C3CC91C1568C900D3250A /* RecruitCommentCell.xib in Resources */,
 				B5AF70711C181FAD00C041AF /* zhifubao@2x.png in Resources */,
 				B72C3CCF1C157AB700D3250A /* xing.png in Resources */,
 				B53E737C1C166389009E7878 /* relay@2x.png in Resources */,
+				B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */,
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
 				B53E738A1C167080009E7878 /* JiFenTableViewCell.xib in Resources */,
 				B72C3CCE1C157AB700D3250A /* jhstory.png in Resources */,
@@ -1046,8 +1078,10 @@
 				B5AF70871C183A9F00C041AF /* smilies@2x.png in Resources */,
 				B53791B61C15724900C45BA7 /* temp3@2x.png in Resources */,
 				B5F90AD51C192A2200D7879D /* lixiaolong@2x.png in Resources */,
+				B72E39EF1C1A9DF7007356C4 /* search.png in Resources */,
 				B7CE7F481C16C6F30035D8CA /* JoinTeamCell.xib in Resources */,
 				B5F90AD41C192A2200D7879D /* chenglong@2x.png in Resources */,
+				B72E39F01C1A9DF7007356C4 /* down_icon.png in Resources */,
 				B5AF70851C183A9F00C041AF /* photo@2x.png in Resources */,
 				B5AF70861C183A9F00C041AF /* picture@2x.png in Resources */,
 				B7CE7F4D1C16CB160035D8CA /* jointeam.png in Resources */,
@@ -1103,10 +1137,12 @@
 				B53791AC1C152BFD00C45BA7 /* CustomButton.m in Sources */,
 				B5AF70761C1821A500C041AF /* SelectRoundBtn.m in Sources */,
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
+				B72E39F41C1AB4D0007356C4 /* MakeMushaViewController.m in Sources */,
 				B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */,
 				B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */,
 				B594090A1C0FCEE4003DC15D /* KongFuerViewController.m in Sources */,
 				B59409201C102719003DC15D /* StudyOnLineViewController.m in Sources */,
+				B72E39F81C1AB5AD007356C4 /* MakeMushaCell.m in Sources */,
 				B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */,
 				B59409001C0FCB0F003DC15D /* BaseNavigationController.m in Sources */,
 				B5AF70691C18032B00C041AF /* VipViewController.m in Sources */,
