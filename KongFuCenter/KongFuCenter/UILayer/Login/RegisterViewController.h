@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNavigationController.h"
-
+#import "DataProvider.h"
 typedef enum _pageMode
 {
     MODE_Reg = 0,

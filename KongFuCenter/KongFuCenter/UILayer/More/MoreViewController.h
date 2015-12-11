@@ -7,7 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "SetNoticeViewController.h"
 @interface MoreViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end

@@ -249,6 +249,25 @@
     
     if ([txt_newPwd.text isEqualToString:txt_againNewPwd.text]&&txt_newPwd.text.length>0&&txt_vrifyCode.text.length>0) {
         
+        
+    NSLog(@"验证成功");
+    @try {
+        NSInteger ret;
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"RegisteBackCall:"];
+        ret =[dataprovider reg:txt_phoneNum.text andPassWord:txt_newPwd.text];
+        if(ret!=OK)
+        {
+            DLog(@"ret = %ld",ret);
+        }
+    }
+    @catch (NSException *exception) {
+
+    }
+    @finally {
+        
+    }
+
   
 //        [SVProgressHUD showWithStatus:@"正在注册..." maskType:SVProgressHUDMaskTypeBlack];
 //        [SMSSDK commitVerificationCode:txt_vrifyCode.text phoneNumber:txt_phoneNum.text zone:@"86" result:^(NSError *error) {
@@ -297,31 +316,16 @@
 
 -(void)RegisteBackCall:(id)dict
 {
-//    [SVProgressHUD dismiss];
-//    NSLog(@"注册返回数据%@",dict);
-//    if ([dict[@"code"] intValue]==200) {
-//        
-//        [mUserDefault setValue:txt_phoneNum.text forKey:@"RegisterAccount"];
-//        [mUserDefault setValue:txt_newPwd.text forKey:@"RegisterPwd"];
-//        
-//        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-//                                                                  NSUserDomainMask, YES) objectAtIndex:0];
-//        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-//        NSArray * itemdict=[[NSArray alloc] initWithArray:dict[@"datas"]];
-//        [itemdict[0] writeToFile:plistPath atomically:YES];
-//        
-//        PersonSecondViewController *mPersonSecondVC = [[PersonSecondViewController alloc] init];
-//        mPersonSecondVC.navTitle = @"个人资料";
-//        mPersonSecondVC.mIFlag = @"1";
-//        mPersonSecondVC.mSex = @"男";
-//        mPersonSecondVC.mUID = [dict[@"datas"][0] valueForKey:@"id"];
-//        [self presentViewController:mPersonSecondVC animated:NO completion:nil];
-//    }
-//    else
-//    {
-//        [SVProgressHUD showErrorWithStatus:dict[@"message"] maskType:SVProgressHUDMaskTypeBlack];
-//        
-//    }
+    [SVProgressHUD dismiss];
+    DLog(@"注册返回数据%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        
+    }
+    else
+    {
+       // [SVProgressHUD showErrorWithStatus:dict[@"message"] maskType:SVProgressHUDMaskTypeBlack];
+        
+    }
 }
 
 
