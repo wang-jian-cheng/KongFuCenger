@@ -60,6 +60,17 @@
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
 
+
+#pragma mark - Error code Define 
+#define OK          0
+#define Param_err   -1
+
+
+
+
+
+
+
 #if TARGET_OS_IPHONE
 //iPhone Device
 #endif
