@@ -24,7 +24,7 @@
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
-    
+    MoviePlayer *moviePlayerview;
 }
 @end
 
@@ -59,9 +59,9 @@
     [self.view addSubview:_mainTableView];
     
     
-    MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
+    moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
     //     MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:self.view.bounds URL:[NSURL URLWithString:@"http://192.168.1.136/4.flv"]];
-    [self.view addSubview:view];
+    [self.view addSubview:moviePlayerview];
     
     
     
@@ -574,6 +574,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)clickLeftButton:(UIButton *)sender
+{
+    moviePlayerview=[[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:@""]];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    
+}
+
+
 
 /*
 #pragma mark - Navigation
