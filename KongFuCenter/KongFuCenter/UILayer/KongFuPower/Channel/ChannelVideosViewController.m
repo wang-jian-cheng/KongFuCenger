@@ -159,6 +159,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
+    VideoDetailViewController *videoDetailViewCtl = [[VideoDetailViewController alloc] init];
+    videoDetailViewCtl.navtitle =@"视频";
+    [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
+    
 }
 
 

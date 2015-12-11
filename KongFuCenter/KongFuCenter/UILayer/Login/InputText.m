@@ -13,12 +13,12 @@
 - (UITextField *)setupWithIcon:(NSString *)icon textY:(CGFloat)textY centerX:(CGFloat)centerX point:(NSString *)point;
 {
     UITextField *textField = [[UITextField alloc] init];
-    textField.width = 232;
-    textField.height = 23.5;
+    textField.width = SCREEN_WIDTH - 30;
+    textField.height = 30;
     textField.centerX = centerX;
     textField.y = textY;
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 23, 232, 0.5)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 29, textField.width, 0.5)];
     view.alpha = 0.5;
     view.backgroundColor = [UIColor grayColor];
     [textField addSubview:view];
@@ -30,13 +30,14 @@
     UIImageView *iconView = [[UIImageView alloc] initWithImage:bigIcon];
     if (icon) {
         iconView.width = 20;
-      //  iconView.frame = CGRectMake(0, 0, 34,  textField.height);
+        
+        iconView.frame = CGRectMake(0, 0, 20,  textField.height-3);
     }
     
-//    UIView *tempView = [[UIView alloc] init];
-//    //tempView.width = iconView.width + 5;
-//    tempView.frame = CGRectMake(0, 0, 34+5,  textField.height);
-//    [tempView addSubview:iconView];
+    UIView *tempView = [[UIView alloc] init];
+    //tempView.width = iconView.width + 5;
+    tempView.frame = CGRectMake(0, 0, 20,  textField.height);
+    [tempView addSubview:iconView];
     
     iconView.contentMode = UIViewContentModeLeft;
     textField.leftView = iconView;

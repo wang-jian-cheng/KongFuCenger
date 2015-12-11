@@ -127,12 +127,12 @@
     zyColor tempColor;
     
     tempColor.alpha = 1.0;
-    tempColor.red = 191/255.0;
-    tempColor.green = 166/255.0;
-    tempColor.blue = 128/255.0;
+    tempColor.red = 0x81/255.0;
+    tempColor.green = 0x81/255.0;
+    tempColor.blue = 0x81/255.0;
+
     
-    
-    [self drawLine:ZY_UIPART_SCREEN_WIDTH*50 andSY:(ZY_UIPART_SCREEN_HEIGHT * 55 + 65) andEX:ZY_UIPART_SCREEN_WIDTH*50 andEY:(ZY_UIPART_SCREEN_HEIGHT * 55 + 65+20) andLW:1 andColor:tempColor];
+//    [self drawLine:ZY_UIPART_SCREEN_WIDTH*50 andSY:(ZY_UIPART_SCREEN_HEIGHT * 55 + 65) andEX:ZY_UIPART_SCREEN_WIDTH*50 andEY:(ZY_UIPART_SCREEN_HEIGHT * 55 + 65+20) andLW:1 andColor:tempColor];
     
     [self drawLine:ZY_UIPART_SCREEN_WIDTH*5 andSY:ZY_UIPART_SCREEN_HEIGHT*80 andEX:ZY_UIPART_SCREEN_WIDTH*28 andEY:ZY_UIPART_SCREEN_HEIGHT*80 andLW:1 andColor:tempColor];
     
@@ -152,7 +152,7 @@
     tapLabel.text = str;
     tapLabel.font = font;
     tapLabel.textAlignment = NSTextAlignmentCenter;
-    tapLabel.textColor = [UIColor colorWithRed:191/255.0 green:166/255.0 blue:128/255.0 alpha:1.0];
+    tapLabel.textColor = Separator_Color;
     [self.view addSubview:tapLabel];
     
     
@@ -161,22 +161,22 @@
 -(void)initImgViews
 {
     //logo
-    UIImageView *logoImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
+    UIImageView *logoImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Logintitle"]];
     logoImgView.frame = CGRectMake(ZY_UISTART_X, ZY_UIPART_SCREEN_HEIGHT * 20,self.view.frame.size.width - 2*ZY_UISTART_X ,ZY_UIPART_SCREEN_HEIGHT * 5 );
   //  logoImgView.contentMode = UIViewContentModeCenter;
     [self.view addSubview:logoImgView];
     
-    
-    headImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"me"]];
-    headImg.frame =CGRectMake((self.view.frame.size.width - 2*ZY_UISTART_X)/3+ZY_UISTART_X +20/2 ,
-                              ZY_UIPART_SCREEN_HEIGHT * 20-((self.view.frame.size.width - 2*ZY_UISTART_X - 30)/3-20)/2,
-                              (self.view.frame.size.width - 2*ZY_UISTART_X )/3-20,
-                              (self.view.frame.size.width - 2*ZY_UISTART_X )/3-20);
-    headImg.layer.masksToBounds = YES;
-    headImg.layer.cornerRadius = headImg.frame.size.width * 0.5;
-    headImg.layer.borderWidth = 1.0;
-    headImg.layer.borderColor = [[UIColor yellowColor] CGColor];
-    [self.view addSubview:headImg];
+//    
+//    headImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"me"]];
+//    headImg.frame =CGRectMake((self.view.frame.size.width - 2*ZY_UISTART_X)/3+ZY_UISTART_X +20/2 ,
+//                              ZY_UIPART_SCREEN_HEIGHT * 20-((self.view.frame.size.width - 2*ZY_UISTART_X - 30)/3-20)/2,
+//                              (self.view.frame.size.width - 2*ZY_UISTART_X )/3-20,
+//                              (self.view.frame.size.width - 2*ZY_UISTART_X )/3-20);
+//    headImg.layer.masksToBounds = YES;
+//    headImg.layer.cornerRadius = headImg.frame.size.width * 0.5;
+//    headImg.layer.borderWidth = 1.0;
+//    headImg.layer.borderColor = [[UIColor yellowColor] CGColor];
+//    [self.view addSubview:headImg];
     
 
 //    UIImageView *accountImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"account"]];
@@ -196,62 +196,52 @@
 
 -(void) initBtns
 {
+    UIButton *regBtn = [[UIButton alloc] initWithFrame:CGRectMake(0,  ZY_UIPART_SCREEN_HEIGHT * 55,  ZY_UIPART_SCREEN_WIDTH*40, 50)];
+    regBtn.backgroundColor = ItemsBaseColor;
+    [regBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [regBtn setTitle:@"新用户注册" forState:UIControlStateNormal];
+    regBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    [regBtn addTarget:self action:@selector(JumpToregisterVC:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:regBtn];
+    
     UIButton *loginBtn = [[UIButton alloc] init];
-    loginBtn.frame = CGRectMake(ZY_UIPART_SCREEN_WIDTH*25, ZY_UIPART_SCREEN_HEIGHT * 55, ZY_UIPART_SCREEN_WIDTH*50, 50);
+    loginBtn.frame = CGRectMake(regBtn.frame.size.width + 2, ZY_UIPART_SCREEN_HEIGHT * 55, ZY_UIPART_SCREEN_WIDTH*60, 50);
     loginBtn.backgroundColor = ItemsBaseColor;
     [loginBtn setTitle:@"登陆" forState:UIControlStateNormal];
     
-    loginBtn.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+    loginBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [loginBtn addTarget:self action:@selector(loginBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     loginBtn.adjustsImageWhenHighlighted = YES;
     [self.view addSubview:loginBtn];
     
     
-//    UIButton *testBtn = [[UIButton alloc] init];
-//    testBtn.frame = CGRectMake(100, 100, 100, 50);
-//   // [testBtn setHeight: YES];
-//    [testBtn setHighlighted:YES];
-//    testBtn.backgroundColor = ZY_UIBASECOLOR;
-//    [testBtn setTitle:@"密码错误" forState:UIControlStateNormal];
-//    [testBtn addTarget:self action:@selector(tempClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:testBtn];
     
-    
-    UIButton *registerBtn = [[UIButton alloc] init];
-    registerBtn.frame = CGRectMake(ZY_UIPART_SCREEN_WIDTH*25, ZY_UIPART_SCREEN_HEIGHT * 55 + 65, ZY_UIPART_SCREEN_WIDTH*50/2, 20);
-    [registerBtn setTitleColor:[UIColor colorWithRed:191/255.0 green:166/255.0 blue:128/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [registerBtn setTitle:@"新用户注册" forState:UIControlStateNormal];
-    registerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
-    [registerBtn addTarget:self action:@selector(JumpToregisterVC:) forControlEvents:UIControlEventTouchUpInside];
-    //设置文字居左
-//    registerBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-//    registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    UIButton *registerBtn = [[UIButton alloc] init];
+//    registerBtn.frame = CGRectMake(ZY_UIPART_SCREEN_WIDTH*25, ZY_UIPART_SCREEN_HEIGHT * 55 + 65, ZY_UIPART_SCREEN_WIDTH*50/2, 20);
+//    [registerBtn setTitleColor:[UIColor colorWithRed:191/255.0 green:166/255.0 blue:128/255.0 alpha:1.0] forState:UIControlStateNormal];
+//    [registerBtn setTitle:@"新用户注册" forState:UIControlStateNormal];
+//    registerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+//    [registerBtn addTarget:self action:@selector(JumpToregisterVC:) forControlEvents:UIControlEventTouchUpInside];
+//
 //    
-    
-    registerBtn.titleLabel.textAlignment = NSTextAlignmentRight;
-    registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    registerBtn.contentEdgeInsets = UIEdgeInsetsMake(0,0, 0, 10);
-
-    [self.view addSubview:registerBtn];
-    
-//    tempColor.red = 191/255.0;
-//    tempColor.green = 166/255.0;
-//    tempColor.blue = 128/255.0;
-    
-    UIButton *forgetBtn = [[UIButton alloc] init];
-    forgetBtn.frame = CGRectMake(ZY_UIPART_SCREEN_WIDTH*25*2, ZY_UIPART_SCREEN_HEIGHT * 55+ 65, ZY_UIPART_SCREEN_WIDTH*50/2, 20);
-    [forgetBtn setTitleColor:[UIColor colorWithRed:191/255.0 green:166/255.0 blue:128/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [forgetBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
-    forgetBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
-    [forgetBtn addTarget:self action:@selector(JumpToForgetVC:) forControlEvents:UIControlEventTouchUpInside];
-//    forgetBtn.titleLabel.textAlignment = NSTextAlignmentRight;
-//    forgetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    
-    
-    forgetBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-    forgetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    forgetBtn.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-    [self.view addSubview:forgetBtn];
+//    registerBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+//    registerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+//    registerBtn.contentEdgeInsets = UIEdgeInsetsMake(0,0, 0, 10);
+//
+//    [self.view addSubview:registerBtn];
+//
+//    UIButton *forgetBtn = [[UIButton alloc] init];
+//    forgetBtn.frame = CGRectMake(ZY_UIPART_SCREEN_WIDTH*25*2, ZY_UIPART_SCREEN_HEIGHT * 55+ 65, ZY_UIPART_SCREEN_WIDTH*50/2, 20);
+//    [forgetBtn setTitleColor:[UIColor colorWithRed:191/255.0 green:166/255.0 blue:128/255.0 alpha:1.0] forState:UIControlStateNormal];
+//    [forgetBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
+//    forgetBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+//    [forgetBtn addTarget:self action:@selector(JumpToForgetVC:) forControlEvents:UIControlEventTouchUpInside];
+//
+//    
+//    forgetBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+//    forgetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    forgetBtn.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
+//    [self.view addSubview:forgetBtn];
     
     
     UIButton *QQLoginBtn = [[UIButton alloc] init];
@@ -274,10 +264,16 @@
 -(void) initTexts
 {
     
-    CGFloat centerX = self.view.width * 0.5;
+   
+    
+    
+    CGFloat centerX = SCREEN_WIDTH - (SCREEN_WIDTH - 30) * 0.5;
     InputText *inputText = [[InputText alloc] init];
     CGFloat userY = ZY_UIPART_SCREEN_HEIGHT * 35 ;
-    userText = [inputText setupWithIcon:@"LoginAccount" textY:userY centerX:centerX point:nil];
+    
+    
+    
+    userText = [inputText setupWithIcon:@"LoginAccount" textY:10 centerX:centerX point:nil];
     userText.tag = USER_TEXT_TAG;
     userText.delegate = self;
     userText.keyboardType = UIKeyboardTypeNumberPad;//设置键盘为数字键盘
@@ -286,7 +282,13 @@
     [userText addTarget:self action:@selector(textFieldDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
     [userText addTarget:self action:@selector(textFieldBeginChange:) forControlEvents:UIControlEventEditingDidBegin];
     
-    [self.view addSubview:userText];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, userY, SCREEN_WIDTH,userText.frame.size.height*2+3*15 )];
+    
+    backView.backgroundColor = ItemsBaseColor;
+    [self.view addSubview:backView];
+    
+
+    [backView addSubview:userText];
     
     _account_box = [[UIScrollView alloc] initWithFrame:CGRectMake(userText.frame.origin.x, userText.frame.origin.y+userText.frame.size.height+1, userText.frame.size.width, _cellCount >3 ?40*3:40*_cellCount)];
     _account_box.hidden = YES;
@@ -326,7 +328,7 @@
     
     //[self.view addSubview:_moveDownGroup];
     
-    passWordText = [inputText setupWithIcon:@"LoginPassword" textY:ZY_UIPART_SCREEN_HEIGHT * 45 centerX:self.view.width * 0.5 point:nil];
+    passWordText = [inputText setupWithIcon:@"LoginPassword" textY:(userText.frame.origin.y+userText.frame.size.height+15) centerX:centerX point:nil];
     passWordText.delegate = self;
     passWordText.tag = PASSWORD_TEXT_TAG;
     passWordText.secureTextEntry = YES;//设置输入后变为“＊”
@@ -335,7 +337,24 @@
     [passWordText setReturnKeyType:UIReturnKeyNext];
     [passWordText addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [passWordText addTarget:self action:@selector(textFieldDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
-    [self.view addSubview:passWordText];
+    
+    UIView *tempView = [[UIView alloc ]initWithFrame:CGRectMake(0, 0, 80, passWordText.frame.size.height)];
+ 
+    UIButton *frogetBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0,tempView.frame.size.width - 10 , tempView.frame.size.height - 5)];
+    frogetBtn.backgroundColor = [UIColor blackColor];
+    [frogetBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
+    [frogetBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    frogetBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    frogetBtn.layer.masksToBounds = YES;
+    frogetBtn.layer.cornerRadius = 5;
+    
+    [frogetBtn addTarget:self action:@selector(JumpToForgetVC:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [tempView addSubview:frogetBtn];
+    passWordText.rightView = tempView;
+    passWordText.rightViewMode = UITextFieldViewModeAlways;
+    
+    [backView addSubview:passWordText];
 }
 
 #pragma mark - UIGestureRecognizer delegate
