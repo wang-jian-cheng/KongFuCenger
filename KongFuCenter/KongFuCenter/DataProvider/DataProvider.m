@@ -11,6 +11,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "AFURLRequestSerialization.h"
 #import "SVProgressHUD.h"
+#import "SBXMLParser.h"
 //#import "HttpRequest.h"
 
 #define Url @"http://192.168.1.136:8033/"
@@ -29,7 +30,7 @@
     if(account != nil &&password !=nil )
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/op=Login",Url];
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/Login",Url];
         NSDictionary * prm=@{@"username":account,@"password":password};
          DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
@@ -71,7 +72,7 @@
     if(account != nil &&password !=nil )
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx?op=RegisterAndLogin",Url];
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/RegisterAndLogin",Url];
         NSDictionary * prm=@{@"phone":account,@"password":password};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
@@ -110,7 +111,14 @@
     [manage POST:url parameters:prm success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //        NSDictionary * dict =responseObject;
         NSString *str=[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSData * data =[str dataUsingEncoding:NSUTF8StringEncoding];
+        
+        /*解析xml字符串开始*/
+        SBXMLParser * parser = [[SBXMLParser alloc] init];
+        XMLElement * root = [parser parserXML:[str dataUsingEncoding:NSASCIIStringEncoding]];
+        NSLog(@"解析后：root=%@",root.text);
+        /*解析xml字符串结束*/
+        
+        NSData * data =[root.text dataUsingEncoding:NSUTF8StringEncoding];
         id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         
         SEL func_selector = NSSelectorFromString(callBackFunctionName);
@@ -144,7 +152,16 @@
     }
     [manage GET:url parameters:prm success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *str=[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSData * data =[str dataUsingEncoding:NSUTF8StringEncoding];
+        
+        /*解析xml字符串开始*/
+        SBXMLParser * parser = [[SBXMLParser alloc] init];
+        XMLElement * root = [parser parserXML:[str dataUsingEncoding:NSASCIIStringEncoding]];
+        NSLog(@"解析后：root=%@",root.text);
+        /*解析xml字符串结束*/
+        
+        NSData * data =[root.text dataUsingEncoding:NSUTF8StringEncoding];
+        
+        
         id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         
         SEL func_selector = NSSelectorFromString(callBackFunctionName);

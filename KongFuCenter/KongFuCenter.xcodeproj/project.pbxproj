@@ -17,6 +17,8 @@
 		802118EB1C1AFAE100DCEE73 /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118E41C1AFAE100DCEE73 /* Slider.m */; };
 		8026D0F61C1BC6BE00D9CD44 /* ErWeiMaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8026D0F41C1BC6BE00D9CD44 /* ErWeiMaViewController.m */; };
 		8026D0F71C1BC6BE00D9CD44 /* ErWeiMaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8026D0F51C1BC6BE00D9CD44 /* ErWeiMaViewController.xib */; };
+		8026D0FD1C1C0A1300D9CD44 /* SBXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8026D0FA1C1C0A1300D9CD44 /* SBXMLParser.m */; };
+		8026D0FE1C1C0A1300D9CD44 /* XMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */; };
 		B53791A41C151AED00C45BA7 /* VideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */; };
 		B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791A61C151FEB00C45BA7 /* UserHeadView.m */; };
 		B53791AC1C152BFD00C45BA7 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791AB1C152BFD00C45BA7 /* CustomButton.m */; };
@@ -194,6 +196,10 @@
 		8026D0F31C1BC6BE00D9CD44 /* ErWeiMaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErWeiMaViewController.h; sourceTree = "<group>"; };
 		8026D0F41C1BC6BE00D9CD44 /* ErWeiMaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErWeiMaViewController.m; sourceTree = "<group>"; };
 		8026D0F51C1BC6BE00D9CD44 /* ErWeiMaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErWeiMaViewController.xib; sourceTree = "<group>"; };
+		8026D0F91C1C0A1300D9CD44 /* SBXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBXMLParser.h; sourceTree = "<group>"; };
+		8026D0FA1C1C0A1300D9CD44 /* SBXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBXMLParser.m; sourceTree = "<group>"; };
+		8026D0FB1C1C0A1300D9CD44 /* XMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLElement.h; sourceTree = "<group>"; };
+		8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLElement.m; sourceTree = "<group>"; };
 		917C8DDA7A56E94AAC386040 /* Pods-KongFuCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KongFuCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KongFuCenter/Pods-KongFuCenter.debug.xcconfig"; sourceTree = "<group>"; };
 		B53791A21C151AED00C45BA7 /* VideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoDetailViewController.h; path = KongFuer/VideoDetailViewController.h; sourceTree = "<group>"; };
 		B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoDetailViewController.m; path = KongFuer/VideoDetailViewController.m; sourceTree = "<group>"; };
@@ -494,6 +500,17 @@
 				8026D0F51C1BC6BE00D9CD44 /* ErWeiMaViewController.xib */,
 			);
 			path = ScanErWeiMa;
+			sourceTree = "<group>";
+		};
+		8026D0F81C1C0A1300D9CD44 /* xml */ = {
+			isa = PBXGroup;
+			children = (
+				8026D0F91C1C0A1300D9CD44 /* SBXMLParser.h */,
+				8026D0FA1C1C0A1300D9CD44 /* SBXMLParser.m */,
+				8026D0FB1C1C0A1300D9CD44 /* XMLElement.h */,
+				8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */,
+			);
+			path = xml;
 			sourceTree = "<group>";
 		};
 		B53791A91C1525CD00C45BA7 /* CommonUI */ = {
@@ -856,6 +873,7 @@
 		B5AF704F1C17C20600C041AF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				8026D0F81C1C0A1300D9CD44 /* xml */,
 				802118D71C1AFAE100DCEE73 /* MoviePlayer */,
 				B5AF70501C17C21400C041AF /* HUD */,
 			);
@@ -1367,6 +1385,8 @@
 				B5F90AE11C19702400D7879D /* ChannelVideosViewController.m in Sources */,
 				B5905E191C1BF21100ECA9BA /* PlayerForMatchViewController.m in Sources */,
 				B7CE7F3E1C16B0B00035D8CA /* MushaMatchCell.m in Sources */,
+				8026D0FE1C1C0A1300D9CD44 /* XMLElement.m in Sources */,
+				8026D0FD1C1C0A1300D9CD44 /* SBXMLParser.m in Sources */,
 				B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */,
 				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
 				B5905DF81C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m in Sources */,
