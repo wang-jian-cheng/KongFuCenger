@@ -7,7 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "MushaMatchDetailViewController.h"
 @interface MushaMatch : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end

@@ -9,6 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+
+//typedef struct _zyColor
+//{
+//    CGFloat red;
+//    CGFloat green;
+//    CGFloat blue;
+//    CGFloat alpha;
+//}zyColor;
+//
 @interface Toolkit : NSObject
 
 //+ (NSString *)getSystemLanguage;
@@ -25,4 +34,9 @@
  *根据nsstring 和 view的宽度计算高度
  */
 +(CGFloat)heightWithString:(NSString*)string fontSize:(CGFloat)fontSize width:(CGFloat)width;
+//返回rgba色值
++(NSMutableArray *)getColorRGBA:(UIColor *) color;
+//添加划线api
++(UIImageView *)drawLine:(CGFloat)startX andSY:(CGFloat)startY andEX:(CGFloat)endX andEY:(CGFloat)endY andLW:(CGFloat)lineWidth andColor:(UIColor *)color andView:(UIView *)tempView;
+
 @end

@@ -1,36 +1,38 @@
 //
-//  SetNoticeViewController.m
+//  PlayerForMatchViewController.m
 //  KongFuCenter
 //
-//  Created by 王建成 on 15/12/11.
+//  Created by 王建成 on 15/12/12.
 //  Copyright © 2015年 zykj. All rights reserved.
 //
 
-#import "SetNoticeViewController.h"
+#import "PlayerForMatchViewController.h"
 
-@interface SetNoticeViewController ()
+@interface PlayerForMatchViewController ()
 {
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    
 }
 @end
 
-@implementation SetNoticeViewController
+@implementation PlayerForMatchViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"更多"];
-    [self initViews];
     [self addLeftButton:@"left"];
+    [self addRightbuttontitle:@"确定"];
+    [self initViews];
     // Do any additional setup after loading the view.
 }
 -(void)initViews
 {
-    _cellHeight = SCREEN_HEIGHT/10;
-    _sectionNum = 1;
+    _cellHeight = SCREEN_HEIGHT/12;
+    _sectionNum = 3;
     
     
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
@@ -41,17 +43,24 @@
     _mainTableView.separatorColor =  Separator_Color;
     _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.scrollEnabled = NO;
+    _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
     
-    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
+    [self.view addGestureRecognizer:tapGesture];
+
     
 }
 
--(void)viewWillAppear:(BOOL)animated
+
+
+
+#pragma click actions
+-(void)tapViewAction:(id)sender
 {
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+    [self.view endEditing:YES];
 }
 
 
@@ -67,7 +76,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;
+    return 1;
     
 }
 
@@ -77,62 +86,28 @@
     
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
-    cell.backgroundColor = ItemsBaseColor;
-    cell.textLabel.textColor = [UIColor whiteColor];
-    if(indexPath.section == 0)
-    {
-        switch (indexPath.row) {
-            case 0:
-            {
-                cell.textLabel.text  = @"接受新的聊天";
-       
-                UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3, 50, _cellHeight/3)];
-                switchBtn.tag = indexPath.row;
-                [cell addSubview:switchBtn];
-            }
-                break;
-            case 1:
-            {
-                cell.textLabel.text = @"声音";
-                UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3, 50, _cellHeight/3)];
-                switchBtn.tag = indexPath.row;
-                [cell addSubview:switchBtn];
-            }
-                 break;
-            case 2:
-            {
-                cell.textLabel.text = @"震动";
-                UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3, 50, _cellHeight/3)];
-                switchBtn.tag = indexPath.row;
-                [cell addSubview:switchBtn];
-            }
-        
-                break;
-            default:
-                break;
+    cell.backgroundColor = BACKGROUND_COLOR;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    switch (indexPath.section) {
+        case 0:
+        {
+
         }
-    }
-    else if(indexPath.section == 1)
-    {
-        switch (indexPath.row) {
-            case 0:
-            {
-                cell.textLabel.text  = @"清除缓存";
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                //
-                //                UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
-                //                rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
-                //                rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
-                //                rightView.contentMode = UIViewContentModeScaleAspectFit;
-                //                [cell addSubview:rightView];
-            }
-                break;
-            case 1:
-                cell.textLabel.text = @"在线客服";
-                break;
-            default:
-                break;
+            break;
+        case 1:
+        {
+            
         }
+            break;
+        case 2:
+        {
+
+            
+        }
+            break;
+            
+        default:
+            break;
     }
     return cell;
     
@@ -140,6 +115,21 @@
 
 //设置cell每行间隔的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    switch (indexPath.section) {
+        case 0:
+            return _cellHeight*3;
+            break;
+        case 1:
+            return _cellHeight*1.5;
+            break;
+        case 2:
+            return _cellHeight*3;
+            break;
+            
+        default:
+            break;
+    }
     
     return _cellHeight;
 }
@@ -149,6 +139,8 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
+    
+    
     
 }
 
@@ -194,18 +186,25 @@
     return tempView;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *tempView = [[UIView alloc] init];
+    tempView.backgroundColor = BACKGROUND_COLOR;
+    return tempView;
+}
 //设置section header 的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10;
+    return 0;
 }
 
 //设置section footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 0;
+    return 10;
     
 }
+
 
 
 - (void)didReceiveMemoryWarning {

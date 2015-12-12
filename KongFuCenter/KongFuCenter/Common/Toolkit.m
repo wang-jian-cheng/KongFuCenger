@@ -20,6 +20,64 @@
 }
 
 
++(UIImageView *)drawLine:(CGFloat)startX andSY:(CGFloat)startY andEX:(CGFloat)endX andEY:(CGFloat)endY andLW:(CGFloat)lineWidth andColor:(UIColor *)color andView:(UIView *)tempView
+{
+    UIImageView *imageView=[[UIImageView alloc] initWithFrame:tempView.frame];
+    [tempView addSubview:imageView];
+    
+    CGFloat R, G, B,A;
+    
+    CGColorRef colorRef = [color CGColor];
+    size_t numComponents = CGColorGetNumberOfComponents(colorRef);
+    
+    if (numComponents == 4)
+    {
+        const CGFloat *components = CGColorGetComponents(colorRef);
+        R = components[0];
+        G = components[1];
+        B = components[2];
+        A = components[3];
+    }
+    
+    UIGraphicsBeginImageContext(imageView.frame.size);
+    [imageView.image drawInRect:CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height)];
+    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), lineWidth);  //线宽
+    CGContextSetAllowsAntialiasing(UIGraphicsGetCurrentContext(), YES);
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), R,G, B, A);  //颜色
+    CGContextBeginPath(UIGraphicsGetCurrentContext());
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), startX, startY);  //起点坐标
+    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), endX, endY);   //终点坐标
+    CGContextStrokePath(UIGraphicsGetCurrentContext());
+    imageView.image=UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    
+    return imageView;
+}
+
++(NSMutableArray *)getColorRGBA:(UIColor *) color
+{
+    CGColorRef colorRef = [color CGColor];
+    size_t numComponents = CGColorGetNumberOfComponents(colorRef);
+    
+    if (numComponents == 4)
+    {
+        const CGFloat *components = CGColorGetComponents(colorRef);
+        
+        NSMutableArray *rgbaArr = [NSMutableArray array];
+        for (int i = 0; i<numComponents; i++) {
+            [rgbaArr addObject:[NSString stringWithFormat:@"%lf",components[i]]];
+        }
+        return rgbaArr;
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+
 + (BOOL)isSystemIOS7
 {
      

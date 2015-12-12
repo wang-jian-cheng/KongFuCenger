@@ -12,9 +12,9 @@
 #import "AFURLRequestSerialization.h"
 #import "SVProgressHUD.h"
 //#import "HttpRequest.h"
-//#define Url @"http://115.28.21.137/mobile/"
-#define Url @"http://192.168.1.136:8033/"
 
+//#define Url @"http://192.168.1.136:8033/"
+#define Url @"http://hihome.zhongyangjituan.com/"
 
 @implementation DataProvider
 
@@ -49,8 +49,10 @@
     if(phone != nil &&password !=nil )
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx?op=Register",Url];
-        NSDictionary * prm=@{@"phone":phone,@"password":password};
+        NSString * url=[NSString stringWithFormat:@"%@api.php?c=user&a=reg",Url];
+       // NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx?op=Register",Url];
+        NSDictionary * prm=@{@"mob":phone,@"pass":password};
+//         NSDictionary * prm=@{@"phone":account,@"password":password};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         

@@ -141,6 +141,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
+    mushaMatchDetailViewCtl.navtitle  = @"武者大赛";
+    [self.navigationController pushViewController:mushaMatchDetailViewCtl animated:YES];
+    
 }
 
 @end
