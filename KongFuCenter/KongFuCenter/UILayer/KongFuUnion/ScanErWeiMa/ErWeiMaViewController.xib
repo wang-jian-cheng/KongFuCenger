@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ErWeiMaViewController">
+            <connections>
+                <outlet property="lblStatus" destination="ivF-us-2X9" id="khU-Qw-GKN"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewPreview" destination="huz-GT-2zp" id="zO3-dI-qYM"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="huz-GT-2zp">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivF-us-2X9">
+                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="189" id="XRw-XJ-nJg"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="XRw-XJ-nJg"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=regular-widthClass=compact">
+                                <mask key="constraints">
+                                    <include reference="XRw-XJ-nJg"/>
+                                </mask>
+                            </variation>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="ivF-us-2X9" firstAttribute="top" secondItem="huz-GT-2zp" secondAttribute="top" constant="23" id="hNJ-ig-RXC"/>
+                        <constraint firstItem="ivF-us-2X9" firstAttribute="leading" secondItem="huz-GT-2zp" secondAttribute="leading" constant="28" id="k6h-qL-TgS"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="subviews">
+                            <exclude reference="ivF-us-2X9"/>
+                        </mask>
+                        <mask key="constraints">
+                            <exclude reference="hNJ-ig-RXC"/>
+                            <exclude reference="k6h-qL-TgS"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="subviews">
+                            <include reference="ivF-us-2X9"/>
+                        </mask>
+                        <mask key="constraints">
+                            <include reference="hNJ-ig-RXC"/>
+                            <include reference="k6h-qL-TgS"/>
+                        </mask>
+                    </variation>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="huz-GT-2zp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EvI-Yt-q9B"/>
+                <constraint firstItem="huz-GT-2zp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="aQN-rb-cdh"/>
+                <constraint firstAttribute="bottom" secondItem="huz-GT-2zp" secondAttribute="bottom" id="d9E-fL-FrS"/>
+                <constraint firstAttribute="trailing" secondItem="huz-GT-2zp" secondAttribute="trailing" id="dHD-UF-CEw"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="huz-GT-2zp"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="EvI-Yt-q9B"/>
+                    <exclude reference="aQN-rb-cdh"/>
+                    <exclude reference="d9E-fL-FrS"/>
+                    <exclude reference="dHD-UF-CEw"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="huz-GT-2zp"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="EvI-Yt-q9B"/>
+                    <include reference="aQN-rb-cdh"/>
+                    <include reference="d9E-fL-FrS"/>
+                    <include reference="dHD-UF-CEw"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>
