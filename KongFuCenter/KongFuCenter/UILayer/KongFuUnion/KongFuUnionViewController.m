@@ -13,6 +13,8 @@
 #import "JoinTeamViewController.h"
 #import "MakeMushaViewController.h"
 #import "ErWeiMaViewController.h"
+#import "UnionNewsViewController.h"
+#import "TeamNewsViewController.h"
 
 @interface KongFuUnionViewController ()
 {
@@ -112,7 +114,15 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     if (indexPath.section == 0) {
-        
+        if (indexPath.row == 0) {
+            
+        }else if(indexPath.row == 1){
+            TeamNewsViewController *teamNewsVC = [[TeamNewsViewController alloc] init];
+            [self.navigationController pushViewController:teamNewsVC animated:YES];
+        }else{
+            UnionNewsViewController *unionNewsVC = [[UnionNewsViewController alloc] init];
+            [self.navigationController pushViewController:unionNewsVC animated:YES];
+        }
     }else if(indexPath.section == 1){
         if (indexPath.row == 0) {
             MakeMushaViewController *makeMushaVC = [[MakeMushaViewController alloc] init];

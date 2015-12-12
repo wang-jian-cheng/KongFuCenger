@@ -154,11 +154,11 @@
             //性别
             UILabel *sex_lbl = [[UILabel alloc] initWithFrame:CGRectMake(14, age_lbl.frame.origin.y + age_lbl.frame.size.height + (cell.frame.size.height - 25) / 2, 45,30)];
             sex_lbl.textColor = [UIColor whiteColor];
-            sex_lbl.text = @"年龄:";
+            sex_lbl.text = @"性别:";
             [cell addSubview:sex_lbl];
             UIButton *btnSex = [[UIButton alloc] initWithFrame:CGRectMake(sex_lbl.frame.origin.x + sex_lbl.frame.size.width + 5, age_lbl.frame.origin.y + age_lbl.frame.size.height + (cell.frame.size.height - 25) / 2, 80, 30)];
             btnSex.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];;
-            [btnSex setTitle:@"18岁" forState:UIControlStateNormal];
+            [btnSex setTitle:@"男" forState:UIControlStateNormal];
             [cell addSubview:btnSex];
             UIImageView *sexIv = [[UIImageView alloc] initWithFrame:CGRectMake(btnSex.frame.origin.x + btnSex.frame.size.width - 11, btnSex.frame.origin.y + btnSex.frame.size.height - 11, 10, 10)];
             sexIv.image = [UIImage imageNamed:@"btnCorner"];
