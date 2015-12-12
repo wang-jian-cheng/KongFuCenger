@@ -13,8 +13,8 @@
 #import "SVProgressHUD.h"
 //#import "HttpRequest.h"
 
-//#define Url @"http://192.168.1.136:8033/"
-#define Url @"http://hihome.zhongyangjituan.com/"
+#define Url @"http://192.168.1.136:8033/"
+//#define Url @"http://hihome.zhongyangjituan.com/"
 
 @implementation DataProvider
 
@@ -29,7 +29,7 @@
     if(account != nil &&password !=nil )
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx?op=Login",Url];
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/op=Login",Url];
         NSDictionary * prm=@{@"username":account,@"password":password};
          DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
@@ -44,15 +44,15 @@
 }
 
 
--(NSInteger)reg:(NSString*)phone andPassWord:(NSString *)password
+-(NSInteger)reg:(NSString*)account andPassWord:(NSString *)password
 {
-    if(phone != nil &&password !=nil )
+    if(account != nil &&password !=nil )
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@api.php?c=user&a=reg",Url];
-       // NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx?op=Register",Url];
-        NSDictionary * prm=@{@"mob":phone,@"pass":password};
-//         NSDictionary * prm=@{@"phone":account,@"password":password};
+        //NSString * url=[NSString stringWithFormat:@"%@api.php?c=user&a=reg",Url];
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/Register",Url];
+   //     NSDictionary * prm=@{@"mob":phone,@"pass":password};
+         NSDictionary * prm=@{@"phone":account,@"password":password};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         
@@ -101,7 +101,7 @@
     AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];
     manage.responseSerializer=[AFHTTPResponseSerializer serializer];
     manage.requestSerializer=[AFHTTPRequestSerializer serializer];
-    manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];//可接收到的数据类型
+    manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/xml"];//可接收到的数据类型
     manage.requestSerializer.timeoutInterval=10;//设置请求时限
     NSDictionary * prm =[[NSDictionary alloc] init];
     if (pram!=nil) {
@@ -136,7 +136,7 @@
     AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];
     manage.responseSerializer=[AFHTTPResponseSerializer serializer];
     manage.requestSerializer=[AFHTTPRequestSerializer serializer];
-    manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];//可接收到的数据类型
+    manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/xml"];//可接收到的数据类型
     manage.requestSerializer.timeoutInterval=10;//设置请求时限
     NSDictionary * prm =[[NSDictionary alloc] init];
     if (pram!=nil) {

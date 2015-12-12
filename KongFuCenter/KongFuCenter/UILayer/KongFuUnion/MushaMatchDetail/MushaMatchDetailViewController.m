@@ -23,7 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"更多"];
     [self addLeftButton:@"left"];
     [self initViews];
     // Do any additional setup after loading the view.
@@ -58,6 +57,12 @@
         ApplyForMatchViewController *applyForMatchViewCtl = [[ApplyForMatchViewController alloc] init];
         applyForMatchViewCtl.navtitle = @"武者大赛报名";
         [self.navigationController pushViewController:applyForMatchViewCtl animated:YES];
+    }
+    else if([sender.titleLabel.text isEqualToString:@"查看报名选手"])
+    {
+        PlayerForMatchViewController *playForMatchViewCtl = [[PlayerForMatchViewController alloc] init];
+        playForMatchViewCtl.navtitle = @"参赛成员";
+        [self.navigationController pushViewController:playForMatchViewCtl animated:YES];
     }
 }
 
@@ -232,6 +237,7 @@
             [checkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [checkBtn setTitle:@"查看报名选手" forState:UIControlStateNormal];
             checkBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+            [checkBtn addTarget:self action:@selector(actionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:checkBtn];
             
         }

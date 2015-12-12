@@ -8,6 +8,7 @@
 
 #import "BaseNavigationController.h"
 #import "ApplyForMatchViewController.h"
+#import "PlayerForMatchViewController.h"
 @interface MushaMatchDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end

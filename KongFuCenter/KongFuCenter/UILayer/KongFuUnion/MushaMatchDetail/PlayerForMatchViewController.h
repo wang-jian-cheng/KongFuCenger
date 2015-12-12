@@ -7,7 +7,10 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "UserHeadView.h"
 @interface PlayerForMatchViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
-
+{
+    UISearchBar *_searchBar;
+    UISearchDisplayController *_searchDisplayController;
+}
 @end

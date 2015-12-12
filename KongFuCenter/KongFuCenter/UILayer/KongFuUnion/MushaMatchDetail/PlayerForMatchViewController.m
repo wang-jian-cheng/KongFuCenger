@@ -8,7 +8,7 @@
 
 #import "PlayerForMatchViewController.h"
 
-@interface PlayerForMatchViewController ()
+@interface PlayerForMatchViewController ()<UISearchBarDelegate,UISearchDisplayDelegate>
 {
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
@@ -18,12 +18,14 @@
 }
 @end
 
+#define GapToLeft   20
+
 @implementation PlayerForMatchViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"更多"];
+ 
     [self addLeftButton:@"left"];
     [self addRightbuttontitle:@"确定"];
     [self initViews];
@@ -32,10 +34,10 @@
 -(void)initViews
 {
     _cellHeight = SCREEN_HEIGHT/12;
-    _sectionNum = 3;
+    _sectionNum = 1;
     
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+10, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -43,10 +45,28 @@
     _mainTableView.separatorColor =  Separator_Color;
     _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.scrollEnabled = NO;
-    _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
+    
+    
+    
+    
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH
+                                                               , _cellHeight)];
+    _searchBar.delegate = self;
+    _searchBar.placeholder = @"搜索战队昵称、id号";
+    _mainTableView.tableHeaderView = _searchBar;
+    _searchBar.backgroundColor = ItemsBaseColor;
+    
+    
+    _searchDisplayController = [[UISearchDisplayController alloc]initWithSearchBar:_searchBar contentsController:self];
+    _searchDisplayController.active = NO;
+    _searchDisplayController.searchResultsDataSource = self;
+    _searchDisplayController.searchResultsDelegate = self;
+    _searchDisplayController.delegate = self;
+    
+    
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
     [self.view addGestureRecognizer:tapGesture];
@@ -63,6 +83,52 @@
     [self.view endEditing:YES];
 }
 
+#pragma mark - search delegate
+-(void) viewWillLayoutSubviews
+{
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void) keyboardWillHide:(NSNotification *)aNotification
+
+{
+    
+    NSDictionary* info = [aNotification userInfo];
+    
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    
+    
+    
+    UITableView *tableView = [_searchDisplayController searchResultsTableView];
+    
+    [tableView setContentInset:UIEdgeInsetsMake(300, 0, kbSize.height, 0)];
+    
+    [tableView setScrollIndicatorInsets:UIEdgeInsetsMake(300, 0, kbSize.height, 0)];
+    
+}
+- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView {
+    
+    //   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    //    [tableView setContentInset:UIEdgeInsetsZero];
+    //    [tableView setScrollIndicatorInsets:UIEdgeInsetsZero];
+    //
+    tableView.frame = CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - 108);
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    //
+    //    [tableView setContentInset:UIEdgeInsetsMake(300, 0, 0, 0)];
+    //
+    //    [tableView setScrollIndicatorInsets:UIEdgeInsetsMake(300, 0, 0, 0)];
+    
+}
+
 
 #pragma mark -  tableview  Delegate
 
@@ -76,8 +142,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 1;
     
+        return 6;
+
 }
 
 #pragma mark - setting for cell
@@ -86,16 +153,44 @@
     
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
-    cell.backgroundColor = BACKGROUND_COLOR;
+    cell.backgroundColor = ItemsBaseColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     switch (indexPath.section) {
+     
         case 0:
         {
-
-        }
-            break;
-        case 1:
-        {
+            UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-5*2, _cellHeight-5*2) andImgName:@"me" andNav:self.navigationController];
+            [headView makeSelfRound];
+            [cell addSubview:headView];
+            
+            
+            UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.size.width + headView.frame.origin.x + 10),
+                                                                         5,
+                                                                         SCREEN_WIDTH -(headView.frame.size.width + headView.frame.origin.x + 10),
+                                                                         _cellHeight/2-5)];
+            titleLab.textColor = [UIColor whiteColor];
+            titleLab.text = @"李小龙";
+            titleLab.font = [UIFont systemFontOfSize:14];
+            [cell addSubview:titleLab];
+            
+            UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.size.width + headView.frame.origin.x + 10),
+                                                                          _cellHeight/2,
+                                                                          SCREEN_WIDTH -(headView.frame.size.width + headView.frame.origin.x + 10)-100,
+                                                                          _cellHeight/2)];
+            timeLab.textColor = [UIColor whiteColor];
+            timeLab.text = @"报名时间：2015年10月20日";
+            timeLab.font = [UIFont systemFontOfSize:14];
+            [cell addSubview:timeLab];
+            
+            
+            UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100),
+                                                                         _cellHeight/2,
+                                                                         100,
+                                                                         _cellHeight/2)];
+            numLab.textColor = [UIColor whiteColor];
+            numLab.text = @"编号：005";
+            numLab.font = [UIFont systemFontOfSize:14];
+            [cell addSubview:numLab];
             
         }
             break;
@@ -116,21 +211,7 @@
 //设置cell每行间隔的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    switch (indexPath.section) {
-        case 0:
-            return _cellHeight*3;
-            break;
-        case 1:
-            return _cellHeight*1.5;
-            break;
-        case 2:
-            return _cellHeight*3;
-            break;
-            
-        default:
-            break;
-    }
-    
+
     return _cellHeight;
 }
 
@@ -195,13 +276,14 @@
 //设置section header 的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0;
+   
+    return 10;
 }
 
 //设置section footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 10;
+    return 0;
     
 }
 

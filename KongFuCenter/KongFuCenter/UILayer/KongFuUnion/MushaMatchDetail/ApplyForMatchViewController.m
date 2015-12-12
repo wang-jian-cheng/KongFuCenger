@@ -24,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"更多"];
     [self addLeftButton:@"left"];
     [self addRightbuttontitle:@"确定"];
     [self initViews];

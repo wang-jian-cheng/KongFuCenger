@@ -30,8 +30,8 @@
    
     [self.window makeKeyAndVisible];
     
-    //self.window.rootViewController = _loginViewCtl;
-    self.window.rootViewController = _tabBarViewCol;
+    self.window.rootViewController = _loginViewCtl;
+   // self.window.rootViewController = _tabBarViewCol;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView:) name:@"changeRootView" object:nil];
     
     return YES;
