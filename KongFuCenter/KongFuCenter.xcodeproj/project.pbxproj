@@ -15,6 +15,8 @@
 		802118E91C1AFAE100DCEE73 /* MyActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118E01C1AFAE100DCEE73 /* MyActivityIndicatorView.m */; };
 		802118EA1C1AFAE100DCEE73 /* nil.png in Resources */ = {isa = PBXBuildFile; fileRef = 802118E21C1AFAE100DCEE73 /* nil.png */; };
 		802118EB1C1AFAE100DCEE73 /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118E41C1AFAE100DCEE73 /* Slider.m */; };
+		8026D0F61C1BC6BE00D9CD44 /* ErWeiMaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8026D0F41C1BC6BE00D9CD44 /* ErWeiMaViewController.m */; };
+		8026D0F71C1BC6BE00D9CD44 /* ErWeiMaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8026D0F51C1BC6BE00D9CD44 /* ErWeiMaViewController.xib */; };
 		B53791A41C151AED00C45BA7 /* VideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */; };
 		B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791A61C151FEB00C45BA7 /* UserHeadView.m */; };
 		B53791AC1C152BFD00C45BA7 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791AB1C152BFD00C45BA7 /* CustomButton.m */; };
@@ -182,6 +184,9 @@
 		802118E21C1AFAE100DCEE73 /* nil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nil.png; sourceTree = "<group>"; };
 		802118E31C1AFAE100DCEE73 /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slider.h; sourceTree = "<group>"; };
 		802118E41C1AFAE100DCEE73 /* Slider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slider.m; sourceTree = "<group>"; };
+		8026D0F31C1BC6BE00D9CD44 /* ErWeiMaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErWeiMaViewController.h; sourceTree = "<group>"; };
+		8026D0F41C1BC6BE00D9CD44 /* ErWeiMaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErWeiMaViewController.m; sourceTree = "<group>"; };
+		8026D0F51C1BC6BE00D9CD44 /* ErWeiMaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErWeiMaViewController.xib; sourceTree = "<group>"; };
 		917C8DDA7A56E94AAC386040 /* Pods-KongFuCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KongFuCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KongFuCenter/Pods-KongFuCenter.debug.xcconfig"; sourceTree = "<group>"; };
 		B53791A21C151AED00C45BA7 /* VideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoDetailViewController.h; path = KongFuer/VideoDetailViewController.h; sourceTree = "<group>"; };
 		B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoDetailViewController.m; path = KongFuer/VideoDetailViewController.m; sourceTree = "<group>"; };
@@ -463,6 +468,16 @@
 			path = Slider;
 			sourceTree = "<group>";
 		};
+		8026D0F21C1BC6BE00D9CD44 /* ScanErWeiMa */ = {
+			isa = PBXGroup;
+			children = (
+				8026D0F31C1BC6BE00D9CD44 /* ErWeiMaViewController.h */,
+				8026D0F41C1BC6BE00D9CD44 /* ErWeiMaViewController.m */,
+				8026D0F51C1BC6BE00D9CD44 /* ErWeiMaViewController.xib */,
+			);
+			path = ScanErWeiMa;
+			sourceTree = "<group>";
+		};
 		B53791A91C1525CD00C45BA7 /* CommonUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -705,6 +720,7 @@
 		B59409041C0FCE1B003DC15D /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
+				8026D0F21C1BC6BE00D9CD44 /* ScanErWeiMa */,
 				B72E39F11C1AB4A6007356C4 /* MakeMusha */,
 				B7CE7F401C16C5EA0035D8CA /* JoinTeam */,
 				B7CE7F371C16AF1C0035D8CA /* MushaMatch */,
@@ -1182,6 +1198,7 @@
 				B53791CB1C15821E00C45BA7 /* headImg@2x.png in Resources */,
 				B5F90B001C1985A100D7879D /* Loginweixin@2x.png in Resources */,
 				B53E737E1C166389009E7878 /* support_h@2x.png in Resources */,
+				8026D0F71C1BC6BE00D9CD44 /* ErWeiMaViewController.xib in Resources */,
 				B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */,
 				B5AF70841C183A9F00C041AF /* down@2x.png in Resources */,
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
@@ -1325,6 +1342,7 @@
 				B53E73901C168BDA009E7878 /* MyDreamViewController.m in Sources */,
 				B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */,
 				802118E91C1AFAE100DCEE73 /* MyActivityIndicatorView.m in Sources */,
+				8026D0F61C1BC6BE00D9CD44 /* ErWeiMaViewController.m in Sources */,
 				B59408C91C0FC9E8003DC15D /* main.m in Sources */,
 				B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */,
 				B5F90AED1C197D3D00D7879D /* InputText.m in Sources */,

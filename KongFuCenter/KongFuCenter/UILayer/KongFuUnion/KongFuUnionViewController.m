@@ -12,6 +12,7 @@
 #import "MushaMatch.h"
 #import "JoinTeamViewController.h"
 #import "MakeMushaViewController.h"
+#import "ErWeiMaViewController.h"
 
 @interface KongFuUnionViewController ()
 {
@@ -132,7 +133,9 @@
             [self.navigationController pushViewController:recruitCommentVC animated:YES];
         }
     }else if(indexPath.section == 3){
+        ErWeiMaViewController * erweima=[[ErWeiMaViewController alloc] initWithNibName:@"ErWeiMaViewController" bundle:[NSBundle mainBundle]];
         
+        [self.navigationController pushViewController:erweima animated:YES];
     }
 }
 
