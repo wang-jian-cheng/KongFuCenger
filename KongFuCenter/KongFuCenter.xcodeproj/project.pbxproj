@@ -74,6 +74,7 @@
 		B5905E141C1BC7D800ECA9BA /* ApplyForMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5905E131C1BC7D800ECA9BA /* ApplyForMatchViewController.m */; };
 		B5905E161C1BCC7700ECA9BA /* dajiahao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5905E151C1BCC7700ECA9BA /* dajiahao@2x.png */; };
 		B5905E191C1BF21100ECA9BA /* PlayerForMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5905E181C1BF21100ECA9BA /* PlayerForMatchViewController.m */; };
+		B5905E1C1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5905E1B1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m */; };
 		B59408C91C0FC9E8003DC15D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408C81C0FC9E8003DC15D /* main.m */; };
 		B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408CB1C0FC9E8003DC15D /* AppDelegate.m */; };
 		B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408CE1C0FC9E8003DC15D /* ViewController.m */; };
@@ -269,6 +270,8 @@
 		B5905E151C1BCC7700ECA9BA /* dajiahao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dajiahao@2x.png"; sourceTree = "<group>"; };
 		B5905E171C1BF21100ECA9BA /* PlayerForMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerForMatchViewController.h; sourceTree = "<group>"; };
 		B5905E181C1BF21100ECA9BA /* PlayerForMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerForMatchViewController.m; sourceTree = "<group>"; };
+		B5905E1A1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MushaMatchOngoingViewController.h; sourceTree = "<group>"; };
+		B5905E1B1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MushaMatchOngoingViewController.m; sourceTree = "<group>"; };
 		B59408C41C0FC9E8003DC15D /* KongFuCenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KongFuCenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B59408C81C0FC9E8003DC15D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B59408CA1C0FC9E8003DC15D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -629,6 +632,8 @@
 				B5905E131C1BC7D800ECA9BA /* ApplyForMatchViewController.m */,
 				B5905E171C1BF21100ECA9BA /* PlayerForMatchViewController.h */,
 				B5905E181C1BF21100ECA9BA /* PlayerForMatchViewController.m */,
+				B5905E1A1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.h */,
+				B5905E1B1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m */,
 			);
 			path = MushaMatchDetail;
 			sourceTree = "<group>";
@@ -1225,12 +1230,9 @@
 				B5F90B001C1985A100D7879D /* Loginweixin@2x.png in Resources */,
 				B5905E051C1BC2CF00ECA9BA /* friend_avatar.png in Resources */,
 				B53E737E1C166389009E7878 /* support_h@2x.png in Resources */,
-
 				B5905E041C1BC2CF00ECA9BA /* down_icon.png in Resources */,
 				B5905E0B1C1BC2CF00ECA9BA /* xin.png in Resources */,
-
 				8026D0F71C1BC6BE00D9CD44 /* ErWeiMaViewController.xib in Resources */,
-
 				B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */,
 				B5AF70841C183A9F00C041AF /* down@2x.png in Resources */,
 				B5905E161C1BCC7700ECA9BA /* dajiahao@2x.png in Resources */,
@@ -1371,6 +1373,7 @@
 				B5AF707F1C1837F600C041AF /* NewPlanViewController.m in Sources */,
 				B53E73851C166FCB009E7878 /* JiFenViewController.m in Sources */,
 				B53E73891C167080009E7878 /* JiFenTableViewCell.m in Sources */,
+				B5905E1C1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m in Sources */,
 				B5D89A001C11439E00F55BFA /* WuGuanViewController.m in Sources */,
 				B5AF705A1C17C21400C041AF /* MBProgressHUD.m in Sources */,
 				802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */,

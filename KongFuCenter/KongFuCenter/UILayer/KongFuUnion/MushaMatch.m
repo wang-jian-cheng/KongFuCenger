@@ -121,7 +121,19 @@
     cell.mDate.text = @"4月20日";
     cell.mEndDate.text = @"结束时间:2015年10月30日";
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.mState.frame.size.width, cell.mState.frame.size.height)];
-    imageView.image = [UIImage imageNamed:@"weikaishi"];
+    
+    if(indexPath.row == 1)
+    {
+        imageView.image = [UIImage imageNamed:@"jinxingzhong"];
+    }
+    else if(indexPath.row== 2)
+    {
+        imageView.image = [UIImage imageNamed:@"yijieshou"];
+    }
+    else
+    {
+        imageView.image = [UIImage imageNamed:@"weikaishi"];
+    }
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     [cell.mState addSubview:imageView];
 //    
@@ -142,10 +154,20 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
-    mushaMatchDetailViewCtl.navtitle  = @"武者大赛";
-    [self.navigationController pushViewController:mushaMatchDetailViewCtl animated:YES];
-    
+    if(indexPath.row == 1)
+    {
+        
+    }
+    else if(indexPath.row == 2)
+    {
+        
+    }
+    else
+    {
+        MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
+        mushaMatchDetailViewCtl.navtitle  = @"武者大赛";
+        [self.navigationController pushViewController:mushaMatchDetailViewCtl animated:YES];
+    }
 }
 
 @end
