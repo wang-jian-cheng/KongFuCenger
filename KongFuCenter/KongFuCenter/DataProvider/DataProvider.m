@@ -102,7 +102,7 @@
     AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];
     manage.responseSerializer=[AFHTTPResponseSerializer serializer];
     manage.requestSerializer=[AFHTTPRequestSerializer serializer];
-    manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/xml"];//可接收到的数据类型
+    manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/plain"];//可接收到的数据类型
     manage.requestSerializer.timeoutInterval=10;//设置请求时限
     NSDictionary * prm =[[NSDictionary alloc] init];
     if (pram!=nil) {
@@ -112,13 +112,13 @@
         //        NSDictionary * dict =responseObject;
         NSString *str=[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         
-        /*解析xml字符串开始*/
-        SBXMLParser * parser = [[SBXMLParser alloc] init];
-        XMLElement * root = [parser parserXML:[str dataUsingEncoding:NSASCIIStringEncoding]];
-        NSLog(@"解析后：root=%@",root.text);
-        /*解析xml字符串结束*/
+//        /*解析xml字符串开始*/
+//        SBXMLParser * parser = [[SBXMLParser alloc] init];
+//        XMLElement * root = [parser parserXML:[str dataUsingEncoding:NSASCIIStringEncoding]];
+//        NSLog(@"解析后：root=%@",root.text);
+//        /*解析xml字符串结束*/
         
-        NSData * data =[root.text dataUsingEncoding:NSUTF8StringEncoding];
+        NSData * data =[str dataUsingEncoding:NSUTF8StringEncoding];
         id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         
         SEL func_selector = NSSelectorFromString(callBackFunctionName);
