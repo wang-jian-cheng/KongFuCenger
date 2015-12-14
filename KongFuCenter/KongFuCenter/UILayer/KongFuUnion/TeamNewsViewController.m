@@ -97,7 +97,7 @@
     
     WFMessageBody *messBody1 = [[WFMessageBody alloc] init];
     messBody1.posterContent = kShuoshuoText1;
-    messBody1.posterPostImage = @[@"1.png",@"2.png",@"3.png"];
+    messBody1.posterPostImage = @[@"yewenback@2x.png",@"yewenback@2x.png",@"yewenback@2x.png"];
     messBody1.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4, nil];
     messBody1.posterImgstr = @"mao.jpg";
     messBody1.posterName = @"迪恩·温彻斯特";
@@ -107,7 +107,7 @@
     
     WFMessageBody *messBody2 = [[WFMessageBody alloc] init];
     messBody2.posterContent = kShuoshuoText1;
-    messBody2.posterPostImage = @[@"1.png",@"2.png",@"3.png"];
+    messBody2.posterPostImage = @[];
     messBody2.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4, nil];
     messBody2.posterImgstr = @"mao.jpg";
     messBody2.posterName = @"山姆·温彻斯特";
@@ -118,7 +118,7 @@
     
     WFMessageBody *messBody3 = [[WFMessageBody alloc] init];
     messBody3.posterContent = kShuoshuoText3;
-    messBody3.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"2.png",@"1.png",@"3.png"];
+    messBody3.posterPostImage = @[@"yewenback.png",@"yewenback.png",@"yewenback.png",@"yewenback.png",@"yewenback.png",@"yewenback.png"];
     messBody3.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4,body6,body5,body4, nil];
     messBody3.posterImgstr = @"mao.jpg";
     messBody3.posterName = @"伊利丹怒风";
@@ -128,17 +128,17 @@
     
     WFMessageBody *messBody4 = [[WFMessageBody alloc] init];
     messBody4.posterContent = kShuoshuoText4;
-    messBody4.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"1.png",@"3.png"];
+    messBody4.posterPostImage = @[@"yewenback.png",@"yewenback.png",@"yewenback.png",@"yewenback.png"];
     messBody4.posterReplies = [NSMutableArray arrayWithObjects:body1, nil];
     messBody4.posterImgstr = @"mao.jpg";
     messBody4.posterName = @"基尔加丹";
     messBody4.posterIntro = @"";
-    messBody4.posterFavour = [NSMutableArray arrayWithObjects:nil];
+    messBody4.posterFavour = [NSMutableArray arrayWithObjects:@"路人甲",nil];
     messBody4.isFavour = NO;
     
     WFMessageBody *messBody5 = [[WFMessageBody alloc] init];
     messBody5.posterContent = kShuoshuoText5;
-    messBody5.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"3.png"];
+    messBody5.posterPostImage = @[@"yewenback.png",@"yewenback.png",@"yewenback.png",@"yewenback.png"];
     messBody5.posterReplies = [NSMutableArray arrayWithObjects:body2,body4,body5, nil];
     messBody5.posterImgstr = @"mao.jpg";
     messBody5.posterName = @"阿克蒙德";
@@ -148,7 +148,7 @@
     
     WFMessageBody *messBody6 = [[WFMessageBody alloc] init];
     messBody6.posterContent = kShuoshuoText5;
-    messBody6.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"3.png",@"2.png"];
+    messBody6.posterPostImage = @[@"yewenback.png",@"yewenback.png",@"yewenback.png",@"yewenback.png"];
     messBody6.posterReplies = [NSMutableArray arrayWithObjects:body2,body4,body5,body4,body6, nil];
     messBody6.posterImgstr = @"mao.jpg";
     messBody6.posterName = @"红领巾";
@@ -171,7 +171,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     
-    [self setBarTitle:@"联盟动态"];
+    [self setBarTitle:@"战队动态"];
     [self addLeftButton:@"left"];
     
     [self configData];
@@ -179,6 +179,10 @@
     [self initTableview];
     
     [self loadTextData];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
 #pragma mark -加载数据
@@ -255,6 +259,8 @@
     mainTable.dataSource = self;
     [self.view addSubview:mainTable];
     
+    [self initHeadView];
+    
 }
 
 //**
@@ -265,11 +271,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     YMTextData *ym = [_tableDataSource objectAtIndex:indexPath.row];
     BOOL unfold = ym.foldOrNot;
     return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance);
-    
 }
 
 
@@ -280,6 +284,7 @@
     YMTableViewCell *cell = (YMTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[YMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.backgroundColor = ItemsBaseColor;
     }
     cell.stamp = indexPath.row;
     cell.replyBtn.appendIndexPath = indexPath;
@@ -308,7 +313,40 @@
     [self.operationView showAtView:mainTable rect:targetRect isFavour:ym.hasFavour];
 }
 
-
+#pragma mark - initHeadView
+-(void)initHeadView{
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 160)];
+    headView.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
+    mainTable.tableHeaderView = headView;
+    
+    UIImageView *headBackgroundIv = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH,headView.frame.size.height - 40)];
+    headBackgroundIv.image = [UIImage imageNamed:@"head_bg"];
+    [headView addSubview:headBackgroundIv];
+    
+    UIView *headImgView = [[UIView alloc] initWithFrame:CGRectMake(0, (headView.frame.size.height - 85) / 2, SCREEN_WIDTH, headView.frame.size.height / 2)];
+    UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 40) / 2 , 0, 40, 40)];
+    headImg.image = [UIImage imageNamed:@"headImg"];
+    [headImgView addSubview:headImg];
+    UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100) / 2, headImg.frame.origin.y + headImg.frame.size.height, 100, 21)];
+    name_lbl.textColor = [UIColor whiteColor];
+    name_lbl.textAlignment = NSTextAlignmentCenter;
+    name_lbl.text = @"成龙战队";
+    name_lbl.font = [UIFont systemFontOfSize:13];
+    [headImgView addSubview:name_lbl];
+    UILabel *address_lbl = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100) / 2, name_lbl.frame.origin.y + name_lbl.frame.size.height - 5, 100, 21)];
+    address_lbl.textColor = [UIColor whiteColor];
+    address_lbl.textAlignment = NSTextAlignmentCenter;
+    address_lbl.text = @"山东∙临沂";
+    address_lbl.font = [UIFont systemFontOfSize:13];
+    [headImgView addSubview:address_lbl];
+    [headView addSubview:headImgView];
+    
+    NSLog(@"%f",headImgView.frame.origin.y);
+    UIView *menuView = [[UIView alloc] initWithFrame:CGRectMake(0, headImgView.frame.origin.y + headImgView.frame.size.height, SCREEN_WIDTH, 40)];
+    menuView.backgroundColor = ItemsBaseColor;
+    [headView addSubview:menuView];
+    
+}
 
 - (WFPopView *)operationView {
     if (!_operationView) {

@@ -20,7 +20,6 @@
     UIButton *foldBtn;
     YMTextData *tempDate;
     UIImageView *replyImageView;
-    int imageRows;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -29,21 +28,21 @@
     if (self) {
         // Initialization code
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = ItemsBaseColor;;
+        self.backgroundColor = [UIColor clearColor];
         
         _userHeaderImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 5, 50, TableHeader)];
         _userHeaderImage.backgroundColor = [UIColor clearColor];
         CALayer *layer = [_userHeaderImage layer];
         [layer setMasksToBounds:YES];
-        [layer setCornerRadius:_userHeaderImage.frame.size.width / 2];
+        [layer setCornerRadius:TableHeader / 2];
         [layer setBorderWidth:0];
         [layer setBorderColor:[[UIColor colorWithRed:63/255.0 green:107/255.0 blue:252/255.0 alpha:1.0] CGColor]];
         [self.contentView addSubview:_userHeaderImage];
         
-        _userNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, TableHeader / 2 - 5, screenWidth - 120, TableHeader/2)];
+        _userNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2)];
         _userNameLbl.textAlignment = NSTextAlignmentLeft;
         _userNameLbl.font = [UIFont systemFontOfSize:15.0];
-        _userNameLbl.textColor = [UIColor whiteColor];
+        _userNameLbl.textColor = [UIColor whiteColor];//[UIColor colorWithRed:104/255.0 green:109/255.0 blue:248/255.0 alpha:1.0];
         [self.contentView addSubview:_userNameLbl];
         
         
@@ -71,16 +70,21 @@
         
         replyImageView = [[UIImageView alloc] init];
         
-        replyImageView.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
+        replyImageView.backgroundColor = BACKGROUND_COLOR;//[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
         [self.contentView addSubview:replyImageView];
         
         _replyBtn = [YMButton buttonWithType:0];
         [_replyBtn setImage:[UIImage imageNamed:@"fw_r2_c2.png"] forState:0];
         [self.contentView addSubview:_replyBtn];
         
+        _favourImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _favourImage.image = [UIImage imageNamed:@"zan.png"];
+        [self.contentView addSubview:_favourImage];
+        
         _commentDate = [[UILabel alloc] initWithFrame:CGRectZero];
-        _commentDate.textColor =[UIColor colorWithRed:0.34 green:0.34 blue:0.35 alpha:1];
+        _commentDate.textColor = [UIColor whiteColor];
         _commentDate.font = [UIFont systemFontOfSize:14];
+        _commentDate.text = @"刚刚发布";
         [self.contentView addSubview:_commentDate];
     }
     return self;
@@ -108,7 +112,7 @@
 
 
 - (void)setYMViewWith:(YMTextData *)ymData{
-  
+    
     tempDate = ymData;
     
 #pragma mark -  //头像 昵称 简介
@@ -126,9 +130,9 @@
     }
     
     [_ymShuoshuoArray removeAllObjects];
-  
+    
 #pragma mark - // /////////添加说说view
-
+    
     WFTextView *textView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X, 15 + TableHeader, screenWidth - 2 * offSet_X, 0)];
     textView.delegate = self;
     textView.attributedData = ymData.attributedDataShuoshuo;
@@ -141,6 +145,7 @@
     float hhhh = foldOrnot?ymData.shuoshuoHeight:ymData.unFoldShuoHeight;
     
     textView.frame = CGRectMake(offSet_X, 15 + TableHeader, screenWidth - 2 * offSet_X, hhhh);
+    
     [_ymShuoshuoArray addObject:textView];
     
     //按钮
@@ -174,7 +179,7 @@
     }
     
     [_imageArray removeAllObjects];
-    imageRows = (int)ymData.showImageArray.count / 3;
+    
     for (int  i = 0; i < [ymData.showImageArray count]; i++) {
         
         UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(((screenWidth - 240)/4)*(i%3 + 1) + 80*(i%3), TableHeader + 10 * ((i/3) + 1) + (i/3) *  ShowImage_H + hhhh + kDistance + (ymData.islessLimit?0:30), 80, ShowImage_H)];
@@ -192,6 +197,18 @@
     }
     
 #pragma mark - /////点赞部分
+    //移除点赞view 避免滚动时内容重叠
+    for ( int i = 0; i < _ymFavourArray.count; i ++) {
+        WFTextView * imageV = (WFTextView *)[_ymFavourArray objectAtIndex:i];
+        if (imageV.superview) {
+            [imageV removeFromSuperview];
+            
+        }
+    }
+    
+    [_ymFavourArray removeAllObjects];
+    
+    
     float origin_Y = 10;
     NSUInteger scale_Y = ymData.showImageArray.count - 1;
     float balanceHeight = 0; //纯粹为了解决没图片高度的问题
@@ -202,12 +219,27 @@
     
     float backView_Y = 0;
     float backView_H = 0;
-
-//点赞图片的位置
-    _commentDate.frame = CGRectMake(offSet_X + 8, TableHeader + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 10, 100,21);
-    _commentDate.text = @"刚刚发布";
-//
-//#pragma mark - ///// //最下方回复部分
+    
+    
+    
+    WFTextView *favourView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X + 30, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - 2 * offSet_X - 30, 0)];
+    favourView.delegate = self;
+    favourView.attributedData = ymData.attributedDataFavour;
+    favourView.isDraw = YES;
+    favourView.isFold = NO;
+    favourView.canClickAll = NO;
+    favourView.textColor = [UIColor redColor];
+    [favourView setOldString:ymData.showFavour andNewString:ymData.completionFavour];
+    favourView.frame = CGRectMake(offSet_X + 30,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - offSet_X * 2 - 30, ymData.favourHeight);
+    [self.contentView addSubview:favourView];
+    backView_H += ((ymData.favourHeight == 0)?(-kReply_FavourDistance):ymData.favourHeight);
+    [_ymFavourArray addObject:favourView];
+    
+    //点赞图片的位置
+    _favourImage.frame = CGRectMake(offSet_X + 8, favourView.frame.origin.y, (ymData.favourHeight == 0)?0:20,(ymData.favourHeight == 0)?0:20);
+    
+    
+#pragma mark - ///// //最下方回复部分
     for (int i = 0; i < [_ymTextArray count]; i++) {
         
         WFTextView * ymTextView = (WFTextView *)[_ymTextArray objectAtIndex:i];
@@ -221,12 +253,13 @@
     
     [_ymTextArray removeAllObjects];
     
+    
     for (int i = 0; i < ymData.replyDataSource.count; i ++ ) {
         
-        WFTextView *_ilcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X + 20,TableHeader + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance + ymData.favourHeight + (ymData.favourHeight == 0?0:kReply_FavourDistance) - 10, screenWidth - offSet_X * 2 - 20, 0)];
-        //_ilcoreText.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
+        WFTextView *_ilcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance + ymData.favourHeight + (ymData.favourHeight == 0?0:kReply_FavourDistance), screenWidth - offSet_X * 2, 0)];
+        
         if (i == 0) {
-            backView_Y = TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:10);
+            backView_Y = TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30);
         }
         
         _ilcoreText.delegate = self;
@@ -249,7 +282,7 @@
         
         [_ilcoreText setOldString:matchString andNewString:[ymData.completionReplySource objectAtIndex:i]];
         
-        _ilcoreText.frame = CGRectMake(offSet_X + 20,TableHeader + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance + ymData.favourHeight + (ymData.favourHeight == 0?0:kReply_FavourDistance) - 10, screenWidth - offSet_X * 2 - 20, [_ilcoreText getTextHeight]);
+        _ilcoreText.frame = CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance + ymData.favourHeight + (ymData.favourHeight == 0?0:kReply_FavourDistance), screenWidth - offSet_X * 2, [_ilcoreText getTextHeight]);
         [self.contentView addSubview:_ilcoreText];
         origin_Y += [_ilcoreText getTextHeight] + 5 ;
         
@@ -266,13 +299,14 @@
         
         replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, 0, 0);
         _replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 40, 18);
+        _commentDate.frame = CGRectMake(offSet_X, replyImageView.frame.origin.y - 24, 100, 18);
         
     }else{
-        NSLog(@"%d",imageRows);
-        replyImageView.frame = CGRectMake(offSet_X, backView_Y + balanceHeight * imageRows + 5 + kReplyBtnDistance, screenWidth - offSet_X * 2, backView_H + 20);//微调
+        
+        replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, screenWidth - offSet_X * 2, backView_H + 20 - 8);//微调
         
         _replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6, replyImageView.frame.origin.y - 24, 40, 18);
-        
+        _commentDate.frame = CGRectMake(offSet_X, replyImageView.frame.origin.y - 24, 100, 18);
         
     }
     
@@ -297,7 +331,7 @@
 
 
 - (void)longClickWFCoretext:(NSString *)clickString replyIndex:(NSInteger)index{
-  
+    
     if (index == -1) {
         UIPasteboard *pboard = [UIPasteboard generalPasteboard];
         pboard.string = clickString;
@@ -311,7 +345,7 @@
 - (void)clickWFCoretext:(NSString *)clickString replyIndex:(NSInteger)index{
     
     if ([clickString isEqualToString:@""] && index != -1) {
-       //reply
+        //reply
         //NSLog(@"reply");
         [_delegate clickRichText:_stamp replyIndex:index];
     }else{

@@ -127,7 +127,7 @@
     [attrString addAttribute:(id)kCTForegroundColorAttributeName value:(id)([UIColor whiteColor].CGColor) range:NSMakeRange(0,[attrString length])];
     
     if (_textColor == nil) {
-        _textColor = [UIColor blueColor];
+        _textColor = [UIColor colorWithRed:0.68 green:0.46 blue:0.17 alpha:1];//[UIColor blueColor];
     }
     
     for (int i = 0; i < _attributedData.count; i ++) {
