@@ -165,9 +165,6 @@
 		B7617E4D1C1C299700CF96E7 /* 01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7617E421C1C299700CF96E7 /* 01@2x.png */; };
 		B7617E4E1C1C299700CF96E7 /* 02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7617E431C1C299700CF96E7 /* 02@2x.png */; };
 		B7617E4F1C1C299700CF96E7 /* 03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7617E441C1C299700CF96E7 /* 03@2x.png */; };
-		B7617E501C1C299700CF96E7 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = B7617E451C1C299700CF96E7 /* 1.png */; };
-		B7617E511C1C299700CF96E7 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = B7617E461C1C299700CF96E7 /* 2.png */; };
-		B7617E521C1C299700CF96E7 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = B7617E471C1C299700CF96E7 /* 3.png */; };
 		B7617E531C1C299700CF96E7 /* button_send_comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7617E481C1C299700CF96E7 /* button_send_comment@2x.png */; };
 		B7617E541C1C299700CF96E7 /* fw_r2_c2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7617E491C1C299700CF96E7 /* fw_r2_c2@2x.png */; };
 		B7617E551C1C299700CF96E7 /* mao@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7617E4A1C1C299700CF96E7 /* mao@2x.jpg */; };
@@ -190,6 +187,7 @@
 		B7CE7F431C16C61E0035D8CA /* JoinTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CE7F421C16C61E0035D8CA /* JoinTeamViewController.m */; };
 		B7CE7F471C16C6F30035D8CA /* JoinTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CE7F451C16C6F30035D8CA /* JoinTeamCell.m */; };
 		B7CE7F481C16C6F30035D8CA /* JoinTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7CE7F461C16C6F30035D8CA /* JoinTeamCell.xib */; };
+		B7E096D61C1E5F1000E0E73B /* head_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E096D51C1E5F1000E0E73B /* head_bg.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -451,9 +449,6 @@
 		B7617E421C1C299700CF96E7 /* 01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01@2x.png"; sourceTree = "<group>"; };
 		B7617E431C1C299700CF96E7 /* 02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "02@2x.png"; sourceTree = "<group>"; };
 		B7617E441C1C299700CF96E7 /* 03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "03@2x.png"; sourceTree = "<group>"; };
-		B7617E451C1C299700CF96E7 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
-		B7617E461C1C299700CF96E7 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
-		B7617E471C1C299700CF96E7 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
 		B7617E481C1C299700CF96E7 /* button_send_comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_send_comment@2x.png"; sourceTree = "<group>"; };
 		B7617E491C1C299700CF96E7 /* fw_r2_c2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fw_r2_c2@2x.png"; sourceTree = "<group>"; };
 		B7617E4A1C1C299700CF96E7 /* mao@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "mao@2x.jpg"; sourceTree = "<group>"; };
@@ -491,6 +486,7 @@
 		B7CE7F441C16C6F30035D8CA /* JoinTeamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinTeamCell.h; sourceTree = "<group>"; };
 		B7CE7F451C16C6F30035D8CA /* JoinTeamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinTeamCell.m; sourceTree = "<group>"; };
 		B7CE7F461C16C6F30035D8CA /* JoinTeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JoinTeamCell.xib; sourceTree = "<group>"; };
+		B7E096D51C1E5F1000E0E73B /* head_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head_bg.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -737,6 +733,7 @@
 		B5905DF91C1BC2CF00ECA9BA /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
+				B7E096D51C1E5F1000E0E73B /* head_bg.png */,
 				B5905E101C1BC53F00ECA9BA /* yewenback@2x.png */,
 				B5905E0E1C1BC34A00ECA9BA /* dingwei@2x.png */,
 				B5905E151C1BCC7700ECA9BA /* dajiahao@2x.png */,
@@ -1173,9 +1170,6 @@
 				B7617E421C1C299700CF96E7 /* 01@2x.png */,
 				B7617E431C1C299700CF96E7 /* 02@2x.png */,
 				B7617E441C1C299700CF96E7 /* 03@2x.png */,
-				B7617E451C1C299700CF96E7 /* 1.png */,
-				B7617E461C1C299700CF96E7 /* 2.png */,
-				B7617E471C1C299700CF96E7 /* 3.png */,
 				B7617E481C1C299700CF96E7 /* button_send_comment@2x.png */,
 				B7617E491C1C299700CF96E7 /* fw_r2_c2@2x.png */,
 				B7617E4A1C1C299700CF96E7 /* mao@2x.jpg */,
@@ -1385,6 +1379,7 @@
 				B53E738C1C1673B3009E7878 /* tip@2x.png in Resources */,
 				B5F90AFC1C1985A100D7879D /* LoginAccount@2x.png in Resources */,
 				B5F90AFE1C1985A100D7879D /* LoginQQ@2x.png in Resources */,
+				B7E096D61C1E5F1000E0E73B /* head_bg.png in Resources */,
 				B5AF70621C17F69B00C041AF /* ZhiBoViewController.xib in Resources */,
 				B53E73921C16AB0C009E7878 /* wuguanimg@2x.png in Resources */,
 				B53E737B1C166389009E7878 /* collect@2x.png in Resources */,
@@ -1411,7 +1406,6 @@
 				802118EA1C1AFAE100DCEE73 /* nil.png in Resources */,
 				B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */,
 				B7617E4D1C1C299700CF96E7 /* 01@2x.png in Resources */,
-				B7617E511C1C299700CF96E7 /* 2.png in Resources */,
 				B5D89A071C1165E400F55BFA /* temp@2x.png in Resources */,
 				B5905E0D1C1BC2CF00ECA9BA /* yijieshu.png in Resources */,
 				B5AF70731C18216C00C041AF /* selectRound@2x.png in Resources */,
@@ -1428,9 +1422,7 @@
 				B53E737E1C166389009E7878 /* support_h@2x.png in Resources */,
 				B5905E041C1BC2CF00ECA9BA /* down_icon.png in Resources */,
 				B5905E0B1C1BC2CF00ECA9BA /* xin.png in Resources */,
-				B7617E521C1C299700CF96E7 /* 3.png in Resources */,
 				8026D0F71C1BC6BE00D9CD44 /* ErWeiMaViewController.xib in Resources */,
-				B7617E501C1C299700CF96E7 /* 1.png in Resources */,
 				B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */,
 				B5AF70841C183A9F00C041AF /* down@2x.png in Resources */,
 				B5905E161C1BCC7700ECA9BA /* dajiahao@2x.png in Resources */,
