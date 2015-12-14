@@ -9,6 +9,14 @@
 #import "MushaMatch.h"
 #import "MushaMatchCell.h"
 
+typedef enum _MatchMode
+{
+    WuZheMode =0,
+    ZhanDuiMode
+   
+    
+}MatchMode;
+
 @interface MushaMatch (){
     //tableview
     UITableView *mTableView;
@@ -19,6 +27,9 @@
     
     //view
     UIImageView *menuImgView;
+    
+    
+    MatchMode matchMode;
 }
 
 @end
@@ -93,6 +104,17 @@
     [btnMenu addSubview:menuImgView];
     btnMenu.selected = YES;
     
+    
+    if(btnMenu.tag == 1)
+    {
+
+        
+        matchMode = ZhanDuiMode;
+    }
+    else
+    {
+        matchMode = WuZheMode;
+    }
     NSLog(@"%d",(int)btnMenu.tag);
 }
 
@@ -128,7 +150,7 @@
     }
     else if(indexPath.row== 2)
     {
-        imageView.image = [UIImage imageNamed:@"yijieshou"];
+        imageView.image = [UIImage imageNamed:@"yijieshu"];
     }
     else
     {
@@ -154,19 +176,51 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if(indexPath.row == 1)
+    if(matchMode == WuZheMode)
     {
-        
+    
+        if(indexPath.row == 1)
+        {
+            MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
+            mushaMatchOngoingViewCtl.navtitle = @"大赛名字";
+            [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
+        }
+        else if(indexPath.row == 2)
+        {
+            MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
+            mushaMatchOngoingViewCtl.navtitle = @"大赛名字";
+            [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
+        }
+        else
+        {
+            MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
+            mushaMatchDetailViewCtl.navtitle  = @"武者大赛";
+            [self.navigationController pushViewController:mushaMatchDetailViewCtl animated:YES];
+        }
     }
-    else if(indexPath.row == 2)
+    else if(matchMode == ZhanDuiMode)
     {
+      
         
-    }
-    else
-    {
-        MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
-        mushaMatchDetailViewCtl.navtitle  = @"武者大赛";
-        [self.navigationController pushViewController:mushaMatchDetailViewCtl animated:YES];
+        
+        if(indexPath.row == 1)
+        {
+            MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
+            mushaMatchOngoingViewCtl.navtitle = @"战队大赛详情";;
+            [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
+        }
+        else if(indexPath.row == 2)
+        {
+            MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
+            mushaMatchOngoingViewCtl.navtitle = @"战队大赛详情";;
+            [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
+        }
+        else
+        {
+            MushaMatchDetailViewController *zhanDuiMatchViewCtl = [[MushaMatchDetailViewController alloc] init];
+            zhanDuiMatchViewCtl.navtitle = @"战队大赛详情";
+            [self.navigationController pushViewController:zhanDuiMatchViewCtl animated:YES];
+        }
     }
 }
 

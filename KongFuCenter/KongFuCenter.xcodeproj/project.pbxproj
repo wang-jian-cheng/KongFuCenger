@@ -67,7 +67,7 @@
 		B5905E071C1BC2CF00ECA9BA /* jinxingzhong.png in Resources */ = {isa = PBXBuildFile; fileRef = B5905DFD1C1BC2CF00ECA9BA /* jinxingzhong.png */; };
 		B5905E081C1BC2CF00ECA9BA /* jointeam.png in Resources */ = {isa = PBXBuildFile; fileRef = B5905DFE1C1BC2CF00ECA9BA /* jointeam.png */; };
 		B5905E091C1BC2CF00ECA9BA /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = B5905DFF1C1BC2CF00ECA9BA /* search.png */; };
-		B5905E0A1C1BC2CF00ECA9BA /* weikaishi.png in Resources */ = {isa = PBXBuildFile; fileRef = B5905E001C1BC2CF00ECA9BA /* weikaishi.png */; };
+		B5905E0A1C1BC2CF00ECA9BA /* weikaishi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5905E001C1BC2CF00ECA9BA /* weikaishi@2x.png */; };
 		B5905E0B1C1BC2CF00ECA9BA /* xin.png in Resources */ = {isa = PBXBuildFile; fileRef = B5905E011C1BC2CF00ECA9BA /* xin.png */; };
 		B5905E0C1C1BC2CF00ECA9BA /* xing.png in Resources */ = {isa = PBXBuildFile; fileRef = B5905E021C1BC2CF00ECA9BA /* xing.png */; };
 		B5905E0D1C1BC2CF00ECA9BA /* yijieshu.png in Resources */ = {isa = PBXBuildFile; fileRef = B5905E031C1BC2CF00ECA9BA /* yijieshu.png */; };
@@ -123,6 +123,8 @@
 		B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D89A091C117A4100F55BFA /* MyCollectViewController.m */; };
 		B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D89A0C1C118BB800F55BFA /* MyCollectTableViewCell.m */; };
 		B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D89A0D1C118BB800F55BFA /* MyCollectTableViewCell.xib */; };
+		B5F4E39D1C1E6BD6001F81F0 /* JiangHuStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */; };
+		B5F4E3A01C1E9212001F81F0 /* UnionNewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E39F1C1E9212001F81F0 /* UnionNewsDetailViewController.m */; };
 		B5F90ACD1C190CF900D7879D /* ChoosePlanTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F90ACC1C190CF900D7879D /* ChoosePlanTypeViewController.m */; };
 		B5F90AD01C1928C200D7879D /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90ACF1C1928C200D7879D /* plus@2x.png */; };
 		B5F90AD41C192A2200D7879D /* chenglong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AD11C192A2200D7879D /* chenglong@2x.png */; };
@@ -295,7 +297,7 @@
 		B5905DFD1C1BC2CF00ECA9BA /* jinxingzhong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jinxingzhong.png; sourceTree = "<group>"; };
 		B5905DFE1C1BC2CF00ECA9BA /* jointeam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jointeam.png; sourceTree = "<group>"; };
 		B5905DFF1C1BC2CF00ECA9BA /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
-		B5905E001C1BC2CF00ECA9BA /* weikaishi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weikaishi.png; sourceTree = "<group>"; };
+		B5905E001C1BC2CF00ECA9BA /* weikaishi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weikaishi@2x.png"; sourceTree = "<group>"; };
 		B5905E011C1BC2CF00ECA9BA /* xin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xin.png; sourceTree = "<group>"; };
 		B5905E021C1BC2CF00ECA9BA /* xing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xing.png; sourceTree = "<group>"; };
 		B5905E031C1BC2CF00ECA9BA /* yijieshu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yijieshu.png; sourceTree = "<group>"; };
@@ -386,6 +388,10 @@
 		B5D89A0B1C118BB800F55BFA /* MyCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCollectTableViewCell.h; sourceTree = "<group>"; };
 		B5D89A0C1C118BB800F55BFA /* MyCollectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCollectTableViewCell.m; sourceTree = "<group>"; };
 		B5D89A0D1C118BB800F55BFA /* MyCollectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCollectTableViewCell.xib; sourceTree = "<group>"; };
+		B5F4E39B1C1E6BD6001F81F0 /* JiangHuStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JiangHuStoryViewController.h; sourceTree = "<group>"; };
+		B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JiangHuStoryViewController.m; sourceTree = "<group>"; };
+		B5F4E39E1C1E9212001F81F0 /* UnionNewsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnionNewsDetailViewController.h; path = UnionNews/UnionNewsDetailViewController.h; sourceTree = "<group>"; };
+		B5F4E39F1C1E9212001F81F0 /* UnionNewsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnionNewsDetailViewController.m; path = UnionNews/UnionNewsDetailViewController.m; sourceTree = "<group>"; };
 		B5F90ACB1C190CF900D7879D /* ChoosePlanTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePlanTypeViewController.h; sourceTree = "<group>"; };
 		B5F90ACC1C190CF900D7879D /* ChoosePlanTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePlanTypeViewController.m; sourceTree = "<group>"; };
 		B5F90ACF1C1928C200D7879D /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
@@ -746,7 +752,7 @@
 				B5905DFD1C1BC2CF00ECA9BA /* jinxingzhong.png */,
 				B5905DFE1C1BC2CF00ECA9BA /* jointeam.png */,
 				B5905DFF1C1BC2CF00ECA9BA /* search.png */,
-				B5905E001C1BC2CF00ECA9BA /* weikaishi.png */,
+				B5905E001C1BC2CF00ECA9BA /* weikaishi@2x.png */,
 				B5905E011C1BC2CF00ECA9BA /* xin.png */,
 				B5905E021C1BC2CF00ECA9BA /* xing.png */,
 				B5905E031C1BC2CF00ECA9BA /* yijieshu.png */,
@@ -1036,6 +1042,15 @@
 			path = other;
 			sourceTree = "<group>";
 		};
+		B5F4E39A1C1E6BB1001F81F0 /* JiangHu */ = {
+			isa = PBXGroup;
+			children = (
+				B5F4E39B1C1E6BD6001F81F0 /* JiangHuStoryViewController.h */,
+				B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */,
+			);
+			path = JiangHu;
+			sourceTree = "<group>";
+		};
 		B5F90ACE1C1928C200D7879D /* HeDongLi */ = {
 			isa = PBXGroup;
 			children = (
@@ -1131,6 +1146,8 @@
 				B7617E241C1C289E00CF96E7 /* UnionNewsCell.xib */,
 				B7617E251C1C289E00CF96E7 /* UnionNewsViewController.h */,
 				B7617E261C1C289E00CF96E7 /* UnionNewsViewController.m */,
+				B5F4E39E1C1E9212001F81F0 /* UnionNewsDetailViewController.h */,
+				B5F4E39F1C1E9212001F81F0 /* UnionNewsDetailViewController.m */,
 			);
 			name = UnionNews;
 			sourceTree = "<group>";
@@ -1226,6 +1243,7 @@
 		B7CE7F371C16AF1C0035D8CA /* MushaMatch */ = {
 			isa = PBXGroup;
 			children = (
+				B5F4E39A1C1E6BB1001F81F0 /* JiangHu */,
 				B5905DF51C1BA8A100ECA9BA /* MushaMatchDetail */,
 				B7CE7F381C16AF780035D8CA /* MushaMatch.h */,
 				B7CE7F391C16AF780035D8CA /* MushaMatch.m */,
@@ -1401,7 +1419,7 @@
 				802118E81C1AFAE100DCEE73 /* yinliangxiao.png in Resources */,
 				B7CE7F481C16C6F30035D8CA /* JoinTeamCell.xib in Resources */,
 				B5F90AD41C192A2200D7879D /* chenglong@2x.png in Resources */,
-				B5905E0A1C1BC2CF00ECA9BA /* weikaishi.png in Resources */,
+				B5905E0A1C1BC2CF00ECA9BA /* weikaishi@2x.png in Resources */,
 				B7617E551C1C299700CF96E7 /* mao@2x.jpg in Resources */,
 				B5AF70851C183A9F00C041AF /* photo@2x.png in Resources */,
 				B5AF70861C183A9F00C041AF /* picture@2x.png in Resources */,
@@ -1539,6 +1557,7 @@
 				B5AF70591C17C21400C041AF /* Dialog.m in Sources */,
 				B53791A41C151AED00C45BA7 /* VideoDetailViewController.m in Sources */,
 				B7617E701C1C29A500CF96E7 /* YMReplyInputView.m in Sources */,
+				B5F4E39D1C1E6BD6001F81F0 /* JiangHuStoryViewController.m in Sources */,
 				B5F90ADE1C196AB800D7879D /* ChannelViewController.m in Sources */,
 				B59409101C0FCF05003DC15D /* KongFuPowerViewController.m in Sources */,
 				B569DB941C12822900325CFA /* GrowHistoryViewController.m in Sources */,
@@ -1578,6 +1597,7 @@
 				8026D0FD1C1C0A1300D9CD44 /* SBXMLParser.m in Sources */,
 				B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */,
 				B7617E3E1C1C298F00CF96E7 /* WFMessageBody.m in Sources */,
+				B5F4E3A01C1E9212001F81F0 /* UnionNewsDetailViewController.m in Sources */,
 				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
 				B7617E731C1C29A500CF96E7 /* YMTapGestureRecongnizer.m in Sources */,
 				B7617E3F1C1C298F00CF96E7 /* WFReplyBody.m in Sources */,

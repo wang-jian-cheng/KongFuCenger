@@ -141,6 +141,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
+    UnionNewsDetailViewController  *unionNew = [[UnionNewsDetailViewController alloc] init];
+    unionNew.navtitle = @"联盟详情";
+    [self.navigationController pushViewController:unionNew animated:YES];
+    
+    
 }
 
 @end

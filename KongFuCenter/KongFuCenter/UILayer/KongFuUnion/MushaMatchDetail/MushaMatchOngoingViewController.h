@@ -7,7 +7,8 @@
 //
 
 #import "BaseNavigationController.h"
-
-@interface MushaMatchOngoingViewController : BaseNavigationController
+#import "UserHeadView.h"
+#import "VideoDetailViewController.h"
+@interface MushaMatchOngoingViewController : BaseNavigationController<UICollectionViewDataSource,UICollectionViewDelegate,UISearchBarDelegate>
 
 @end
