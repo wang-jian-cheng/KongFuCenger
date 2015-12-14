@@ -125,6 +125,9 @@
 		B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D89A0D1C118BB800F55BFA /* MyCollectTableViewCell.xib */; };
 		B5F4E39D1C1E6BD6001F81F0 /* JiangHuStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */; };
 		B5F4E3A01C1E9212001F81F0 /* UnionNewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E39F1C1E9212001F81F0 /* UnionNewsDetailViewController.m */; };
+		B5F4E3A31C1EA45C001F81F0 /* FriendInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E3A21C1EA45C001F81F0 /* FriendInfoViewController.m */; };
+		B5F4E3A61C1EBBB6001F81F0 /* StrangerInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E3A51C1EBBB6001F81F0 /* StrangerInfoViewController.m */; };
+		B5F4E3A91C1EC3B9001F81F0 /* VideoDetailForMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E3A81C1EC3B9001F81F0 /* VideoDetailForMatchViewController.m */; };
 		B5F90ACD1C190CF900D7879D /* ChoosePlanTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F90ACC1C190CF900D7879D /* ChoosePlanTypeViewController.m */; };
 		B5F90AD01C1928C200D7879D /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90ACF1C1928C200D7879D /* plus@2x.png */; };
 		B5F90AD41C192A2200D7879D /* chenglong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AD11C192A2200D7879D /* chenglong@2x.png */; };
@@ -390,6 +393,12 @@
 		B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JiangHuStoryViewController.m; sourceTree = "<group>"; };
 		B5F4E39E1C1E9212001F81F0 /* UnionNewsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnionNewsDetailViewController.h; path = UnionNews/UnionNewsDetailViewController.h; sourceTree = "<group>"; };
 		B5F4E39F1C1E9212001F81F0 /* UnionNewsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnionNewsDetailViewController.m; path = UnionNews/UnionNewsDetailViewController.m; sourceTree = "<group>"; };
+		B5F4E3A11C1EA45C001F81F0 /* FriendInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendInfoViewController.h; sourceTree = "<group>"; };
+		B5F4E3A21C1EA45C001F81F0 /* FriendInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendInfoViewController.m; sourceTree = "<group>"; };
+		B5F4E3A41C1EBBB5001F81F0 /* StrangerInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StrangerInfoViewController.h; sourceTree = "<group>"; };
+		B5F4E3A51C1EBBB6001F81F0 /* StrangerInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StrangerInfoViewController.m; sourceTree = "<group>"; };
+		B5F4E3A71C1EC3B9001F81F0 /* VideoDetailForMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDetailForMatchViewController.h; sourceTree = "<group>"; };
+		B5F4E3A81C1EC3B9001F81F0 /* VideoDetailForMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDetailForMatchViewController.m; sourceTree = "<group>"; };
 		B5F90ACB1C190CF900D7879D /* ChoosePlanTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePlanTypeViewController.h; sourceTree = "<group>"; };
 		B5F90ACC1C190CF900D7879D /* ChoosePlanTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePlanTypeViewController.m; sourceTree = "<group>"; };
 		B5F90ACF1C1928C200D7879D /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
@@ -699,6 +708,10 @@
 			children = (
 				B53E73941C16CF01009E7878 /* PersonInfoViewController.h */,
 				B53E73951C16CF01009E7878 /* PersonInfoViewController.m */,
+				B5F4E3A11C1EA45C001F81F0 /* FriendInfoViewController.h */,
+				B5F4E3A21C1EA45C001F81F0 /* FriendInfoViewController.m */,
+				B5F4E3A41C1EBBB5001F81F0 /* StrangerInfoViewController.h */,
+				B5F4E3A51C1EBBB6001F81F0 /* StrangerInfoViewController.m */,
 			);
 			path = PersonInfo;
 			sourceTree = "<group>";
@@ -732,6 +745,8 @@
 				B5905E181C1BF21100ECA9BA /* PlayerForMatchViewController.m */,
 				B5905E1A1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.h */,
 				B5905E1B1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m */,
+				B5F4E3A71C1EC3B9001F81F0 /* VideoDetailForMatchViewController.h */,
+				B5F4E3A81C1EC3B9001F81F0 /* VideoDetailForMatchViewController.m */,
 			);
 			path = MushaMatchDetail;
 			sourceTree = "<group>";
@@ -1581,6 +1596,7 @@
 				B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */,
 				B5AF707A1C18293F00C041AF /* TrainsPlanViewController.m in Sources */,
 				B577E2321C1A9A6C006695F1 /* SetNoticeViewController.m in Sources */,
+				B5F4E3A61C1EBBB6001F81F0 /* StrangerInfoViewController.m in Sources */,
 				B5F90AE11C19702400D7879D /* ChannelVideosViewController.m in Sources */,
 				B5905E191C1BF21100ECA9BA /* PlayerForMatchViewController.m in Sources */,
 				B7CE7F3E1C16B0B00035D8CA /* MushaMatchCell.m in Sources */,
@@ -1604,6 +1620,8 @@
 				B5AF705A1C17C21400C041AF /* MBProgressHUD.m in Sources */,
 				802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */,
 				B7617E6D1C1C29A500CF96E7 /* WFPopView.m in Sources */,
+				B5F4E3A91C1EC3B9001F81F0 /* VideoDetailForMatchViewController.m in Sources */,
+				B5F4E3A31C1EA45C001F81F0 /* FriendInfoViewController.m in Sources */,
 				B7617E2C1C1C28AC00CF96E7 /* TeamNewsViewController.m in Sources */,
 				B5905E141C1BC7D800ECA9BA /* ApplyForMatchViewController.m in Sources */,
 				B5AF70611C17F69B00C041AF /* ZhiBoViewController.m in Sources */,

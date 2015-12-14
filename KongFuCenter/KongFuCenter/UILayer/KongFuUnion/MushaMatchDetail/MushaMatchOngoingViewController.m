@@ -182,12 +182,9 @@
 
 -( void )collectionView:( UICollectionView *)collectionView didSelectItemAtIndexPath:( NSIndexPath *)indexPath
 {
-    VideoDetailViewController *videoViewCtl = [[VideoDetailViewController alloc] init];
-    
+    VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
     videoViewCtl.navtitle = @"大赛战队详情";
     [self.navigationController pushViewController:videoViewCtl animated:YES];
-    
-    
 }
 
 //返回这个UICollectionViewCell是否可以被选择

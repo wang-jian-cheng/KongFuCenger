@@ -48,17 +48,45 @@
 }
 
 
+-(BOOL)CheckIsFriend:(NSString *)userId
+{
+
+    return NO;
+}
+
 -(void)UserHeadBtnClick:(UIButton *)sender
 {
     DLog(@"Click Btn");
     
     if(self.enableRespondClick == YES)
     {
-        PersonInfoViewController *personInfoViewCtl = [[PersonInfoViewController alloc] init];
-        personInfoViewCtl.navtitle = @"个人资料";
+        if(self.userId == nil || [self.userId isEqualToString:[Toolkit getUserID]])//自己
+        {
+            PersonInfoViewController *personInfoViewCtl = [[PersonInfoViewController alloc] init];
+            personInfoViewCtl.navtitle = @"个人资料";
+            
+            if(tempNav!=nil)
+               [tempNav pushViewController:personInfoViewCtl animated:YES];
+        }
+        else
+        {
+            if([self CheckIsFriend:self.userId] == YES)//好友
+            {
+                FriendInfoViewController *friendInfoViewCtl = [[FriendInfoViewController alloc] init];
+                friendInfoViewCtl.navtitle = @"好友资料";
+                if(tempNav!=nil)
+                    [tempNav pushViewController:friendInfoViewCtl animated:YES];
+            }
+            else//陌生人
+            {
+
+                StrangerInfoViewController *strangerInfoViewCtl = [[StrangerInfoViewController alloc] init];
+                strangerInfoViewCtl.navtitle = @"好友资料";
+                if(tempNav!=nil)
+                    [tempNav pushViewController:strangerInfoViewCtl animated:YES];
+            }
+        }
         
-        if(tempNav!=nil)
-           [tempNav pushViewController:personInfoViewCtl animated:YES];
         
     }
 }

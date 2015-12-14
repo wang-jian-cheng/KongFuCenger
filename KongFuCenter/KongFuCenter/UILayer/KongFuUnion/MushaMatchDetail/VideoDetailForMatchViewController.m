@@ -1,30 +1,34 @@
 //
-//  UnionNewsDetailViewController.m
+//  VideoDetailForMatchViewController.m
 //  KongFuCenter
 //
 //  Created by 王建成 on 15/12/14.
 //  Copyright © 2015年 zykj. All rights reserved.
 //
 
-#import "UnionNewsDetailViewController.h"
+#import "VideoDetailForMatchViewController.h"
+#import "UserHeadView.h"
+#import "MoviePlayer.h"
 
-
-#define DetailSection    0
-#define CommentSection      1
+#define VideoPlaySection    0
+#define SupportSection      1
+#define VideoDetailSection  2
+#define CommentSection      3
 
 #define GapToLeft           20
 #define TextColors          [UIColor whiteColor]
 
-@interface UnionNewsDetailViewController ()
+@interface VideoDetailForMatchViewController ()
 {
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    MoviePlayer *moviePlayerview;
 }
 @end
 
-@implementation UnionNewsDetailViewController
+@implementation VideoDetailForMatchViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,10 +37,12 @@
     // Do any additional setup after loading the view.
 }
 
+
+
 -(void)initViews
 {
     _cellHeight = SCREEN_HEIGHT/12;
-    _sectionNum = 2;
+    _sectionNum = 4;
     
     
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
@@ -51,6 +57,14 @@
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
+    
+    
+    moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
+    //     MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:self.view.bounds URL:[NSURL URLWithString:@"http://192.168.1.136/4.flv"]];
+    [self.view addSubview:moviePlayerview];
+    
+    
+    
     
     
     
@@ -68,11 +82,22 @@
     
 }
 #pragma mark - click actions
+
 -(void)tapViewAction:(id)sender
 {
     [self.view endEditing:YES];
     
 }
+
+-(void)clickLeftButton:(UIButton *)sender
+{
+    moviePlayerview=[[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:@""]];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    
+}
+
 
 -(void)btnClick:(UIButton *)sender
 {
@@ -141,9 +166,14 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     switch (section) {
-        case DetailSection:
+        case VideoDetailSection:
             return 2;
             break;
+        case SupportSection:
+            return 1;
+            break;
+        case VideoPlaySection:
+            return 1;
         case CommentSection:
             return 3;
             break;
@@ -163,40 +193,92 @@
     
     
     switch (indexPath.section) {
-        case DetailSection:
+        case VideoDetailSection:
         {
-            if(indexPath.row == 1)
+            if(indexPath.row == 0)
             {
-                UIButton *collectBtn = [[UIButton alloc] initWithFrame:CGRectMake(GapToLeft,5 ,60 , _cellHeight - 5*2)];
-                [collectBtn setTitle:@"100" forState:UIControlStateNormal];
-                [collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
-                [collectBtn setImage:[UIImage imageNamed:@"collect_h"] forState:UIControlStateSelected];
-                [collectBtn setTitleColor:TextColors forState:UIControlStateNormal];
-                [collectBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-                collectBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-                [cell addSubview:collectBtn];
+                
+                CGFloat FontSize = 12;
+                
+                /*head */
+                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
+                                                                  andImgName:@"me"
+                                                                      andNav:self.navigationController];
+                [headView makeSelfRound];
+                [cell addSubview:headView];
+                
+                /*name*/
+                UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
+                                                                             headView.frame.origin.y, 100, headView.frame.size.height/2)];
+                nameLab.text = @"成龙战队";
+                nameLab.textColor = TextColors;
+                nameLab.font = [UIFont systemFontOfSize:FontSize];
+                [cell addSubview:nameLab];
                 
                 
-                UILabel *commentLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -60), 5, 60, (_cellHeight - 5*2))];
-                commentLab.text = @"阅读 100";
-                commentLab.textColor = TextColors;
-                commentLab.font = [UIFont systemFontOfSize:14];
                 
-                [cell addSubview:commentLab];
+                UILabel *supportNum = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -140 - 10),
+                                                                                headView.frame.origin.y, 140, headView.frame.size.height/2)];
+                supportNum.text = @"已获得票数：100";
+                supportNum.textColor = [UIColor whiteColor];
+                supportNum.font = [UIFont systemFontOfSize:12];
+                supportNum.textAlignment = NSTextAlignmentRight;
+                [cell addSubview:supportNum];
                 
-                UILabel *readNumLab = [[UILabel alloc] initWithFrame:CGRectMake((commentLab.frame.origin.x - 5 -60), 5, 60,
-                                                                                (_cellHeight - 5*2))];
-                readNumLab.text = @"阅读 100";
-                readNumLab.textColor = TextColors;
-                readNumLab.font = [UIFont systemFontOfSize:14];
+               
+                UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLab.frame.origin.x,
+                                                                             (nameLab.frame.origin.y + nameLab.frame.size.height + 2),
+                                                                             100, headView.frame.size.height/2)];
+                dateLab.text = @"编号：001";
+                dateLab.textColor = TextColors;
+                dateLab.font = [UIFont systemFontOfSize:FontSize];
+                [cell addSubview:dateLab];
                 
-                [cell addSubview:readNumLab];
+                UILabel *checkNum = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -140 - 10),
+                                                                                 (nameLab.frame.origin.y + nameLab.frame.size.height + 2), 140, headView.frame.size.height/2)];
+                checkNum.text = @"查看人数：100";
+                checkNum.textColor = [UIColor whiteColor];
+                checkNum.font = [UIFont systemFontOfSize:12];
+                checkNum.textAlignment = NSTextAlignmentRight;
+                [cell addSubview:checkNum];
                 
             }
             
+            if(indexPath.row == 1)
+            {
+                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 10, SCREEN_WIDTH, 30)];
+                titleLab.textColor = TextColors;
+                titleLab.text = @"名字：咏春拳最快制敌方法";
+                titleLab.font = [UIFont boldSystemFontOfSize:14];
+                [cell addSubview:titleLab];
+                
+                NSString *detailStr = @"简介：咏春拳是一门传统的中国武术，是一门禁止侵袭技术，是一个积极、精简的正当防卫系统";
+                CGFloat detailWidth = SCREEN_WIDTH-GapToLeft*2;
+                CGFloat detailHeight = [Toolkit heightWithString:detailStr fontSize:12 width:detailWidth];
+                
+                UILabel *detailLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft,
+                                                                               (titleLab.frame.origin.y+titleLab.frame.size.height+5),
+                                                                               detailWidth, detailHeight)];
+                detailLab.textColor = TextColors;
+                detailLab.text = detailStr;
+                detailLab.numberOfLines = 0;
+                detailLab.font = [UIFont boldSystemFontOfSize:12];
+                [cell addSubview:detailLab];
+                
+            }
         }
             break;
-       
+        case SupportSection:
+        {
+            UIButton *supportBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, _cellHeight -10)];
+            supportBtn.center = CGPointMake(SCREEN_WIDTH/2, _cellHeight/2);
+            supportBtn.backgroundColor = YellowBlock;
+            
+            [supportBtn setTitle:@"点击投票" forState:UIControlStateNormal];
+            [cell addSubview:supportBtn];
+        }
+            
+            break;
         case CommentSection:
         {
             if(indexPath.row == 0)
@@ -252,6 +334,7 @@
                 nameLab.font = [UIFont systemFontOfSize:12];
                 [cell addSubview:nameLab];
                 
+                
                 UIButton *supportBtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 44),headView.frame.origin.y , 44, headView.frame.size.height/2)];
                 [supportBtn setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
                 [supportBtn setImage:[UIImage imageNamed:@"support_h"] forState:UIControlStateSelected];
@@ -266,7 +349,7 @@
                 CGFloat commentHeight = [Toolkit heightWithString:commentStr fontSize:12 width:commentWidth];
                 
                 UILabel *commentLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
-                                                                                headView.frame.size.height/2,
+                                                                                headView.frame.size.height/2+2,
                                                                                 commentWidth,
                                                                                 commentHeight)];
                 commentLab.text = commentStr;
@@ -310,18 +393,18 @@
     
     switch (indexPath.section) {
         case 0:
-            if (indexPath.row == 1) {
-                return _cellHeight;
-            }
             return 4*_cellHeight;
-            
             break;
-
         case 1:
+            
+            return 3*_cellHeight;
+            break;
+        case 2:
+            return 2*_cellHeight;
+            break;
+        case 3:
             if(indexPath.row == 1)
-            {
-                return  _cellHeight;
-            }
+                return _cellHeight;
             return 2*_cellHeight;
             break;
             
@@ -419,8 +502,6 @@
     return 10;
     
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

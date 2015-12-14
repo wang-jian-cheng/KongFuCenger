@@ -12,7 +12,7 @@
 @implementation Toolkit
 
 
-
+#pragma mark - add by wangjc
 +(CGFloat)heightWithString:(NSString*)string fontSize:(CGFloat)fontSize width:(CGFloat)width
 {
     NSDictionary *attrs = @{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]};
@@ -77,6 +77,21 @@
     }
 }
 
+
++(NSString *)getUserID
+{
+    
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    NSDictionary *userInfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];//read plist
+    NSString *userID = [userInfoWithFile objectForKey:@"id"];//获取userID
+        
+    return  userID;
+
+}
+
+#pragma mark  - old
 
 + (BOOL)isSystemIOS7
 {

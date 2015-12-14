@@ -404,6 +404,7 @@
                 UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
                                                                   andImgName:@"me"
                                                                       andNav:self.navigationController];
+                headView.userId = @"1";
                 [headView makeSelfRound];
                 [cell addSubview:headView];
                 

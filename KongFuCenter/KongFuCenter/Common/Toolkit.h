@@ -38,5 +38,6 @@
 +(NSMutableArray *)getColorRGBA:(UIColor *) color;
 //添加划线api
 +(UIImageView *)drawLine:(CGFloat)startX andSY:(CGFloat)startY andEX:(CGFloat)endX andEY:(CGFloat)endY andLW:(CGFloat)lineWidth andColor:(UIColor *)color andView:(UIView *)tempView;
-
+//获取userId
++(NSString *)getUserID;
 @end
