@@ -15,6 +15,8 @@
 #import "ErWeiMaViewController.h"
 #import "UnionNewsViewController.h"
 #import "TeamNewsViewController.h"
+#import "WYNewsViewController.h"
+#import "ChatListViewController.h"
 
 @interface KongFuUnionViewController ()
 {
@@ -30,9 +32,12 @@
     [super viewDidLoad];
     _cellHeight = SCREEN_HEIGHT / 12;
     [self setBarTitle:@"核联盟"];
+    [self addLeftButton:@"wdwy"];
+    [self addRightButton:@"chat_icon"];
+    _imgLeft.frame = CGRectMake(_btnLeft.frame.origin.x + 10, (NavigationBar_HEIGHT - 25) / 2 + StatusBar_HEIGHT, 25, 25);
+    _imgRight.frame = CGRectMake(_btnRight.frame.origin.x + 25, (NavigationBar_HEIGHT - 25) / 2 + StatusBar_HEIGHT, 25, 25);
     [self initViews];
 }
-
 
 -(void)initViews
 {
@@ -48,6 +53,15 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
+}
+
+-(void)clickLeftButton:(UIButton *)sender{
+    
+}
+
+-(void)clickRightButton:(UIButton *)sender{
+    ChatListViewController *chatListVC = [[ChatListViewController alloc] init];
+    [self.navigationController pushViewController:chatListVC animated:YES];
 }
 
 #pragma mark -  tableview  Delegate
@@ -77,28 +91,28 @@
     cell.backgroundColor = ItemsBaseColor;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            [self setCell:cell andImg:@"" andName:@"武友动态"];
+            [self setCell:cell andImg:@"wydt" andName:@"武友动态"];
         }else if(indexPath.row == 1){
-            [self setCell:cell andImg:@"" andName:@"战队动态"];
+            [self setCell:cell andImg:@"zddt" andName:@"战队动态"];
         }else{
-            [self setCell:cell andImg:@"" andName:@"联盟动态"];
+            [self setCell:cell andImg:@"lmdt" andName:@"联盟动态"];
         }
     }else if(indexPath.section == 1){
         if (indexPath.row == 0) {
-            [self setCell:cell andImg:@"" andName:@"结交武者"];
+            [self setCell:cell andImg:@"jjwz" andName:@"结交武者"];
         }else{
-            [self setCell:cell andImg:@"" andName:@"加入战队"];
+            [self setCell:cell andImg:@"jrzd" andName:@"加入战队"];
         }
     }else if(indexPath.section == 2){
         if (indexPath.row == 0) {
-            [self setCell:cell andImg:@"" andName:@"武者赛事"];
+            [self setCell:cell andImg:@"wzss" andName:@"武者赛事"];
         }else if(indexPath.row == 1){
-            [self setCell:cell andImg:@"" andName:@"江湖故事"];
+            [self setCell:cell andImg:@"jhgs" andName:@"江湖故事"];
         }else{
-            [self setCell:cell andImg:@"" andName:@"招聘合作"];
+            [self setCell:cell andImg:@"zphz" andName:@"招聘合作"];
         }
     }else{
-        [self setCell:cell andImg:@"" andName:@"扫一扫"];
+        [self setCell:cell andImg:@"sys" andName:@"扫一扫"];
     }
     return cell;
     
@@ -115,7 +129,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            
+            WYNewsViewController *wyNewsVC = [[WYNewsViewController alloc] init];
+            [self.navigationController pushViewController:wyNewsVC animated:YES];
         }else if(indexPath.row == 1){
             TeamNewsViewController *teamNewsVC = [[TeamNewsViewController alloc] init];
             [self.navigationController pushViewController:teamNewsVC animated:YES];
@@ -203,13 +218,15 @@
     UIImageView *img_icon;
     if (img_icon == nil) {
         img_icon = [[UIImageView alloc] initWithFrame:CGRectMake(14, 0, 20, cell.frame.size.height)];
+        img_icon.contentMode = UIViewContentModeScaleAspectFit;
+        img_icon.image = [UIImage imageNamed:img];
     }
     [cell addSubview:img_icon];
     
     //名称
     UILabel *lbl_name;
     if (lbl_name == nil) {
-        lbl_name = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, 100, cell.frame.size.height)];
+        lbl_name = [[UILabel alloc] initWithFrame:CGRectMake(img_icon.frame.origin.x + img_icon.frame.size.width + 5, 0, 100, cell.frame.size.height)];
         lbl_name.textColor = [UIColor whiteColor];
         lbl_name.font = [UIFont systemFontOfSize:18];
     }

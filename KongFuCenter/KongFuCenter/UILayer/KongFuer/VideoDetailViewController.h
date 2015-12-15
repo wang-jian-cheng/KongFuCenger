@@ -8,7 +8,9 @@
 
 #import "BaseNavigationController.h"
 #import "CustomButton.h"
-
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+#import <ShareSDKInterfaceAdapter/ISSContainer.h>
 @interface VideoDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
     CGFloat _keyHeight;

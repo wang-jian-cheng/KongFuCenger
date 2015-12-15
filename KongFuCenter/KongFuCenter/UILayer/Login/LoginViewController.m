@@ -8,10 +8,9 @@
 
 #import "LoginViewController.h"
 #import "InputText.h"
-
 #import "RegisterViewController.h"
 #import "SVProgressHUD.h"
-
+#import <RongIMKit/RongIMKit.h>
 
 @interface LoginViewController ()<UIGestureRecognizerDelegate>{
     NSUserDefaults *mUserDefault;
@@ -43,7 +42,7 @@
     [super viewDidLoad];
     self.view.frame = [[UIScreen mainScreen] bounds];
     _topView.hidden=YES;
-    _AccountArrCache = [NSMutableArray array];
+    
     _cellCount = 0;
     _cellHeight = 40;
     [self initDatas];
@@ -65,6 +64,16 @@
     _userData = [[DataDefine alloc] init];
     mUserDefault = [NSUserDefaults standardUserDefaults];
     _AccountArrCache = [mUserDefault valueForKey:@"userAccountList"];
+    
+    if(_AccountArrCache == nil)
+    {
+        _AccountArrCache = [NSMutableArray array];
+    }
+    NSString *temp = [mUserDefault valueForKey:@"mAccountID"];
+    if(temp !=nil)
+        NSLog(@"temp = %@",temp);
+    
+//    get_sp(<#a#>)
     if(_AccountArrCache!=nil)
     {
         _cellCount = _AccountArrCache.count;
@@ -281,7 +290,7 @@
     [userText addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [userText addTarget:self action:@selector(textFieldDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
     [userText addTarget:self action:@selector(textFieldBeginChange:) forControlEvents:UIControlEventEditingDidBegin];
-    
+    userText.textColor = [UIColor whiteColor];
     UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, userY, SCREEN_WIDTH,userText.frame.size.height*2+3*15 )];
     
     backView.backgroundColor = ItemsBaseColor;
@@ -291,11 +300,10 @@
     [backView addSubview:userText];
     
     _account_box = [[UIScrollView alloc] initWithFrame:CGRectMake(userText.frame.origin.x, userText.frame.origin.y+userText.frame.size.height+1, userText.frame.size.width, _cellCount >3 ?40*3:40*_cellCount)];
+
     _account_box.hidden = YES;
-  //  _account_box.layer.borderWidth = 0.5;
-    _account_box.backgroundColor = BACKGROUND_COLOR;
-    
-   // _account_box.backgroundColor = [UIColor greenColor];
+
+    _account_box.backgroundColor = [UIColor greenColor];
     
     _accountTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, _account_box.frame.size.width, _account_box.frame.size.height)];
     _accountTableView.delegate = self;
@@ -324,7 +332,7 @@
 //    }
     
     [_account_box addSubview:_accountTableView];
-    [self.view addSubview:_account_box];
+    [backView addSubview:_account_box];
     
     //[self.view addSubview:_moveDownGroup];
     
@@ -337,7 +345,7 @@
     [passWordText setReturnKeyType:UIReturnKeyNext];
     [passWordText addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [passWordText addTarget:self action:@selector(textFieldDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
-    
+    passWordText.textColor = [UIColor whiteColor];
     UIView *tempView = [[UIView alloc ]initWithFrame:CGRectMake(0, 0, 80, passWordText.frame.size.height)];
  
     UIButton *frogetBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0,tempView.frame.size.width - 10 , tempView.frame.size.height - 5)];
@@ -388,7 +396,7 @@
 //    [move setToValue:[NSValue valueWithCGPoint:CGPointMake(_moveDownGroup.center.x, _moveDownGroup.center.y+_account_box.frame.size.height)]];
 //    [move setDuration:ANIMATION_DURATION];
 //    [_moveDownGroup.layer addAnimation:move forKey:nil];
-    
+//    
     
     [_account_box setHidden:NO];
     [self.view bringSubviewToFront:_account_box];
@@ -618,23 +626,24 @@
 //        [alert addButtonWithTitle:@"确定"];
 //        [alert show];
 //         NSLog(@"Out of click");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账户或密码错误" delegate:self cancelButtonTitle:@"确定 " otherButtonTitles: nil];
-        [alertView show];
-        return;
+        
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账户或密码错误" delegate:self cancelButtonTitle:@"确定 " otherButtonTitles: nil];
+//        [alertView show];
+//        return;
     }
     
-    [self LoginFunc];
-//    [self webViewDidStartLoad];
+    //[self LoginFunc];
+    //[self webViewDidStartLoad];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
 }
 
 -(void)LoginFunc
 {
     if (_userData.phoneNum.length > 0) {
-//        [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
-//        DataProvider * dataprovider=[[DataProvider alloc] init];
-//        [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
-//        [dataprovider Login:userText.text andpwd:passWordText.text andreferrer:@""];
+        [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
+        [dataprovider login:_userData.phoneNum andPassWord:_userData.passWord];
         
     }
 }
@@ -644,29 +653,26 @@
     printf("[%s] start \r\n",__FUNCTION__);
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200 ) {
-        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                  NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-        NSArray * itemdict=[[NSArray alloc] initWithArray:dict[@"datas"]];
-        BOOL result= [itemdict[0] writeToFile:plistPath atomically:YES];
-        if (result) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
+//        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+//                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+//        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+        NSDictionary * itemdict=dict[@"data"];
+        
+      
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
             
-            //设置默认值
-            [self setLoginValue:itemdict[0]];
+        //设置默认值
+        [self setLoginValue:itemdict];
             
-            //设置通知
-            [self setNotificate];
+        //设置通知
+        [self setNotificate];
             
-            
-            //[NSNotificationCenter defaultCenter] postNotificationName:@"Login_success" object:nil];
-//            [self.navigationController popToRootViewControllerAnimated:YES];
-        }
+        
         
     }
     else
     {
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"message"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
         [alert show];
     }
     printf("[%s] end\r\n",__FUNCTION__);
@@ -674,20 +680,20 @@
 
 -(void)setLoginValue:(NSDictionary *)dict{
     @try {
-           [mUserDefault setValue:[dict valueForKey:@"mobile"] forKey:@"mAccountID"];
-           [mUserDefault setValue:[dict valueForKey:@"avatar"] forKey:@"avatar"];
+           [mUserDefault setValue:[dict valueForKey:@"UserName"] forKey:@"mAccountID"];
+         //  [mUserDefault setValue:[dict valueForKey:@"avatar"] forKey:@"avatar"];
            
            NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
            
-           [tempDict setObject:[dict valueForKey:@"mobile"] forKey:@"mAccountID"];
-           [tempDict setObject:[dict valueForKey:@"avatar"] forKey:@"avatar"];
+           [tempDict setObject:[dict valueForKey:@"UserName"] forKey:@"mAccountID"];
+   //        [tempDict setObject:[dict valueForKey:@"PhotoPath"] forKey:@"avatar"];
            [tempDict setObject:passWordText.text forKey:@"password"];
            
            for (int i = 0; i<_AccountArrCache.count; i++)
            {
                NSDictionary *checkDict = [_AccountArrCache objectAtIndex:i];
                
-               if([tempDict[@"mAccountID"] isEqualToString:checkDict[@"mAccountID"]])
+               if([tempDict[@"UserName"] isEqualToString:checkDict[@"mAccountID"]])
                {
                    
                    if([tempDict isEqualToDictionary:checkDict])//存在的账号信息完全相同则不保存
@@ -712,7 +718,10 @@
            [mutaArray addObject:tempDict];
            _AccountArrCache = mutaArray;
            
-           [mUserDefault setValue:_AccountArrCache forKey:@"userAccountList"];
+        [mUserDefault setValue:_AccountArrCache forKey:@"userAccountList"];
+       // [mUserDefault setObject:_AccountArrCache forKey:@"userAccountList"];
+      
+   
     
     }
     @catch (NSException *exception) {
@@ -777,7 +786,13 @@
 }
 
 -(void)CallLoginFun{
-
+    [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
+    NSString *mRegistAcount = [mUserDefault valueForKey:@"RegisterAccount"];
+    NSString *mRegistPwd = [mUserDefault valueForKey:@"RegisterPwd"];
+   // [dataprovider Login:mRegistAcount andpwd:mRegistPwd andreferrer:@""];
+    [dataprovider login:mRegistAcount andPassWord:mRegistPwd];
 }
 
 -(void)JumpToForgetVC:(UIButton *)sender
@@ -786,6 +801,19 @@
     RegisterViewController * registerVC=[[RegisterViewController alloc] initWithNibName:@"RegisterViewController" bundle:[NSBundle mainBundle]];
     registerVC.pageMode = MODE_forget;
     [self presentViewController:registerVC animated:YES completion:^{}];
+}
+
+-(void)connectServer:(NSString *)token{
+    [[RCIM sharedRCIM] connectWithToken:@"YourTestUserToken" success:^(NSString *userId) {
+        NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+    } error:^(RCConnectErrorCode status) {
+        NSLog(@"登陆的错误码为:%ld", (long)status);
+    } tokenIncorrect:^{
+        //token过期或者不正确。
+        //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
+        //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
+        NSLog(@"token错误");
+    }];
 }
 
 #pragma mark - delegate tableView
