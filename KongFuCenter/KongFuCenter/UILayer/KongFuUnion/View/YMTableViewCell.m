@@ -39,7 +39,7 @@
         [layer setBorderColor:[[UIColor colorWithRed:63/255.0 green:107/255.0 blue:252/255.0 alpha:1.0] CGColor]];
         [self.contentView addSubview:_userHeaderImage];
         
-        _userNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2)];
+        _userNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, 5, screenWidth - 120, TableHeader/2)];
         _userNameLbl.textAlignment = NSTextAlignmentLeft;
         _userNameLbl.font = [UIFont systemFontOfSize:15.0];
         _userNameLbl.textColor = [UIColor whiteColor];//[UIColor colorWithRed:104/255.0 green:109/255.0 blue:248/255.0 alpha:1.0];

@@ -9,9 +9,9 @@
 #import "AppDelegate.h"
 #import "CustomTabBarViewController.h"
 #import "LoginViewController.h"
+#import <RongIMKit/RongIMKit.h>
 #import <SMS_SDK/SMSSDK.h>
 #import <ShareSDK/ShareSDK.h>
-
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
@@ -131,9 +131,14 @@
     
     self.window.rootViewController = _loginViewCtl;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView:) name:@"changeRootView" object:nil];
-
+    
+    
+    
+    //集成融云App Key
+    [[RCIM sharedRCIM] initWithAppKey:@"3argexb6r2qhe"];
+    
+    return YES;
 }
-
 
 -(void)changeRootView:(id)sender
 {
