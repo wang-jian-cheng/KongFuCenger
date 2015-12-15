@@ -150,6 +150,13 @@
 		B5F13B2F1C1FBCBD00155038 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F13B2E1C1FBCBD00155038 /* ImageIO.framework */; };
 		B5F13B311C1FBCC700155038 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F13B301C1FBCC700155038 /* AdSupport.framework */; };
 		B5F13B331C1FBCD500155038 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F13B321C1FBCD500155038 /* libsqlite3.tbd */; };
+		B5F13B3C1C1FE6E600155038 /* 1024@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B351C1FE6E600155038 /* 1024@2x.png */; };
+		B5F13B3D1C1FE6E600155038 /* 108@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B361C1FE6E600155038 /* 108@2x.png */; };
+		B5F13B3E1C1FE6E600155038 /* 120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B371C1FE6E600155038 /* 120@2x.png */; };
+		B5F13B3F1C1FE6E600155038 /* 28@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B381C1FE6E600155038 /* 28@2x.png */; };
+		B5F13B401C1FE6E600155038 /* 512@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B391C1FE6E600155038 /* 512@2x.png */; };
+		B5F13B411C1FE6E600155038 /* 58@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B3A1C1FE6E600155038 /* 58@2x.png */; };
+		B5F13B421C1FE6E600155038 /* 80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B3B1C1FE6E600155038 /* 80@2x.png */; };
 		B5F4E39D1C1E6BD6001F81F0 /* JiangHuStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */; };
 		B5F4E3A01C1E9212001F81F0 /* UnionNewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E39F1C1E9212001F81F0 /* UnionNewsDetailViewController.m */; };
 		B5F4E3A31C1EA45C001F81F0 /* FriendInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E3A21C1EA45C001F81F0 /* FriendInfoViewController.m */; };
@@ -464,6 +471,13 @@
 		B5F13B2E1C1FBCBD00155038 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		B5F13B301C1FBCC700155038 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		B5F13B321C1FBCD500155038 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		B5F13B351C1FE6E600155038 /* 1024@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1024@2x.png"; sourceTree = "<group>"; };
+		B5F13B361C1FE6E600155038 /* 108@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "108@2x.png"; sourceTree = "<group>"; };
+		B5F13B371C1FE6E600155038 /* 120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "120@2x.png"; sourceTree = "<group>"; };
+		B5F13B381C1FE6E600155038 /* 28@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "28@2x.png"; sourceTree = "<group>"; };
+		B5F13B391C1FE6E600155038 /* 512@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "512@2x.png"; sourceTree = "<group>"; };
+		B5F13B3A1C1FE6E600155038 /* 58@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "58@2x.png"; sourceTree = "<group>"; };
+		B5F13B3B1C1FE6E600155038 /* 80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80@2x.png"; sourceTree = "<group>"; };
 		B5F4E39B1C1E6BD6001F81F0 /* JiangHuStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JiangHuStoryViewController.h; sourceTree = "<group>"; };
 		B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JiangHuStoryViewController.m; sourceTree = "<group>"; };
 		B5F4E39E1C1E9212001F81F0 /* UnionNewsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnionNewsDetailViewController.h; path = UnionNews/UnionNewsDetailViewController.h; sourceTree = "<group>"; };
@@ -1079,6 +1093,7 @@
 		B594091B1C0FDB6A003DC15D /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B5F13B341C1FE6E600155038 /* Logos */,
 				B5905DF91C1BC2CF00ECA9BA /* KongFuUnion */,
 				B5F90AF61C19848E00D7879D /* login */,
 				B5F90ACE1C1928C200D7879D /* HeDongLi */,
@@ -1266,6 +1281,20 @@
 				B5F13B171C1FBAAC00155038 /* WXApiObject.h */,
 			);
 			path = WeChatSDK;
+			sourceTree = "<group>";
+		};
+		B5F13B341C1FE6E600155038 /* Logos */ = {
+			isa = PBXGroup;
+			children = (
+				B5F13B351C1FE6E600155038 /* 1024@2x.png */,
+				B5F13B361C1FE6E600155038 /* 108@2x.png */,
+				B5F13B371C1FE6E600155038 /* 120@2x.png */,
+				B5F13B381C1FE6E600155038 /* 28@2x.png */,
+				B5F13B391C1FE6E600155038 /* 512@2x.png */,
+				B5F13B3A1C1FE6E600155038 /* 58@2x.png */,
+				B5F13B3B1C1FE6E600155038 /* 80@2x.png */,
+			);
+			path = Logos;
 			sourceTree = "<group>";
 		};
 		B5F4E39A1C1E6BB1001F81F0 /* JiangHu */ = {
@@ -1606,11 +1635,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5F13B3F1C1FE6E600155038 /* 28@2x.png in Resources */,
 				B5F90AD91C194FCA00D7879D /* chat@2x.png in Resources */,
 				B72C3CC91C1568C900D3250A /* RecruitCommentCell.xib in Resources */,
 				B5AF70711C181FAD00C041AF /* zhifubao@2x.png in Resources */,
 				B53E737C1C166389009E7878 /* relay@2x.png in Resources */,
 				B7617E571C1C299700CF96E7 /* zan@2x.png in Resources */,
+				B5F13B411C1FE6E600155038 /* 58@2x.png in Resources */,
 				B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */,
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
 				B7617E531C1C299700CF96E7 /* button_send_comment@2x.png in Resources */,
@@ -1619,6 +1650,7 @@
 				B5AF70701C181FAD00C041AF /* weixin@2x.png in Resources */,
 				B7617E4F1C1C299700CF96E7 /* 03@2x.png in Resources */,
 				B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */,
+				B5F13B3E1C1FE6E600155038 /* 120@2x.png in Resources */,
 				B5F90AF11C197D3D00D7879D /* RegisterViewController.xib in Resources */,
 				B7E4CCFF1C1FA1F200C2E69A /* zdjs.png in Resources */,
 				B53791C01C1579F500C45BA7 /* hezhuangbei@2x.png in Resources */,
@@ -1648,6 +1680,7 @@
 				B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */,
 				B53E73991C16E1EF009E7878 /* point@2x.png in Resources */,
 				B7617E1F1C1C27D500CF96E7 /* JHStoryTableViewCell.xib in Resources */,
+				B5F13B401C1FE6E600155038 /* 512@2x.png in Resources */,
 				B5F90AFD1C1985A100D7879D /* LoginPassword@2x.png in Resources */,
 				B5F90AEF1C197D3D00D7879D /* LoginViewController.xib in Resources */,
 				B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */,
@@ -1664,11 +1697,14 @@
 				B5AF70861C183A9F00C041AF /* picture@2x.png in Resources */,
 				B53791BF1C1579F500C45BA7 /* hewuzhe@2x.png in Resources */,
 				B5F90AFF1C1985A100D7879D /* Logintitle@2x.png in Resources */,
+				B5F13B3D1C1FE6E600155038 /* 108@2x.png in Resources */,
 				B53E737F1C166389009E7878 /* support@2x.png in Resources */,
 				802118EA1C1AFAE100DCEE73 /* nil.png in Resources */,
+				B5F13B3C1C1FE6E600155038 /* 1024@2x.png in Resources */,
 				B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */,
 				B7617E4D1C1C299700CF96E7 /* 01@2x.png in Resources */,
 				B5D89A071C1165E400F55BFA /* temp@2x.png in Resources */,
+				B5F13B421C1FE6E600155038 /* 80@2x.png in Resources */,
 				B5905E0D1C1BC2CF00ECA9BA /* yijieshu.png in Resources */,
 				B5AF70731C18216C00C041AF /* selectRound@2x.png in Resources */,
 				B5F13B211C1FBAAC00155038 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -1956,6 +1992,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1999,6 +2036,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

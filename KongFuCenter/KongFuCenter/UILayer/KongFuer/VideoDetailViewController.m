@@ -83,6 +83,66 @@
 }
 #pragma mark - click actions
 
+
+
+-(void)shareContentBuild
+{
+    NSArray* imageArray = @[[UIImage imageNamed:@"108"]];
+    
+    NSString *strurl=[NSString stringWithFormat:@"http://www.hewuzhe.com/"];
+    if (imageArray) {
+        @try {
+            NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+            [shareParams SSDKSetupShareParamsByText:[[@"核武者上线啦！快来乐享" stringByAppendingString:@"降龙十八掌"] stringByAppendingString:strurl]
+                                             images:imageArray
+                                                url:[NSURL URLWithString:strurl]
+                                              title:@"核武者"
+                                               type:SSDKContentTypeAuto];
+            
+            
+            [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+                                     items:nil
+                               shareParams:shareParams
+                       onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                           
+                           switch (state) {
+                               case SSDKResponseStateSuccess:
+                               {
+                                   UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                       message:nil
+                                                                                      delegate:nil
+                                                                             cancelButtonTitle:@"确定"
+                                                                             otherButtonTitles:nil];
+                                   [alertView show];
+                                   break;
+                               }
+                               case SSDKResponseStateFail:
+                               {
+                                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                                   message:[NSString stringWithFormat:@"%@",error]
+                                                                                  delegate:nil
+                                                                         cancelButtonTitle:@"OK"
+                                                                         otherButtonTitles:nil, nil];
+                                   [alert show];
+                                   break;
+                               }
+                               default:
+                                   break;
+                           }
+                           
+                       }];
+
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Crash");
+        }
+        @finally {
+            
+        }
+        
+    }
+}
+
 -(void)tapViewAction:(id)sender
 {
     [self.view endEditing:YES];
@@ -271,7 +331,7 @@
                 shareBtn.imageView.contentMode = UIViewContentModeCenter;
                 shareBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
                 shareBtn.tag = 2;
-                [shareBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                [shareBtn addTarget:self action:@selector(shareContentBuild) forControlEvents:UIControlEventTouchUpInside];
                 [backView addSubview:shareBtn];
                 
                 CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 5, btnW, backView.frame.size.height-10)];
