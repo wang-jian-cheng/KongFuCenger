@@ -108,6 +108,9 @@
 {
     [self SMSInit];
     [self ShareSdkInit];
+    
+    //集成融云App Key
+    [[RCIM sharedRCIM] initWithAppKey:@"3argexb6r2qhe"];
 }
 
 
@@ -132,12 +135,6 @@
     self.window.rootViewController = _loginViewCtl;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView:) name:@"changeRootView" object:nil];
     
-    
-    
-    //集成融云App Key
-    [[RCIM sharedRCIM] initWithAppKey:@"3argexb6r2qhe"];
-    
-    return YES;
 }
 
 -(void)changeRootView:(id)sender

@@ -37,6 +37,11 @@
     [leftTitle setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
     [leftTitle addTarget:self action:@selector(clickLeftBtn) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:leftTitle];
+    
+    UICollectionView *messageCollectionView = self.conversationMessageCollectionView;
+    messageCollectionView.frame = CGRectMake(0, NavigationBar_HEIGHT + StatusBar_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - StatusBar_HEIGHT - TabBar_HEIGHT);
+    messageCollectionView.backgroundColor = [UIColor grayColor];
+    [self scrollToBottomAnimated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
