@@ -156,6 +156,7 @@
 		B72E39F41C1AB4D0007356C4 /* MakeMushaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F31C1AB4D0007356C4 /* MakeMushaViewController.m */; };
 		B72E39F81C1AB5AD007356C4 /* MakeMushaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */; };
 		B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */; };
+		B750258D1C200115004C1D5F /* ChatContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B750258C1C200115004C1D5F /* ChatContentViewController.m */; };
 		B7617E1F1C1C27D500CF96E7 /* JHStoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */; };
 		B7617E271C1C289E00CF96E7 /* UnionNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */; };
 		B7617E281C1C289E00CF96E7 /* UnionNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E241C1C289E00CF96E7 /* UnionNewsCell.xib */; };
@@ -199,6 +200,18 @@
 		B7E4CD011C1FA1F200C2E69A /* zdlt.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CCFD1C1FA1F200C2E69A /* zdlt.png */; };
 		B7E4CD031C1FA9BC00C2E69A /* zddt_righttop.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD021C1FA9BC00C2E69A /* zddt_righttop.png */; };
 		B7E4CD071C1FB22000C2E69A /* WYNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E4CD061C1FB22000C2E69A /* WYNewsViewController.m */; };
+		B7E4CD0B1C1FBF6400C2E69A /* ChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E4CD0A1C1FBF6400C2E69A /* ChatListViewController.m */; };
+		B7E4CD0D1C1FE10E00C2E69A /* chat_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD0C1C1FE10E00C2E69A /* chat_icon.png */; };
+		B7E4CD0F1C1FE15000C2E69A /* wydt.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD0E1C1FE15000C2E69A /* wydt.png */; };
+		B7E4CD111C1FE18600C2E69A /* zddt.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD101C1FE18600C2E69A /* zddt.png */; };
+		B7E4CD131C1FE19C00C2E69A /* lmdt.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD121C1FE19C00C2E69A /* lmdt.png */; };
+		B7E4CD151C1FE1AE00C2E69A /* jjwz.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD141C1FE1AE00C2E69A /* jjwz.png */; };
+		B7E4CD171C1FE1BA00C2E69A /* jrzd.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD161C1FE1BA00C2E69A /* jrzd.png */; };
+		B7E4CD191C1FE1C900C2E69A /* wzss.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD181C1FE1C900C2E69A /* wzss.png */; };
+		B7E4CD1B1C1FE1D600C2E69A /* jhgs.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD1A1C1FE1D600C2E69A /* jhgs.png */; };
+		B7E4CD1D1C1FE20000C2E69A /* zphz.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD1C1C1FE20000C2E69A /* zphz.png */; };
+		B7E4CD1F1C1FE24600C2E69A /* sys.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD1E1C1FE24600C2E69A /* sys.png */; };
+		B7E4CD221C1FE28500C2E69A /* wdwy.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD211C1FE28500C2E69A /* wdwy.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -446,6 +459,8 @@
 		B72E39F51C1AB5AD007356C4 /* MakeMushaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeMushaCell.h; sourceTree = "<group>"; };
 		B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeMushaCell.m; sourceTree = "<group>"; };
 		B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeMushaCell.xib; sourceTree = "<group>"; };
+		B750258B1C200115004C1D5F /* ChatContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatContentViewController.h; sourceTree = "<group>"; };
+		B750258C1C200115004C1D5F /* ChatContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatContentViewController.m; sourceTree = "<group>"; };
 		B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHStoryTableViewCell.xib; sourceTree = "<group>"; };
 		B7617E221C1C289E00CF96E7 /* UnionNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnionNewsCell.h; sourceTree = "<group>"; };
 		B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnionNewsCell.m; sourceTree = "<group>"; };
@@ -515,6 +530,19 @@
 		B7E4CD021C1FA9BC00C2E69A /* zddt_righttop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zddt_righttop.png; sourceTree = "<group>"; };
 		B7E4CD051C1FB22000C2E69A /* WYNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYNewsViewController.h; sourceTree = "<group>"; };
 		B7E4CD061C1FB22000C2E69A /* WYNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYNewsViewController.m; sourceTree = "<group>"; };
+		B7E4CD091C1FBF6400C2E69A /* ChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatListViewController.h; sourceTree = "<group>"; };
+		B7E4CD0A1C1FBF6400C2E69A /* ChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatListViewController.m; sourceTree = "<group>"; };
+		B7E4CD0C1C1FE10E00C2E69A /* chat_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_icon.png; sourceTree = "<group>"; };
+		B7E4CD0E1C1FE15000C2E69A /* wydt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wydt.png; sourceTree = "<group>"; };
+		B7E4CD101C1FE18600C2E69A /* zddt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zddt.png; sourceTree = "<group>"; };
+		B7E4CD121C1FE19C00C2E69A /* lmdt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lmdt.png; sourceTree = "<group>"; };
+		B7E4CD141C1FE1AE00C2E69A /* jjwz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jjwz.png; sourceTree = "<group>"; };
+		B7E4CD161C1FE1BA00C2E69A /* jrzd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jrzd.png; sourceTree = "<group>"; };
+		B7E4CD181C1FE1C900C2E69A /* wzss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzss.png; sourceTree = "<group>"; };
+		B7E4CD1A1C1FE1D600C2E69A /* jhgs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jhgs.png; sourceTree = "<group>"; };
+		B7E4CD1C1C1FE20000C2E69A /* zphz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zphz.png; sourceTree = "<group>"; };
+		B7E4CD1E1C1FE24600C2E69A /* sys.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sys.png; sourceTree = "<group>"; };
+		B7E4CD211C1FE28500C2E69A /* wdwy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wdwy.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -767,6 +795,7 @@
 		B5905DF91C1BC2CF00ECA9BA /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
+				B7E4CD201C1FE26C00C2E69A /* main_icon */,
 				B7E4CD021C1FA9BC00C2E69A /* zddt_righttop.png */,
 				B7E4CCFA1C1FA1F200C2E69A /* zdcy.png */,
 				B7E4CCFB1C1FA1F200C2E69A /* zdjs.png */,
@@ -905,6 +934,7 @@
 		B59409041C0FCE1B003DC15D /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
+				B7E4CD081C1FBF2D00C2E69A /* ChatList */,
 				B7E4CD041C1FB1C400C2E69A /* WYNews */,
 				B7617E211C1C287600CF96E7 /* TeamNews */,
 				B7617E201C1C286600CF96E7 /* UnionNews */,
@@ -1303,6 +1333,35 @@
 			name = WYNews;
 			sourceTree = "<group>";
 		};
+		B7E4CD081C1FBF2D00C2E69A /* ChatList */ = {
+			isa = PBXGroup;
+			children = (
+				B7E4CD091C1FBF6400C2E69A /* ChatListViewController.h */,
+				B7E4CD0A1C1FBF6400C2E69A /* ChatListViewController.m */,
+				B750258B1C200115004C1D5F /* ChatContentViewController.h */,
+				B750258C1C200115004C1D5F /* ChatContentViewController.m */,
+			);
+			name = ChatList;
+			sourceTree = "<group>";
+		};
+		B7E4CD201C1FE26C00C2E69A /* main_icon */ = {
+			isa = PBXGroup;
+			children = (
+				B7E4CD211C1FE28500C2E69A /* wdwy.png */,
+				B7E4CD1E1C1FE24600C2E69A /* sys.png */,
+				B7E4CD1C1C1FE20000C2E69A /* zphz.png */,
+				B7E4CD1A1C1FE1D600C2E69A /* jhgs.png */,
+				B7E4CD181C1FE1C900C2E69A /* wzss.png */,
+				B7E4CD161C1FE1BA00C2E69A /* jrzd.png */,
+				B7E4CD141C1FE1AE00C2E69A /* jjwz.png */,
+				B7E4CD121C1FE19C00C2E69A /* lmdt.png */,
+				B7E4CD101C1FE18600C2E69A /* zddt.png */,
+				B7E4CD0E1C1FE15000C2E69A /* wydt.png */,
+				B7E4CD0C1C1FE10E00C2E69A /* chat_icon.png */,
+			);
+			name = main_icon;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1413,15 +1472,19 @@
 				B5F90AD91C194FCA00D7879D /* chat@2x.png in Resources */,
 				B72C3CC91C1568C900D3250A /* RecruitCommentCell.xib in Resources */,
 				B5AF70711C181FAD00C041AF /* zhifubao@2x.png in Resources */,
+				B7E4CD111C1FE18600C2E69A /* zddt.png in Resources */,
 				B53E737C1C166389009E7878 /* relay@2x.png in Resources */,
 				B7617E571C1C299700CF96E7 /* zan@2x.png in Resources */,
 				B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */,
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
+				B7E4CD0F1C1FE15000C2E69A /* wydt.png in Resources */,
 				B7617E531C1C299700CF96E7 /* button_send_comment@2x.png in Resources */,
 				B53E738A1C167080009E7878 /* JiFenTableViewCell.xib in Resources */,
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
 				B5AF70701C181FAD00C041AF /* weixin@2x.png in Resources */,
 				B7617E4F1C1C299700CF96E7 /* 03@2x.png in Resources */,
+				B7E4CD221C1FE28500C2E69A /* wdwy.png in Resources */,
+				B7E4CD151C1FE1AE00C2E69A /* jjwz.png in Resources */,
 				B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */,
 				B5F90AF11C197D3D00D7879D /* RegisterViewController.xib in Resources */,
 				B7E4CCFF1C1FA1F200C2E69A /* zdjs.png in Resources */,
@@ -1441,6 +1504,7 @@
 				B53E739A1C16E1EF009E7878 /* pointH@2x.png in Resources */,
 				B53E738C1C1673B3009E7878 /* tip@2x.png in Resources */,
 				B5F90AFC1C1985A100D7879D /* LoginAccount@2x.png in Resources */,
+				B7E4CD1F1C1FE24600C2E69A /* sys.png in Resources */,
 				B5F90AFE1C1985A100D7879D /* LoginQQ@2x.png in Resources */,
 				B7E096D61C1E5F1000E0E73B /* head_bg.png in Resources */,
 				B7E4CD031C1FA9BC00C2E69A /* zddt_righttop.png in Resources */,
@@ -1449,7 +1513,9 @@
 				B53E737B1C166389009E7878 /* collect@2x.png in Resources */,
 				B5AF70641C17FA7300C041AF /* zhibo@2x.png in Resources */,
 				B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */,
+				B7E4CD1B1C1FE1D600C2E69A /* jhgs.png in Resources */,
 				B53E73991C16E1EF009E7878 /* point@2x.png in Resources */,
+				B7E4CD171C1FE1BA00C2E69A /* jrzd.png in Resources */,
 				B7617E1F1C1C27D500CF96E7 /* JHStoryTableViewCell.xib in Resources */,
 				B5F90AFD1C1985A100D7879D /* LoginPassword@2x.png in Resources */,
 				B5F90AEF1C197D3D00D7879D /* LoginViewController.xib in Resources */,
@@ -1468,6 +1534,7 @@
 				B5F90AFF1C1985A100D7879D /* Logintitle@2x.png in Resources */,
 				B53E737F1C166389009E7878 /* support@2x.png in Resources */,
 				802118EA1C1AFAE100DCEE73 /* nil.png in Resources */,
+				B7E4CD131C1FE19C00C2E69A /* lmdt.png in Resources */,
 				B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */,
 				B7617E4D1C1C299700CF96E7 /* 01@2x.png in Resources */,
 				B5D89A071C1165E400F55BFA /* temp@2x.png in Resources */,
@@ -1479,6 +1546,7 @@
 				B5905E061C1BC2CF00ECA9BA /* jhstory.png in Resources */,
 				B5F90AD01C1928C200D7879D /* plus@2x.png in Resources */,
 				B53E737D1C166389009E7878 /* share@2x.png in Resources */,
+				B7E4CD191C1FE1C900C2E69A /* wzss.png in Resources */,
 				B53791CB1C15821E00C45BA7 /* headImg@2x.png in Resources */,
 				B5F90B001C1985A100D7879D /* Loginweixin@2x.png in Resources */,
 				B5905E051C1BC2CF00ECA9BA /* friend_avatar.png in Resources */,
@@ -1487,11 +1555,13 @@
 				B5905E041C1BC2CF00ECA9BA /* down_icon.png in Resources */,
 				B5905E0B1C1BC2CF00ECA9BA /* xin.png in Resources */,
 				8026D0F71C1BC6BE00D9CD44 /* ErWeiMaViewController.xib in Resources */,
+				B7E4CD0D1C1FE10E00C2E69A /* chat_icon.png in Resources */,
 				B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */,
 				B5AF70841C183A9F00C041AF /* down@2x.png in Resources */,
 				B5905E161C1BCC7700ECA9BA /* dajiahao@2x.png in Resources */,
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
 				B7E4CCFE1C1FA1F200C2E69A /* zdcy.png in Resources */,
+				B7E4CD1D1C1FE20000C2E69A /* zphz.png in Resources */,
 				B5905E081C1BC2CF00ECA9BA /* jointeam.png in Resources */,
 				B7617E561C1C299700CF96E7 /* personal_showBac@2x.png in Resources */,
 				B53791C11C1579F500C45BA7 /* more@2x.png in Resources */,
@@ -1591,6 +1661,7 @@
 				B7617E6E1C1C29A500CF96E7 /* WFTextView.m in Sources */,
 				B5AF70691C18032B00C041AF /* VipViewController.m in Sources */,
 				B5AF706D1C180CCE00C041AF /* PayForVipViewController.m in Sources */,
+				B750258D1C200115004C1D5F /* ChatContentViewController.m in Sources */,
 				B72C3CC81C1568C900D3250A /* RecruitCommentCell.m in Sources */,
 				B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */,
 				B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */,
@@ -1646,6 +1717,7 @@
 				B5905DF81C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m in Sources */,
 				B5AF707F1C1837F600C041AF /* NewPlanViewController.m in Sources */,
 				B53E73851C166FCB009E7878 /* JiFenViewController.m in Sources */,
+				B7E4CD0B1C1FBF6400C2E69A /* ChatListViewController.m in Sources */,
 				B53E73891C167080009E7878 /* JiFenTableViewCell.m in Sources */,
 				B7617E6C1C1C29A500CF96E7 /* WFHudView.m in Sources */,
 				B5905E1C1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m in Sources */,

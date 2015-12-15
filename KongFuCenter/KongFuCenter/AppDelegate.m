@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "CustomTabBarViewController.h"
 #import "LoginViewController.h"
+#import <RongIMKit/RongIMKit.h>
 @interface AppDelegate ()
 {
     CustomTabBarViewController *_tabBarViewCol;
@@ -34,9 +35,13 @@
    self.window.rootViewController = _tabBarViewCol;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView:) name:@"changeRootView" object:nil];
     
+    
+    
+    //集成融云App Key
+    [[RCIM sharedRCIM] initWithAppKey:@"3argexb6r2qhe"];
+    
     return YES;
 }
-
 
 -(void)changeRootView:(id)sender
 {

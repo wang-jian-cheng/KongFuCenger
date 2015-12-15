@@ -409,6 +409,7 @@
     [cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
     cell.delegate = self;
     [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
+    cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
     
     return cell;
 }
@@ -437,83 +438,25 @@
     headView.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
     mainTable.tableHeaderView = headView;
     
-    UIImageView *headBackgroundIv = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH,headView.frame.size.height - 40)];
+    UIImageView *headBackgroundIv = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH,headView.frame.size.height)];
     headBackgroundIv.image = [UIImage imageNamed:@"head_bg"];
     [headView addSubview:headBackgroundIv];
     
-    UIView *headImgView = [[UIView alloc] initWithFrame:CGRectMake(0, (headView.frame.size.height - 85) / 2, SCREEN_WIDTH, headView.frame.size.height / 2)];
-    UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 40) / 2 , 0, 40, 40)];
+    UIView *headImgView = [[UIView alloc] initWithFrame:CGRectMake(0, headView.frame.size.height - 50 - 10, SCREEN_WIDTH, 60)];
+    UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake(20 , 0, 50, 50)];
     headImg.image = [UIImage imageNamed:@"headImg"];
     [headImgView addSubview:headImg];
-    UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100) / 2, headImg.frame.origin.y + headImg.frame.size.height, 100, 21)];
+    UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake(headImg.frame.origin.x + headImg.frame.size.width+ 2, headImg.frame.origin.y + 2, 100, 21)];
     name_lbl.textColor = [UIColor whiteColor];
-    name_lbl.textAlignment = NSTextAlignmentCenter;
-    name_lbl.text = @"成龙战队";
+    name_lbl.text = @"成龙";
     name_lbl.font = [UIFont systemFontOfSize:13];
     [headImgView addSubview:name_lbl];
-    UILabel *address_lbl = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100) / 2, name_lbl.frame.origin.y + name_lbl.frame.size.height - 5, 100, 21)];
-    address_lbl.textColor = [UIColor whiteColor];
-    address_lbl.textAlignment = NSTextAlignmentCenter;
-    address_lbl.text = @"山东∙临沂";
-    address_lbl.font = [UIFont systemFontOfSize:13];
-    [headImgView addSubview:address_lbl];
+    UILabel *id_lbl = [[UILabel alloc] initWithFrame:CGRectMake(headImg.frame.origin.x + headImg.frame.size.width+ 2, name_lbl.frame.origin.y + name_lbl.frame.size.height / 2 +10, 100, 21)];
+    id_lbl.textColor = [UIColor whiteColor];
+    id_lbl.text = @"ID:123456789";
+    id_lbl.font = [UIFont systemFontOfSize:13];
+    [headImgView addSubview:id_lbl];
     [headView addSubview:headImgView];
-    
-    NSLog(@"%f",headImgView.frame.origin.y);
-    UIView *menuView = [[UIView alloc] initWithFrame:CGRectMake(0, headImgView.frame.origin.y + headImgView.frame.size.height, SCREEN_WIDTH, 40)];
-    menuView.backgroundColor = ItemsBaseColor;
-    CGFloat itemWidth = SCREEN_WIDTH / 4;
-    
-    UIImageView *iv1 = [[UIImageView alloc] initWithFrame:CGRectMake((itemWidth - 15) / 2, 5, 15, 15)];
-    iv1.image = [UIImage imageNamed:@"zdcy"];
-    [menuView addSubview:iv1];
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, iv1.frame.origin.y + iv1.frame.size.height + 1, itemWidth, 21)];
-    label1.font = [UIFont systemFontOfSize:13];
-    label1.textAlignment = NSTextAlignmentCenter;
-    label1.textColor = [UIColor whiteColor];
-    label1.text = @"战队成员";
-    [menuView addSubview:label1];
-    UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth, 2, 1, menuView.frame.size.height - 4)];
-    line1.backgroundColor = [UIColor colorWithRed:0.23 green:0.23 blue:0.25 alpha:1];
-    [menuView addSubview:line1];
-    
-    UIImageView *iv2 = [[UIImageView alloc] initWithFrame:CGRectMake(itemWidth + (itemWidth - 15) / 2, 5, 15, 15)];
-    iv2.image = [UIImage imageNamed:@"zdjs"];
-    [menuView addSubview:iv2];
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth, iv2.frame.origin.y + iv2.frame.size.height + 1, itemWidth, 21)];
-    label2.font = [UIFont systemFontOfSize:13];
-    label2.textAlignment = NSTextAlignmentCenter;
-    label2.textColor = [UIColor whiteColor];
-    label2.text = @"战队介绍";
-    [menuView addSubview:label2];
-    UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth * 2, 2, 1, menuView.frame.size.height - 4)];
-    line2.backgroundColor = [UIColor colorWithRed:0.23 green:0.23 blue:0.25 alpha:1];
-    [menuView addSubview:line2];
-    
-    UIImageView *iv3 = [[UIImageView alloc] initWithFrame:CGRectMake(itemWidth * 2 + (itemWidth - 15) / 2, 5, 15, 15)];
-    iv3.image = [UIImage imageNamed:@"zdgg"];
-    [menuView addSubview:iv3];
-    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth * 2, iv3.frame.origin.y + iv3.frame.size.height + 1, itemWidth, 21)];
-    label3.font = [UIFont systemFontOfSize:13];
-    label3.textAlignment = NSTextAlignmentCenter;
-    label3.textColor = [UIColor whiteColor];
-    label3.text = @"战队公告";
-    [menuView addSubview:label3];
-    UILabel *line3 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth * 3, 2, 1, menuView.frame.size.height - 4)];
-    line3.backgroundColor = [UIColor colorWithRed:0.23 green:0.23 blue:0.25 alpha:1];
-    [menuView addSubview:line3];
-    
-    UIImageView *iv4 = [[UIImageView alloc] initWithFrame:CGRectMake(itemWidth * 3 + (itemWidth - 15) / 2, 5, 15, 15)];
-    iv4.image = [UIImage imageNamed:@"zdlt"];
-    [menuView addSubview:iv4];
-    UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth * 3, iv4.frame.origin.y + iv4.frame.size.height + 1, itemWidth, 21)];
-    label4.font = [UIFont systemFontOfSize:13];
-    label4.textAlignment = NSTextAlignmentCenter;
-    label4.textColor = [UIColor whiteColor];
-    label4.text = @"战队成员";
-    [menuView addSubview:label4];
-    
-    [headView addSubview:menuView];
     
 }
 
