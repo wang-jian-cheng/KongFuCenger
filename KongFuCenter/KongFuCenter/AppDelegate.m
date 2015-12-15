@@ -9,6 +9,15 @@
 #import "AppDelegate.h"
 #import "CustomTabBarViewController.h"
 #import "LoginViewController.h"
+#import <SMS_SDK/SMSSDK.h>
+#import <ShareSDK/ShareSDK.h>
+
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+#import "WXApi.h"
+#import "WeiboSDK.h"
+
 @interface AppDelegate ()
 {
     CustomTabBarViewController *_tabBarViewCol;
@@ -18,23 +27,111 @@
 
 @implementation AppDelegate
 
+#pragma mark - share sdk
+
+#define SHARESDK_AppKey @"d556d5fc79dc"
+#define SHARESDK_Secret @"e3e9c5157e8f547ddcc6979d49c6e61f"
+
+
+
+-(void)ShareSdkInit
+{
+    [ShareSDK registerApp:SHARESDK_AppKey
+     
+          activePlatforms:@[
+                            @(SSDKPlatformTypeSinaWeibo),
+                            @(SSDKPlatformSubTypeQZone),
+                            @(SSDKPlatformSubTypeWechatTimeline),
+                            @(SSDKPlatformSubTypeQQFriend),
+                            @(SSDKPlatformSubTypeWechatSession),
+                            @(SSDKPlatformSubTypeWechatFav)
+                            ]
+                 onImport:^(SSDKPlatformType platformType)
+     {
+         switch (platformType)
+         {
+             case SSDKPlatformTypeWechat:
+                 [ShareSDKConnector connectWeChat:[WXApi class]];
+                 break;
+             case SSDKPlatformTypeQQ:
+                 [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
+                 break;
+             case SSDKPlatformTypeSinaWeibo:
+                 [ShareSDKConnector connectWeibo:[WeiboSDK class]];
+                 break;
+                 
+             default:
+                 break;
+         }
+     }
+          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo)
+     {
+         
+         switch (platformType)
+         {
+             case SSDKPlatformTypeSinaWeibo:
+                 //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
+                 [appInfo SSDKSetupSinaWeiboByAppKey:@"568898243"
+                                           appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3"
+                                         redirectUri:@"http://www.sharesdk.cn"
+                                            authType:SSDKAuthTypeBoth];
+                 break;
+             case SSDKPlatformTypeWechat:
+                 [appInfo SSDKSetupWeChatByAppId:@"wx4868b35061f87885"
+                                       appSecret:@"64020361b8ec4c99936c0e3999a9f249"];
+                 break;
+             case SSDKPlatformTypeQQ:
+                 [appInfo SSDKSetupQQByAppId:@"1105020970"
+                                      appKey:@"QfVL5BJzt8hpGCN9"
+                                    authType:SSDKAuthTypeBoth];
+                 break;
+                 
+                 
+             default:
+                 break;
+         }
+     }];
+
+}
+
+#pragma mark - Mob sms
+
+#define MOB_SMS_AppKey  @"d5572cbfc8b7"
+#define MOB_SMS_Secret  @"04e92d2c19317b1ab64cd60d5b571b28"
+
+-(void)SMSInit
+{
+     [SMSSDK registerApp: MOB_SMS_AppKey withSecret:MOB_SMS_Secret];
+}
+
+-(void)ThirdFrameWorksInit
+{
+    [self SMSInit];
+    [self ShareSdkInit];
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    _tabBarViewCol = [[CustomTabBarViewController alloc] init];
+    [self ThirdFrameWorksInit];
+    [self initUI];
+    
+    return YES;
+}
 
+-(void) initUI
+{
+    _tabBarViewCol = [[CustomTabBarViewController alloc] init];
     _loginViewCtl = [[LoginViewController alloc] init];
     if(self.window == nil)
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds] ];
-   
+    
     [self.window makeKeyAndVisible];
     
-     //self.window.rootViewController = _loginViewCtl;
-   self.window.rootViewController = _tabBarViewCol;
+    self.window.rootViewController = _loginViewCtl;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView:) name:@"changeRootView" object:nil];
-    
-    return YES;
+
 }
 
 

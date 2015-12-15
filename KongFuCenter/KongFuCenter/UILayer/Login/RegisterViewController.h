@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseNavigationController.h"
 #import "DataProvider.h"
+#import <SMS_SDK/SMSSDK.h>
 typedef enum _pageMode
 {
     MODE_Reg = 0,

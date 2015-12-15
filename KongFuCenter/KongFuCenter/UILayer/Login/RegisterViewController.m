@@ -111,7 +111,7 @@
             btn_GetvrifyCode.titleLabel.font = [UIFont systemFontOfSize:14];
             btn_GetvrifyCode.backgroundColor = [UIColor blackColor];
             [btn_GetvrifyCode addTarget:self action:@selector(sendeVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
-
+            btn_GetvrifyCode.titleLabel.textAlignment = NSTextAlignmentCenter;
             [cell addSubview:btn_GetvrifyCode];
         }
             break;
@@ -203,39 +203,41 @@
 
 -(void)sendeVerifyCode:(UIButton *)sender
 {
-//    [SVProgressHUD showWithStatus:@"正在发送验证码..." maskType:SVProgressHUDMaskTypeBlack];
-//    if (txt_phoneNum.text.length==11) {
-//        
-//        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:txt_phoneNum.text
-//                                       zone:@"86"
-//                           customIdentifier:nil
-//                                     result:^(NSError *error)
-//         {
-//             
-//             if (!error)
-//             {
-//                [SVProgressHUD dismiss];
-//                 sender.enabled=NO;
-//                 sender.titleLabel.text=@"验证码已发送";
-//             }
-//             else
-//             {
-//                 [SVProgressHUD dismiss];
-//                 UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil)
-//                                                                 message:[NSString stringWithFormat:@"错误描述：%@",[error.userInfo objectForKey:@"getVerificationCode"]]
-//                                                                delegate:self
-//                                                       cancelButtonTitle:NSLocalizedString(@"sure", nil)
-//                                                       otherButtonTitles:nil, nil];
-//                 [alert show];
-//             }
-//             
-//         }];
-//    }
-//    else
-//    {
-//        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请正确填写手机号" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-//        [alert show];
-//    }
+    [SVProgressHUD showWithStatus:@"正在发送验证码..." maskType:SVProgressHUDMaskTypeBlack];
+
+
+    if (txt_phoneNum.text.length==11) {
+        
+        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:txt_phoneNum.text
+                                       zone:@"86"
+                           customIdentifier:nil
+                                     result:^(NSError *error)
+         {
+             
+             if (!error)
+             {
+                [SVProgressHUD dismiss];
+                 sender.enabled=NO;
+                 sender.titleLabel.text=@"已发送";
+             }
+             else
+             {
+                 [SVProgressHUD dismiss];
+                 UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil)
+                                                                 message:[NSString stringWithFormat:@"错误描述：%@",[error.userInfo objectForKey:@"getVerificationCode"]]
+                                                                delegate:self
+                                                       cancelButtonTitle:NSLocalizedString(@"sure", nil)
+                                                       otherButtonTitles:nil, nil];
+                 [alert show];
+             }
+             
+         }];
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请正确填写手机号" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+        [alert show];
+    }
 }
 
 
@@ -269,40 +271,39 @@
     }
 
   
-//        [SVProgressHUD showWithStatus:@"正在注册..." maskType:SVProgressHUDMaskTypeBlack];
-//        [SMSSDK commitVerificationCode:txt_vrifyCode.text phoneNumber:txt_phoneNum.text zone:@"86" result:^(NSError *error) {
-//            
-//            if (!error) {
-//                
-//                NSLog(@"验证成功");
-//                @try {
-//                    DataProvider * dataprovider=[[DataProvider alloc] init];
-//                    [dataprovider setDelegateObject:self setBackFunctionName:@"RegisteBackCall:"];
-//                    NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:txt_phoneNum.text,@"mob",
-//                                        txt_newPwd.text,@"pass", nil];
-//                    [dataprovider RegisterUserInfo:prm];
-//                }
-//                @catch (NSException *exception) {
-//                    
-//                }
-//                @finally {
-//                    
-//                }
-//                
-//            }
-//            else
-//            {
-//                NSLog(@"验证失败");
-//                [SVProgressHUD dismiss];
-//                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示", nil)
-//                                                                message:[NSString stringWithFormat:@"%@",[error.userInfo objectForKey:@"commitVerificationCode"]]
-//                                                               delegate:self
-//                                                      cancelButtonTitle:NSLocalizedString(@"sure", nil)
-//                                                      otherButtonTitles:nil, nil];
-//                [alert show];
-//                
-//            }
-//        }];
+        [SVProgressHUD showWithStatus:@"正在注册..." maskType:SVProgressHUDMaskTypeBlack];
+        [SMSSDK commitVerificationCode:txt_vrifyCode.text phoneNumber:txt_phoneNum.text zone:@"86" result:^(NSError *error) {
+            
+            if (!error) {
+                
+                NSLog(@"验证成功");
+                @try {
+                    DataProvider * dataprovider=[[DataProvider alloc] init];
+                    [dataprovider setDelegateObject:self setBackFunctionName:@"RegisteBackCall:"];
+
+                    [dataprovider reg:txt_phoneNum.text andPassWord:txt_newPwd.text];
+                }
+                @catch (NSException *exception) {
+                    
+                }
+                @finally {
+                    
+                }
+                
+            }
+            else
+            {
+                NSLog(@"验证失败");
+                [SVProgressHUD dismiss];
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示", nil)
+                                                                message:[NSString stringWithFormat:@"%@",[error.userInfo objectForKey:@"commitVerificationCode"]]
+                                                               delegate:self
+                                                      cancelButtonTitle:NSLocalizedString(@"sure", nil)
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+                
+            }
+        }];
     }
     else
     {
@@ -319,11 +320,13 @@
     [SVProgressHUD dismiss];
     DLog(@"注册返回数据%@",dict);
     if ([dict[@"code"] intValue]==200) {
-        
+        UIAlertView *tipAlert = [[UIAlertView alloc] initWithTitle:@"成功" message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+
+        [tipAlert show];
     }
     else
     {
-       // [SVProgressHUD showErrorWithStatus:dict[@"message"] maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showErrorWithStatus:dict[@"message"] maskType:SVProgressHUDMaskTypeBlack];
         
     }
 }
