@@ -15,6 +15,7 @@
 #import "ErWeiMaViewController.h"
 #import "UnionNewsViewController.h"
 #import "TeamNewsViewController.h"
+#import "WYNewsViewController.h"
 
 @interface KongFuUnionViewController ()
 {
@@ -115,7 +116,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            
+            WYNewsViewController *wyNewsVC = [[WYNewsViewController alloc] init];
+            [self.navigationController pushViewController:wyNewsVC animated:YES];
         }else if(indexPath.row == 1){
             TeamNewsViewController *teamNewsVC = [[TeamNewsViewController alloc] init];
             [self.navigationController pushViewController:teamNewsVC animated:YES];

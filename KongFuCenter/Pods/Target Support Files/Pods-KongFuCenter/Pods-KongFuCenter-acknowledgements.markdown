@@ -24,6 +24,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+## RongCloudIMKit
+
+Copyright 2014 Rong Cloud
+
 ## SVProgressHUD
 
 Copyright (c) 2011-2014 Sam Vermette

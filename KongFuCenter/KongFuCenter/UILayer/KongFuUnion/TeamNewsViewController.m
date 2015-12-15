@@ -21,6 +21,8 @@
 #define kLocationToBottom 20
 #define kAdmin @"小虎-tiger"
 
+#define sendNews  (2015+1)
+#define smallVideo  (2015+2)
 
 @interface TeamNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate>
 {
@@ -39,6 +41,8 @@
     YMReplyInputView *replyView ;
     
     NSInteger _replyIndex;
+    
+    UIView *moreSettingBackView;
     
     
 }
@@ -173,6 +177,7 @@
     
     [self setBarTitle:@"战队动态"];
     [self addLeftButton:@"left"];
+    [self addRightButton:@"moreNoword@2x"];
     
     [self configData];
     
@@ -183,6 +188,20 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
+-(void)clickRightButton:(UIButton *)sender
+{
+    if(moreSettingBackView.hidden == YES)
+    {
+        moreSettingBackView.hidden = NO;
+        [self positionShowView:moreSettingBackView];
+    }
+    else
+    {
+        
+        [self positionDismissView:moreSettingBackView];
+    }
 }
 
 #pragma mark -加载数据
@@ -261,6 +280,105 @@
     
     [self initHeadView];
     
+    moreSettingBackView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100 -10), Header_Height, 100, 88)];
+    moreSettingBackView.backgroundColor = ItemsBaseColor;
+    UIButton *newBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
+    [newBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [newBtn setTitle:@"发动态" forState:UIControlStateNormal];
+    newBtn.tag = sendNews;
+    [newBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *lineView2 =[[UIView alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width - 2, 1)];
+    lineView2.backgroundColor = Separator_Color;
+    UIButton *delBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
+    [delBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [delBtn setTitle:@"小视频" forState:UIControlStateNormal];
+    [delBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    delBtn.tag = smallVideo;
+    
+    
+    
+    [moreSettingBackView addSubview:newBtn];
+    [moreSettingBackView addSubview:delBtn];
+    [moreSettingBackView addSubview:lineView2];
+    
+    [self.view addSubview:moreSettingBackView];
+    moreSettingBackView.hidden = YES;
+    
+}
+
+-(void)btnClick:(UIButton *)sender
+{
+    if(sender.tag == sendNews)
+    {
+        
+    }
+    else  if(sender.tag == smallVideo)
+    {
+        
+    }
+}
+
+#define SHOW_ANIM_KEY   @"showSettingView"
+#define DISMISS_ANIM_KEY   @"dismissSettingView"
+-(void)positionShowView:(UIView *)tempView
+{
+    CABasicAnimation *scale=[CABasicAnimation animationWithKeyPath:@"transform"];
+    [scale setFromValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 0, 1.0)]];
+    [scale setToValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    
+    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2), Header_Height)];
+    animation.toValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2),
+                                                              (moreSettingBackView.frame.size.height/2 + moreSettingBackView.frame.origin.y))];
+    //动画执行后保持显示状态 但是属性值不会改变 只会保持显示状态
+    animation.fillMode = kCAFillModeForwards;
+    animation.removedOnCompletion = NO;
+    
+    //    animation.autoreverses = YES;//动画返回
+    
+    CAAnimationGroup *group=[CAAnimationGroup animation];
+    [group setAnimations:[NSArray arrayWithObjects:scale,animation, nil]];
+    [group setDuration:0.5];
+    //    animation.repeatCount = MAXFLOAT;//重复
+    //tempView.layer.delegate = self;
+    group.delegate= self;
+    [moreSettingBackView.layer addAnimation:group forKey:SHOW_ANIM_KEY];
+}
+
+-(void)positionDismissView:(UIView *)tempView
+{
+    
+    
+    CABasicAnimation *scale=[CABasicAnimation animationWithKeyPath:@"transform"];
+    [scale setFromValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1, 1.0)]];
+    [scale setToValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 0.0, 1.0)]];
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    
+    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2),
+                                                                (moreSettingBackView.frame.size.height/2 + moreSettingBackView.frame.origin.y))];
+    animation.toValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2),
+                                                              Header_Height)];
+    //动画执行后保持显示状态 但是属性值不会改变 只会保持显示状态
+    animation.fillMode = kCAFillModeForwards;
+    animation.removedOnCompletion = NO;
+    
+    //    animation.autoreverses = YES;//动画返回
+    
+    CAAnimationGroup *group=[CAAnimationGroup animation];
+    [group setAnimations:[NSArray arrayWithObjects:scale,animation, nil]];
+    [group setDuration:0.5];
+    //    animation.repeatCount = MAXFLOAT;//重复
+    group.delegate= self;
+    [tempView.layer addAnimation:group forKey:DISMISS_ANIM_KEY];
+    
+    [self performSelector:@selector(viewSetHidden:) withObject:[NSNumber numberWithBool:YES] afterDelay:0.5 - 0.1];
+}
+-(void)viewSetHidden:(id)info
+{
+    moreSettingBackView.hidden = YES;
 }
 
 //**
@@ -344,6 +462,57 @@
     NSLog(@"%f",headImgView.frame.origin.y);
     UIView *menuView = [[UIView alloc] initWithFrame:CGRectMake(0, headImgView.frame.origin.y + headImgView.frame.size.height, SCREEN_WIDTH, 40)];
     menuView.backgroundColor = ItemsBaseColor;
+    CGFloat itemWidth = SCREEN_WIDTH / 4;
+    
+    UIImageView *iv1 = [[UIImageView alloc] initWithFrame:CGRectMake((itemWidth - 15) / 2, 5, 15, 15)];
+    iv1.image = [UIImage imageNamed:@"zdcy"];
+    [menuView addSubview:iv1];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, iv1.frame.origin.y + iv1.frame.size.height + 1, itemWidth, 21)];
+    label1.font = [UIFont systemFontOfSize:13];
+    label1.textAlignment = NSTextAlignmentCenter;
+    label1.textColor = [UIColor whiteColor];
+    label1.text = @"战队成员";
+    [menuView addSubview:label1];
+    UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth, 2, 1, menuView.frame.size.height - 4)];
+    line1.backgroundColor = [UIColor colorWithRed:0.23 green:0.23 blue:0.25 alpha:1];
+    [menuView addSubview:line1];
+    
+    UIImageView *iv2 = [[UIImageView alloc] initWithFrame:CGRectMake(itemWidth + (itemWidth - 15) / 2, 5, 15, 15)];
+    iv2.image = [UIImage imageNamed:@"zdjs"];
+    [menuView addSubview:iv2];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth, iv2.frame.origin.y + iv2.frame.size.height + 1, itemWidth, 21)];
+    label2.font = [UIFont systemFontOfSize:13];
+    label2.textAlignment = NSTextAlignmentCenter;
+    label2.textColor = [UIColor whiteColor];
+    label2.text = @"战队介绍";
+    [menuView addSubview:label2];
+    UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth * 2, 2, 1, menuView.frame.size.height - 4)];
+    line2.backgroundColor = [UIColor colorWithRed:0.23 green:0.23 blue:0.25 alpha:1];
+    [menuView addSubview:line2];
+    
+    UIImageView *iv3 = [[UIImageView alloc] initWithFrame:CGRectMake(itemWidth * 2 + (itemWidth - 15) / 2, 5, 15, 15)];
+    iv3.image = [UIImage imageNamed:@"zdgg"];
+    [menuView addSubview:iv3];
+    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth * 2, iv3.frame.origin.y + iv3.frame.size.height + 1, itemWidth, 21)];
+    label3.font = [UIFont systemFontOfSize:13];
+    label3.textAlignment = NSTextAlignmentCenter;
+    label3.textColor = [UIColor whiteColor];
+    label3.text = @"战队公告";
+    [menuView addSubview:label3];
+    UILabel *line3 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth * 3, 2, 1, menuView.frame.size.height - 4)];
+    line3.backgroundColor = [UIColor colorWithRed:0.23 green:0.23 blue:0.25 alpha:1];
+    [menuView addSubview:line3];
+    
+    UIImageView *iv4 = [[UIImageView alloc] initWithFrame:CGRectMake(itemWidth * 3 + (itemWidth - 15) / 2, 5, 15, 15)];
+    iv4.image = [UIImage imageNamed:@"zdlt"];
+    [menuView addSubview:iv4];
+    UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth * 3, iv4.frame.origin.y + iv4.frame.size.height + 1, itemWidth, 21)];
+    label4.font = [UIFont systemFontOfSize:13];
+    label4.textAlignment = NSTextAlignmentCenter;
+    label4.textColor = [UIColor whiteColor];
+    label4.text = @"战队成员";
+    [menuView addSubview:label4];
+    
     [headView addSubview:menuView];
     
 }

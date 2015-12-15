@@ -1,6 +1,9 @@
+FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_0_stable" "$(PODS_ROOT)/RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_0_stable"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/RongCloudIMKit" "${PODS_ROOT}/Headers/Public/RongCloudIMKit/RongIMKit" "${PODS_ROOT}/Headers/Public/RongCloudIMKit/RongIMLib"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/AFNetworking.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SVProgressHUD.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "AFNetworking" -framework "SVProgressHUD"
+LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_0_stable"
+OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/AFNetworking.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SVProgressHUD.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/RongCloudIMKit" -isystem "${PODS_ROOT}/Headers/Public/RongCloudIMKit/RongIMKit" -isystem "${PODS_ROOT}/Headers/Public/RongCloudIMKit/RongIMLib"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"c++" -l"c++abi" -l"opencore-amrnb" -l"sqlite3" -l"stdc++" -l"xml2" -l"z" -framework "AFNetworking" -framework "AVFoundation" -framework "AssetsLibrary" -framework "AudioToolbox" -framework "CFNetwork" -framework "CoreAudio" -framework "CoreGraphics" -framework "CoreLocation" -framework "CoreMedia" -framework "CoreTelephony" -framework "CoreVideo" -framework "ImageIO" -framework "MapKit" -framework "OpenGLES" -framework "QuartzCore" -framework "RongIMKit" -framework "RongIMLib" -framework "SVProgressHUD" -framework "SystemConfiguration" -framework "UIKit"
 PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods-KongFuCenter
 PODS_ROOT = ${SRCROOT}/Pods

@@ -220,6 +220,12 @@
 		B7CE7F471C16C6F30035D8CA /* JoinTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CE7F451C16C6F30035D8CA /* JoinTeamCell.m */; };
 		B7CE7F481C16C6F30035D8CA /* JoinTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7CE7F461C16C6F30035D8CA /* JoinTeamCell.xib */; };
 		B7E096D61C1E5F1000E0E73B /* head_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E096D51C1E5F1000E0E73B /* head_bg.png */; };
+		B7E4CCFE1C1FA1F200C2E69A /* zdcy.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CCFA1C1FA1F200C2E69A /* zdcy.png */; };
+		B7E4CCFF1C1FA1F200C2E69A /* zdjs.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CCFB1C1FA1F200C2E69A /* zdjs.png */; };
+		B7E4CD001C1FA1F200C2E69A /* zdgg.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CCFC1C1FA1F200C2E69A /* zdgg.png */; };
+		B7E4CD011C1FA1F200C2E69A /* zdlt.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CCFD1C1FA1F200C2E69A /* zdlt.png */; };
+		B7E4CD031C1FA9BC00C2E69A /* zddt_righttop.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD021C1FA9BC00C2E69A /* zddt_righttop.png */; };
+		B7E4CD071C1FB22000C2E69A /* WYNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E4CD061C1FB22000C2E69A /* WYNewsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -571,6 +577,13 @@
 		B7CE7F451C16C6F30035D8CA /* JoinTeamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinTeamCell.m; sourceTree = "<group>"; };
 		B7CE7F461C16C6F30035D8CA /* JoinTeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JoinTeamCell.xib; sourceTree = "<group>"; };
 		B7E096D51C1E5F1000E0E73B /* head_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head_bg.png; sourceTree = "<group>"; };
+		B7E4CCFA1C1FA1F200C2E69A /* zdcy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zdcy.png; sourceTree = "<group>"; };
+		B7E4CCFB1C1FA1F200C2E69A /* zdjs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zdjs.png; sourceTree = "<group>"; };
+		B7E4CCFC1C1FA1F200C2E69A /* zdgg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zdgg.png; sourceTree = "<group>"; };
+		B7E4CCFD1C1FA1F200C2E69A /* zdlt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zdlt.png; sourceTree = "<group>"; };
+		B7E4CD021C1FA9BC00C2E69A /* zddt_righttop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zddt_righttop.png; sourceTree = "<group>"; };
+		B7E4CD051C1FB22000C2E69A /* WYNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYNewsViewController.h; sourceTree = "<group>"; };
+		B7E4CD061C1FB22000C2E69A /* WYNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYNewsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -854,6 +867,11 @@
 		B5905DF91C1BC2CF00ECA9BA /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
+				B7E4CD021C1FA9BC00C2E69A /* zddt_righttop.png */,
+				B7E4CCFA1C1FA1F200C2E69A /* zdcy.png */,
+				B7E4CCFB1C1FA1F200C2E69A /* zdjs.png */,
+				B7E4CCFC1C1FA1F200C2E69A /* zdgg.png */,
+				B7E4CCFD1C1FA1F200C2E69A /* zdlt.png */,
 				B7E096D51C1E5F1000E0E73B /* head_bg.png */,
 				B5905E101C1BC53F00ECA9BA /* yewenback@2x.png */,
 				B5905E0E1C1BC34A00ECA9BA /* dingwei@2x.png */,
@@ -988,6 +1006,7 @@
 		B59409041C0FCE1B003DC15D /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
+				B7E4CD041C1FB1C400C2E69A /* WYNews */,
 				B7617E211C1C287600CF96E7 /* TeamNews */,
 				B7617E201C1C286600CF96E7 /* UnionNews */,
 				8026D0F21C1BC6BE00D9CD44 /* ScanErWeiMa */,
@@ -1470,6 +1489,15 @@
 			name = JoinTeam;
 			sourceTree = "<group>";
 		};
+		B7E4CD041C1FB1C400C2E69A /* WYNews */ = {
+			isa = PBXGroup;
+			children = (
+				B7E4CD051C1FB22000C2E69A /* WYNewsViewController.h */,
+				B7E4CD061C1FB22000C2E69A /* WYNewsViewController.m */,
+			);
+			name = WYNews;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1592,6 +1620,7 @@
 				B7617E4F1C1C299700CF96E7 /* 03@2x.png in Resources */,
 				B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */,
 				B5F90AF11C197D3D00D7879D /* RegisterViewController.xib in Resources */,
+				B7E4CCFF1C1FA1F200C2E69A /* zdjs.png in Resources */,
 				B53791C01C1579F500C45BA7 /* hezhuangbei@2x.png in Resources */,
 				B53791CD1C15821E00C45BA7 /* right@2x.png in Resources */,
 				B53791C71C157ED000C45BA7 /* showimg@2x.png in Resources */,
@@ -1602,6 +1631,7 @@
 				B5F13B271C1FBAAC00155038 /* ShareSDK.bundle in Resources */,
 				B5AF706A1C18032B00C041AF /* VipViewController.xib in Resources */,
 				B5F90ADA1C194FCA00D7879D /* clock@2x.png in Resources */,
+				B7E4CD001C1FA1F200C2E69A /* zdgg.png in Resources */,
 				802118E71C1AFAE100DCEE73 /* yinliangda.png in Resources */,
 				B7617E4E1C1C299700CF96E7 /* 02@2x.png in Resources */,
 				B5905E091C1BC2CF00ECA9BA /* search.png in Resources */,
@@ -1610,6 +1640,7 @@
 				B5F90AFC1C1985A100D7879D /* LoginAccount@2x.png in Resources */,
 				B5F90AFE1C1985A100D7879D /* LoginQQ@2x.png in Resources */,
 				B7E096D61C1E5F1000E0E73B /* head_bg.png in Resources */,
+				B7E4CD031C1FA9BC00C2E69A /* zddt_righttop.png in Resources */,
 				B5AF70621C17F69B00C041AF /* ZhiBoViewController.xib in Resources */,
 				B53E73921C16AB0C009E7878 /* wuguanimg@2x.png in Resources */,
 				B53E737B1C166389009E7878 /* collect@2x.png in Resources */,
@@ -1661,6 +1692,7 @@
 				B5AF70841C183A9F00C041AF /* down@2x.png in Resources */,
 				B5905E161C1BCC7700ECA9BA /* dajiahao@2x.png in Resources */,
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
+				B7E4CCFE1C1FA1F200C2E69A /* zdcy.png in Resources */,
 				B5905E081C1BC2CF00ECA9BA /* jointeam.png in Resources */,
 				B7617E561C1C299700CF96E7 /* personal_showBac@2x.png in Resources */,
 				B53791C11C1579F500C45BA7 /* more@2x.png in Resources */,
@@ -1673,6 +1705,7 @@
 				B5905E0C1C1BC2CF00ECA9BA /* xing.png in Resources */,
 				B53791BD1C1579F500C45BA7 /* hedongli@2x.png in Resources */,
 				B7CE7F3F1C16B0B00035D8CA /* MushaMatchCell.xib in Resources */,
+				B7E4CD011C1FA1F200C2E69A /* zdlt.png in Resources */,
 				B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1785,6 +1818,7 @@
 				B59409191C0FD720003DC15D /* Toolkit.m in Sources */,
 				B7617E401C1C298F00CF96E7 /* YMTextData.m in Sources */,
 				B53791C51C157CFF00C45BA7 /* KongFuStoreViewController.m in Sources */,
+				B7E4CD071C1FB22000C2E69A /* WYNewsViewController.m in Sources */,
 				B7617E291C1C289E00CF96E7 /* UnionNewsViewController.m in Sources */,
 				B5D89A041C11641000F55BFA /* WuGuanTableViewCell.m in Sources */,
 				802118EB1C1AFAE100DCEE73 /* Slider.m in Sources */,
