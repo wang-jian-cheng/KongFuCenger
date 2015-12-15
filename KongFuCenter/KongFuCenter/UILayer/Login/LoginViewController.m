@@ -624,16 +624,16 @@
     
     [self LoginFunc];
 //    [self webViewDidStartLoad];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
+ //   [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
 }
 
 -(void)LoginFunc
 {
     if (_userData.phoneNum.length > 0) {
-//        [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
-//        DataProvider * dataprovider=[[DataProvider alloc] init];
-//        [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
-//        [dataprovider Login:userText.text andpwd:passWordText.text andreferrer:@""];
+        [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
+        [dataprovider login:_userData.phoneNum andPassWord:_userData.passWord];
         
     }
 }
@@ -643,29 +643,26 @@
     printf("[%s] start \r\n",__FUNCTION__);
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200 ) {
-        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                  NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-        NSArray * itemdict=[[NSArray alloc] initWithArray:dict[@"datas"]];
-        BOOL result= [itemdict[0] writeToFile:plistPath atomically:YES];
-        if (result) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
+//        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+//                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+//        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+        NSDictionary * itemdict=dict[@"data"];
+        
+      
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
             
-            //设置默认值
-            [self setLoginValue:itemdict[0]];
+        //设置默认值
+        [self setLoginValue:itemdict];
             
-            //设置通知
-            [self setNotificate];
+        //设置通知
+        [self setNotificate];
             
-            
-            //[NSNotificationCenter defaultCenter] postNotificationName:@"Login_success" object:nil];
-//            [self.navigationController popToRootViewControllerAnimated:YES];
-        }
+        
         
     }
     else
     {
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"message"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
         [alert show];
     }
     printf("[%s] end\r\n",__FUNCTION__);
@@ -673,12 +670,12 @@
 
 -(void)setLoginValue:(NSDictionary *)dict{
     @try {
-           [mUserDefault setValue:[dict valueForKey:@"mobile"] forKey:@"mAccountID"];
-           [mUserDefault setValue:[dict valueForKey:@"avatar"] forKey:@"avatar"];
+           [mUserDefault setValue:[dict valueForKey:@"UserName"] forKey:@"mAccountID"];
+         //  [mUserDefault setValue:[dict valueForKey:@"avatar"] forKey:@"avatar"];
            
            NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
            
-           [tempDict setObject:[dict valueForKey:@"mobile"] forKey:@"mAccountID"];
+           [tempDict setObject:[dict valueForKey:@"UserName"] forKey:@"mAccountID"];
            [tempDict setObject:[dict valueForKey:@"avatar"] forKey:@"avatar"];
            [tempDict setObject:passWordText.text forKey:@"password"];
            
@@ -686,7 +683,7 @@
            {
                NSDictionary *checkDict = [_AccountArrCache objectAtIndex:i];
                
-               if([tempDict[@"mAccountID"] isEqualToString:checkDict[@"mAccountID"]])
+               if([tempDict[@"UserName"] isEqualToString:checkDict[@"mAccountID"]])
                {
                    
                    if([tempDict isEqualToDictionary:checkDict])//存在的账号信息完全相同则不保存
