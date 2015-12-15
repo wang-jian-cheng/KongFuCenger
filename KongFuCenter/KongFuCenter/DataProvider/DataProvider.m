@@ -15,6 +15,7 @@
 //#import "HttpRequest.h"
 
 #define Url @"http://192.168.1.136:8033/"
+//#define Url @"http://115.28.67.86:8033/"
 //#define Url @"http://hihome.zhongyangjituan.com/"
 
 @implementation DataProvider

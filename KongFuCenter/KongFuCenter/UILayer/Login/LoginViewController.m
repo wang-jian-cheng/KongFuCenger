@@ -12,6 +12,10 @@
 #import "SVProgressHUD.h"
 #import <RongIMKit/RongIMKit.h>
 
+#define LogIn_UserID_key    @"mAccountID"
+#define LogIn_UserPass_key   @"password"
+#define LogIn_UserHistory_key    @"userAccountList"
+
 @interface LoginViewController ()<UIGestureRecognizerDelegate>{
     NSUserDefaults *mUserDefault;
     NSString *_mAccount;
@@ -63,17 +67,19 @@
     
     _userData = [[DataDefine alloc] init];
     mUserDefault = [NSUserDefaults standardUserDefaults];
-    _AccountArrCache = [mUserDefault valueForKey:@"userAccountList"];
+    _AccountArrCache = [mUserDefault valueForKey:LogIn_UserHistory_key];
+    
+    NSString *mRegistAcount = [mUserDefault valueForKey:LogIn_UserID_key];
+    NSString *mRegistPwd = [mUserDefault valueForKey:LogIn_UserPass_key];
+    
+    NSLog(@"1%@",mRegistAcount);
+    NSLog(@"2%@",mRegistPwd);
     
     if(_AccountArrCache == nil)
     {
         _AccountArrCache = [NSMutableArray array];
     }
-    NSString *temp = [mUserDefault valueForKey:@"mAccountID"];
-    if(temp !=nil)
-        NSLog(@"temp = %@",temp);
     
-//    get_sp(<#a#>)
     if(_AccountArrCache!=nil)
     {
         _cellCount = _AccountArrCache.count;
@@ -299,7 +305,10 @@
 
     [backView addSubview:userText];
     
-    _account_box = [[UIScrollView alloc] initWithFrame:CGRectMake(userText.frame.origin.x, userText.frame.origin.y+userText.frame.size.height+1, userText.frame.size.width, _cellCount >3 ?40*3:40*_cellCount)];
+    _account_box = [[UIScrollView alloc] initWithFrame:CGRectMake(userText.frame.origin.x,
+                                                                  (userText.frame.origin.y+userText.frame.size.height+1+backView.frame.origin.y),
+                                                                  userText.frame.size.width,
+                                                                  _cellCount >3 ?40*3:40*_cellCount)];
 
     _account_box.hidden = YES;
 
@@ -332,7 +341,7 @@
 //    }
     
     [_account_box addSubview:_accountTableView];
-    [backView addSubview:_account_box];
+    [self.view addSubview:_account_box];
     
     //[self.view addSubview:_moveDownGroup];
     
@@ -652,22 +661,15 @@
     printf("[%s] start \r\n",__FUNCTION__);
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200 ) {
-//        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-//                                                                  NSUserDomainMask, YES) objectAtIndex:0];
-//        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+
         NSDictionary * itemdict=dict[@"data"];
-        
-      
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
             
         //设置默认值
         [self setLoginValue:itemdict];
-            
         //设置通知
         [self setNotificate];
-            
-        
-        
+
     }
     else
     {
@@ -679,32 +681,34 @@
 
 -(void)setLoginValue:(NSDictionary *)dict{
     @try {
-           [mUserDefault setValue:[dict valueForKey:@"UserName"] forKey:@"mAccountID"];
+            [mUserDefault setValue:[dict valueForKey:@"UserName"] forKey:LogIn_UserID_key];//上次登录的账户
+            [mUserDefault setValue:passWordText.text forKey:LogIn_UserPass_key];//上次登录的账户
+            [mUserDefault setValue:[dict valueForKey:@"Id"] forKey:@"id"];
          //  [mUserDefault setValue:[dict valueForKey:@"avatar"] forKey:@"avatar"];
            
            NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
            
-           [tempDict setObject:[dict valueForKey:@"UserName"] forKey:@"mAccountID"];
+           [tempDict setObject:[dict valueForKey:@"UserName"] forKey:LogIn_UserID_key];
    //        [tempDict setObject:[dict valueForKey:@"PhotoPath"] forKey:@"avatar"];
-           [tempDict setObject:passWordText.text forKey:@"password"];
+           [tempDict setObject:passWordText.text forKey:LogIn_UserPass_key];
            
            for (int i = 0; i<_AccountArrCache.count; i++)
            {
                NSDictionary *checkDict = [_AccountArrCache objectAtIndex:i];
                
-               if([tempDict[@"UserName"] isEqualToString:checkDict[@"mAccountID"]])
+               if([tempDict[LogIn_UserID_key] isEqualToString:checkDict[LogIn_UserID_key]])
                {
                    
                    if([tempDict isEqualToDictionary:checkDict])//存在的账号信息完全相同则不保存
                    {
-                       //                [mUserDefault setValue:_AccountArrCache forKey:@"userAccountList"];
+                       //                [mUserDefault setValue:_AccountArrCache forKey:LogIn_UserHistory_key];
                        return;
                    }
                    //   goto end;
                    else//否则替换掉之前的
                    {
                        [_AccountArrCache replaceObjectAtIndex:i withObject:tempDict];
-                       [mUserDefault setValue:_AccountArrCache forKey:@"userAccountList"];
+                       [mUserDefault setValue:_AccountArrCache forKey:LogIn_UserHistory_key];
                        //  goto end;
                    }
                }
@@ -717,10 +721,7 @@
            [mutaArray addObject:tempDict];
            _AccountArrCache = mutaArray;
            
-        [mUserDefault setValue:_AccountArrCache forKey:@"userAccountList"];
-       // [mUserDefault setObject:_AccountArrCache forKey:@"userAccountList"];
-      
-   
+        [mUserDefault setValue:_AccountArrCache forKey:LogIn_UserHistory_key];
     
     }
     @catch (NSException *exception) {
@@ -867,7 +868,7 @@
         
         UILabel *cellLabel = [[UILabel alloc] initWithFrame:CGRectMake(10 + _cellHeight +10, 0, 150, _cellHeight)];
         
-        cellLabel.text =[tempDict valueForKey:@"mAccountID"];
+        cellLabel.text =[tempDict valueForKey:LogIn_UserID_key];
         cellLabel.font = [UIFont systemFontOfSize:14];
         [cell addSubview:cellLabel];
         
@@ -909,10 +910,10 @@
         NSDictionary *tempDict;
         tempDict = [_AccountArrCache objectAtIndex:indexPath.row];
         
-        passWordText.text = [tempDict valueForKey:@"password"];
+        passWordText.text = [tempDict valueForKey:LogIn_UserPass_key];
         _userData.passWord =passWordText.text ;
        
-        userText.text = [tempDict valueForKey:@"mAccountID"];
+        userText.text = [tempDict valueForKey:LogIn_UserID_key];
         _userData.phoneNum =userText.text;
         
 //        NSString *avatar = [tempDict valueForKey:@"avatar"];
@@ -973,7 +974,7 @@
             _AccountArrCache = mutaArray;
             
             _cellCount = _AccountArrCache.count;
-            [mUserDefault setValue:_AccountArrCache forKey:@"userAccountList"];
+            [mUserDefault setValue:_AccountArrCache forKey:LogIn_UserHistory_key];
             
             _accountTableView.contentSize = CGSizeMake(_account_box.frame.size.width, _cellCount >3 ?40*_cellCount:_account_box.frame.size.height);
             

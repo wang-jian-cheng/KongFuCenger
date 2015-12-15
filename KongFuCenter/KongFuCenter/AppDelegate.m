@@ -18,10 +18,14 @@
 #import "WXApi.h"
 #import "WeiboSDK.h"
 
+#define LogIn_UserID_key    @"mAccountID"
+#define LogIn_UserPass_key   @"password"
+
 @interface AppDelegate ()
 {
     CustomTabBarViewController *_tabBarViewCol;
     LoginViewController *_loginViewCtl;
+    NSUserDefaults *mUserDefault;
 }
 @end
 
@@ -122,14 +126,28 @@
 
 -(void) initUI
 {
+
+    
     _tabBarViewCol = [[CustomTabBarViewController alloc] init];
     _loginViewCtl = [[LoginViewController alloc] init];
     if(self.window == nil)
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds] ];
     
     [self.window makeKeyAndVisible];
+    mUserDefault = [NSUserDefaults standardUserDefaults];
+    NSString *mRegistAcount = [mUserDefault valueForKey:LogIn_UserID_key];
+    NSString *mRegistPwd = [mUserDefault valueForKey:LogIn_UserPass_key];
     
-    self.window.rootViewController = _loginViewCtl;
+    if((mRegistAcount == nil||[mRegistAcount isEqualToString:@"" ])||(mRegistPwd == nil || [mRegistPwd isEqualToString:@"" ]))
+    {
+         self.window.rootViewController = _loginViewCtl;
+    }
+    else
+    {
+        self.window.rootViewController = _tabBarViewCol;
+        
+        [self TryLoginFun];
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView:) name:@"changeRootView" object:nil];
     
     
@@ -137,7 +155,62 @@
     //集成融云App Key
     [[RCIM sharedRCIM] initWithAppKey:@"3argexb6r2qhe"];
     
-    return YES;
+}
+
+
+
+#pragma mark - 尝试登录之前保存的账号登录
+
+
+
+
+-(void)TryLoginFun{
+    
+    
+    [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
+    NSString *mRegistAcount = [mUserDefault valueForKey:LogIn_UserID_key];
+    NSString *mRegistPwd = [mUserDefault valueForKey:LogIn_UserPass_key];
+    
+    [dataprovider login:mRegistAcount andPassWord:mRegistPwd];
+}
+
+
+-(void)loginBackcall:(id)dict
+{
+    [SVProgressHUD dismiss];
+    printf("[%s] start \r\n",__FUNCTION__);
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200 ) {
+        [mUserDefault setValue:[dict valueForKey:@"Id"] forKey:@"id"];
+        [self setNotificate];
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+        self.window.rootViewController = _loginViewCtl;
+    }
+    printf("[%s] end\r\n",__FUNCTION__);
+}
+
+-(void)setNotificate{
+    //重新获取好友信息
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"getFriendInfo" object:nil];
+    
+    //获取聊天Token
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"getTokenInfo" object:nil];
+    
+    //登陆时重新获取头像
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"setHeadImg" object:nil];
+    
+    //获取左侧栏用户信息
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"getUserInfo" object:nil];
+    
+    //设置显示/隐藏tabbar
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"tabbar" object:nil];
 }
 
 -(void)changeRootView:(id)sender

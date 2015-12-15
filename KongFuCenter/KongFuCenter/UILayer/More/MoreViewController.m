@@ -50,12 +50,19 @@
     [outBtn setTitle:@"退出" forState:UIControlStateNormal];
     [outBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     outBtn.backgroundColor = ItemsBaseColor;
+    [outBtn addTarget:self action:@selector(clickOutBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     [_mainTableView addSubview:outBtn];
     
 }
 
 
+#pragma mark - 
+
+-(void)clickOutBtn:(UIButton *)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"loginpage" forKey:@"rootView"]];
+}
 
 #pragma mark -  tableview  Delegate
 
