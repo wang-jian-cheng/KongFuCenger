@@ -25,13 +25,16 @@
     _tabBarViewCol = [[CustomTabBarViewController alloc] init];
 
     _loginViewCtl = [[LoginViewController alloc] init];
+    
     if(self.window == nil)
+        
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds] ];
    
     [self.window makeKeyAndVisible];
     
      //self.window.rootViewController = _loginViewCtl;
    self.window.rootViewController = _tabBarViewCol;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView:) name:@"changeRootView" object:nil];
     
     return YES;
