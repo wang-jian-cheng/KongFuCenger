@@ -59,7 +59,7 @@
     UILabel *mTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, StatusBar_HEIGHT + (NavigationBar_HEIGHT - 21) / 2, SCREEN_WIDTH, 21)];
     mTitle.textAlignment = NSTextAlignmentCenter;
     mTitle.textColor = [UIColor whiteColor];
-    mTitle.text = @"会话";
+    mTitle.text = @"会话列表";
     [topView addSubview:mTitle];
     
     UIButton *leftTitle = [[UIButton alloc] initWithFrame:CGRectMake(14, StatusBar_HEIGHT + (NavigationBar_HEIGHT - 20) / 2, 20, 20)];
@@ -68,9 +68,14 @@
     [topView addSubview:leftTitle];
     
     UIButton *rightTitle = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 20, StatusBar_HEIGHT + (NavigationBar_HEIGHT - 20) / 2, 20, 20)];
-    [rightTitle setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
+    [rightTitle setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     [rightTitle addTarget:self action:@selector(clickRightBtn) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:rightTitle];
+    
+    UITableView *listTableView = self.conversationListTableView;
+    listTableView.frame = CGRectMake(0, NavigationBar_HEIGHT + StatusBar_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - StatusBar_HEIGHT);
+    listTableView.tableFooterView = [[UIView alloc] init];
+    listTableView.backgroundColor = [UIColor grayColor];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

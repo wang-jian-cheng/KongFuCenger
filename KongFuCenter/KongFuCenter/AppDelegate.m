@@ -112,6 +112,9 @@
 {
     [self SMSInit];
     [self ShareSdkInit];
+    
+    //集成融云App Key
+    [[RCIM sharedRCIM] initWithAppKey:@"3argexb6r2qhe"];
 }
 
 
@@ -149,7 +152,6 @@
         [self TryLoginFun];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView:) name:@"changeRootView" object:nil];
-    
     
     
     //集成融云App Key
@@ -211,6 +213,7 @@
     
     //设置显示/隐藏tabbar
     [[NSNotificationCenter defaultCenter] postNotificationName:@"tabbar" object:nil];
+
 }
 
 -(void)changeRootView:(id)sender

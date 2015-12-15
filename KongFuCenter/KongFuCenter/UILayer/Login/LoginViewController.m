@@ -635,14 +635,15 @@
 //        [alert addButtonWithTitle:@"确定"];
 //        [alert show];
 //         NSLog(@"Out of click");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账户或密码错误" delegate:self cancelButtonTitle:@"确定 " otherButtonTitles: nil];
-        [alertView show];
-        return;
+        
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"账户或密码错误" delegate:self cancelButtonTitle:@"确定 " otherButtonTitles: nil];
+//        [alertView show];
+//        return;
     }
     
-    [self LoginFunc];
-//    [self webViewDidStartLoad];
- //   [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
+    //[self LoginFunc];
+    //[self webViewDidStartLoad];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
 }
 
 -(void)LoginFunc
