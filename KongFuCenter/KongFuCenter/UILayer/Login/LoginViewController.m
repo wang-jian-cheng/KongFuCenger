@@ -43,7 +43,7 @@
     [super viewDidLoad];
     self.view.frame = [[UIScreen mainScreen] bounds];
     _topView.hidden=YES;
-    _AccountArrCache = [NSMutableArray array];
+    
     _cellCount = 0;
     _cellHeight = 40;
     [self initDatas];
@@ -65,6 +65,16 @@
     _userData = [[DataDefine alloc] init];
     mUserDefault = [NSUserDefaults standardUserDefaults];
     _AccountArrCache = [mUserDefault valueForKey:@"userAccountList"];
+    
+    if(_AccountArrCache == nil)
+    {
+        _AccountArrCache = [NSMutableArray array];
+    }
+    NSString *temp = [mUserDefault valueForKey:@"mAccountID"];
+    if(temp !=nil)
+        NSLog(@"temp = %@",temp);
+    
+//    get_sp(<#a#>)
     if(_AccountArrCache!=nil)
     {
         _cellCount = _AccountArrCache.count;
@@ -281,7 +291,7 @@
     [userText addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [userText addTarget:self action:@selector(textFieldDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
     [userText addTarget:self action:@selector(textFieldBeginChange:) forControlEvents:UIControlEventEditingDidBegin];
-    
+    userText.textColor = [UIColor whiteColor];
     UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, userY, SCREEN_WIDTH,userText.frame.size.height*2+3*15 )];
     
     backView.backgroundColor = ItemsBaseColor;
@@ -291,11 +301,10 @@
     [backView addSubview:userText];
     
     _account_box = [[UIScrollView alloc] initWithFrame:CGRectMake(userText.frame.origin.x, userText.frame.origin.y+userText.frame.size.height+1, userText.frame.size.width, _cellCount >3 ?40*3:40*_cellCount)];
+
     _account_box.hidden = YES;
-  //  _account_box.layer.borderWidth = 0.5;
-    _account_box.backgroundColor = BACKGROUND_COLOR;
-    
-   // _account_box.backgroundColor = [UIColor greenColor];
+
+    _account_box.backgroundColor = [UIColor greenColor];
     
     _accountTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, _account_box.frame.size.width, _account_box.frame.size.height)];
     _accountTableView.delegate = self;
@@ -324,7 +333,7 @@
 //    }
     
     [_account_box addSubview:_accountTableView];
-    [self.view addSubview:_account_box];
+    [backView addSubview:_account_box];
     
     //[self.view addSubview:_moveDownGroup];
     
@@ -337,7 +346,7 @@
     [passWordText setReturnKeyType:UIReturnKeyNext];
     [passWordText addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [passWordText addTarget:self action:@selector(textFieldDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
-    
+    passWordText.textColor = [UIColor whiteColor];
     UIView *tempView = [[UIView alloc ]initWithFrame:CGRectMake(0, 0, 80, passWordText.frame.size.height)];
  
     UIButton *frogetBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0,tempView.frame.size.width - 10 , tempView.frame.size.height - 5)];
@@ -388,7 +397,7 @@
 //    [move setToValue:[NSValue valueWithCGPoint:CGPointMake(_moveDownGroup.center.x, _moveDownGroup.center.y+_account_box.frame.size.height)]];
 //    [move setDuration:ANIMATION_DURATION];
 //    [_moveDownGroup.layer addAnimation:move forKey:nil];
-    
+//    
     
     [_account_box setHidden:NO];
     [self.view bringSubviewToFront:_account_box];
@@ -650,7 +659,7 @@
         NSDictionary * itemdict=dict[@"data"];
         
       
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
             
         //设置默认值
         [self setLoginValue:itemdict];
@@ -677,7 +686,7 @@
            NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
            
            [tempDict setObject:[dict valueForKey:@"UserName"] forKey:@"mAccountID"];
-           [tempDict setObject:[dict valueForKey:@"avatar"] forKey:@"avatar"];
+   //        [tempDict setObject:[dict valueForKey:@"PhotoPath"] forKey:@"avatar"];
            [tempDict setObject:passWordText.text forKey:@"password"];
            
            for (int i = 0; i<_AccountArrCache.count; i++)
@@ -709,7 +718,10 @@
            [mutaArray addObject:tempDict];
            _AccountArrCache = mutaArray;
            
-           [mUserDefault setValue:_AccountArrCache forKey:@"userAccountList"];
+        [mUserDefault setValue:_AccountArrCache forKey:@"userAccountList"];
+       // [mUserDefault setObject:_AccountArrCache forKey:@"userAccountList"];
+      
+   
     
     }
     @catch (NSException *exception) {
@@ -774,7 +786,13 @@
 }
 
 -(void)CallLoginFun{
-
+    [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
+    NSString *mRegistAcount = [mUserDefault valueForKey:@"RegisterAccount"];
+    NSString *mRegistPwd = [mUserDefault valueForKey:@"RegisterPwd"];
+   // [dataprovider Login:mRegistAcount andpwd:mRegistPwd andreferrer:@""];
+    [dataprovider login:mRegistAcount andPassWord:mRegistPwd];
 }
 
 -(void)JumpToForgetVC:(UIButton *)sender
