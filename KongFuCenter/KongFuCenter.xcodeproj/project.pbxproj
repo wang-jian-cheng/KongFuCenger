@@ -190,7 +190,6 @@
 		B72E39F41C1AB4D0007356C4 /* MakeMushaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F31C1AB4D0007356C4 /* MakeMushaViewController.m */; };
 		B72E39F81C1AB5AD007356C4 /* MakeMushaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */; };
 		B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */; };
-		B750258D1C200115004C1D5F /* ChatContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B750258C1C200115004C1D5F /* ChatContentViewController.m */; };
 		B7617E1F1C1C27D500CF96E7 /* JHStoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */; };
 		B7617E271C1C289E00CF96E7 /* UnionNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */; };
 		B7617E281C1C289E00CF96E7 /* UnionNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E241C1C289E00CF96E7 /* UnionNewsCell.xib */; };
@@ -221,6 +220,9 @@
 		B7617E731C1C29A500CF96E7 /* YMTapGestureRecongnizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E6A1C1C29A500CF96E7 /* YMTapGestureRecongnizer.m */; };
 		B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */; };
 		B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C428021C1524F3003F504F /* JHStoryViewController.m */; };
+		B7CCA2D41C21036400B7AC8C /* ChatLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CCA2D31C21036400B7AC8C /* ChatLocationViewController.m */; };
+		B7CCA2DF1C2118C000B7AC8C /* ChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CCA2DE1C2118C000B7AC8C /* ChatListViewController.m */; };
+		B7CCA2E41C211F5F00B7AC8C /* ChatContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CCA2E21C211F5F00B7AC8C /* ChatContentViewController.m */; };
 		B7CE7F3A1C16AF780035D8CA /* MushaMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CE7F391C16AF780035D8CA /* MushaMatch.m */; };
 		B7CE7F3E1C16B0B00035D8CA /* MushaMatchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CE7F3C1C16B0B00035D8CA /* MushaMatchCell.m */; };
 		B7CE7F3F1C16B0B00035D8CA /* MushaMatchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7CE7F3D1C16B0B00035D8CA /* MushaMatchCell.xib */; };
@@ -234,7 +236,6 @@
 		B7E4CD011C1FA1F200C2E69A /* zdlt.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CCFD1C1FA1F200C2E69A /* zdlt.png */; };
 		B7E4CD031C1FA9BC00C2E69A /* zddt_righttop.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD021C1FA9BC00C2E69A /* zddt_righttop.png */; };
 		B7E4CD071C1FB22000C2E69A /* WYNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E4CD061C1FB22000C2E69A /* WYNewsViewController.m */; };
-		B7E4CD0B1C1FBF6400C2E69A /* ChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E4CD0A1C1FBF6400C2E69A /* ChatListViewController.m */; };
 		B7E4CD0D1C1FE10E00C2E69A /* chat_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD0C1C1FE10E00C2E69A /* chat_icon.png */; };
 		B7E4CD0F1C1FE15000C2E69A /* wydt.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD0E1C1FE15000C2E69A /* wydt.png */; };
 		B7E4CD111C1FE18600C2E69A /* zddt.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD101C1FE18600C2E69A /* zddt.png */; };
@@ -542,8 +543,6 @@
 		B72E39F51C1AB5AD007356C4 /* MakeMushaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeMushaCell.h; sourceTree = "<group>"; };
 		B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeMushaCell.m; sourceTree = "<group>"; };
 		B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeMushaCell.xib; sourceTree = "<group>"; };
-		B750258B1C200115004C1D5F /* ChatContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatContentViewController.h; sourceTree = "<group>"; };
-		B750258C1C200115004C1D5F /* ChatContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatContentViewController.m; sourceTree = "<group>"; };
 		B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHStoryTableViewCell.xib; sourceTree = "<group>"; };
 		B7617E221C1C289E00CF96E7 /* UnionNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnionNewsCell.h; sourceTree = "<group>"; };
 		B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnionNewsCell.m; sourceTree = "<group>"; };
@@ -595,6 +594,12 @@
 		B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryTableViewCell.m; sourceTree = "<group>"; };
 		B7C428011C1524F3003F504F /* JHStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryViewController.h; sourceTree = "<group>"; };
 		B7C428021C1524F3003F504F /* JHStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryViewController.m; sourceTree = "<group>"; };
+		B7CCA2D21C21036300B7AC8C /* ChatLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatLocationViewController.h; sourceTree = "<group>"; };
+		B7CCA2D31C21036400B7AC8C /* ChatLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatLocationViewController.m; sourceTree = "<group>"; };
+		B7CCA2DD1C2118C000B7AC8C /* ChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatListViewController.h; sourceTree = "<group>"; };
+		B7CCA2DE1C2118C000B7AC8C /* ChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatListViewController.m; sourceTree = "<group>"; };
+		B7CCA2E21C211F5F00B7AC8C /* ChatContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatContentViewController.m; sourceTree = "<group>"; };
+		B7CCA2E31C211F5F00B7AC8C /* ChatContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatContentViewController.h; sourceTree = "<group>"; };
 		B7CE7F381C16AF780035D8CA /* MushaMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MushaMatch.h; sourceTree = "<group>"; };
 		B7CE7F391C16AF780035D8CA /* MushaMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MushaMatch.m; sourceTree = "<group>"; };
 		B7CE7F3B1C16B0B00035D8CA /* MushaMatchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MushaMatchCell.h; sourceTree = "<group>"; };
@@ -613,8 +618,6 @@
 		B7E4CD021C1FA9BC00C2E69A /* zddt_righttop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zddt_righttop.png; sourceTree = "<group>"; };
 		B7E4CD051C1FB22000C2E69A /* WYNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYNewsViewController.h; sourceTree = "<group>"; };
 		B7E4CD061C1FB22000C2E69A /* WYNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYNewsViewController.m; sourceTree = "<group>"; };
-		B7E4CD091C1FBF6400C2E69A /* ChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatListViewController.h; sourceTree = "<group>"; };
-		B7E4CD0A1C1FBF6400C2E69A /* ChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatListViewController.m; sourceTree = "<group>"; };
 		B7E4CD0C1C1FE10E00C2E69A /* chat_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_icon.png; sourceTree = "<group>"; };
 		B7E4CD0E1C1FE15000C2E69A /* wydt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wydt.png; sourceTree = "<group>"; };
 		B7E4CD101C1FE18600C2E69A /* zddt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zddt.png; sourceTree = "<group>"; };
@@ -1560,10 +1563,12 @@
 		B7E4CD081C1FBF2D00C2E69A /* ChatList */ = {
 			isa = PBXGroup;
 			children = (
-				B7E4CD091C1FBF6400C2E69A /* ChatListViewController.h */,
-				B7E4CD0A1C1FBF6400C2E69A /* ChatListViewController.m */,
-				B750258B1C200115004C1D5F /* ChatContentViewController.h */,
-				B750258C1C200115004C1D5F /* ChatContentViewController.m */,
+				B7CCA2DD1C2118C000B7AC8C /* ChatListViewController.h */,
+				B7CCA2DE1C2118C000B7AC8C /* ChatListViewController.m */,
+				B7CCA2E21C211F5F00B7AC8C /* ChatContentViewController.m */,
+				B7CCA2E31C211F5F00B7AC8C /* ChatContentViewController.h */,
+				B7CCA2D21C21036300B7AC8C /* ChatLocationViewController.h */,
+				B7CCA2D31C21036400B7AC8C /* ChatLocationViewController.m */,
 			);
 			name = ChatList;
 			sourceTree = "<group>";
@@ -1887,6 +1892,7 @@
 			files = (
 				B53791AC1C152BFD00C45BA7 /* CustomButton.m in Sources */,
 				B5AF70761C1821A500C041AF /* SelectRoundBtn.m in Sources */,
+				B7CCA2DF1C2118C000B7AC8C /* ChatListViewController.m in Sources */,
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
 				B72E39F41C1AB4D0007356C4 /* MakeMushaViewController.m in Sources */,
 				B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */,
@@ -1897,9 +1903,9 @@
 				B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */,
 				B59409001C0FCB0F003DC15D /* BaseNavigationController.m in Sources */,
 				B7617E6E1C1C29A500CF96E7 /* WFTextView.m in Sources */,
+				B7CCA2E41C211F5F00B7AC8C /* ChatContentViewController.m in Sources */,
 				B5AF70691C18032B00C041AF /* VipViewController.m in Sources */,
 				B5AF706D1C180CCE00C041AF /* PayForVipViewController.m in Sources */,
-				B750258D1C200115004C1D5F /* ChatContentViewController.m in Sources */,
 				B72C3CC81C1568C900D3250A /* RecruitCommentCell.m in Sources */,
 				B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */,
 				B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */,
@@ -1946,6 +1952,7 @@
 				8026D0FE1C1C0A1300D9CD44 /* XMLElement.m in Sources */,
 				B7617E3D1C1C298F00CF96E7 /* NSString+NSString_ILExtension.m in Sources */,
 				8026D0FD1C1C0A1300D9CD44 /* SBXMLParser.m in Sources */,
+				B7CCA2D41C21036400B7AC8C /* ChatLocationViewController.m in Sources */,
 				B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */,
 				B7617E3E1C1C298F00CF96E7 /* WFMessageBody.m in Sources */,
 				B5F4E3A01C1E9212001F81F0 /* UnionNewsDetailViewController.m in Sources */,
@@ -1955,7 +1962,6 @@
 				B5905DF81C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m in Sources */,
 				B5AF707F1C1837F600C041AF /* NewPlanViewController.m in Sources */,
 				B53E73851C166FCB009E7878 /* JiFenViewController.m in Sources */,
-				B7E4CD0B1C1FBF6400C2E69A /* ChatListViewController.m in Sources */,
 				B53E73891C167080009E7878 /* JiFenTableViewCell.m in Sources */,
 				B7617E6C1C1C29A500CF96E7 /* WFHudView.m in Sources */,
 				B5905E1C1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m in Sources */,

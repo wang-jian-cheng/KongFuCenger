@@ -682,11 +682,10 @@
 
 -(void)setLoginValue:(NSDictionary *)dict{
     @try {
-        NSLog(@"%@",dict);
             [mUserDefault setValue:[dict valueForKey:@"UserName"] forKey:LogIn_UserID_key];//上次登录的账户
             [mUserDefault setValue:passWordText.text forKey:LogIn_UserPass_key];//上次登录的账户
             [mUserDefault setValue:[dict valueForKey:@"Id"] forKey:@"id"];
-        NSLog(@"%@",[dict valueForKey:@"RongCloudName"]);
+            [self connectServer:[dict valueForKey:@"RongCloudName"]];
          //  [mUserDefault setValue:[dict valueForKey:@"avatar"] forKey:@"avatar"];
            
            NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
@@ -807,7 +806,8 @@
 }
 
 -(void)connectServer:(NSString *)token{
-    [[RCIM sharedRCIM] connectWithToken:@"YourTestUserToken" success:^(NSString *userId) {
+    NSLog(@"%@",token);
+    [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {
         NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
     } error:^(RCConnectErrorCode status) {
         NSLog(@"登陆的错误码为:%ld", (long)status);
