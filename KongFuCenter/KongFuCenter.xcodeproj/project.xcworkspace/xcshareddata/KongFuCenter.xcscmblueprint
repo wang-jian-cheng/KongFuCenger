@@ -1,0 +1,32 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "39C6DC2AA9050A0055A0D01C41EA86D46AA59951",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "d1172e3f-1812-6f49-83ca-d74b34ffb609++9134" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "39C6DC2AA9050A0055A0D01C41EA86D46AA59951" : 0,
+    "d1172e3f-1812-6f49-83ca-d74b34ffb609++9134" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "20C24669-9B4E-42C5-A546-E26BC05EA2A7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "39C6DC2AA9050A0055A0D01C41EA86D46AA59951" : "%E6%A0%B8%E6%AD%A6%E8%80%85\/",
+    "d1172e3f-1812-6f49-83ca-d74b34ffb609++9134" : "%E6%A0%B8%E6%AD%A6%E8%80%85\/KongFuCenter\/KongFuCenter\/UILayer\/CustomViewController\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "KongFuCenter",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "KongFuCenter\/KongFuCenter.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/wang-jian-cheng\/KongFuCenger.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "39C6DC2AA9050A0055A0D01C41EA86D46AA59951"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/42.121.145.175\/svn\/aiwoba_ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "d1172e3f-1812-6f49-83ca-d74b34ffb609++9134"
+    }
+  ]
+}

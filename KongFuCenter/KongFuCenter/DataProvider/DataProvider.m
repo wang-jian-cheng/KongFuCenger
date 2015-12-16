@@ -16,7 +16,7 @@
 
 #define Url @"http://192.168.1.136:8033/"
 //#define Url @"http://115.28.67.86:8033/"
-//#define Url @"http://hihome.zhongyangjituan.com/"
+//#define Url @"http://hihome.zhongyangjituan.com/
 
 @implementation DataProvider
 
@@ -24,7 +24,7 @@
 
 
 
-#pragma mark - 登陆注册部分
+#pragma mark - 登陆注册用户信息部分
 
 -(NSInteger)login:(NSString*)account andPassWord:(NSString *)password
 {
@@ -89,7 +89,25 @@
 }
 
 #pragma mark - 核联盟
-
+-(NSInteger)getUserInfo:(NSString *)userId
+{
+    
+    if(userId != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/UpdateUser",Url];
+        NSDictionary * prm=@{@"userid":userId};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
 
 #pragma mark 赋值回调
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName

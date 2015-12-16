@@ -710,8 +710,8 @@
                 [cell addSubview:titlLab];
                 
                 
-                introductionText.frame = CGRectMake((titlLab.frame.size.width+introductionText.frame.origin.x + 5), 5,
-                                                    (SCREEN_WIDTH - 10 - (titlLab.frame.size.width+introductionText.frame.origin.x + 5)),
+                introductionText.frame = CGRectMake((titlLab.frame.size.width+titlLab.frame.origin.x + 5), 5,
+                                                    (SCREEN_WIDTH - 10 - (titlLab.frame.size.width+titlLab.frame.origin.x + 5)),
                                                     (3*_cellHeight - 5*2) ) ;
                 
                 introductionText.text = @"喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武";

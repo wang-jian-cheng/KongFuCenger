@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00B391A3E16E2E9529C00832 /* Pods_KongFuCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CB30C136C8571924D6B829 /* Pods_KongFuCenter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7BA38E8D1C213930000996EE /* Member-ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E8C1C213930000996EE /* Member-ViewController.m */; };
+		7BA38E901C214305000996EE /* MemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E8F1C214305000996EE /* MemberTableViewCell.m */; };
 		802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118D91C1AFAE100DCEE73 /* DIYButton.m */; };
 		802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118DC1C1AFAE100DCEE73 /* MoviePlayer.m */; };
 		802118E71C1AFAE100DCEE73 /* yinliangda.png in Resources */ = {isa = PBXBuildFile; fileRef = 802118DD1C1AFAE100DCEE73 /* yinliangda.png */; };
@@ -19,6 +21,13 @@
 		8026D0F71C1BC6BE00D9CD44 /* ErWeiMaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8026D0F51C1BC6BE00D9CD44 /* ErWeiMaViewController.xib */; };
 		8026D0FD1C1C0A1300D9CD44 /* SBXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8026D0FA1C1C0A1300D9CD44 /* SBXMLParser.m */; };
 		8026D0FE1C1C0A1300D9CD44 /* XMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */; };
+		B529B7A31C2110BF003AC21C /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B529B7981C2110BF003AC21C /* AlipaySDK.bundle */; };
+		B529B7A41C2110BF003AC21C /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B7991C2110BF003AC21C /* AlipaySDK.framework */; };
+		B529B7A51C2110BF003AC21C /* libpingpp+alipay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */; };
+		B529B7A61C2110BF003AC21C /* libpingpp+wx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B79C1C2110BF003AC21C /* libpingpp+wx.a */; };
+		B529B7A71C2110BF003AC21C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B79D1C2110BF003AC21C /* libWeChatSDK.a */; };
+		B529B7A81C2110BF003AC21C /* libpingpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B7A01C2110BF003AC21C /* libpingpp.a */; };
+		B529B7A91C2110BF003AC21C /* Pingpp.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B529B7A11C2110BF003AC21C /* Pingpp.bundle */; };
 		B53791A41C151AED00C45BA7 /* VideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */; };
 		B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791A61C151FEB00C45BA7 /* UserHeadView.m */; };
 		B53791AC1C152BFD00C45BA7 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791AB1C152BFD00C45BA7 /* CustomButton.m */; };
@@ -157,6 +166,11 @@
 		B5F13B401C1FE6E600155038 /* 512@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B391C1FE6E600155038 /* 512@2x.png */; };
 		B5F13B411C1FE6E600155038 /* 58@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B3A1C1FE6E600155038 /* 58@2x.png */; };
 		B5F13B421C1FE6E600155038 /* 80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B3B1C1FE6E600155038 /* 80@2x.png */; };
+		B5F2B3761C20F6ED003383AE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B3751C20F6ED003383AE /* CFNetwork.framework */; };
+		B5F2B3781C20F753003383AE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B3771C20F753003383AE /* SystemConfiguration.framework */; };
+		B5F2B37A1C20F765003383AE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B3791C20F765003383AE /* Security.framework */; };
+		B5F2B37C1C210C12003383AE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B37B1C210C12003383AE /* libc++.tbd */; };
+		B5F2B37E1C210C6B003383AE /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B37D1C210C6B003383AE /* libsqlite3.0.tbd */; };
 		B5F4E39D1C1E6BD6001F81F0 /* JiangHuStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */; };
 		B5F4E3A01C1E9212001F81F0 /* UnionNewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E39F1C1E9212001F81F0 /* UnionNewsDetailViewController.m */; };
 		B5F4E3A31C1EA45C001F81F0 /* FriendInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E3A21C1EA45C001F81F0 /* FriendInfoViewController.m */; };
@@ -269,6 +283,10 @@
 /* Begin PBXFileReference section */
 		19CB30C136C8571924D6B829 /* Pods_KongFuCenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KongFuCenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EE0DD3D61F21623918CAE75 /* Pods-KongFuCenter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KongFuCenter.release.xcconfig"; path = "Pods/Target Support Files/Pods-KongFuCenter/Pods-KongFuCenter.release.xcconfig"; sourceTree = "<group>"; };
+		7BA38E8B1C213930000996EE /* Member-ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Member-ViewController.h"; sourceTree = "<group>"; };
+		7BA38E8C1C213930000996EE /* Member-ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Member-ViewController.m"; sourceTree = "<group>"; };
+		7BA38E8E1C214305000996EE /* MemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberTableViewCell.h; sourceTree = "<group>"; };
+		7BA38E8F1C214305000996EE /* MemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberTableViewCell.m; sourceTree = "<group>"; };
 		802118D81C1AFAE100DCEE73 /* DIYButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYButton.h; sourceTree = "<group>"; };
 		802118D91C1AFAE100DCEE73 /* DIYButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYButton.m; sourceTree = "<group>"; };
 		802118DB1C1AFAE100DCEE73 /* MoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayer.h; sourceTree = "<group>"; };
@@ -288,6 +306,16 @@
 		8026D0FB1C1C0A1300D9CD44 /* XMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLElement.h; sourceTree = "<group>"; };
 		8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLElement.m; sourceTree = "<group>"; };
 		917C8DDA7A56E94AAC386040 /* Pods-KongFuCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KongFuCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KongFuCenter/Pods-KongFuCenter.debug.xcconfig"; sourceTree = "<group>"; };
+		B529B7981C2110BF003AC21C /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		B529B7991C2110BF003AC21C /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
+		B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpingpp+alipay.a"; sourceTree = "<group>"; };
+		B529B79C1C2110BF003AC21C /* libpingpp+wx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpingpp+wx.a"; sourceTree = "<group>"; };
+		B529B79D1C2110BF003AC21C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		B529B79E1C2110BF003AC21C /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		B529B79F1C2110BF003AC21C /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		B529B7A01C2110BF003AC21C /* libpingpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpingpp.a; sourceTree = "<group>"; };
+		B529B7A11C2110BF003AC21C /* Pingpp.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Pingpp.bundle; sourceTree = "<group>"; };
+		B529B7A21C2110BF003AC21C /* Pingpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pingpp.h; sourceTree = "<group>"; };
 		B53791A21C151AED00C45BA7 /* VideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoDetailViewController.h; path = KongFuer/VideoDetailViewController.h; sourceTree = "<group>"; };
 		B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoDetailViewController.m; path = KongFuer/VideoDetailViewController.m; sourceTree = "<group>"; };
 		B53791A51C151FEB00C45BA7 /* UserHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserHeadView.h; path = ../Common/UserHeadView.h; sourceTree = "<group>"; };
@@ -492,6 +520,11 @@
 		B5F13B391C1FE6E600155038 /* 512@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "512@2x.png"; sourceTree = "<group>"; };
 		B5F13B3A1C1FE6E600155038 /* 58@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "58@2x.png"; sourceTree = "<group>"; };
 		B5F13B3B1C1FE6E600155038 /* 80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80@2x.png"; sourceTree = "<group>"; };
+		B5F2B3751C20F6ED003383AE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		B5F2B3771C20F753003383AE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B5F2B3791C20F765003383AE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B5F2B37B1C210C12003383AE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		B5F2B37D1C210C6B003383AE /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		B5F4E39B1C1E6BD6001F81F0 /* JiangHuStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JiangHuStoryViewController.h; sourceTree = "<group>"; };
 		B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JiangHuStoryViewController.m; sourceTree = "<group>"; };
 		B5F4E39E1C1E9212001F81F0 /* UnionNewsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnionNewsDetailViewController.h; path = UnionNews/UnionNewsDetailViewController.h; sourceTree = "<group>"; };
@@ -636,17 +669,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5F2B37E1C210C6B003383AE /* libsqlite3.0.tbd in Frameworks */,
+				B529B7A51C2110BF003AC21C /* libpingpp+alipay.a in Frameworks */,
+				B5F2B37C1C210C12003383AE /* libc++.tbd in Frameworks */,
+				B5F2B37A1C20F765003383AE /* Security.framework in Frameworks */,
+				B5F2B3781C20F753003383AE /* SystemConfiguration.framework in Frameworks */,
+				B5F2B3761C20F6ED003383AE /* CFNetwork.framework in Frameworks */,
 				B5F13B331C1FBCD500155038 /* libsqlite3.tbd in Frameworks */,
 				B5F13B311C1FBCC700155038 /* AdSupport.framework in Frameworks */,
 				B5F13B2F1C1FBCBD00155038 /* ImageIO.framework in Frameworks */,
 				B5F13B241C1FBAAC00155038 /* libWeChatSDK.a in Frameworks */,
 				B5F13B291C1FBAAC00155038 /* ShareSDKConnector.framework in Frameworks */,
 				B5F13AFC1C1FA91E00155038 /* AddressBook.framework in Frameworks */,
+				B529B7A41C2110BF003AC21C /* AlipaySDK.framework in Frameworks */,
 				B5F13B201C1FBAAC00155038 /* TencentOpenAPI.framework in Frameworks */,
 				B5F13B281C1FBAAC00155038 /* ShareSDK.framework in Frameworks */,
 				B5F13AFD1C1FA91E00155038 /* AddressBookUI.framework in Frameworks */,
 				B5F13AF91C1FA91000155038 /* libstdc++.tbd in Frameworks */,
 				B5F13AF71C1FA90600155038 /* JavaScriptCore.framework in Frameworks */,
+				B529B7A71C2110BF003AC21C /* libWeChatSDK.a in Frameworks */,
 				B5F13AF51C1FA8FB00155038 /* MessageUI.framework in Frameworks */,
 				B5F13AF31C1FA8EE00155038 /* libz.tbd in Frameworks */,
 				B5F13AF11C1FA8E300155038 /* libicucore.tbd in Frameworks */,
@@ -655,6 +696,8 @@
 				B5F13AEE1C1FA80000155038 /* MOBFoundation.framework in Frameworks */,
 				B5F13AEF1C1FA80000155038 /* SMS_SDK.framework in Frameworks */,
 				B5F13B2D1C1FBAAC00155038 /* ShareSDKUI.framework in Frameworks */,
+				B529B7A61C2110BF003AC21C /* libpingpp+wx.a in Frameworks */,
+				B529B7A81C2110BF003AC21C /* libpingpp.a in Frameworks */,
 				B5F13B261C1FBAAC00155038 /* MOBFoundation.framework in Frameworks */,
 				B569DB961C12888800325CFA /* QuartzCore.framework in Frameworks */,
 				00B391A3E16E2E9529C00832 /* Pods_KongFuCenter.framework in Frameworks */,
@@ -682,6 +725,11 @@
 		6530A98924EC80D772FCF134 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B5F2B37D1C210C6B003383AE /* libsqlite3.0.tbd */,
+				B5F2B37B1C210C12003383AE /* libc++.tbd */,
+				B5F2B3791C20F765003383AE /* Security.framework */,
+				B5F2B3771C20F753003383AE /* SystemConfiguration.framework */,
+				B5F2B3751C20F6ED003383AE /* CFNetwork.framework */,
 				B5F13B321C1FBCD500155038 /* libsqlite3.tbd */,
 				B5F13B301C1FBCC700155038 /* AdSupport.framework */,
 				B5F13B2E1C1FBCBD00155038 /* ImageIO.framework */,
@@ -704,6 +752,41 @@
 				6EE0DD3D61F21623918CAE75 /* Pods-KongFuCenter.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		7BA38E841C213596000996EE /* JC-page */ = {
+			isa = PBXGroup;
+			children = (
+				7BA38E871C213665000996EE /* Team-Member */,
+				7BA38E861C213662000996EE /* Team-Introduce */,
+				7BA38E851C21365E000996EE /* Team-Announcement */,
+			);
+			name = "JC-page";
+			sourceTree = "<group>";
+		};
+		7BA38E851C21365E000996EE /* Team-Announcement */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Team-Announcement";
+			sourceTree = "<group>";
+		};
+		7BA38E861C213662000996EE /* Team-Introduce */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Team-Introduce";
+			sourceTree = "<group>";
+		};
+		7BA38E871C213665000996EE /* Team-Member */ = {
+			isa = PBXGroup;
+			children = (
+				7BA38E8B1C213930000996EE /* Member-ViewController.h */,
+				7BA38E8C1C213930000996EE /* Member-ViewController.m */,
+				7BA38E8E1C214305000996EE /* MemberTableViewCell.h */,
+				7BA38E8F1C214305000996EE /* MemberTableViewCell.m */,
+			);
+			name = "Team-Member";
 			sourceTree = "<group>";
 		};
 		802118D71C1AFAE100DCEE73 /* MoviePlayer */ = {
@@ -759,6 +842,47 @@
 				8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */,
 			);
 			path = xml;
+			sourceTree = "<group>";
+		};
+		B529B7951C2110BF003AC21C /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				B529B7961C2110BF003AC21C /* Channels */,
+				B529B7A01C2110BF003AC21C /* libpingpp.a */,
+				B529B7A11C2110BF003AC21C /* Pingpp.bundle */,
+				B529B7A21C2110BF003AC21C /* Pingpp.h */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		B529B7961C2110BF003AC21C /* Channels */ = {
+			isa = PBXGroup;
+			children = (
+				B529B7971C2110BF003AC21C /* Alipay */,
+				B529B79B1C2110BF003AC21C /* Wx */,
+			);
+			path = Channels;
+			sourceTree = "<group>";
+		};
+		B529B7971C2110BF003AC21C /* Alipay */ = {
+			isa = PBXGroup;
+			children = (
+				B529B7981C2110BF003AC21C /* AlipaySDK.bundle */,
+				B529B7991C2110BF003AC21C /* AlipaySDK.framework */,
+				B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */,
+			);
+			path = Alipay;
+			sourceTree = "<group>";
+		};
+		B529B79B1C2110BF003AC21C /* Wx */ = {
+			isa = PBXGroup;
+			children = (
+				B529B79C1C2110BF003AC21C /* libpingpp+wx.a */,
+				B529B79D1C2110BF003AC21C /* libWeChatSDK.a */,
+				B529B79E1C2110BF003AC21C /* WXApi.h */,
+				B529B79F1C2110BF003AC21C /* WXApiObject.h */,
+			);
+			path = Wx;
 			sourceTree = "<group>";
 		};
 		B53791A91C1525CD00C45BA7 /* CommonUI */ = {
@@ -1052,6 +1176,7 @@
 		B59409041C0FCE1B003DC15D /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
+				7BA38E841C213596000996EE /* JC-page */,
 				B7E4CD081C1FBF2D00C2E69A /* ChatList */,
 				B7E4CD041C1FB1C400C2E69A /* WYNews */,
 				B7617E211C1C287600CF96E7 /* TeamNews */,
@@ -1225,6 +1350,7 @@
 		B5F13A901C1FA75100155038 /* ThirdFramework */ = {
 			isa = PBXGroup;
 			children = (
+				B5F2B3181C20F5BF003383AE /* Pingpp */,
 				B5F13AFE1C1FBA9A00155038 /* ShareSdk */,
 				B5F13AE71C1FA80000155038 /* SMS_SDK */,
 			);
@@ -1328,6 +1454,14 @@
 				B5F13B3B1C1FE6E600155038 /* 80@2x.png */,
 			);
 			path = Logos;
+			sourceTree = "<group>";
+		};
+		B5F2B3181C20F5BF003383AE /* Pingpp */ = {
+			isa = PBXGroup;
+			children = (
+				B529B7951C2110BF003AC21C /* lib */,
+			);
+			path = Pingpp;
 			sourceTree = "<group>";
 		};
 		B5F4E39A1C1E6BB1001F81F0 /* JiangHu */ = {
@@ -1748,6 +1882,7 @@
 				B5AF70641C17FA7300C041AF /* zhibo@2x.png in Resources */,
 				B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */,
 				B7E4CD1B1C1FE1D600C2E69A /* jhgs.png in Resources */,
+				B529B7A91C2110BF003AC21C /* Pingpp.bundle in Resources */,
 				B53E73991C16E1EF009E7878 /* point@2x.png in Resources */,
 				B7E4CD171C1FE1BA00C2E69A /* jrzd.png in Resources */,
 				B7617E1F1C1C27D500CF96E7 /* JHStoryTableViewCell.xib in Resources */,
@@ -1789,6 +1924,7 @@
 				B53E737D1C166389009E7878 /* share@2x.png in Resources */,
 				B7E4CD191C1FE1C900C2E69A /* wzss.png in Resources */,
 				B53791CB1C15821E00C45BA7 /* headImg@2x.png in Resources */,
+				B529B7A31C2110BF003AC21C /* AlipaySDK.bundle in Resources */,
 				B5F90B001C1985A100D7879D /* Loginweixin@2x.png in Resources */,
 				B5905E051C1BC2CF00ECA9BA /* friend_avatar.png in Resources */,
 				B7617E281C1C289E00CF96E7 /* UnionNewsCell.xib in Resources */,
@@ -1905,6 +2041,7 @@
 				B7617E6E1C1C29A500CF96E7 /* WFTextView.m in Sources */,
 				B7CCA2E41C211F5F00B7AC8C /* ChatContentViewController.m in Sources */,
 				B5AF70691C18032B00C041AF /* VipViewController.m in Sources */,
+				7BA38E901C214305000996EE /* MemberTableViewCell.m in Sources */,
 				B5AF706D1C180CCE00C041AF /* PayForVipViewController.m in Sources */,
 				B72C3CC81C1568C900D3250A /* RecruitCommentCell.m in Sources */,
 				B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */,
@@ -1941,6 +2078,7 @@
 				B53E73961C16CF01009E7878 /* PersonInfoViewController.m in Sources */,
 				B7CE7F431C16C61E0035D8CA /* JoinTeamViewController.m in Sources */,
 				B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */,
+				7BA38E8D1C213930000996EE /* Member-ViewController.m in Sources */,
 				B569DB9C1C12B6C000325CFA /* UITableViewCell+EditMode.m in Sources */,
 				B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */,
 				B5AF707A1C18293F00C041AF /* TrainsPlanViewController.m in Sources */,
@@ -2144,6 +2282,7 @@
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/SMS_SDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/QQSDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Alipay",
 				);
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
@@ -2153,6 +2292,20 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/SinaWeiboSDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/WeChatSDK",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Alipay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/ApplePay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/ASIHttpRequest",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/BaiduMobStat/BaiduMobStat",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/BaiduMobStat",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/JSONKit",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/SDWebImage",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Cnp",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Network",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/UnionPay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Wx",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/One",
 				);
 				"OTHER_LDFLAGS[arch=*]" = (
 					"$(inherited)",
@@ -2179,6 +2332,7 @@
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/SMS_SDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/QQSDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Alipay",
 				);
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
@@ -2188,6 +2342,20 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/SinaWeiboSDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/WeChatSDK",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Alipay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/ApplePay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/ASIHttpRequest",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/BaiduMobStat/BaiduMobStat",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/BaiduMobStat",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/JSONKit",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/SDWebImage",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Cnp",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Network",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/UnionPay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Wx",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/One",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
