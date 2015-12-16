@@ -81,12 +81,14 @@
 +(NSString *)getUserID
 {
     
-    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                  NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-    NSDictionary *userInfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];//read plist
-    NSString *userID = [userInfoWithFile objectForKey:@"id"];//获取userID
-        
+//    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+//                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+//    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+//    NSDictionary *userInfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];//read plist
+//    NSString *userID = [userInfoWithFile objectForKey:@"id"];//获取userID
+
+    NSUserDefaults *mUserDefault = [NSUserDefaults standardUserDefaults];
+    NSString *userID = [mUserDefault valueForKey:@"id"];//获取userID
     return  userID;
 
 }
