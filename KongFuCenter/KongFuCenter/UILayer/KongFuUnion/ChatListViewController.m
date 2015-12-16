@@ -10,7 +10,7 @@
 #import <RongIMKit/RongIMKit.h>
 #import "ChatContentViewController.h"
 
-@interface ChatListViewController (){
+@interface ChatListViewController ()<RCIMUserInfoDataSource>{
     UIView *topView;
     
 }
@@ -24,18 +24,13 @@
     //重写显示相关的接口，必须先调用super，否则会屏蔽SDK默认的处理
     [super viewDidLoad];
     
-    self.cellBackgroundColor = [UIColor redColor];
+    //设置要显示的会话类型
+    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_GROUP)]];
     
-    //设置需要显示哪些类型的会话
-    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),
-                                        @(ConversationType_DISCUSSION),
-                                        @(ConversationType_CHATROOM),
-                                        @(ConversationType_GROUP),
-                                        @(ConversationType_APPSERVICE),
-                                        @(ConversationType_SYSTEM)]];
-    //设置需要将哪些类型的会话在会话列表中聚合显示
-    [self setCollectionConversationType:@[@(ConversationType_DISCUSSION),
-                                          @(ConversationType_GROUP)]];
+    //聚合会话类型
+    [self setCollectionConversationType:@[@(ConversationType_GROUP)]];
+    
+    [[RCIM sharedRCIM] setUserInfoDataSource:self];
     
     [self initView];
     
@@ -78,8 +73,15 @@
     listTableView.backgroundColor = [UIColor grayColor];
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated{
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
+-(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
+    RCUserInfo *user = [[RCUserInfo alloc]init];
+    user.userId = userId;
+    user.name = @"匿名";
+    return completion(user);
 }
 
 #pragma mark - 自定义方法
@@ -93,7 +95,7 @@
     //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
     chat.conversationType = ConversationType_PRIVATE;
     //设置会话的目标会话ID。（单聊、客服、公众账号服务为对方的ID，讨论组、群聊、聊天室为会话的ID）
-    chat.targetId = @"targetIdYouWillChatIn";
+    chat.targetId = @"2";
     //设置聊天会话界面要显示的标题
     chat.title = @"想显示的会话标题";
     //显示聊天会话界面

@@ -7,8 +7,9 @@
 //
 
 #import "ChatContentViewController.h"
+#import "ChatLocationViewController.h"
 
-@interface ChatContentViewController (){
+@interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate>{
     UIView *topView;
 }
 
@@ -46,6 +47,36 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
+- (void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag{
+    switch (tag) {
+        case  PLUGIN_BOARD_ITEM_LOCATION_TAG : {
+            {
+                ChatLocationViewController * chatlocationVC=[[ChatLocationViewController alloc] init];
+                chatlocationVC.delegate=self;
+                //[self presentModalViewController:chatlocationVC animated:YES];
+                [self.navigationController pushViewController:chatlocationVC animated:YES];
+            }
+            break;
+        default:
+            [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
+            break;
+        }
+    }
+}
+
+- (void)locationPicker:(ChatLocationViewController *)locationPicker
+     didSelectLocation:(CLLocationCoordinate2D)location
+          locationName:(NSString *)locationName
+         mapScreenShot:(UIImage *)mapScreenShot {
+    RCLocationMessage *locationMessage =
+    [RCLocationMessage messageWithLocationImage:mapScreenShot
+                                       location:location
+                                   locationName:locationName];
+    [self sendMessage:locationMessage pushContent:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 #pragma mark - 自定义方法
