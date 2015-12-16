@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00B391A3E16E2E9529C00832 /* Pods_KongFuCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CB30C136C8571924D6B829 /* Pods_KongFuCenter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7BA38E8D1C213930000996EE /* Member-ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E8C1C213930000996EE /* Member-ViewController.m */; };
+		7BA38E901C214305000996EE /* MemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E8F1C214305000996EE /* MemberTableViewCell.m */; };
 		802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118D91C1AFAE100DCEE73 /* DIYButton.m */; };
 		802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118DC1C1AFAE100DCEE73 /* MoviePlayer.m */; };
 		802118E71C1AFAE100DCEE73 /* yinliangda.png in Resources */ = {isa = PBXBuildFile; fileRef = 802118DD1C1AFAE100DCEE73 /* yinliangda.png */; };
@@ -281,6 +283,10 @@
 /* Begin PBXFileReference section */
 		19CB30C136C8571924D6B829 /* Pods_KongFuCenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KongFuCenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EE0DD3D61F21623918CAE75 /* Pods-KongFuCenter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KongFuCenter.release.xcconfig"; path = "Pods/Target Support Files/Pods-KongFuCenter/Pods-KongFuCenter.release.xcconfig"; sourceTree = "<group>"; };
+		7BA38E8B1C213930000996EE /* Member-ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Member-ViewController.h"; sourceTree = "<group>"; };
+		7BA38E8C1C213930000996EE /* Member-ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Member-ViewController.m"; sourceTree = "<group>"; };
+		7BA38E8E1C214305000996EE /* MemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberTableViewCell.h; sourceTree = "<group>"; };
+		7BA38E8F1C214305000996EE /* MemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberTableViewCell.m; sourceTree = "<group>"; };
 		802118D81C1AFAE100DCEE73 /* DIYButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYButton.h; sourceTree = "<group>"; };
 		802118D91C1AFAE100DCEE73 /* DIYButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYButton.m; sourceTree = "<group>"; };
 		802118DB1C1AFAE100DCEE73 /* MoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayer.h; sourceTree = "<group>"; };
@@ -748,6 +754,41 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		7BA38E841C213596000996EE /* JC-page */ = {
+			isa = PBXGroup;
+			children = (
+				7BA38E871C213665000996EE /* Team-Member */,
+				7BA38E861C213662000996EE /* Team-Introduce */,
+				7BA38E851C21365E000996EE /* Team-Announcement */,
+			);
+			name = "JC-page";
+			sourceTree = "<group>";
+		};
+		7BA38E851C21365E000996EE /* Team-Announcement */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Team-Announcement";
+			sourceTree = "<group>";
+		};
+		7BA38E861C213662000996EE /* Team-Introduce */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Team-Introduce";
+			sourceTree = "<group>";
+		};
+		7BA38E871C213665000996EE /* Team-Member */ = {
+			isa = PBXGroup;
+			children = (
+				7BA38E8B1C213930000996EE /* Member-ViewController.h */,
+				7BA38E8C1C213930000996EE /* Member-ViewController.m */,
+				7BA38E8E1C214305000996EE /* MemberTableViewCell.h */,
+				7BA38E8F1C214305000996EE /* MemberTableViewCell.m */,
+			);
+			name = "Team-Member";
+			sourceTree = "<group>";
+		};
 		802118D71C1AFAE100DCEE73 /* MoviePlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1135,6 +1176,7 @@
 		B59409041C0FCE1B003DC15D /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
+				7BA38E841C213596000996EE /* JC-page */,
 				B7E4CD081C1FBF2D00C2E69A /* ChatList */,
 				B7E4CD041C1FB1C400C2E69A /* WYNews */,
 				B7617E211C1C287600CF96E7 /* TeamNews */,
@@ -1657,8 +1699,8 @@
 			children = (
 				B7CCA2DD1C2118C000B7AC8C /* ChatListViewController.h */,
 				B7CCA2DE1C2118C000B7AC8C /* ChatListViewController.m */,
-				B7CCA2E21C211F5F00B7AC8C /* ChatContentViewController.m */,
 				B7CCA2E31C211F5F00B7AC8C /* ChatContentViewController.h */,
+				B7CCA2E21C211F5F00B7AC8C /* ChatContentViewController.m */,
 				B7CCA2D21C21036300B7AC8C /* ChatLocationViewController.h */,
 				B7CCA2D31C21036400B7AC8C /* ChatLocationViewController.m */,
 			);
@@ -1999,6 +2041,7 @@
 				B7617E6E1C1C29A500CF96E7 /* WFTextView.m in Sources */,
 				B7CCA2E41C211F5F00B7AC8C /* ChatContentViewController.m in Sources */,
 				B5AF70691C18032B00C041AF /* VipViewController.m in Sources */,
+				7BA38E901C214305000996EE /* MemberTableViewCell.m in Sources */,
 				B5AF706D1C180CCE00C041AF /* PayForVipViewController.m in Sources */,
 				B72C3CC81C1568C900D3250A /* RecruitCommentCell.m in Sources */,
 				B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */,
@@ -2035,6 +2078,7 @@
 				B53E73961C16CF01009E7878 /* PersonInfoViewController.m in Sources */,
 				B7CE7F431C16C61E0035D8CA /* JoinTeamViewController.m in Sources */,
 				B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */,
+				7BA38E8D1C213930000996EE /* Member-ViewController.m in Sources */,
 				B569DB9C1C12B6C000325CFA /* UITableViewCell+EditMode.m in Sources */,
 				B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */,
 				B5AF707A1C18293F00C041AF /* TrainsPlanViewController.m in Sources */,

@@ -88,6 +88,7 @@
     }
 }
 
+#pragma mark - 核联盟
 -(NSInteger)getUserInfo:(NSString *)userId
 {
     
@@ -143,6 +144,7 @@
         return Param_err;
     }
 }
+
 
 
 #pragma mark 赋值回调
@@ -309,7 +311,5 @@
     //    NSDictionary *result = [HttpRequest upload:[NSString stringWithFormat:@"%@index.php?act=member_index&op=avatar_upload",Url] widthParams:params];
     //    NSLog(@"%@",result);
 }
-
-
 
 @end
