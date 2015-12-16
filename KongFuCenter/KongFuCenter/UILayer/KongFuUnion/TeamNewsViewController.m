@@ -16,6 +16,7 @@
 #import "WFMessageBody.h"
 #import "WFPopView.h"
 #import "WFActionSheet.h"
+#import "Member-ViewController.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -478,6 +479,13 @@
     line1.backgroundColor = [UIColor colorWithRed:0.23 green:0.23 blue:0.25 alpha:1];
     [menuView addSubview:line1];
     
+    //btn_1(战队成员)
+    UIButton * btn_1 = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    btn_1.frame = CGRectMake(0, 0, itemWidth, 40);
+//    btn_1.backgroundColor = [UIColor orangeColor];
+    [menuView addSubview:btn_1];
+    [btn_1 addTarget:self action:@selector(btn_1Action:) forControlEvents:(UIControlEventTouchUpInside)];
+    
     UIImageView *iv2 = [[UIImageView alloc] initWithFrame:CGRectMake(itemWidth + (itemWidth - 15) / 2, 5, 15, 15)];
     iv2.image = [UIImage imageNamed:@"zdjs"];
     [menuView addSubview:iv2];
@@ -490,6 +498,13 @@
     UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth * 2, 2, 1, menuView.frame.size.height - 4)];
     line2.backgroundColor = [UIColor colorWithRed:0.23 green:0.23 blue:0.25 alpha:1];
     [menuView addSubview:line2];
+    
+    //btn_2(战队介绍)
+    UIButton * btn_2 = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    btn_2.frame = CGRectMake(itemWidth , 0, itemWidth, 40);
+//    btn_2.backgroundColor = [UIColor orangeColor];
+    [menuView addSubview:btn_2];
+    [btn_2 addTarget:self action:@selector(btn_2Action:) forControlEvents:(UIControlEventTouchUpInside)];
     
     UIImageView *iv3 = [[UIImageView alloc] initWithFrame:CGRectMake(itemWidth * 2 + (itemWidth - 15) / 2, 5, 15, 15)];
     iv3.image = [UIImage imageNamed:@"zdgg"];
@@ -504,6 +519,13 @@
     line3.backgroundColor = [UIColor colorWithRed:0.23 green:0.23 blue:0.25 alpha:1];
     [menuView addSubview:line3];
     
+    //btn_3(战队公告)
+    UIButton * btn_3 = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    btn_3.frame = CGRectMake(itemWidth * 2, 0, itemWidth, 40);
+//    btn_3.backgroundColor = [UIColor orangeColor];
+    [menuView addSubview:btn_3];
+    [btn_3 addTarget:self action:@selector(btn_3Action:) forControlEvents:(UIControlEventTouchUpInside)];
+    
     UIImageView *iv4 = [[UIImageView alloc] initWithFrame:CGRectMake(itemWidth * 3 + (itemWidth - 15) / 2, 5, 15, 15)];
     iv4.image = [UIImage imageNamed:@"zdlt"];
     [menuView addSubview:iv4];
@@ -511,7 +533,7 @@
     label4.font = [UIFont systemFontOfSize:13];
     label4.textAlignment = NSTextAlignmentCenter;
     label4.textColor = [UIColor whiteColor];
-    label4.text = @"战队成员";
+    label4.text = @"战队聊天";
     [menuView addSubview:label4];
     
     [headView addSubview:menuView];
@@ -538,6 +560,26 @@
     }
     return _operationView;
 }
+
+#pragma mark - 战队信息的点击事件
+- (void)btn_1Action:(UIButton *)sender
+{
+//    NSLog(@"跳转到战队成员");
+    Member_ViewController * member_ViewController = [[Member_ViewController alloc] init];
+    
+    [self showViewController:member_ViewController sender:nil];
+}
+
+- (void)btn_2Action:(UIButton *)sender
+{
+    NSLog(@"跳转到战队介绍");
+}
+
+- (void)btn_3Action:(UIButton *)sender
+{
+    NSLog(@"跳转到战队公告");
+}
+
 
 #pragma mark - 赞
 - (void)addLike{
