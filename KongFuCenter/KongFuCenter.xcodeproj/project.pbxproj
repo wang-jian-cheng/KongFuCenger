@@ -1565,8 +1565,8 @@
 			children = (
 				B7CCA2DD1C2118C000B7AC8C /* ChatListViewController.h */,
 				B7CCA2DE1C2118C000B7AC8C /* ChatListViewController.m */,
-				B7CCA2E21C211F5F00B7AC8C /* ChatContentViewController.m */,
 				B7CCA2E31C211F5F00B7AC8C /* ChatContentViewController.h */,
+				B7CCA2E21C211F5F00B7AC8C /* ChatContentViewController.m */,
 				B7CCA2D21C21036300B7AC8C /* ChatLocationViewController.h */,
 				B7CCA2D31C21036400B7AC8C /* ChatLocationViewController.m */,
 			);

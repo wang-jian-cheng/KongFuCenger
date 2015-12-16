@@ -156,9 +156,22 @@
     
     //集成融云App Key
     [[RCIM sharedRCIM] initWithAppKey:@"3argexb6r2qhe"];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectServer) name:@"connectServer" object:nil];
 }
 
+-(void)connectServer{
+    NSString *token = [mUserDefault valueForKey:@"token"];
+    [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {
+        NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+    } error:^(RCConnectErrorCode status) {
+        NSLog(@"登陆的错误码为:%ld", (long)status);
+    } tokenIncorrect:^{
+        //token过期或者不正确。
+        //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
+        //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
+        NSLog(@"token错误");
+    }];
+}
 
 
 #pragma mark - 尝试登录之前保存的账号登录
@@ -186,6 +199,8 @@
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200 ) {
         [mUserDefault setValue:[dict valueForKey:@"Id"] forKey:@"id"];
+        NSLog(@"%@",[dict[@"data"] valueForKey:@"RongCloudName"]);
+        [mUserDefault setValue:[dict[@"data"] valueForKey:@"RongCloudName"] forKey:@"token"];
         [self setNotificate];
     }
     else
@@ -213,6 +228,9 @@
     
     //设置显示/隐藏tabbar
     [[NSNotificationCenter defaultCenter] postNotificationName:@"tabbar" object:nil];
+    
+    //连接融云服务器
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"connectServer" object:nil];
 
 }
 

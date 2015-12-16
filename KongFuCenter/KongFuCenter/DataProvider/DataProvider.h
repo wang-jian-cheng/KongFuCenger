@@ -45,5 +45,8 @@
  */
 -(NSInteger)regAndLogin:(NSString*)account andPassWord:(NSString *)password;
 
+#pragma mark - 核联盟
+
+
 
 @end
