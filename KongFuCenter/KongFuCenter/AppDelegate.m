@@ -185,7 +185,10 @@
     printf("[%s] start \r\n",__FUNCTION__);
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200 ) {
-        [mUserDefault setValue:[dict valueForKey:@"Id"] forKey:@"id"];
+        
+        DLog(@"%@ ",[dict[@"data"] valueForKey:@"Id"]);
+        
+        [mUserDefault setValue:[dict[@"data"] valueForKey:@"Id"] forKey:@"id"];
         [self setNotificate];
     }
     else
