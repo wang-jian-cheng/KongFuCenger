@@ -21,6 +21,13 @@
 		8026D0F71C1BC6BE00D9CD44 /* ErWeiMaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8026D0F51C1BC6BE00D9CD44 /* ErWeiMaViewController.xib */; };
 		8026D0FD1C1C0A1300D9CD44 /* SBXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8026D0FA1C1C0A1300D9CD44 /* SBXMLParser.m */; };
 		8026D0FE1C1C0A1300D9CD44 /* XMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */; };
+		B529B7A31C2110BF003AC21C /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B529B7981C2110BF003AC21C /* AlipaySDK.bundle */; };
+		B529B7A41C2110BF003AC21C /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B7991C2110BF003AC21C /* AlipaySDK.framework */; };
+		B529B7A51C2110BF003AC21C /* libpingpp+alipay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */; };
+		B529B7A61C2110BF003AC21C /* libpingpp+wx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B79C1C2110BF003AC21C /* libpingpp+wx.a */; };
+		B529B7A71C2110BF003AC21C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B79D1C2110BF003AC21C /* libWeChatSDK.a */; };
+		B529B7A81C2110BF003AC21C /* libpingpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B7A01C2110BF003AC21C /* libpingpp.a */; };
+		B529B7A91C2110BF003AC21C /* Pingpp.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B529B7A11C2110BF003AC21C /* Pingpp.bundle */; };
 		B53791A41C151AED00C45BA7 /* VideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */; };
 		B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791A61C151FEB00C45BA7 /* UserHeadView.m */; };
 		B53791AC1C152BFD00C45BA7 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B53791AB1C152BFD00C45BA7 /* CustomButton.m */; };
@@ -159,6 +166,11 @@
 		B5F13B401C1FE6E600155038 /* 512@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B391C1FE6E600155038 /* 512@2x.png */; };
 		B5F13B411C1FE6E600155038 /* 58@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B3A1C1FE6E600155038 /* 58@2x.png */; };
 		B5F13B421C1FE6E600155038 /* 80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F13B3B1C1FE6E600155038 /* 80@2x.png */; };
+		B5F2B3761C20F6ED003383AE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B3751C20F6ED003383AE /* CFNetwork.framework */; };
+		B5F2B3781C20F753003383AE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B3771C20F753003383AE /* SystemConfiguration.framework */; };
+		B5F2B37A1C20F765003383AE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B3791C20F765003383AE /* Security.framework */; };
+		B5F2B37C1C210C12003383AE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B37B1C210C12003383AE /* libc++.tbd */; };
+		B5F2B37E1C210C6B003383AE /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B37D1C210C6B003383AE /* libsqlite3.0.tbd */; };
 		B5F4E39D1C1E6BD6001F81F0 /* JiangHuStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */; };
 		B5F4E3A01C1E9212001F81F0 /* UnionNewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E39F1C1E9212001F81F0 /* UnionNewsDetailViewController.m */; };
 		B5F4E3A31C1EA45C001F81F0 /* FriendInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E3A21C1EA45C001F81F0 /* FriendInfoViewController.m */; };
@@ -192,7 +204,6 @@
 		B72E39F41C1AB4D0007356C4 /* MakeMushaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F31C1AB4D0007356C4 /* MakeMushaViewController.m */; };
 		B72E39F81C1AB5AD007356C4 /* MakeMushaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */; };
 		B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */; };
-		B750258D1C200115004C1D5F /* ChatContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B750258C1C200115004C1D5F /* ChatContentViewController.m */; };
 		B7617E1F1C1C27D500CF96E7 /* JHStoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */; };
 		B7617E271C1C289E00CF96E7 /* UnionNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */; };
 		B7617E281C1C289E00CF96E7 /* UnionNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E241C1C289E00CF96E7 /* UnionNewsCell.xib */; };
@@ -223,6 +234,9 @@
 		B7617E731C1C29A500CF96E7 /* YMTapGestureRecongnizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E6A1C1C29A500CF96E7 /* YMTapGestureRecongnizer.m */; };
 		B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */; };
 		B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C428021C1524F3003F504F /* JHStoryViewController.m */; };
+		B7CCA2D41C21036400B7AC8C /* ChatLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CCA2D31C21036400B7AC8C /* ChatLocationViewController.m */; };
+		B7CCA2DF1C2118C000B7AC8C /* ChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CCA2DE1C2118C000B7AC8C /* ChatListViewController.m */; };
+		B7CCA2E41C211F5F00B7AC8C /* ChatContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CCA2E21C211F5F00B7AC8C /* ChatContentViewController.m */; };
 		B7CE7F3A1C16AF780035D8CA /* MushaMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CE7F391C16AF780035D8CA /* MushaMatch.m */; };
 		B7CE7F3E1C16B0B00035D8CA /* MushaMatchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CE7F3C1C16B0B00035D8CA /* MushaMatchCell.m */; };
 		B7CE7F3F1C16B0B00035D8CA /* MushaMatchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7CE7F3D1C16B0B00035D8CA /* MushaMatchCell.xib */; };
@@ -236,7 +250,6 @@
 		B7E4CD011C1FA1F200C2E69A /* zdlt.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CCFD1C1FA1F200C2E69A /* zdlt.png */; };
 		B7E4CD031C1FA9BC00C2E69A /* zddt_righttop.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD021C1FA9BC00C2E69A /* zddt_righttop.png */; };
 		B7E4CD071C1FB22000C2E69A /* WYNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E4CD061C1FB22000C2E69A /* WYNewsViewController.m */; };
-		B7E4CD0B1C1FBF6400C2E69A /* ChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E4CD0A1C1FBF6400C2E69A /* ChatListViewController.m */; };
 		B7E4CD0D1C1FE10E00C2E69A /* chat_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD0C1C1FE10E00C2E69A /* chat_icon.png */; };
 		B7E4CD0F1C1FE15000C2E69A /* wydt.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD0E1C1FE15000C2E69A /* wydt.png */; };
 		B7E4CD111C1FE18600C2E69A /* zddt.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD101C1FE18600C2E69A /* zddt.png */; };
@@ -293,6 +306,16 @@
 		8026D0FB1C1C0A1300D9CD44 /* XMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLElement.h; sourceTree = "<group>"; };
 		8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLElement.m; sourceTree = "<group>"; };
 		917C8DDA7A56E94AAC386040 /* Pods-KongFuCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KongFuCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KongFuCenter/Pods-KongFuCenter.debug.xcconfig"; sourceTree = "<group>"; };
+		B529B7981C2110BF003AC21C /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		B529B7991C2110BF003AC21C /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
+		B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpingpp+alipay.a"; sourceTree = "<group>"; };
+		B529B79C1C2110BF003AC21C /* libpingpp+wx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpingpp+wx.a"; sourceTree = "<group>"; };
+		B529B79D1C2110BF003AC21C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		B529B79E1C2110BF003AC21C /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		B529B79F1C2110BF003AC21C /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		B529B7A01C2110BF003AC21C /* libpingpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpingpp.a; sourceTree = "<group>"; };
+		B529B7A11C2110BF003AC21C /* Pingpp.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Pingpp.bundle; sourceTree = "<group>"; };
+		B529B7A21C2110BF003AC21C /* Pingpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pingpp.h; sourceTree = "<group>"; };
 		B53791A21C151AED00C45BA7 /* VideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoDetailViewController.h; path = KongFuer/VideoDetailViewController.h; sourceTree = "<group>"; };
 		B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoDetailViewController.m; path = KongFuer/VideoDetailViewController.m; sourceTree = "<group>"; };
 		B53791A51C151FEB00C45BA7 /* UserHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserHeadView.h; path = ../Common/UserHeadView.h; sourceTree = "<group>"; };
@@ -497,6 +520,11 @@
 		B5F13B391C1FE6E600155038 /* 512@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "512@2x.png"; sourceTree = "<group>"; };
 		B5F13B3A1C1FE6E600155038 /* 58@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "58@2x.png"; sourceTree = "<group>"; };
 		B5F13B3B1C1FE6E600155038 /* 80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80@2x.png"; sourceTree = "<group>"; };
+		B5F2B3751C20F6ED003383AE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		B5F2B3771C20F753003383AE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B5F2B3791C20F765003383AE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B5F2B37B1C210C12003383AE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		B5F2B37D1C210C6B003383AE /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		B5F4E39B1C1E6BD6001F81F0 /* JiangHuStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JiangHuStoryViewController.h; sourceTree = "<group>"; };
 		B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JiangHuStoryViewController.m; sourceTree = "<group>"; };
 		B5F4E39E1C1E9212001F81F0 /* UnionNewsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnionNewsDetailViewController.h; path = UnionNews/UnionNewsDetailViewController.h; sourceTree = "<group>"; };
@@ -548,8 +576,6 @@
 		B72E39F51C1AB5AD007356C4 /* MakeMushaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeMushaCell.h; sourceTree = "<group>"; };
 		B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeMushaCell.m; sourceTree = "<group>"; };
 		B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeMushaCell.xib; sourceTree = "<group>"; };
-		B750258B1C200115004C1D5F /* ChatContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatContentViewController.h; sourceTree = "<group>"; };
-		B750258C1C200115004C1D5F /* ChatContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatContentViewController.m; sourceTree = "<group>"; };
 		B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHStoryTableViewCell.xib; sourceTree = "<group>"; };
 		B7617E221C1C289E00CF96E7 /* UnionNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnionNewsCell.h; sourceTree = "<group>"; };
 		B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnionNewsCell.m; sourceTree = "<group>"; };
@@ -601,6 +627,12 @@
 		B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryTableViewCell.m; sourceTree = "<group>"; };
 		B7C428011C1524F3003F504F /* JHStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryViewController.h; sourceTree = "<group>"; };
 		B7C428021C1524F3003F504F /* JHStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryViewController.m; sourceTree = "<group>"; };
+		B7CCA2D21C21036300B7AC8C /* ChatLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatLocationViewController.h; sourceTree = "<group>"; };
+		B7CCA2D31C21036400B7AC8C /* ChatLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatLocationViewController.m; sourceTree = "<group>"; };
+		B7CCA2DD1C2118C000B7AC8C /* ChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatListViewController.h; sourceTree = "<group>"; };
+		B7CCA2DE1C2118C000B7AC8C /* ChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatListViewController.m; sourceTree = "<group>"; };
+		B7CCA2E21C211F5F00B7AC8C /* ChatContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatContentViewController.m; sourceTree = "<group>"; };
+		B7CCA2E31C211F5F00B7AC8C /* ChatContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatContentViewController.h; sourceTree = "<group>"; };
 		B7CE7F381C16AF780035D8CA /* MushaMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MushaMatch.h; sourceTree = "<group>"; };
 		B7CE7F391C16AF780035D8CA /* MushaMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MushaMatch.m; sourceTree = "<group>"; };
 		B7CE7F3B1C16B0B00035D8CA /* MushaMatchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MushaMatchCell.h; sourceTree = "<group>"; };
@@ -619,8 +651,6 @@
 		B7E4CD021C1FA9BC00C2E69A /* zddt_righttop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zddt_righttop.png; sourceTree = "<group>"; };
 		B7E4CD051C1FB22000C2E69A /* WYNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYNewsViewController.h; sourceTree = "<group>"; };
 		B7E4CD061C1FB22000C2E69A /* WYNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYNewsViewController.m; sourceTree = "<group>"; };
-		B7E4CD091C1FBF6400C2E69A /* ChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatListViewController.h; sourceTree = "<group>"; };
-		B7E4CD0A1C1FBF6400C2E69A /* ChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatListViewController.m; sourceTree = "<group>"; };
 		B7E4CD0C1C1FE10E00C2E69A /* chat_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_icon.png; sourceTree = "<group>"; };
 		B7E4CD0E1C1FE15000C2E69A /* wydt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wydt.png; sourceTree = "<group>"; };
 		B7E4CD101C1FE18600C2E69A /* zddt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zddt.png; sourceTree = "<group>"; };
@@ -639,17 +669,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5F2B37E1C210C6B003383AE /* libsqlite3.0.tbd in Frameworks */,
+				B529B7A51C2110BF003AC21C /* libpingpp+alipay.a in Frameworks */,
+				B5F2B37C1C210C12003383AE /* libc++.tbd in Frameworks */,
+				B5F2B37A1C20F765003383AE /* Security.framework in Frameworks */,
+				B5F2B3781C20F753003383AE /* SystemConfiguration.framework in Frameworks */,
+				B5F2B3761C20F6ED003383AE /* CFNetwork.framework in Frameworks */,
 				B5F13B331C1FBCD500155038 /* libsqlite3.tbd in Frameworks */,
 				B5F13B311C1FBCC700155038 /* AdSupport.framework in Frameworks */,
 				B5F13B2F1C1FBCBD00155038 /* ImageIO.framework in Frameworks */,
 				B5F13B241C1FBAAC00155038 /* libWeChatSDK.a in Frameworks */,
 				B5F13B291C1FBAAC00155038 /* ShareSDKConnector.framework in Frameworks */,
 				B5F13AFC1C1FA91E00155038 /* AddressBook.framework in Frameworks */,
+				B529B7A41C2110BF003AC21C /* AlipaySDK.framework in Frameworks */,
 				B5F13B201C1FBAAC00155038 /* TencentOpenAPI.framework in Frameworks */,
 				B5F13B281C1FBAAC00155038 /* ShareSDK.framework in Frameworks */,
 				B5F13AFD1C1FA91E00155038 /* AddressBookUI.framework in Frameworks */,
 				B5F13AF91C1FA91000155038 /* libstdc++.tbd in Frameworks */,
 				B5F13AF71C1FA90600155038 /* JavaScriptCore.framework in Frameworks */,
+				B529B7A71C2110BF003AC21C /* libWeChatSDK.a in Frameworks */,
 				B5F13AF51C1FA8FB00155038 /* MessageUI.framework in Frameworks */,
 				B5F13AF31C1FA8EE00155038 /* libz.tbd in Frameworks */,
 				B5F13AF11C1FA8E300155038 /* libicucore.tbd in Frameworks */,
@@ -658,6 +696,8 @@
 				B5F13AEE1C1FA80000155038 /* MOBFoundation.framework in Frameworks */,
 				B5F13AEF1C1FA80000155038 /* SMS_SDK.framework in Frameworks */,
 				B5F13B2D1C1FBAAC00155038 /* ShareSDKUI.framework in Frameworks */,
+				B529B7A61C2110BF003AC21C /* libpingpp+wx.a in Frameworks */,
+				B529B7A81C2110BF003AC21C /* libpingpp.a in Frameworks */,
 				B5F13B261C1FBAAC00155038 /* MOBFoundation.framework in Frameworks */,
 				B569DB961C12888800325CFA /* QuartzCore.framework in Frameworks */,
 				00B391A3E16E2E9529C00832 /* Pods_KongFuCenter.framework in Frameworks */,
@@ -685,6 +725,11 @@
 		6530A98924EC80D772FCF134 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B5F2B37D1C210C6B003383AE /* libsqlite3.0.tbd */,
+				B5F2B37B1C210C12003383AE /* libc++.tbd */,
+				B5F2B3791C20F765003383AE /* Security.framework */,
+				B5F2B3771C20F753003383AE /* SystemConfiguration.framework */,
+				B5F2B3751C20F6ED003383AE /* CFNetwork.framework */,
 				B5F13B321C1FBCD500155038 /* libsqlite3.tbd */,
 				B5F13B301C1FBCC700155038 /* AdSupport.framework */,
 				B5F13B2E1C1FBCBD00155038 /* ImageIO.framework */,
@@ -797,6 +842,47 @@
 				8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */,
 			);
 			path = xml;
+			sourceTree = "<group>";
+		};
+		B529B7951C2110BF003AC21C /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				B529B7961C2110BF003AC21C /* Channels */,
+				B529B7A01C2110BF003AC21C /* libpingpp.a */,
+				B529B7A11C2110BF003AC21C /* Pingpp.bundle */,
+				B529B7A21C2110BF003AC21C /* Pingpp.h */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		B529B7961C2110BF003AC21C /* Channels */ = {
+			isa = PBXGroup;
+			children = (
+				B529B7971C2110BF003AC21C /* Alipay */,
+				B529B79B1C2110BF003AC21C /* Wx */,
+			);
+			path = Channels;
+			sourceTree = "<group>";
+		};
+		B529B7971C2110BF003AC21C /* Alipay */ = {
+			isa = PBXGroup;
+			children = (
+				B529B7981C2110BF003AC21C /* AlipaySDK.bundle */,
+				B529B7991C2110BF003AC21C /* AlipaySDK.framework */,
+				B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */,
+			);
+			path = Alipay;
+			sourceTree = "<group>";
+		};
+		B529B79B1C2110BF003AC21C /* Wx */ = {
+			isa = PBXGroup;
+			children = (
+				B529B79C1C2110BF003AC21C /* libpingpp+wx.a */,
+				B529B79D1C2110BF003AC21C /* libWeChatSDK.a */,
+				B529B79E1C2110BF003AC21C /* WXApi.h */,
+				B529B79F1C2110BF003AC21C /* WXApiObject.h */,
+			);
+			path = Wx;
 			sourceTree = "<group>";
 		};
 		B53791A91C1525CD00C45BA7 /* CommonUI */ = {
@@ -1264,6 +1350,7 @@
 		B5F13A901C1FA75100155038 /* ThirdFramework */ = {
 			isa = PBXGroup;
 			children = (
+				B5F2B3181C20F5BF003383AE /* Pingpp */,
 				B5F13AFE1C1FBA9A00155038 /* ShareSdk */,
 				B5F13AE71C1FA80000155038 /* SMS_SDK */,
 			);
@@ -1367,6 +1454,14 @@
 				B5F13B3B1C1FE6E600155038 /* 80@2x.png */,
 			);
 			path = Logos;
+			sourceTree = "<group>";
+		};
+		B5F2B3181C20F5BF003383AE /* Pingpp */ = {
+			isa = PBXGroup;
+			children = (
+				B529B7951C2110BF003AC21C /* lib */,
+			);
+			path = Pingpp;
 			sourceTree = "<group>";
 		};
 		B5F4E39A1C1E6BB1001F81F0 /* JiangHu */ = {
@@ -1602,10 +1697,12 @@
 		B7E4CD081C1FBF2D00C2E69A /* ChatList */ = {
 			isa = PBXGroup;
 			children = (
-				B7E4CD091C1FBF6400C2E69A /* ChatListViewController.h */,
-				B7E4CD0A1C1FBF6400C2E69A /* ChatListViewController.m */,
-				B750258B1C200115004C1D5F /* ChatContentViewController.h */,
-				B750258C1C200115004C1D5F /* ChatContentViewController.m */,
+				B7CCA2DD1C2118C000B7AC8C /* ChatListViewController.h */,
+				B7CCA2DE1C2118C000B7AC8C /* ChatListViewController.m */,
+				B7CCA2E21C211F5F00B7AC8C /* ChatContentViewController.m */,
+				B7CCA2E31C211F5F00B7AC8C /* ChatContentViewController.h */,
+				B7CCA2D21C21036300B7AC8C /* ChatLocationViewController.h */,
+				B7CCA2D31C21036400B7AC8C /* ChatLocationViewController.m */,
 			);
 			name = ChatList;
 			sourceTree = "<group>";
@@ -1785,6 +1882,7 @@
 				B5AF70641C17FA7300C041AF /* zhibo@2x.png in Resources */,
 				B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */,
 				B7E4CD1B1C1FE1D600C2E69A /* jhgs.png in Resources */,
+				B529B7A91C2110BF003AC21C /* Pingpp.bundle in Resources */,
 				B53E73991C16E1EF009E7878 /* point@2x.png in Resources */,
 				B7E4CD171C1FE1BA00C2E69A /* jrzd.png in Resources */,
 				B7617E1F1C1C27D500CF96E7 /* JHStoryTableViewCell.xib in Resources */,
@@ -1826,6 +1924,7 @@
 				B53E737D1C166389009E7878 /* share@2x.png in Resources */,
 				B7E4CD191C1FE1C900C2E69A /* wzss.png in Resources */,
 				B53791CB1C15821E00C45BA7 /* headImg@2x.png in Resources */,
+				B529B7A31C2110BF003AC21C /* AlipaySDK.bundle in Resources */,
 				B5F90B001C1985A100D7879D /* Loginweixin@2x.png in Resources */,
 				B5905E051C1BC2CF00ECA9BA /* friend_avatar.png in Resources */,
 				B7617E281C1C289E00CF96E7 /* UnionNewsCell.xib in Resources */,
@@ -1929,6 +2028,7 @@
 			files = (
 				B53791AC1C152BFD00C45BA7 /* CustomButton.m in Sources */,
 				B5AF70761C1821A500C041AF /* SelectRoundBtn.m in Sources */,
+				B7CCA2DF1C2118C000B7AC8C /* ChatListViewController.m in Sources */,
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
 				B72E39F41C1AB4D0007356C4 /* MakeMushaViewController.m in Sources */,
 				B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */,
@@ -1939,10 +2039,10 @@
 				B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */,
 				B59409001C0FCB0F003DC15D /* BaseNavigationController.m in Sources */,
 				B7617E6E1C1C29A500CF96E7 /* WFTextView.m in Sources */,
+				B7CCA2E41C211F5F00B7AC8C /* ChatContentViewController.m in Sources */,
 				B5AF70691C18032B00C041AF /* VipViewController.m in Sources */,
 				7BA38E901C214305000996EE /* MemberTableViewCell.m in Sources */,
 				B5AF706D1C180CCE00C041AF /* PayForVipViewController.m in Sources */,
-				B750258D1C200115004C1D5F /* ChatContentViewController.m in Sources */,
 				B72C3CC81C1568C900D3250A /* RecruitCommentCell.m in Sources */,
 				B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */,
 				B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */,
@@ -1990,6 +2090,7 @@
 				8026D0FE1C1C0A1300D9CD44 /* XMLElement.m in Sources */,
 				B7617E3D1C1C298F00CF96E7 /* NSString+NSString_ILExtension.m in Sources */,
 				8026D0FD1C1C0A1300D9CD44 /* SBXMLParser.m in Sources */,
+				B7CCA2D41C21036400B7AC8C /* ChatLocationViewController.m in Sources */,
 				B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */,
 				B7617E3E1C1C298F00CF96E7 /* WFMessageBody.m in Sources */,
 				B5F4E3A01C1E9212001F81F0 /* UnionNewsDetailViewController.m in Sources */,
@@ -1999,7 +2100,6 @@
 				B5905DF81C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m in Sources */,
 				B5AF707F1C1837F600C041AF /* NewPlanViewController.m in Sources */,
 				B53E73851C166FCB009E7878 /* JiFenViewController.m in Sources */,
-				B7E4CD0B1C1FBF6400C2E69A /* ChatListViewController.m in Sources */,
 				B53E73891C167080009E7878 /* JiFenTableViewCell.m in Sources */,
 				B7617E6C1C1C29A500CF96E7 /* WFHudView.m in Sources */,
 				B5905E1C1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m in Sources */,
@@ -2182,6 +2282,7 @@
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/SMS_SDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/QQSDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Alipay",
 				);
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
@@ -2191,6 +2292,20 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/SinaWeiboSDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/WeChatSDK",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Alipay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/ApplePay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/ASIHttpRequest",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/BaiduMobStat/BaiduMobStat",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/BaiduMobStat",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/JSONKit",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/SDWebImage",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Cnp",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Network",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/UnionPay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Wx",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/One",
 				);
 				"OTHER_LDFLAGS[arch=*]" = (
 					"$(inherited)",
@@ -2217,6 +2332,7 @@
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/SMS_SDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/QQSDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Alipay",
 				);
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
@@ -2226,6 +2342,20 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/SinaWeiboSDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/WeChatSDK",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Alipay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/ApplePay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/ASIHttpRequest",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/BaiduMobStat/BaiduMobStat",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/BaiduMobStat",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/JSONKit",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb/Dependencies/SDWebImage",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Bfb",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Cnp",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Network",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/UnionPay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Wx",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/One",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

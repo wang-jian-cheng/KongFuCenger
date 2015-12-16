@@ -9,6 +9,10 @@
 #import "PayForVipViewController.h"
 
 #define GapToLeft   20
+#define kUrlScheme      @"com.zykj.KongFuCenter" // 这个是你定义的 URL Scheme，支付宝、微信支付和测试模式需要。
+#define kUrl            @"http://218.244.151.190/demo/charge" // 你的服务端创建并返回 charge 的 URL 地址，此地址仅供测试用。
+
+
 
 @interface PayForVipViewController ()
 {
@@ -21,7 +25,9 @@
     UITableView *_mainTableView;
     
     
-    
+    NSInteger PayFlag;
+    float realpaymoney;
+    UIAlertView* mAlert;
 }
 @end
 
@@ -53,7 +59,7 @@
         selectBtn.layer.masksToBounds = YES;
         selectBtn.layer.cornerRadius = selectBtn.frame.size.height / 2;
         [selectBtn addTarget:self action:@selector(selectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        selectBtn.tag = i;
+        selectBtn.tag = i+2015;
         selectBtn.backgroundColor = [UIColor grayColor];
         
         [selectBtnArr addObject:selectBtn];
@@ -64,7 +70,7 @@
         SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake((SCREEN_WIDTH - 60), _cellHeight/2)];
         roundBtn.backgroundColor = BACKGROUND_COLOR;
         [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
+        roundBtn.tag = i+1000;
         [roundBtnArr addObject:roundBtn];
     }
     
@@ -83,6 +89,8 @@
     UIButton *payBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, (_mainTableView.frame.origin.y + _mainTableView.frame.size.height), SCREEN_WIDTH-20*2, 44)];
     payBtn.backgroundColor  = YellowBlock;
     [payBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [payBtn addTarget:self action:@selector(payBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:payBtn];
 }
 
 
@@ -91,12 +99,150 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+#pragma mark - pay
+- (void)normalPayAction:(NSString *)channel
+{
+    
+    
+    if(!([channel isEqualToString:@"wx"] || [channel isEqualToString:@"alipay"]))
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"支付方式错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alert show];
+        return;
+        return;
+    }
+    
+    if(realpaymoney ==0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择套餐" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
+    self.channel = channel;
+    long long amount = realpaymoney;
+    if (amount == 0) {
+        return;
+    }
+    
+    NSString *amountStr = [NSString stringWithFormat:@"%lld", amount];
+    NSURL* url = [NSURL URLWithString:kUrl];
+    NSMutableURLRequest * postRequest=[NSMutableURLRequest requestWithURL:url];
+    
+    NSDictionary* dict = @{
+                           @"channel" : self.channel,
+                           @"amount"  : amountStr
+                           };
+    NSData* data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *bodyData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    [postRequest setHTTPBody:[NSData dataWithBytes:[bodyData UTF8String] length:strlen([bodyData UTF8String])]];
+    [postRequest setHTTPMethod:@"POST"];
+    [postRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [self showAlertWait];
+    [NSURLConnection sendAsynchronousRequest:postRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        [self hideAlert];
+        if (httpResponse.statusCode != 200) {
+            [self showAlertMessage:@"网络错误"];
+            return;
+        }
+        if (connectionError != nil) {
+            NSLog(@"error = %@", connectionError);
+            [self showAlertMessage:@"网络错误"];
+            return;
+        }
+        NSString* charge = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"charge = %@", charge);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [Pingpp createPayment:charge viewController:self appURLScheme:kUrlScheme withCompletion:^(NSString *result, PingppError *error) {
+                NSLog(@"completion block: %@", result);
+                if (error == nil) {
+                    NSLog(@"PingppError is nil");
+                } else {
+                    NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+                }
+                [self showAlertMessage:result];
+            }];
+        });
+    }];
+}
+
+
+
+#pragma mark -  alert
+
+- (void)showAlertWait
+{
+    mAlert = [[UIAlertView alloc] initWithTitle:@"正在获取支付凭据,请稍后..." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
+    [mAlert show];
+    UIActivityIndicatorView* aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    aiv.center = CGPointMake(mAlert.frame.size.width / 2.0f - 15, mAlert.frame.size.height / 2.0f + 10 );
+    [aiv startAnimating];
+    [mAlert addSubview:aiv];
+}
+
+- (void)hideAlert
+{
+    if (mAlert != nil)
+    {
+        [mAlert dismissWithClickedButtonIndex:0 animated:YES];
+        mAlert = nil;
+    }
+}
+
+
+
+- (void)showAlertMessage:(NSString*)msg
+{
+    mAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [mAlert show];
+}
+
 #pragma mark - click action
+
+-(void)payBtnClick:(UIButton *)sender
+{
+
+    if(PayFlag == 1000)
+    {
+        [self normalPayAction:@"alipay"];
+    }
+    else if(PayFlag == 1001)
+    {
+        [self normalPayAction:@"wx"];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择支付方式" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alert show];
+    }
+    
+}
+
+
 
 -(void)selectBtnClick:(UIButton *)sender
 {
     sender.backgroundColor = YellowBlock;
     sender.selected = YES;
+    
+    switch (sender.tag) {
+        case 2015+0:
+            realpaymoney = 20;
+            break;
+        case 2015+1:
+            realpaymoney = 40;
+            break;
+        case 2015+2:
+            realpaymoney = 60;
+            break;
+        default:
+            break;
+    }
+    
     
     for(UIButton *tempBtn in selectBtnArr)
     {
@@ -112,6 +258,8 @@
 -(void)roundBtnClick:(UIButton *)sender
 {
     sender.selected = YES;
+    
+    PayFlag = sender.tag;
     
     for(UIButton *tempBtn in roundBtnArr)
     {

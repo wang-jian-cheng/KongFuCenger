@@ -8,6 +8,10 @@
 
 #import "BaseNavigationController.h"
 #import "SelectRoundBtn.h"
-@interface PayForVipViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+#import "Pingpp.h"
 
+
+
+@interface PayForVipViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+@property(nonatomic, retain)NSString *channel;
 @end
