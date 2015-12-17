@@ -108,7 +108,7 @@
 -(void)getFriendForKeyValue:(NSString *)uid;
 
 //获取战队介绍
--(void)SelectTeamIntroduce:(NSString *)uid;
+-(void)SelectTeam:(NSString *)teamId;
 
 
 @end

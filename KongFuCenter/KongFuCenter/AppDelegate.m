@@ -27,7 +27,7 @@
     LoginViewController *_loginViewCtl;
     NSUserDefaults *mUserDefault;
     NSArray *friendArray;
-    NSArray *teamArray;
+    NSDictionary *teamDict;
 }
 @end
 
@@ -174,7 +174,7 @@
         //获取战队信息
         DataProvider *dataProvider1 = [[DataProvider alloc] init];
         [dataProvider1 setDelegateObject:self setBackFunctionName:@"getTeamBackCall:"];
-        [dataProvider1 getFriendForKeyValue:[mUserDefault valueForKey:@"TeamId"]];
+        [dataProvider1 SelectTeam:[mUserDefault valueForKey:@"TeamId"]];
     } error:^(RCConnectErrorCode status) {
         NSLog(@"登陆的错误码为:%ld", (long)status);
     } tokenIncorrect:^{
@@ -194,28 +194,27 @@
 
 -(void)getTeamBackCall:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
-        teamArray = dict[@"data"];
+        teamDict = dict[@"data"];
         [[RCIM sharedRCIM] setGroupInfoDataSource:self];
     }
 }
 
 -(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
     RCUserInfo *user = [[RCUserInfo alloc]init];
+    NSLog(@"%@",userId);
     user.userId = userId;
     user.name = @"匿名";
-    user.portraitUri = @"http://img.zcool.cn/community/033d26a5618cb9732f8755701e1a308.jpg@250w_188h_1c_1e_2o";
-    NSLog(@"%@",friendArray);
-    for (int i = 0; i < friendArray.count; i++) {
-        if ([userId isEqual:[mUserDefault valueForKey:@"id"]]) {
-            user.name = [mUserDefault valueForKey:@"NickName"];
-            user.portraitUri = [NSString stringWithFormat:@"http://192.168.1.136:8033/%@",[mUserDefault valueForKey:@"PhotoPath"]];
-            break;
-        }
-        NSLog(@"%@",[friendArray[i] valueForKey:@"Key"]);
-        if([userId isEqual:[NSString stringWithFormat:@"%@",[friendArray[i] valueForKey:@"Key"]]]){
-            user.name = [friendArray[i] valueForKey:@"Value"][@"NicName"];
-            user.portraitUri = [NSString stringWithFormat:@"http://192.168.1.136:8033/%@",[friendArray[i] valueForKey:@"Value"][@"PhotoPath"]];
-            break;
+    //user.portraitUri = @"http://img.zcool.cn/community/033d26a5618cb9732f8755701e1a308.jpg@250w_188h_1c_1e_2o";
+    if ([userId isEqual:[NSString stringWithFormat:@"%@",[mUserDefault valueForKey:@"id"]]]) {
+        user.name = [mUserDefault valueForKey:@"NicName"];
+        user.portraitUri = [NSString stringWithFormat:@"http://192.168.1.136:8033/%@",[mUserDefault valueForKey:@"PhotoPath"]];
+    }else{
+        for (int i = 0; i < friendArray.count; i++) {
+            if([userId isEqual:[NSString stringWithFormat:@"%@",[friendArray[i] valueForKey:@"Key"]]]){
+                user.name = [friendArray[i] valueForKey:@"Value"][@"NicName"];
+                user.portraitUri = [NSString stringWithFormat:@"http://192.168.1.136:8033/%@",[friendArray[i] valueForKey:@"Value"][@"PhotoPath"]];
+                break;
+            }
         }
     }
     
@@ -225,11 +224,11 @@
 - (void)getGroupInfoWithGroupId:(NSString *)groupId
                      completion:(void (^)(RCGroup *groupInfo))completion{
     
-    NSLog(@"%@",groupId);
     RCGroup *group = [[RCGroup alloc]init];
     group.groupId = groupId;
-    group.groupName = @"群组名称";
-    group.portraitUri = @"http://img.zcool.cn/community/033d26a5618cb9732f8755701e1a308.jpg@250w_188h_1c_1e_2o";
+    NSLog(@"%@",teamDict);
+    group.groupName =[teamDict valueForKey:@"Name"];
+    group.portraitUri = [NSString stringWithFormat:@"http://192.168.1.136:8033/%@",[teamDict valueForKey:@"ImagePath"]];
     
     return completion(group);
 }
@@ -259,11 +258,11 @@
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200 ) {
 
-        DLog(@"%@ ",[dict[@"data"] valueForKey:@"Id"]);
+        DLog(@"%@ ",dict[@"data"]);
         
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"Id"] forKey:@"id"];
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"NicName"] forKey:@"NicName"];
-        [mUserDefault setValue:[dict[@"data"] valueForKey:@"RongCloudName"] forKey:@"token"];
+        [mUserDefault setValue:[dict[@"data"] valueForKey:@"Token"] forKey:@"token"];
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"PhotoPath"] forKey:@"PhotoPath"];
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"TeamId"] forKey:@"TeamId"];
         
