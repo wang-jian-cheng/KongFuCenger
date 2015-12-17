@@ -146,11 +146,118 @@
     }
 }
 
+
+#pragma mark - 放飞梦想
+
+-(NSInteger)getMyDream:(NSString *)userid
+{
+    if(userid != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectMyDream",Url];
+        NSDictionary * prm=@{@"userid":userid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+-(NSInteger)setMyDream:(NSString *)userid andMyDream:(NSString *)mydream andHow:(NSString *)realizedream
+{
+    if(userid != nil && mydream!=nil && realizedream != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SavetMyDream",Url];
+        NSDictionary * prm=@{@"userid":userid,
+                             @"mydream":mydream,
+                             @"realizedream":realizedream};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+
+
+
+
+#pragma mark - 在线学习
+
+-(NSInteger)getStudyOnlineMainCategory
+{
+ 
+    NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetBigCateForOnlineStudy",Url];
+
+    [self PostRequest:url andpram:nil];
+        
+    return OK;
+  
+}
+
+-(NSInteger)getStudyOnlineSecundCategory:(NSString *)categoryid
+{
+    if(categoryid != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetSmallCateForOnlineStudy",Url];
+        NSDictionary * prm=@{@"categoryid":categoryid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+-(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid
+{
+    if(categoryid != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetOnlineStudyList",Url];
+        NSDictionary * prm=@{@"categoryid":categoryid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
 #pragma mark - 核联盟
+
 -(void)getFriendForKeyValue:(NSString *)uid{
     if (uid) {
         NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/GetFriendForKeyValue",Url];
         NSDictionary * prm=@{@"userid":uid};
+        [self PostRequest:url andpram:prm];
+
+    }
+}
+
+-(void)SelectTeamIntroduce:(NSString *)uid{
+    if (uid) {
+        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamIntroduce",Url];
+        NSDictionary * prm=@{@"teamid":uid};
         [self PostRequest:url andpram:prm];
     }
 }

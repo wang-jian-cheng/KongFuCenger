@@ -687,6 +687,10 @@
             [mUserDefault setValue:passWordText.text forKey:LogIn_UserPass_key];//上次登录的账户
             [mUserDefault setValue:[dict valueForKey:@"Id"] forKey:@"id"];
             [mUserDefault setValue:[dict valueForKey:@"RongCloudName"] forKey:@"token"];
+            [mUserDefault setValue:[dict valueForKey:@"NicName"] forKey:@"NicName"];
+            [mUserDefault setValue:[dict valueForKey:@"PhotoPath"] forKey:@"PhotoPath"];
+            [mUserDefault setValue:[dict valueForKey:@"TeamId"] forKey:@"TeamId"];
+        
             //连接融云服务器
             [[NSNotificationCenter defaultCenter] postNotificationName:@"connectServer" object:nil];
          //  [mUserDefault setValue:[dict valueForKey:@"avatar"] forKey:@"avatar"];

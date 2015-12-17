@@ -13,7 +13,7 @@
     //Views
     UICollectionView *mainCollectionView;
     UIImageView *btnImgView;
-    
+    UIView *viewForBtns;
     //datas
     NSMutableArray *studyCateArr;
     NSMutableArray *secondCateArr;
@@ -34,6 +34,7 @@
     [self initViews];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addLeftButton:@"left"];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -41,46 +42,26 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+   
 }
 
 
 -(void)initDatas
 {
     studyCateArr = [NSMutableArray array];
-    [studyCateArr addObjectsFromArray:@[@"正向品格",@"极限武术",@"教练核能",@"运营管理"]];
+  //  [studyCateArr addObjectsFromArray:@[@"正向品格",@"极限武术",@"教练核能",@"运营管理"]];
     
     secondCateArr= [NSMutableArray array];
-    [secondCateArr addObjectsFromArray:@[@"野心",@"坚毅",@"激情",@"自制",@"好奇",@"感恩",@"乐观",@"社交",@"其他",@"4",@"3",@"2",@"1"]];
+  //  [secondCateArr addObjectsFromArray:@[@"野心",@"坚毅",@"激情",@"自制",@"好奇",@"感恩",@"乐观",@"社交",@"其他",@"4",@"3",@"2",@"1"]];
 
     btnArr = [NSMutableArray array];
 }
 
 -(void)initViews
 {
-    UIView *viewForBtns = [[UIView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, 44)];
+    viewForBtns = [[UIView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, 44)];
     btnImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btnFlag"]];
     btnImgView.contentMode = UIViewContentModeScaleAspectFit;
-    for (int i = 0;i< studyCateArr.count; i++) {
-        UIButton *cateBtn = [[UIButton alloc] initWithFrame:CGRectMake(0 + i*(SCREEN_WIDTH/studyCateArr.count), 0,(SCREEN_WIDTH/studyCateArr.count) , viewForBtns.frame.size.height)];
-        
-        if(i == 0)
-        {
-            cateBtn.selected = YES;
-            btnImgView.frame = CGRectMake((cateBtn.frame.size.width - 15)/2, (cateBtn.frame.size.height - 15), 15, 15);
-            [cateBtn addSubview:btnImgView];
-        }
-        
-        [cateBtn setTitle:studyCateArr[i] forState:UIControlStateNormal];
-        cateBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-        cateBtn.backgroundColor = ItemsBaseColor;
-        [cateBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [cateBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
-        cateBtn.tag = i;
-        
-        [cateBtn addTarget:self action:@selector(cateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [viewForBtns addSubview:cateBtn];
-        [btnArr addObject:cateBtn];
-    }
     
     [self.view addSubview:viewForBtns];
     
@@ -112,8 +93,123 @@
     //    [mainCollectionView registerClass:[MyCollectionFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FooterView"];
     [self.view addSubview:mainCollectionView];
     
+    
+    [self getDatas];
+    
 }
 
+#pragma mark - self data source
+
+-(void)getDatas
+{
+    [self getMainCategary];
+}
+
+-(void)getMainCategary
+{
+    [SVProgressHUD showWithStatus:@"刷新" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getMainCategaryCallBack:"];
+    [dataprovider getStudyOnlineMainCategory];
+    
+}
+
+-(void)getMainCategaryCallBack:(id)dict
+{
+
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+           // NSDictionary *tempDict = dict[@"data"];
+            if(studyCateArr!=nil)
+            {
+                [studyCateArr removeAllObjects];
+                studyCateArr = dict[@"data"];
+                
+                
+                for (int i = 0;i< studyCateArr.count; i++) {
+                    UIButton *cateBtn = [[UIButton alloc] initWithFrame:CGRectMake(0 + i*(SCREEN_WIDTH/studyCateArr.count), 0,(SCREEN_WIDTH/studyCateArr.count) , viewForBtns.frame.size.height)];
+                    
+                    if(i == 0)
+                    {
+                        cateBtn.selected = YES;
+                        btnImgView.frame = CGRectMake((cateBtn.frame.size.width - 15)/2, (cateBtn.frame.size.height - 15), 15, 15);
+                        [cateBtn addSubview:btnImgView];
+                    }
+                    
+                    //  [cateBtn setTitle:studyCateArr[i] forState:UIControlStateNormal];
+                    [cateBtn setTitle:[studyCateArr objectAtIndex:i][@"Name"] forState:UIControlStateNormal];
+                    cateBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+                    cateBtn.backgroundColor = ItemsBaseColor;
+                    [cateBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    [cateBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
+                    cateBtn.tag = i;
+                    
+                    [cateBtn addTarget:self action:@selector(cateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    [viewForBtns addSubview:cateBtn];
+                    [btnArr addObject:cateBtn];
+                }
+
+                
+                [self getSecundCategory:studyCateArr[0][@"Id"]];
+                
+            }
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
+}
+
+
+-(void)getSecundCategory:(NSString *)categoryid
+{
+    [SVProgressHUD showWithStatus:@"刷新" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getSecundCategoryCallBack:"];
+    [dataprovider getStudyOnlineSecundCategory:categoryid];
+}
+
+
+-(void)getSecundCategoryCallBack:(id)dict
+{
+    
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            [secondCateArr removeAllObjects];
+            secondCateArr = dict[@"data"];
+            
+            [mainCollectionView reloadData];
+
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+    
+}
 
 -(void)cateBtnClick:(UIButton *)sender
 {
@@ -121,7 +217,7 @@
     [btnImgView removeFromSuperview];
     btnImgView.frame = CGRectMake((sender.frame.size.width-15)/2, (sender.frame.size.height - 15), 15, 15);
     [sender addSubview:btnImgView];
-    
+    [self getSecundCategory:studyCateArr[sender.tag][@"Id"]];
     for(int i =0;i<btnArr.count;i++)
     {
         if(i != sender.tag)
@@ -167,15 +263,26 @@
         }
         
     }
-    
-    UILabel *cateNameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
-    cateNameLab.text = secondCateArr[indexPath.row];
-    cateNameLab.textColor = [UIColor whiteColor];
-    cateNameLab.font = [UIFont boldSystemFontOfSize:20];
-    cateNameLab.backgroundColor = [UIColor blackColor];
-    cateNameLab.textAlignment = NSTextAlignmentCenter;
-    cateNameLab.alpha = 0.3;
-    [cell addSubview:cateNameLab];
+    @try {
+        if(secondCateArr == nil ||secondCateArr.count == 0||indexPath.row > secondCateArr.count -1)
+            return cell;
+        
+        UILabel *cateNameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+        cateNameLab.text = secondCateArr[indexPath.row][@"Name"];
+        cateNameLab.textColor = [UIColor whiteColor];
+        cateNameLab.font = [UIFont boldSystemFontOfSize:20];
+        cateNameLab.backgroundColor = [UIColor blackColor];
+        cateNameLab.textAlignment = NSTextAlignmentCenter;
+        cateNameLab.alpha = 0.3;
+        [cell addSubview:cateNameLab];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+   
     return cell;
     
     

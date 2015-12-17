@@ -21,11 +21,13 @@
 #define LogIn_UserID_key    @"mAccountID"
 #define LogIn_UserPass_key   @"password"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource>
 {
     CustomTabBarViewController *_tabBarViewCol;
     LoginViewController *_loginViewCtl;
     NSUserDefaults *mUserDefault;
+    NSArray *friendArray;
+    NSArray *teamArray;
 }
 @end
 
@@ -163,6 +165,16 @@
     NSString *token = [mUserDefault valueForKey:@"token"];
     [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {
         NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+        
+        //获取好友信息
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"getFriendBackCall:"];
+        [dataProvider getFriendForKeyValue:userId];
+        
+        //获取战队信息
+        DataProvider *dataProvider1 = [[DataProvider alloc] init];
+        [dataProvider1 setDelegateObject:self setBackFunctionName:@"getTeamBackCall:"];
+        [dataProvider1 getFriendForKeyValue:[mUserDefault valueForKey:@"TeamId"]];
     } error:^(RCConnectErrorCode status) {
         NSLog(@"登陆的错误码为:%ld", (long)status);
     } tokenIncorrect:^{
@@ -173,6 +185,54 @@
     }];
 }
 
+-(void)getFriendBackCall:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        friendArray = dict[@"data"];
+        [[RCIM sharedRCIM] setUserInfoDataSource:self];
+    }
+}
+
+-(void)getTeamBackCall:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        teamArray = dict[@"data"];
+        [[RCIM sharedRCIM] setGroupInfoDataSource:self];
+    }
+}
+
+-(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
+    RCUserInfo *user = [[RCUserInfo alloc]init];
+    user.userId = userId;
+    user.name = @"匿名";
+    user.portraitUri = @"http://img.zcool.cn/community/033d26a5618cb9732f8755701e1a308.jpg@250w_188h_1c_1e_2o";
+    NSLog(@"%@",friendArray);
+    for (int i = 0; i < friendArray.count; i++) {
+        if ([userId isEqual:[mUserDefault valueForKey:@"id"]]) {
+            user.name = [mUserDefault valueForKey:@"NickName"];
+            user.portraitUri = [NSString stringWithFormat:@"http://192.168.1.136:8033/%@",[mUserDefault valueForKey:@"PhotoPath"]];
+            break;
+        }
+        NSLog(@"%@",[friendArray[i] valueForKey:@"Key"]);
+        if([userId isEqual:[NSString stringWithFormat:@"%@",[friendArray[i] valueForKey:@"Key"]]]){
+            user.name = [friendArray[i] valueForKey:@"Value"][@"NicName"];
+            user.portraitUri = [NSString stringWithFormat:@"http://192.168.1.136:8033/%@",[friendArray[i] valueForKey:@"Value"][@"PhotoPath"]];
+            break;
+        }
+    }
+    
+    return completion(user);
+}
+
+- (void)getGroupInfoWithGroupId:(NSString *)groupId
+                     completion:(void (^)(RCGroup *groupInfo))completion{
+    
+    NSLog(@"%@",groupId);
+    RCGroup *group = [[RCGroup alloc]init];
+    group.groupId = groupId;
+    group.groupName = @"群组名称";
+    group.portraitUri = @"http://img.zcool.cn/community/033d26a5618cb9732f8755701e1a308.jpg@250w_188h_1c_1e_2o";
+    
+    return completion(group);
+}
 
 #pragma mark - 尝试登录之前保存的账号登录
 
@@ -202,11 +262,11 @@
         DLog(@"%@ ",[dict[@"data"] valueForKey:@"Id"]);
         
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"Id"] forKey:@"id"];
-
-    //    [mUserDefault setValue:[dict valueForKey:@"Id"] forKey:@"id"];
-        NSLog(@"%@",[dict[@"data"] valueForKey:@"RongCloudName"]);
+        [mUserDefault setValue:[dict[@"data"] valueForKey:@"NicName"] forKey:@"NicName"];
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"RongCloudName"] forKey:@"token"];
-
+        [mUserDefault setValue:[dict[@"data"] valueForKey:@"PhotoPath"] forKey:@"PhotoPath"];
+        [mUserDefault setValue:[dict[@"data"] valueForKey:@"TeamId"] forKey:@"TeamId"];
+        
         [self setNotificate];
     }
     else

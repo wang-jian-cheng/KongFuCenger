@@ -268,7 +268,7 @@
 
 -(void)getUserInfo
 {
-    [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
     [dataprovider getUserInfo:[Toolkit getUserID]];
@@ -306,7 +306,7 @@
             nickName.text =tempDict[@"NicName"];
             [provinceBtn setTitle:tempDict[@"HomeAreaprovinceName"] forState:UIControlStateNormal];
             [cityBtn setTitle:tempDict[@"HomeAreaCityName"] forState:UIControlStateNormal];
-            [areaBtn setTitle:tempDict[@"HomeAreaDistrictName"] forState:UIControlStateNormal];
+            [areaBtn setTitle:tempDict[@"HomeAreaCountyName"] forState:UIControlStateNormal];
 //2015-09-09 09:09:09
         }
         @catch (NSException *exception) {
@@ -338,7 +338,7 @@
         sex = @"1";
     else
         sex = @"2";
-    [dataprovider setUserInfo:[Toolkit getUserID] andNickName:nickName.text andSex:sex andHeight:[highBtn.titleLabel.text substringToIndex:(highBtn.titleLabel.text.length - 2)] andWeight:[weightBtn.titleLabel.text substringToIndex:(weightBtn.titleLabel.text.length - 2)] andAddr:@"100" andExpe:[learnTimeBtn.titleLabel.text substringToIndex:(learnTimeBtn.titleLabel.text.length - 1)]];
+    [dataprovider setUserInfo:[Toolkit getUserID] andNickName:nickName.text andSex:sex andHeight:[highBtn.titleLabel.text substringToIndex:(highBtn.titleLabel.text.length - 2)] andWeight:[weightBtn.titleLabel.text substringToIndex:(weightBtn.titleLabel.text.length - 2)] andAddr:@"20644" andExpe:[learnTimeBtn.titleLabel.text substringToIndex:(learnTimeBtn.titleLabel.text.length - 1)]];
 }
 
 
@@ -360,7 +360,7 @@
     }
     else
     {
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:[dict[@"data"] substringToIndex:4] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
         [alert show];
         
     }

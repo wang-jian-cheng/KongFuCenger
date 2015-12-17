@@ -27,6 +27,9 @@
     [self addLeftButton:@"left"];
     [self addRightbuttontitle:@"编辑"];
     [self initViews];
+    
+    [self getMyDream];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -62,14 +65,91 @@
     //    //注册通知,监听键盘消失事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHidden) name:UIKeyboardDidHideNotification object:nil];
     
-
+    myPlan = [[UITextView alloc] init];
+    myPlan.editable = NO;
+    myPlan.delegate = self;
     
+    myDream = [[UITextView alloc] init];
+    myDream.editable = NO;
+    myDream.delegate = self;
 }
 
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
+#pragma mark - self data source
+-(void)getMyDream
+{
+    [SVProgressHUD showWithStatus:@"刷新" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getMyDreamCallBack:"];
+    [dataprovider getMyDream:[Toolkit getUserID]];
+    
+}
+-(void)getMyDreamCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+
+            NSDictionary *tempDict = dict[@"data"];
+            myDream.text = tempDict[@"MyDream"];
+            myPlan.text = tempDict[@"RealizeDream"];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
+}
+
+
+
+
+-(void)setMyDream
+{
+    [SVProgressHUD showWithStatus:@"刷新" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"setMyDreamCallBack:"];
+    [dataprovider setMyDream:[Toolkit getUserID] andMyDream:myDream.text andHow:myPlan.text];
+    
+}
+-(void)setMyDreamCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+    
 }
 
 #pragma mark - 键盘操作
@@ -156,6 +236,8 @@
         myDream.editable = NO;
         myPlan.editable = NO;
         [self addRightbuttontitle:@"编辑"];
+        
+        [self setMyDream];
     }
 }
 
@@ -220,10 +302,9 @@
             
             [cell addSubview:titlelab];
             
-            myDream = [[UITextView alloc] initWithFrame:CGRectMake((titlelab.frame.origin.x+titlelab.frame.size.width),
-                                                                               10, (SCREEN_WIDTH - (titlelab.frame.origin.x+titlelab.frame.size.width) -10 ), _cellHeight -2*10)];
-            myDream.editable = NO;
-            myDream.delegate = self;
+            myDream.frame = CGRectMake((titlelab.frame.origin.x+titlelab.frame.size.width),
+                                                                               10, (SCREEN_WIDTH - (titlelab.frame.origin.x+titlelab.frame.size.width) -10 ), _cellHeight -2*10);
+
             myDream.backgroundColor = BACKGROUND_COLOR;
             myDream.tag =0;
             [cell addSubview:myDream];
@@ -237,12 +318,11 @@
             titlelab.textColor = [UIColor whiteColor];
             [cell addSubview:titlelab];
             
-            myPlan = [[UITextView alloc] initWithFrame:CGRectMake((titlelab.frame.origin.x+titlelab.frame.size.width),
-                                                                               10, (SCREEN_WIDTH - (titlelab.frame.origin.x+titlelab.frame.size.width) -10 ), 2*_cellHeight -2*10)];
+            myPlan.frame =  CGRectMake((titlelab.frame.origin.x+titlelab.frame.size.width),
+                                                                               10, (SCREEN_WIDTH - (titlelab.frame.origin.x+titlelab.frame.size.width) -10 ), 2*_cellHeight -2*10);
             myPlan.backgroundColor = BACKGROUND_COLOR;
             myPlan.tag = 1;
-            myPlan.editable = NO;
-            myPlan.delegate = self;
+
             [cell addSubview:myPlan];
           //  tempIndexPath = indexPath;
         }

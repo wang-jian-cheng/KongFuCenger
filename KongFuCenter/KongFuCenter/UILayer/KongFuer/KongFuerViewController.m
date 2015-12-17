@@ -137,7 +137,7 @@
 
 -(void)getUserInfo
 {
-    [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
     [dataprovider getUserInfo:[Toolkit getUserID]];
