@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
             endingLineNumber = "120"
-            landmarkName = "-PostRequest:andpram:"
+            landmarkName = "-setUserInfo:andNickName:andSex:andHeight:andWeight:andAddr:andExpe:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -31,8 +31,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "113"
             endingLineNumber = "113"
-            landmarkName = "-PostRequest:andpram:"
-            landmarkType = "5">
+            landmarkName = "@implementation DataProvider"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -47,7 +47,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
             endingLineNumber = "134"
-            landmarkName = "-PostRequest:andpram:"
+            landmarkName = "-setUserInfo:andNickName:andSex:andHeight:andWeight:andAddr:andExpe:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

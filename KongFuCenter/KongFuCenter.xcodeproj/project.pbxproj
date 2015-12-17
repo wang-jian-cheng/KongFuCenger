@@ -90,7 +90,7 @@
 		B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408CB1C0FC9E8003DC15D /* AppDelegate.m */; };
 		B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408CE1C0FC9E8003DC15D /* ViewController.m */; };
 		B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B59408D01C0FC9E8003DC15D /* Main.storyboard */; };
-		B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B59408D31C0FC9E8003DC15D /* Assets.xcassets */; };
+		B59408D41C0FC9E8003DC15D /* big.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B59408D31C0FC9E8003DC15D /* big.xcassets */; };
 		B59408D71C0FC9E8003DC15D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B59408D51C0FC9E8003DC15D /* LaunchScreen.storyboard */; };
 		B59408E21C0FC9E9003DC15D /* KongFuCenterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408E11C0FC9E9003DC15D /* KongFuCenterTests.m */; };
 		B59408ED1C0FC9E9003DC15D /* KongFuCenterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B59408EC1C0FC9E9003DC15D /* KongFuCenterUITests.m */; };
@@ -400,7 +400,7 @@
 		B59408CD1C0FC9E8003DC15D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B59408CE1C0FC9E8003DC15D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B59408D11C0FC9E8003DC15D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B59408D31C0FC9E8003DC15D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B59408D31C0FC9E8003DC15D /* big.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = big.xcassets; sourceTree = "<group>"; };
 		B59408D61C0FC9E8003DC15D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B59408D81C0FC9E8003DC15D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B59408DD1C0FC9E9003DC15D /* KongFuCenterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KongFuCenterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1105,7 +1105,7 @@
 			isa = PBXGroup;
 			children = (
 				B59408D01C0FC9E8003DC15D /* Main.storyboard */,
-				B59408D31C0FC9E8003DC15D /* Assets.xcassets */,
+				B59408D31C0FC9E8003DC15D /* big.xcassets */,
 				B59408D51C0FC9E8003DC15D /* LaunchScreen.storyboard */,
 				B59408D81C0FC9E8003DC15D /* Info.plist */,
 				B59408C81C0FC9E8003DC15D /* main.m */,
@@ -1934,7 +1934,7 @@
 				B5905E0B1C1BC2CF00ECA9BA /* xin.png in Resources */,
 				8026D0F71C1BC6BE00D9CD44 /* ErWeiMaViewController.xib in Resources */,
 				B7E4CD0D1C1FE10E00C2E69A /* chat_icon.png in Resources */,
-				B59408D41C0FC9E8003DC15D /* Assets.xcassets in Resources */,
+				B59408D41C0FC9E8003DC15D /* big.xcassets in Resources */,
 				B5AF70841C183A9F00C041AF /* down@2x.png in Resources */,
 				B5905E161C1BCC7700ECA9BA /* dajiahao@2x.png in Resources */,
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
