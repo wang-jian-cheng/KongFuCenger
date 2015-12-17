@@ -254,10 +254,10 @@
     }
 }
 
--(void)SelectTeamIntroduce:(NSString *)uid{
-    if (uid) {
-        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamIntroduce",Url];
-        NSDictionary * prm=@{@"teamid":uid};
+-(void)SelectTeam:(NSString *)teamId{
+    if (teamId) {
+        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeam",Url];
+        NSDictionary * prm=@{@"teamid":teamId};
         [self PostRequest:url andpram:prm];
     }
 }
