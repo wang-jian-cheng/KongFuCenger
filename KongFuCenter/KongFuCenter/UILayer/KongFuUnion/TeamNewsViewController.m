@@ -17,6 +17,8 @@
 #import "WFPopView.h"
 #import "WFActionSheet.h"
 #import "Member-ViewController.h"
+#import "IntroduceViewController.h"
+#import "AnnouncementViewController.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -572,12 +574,19 @@
 
 - (void)btn_2Action:(UIButton *)sender
 {
-    NSLog(@"跳转到战队介绍");
+//    NSLog(@"跳转到战队介绍");
+    IntroduceViewController * introduceViewController = [[IntroduceViewController alloc] init];
+    
+    [self showViewController:introduceViewController sender:nil];
 }
 
 - (void)btn_3Action:(UIButton *)sender
 {
-    NSLog(@"跳转到战队公告");
+//    NSLog(@"跳转到战队公告");
+    
+    AnnouncementViewController * announcementViewController = [[AnnouncementViewController alloc] init];
+    
+    [self showViewController:announcementViewController sender:nil];
 }
 
 
