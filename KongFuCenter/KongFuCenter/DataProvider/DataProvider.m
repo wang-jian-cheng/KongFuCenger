@@ -262,6 +262,22 @@
     }
 }
 
+-(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andAreaid:(NSString *)areaid{
+    if (startRowIndex && maximumRows && name && areaid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamPage",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"name":name,@"areaid":areaid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)JoinTeam:(NSString *)userid andTeamId:(NSString *)teamid andName:(NSString *)name{
+    if (userid && teamid && name) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/JoinTeam",Url];
+        NSDictionary *prm = @{@"userid":userid,@"teamid":teamid,@"name":name};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 #pragma mark 赋值回调
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName
 {
