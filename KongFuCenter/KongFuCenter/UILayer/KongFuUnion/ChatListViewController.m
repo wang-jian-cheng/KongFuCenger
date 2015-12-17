@@ -36,6 +36,8 @@
     
     [self initView];
     
+    [self initData];
+    
 }
 
 - (void)onSelectedTableRow:(RCConversationModelType)conversationModelType
@@ -47,6 +49,30 @@
     conversationVC.userName = model.conversationTitle;
     conversationVC.displayUserNameInCell = NO;
     [self.navigationController pushViewController:conversationVC animated:YES];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
+-(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
+    RCUserInfo *user = [[RCUserInfo alloc]init];
+    user.userId = userId;
+    user.name = @"1233";
+    user.portraitUri = @"http://img.zcool.cn/community/033d26a5618cb9732f8755701e1a308.jpg@250w_188h_1c_1e_2o";
+    
+    return completion(user);
+}
+
+#pragma mark - 自定义方法
+-(void)initData{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getFriendBackCall:"];
+    
+}
+
+-(void)getFriendBackCall:(id)dict{
+    NSLog(@"%@",dict);
 }
 
 -(void)initView{
@@ -85,20 +111,6 @@
     [self.emptyConversationView removeFromSuperview];
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
-}
-
--(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
-    RCUserInfo *user = [[RCUserInfo alloc]init];
-    user.userId = userId;
-    user.name = @"1233";
-    user.portraitUri = @"http://img.zcool.cn/community/033d26a5618cb9732f8755701e1a308.jpg@250w_188h_1c_1e_2o";
-    
-    return completion(user);
-}
-
-#pragma mark - 自定义方法
 -(void)clickLeftBtn{
     [self.navigationController popViewControllerAnimated:YES];
 }

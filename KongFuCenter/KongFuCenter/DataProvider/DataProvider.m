@@ -108,6 +108,8 @@
     }
 }
 
+
+
 //int userid 用户ID
 //string nicname 昵称
 //int sexuality 性别 0：未知 1：男 2：女
@@ -143,6 +145,7 @@
         return Param_err;
     }
 }
+
 
 #pragma mark - 放飞梦想
 
@@ -238,6 +241,16 @@
     {
         DLog(@"Err:%d",Param_err);
         return Param_err;
+    }
+}
+#pragma mark - 核联盟
+
+-(void)getFriendForKeyValue:(NSString *)uid{
+    if (uid) {
+        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/GetFriendForKeyValue",Url];
+        NSDictionary * prm=@{@"userid":uid};
+        [self PostRequest:url andpram:prm];
+
     }
 }
 

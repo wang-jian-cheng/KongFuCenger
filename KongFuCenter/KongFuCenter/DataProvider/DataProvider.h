@@ -104,7 +104,7 @@
  */
 -(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid;
 #pragma mark - 核联盟
-
+-(void)getFriendForKeyValue:(NSString *)uid;
 
 
 
