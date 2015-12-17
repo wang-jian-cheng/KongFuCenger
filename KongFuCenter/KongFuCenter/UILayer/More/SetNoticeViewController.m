@@ -7,7 +7,7 @@
 //
 
 #import "SetNoticeViewController.h"
-
+#import "ShieldViewController.h"
 @interface SetNoticeViewController ()
 {
 #pragma mark - pram for tableView
@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"更多"];
+    [self setBarTitle:@"聊天通知设置"];
     [self initViews];
     [self addLeftButton:@"left"];
     // Do any additional setup after loading the view.
@@ -67,7 +67,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;
+    return 4;
     
 }
 
@@ -86,54 +86,58 @@
             {
                 cell.textLabel.text  = @"接受新的聊天";
        
-                UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3, 50, _cellHeight/3)];
+                UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3 -7, 50, _cellHeight/3)];
                 switchBtn.tag = indexPath.row;
+                switchBtn.onTintColor = YellowBlock;
+                switchBtn.tintColor = Separator_Color;
+                switchBtn.backgroundColor = Separator_Color;
+                switchBtn.layer.cornerRadius = 14;
                 [cell addSubview:switchBtn];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
             }
                 break;
             case 1:
             {
                 cell.textLabel.text = @"声音";
-                UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3, 50, _cellHeight/3)];
+                UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3 - 7, 50, _cellHeight/3)];
                 switchBtn.tag = indexPath.row;
+                switchBtn.onTintColor = YellowBlock;
+                switchBtn.tintColor = Separator_Color;
+                switchBtn.backgroundColor = Separator_Color;
+                switchBtn.layer.cornerRadius = 14;
                 [cell addSubview:switchBtn];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
             }
                  break;
             case 2:
             {
                 cell.textLabel.text = @"震动";
-                UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3, 50, _cellHeight/3)];
+                UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3 - 7, 50, _cellHeight/3)];
                 switchBtn.tag = indexPath.row;
+                switchBtn.onTintColor = YellowBlock;
+                switchBtn.tintColor = Separator_Color;
+                switchBtn.backgroundColor = Separator_Color;
+                switchBtn.layer.cornerRadius = 14;
                 [cell addSubview:switchBtn];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
             }
-        
                 break;
-            default:
-                break;
-        }
-    }
-    else if(indexPath.section == 1)
-    {
-        switch (indexPath.row) {
-            case 0:
+            case 3:
             {
-                cell.textLabel.text  = @"清除缓存";
+                cell.textLabel.text = @"屏蔽列表";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                //
-                //                UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
-                //                rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
-                //                rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
-                //                rightView.contentMode = UIViewContentModeScaleAspectFit;
-                //                [cell addSubview:rightView];
             }
-                break;
-            case 1:
-                cell.textLabel.text = @"在线客服";
                 break;
             default:
                 break;
         }
     }
+    
     return cell;
     
 }
@@ -148,8 +152,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
-    NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
-    
+//    NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
+    //跳转到屏蔽消息页面
+    if(indexPath.section == 0 && indexPath.row == 3)
+    {
+        ShieldViewController * shieldViewController = [[ShieldViewController alloc] init];
+        [self showViewController:shieldViewController sender:nil];
+    }
 }
 
 
