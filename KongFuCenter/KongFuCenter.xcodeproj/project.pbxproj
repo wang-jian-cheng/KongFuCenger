@@ -10,6 +10,9 @@
 		00B391A3E16E2E9529C00832 /* Pods_KongFuCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CB30C136C8571924D6B829 /* Pods_KongFuCenter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BA38E8D1C213930000996EE /* Member-ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E8C1C213930000996EE /* Member-ViewController.m */; };
 		7BA38E901C214305000996EE /* MemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E8F1C214305000996EE /* MemberTableViewCell.m */; };
+		7BA38E961C215CFB000996EE /* IntroduceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E951C215CFB000996EE /* IntroduceViewController.m */; };
+		7BA38E991C215E62000996EE /* AnnouncementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E981C215E62000996EE /* AnnouncementViewController.m */; };
+		7BA38E9C1C2162E8000996EE /* AnnouncementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E9B1C2162E8000996EE /* AnnouncementTableViewCell.m */; };
 		802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118D91C1AFAE100DCEE73 /* DIYButton.m */; };
 		802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118DC1C1AFAE100DCEE73 /* MoviePlayer.m */; };
 		802118E71C1AFAE100DCEE73 /* yinliangda.png in Resources */ = {isa = PBXBuildFile; fileRef = 802118DD1C1AFAE100DCEE73 /* yinliangda.png */; };
@@ -287,6 +290,12 @@
 		7BA38E8C1C213930000996EE /* Member-ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Member-ViewController.m"; sourceTree = "<group>"; };
 		7BA38E8E1C214305000996EE /* MemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberTableViewCell.h; sourceTree = "<group>"; };
 		7BA38E8F1C214305000996EE /* MemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberTableViewCell.m; sourceTree = "<group>"; };
+		7BA38E941C215CFB000996EE /* IntroduceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroduceViewController.h; sourceTree = "<group>"; };
+		7BA38E951C215CFB000996EE /* IntroduceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceViewController.m; sourceTree = "<group>"; };
+		7BA38E971C215E62000996EE /* AnnouncementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementViewController.h; sourceTree = "<group>"; };
+		7BA38E981C215E62000996EE /* AnnouncementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementViewController.m; sourceTree = "<group>"; };
+		7BA38E9A1C2162E8000996EE /* AnnouncementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementTableViewCell.h; sourceTree = "<group>"; };
+		7BA38E9B1C2162E8000996EE /* AnnouncementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementTableViewCell.m; sourceTree = "<group>"; };
 		802118D81C1AFAE100DCEE73 /* DIYButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYButton.h; sourceTree = "<group>"; };
 		802118D91C1AFAE100DCEE73 /* DIYButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYButton.m; sourceTree = "<group>"; };
 		802118DB1C1AFAE100DCEE73 /* MoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayer.h; sourceTree = "<group>"; };
@@ -754,19 +763,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		7BA38E841C213596000996EE /* JC-page */ = {
+		7BA38E841C213596000996EE /* JC-pagezhandui */ = {
 			isa = PBXGroup;
 			children = (
 				7BA38E871C213665000996EE /* Team-Member */,
 				7BA38E861C213662000996EE /* Team-Introduce */,
 				7BA38E851C21365E000996EE /* Team-Announcement */,
 			);
-			name = "JC-page";
+			name = "JC-pagezhandui";
 			sourceTree = "<group>";
 		};
 		7BA38E851C21365E000996EE /* Team-Announcement */ = {
 			isa = PBXGroup;
 			children = (
+				7BA38E971C215E62000996EE /* AnnouncementViewController.h */,
+				7BA38E981C215E62000996EE /* AnnouncementViewController.m */,
+				7BA38E9A1C2162E8000996EE /* AnnouncementTableViewCell.h */,
+				7BA38E9B1C2162E8000996EE /* AnnouncementTableViewCell.m */,
 			);
 			name = "Team-Announcement";
 			sourceTree = "<group>";
@@ -774,6 +787,8 @@
 		7BA38E861C213662000996EE /* Team-Introduce */ = {
 			isa = PBXGroup;
 			children = (
+				7BA38E941C215CFB000996EE /* IntroduceViewController.h */,
+				7BA38E951C215CFB000996EE /* IntroduceViewController.m */,
 			);
 			name = "Team-Introduce";
 			sourceTree = "<group>";
@@ -1176,7 +1191,7 @@
 		B59409041C0FCE1B003DC15D /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
-				7BA38E841C213596000996EE /* JC-page */,
+				7BA38E841C213596000996EE /* JC-pagezhandui */,
 				B7E4CD081C1FBF2D00C2E69A /* ChatList */,
 				B7E4CD041C1FB1C400C2E69A /* WYNews */,
 				B7617E211C1C287600CF96E7 /* TeamNews */,
@@ -2081,6 +2096,7 @@
 				7BA38E8D1C213930000996EE /* Member-ViewController.m in Sources */,
 				B569DB9C1C12B6C000325CFA /* UITableViewCell+EditMode.m in Sources */,
 				B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */,
+				7BA38E991C215E62000996EE /* AnnouncementViewController.m in Sources */,
 				B5AF707A1C18293F00C041AF /* TrainsPlanViewController.m in Sources */,
 				B577E2321C1A9A6C006695F1 /* SetNoticeViewController.m in Sources */,
 				B5F4E3A61C1EBBB6001F81F0 /* StrangerInfoViewController.m in Sources */,
@@ -2099,6 +2115,7 @@
 				B7617E3F1C1C298F00CF96E7 /* WFReplyBody.m in Sources */,
 				B5905DF81C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m in Sources */,
 				B5AF707F1C1837F600C041AF /* NewPlanViewController.m in Sources */,
+				7BA38E9C1C2162E8000996EE /* AnnouncementTableViewCell.m in Sources */,
 				B53E73851C166FCB009E7878 /* JiFenViewController.m in Sources */,
 				B53E73891C167080009E7878 /* JiFenTableViewCell.m in Sources */,
 				B7617E6C1C1C29A500CF96E7 /* WFHudView.m in Sources */,
@@ -2106,6 +2123,7 @@
 				B7617E6B1C1C29A500CF96E7 /* WFActionSheet.m in Sources */,
 				B5D89A001C11439E00F55BFA /* WuGuanViewController.m in Sources */,
 				B5AF705A1C17C21400C041AF /* MBProgressHUD.m in Sources */,
+				7BA38E961C215CFB000996EE /* IntroduceViewController.m in Sources */,
 				802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */,
 				B7617E6D1C1C29A500CF96E7 /* WFPopView.m in Sources */,
 				B5F4E3A91C1EC3B9001F81F0 /* VideoDetailForMatchViewController.m in Sources */,

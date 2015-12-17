@@ -15,6 +15,10 @@
     CGFloat _cellHeight;
     UITableView *_mainTableView;
 }
+//公司信息
+@property (nonatomic, strong) UILabel * label_1;
+@property (nonatomic, strong) UILabel * label_2;
+
 @end
 
 @implementation MoreViewController
@@ -29,7 +33,7 @@
 -(void)initViews
 {
     _cellHeight = SCREEN_HEIGHT/12;
-    _sectionNum = 2;
+    _sectionNum = 3;
     
     
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
@@ -45,15 +49,28 @@
     [self.view addSubview:_mainTableView];
     
     
-    UIButton *outBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, _cellHeight*5+20,
-                                                                  (SCREEN_WIDTH - 20*2), _cellHeight)];
+    UIButton *outBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, _cellHeight*6 + 20,
+                                                            (SCREEN_WIDTH - 20*2), _cellHeight)];
     [outBtn setTitle:@"退出" forState:UIControlStateNormal];
     [outBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     outBtn.backgroundColor = ItemsBaseColor;
     [outBtn addTarget:self action:@selector(clickOutBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
     [_mainTableView addSubview:outBtn];
     
+    //公司信息
+    self.label_1 = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 - 85, self.view.frame.size.height - TabBar_HEIGHT - 45 - StatusBar_HEIGHT - NavigationBar_HEIGHT, 170, 17)];
+    self.label_1.text = @"临沂九野文化传媒有限公司";
+    self.label_1.textColor = Separator_Color;
+//    self.label_1.backgroundColor = [UIColor orangeColor];
+    self.label_1.font = [UIFont systemFontOfSize:14];
+    [_mainTableView addSubview:self.label_1];
+    
+    self.label_2 = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 - 50, self.view.frame.size.height - TabBar_HEIGHT - 25 - StatusBar_HEIGHT - NavigationBar_HEIGHT, 100, 17)];
+    self.label_2.text = @"copyright©2015";
+    self.label_2.textColor = Separator_Color;
+//    self.label_2.backgroundColor = [UIColor orangeColor];
+    self.label_2.font = [UIFont systemFontOfSize:13];
+    [_mainTableView addSubview:self.label_2];
 }
 
 
@@ -73,11 +90,16 @@
 }
 
 //指定每个分区中有多少行，默认为1
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 2;
-    
+    if(section == 2)
+    {
+        return 1;
+    }
+    else
+    {
+        return 2;
+    }
 }
 
 #pragma mark - setting for cell
@@ -103,7 +125,8 @@
             }
                 break;
             case 1:
-                cell.textLabel.text = @"当前版本";
+                cell.textLabel.text = @"朋友圈的评论提示";
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 break;
             default:
                 break;
@@ -125,7 +148,20 @@
             }
                 break;
             case 1:
-                cell.textLabel.text = @"在线客服";
+                cell.textLabel.text = @"关于核武者";
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                break;
+            default:
+                break;
+        }
+    }else if (indexPath.section == 2)
+    {
+        switch (indexPath.row) {
+            case 0:
+            {
+                cell.textLabel.text  = @"留言反馈";
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
                 break;
             default:
                 break;
@@ -145,9 +181,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
-    NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
+//    NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
-    if(indexPath.section == 0&&indexPath.row == 0)
+    if(indexPath.section == 0 && indexPath.row == 0)
     {
         SetNoticeViewController *setNoticeViewCtl = [[SetNoticeViewController alloc] init];
         setNoticeViewCtl.navtitle = @"聊天通知设置";
