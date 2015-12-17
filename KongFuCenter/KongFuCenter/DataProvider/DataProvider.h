@@ -44,6 +44,32 @@
  *  @param password 设置密码
  */
 -(NSInteger)regAndLogin:(NSString*)account andPassWord:(NSString *)password;
+/**
+ *  获取用户信息
+ *
+ *  @param userId    用户id
+ *
+ */
+-(NSInteger)getUserInfo:(NSString *)userId;
+
+
+/**
+ *  修改用户信息
+ *
+ * @param userid 用户ID
+ * @param nicname 昵称
+ * @param sexuality 性别 0：未知 1：男 2：女
+ * @param height 身高 单位/CM
+ * @param weight 体重 单位/KG
+ * @param homeAreaId 地址
+ * @param experience 习武经历 单位/年
+ *
+ */
+-(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience;
+
+#pragma mark - 核联盟
+-(void)getFriendForKeyValue:(NSString *)uid;
+
 
 
 @end
