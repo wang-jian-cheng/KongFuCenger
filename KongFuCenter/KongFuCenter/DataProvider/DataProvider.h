@@ -66,7 +66,43 @@
  *
  */
 -(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience;
-
+#pragma mark - 放飞梦想
+/**
+ *  获取用户梦想
+ *
+ *  @param userId    用户id
+ *
+ */
+-(NSInteger)getMyDream:(NSString *)userid;
+/**
+ *  设置梦想
+ *
+ *  @param userId    用户id
+ *
+ */
+-(NSInteger)setMyDream:(NSString *)userid andMyDream:(NSString *)mydream andHow:(NSString *)realizedream;
+#pragma mark - 在线学习
+/**
+ *  获取在线学习主分类
+ *
+ *
+ *
+ */
+-(NSInteger)getStudyOnlineMainCategory;
+/**
+ *  获取在线学习二级分类
+ *
+ *  @param categoryid    一级分类id
+ *
+ */
+-(NSInteger)getStudyOnlineSecundCategory:(NSString *)categoryid;
+/**
+ *  获取在线学习视频列表
+ *
+ *  @param categoryid    二级分类id
+ *
+ */
+-(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid;
 #pragma mark - 核联盟
 
 
