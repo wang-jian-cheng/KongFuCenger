@@ -7,7 +7,7 @@
 //
 
 #import "MoreViewController.h"
-
+#import "PromptViewController.h"
 @interface MoreViewController ()
 {
 #pragma mark - pram for tableView
@@ -30,6 +30,12 @@
     [self initViews];
     // Do any additional setup after loading the view.
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
+}
+
 -(void)initViews
 {
     _cellHeight = SCREEN_HEIGHT/12;
@@ -183,11 +189,21 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
 //    NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
-    if(indexPath.section == 0 && indexPath.row == 0)
+    if(indexPath.section == 0)
     {
-        SetNoticeViewController *setNoticeViewCtl = [[SetNoticeViewController alloc] init];
-        setNoticeViewCtl.navtitle = @"聊天通知设置";
-        [self.navigationController pushViewController:setNoticeViewCtl animated:YES];
+        if(indexPath.row == 0)
+        {
+            SetNoticeViewController *setNoticeViewCtl = [[SetNoticeViewController alloc] init];
+//            setNoticeViewCtl.navtitle = @"聊天通知设置";
+            [self.navigationController pushViewController:setNoticeViewCtl animated:YES];
+        }
+        else
+        {//推出朋友圈的评论提示页面
+            PromptViewController * promptViewController = [[PromptViewController alloc] init];
+            [self showViewController:promptViewController sender:nil];
+            
+        }
+
     }
     
 }

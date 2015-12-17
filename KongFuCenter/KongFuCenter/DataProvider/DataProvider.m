@@ -173,7 +173,7 @@
     if(userid != nil && mydream!=nil && realizedream != nil)
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SavetMyDream",Url];
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SaveMyDream",Url];
         NSDictionary * prm=@{@"userid":userid,
                              @"mydream":mydream,
                              @"realizedream":realizedream};

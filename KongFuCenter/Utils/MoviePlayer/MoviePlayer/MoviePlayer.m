@@ -34,6 +34,8 @@
 
 @property (nonatomic, strong) UILabel *horizontalLabel; // 水平滑动时显示进度
 
+@property (nonatomic, strong) UIButton *changeFrame;//缩放播放屏幕
+
 @end
 
 
@@ -43,11 +45,14 @@
     PanDirection panDirection; // 定义一个实例变量，保存枚举值
     BOOL isVolume; // 判断是否正在滑动音量
     CGFloat sumTime; // 用来保存快进的总时长
+    
+    CGRect  newFrame;
 }
 
 
 - (instancetype)initWithFrame:(CGRect)frame URL:(NSURL *)url
 {
+    newFrame=frame;
     self = [super initWithFrame:frame];
     if (self) {
         self.moviePlayer = [[MPMoviePlayerController alloc]initWithContentURL:url];
@@ -61,7 +66,7 @@
         
         // 添加暂停播放按钮
         self.play = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.play.frame = CGRectMake(0, 0, 60, 60);
+        self.play.frame = CGRectMake(0, 0, 25, 25);
         self.play.center = CGPointMake(frame.size.width/2, frame.size.height/2);
         [self.play setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateNormal];
         [self.play setImage:[UIImage imageNamed:@"play"] forState:UIControlStateSelected];
@@ -86,11 +91,11 @@
         [_sliderView addSubview:_begin];
         // 3.添加进度条
         CGFloat progressX = self.begin.frame.size.width;
-        self.progress = [[Slider alloc]initWithFrame:CGRectMake(progressX, 0, frame.size.width - progressX * 2, height)];
+        self.progress = [[Slider alloc]initWithFrame:CGRectMake(progressX, 0, frame.size.width - progressX * 2-40, height)];
         [self.progress.slider addTarget:self action:@selector(progressAction:event:) forControlEvents:UIControlEventValueChanged];
         [_sliderView addSubview:_progress];
         // 4.添加总时长label
-        self.end = [[UILabel alloc]initWithFrame:CGRectMake(frame.size.width - progressX, 0, 60, height)];
+        self.end = [[UILabel alloc]initWithFrame:CGRectMake(frame.size.width - progressX-40 , 0, 60, height)];
         self.end.textColor = [UIColor whiteColor];
         self.end.textAlignment = NSTextAlignmentCenter;
         
@@ -104,18 +109,32 @@
         
         
         
-        // 添加返回按钮
-        _back = [DIYButton buttonWithType:UIButtonTypeCustom];
-        self.back.frame = CGRectMake(0, 0, frame.size.width, 45);
-        self.back.backgroundColor = [UIColor blackColor];
-        self.back.textLabel.text = _title;
-        self.back.textLabel.font = [UIFont boldSystemFontOfSize:18];
-        self.back.textLabel.textColor = [UIColor whiteColor];
-        self.back.iconImageView.image = [UIImage imageNamed:@"back"];
-        self.back.iconImageView.frame = CGRectMake(10, 10, 25, 25); // 给返回图标一个frame
+//        // 添加返回按钮
+//        _back = [DIYButton buttonWithType:UIButtonTypeCustom];
+//        self.back.frame = CGRectMake(0, 0, frame.size.width, 45);
 //        self.back.backgroundColor = [UIColor blackColor];
-        [self.back addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_back];
+//        self.back.textLabel.text = _title;
+//        self.back.textLabel.font = [UIFont boldSystemFontOfSize:18];
+//        self.back.textLabel.textColor = [UIColor whiteColor];
+//        self.back.iconImageView.image = [UIImage imageNamed:@"back"];
+//        self.back.iconImageView.frame = CGRectMake(10, 10, 25, 25); // 给返回图标一个frame
+////        self.back.backgroundColor = [UIColor blackColor];
+//        [self.back addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [self addSubview:_back];
+        
+        
+        
+        //添加changeFrame按钮
+        _changeFrame=[[UIButton alloc] initWithFrame:CGRectMake(_sliderView.frame.size.width-35, 5, 30, 30)];
+        
+        [self.changeFrame setImage:[UIImage imageNamed:@"big"] forState:UIControlStateNormal];
+        [self.changeFrame setImage:[UIImage imageNamed:@"small"] forState:UIControlStateSelected];
+        [self.changeFrame addTarget:self action:@selector(ChangeMovie:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_sliderView addSubview:_changeFrame];
+        
+//        _changeFrame
+        
         
         
         // 接收视屏加载好后的通知
@@ -437,6 +456,50 @@
     
 }
 
+#pragma mark - frameChange方法
+- (void)ChangeMovie:(UIButton *)button
+{
+    button.selected = !button.selected;
+    if (button.selected) {
+        // 放大
+        
+        self.transform=CGAffineTransformMakeRotation((90.0f * M_PI) / 180.0f); // M_PI_2是90度，M_PI * 1.5是180度
+        self.frame=CGRectMake(0, 0,SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.moviePlayer.view.frame=CGRectMake(2, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
+//        self.moviePlayer.view.frame = self.bounds;
+//        self.moviePlayer.view.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
+//        self.moviePlayer.view.center=CGPointMake(SCREEN_HEIGHT/2, SCREEN_WIDTH/2);
+        
+        _back.hidden=YES;
+        self.sliderView.frame=CGRectMake(0, SCREEN_WIDTH-45, SCREEN_HEIGHT, 45);
+        
+        self.changeFrame.frame=CGRectMake(self.sliderView.frame.size.width-35, 5, 30, 30);
+        
+        self.end.frame=CGRectMake(_changeFrame.frame.origin.x-self.end.frame.size.width-5, self.end.frame.origin.y, self.end.frame.size.width, self.end.frame.size.height);
+        
+        self.begin.frame=CGRectMake(self.begin.frame.origin.x+20, self.begin.frame.origin.y, self.begin.frame.size.width, self.begin.frame.size.height);
+        
+        self.progress.frame=CGRectMake(self.begin.frame.origin.x+self.begin.frame.size.width+5, 0, self.end.frame.origin.x-self.begin.frame.size.width-self.begin.frame.origin.x-10, self.progress.bounds.size.height);
+    }else{
+        //缩小
+        
+        self.transform=CGAffineTransformIdentity;
+        self.frame=newFrame;
+        self.moviePlayer.view.frame=CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+        self.sliderView.frame=CGRectMake(0, newFrame.size.height - 45, newFrame.size.width, 45);
+        
+        self.changeFrame.frame=CGRectMake(self.sliderView.frame.size.width-35, 5, 30, 30);
+        
+        self.end.frame=CGRectMake(_changeFrame.frame.origin.x-self.end.frame.size.width-5, self.end.frame.origin.y, self.end.frame.size.width, self.end.frame.size.height);
+        
+        self.begin.frame=CGRectMake(self.begin.frame.origin.x-20, self.begin.frame.origin.y, self.begin.frame.size.width, self.begin.frame.size.height);
+        
+        self.progress.frame=CGRectMake(self.begin.frame.origin.x+self.begin.frame.size.width, 0, self.progress.bounds.size.width-SCREEN_HEIGHT+SCREEN_WIDTH, self.progress.bounds.size.height);
+    }
+    self.play.center=CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    
+}
+
 #pragma mark - tap手势方法
 - (void)tapAction
 {
@@ -478,7 +541,6 @@
 {
     self.back.textLabel.text = title;
 }
-
 
 
 
