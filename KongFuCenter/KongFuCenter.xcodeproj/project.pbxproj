@@ -763,14 +763,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		7BA38E841C213596000996EE /* JC-page */ = {
+		7BA38E841C213596000996EE /* JC-pagezhandui */ = {
 			isa = PBXGroup;
 			children = (
 				7BA38E871C213665000996EE /* Team-Member */,
 				7BA38E861C213662000996EE /* Team-Introduce */,
 				7BA38E851C21365E000996EE /* Team-Announcement */,
 			);
-			name = "JC-page";
+			name = "JC-pagezhandui";
 			sourceTree = "<group>";
 		};
 		7BA38E851C21365E000996EE /* Team-Announcement */ = {
@@ -1191,7 +1191,7 @@
 		B59409041C0FCE1B003DC15D /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
-				7BA38E841C213596000996EE /* JC-page */,
+				7BA38E841C213596000996EE /* JC-pagezhandui */,
 				B7E4CD081C1FBF2D00C2E69A /* ChatList */,
 				B7E4CD041C1FB1C400C2E69A /* WYNews */,
 				B7617E211C1C287600CF96E7 /* TeamNews */,
