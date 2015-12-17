@@ -13,6 +13,7 @@
 		7BA38E961C215CFB000996EE /* IntroduceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E951C215CFB000996EE /* IntroduceViewController.m */; };
 		7BA38E991C215E62000996EE /* AnnouncementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E981C215E62000996EE /* AnnouncementViewController.m */; };
 		7BA38E9C1C2162E8000996EE /* AnnouncementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E9B1C2162E8000996EE /* AnnouncementTableViewCell.m */; };
+		7BA3A3161C2289070028C8A3 /* ShieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3A3151C2289070028C8A3 /* ShieldViewController.m */; };
 		802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118D91C1AFAE100DCEE73 /* DIYButton.m */; };
 		802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118DC1C1AFAE100DCEE73 /* MoviePlayer.m */; };
 		802118E71C1AFAE100DCEE73 /* yinliangda.png in Resources */ = {isa = PBXBuildFile; fileRef = 802118DD1C1AFAE100DCEE73 /* yinliangda.png */; };
@@ -296,6 +297,8 @@
 		7BA38E981C215E62000996EE /* AnnouncementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementViewController.m; sourceTree = "<group>"; };
 		7BA38E9A1C2162E8000996EE /* AnnouncementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementTableViewCell.h; sourceTree = "<group>"; };
 		7BA38E9B1C2162E8000996EE /* AnnouncementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementTableViewCell.m; sourceTree = "<group>"; };
+		7BA3A3141C2289070028C8A3 /* ShieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShieldViewController.h; sourceTree = "<group>"; };
+		7BA3A3151C2289070028C8A3 /* ShieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShieldViewController.m; sourceTree = "<group>"; };
 		802118D81C1AFAE100DCEE73 /* DIYButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYButton.h; sourceTree = "<group>"; };
 		802118D91C1AFAE100DCEE73 /* DIYButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYButton.m; sourceTree = "<group>"; };
 		802118DB1C1AFAE100DCEE73 /* MoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayer.h; sourceTree = "<group>"; };
@@ -804,6 +807,17 @@
 			name = "Team-Member";
 			sourceTree = "<group>";
 		};
+		7BA3A3131C2284DB0028C8A3 /* Chattongzhi */ = {
+			isa = PBXGroup;
+			children = (
+				B577E2301C1A9A6C006695F1 /* SetNoticeViewController.h */,
+				B577E2311C1A9A6C006695F1 /* SetNoticeViewController.m */,
+				7BA3A3141C2289070028C8A3 /* ShieldViewController.h */,
+				7BA3A3151C2289070028C8A3 /* ShieldViewController.m */,
+			);
+			name = Chattongzhi;
+			sourceTree = "<group>";
+		};
 		802118D71C1AFAE100DCEE73 /* MoviePlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1223,8 +1237,7 @@
 			children = (
 				B594090B1C0FCEF3003DC15D /* MoreViewController.h */,
 				B594090C1C0FCEF3003DC15D /* MoreViewController.m */,
-				B577E2301C1A9A6C006695F1 /* SetNoticeViewController.h */,
-				B577E2311C1A9A6C006695F1 /* SetNoticeViewController.m */,
+				7BA3A3131C2284DB0028C8A3 /* Chattongzhi */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -2107,6 +2120,7 @@
 				B7617E3D1C1C298F00CF96E7 /* NSString+NSString_ILExtension.m in Sources */,
 				8026D0FD1C1C0A1300D9CD44 /* SBXMLParser.m in Sources */,
 				B7CCA2D41C21036400B7AC8C /* ChatLocationViewController.m in Sources */,
+				7BA3A3161C2289070028C8A3 /* ShieldViewController.m in Sources */,
 				B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */,
 				B7617E3E1C1C298F00CF96E7 /* WFMessageBody.m in Sources */,
 				B5F4E3A01C1E9212001F81F0 /* UnionNewsDetailViewController.m in Sources */,
