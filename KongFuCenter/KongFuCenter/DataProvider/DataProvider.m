@@ -109,6 +109,44 @@
     }
 }
 
+//int userid 用户ID
+//string nicname 昵称
+//int sexuality 性别 0：未知 1：男 2：女
+//int height 身高 单位/CM
+//double weight 体重 单位/KG
+//int homeAreaId 地址
+//int experience 习武经历 单位/年
+
+
+-(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience
+{
+   
+    
+    if(userId != nil&&nicname != nil&&sexuality != nil&&height != nil&&weight != nil&&homeAreaId != nil&&experience != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/ChangeInfor",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"nicname":nicname,
+                             @"sexuality":sexuality,
+                             @"height":height,
+                             @"weight":weight,
+                             @"homeAreaId":homeAreaId,
+                             @"experience":experience};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+
+
 #pragma mark 赋值回调
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName
 {

@@ -23,13 +23,21 @@
     CGFloat _cellHeight;
     UITableView *_mainTableView;
     
-    UITextView *myPlan;
-    UITextView *myDream;
     
 #pragma mark - pickerView data arr
     NSArray *weightArr;
     NSArray *highArr;
     NSMutableArray *infoArr;
+    BOOL relayoutViewFlag;
+    
+#pragma mark - other Views
+    
+    UILabel *userName ;
+    UILabel *idLab;
+    UILabel *jiFenLab ;
+    UITextField *nickName;
+    
+    
     
 }
 @end
@@ -39,8 +47,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
+    [self addRightbuttontitle:@"保存"];
     infoArr = [NSMutableArray array];
     [self initViews];
+    
+    [self getDatas];
     // Do any additional setup after loading the view.
 }
 
@@ -98,7 +109,13 @@
     introductionText = [[UITextView alloc] init];
     
     [self initBtns];
+    [self initViewForCells];
    
+}
+
+-(void)initViewForCells
+{
+    nickName = [[UITextField alloc] init];
 }
 
 
@@ -192,53 +209,169 @@
 // 键盘弹出时
 -(void)keyboardDidShow:(NSNotification *)notification
 {
-    
-    //获取键盘高度
-    NSValue *keyboardObject = [[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey];
-    
-    CGRect keyboardRect;
-    [keyboardObject getValue:&keyboardRect];
-    
-    
-    _keyHeight = keyboardRect.size.height;
-    //调整放置有textView的view的位置
-    
-    //设置动画
-    [UIView beginAnimations:nil context:nil];
-    
-    //定义动画时间
-    [UIView setAnimationDuration:0.5];
-    //               CGRectMake(0, self.view.frame.size.height-keyboardRect.size.height-kViewHeight, 320, kViewHeight)]
-    //设置view的frame，往上平移
-    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height -Header_Height -keyboardRect.size.height)];
-    
-    [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    
-    
-    //[_mainTableView reloadData];
-    [UIView commitAnimations];
+    if(relayoutViewFlag == YES)
+    {
+        //获取键盘高度
+        NSValue *keyboardObject = [[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey];
+        
+        CGRect keyboardRect;
+        [keyboardObject getValue:&keyboardRect];
+        
+        
+        _keyHeight = keyboardRect.size.height;
+        //调整放置有textView的view的位置
+        
+        //设置动画
+        [UIView beginAnimations:nil context:nil];
+        
+        //定义动画时间
+        [UIView setAnimationDuration:0.5];
+        //               CGRectMake(0, self.view.frame.size.height-keyboardRect.size.height-kViewHeight, 320, kViewHeight)]
+        //设置view的frame，往上平移
+        [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height -Header_Height -keyboardRect.size.height)];
+        
+        [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        
+        
+        //[_mainTableView reloadData];
+        [UIView commitAnimations];
+    }
     
 }
 
 //键盘消失时
 -(void)keyboardDidHidden
 {
-    //定义动画
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-    //设置view的frame，往下平移
-    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,SCREEN_HEIGHT - Header_Height)];
     
-    //[_mainTableView reloadData];
-    [UIView commitAnimations];
+    if(relayoutViewFlag == YES)
+    {
+    //定义动画
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.5];
+        //设置view的frame，往下平移
+        [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,SCREEN_HEIGHT - Header_Height)];
+        
+        //[_mainTableView reloadData];
+        [UIView commitAnimations];
+        relayoutViewFlag = NO;
+    }
     
 }
+
+
+#pragma mark - self data source
+
+-(void)getDatas
+{
+    [self getUserInfo];
+}
+
+-(void)getUserInfo
+{
+    [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
+    [dataprovider getUserInfo:[Toolkit getUserID]];
+    
+}
+
+
+-(void)getUserInfoCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            NSDictionary *tempDict = dict[@"data"];
+            
+            jiFenLab.text = [NSString stringWithFormat:@"积分：%@",tempDict[@"Credit"]];
+            userName.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
+            idLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"UserName"]];
+            if([tempDict[@"Sexuality"] integerValue] == 1)
+            {
+                boyBtn.selected = YES;
+                grilBtn.selected = NO;
+            }
+            else
+            {
+                grilBtn.selected = YES;
+                boyBtn.selected = NO;
+            }
+            
+            [highBtn setTitle:[NSString stringWithFormat:@"%@cm",tempDict[@"Height"]] forState:UIControlStateNormal];
+            [weightBtn setTitle:[NSString stringWithFormat:@"%@kg",tempDict[@"Weight"]] forState:UIControlStateNormal];
+            [ageBtn setTitle:[NSString stringWithFormat:@"%@岁",tempDict[@"Experience"]] forState:UIControlStateNormal];
+        
+            [learnTimeBtn setTitle:[NSString stringWithFormat:@"%@年",tempDict[@"Experience"]] forState:UIControlStateNormal];
+            nickName.text =tempDict[@"NicName"];
+            [provinceBtn setTitle:tempDict[@"HomeAreaprovinceName"] forState:UIControlStateNormal];
+            [cityBtn setTitle:tempDict[@"HomeAreaCityName"] forState:UIControlStateNormal];
+            [areaBtn setTitle:tempDict[@"HomeAreaDistrictName"] forState:UIControlStateNormal];
+//2015-09-09 09:09:09
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
+
+
+
+
+-(void)setuserInfo
+{
+    [SVProgressHUD showWithStatus:@"更新中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"setUserInfoCallBack:"];
+    NSString *sex;
+    if(boyBtn.selected == YES)
+        sex = @"1";
+    else
+        sex = @"2";
+    [dataprovider setUserInfo:[Toolkit getUserID] andNickName:nickName.text andSex:sex andHeight:[highBtn.titleLabel.text substringToIndex:(highBtn.titleLabel.text.length - 2)] andWeight:[weightBtn.titleLabel.text substringToIndex:(weightBtn.titleLabel.text.length - 2)] andAddr:@"100" andExpe:[learnTimeBtn.titleLabel.text substringToIndex:(learnTimeBtn.titleLabel.text.length - 1)]];
+}
+
+
+-(void)setUserInfoCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            [self getDatas];
+           // [_mainTableView reloadData];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
 #pragma mark - textView delegate
 
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-
+    relayoutViewFlag = YES;
 }
 
 
@@ -435,20 +568,7 @@
 
 -(void)clickRightButton:(UIButton *)sender
 {
-    
-    sender.selected = !sender.selected;
-    if(sender.selected == YES)
-    {
-        [self addRightbuttontitle:@"确定"];
-        myDream.editable = YES;
-        myPlan.editable = YES;
-    }
-    else
-    {
-        myDream.editable = NO;
-        myPlan.editable = NO;
-        [self addRightbuttontitle:@"编辑"];
-    }
+    [self setuserInfo];
 }
 
 
@@ -488,25 +608,25 @@
         
         [headView makeSelfRound];
         
-        UILabel *userName = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
+        userName = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
                                                                       20, 100,((headView.frame.size.height )/3 -5) )];
-        userName.text = @"成龙";
+       // userName.text = @"成龙";
         userName.textColor = [UIColor whiteColor];
         userName.font = [UIFont systemFontOfSize:14];
         [cell addSubview:userName];
         
-        UILabel *idLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
+        idLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
                                                                   (userName.frame.origin.y+userName.frame.size.height), 200,
                                                                   ((headView.frame.size.height )/3 -5))];
         idLab.textColor = [UIColor whiteColor];
-        idLab.text = @"ID:12345678900";
+      //  idLab.text = @"ID:12345678900";
         idLab.font = [UIFont systemFontOfSize:14];
         [cell addSubview:idLab];
         
-        UILabel *jiFenLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
+        jiFenLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
                                                                       (idLab.frame.origin.y+idLab.frame.size.height), 200,
                                                                       userName.frame.size.height)];
-        jiFenLab.text = @"积分：1000";
+      //  jiFenLab.text = @"积分：1000";
         jiFenLab.textColor = [UIColor whiteColor];
         jiFenLab.font = [UIFont systemFontOfSize:14];
         [cell addSubview:jiFenLab];
@@ -537,9 +657,9 @@
                 titlLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titlLab];
                 
-                UITextField *nickName = [[UITextField alloc] initWithFrame:CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x),
-                                                                                     0, SCREEN_HEIGHT - (titlLab.frame.size.width + titlLab.frame.origin.x)
-                                                                                      , _cellHeight)];
+                nickName.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x),
+                           0, SCREEN_HEIGHT - (titlLab.frame.size.width + titlLab.frame.origin.x)
+                                             , _cellHeight);
                 nickName.backgroundColor = ItemsBaseColor;
                 nickName.placeholder = @"请输入您的昵称";
                 [cell addSubview:nickName];
@@ -561,7 +681,7 @@
                 [boyBtn setImage:[UIImage imageNamed:@"point"] forState:UIControlStateNormal];
                 [boyBtn setImage:[UIImage imageNamed:@"pointH"] forState:UIControlStateSelected];
                 [boyBtn addTarget:self action:@selector(sexBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                boyBtn.selected = YES;
+               // boyBtn.selected = YES;
                 [cell addSubview:boyBtn];
                 
                 grilBtn.frame = CGRectMake((boyBtn.frame.size.width + boyBtn.frame.origin.x+20),
@@ -719,6 +839,7 @@
                 introductionText.backgroundColor = BACKGROUND_COLOR;
                 introductionText.font = [UIFont systemFontOfSize:14];
                 introductionText.textAlignment = NSTextAlignmentLeft;
+                introductionText.delegate = self;
                 tempIndexPath = indexPath;
                 [cell addSubview:introductionText];
             }

@@ -22,6 +22,15 @@
     NSMutableArray *cateGoryV;
     NSInteger categoryVIndex;
     
+#pragma mark  - labs
+    
+    UILabel *lvLab;
+    UILabel *isPayLab;
+    UILabel *jiFenNumLab;
+    
+    UILabel *nickLab;
+    UILabel *IdLab;
+
 }
 @end
 
@@ -37,6 +46,8 @@
     
     [self initDatas];
     [self initViews];
+    
+    [self getDatas];
     // Do any additional setup after loading the view.
 }
 
@@ -81,19 +92,97 @@
     }
     
     [self.view addSubview:_mainTableView];
+    
+    
+    nickLab = [[UILabel alloc] init];
+    nickLab.textColor = YellowBlock;
+    nickLab.font = [UIFont systemFontOfSize:14];
+    nickLab.textAlignment = NSTextAlignmentCenter;
 
+    IdLab = [[UILabel alloc] init];
+    IdLab.textColor = [UIColor whiteColor];
+    IdLab.font = [UIFont systemFontOfSize:12];
+    IdLab.textAlignment = NSTextAlignmentCenter;
+    
+    lvLab = [[UILabel alloc] init];
+    lvLab.textColor = [UIColor whiteColor];
+    lvLab.font = [UIFont systemFontOfSize:10];
+    lvLab.textAlignment = NSTextAlignmentCenter;
+    
+    isPayLab = [[UILabel alloc] init];
+    isPayLab.textColor = YellowBlock;
+    isPayLab.font = [UIFont systemFontOfSize:10];
+    isPayLab.textAlignment = NSTextAlignmentCenter;
+    
+    jiFenNumLab = [[UILabel alloc] init];
+    jiFenNumLab.textColor = YellowBlock;
+    jiFenNumLab.font = [UIFont systemFontOfSize:10];
+    jiFenNumLab.textAlignment = NSTextAlignmentCenter;
 }
 
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
+    [self getUserInfo];
 }
 #pragma mark - self data source
 
-//-(void)get
 
 
+-(void)getDatas
+{
+    [self getUserInfo];
+}
+
+-(void)getUserInfo
+{
+    [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
+    [dataprovider getUserInfo:[Toolkit getUserID]];
+
+}
+
+
+
+-(void)getUserInfoCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            NSDictionary *tempDict = dict[@"data"];
+
+            lvLab.text = [NSString stringWithFormat:@"lv%@",tempDict[@"Rank"]];
+            if([tempDict[@"IsPay"] integerValue ] == 0)
+            {
+                isPayLab.text = @"成为会员";
+            }
+            else
+            {
+                isPayLab.text = @"付费会员";
+            }
+            
+            jiFenNumLab.text = [NSString stringWithFormat:@"%@分",tempDict[@"Credit"]];
+            nickLab.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
+            IdLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"UserName"]];
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
 
 
 #pragma mark -  tableview  Delegate
@@ -224,7 +313,20 @@
                                                                   andImgName:@"headImg"
                                                                       andNav:self.navigationController];
                 [headView makeSelfRound];
+                headView.center = CGPointMake(SCREEN_WIDTH/2, _cellHeight*1.5);
                 [cell addSubview:headView];
+               
+                
+                nickLab.frame = CGRectMake(0, 0, 100, 20) ;
+                nickLab.center = CGPointMake(SCREEN_WIDTH/2,(headView.frame.size.height+headView.frame.origin.y+13));
+               // nickLab.backgroundColor = [UIColor blueColor];
+                [cell addSubview:nickLab];
+                
+                IdLab.frame = CGRectMake(0, 0, 100,
+                                         20) ;//>(3*_cellHeight -(nickLab.frame.size.height+nickLab.frame.origin.y))?(3*_cellHeight - (nickLab.frame.size.height+nickLab.frame.origin.y)):20
+                IdLab.center = CGPointMake(SCREEN_WIDTH/2,(nickLab.frame.size.height+nickLab.frame.origin.y+10));
+                [cell addSubview:IdLab];
+                
                 
                 //vip
 //                UIImageView *vipImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liubianxing"]];
@@ -238,12 +340,33 @@
                 [vipBtnView addTarget:self action:@selector(vipClickBtn:) forControlEvents:UIControlEventTouchUpInside];
                 [cell addSubview:vipBtnView];
                 
+ 
+                
+                lvLab.frame = CGRectMake(0, 0, 40, 20);
+                lvLab.center = CGPointMake(vipBtnView.frame.size.width/2, vipBtnView.frame.size.height/4+8);
+                [vipBtnView addSubview:lvLab];
+                
+                isPayLab.frame = CGRectMake(0, 0, vipBtnView.frame.size.width - 18, 20);
+                isPayLab.center = CGPointMake(vipBtnView.frame.size.width/2, vipBtnView.frame.size.height/4*3-7);
+                [vipBtnView addSubview:isPayLab];
+                
                 
                 UIImageView *jiFenImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liubianxing"]];
                 jiFenImgView.frame = CGRectMake( (SCREEN_WIDTH -60 - 20) , 1.5*_cellHeight , 60, 1.5*_cellHeight - 20);
                 jiFenImgView.contentMode = UIViewContentModeScaleAspectFit;
                 [cell addSubview:jiFenImgView];
                 
+                UILabel *jiFenTitlelab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
+                jiFenTitlelab.center = CGPointMake(jiFenImgView.frame.size.width/2, jiFenImgView.frame.size.height/4+8);
+                jiFenTitlelab.textColor = [UIColor whiteColor];
+                jiFenTitlelab.font = [UIFont systemFontOfSize:10];
+                jiFenTitlelab.textAlignment = NSTextAlignmentCenter;
+                jiFenTitlelab.text = @"积分";
+                [jiFenImgView addSubview:jiFenTitlelab];
+                
+                jiFenNumLab.frame = CGRectMake(0, 0, vipBtnView.frame.size.width - 18, 20);
+                jiFenNumLab.center = CGPointMake(vipBtnView.frame.size.width/2, vipBtnView.frame.size.height/4*3-7);
+                [jiFenImgView addSubview:jiFenNumLab];
                 
             }
         }
@@ -286,7 +409,7 @@
     
     if(indexPath.section == 0&&indexPath.row ==0)
     {
-        return _cellHeight*3;
+        return _cellHeight*3+20;
     }
     return _cellHeight;
 }

@@ -13,6 +13,10 @@
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "39C6DC2AA9050A0055A0D01C41EA86D46AA59951" : "KongFuCenger\/",
     "d1172e3f-1812-6f49-83ca-d74b34ffb609++9134" : "KongFuCenger\/KongFuCenter\/KongFuCenter\/UILayer\/CustomViewController\/"
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "2EDFF7EB-2CB7-4BFF-B42C-7E14DFFC1DC7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "39C6DC2AA9050A0055A0D01C41EA86D46AA59951" : "KongFuCenterProject\/",
+    "d1172e3f-1812-6f49-83ca-d74b34ffb609++9134" : "KongFuCenterProject\/KongFuCenter\/KongFuCenter\/UILayer\/CustomViewController\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "KongFuCenter",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,

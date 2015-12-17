@@ -198,9 +198,15 @@
     printf("[%s] start \r\n",__FUNCTION__);
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200 ) {
-        [mUserDefault setValue:[dict valueForKey:@"Id"] forKey:@"id"];
+
+        DLog(@"%@ ",[dict[@"data"] valueForKey:@"Id"]);
+        
+        [mUserDefault setValue:[dict[@"data"] valueForKey:@"Id"] forKey:@"id"];
+
+    //    [mUserDefault setValue:[dict valueForKey:@"Id"] forKey:@"id"];
         NSLog(@"%@",[dict[@"data"] valueForKey:@"RongCloudName"]);
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"RongCloudName"] forKey:@"token"];
+
         [self setNotificate];
     }
     else
