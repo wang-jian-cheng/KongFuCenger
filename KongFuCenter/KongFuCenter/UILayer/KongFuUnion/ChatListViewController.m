@@ -10,9 +10,10 @@
 #import <RongIMKit/RongIMKit.h>
 #import "ChatContentViewController.h"
 
-@interface ChatListViewController ()<RCIMUserInfoDataSource>{
+@interface ChatListViewController (){
     UIView *topView;
     NSUserDefaults *userDefault;
+    NSArray *friendArray;
 }
 
 @end
@@ -25,18 +26,15 @@
     [super viewDidLoad];
     
     userDefault = [NSUserDefaults standardUserDefaults];
+    friendArray = [[NSArray alloc] init];
     
     //设置要显示的会话类型
     [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_GROUP)]];
     
     //聚合会话类型
-    [self setCollectionConversationType:@[@(ConversationType_GROUP)]];
-    
-    [[RCIM sharedRCIM] setUserInfoDataSource:self];
+    //[self setCollectionConversationType:@[@(ConversationType_GROUP)]];
     
     [self initView];
-    
-    [self initData];
     
 }
 
@@ -55,25 +53,7 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
--(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
-    RCUserInfo *user = [[RCUserInfo alloc]init];
-    user.userId = userId;
-    user.name = @"1233";
-    user.portraitUri = @"http://img.zcool.cn/community/033d26a5618cb9732f8755701e1a308.jpg@250w_188h_1c_1e_2o";
-    
-    return completion(user);
-}
-
 #pragma mark - 自定义方法
--(void)initData{
-    DataProvider *dataProvider = [[DataProvider alloc] init];
-    [dataProvider setDelegateObject:self setBackFunctionName:@"getFriendBackCall:"];
-    
-}
-
--(void)getFriendBackCall:(id)dict{
-    NSLog(@"%@",dict);
-}
 
 -(void)initView{
     topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBar_HEIGHT + StatusBar_HEIGHT)];
@@ -122,7 +102,7 @@
         //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
         chat.conversationType = ConversationType_PRIVATE;
         //设置会话的目标会话ID。（单聊、客服、公众账号服务为对方的ID，讨论组、群聊、聊天室为会话的ID）
-        chat.targetId = @"23";
+        chat.targetId = @"4";
         chat.userName = @"nihao";
         //设置聊天会话界面要显示的标题
         chat.title = @"想显示的会话标题";
@@ -134,7 +114,7 @@
         //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
         chat.conversationType = ConversationType_GROUP;
         //设置会话的目标会话ID。（单聊、客服、公众账号服务为对方的ID，讨论组、群聊、聊天室为会话的ID）
-        chat.targetId = @"2";
+        chat.targetId = @"2";[NSString stringWithFormat:@"%@",[userDefault valueForKey:@"TeamId"]];
         //设置聊天会话界面要显示的标题
         chat.title = @"想显示的会话标题";
         //显示聊天会话界面

@@ -68,8 +68,11 @@
 -(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience;
 
 #pragma mark - 核联盟
+//获取好友信息
 -(void)getFriendForKeyValue:(NSString *)uid;
 
+//获取战队介绍
+-(void)SelectTeamIntroduce:(NSString *)uid;
 
 
 @end

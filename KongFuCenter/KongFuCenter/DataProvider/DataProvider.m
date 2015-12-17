@@ -155,6 +155,14 @@
     }
 }
 
+-(void)SelectTeamIntroduce:(NSString *)uid{
+    if (uid) {
+        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamIntroduce",Url];
+        NSDictionary * prm=@{@"teamid":uid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 #pragma mark 赋值回调
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName
 {
