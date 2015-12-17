@@ -88,7 +88,6 @@
     }
 }
 
-#pragma mark - 核联盟
 -(NSInteger)getUserInfo:(NSString *)userId
 {
     
@@ -108,6 +107,8 @@
         return Param_err;
     }
 }
+
+
 
 //int userid 用户ID
 //string nicname 昵称
@@ -145,7 +146,14 @@
     }
 }
 
-
+#pragma mark - 核联盟
+-(void)getFriendForKeyValue:(NSString *)uid{
+    if (uid) {
+        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/GetFriendForKeyValue",Url];
+        NSDictionary * prm=@{@"userid":uid};
+        [self PostRequest:url andpram:prm];
+    }
+}
 
 #pragma mark 赋值回调
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName

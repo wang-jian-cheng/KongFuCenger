@@ -68,7 +68,7 @@
 -(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience;
 
 #pragma mark - 核联盟
-
+-(void)getFriendForKeyValue:(NSString *)uid;
 
 
 
