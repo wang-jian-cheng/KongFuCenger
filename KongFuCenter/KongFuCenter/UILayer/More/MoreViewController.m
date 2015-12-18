@@ -7,7 +7,7 @@
 //
 
 #import "MoreViewController.h"
-#import "PromptViewController.h"
+#import "ClearCacheViewController.h"
 @interface MoreViewController ()
 {
 #pragma mark - pram for tableView
@@ -198,7 +198,16 @@
 //            [self showViewController:promptViewController sender:nil];
 //            
 //        }
-
+    }
+    else if (indexPath.section == 1)
+    {
+        if(indexPath.row == 0)
+        {
+            //推出清除缓存页面
+            ClearCacheViewController * clearCacheViewController = [[ClearCacheViewController alloc] init];
+            
+            [self showViewController:clearCacheViewController sender:nil];
+        }
     }
     
 }
