@@ -9,6 +9,7 @@
 #import "MoreViewController.h"
 #import "ClearCacheViewController.h"
 #import "IntroViewController.h"
+#import "MessagefankuiViewController.h"
 @interface MoreViewController ()
 {
 #pragma mark - pram for tableView
@@ -141,7 +142,7 @@
             {
                 cell.textLabel.text  = @"清除缓存";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//                
+                
 //                UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
 //                rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
 //                rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
@@ -215,6 +216,14 @@
             IntroViewController * introduceViewController = [[IntroViewController alloc] init];
             [self showViewController:introduceViewController sender:nil];
             
+        }
+    }
+    else if (indexPath.section == 2)
+    {
+        if(indexPath.row == 0)
+        {
+            MessagefankuiViewController * messagefankuiViewController = [[MessagefankuiViewController alloc] init];
+            [self showViewController:messagefankuiViewController sender:nil];
         }
     }
     

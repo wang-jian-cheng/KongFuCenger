@@ -15,6 +15,7 @@
 		7BA38E9C1C2162E8000996EE /* AnnouncementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E9B1C2162E8000996EE /* AnnouncementTableViewCell.m */; };
 		7BA3A3161C2289070028C8A3 /* ShieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3A3151C2289070028C8A3 /* ShieldViewController.m */; };
 		7BA51EB51C23D9F6004BBB30 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA51EB41C23D9F6004BBB30 /* IntroViewController.m */; };
+		7BA51EB91C23E01E004BBB30 /* MessagefankuiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA51EB81C23E01E004BBB30 /* MessagefankuiViewController.m */; };
 		7BCBB22A1C2393C800C2AAAA /* ClearCacheViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCBB2291C2393C800C2AAAA /* ClearCacheViewController.m */; };
 		802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118D91C1AFAE100DCEE73 /* DIYButton.m */; };
 		802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118DC1C1AFAE100DCEE73 /* MoviePlayer.m */; };
@@ -322,6 +323,8 @@
 		7BA3A3151C2289070028C8A3 /* ShieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShieldViewController.m; sourceTree = "<group>"; };
 		7BA51EB31C23D9F6004BBB30 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		7BA51EB41C23D9F6004BBB30 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
+		7BA51EB71C23E01E004BBB30 /* MessagefankuiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagefankuiViewController.h; sourceTree = "<group>"; };
+		7BA51EB81C23E01E004BBB30 /* MessagefankuiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagefankuiViewController.m; sourceTree = "<group>"; };
 		7BCBB2281C2393C800C2AAAA /* ClearCacheViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearCacheViewController.h; sourceTree = "<group>"; };
 		7BCBB2291C2393C800C2AAAA /* ClearCacheViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearCacheViewController.m; sourceTree = "<group>"; };
 		802118D81C1AFAE100DCEE73 /* DIYButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYButton.h; sourceTree = "<group>"; };
@@ -890,6 +893,15 @@
 			name = "Introduce-JC";
 			sourceTree = "<group>";
 		};
+		7BA51EB61C23DFA7004BBB30 /* Messagefankui */ = {
+			isa = PBXGroup;
+			children = (
+				7BA51EB71C23E01E004BBB30 /* MessagefankuiViewController.h */,
+				7BA51EB81C23E01E004BBB30 /* MessagefankuiViewController.m */,
+			);
+			name = Messagefankui;
+			sourceTree = "<group>";
+		};
 		7BCBB2271C23930500C2AAAA /* ClearCache-JC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1316,11 +1328,12 @@
 		B59409061C0FCE49003DC15D /* More */ = {
 			isa = PBXGroup;
 			children = (
-				7BA51EAF1C23D82A004BBB30 /* Introduce-JC */,
 				B594090B1C0FCEF3003DC15D /* MoreViewController.h */,
 				B594090C1C0FCEF3003DC15D /* MoreViewController.m */,
 				7BA3A3131C2284DB0028C8A3 /* Chattongzhi-JC */,
 				7BCBB2271C23930500C2AAAA /* ClearCache-JC */,
+				7BA51EAF1C23D82A004BBB30 /* Introduce-JC */,
+				7BA51EB61C23DFA7004BBB30 /* Messagefankui */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -2247,6 +2260,7 @@
 				B59409201C102719003DC15D /* StudyOnLineViewController.m in Sources */,
 				B72E39F81C1AB5AD007356C4 /* MakeMushaCell.m in Sources */,
 				7BA51EB51C23D9F6004BBB30 /* IntroViewController.m in Sources */,
+				7BA51EB91C23E01E004BBB30 /* MessagefankuiViewController.m in Sources */,
 				B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */,
 				B7D846491C22AB7500718E9E /* MJRefreshAutoNormalFooter.m in Sources */,
 				B59409001C0FCB0F003DC15D /* BaseNavigationController.m in Sources */,
