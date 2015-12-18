@@ -7,7 +7,9 @@
 //
 
 #import "MoreViewController.h"
-#import "PromptViewController.h"
+#import "ClearCacheViewController.h"
+#import "IntroViewController.h"
+#import "MessagefankuiViewController.h"
 @interface MoreViewController ()
 {
 #pragma mark - pram for tableView
@@ -98,13 +100,13 @@
 //指定每个分区中有多少行，默认为1
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if(section == 2)
+    if(section == 1)
     {
-        return 1;
+        return 2;
     }
     else
     {
-        return 2;
+        return 1;
     }
 }
 
@@ -123,17 +125,12 @@
             {
                 cell.textLabel.text  = @"聊天通知设置";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//                UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
-//                rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
-//                rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
-//                rightView.contentMode = UIViewContentModeScaleAspectFit;
-//                [cell addSubview:rightView];
             }
                 break;
-            case 1:
-                cell.textLabel.text = @"朋友圈的评论提示";
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                break;
+//            case 1:
+//                cell.textLabel.text = @"朋友圈的评论提示";
+//                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//                break;
             default:
                 break;
         }
@@ -145,7 +142,7 @@
             {
                 cell.textLabel.text  = @"清除缓存";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//                
+                
 //                UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
 //                rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
 //                rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
@@ -197,13 +194,37 @@
 //            setNoticeViewCtl.navtitle = @"聊天通知设置";
             [self.navigationController pushViewController:setNoticeViewCtl animated:YES];
         }
-        else
-        {//推出朋友圈的评论提示页面
-            PromptViewController * promptViewController = [[PromptViewController alloc] init];
-            [self showViewController:promptViewController sender:nil];
+//        else
+//        {//推出朋友圈的评论提示页面
+//            PromptViewController * promptViewController = [[PromptViewController alloc] init];
+//            [self showViewController:promptViewController sender:nil];
+//            
+//        }
+    }
+    else if (indexPath.section == 1)
+    {
+        if(indexPath.row == 0)
+        {
+            //推出清除缓存页面
+            ClearCacheViewController * clearCacheViewController = [[ClearCacheViewController alloc] init];
+            
+            [self showViewController:clearCacheViewController sender:nil];
+        }
+        else if(indexPath.row == 1)
+        {
+            //推出关于核武者页面
+            IntroViewController * introduceViewController = [[IntroViewController alloc] init];
+            [self showViewController:introduceViewController sender:nil];
             
         }
-
+    }
+    else if (indexPath.section == 2)
+    {
+        if(indexPath.row == 0)
+        {
+            MessagefankuiViewController * messagefankuiViewController = [[MessagefankuiViewController alloc] init];
+            [self showViewController:messagefankuiViewController sender:nil];
+        }
     }
     
 }

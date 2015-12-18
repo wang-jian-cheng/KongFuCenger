@@ -9,6 +9,7 @@
 #import "VideoDetailViewController.h"
 #import "UserHeadView.h"
 #import "MoviePlayer.h"
+#import "DataProvider.h"
 
 #define VideoPlaySection    0
 #define VideoDetailSection  1
@@ -25,6 +26,10 @@
     CGFloat _cellHeight;
     UITableView *_mainTableView;
     MoviePlayer *moviePlayerview;
+    
+    NSString * VideoPath;
+    
+    NSDictionary * VideoDict;
 }
 @end
 
@@ -33,10 +38,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    [self initViews];
+    VideoDict=[[NSDictionary alloc] init];
+    [self GetVideoDetial];
+    
+    
     // Do any additional setup after loading the view.
 }
 
+
+-(void)GetVideoDetial
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
+    
+    [dataprovider getStudyOnlineVideoDetial:_videoID];
+}
+-(void)GetVideoDetialCallBack:(id)dict
+{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
+        VideoPath=[NSString stringWithFormat:@"%@%@",Kimg_path,[dict[@"data"][@"VideoPath"] isEqual:[NSNull null]]?@"":dict[@"data"][@"VideoPath"]];
+        VideoDict=dict[@"data"];
+        [self initViews];
+    }
+    
+}
 
 
 -(void)initViews
@@ -59,8 +87,8 @@
     [self.view addSubview:_mainTableView];
     
     
-    moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
-    //     MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:self.view.bounds URL:[NSURL URLWithString:@"http://192.168.1.136/4.flv"]];
+    moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
+    //     MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:self.view.bounds URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
     [self.view addSubview:moviePlayerview];
     
     
@@ -268,7 +296,7 @@
                 /*name*/
                 UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
                                                                              headView.frame.origin.y, 40, headView.frame.size.height/2)];
-                nameLab.text = @"鹿晗";
+                nameLab.text = [VideoDict[@"UserNicName"] isEqual:[NSNull null]]?@"":VideoDict[@"UserNicName"];
                 nameLab.textColor = TextColors;
                 nameLab.font = [UIFont systemFontOfSize:FontSize];
                 [cell addSubview:nameLab];

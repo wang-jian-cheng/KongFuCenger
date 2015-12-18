@@ -10,4 +10,6 @@
 
 @interface VideoListForStudyViewController : BaseNavigationController
 
+@property (nonatomic,strong) NSString *categoryid;
+
 @end

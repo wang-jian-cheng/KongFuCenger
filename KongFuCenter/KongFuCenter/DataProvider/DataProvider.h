@@ -102,7 +102,17 @@
  *  @param categoryid    二级分类id
  *
  */
--(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid;
+-(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+
+/**
+ *  获取在线学习视频详情
+ *
+ *  @param videoid    视频id
+ *
+ */
+-(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid;
+
+
 #pragma mark - 核联盟
 //获取好友信息
 -(void)getFriendForKeyValue:(NSString *)uid;

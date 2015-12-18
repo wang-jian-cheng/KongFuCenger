@@ -473,9 +473,9 @@
         _back.hidden=YES;
         self.sliderView.frame=CGRectMake(0, SCREEN_WIDTH-45, SCREEN_HEIGHT, 45);
         
-        self.changeFrame.frame=CGRectMake(self.sliderView.frame.size.width-35, 5, 30, 30);
+        self.changeFrame.frame=CGRectMake(self.sliderView.frame.size.width-45, 5, 30, 30);
         
-        self.end.frame=CGRectMake(_changeFrame.frame.origin.x-self.end.frame.size.width-5, self.end.frame.origin.y, self.end.frame.size.width, self.end.frame.size.height);
+        self.end.frame=CGRectMake(_changeFrame.frame.origin.x-self.end.frame.size.width-15, self.end.frame.origin.y, self.end.frame.size.width, self.end.frame.size.height);
         
         self.begin.frame=CGRectMake(self.begin.frame.origin.x+20, self.begin.frame.origin.y, self.begin.frame.size.width, self.begin.frame.size.height);
         

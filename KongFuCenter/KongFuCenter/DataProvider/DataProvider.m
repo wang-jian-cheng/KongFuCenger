@@ -224,13 +224,13 @@
     }
 }
 
--(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid
+-(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows
 {
-    if(categoryid != nil)
+    if(categoryid != nil&&startRowIndex&&maximumRows)
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetOnlineStudyList",Url];
-        NSDictionary * prm=@{@"categoryid":categoryid};
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetOnlineStudyListByPage",Url];
+        NSDictionary * prm=@{@"categoryid":categoryid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         
@@ -242,6 +242,30 @@
         return Param_err;
     }
 }
+-(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid
+{
+    if(videoid != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetOnlineStudy",Url];
+        NSDictionary * prm=@{@"id":videoid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+
+
+
+
+
 #pragma mark - 核联盟
 
 -(void)getFriendForKeyValue:(NSString *)uid{
