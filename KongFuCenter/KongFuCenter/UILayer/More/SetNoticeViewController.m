@@ -33,7 +33,8 @@
     _sectionNum = 1;
     
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
+//    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height ) style:(UITableViewStylePlain)];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -67,7 +68,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 4;
+    return 5;
     
 }
 
@@ -84,7 +85,7 @@
         switch (indexPath.row) {
             case 0:
             {
-                cell.textLabel.text  = @"接受新的聊天";
+                cell.textLabel.text  = @"朋友圈的评论提示";
        
                 UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3 -7, 50, _cellHeight/3)];
                 switchBtn.tag = indexPath.row;
@@ -99,6 +100,21 @@
                 break;
             case 1:
             {
+                cell.textLabel.text  = @"接受新的聊天";
+                
+                UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3 -7, 50, _cellHeight/3)];
+                switchBtn.tag = indexPath.row;
+                switchBtn.onTintColor = YellowBlock;
+                switchBtn.tintColor = Separator_Color;
+                switchBtn.backgroundColor = Separator_Color;
+                switchBtn.layer.cornerRadius = 14;
+                [cell addSubview:switchBtn];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+            }
+                break;
+            case 2:
+            {
                 cell.textLabel.text = @"声音";
                 UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3 - 7, 50, _cellHeight/3)];
                 switchBtn.tag = indexPath.row;
@@ -112,7 +128,7 @@
 
             }
                  break;
-            case 2:
+            case 3:
             {
                 cell.textLabel.text = @"震动";
                 UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3 - 7, 50, _cellHeight/3)];
@@ -127,7 +143,7 @@
 
             }
                 break;
-            case 3:
+            case 4:
             {
                 cell.textLabel.text = @"屏蔽列表";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -154,7 +170,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
 //    NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     //跳转到屏蔽消息页面
-    if(indexPath.section == 0 && indexPath.row == 3)
+    if(indexPath.section == 0 && indexPath.row == 4)
     {
         ShieldViewController * shieldViewController = [[ShieldViewController alloc] init];
         [self showViewController:shieldViewController sender:nil];
