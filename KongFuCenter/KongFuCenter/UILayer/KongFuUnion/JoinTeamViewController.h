@@ -8,6 +8,6 @@
 
 #import "BaseNavigationController.h"
 
-@interface JoinTeamViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
+@interface JoinTeamViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 
 @end
