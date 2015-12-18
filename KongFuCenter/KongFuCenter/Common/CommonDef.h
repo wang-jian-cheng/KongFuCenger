@@ -13,6 +13,8 @@
 #define StatusBar_HEIGHT 20
 #define TabBar_HEIGHT 49
 
+#define Kimg_path @"http://192.168.1.136:8033/"
+
 #define Header_Height   (NavigationBar_HEIGHT + StatusBar_HEIGHT)
 
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)

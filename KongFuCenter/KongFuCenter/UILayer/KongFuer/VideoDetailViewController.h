@@ -16,4 +16,6 @@
     CGFloat _keyHeight;
     NSIndexPath *tempIndexPath;
 }
+
+@property(nonatomic,strong) NSString * videoID;
 @end
