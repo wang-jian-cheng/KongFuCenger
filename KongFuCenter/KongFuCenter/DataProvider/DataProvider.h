@@ -110,5 +110,10 @@
 //获取战队介绍
 -(void)SelectTeam:(NSString *)teamId;
 
+//获取战队列表
+-(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andAreaid:(NSString *)areaid;
+
+//加入战队
+-(void)JoinTeam:(NSString *)userid andTeamId:(NSString *)teamid andName:(NSString *)name;
 
 @end

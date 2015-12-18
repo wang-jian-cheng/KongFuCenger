@@ -8,6 +8,7 @@
 
 #import "JoinTeamViewController.h"
 #import "JoinTeamCell.h"
+#import "MJRefresh.h"
 
 @interface JoinTeamViewController (){
     //tableview
@@ -16,6 +17,15 @@
     
     //控件
     UITextField *searchTxt;
+    
+    //标识变量
+    int curpage;//页数
+    
+    //数据
+    NSArray *teamArray;
+    
+    //通用
+    NSUserDefaults *userDefault;
 }
 
 @end
@@ -30,8 +40,13 @@
     [self setBarTitle:@"加入战队"];
     [self addLeftButton:@"left"];
     
+    teamArray = [[NSArray alloc] init];
+    userDefault = [NSUserDefaults standardUserDefaults];
+    
     //初始化View
     [self initViews];
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -48,6 +63,97 @@
     mTableView.separatorColor = Separator_Color;
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = mTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf TeamTopRefresh];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [mTableView.mj_header beginRefreshing];
+    
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    
+    // 设置footer
+    mTableView.mj_footer = footer;
+}
+
+-(void)initData{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getTeamInfo:"];
+    //dataProvider SelectTeamPage:<#(NSString *)#> andMaximumRows:<#(NSString *)#> andName:<#(NSString *)#> andAreaid:<#(NSString *)#>
+}
+
+-(void)getTeamInfo:(id)dict{
+    NSLog(@"%@",dict);
+}
+
+-(void)TeamTopRefresh
+{
+    curpage=0;
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"GetTeamListBackCall:"];
+    [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:@"" andAreaid:@"20644"];
+}
+
+-(void)TeamFootRefresh
+{
+    curpage++;
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
+    [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:@"" andAreaid:@"20644"];
+}
+
+-(void)GetTeamListBackCall:(id)dict
+{
+    [SVProgressHUD dismiss];
+    NSLog(@"店铺列表%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        teamArray=dict[@"data"];
+        [mTableView reloadData];
+    }
+}
+
+-(void)FootRefireshBackCall:(id)dict
+{
+    
+    NSLog(@"上拉刷新");
+    // 结束刷新
+    [mTableView.mj_footer endRefreshing];
+    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:teamArray];
+    if ([dict[@"code"] intValue] == 200) {
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        teamArray=[[NSArray alloc] initWithArray:itemarray];
+    }
+    [mTableView reloadData];
+}
+
+-(void)joinTeamEvent:(UIButton *)btn{
+    NSString *teamId = teamArray[btn.tag][@"Id"];
+    NSString *teamName = teamArray[btn.tag][@"Name"];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"joinTeamCallBack:"];
+    [dataProvider JoinTeam:[userDefault valueForKey:@"id"] andTeamId:teamId andName:teamName];
+}
+
+-(void)joinTeamCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"加入战队成功~"];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:@"加入战队失败~"];
+    }
 }
 
 #pragma mark tableview delegate
@@ -59,7 +165,7 @@
     if (section == 0) {
         return 1;
     }else{
-        return 6 + 1;
+        return teamArray.count + 1;
     }
 }
 
@@ -136,9 +242,11 @@
             }
             
             cell.mImageView.image = [UIImage imageNamed:@"jointeam"];
-            cell.mName.text = @"跆拳道战队(123456789)";
+            cell.mName.text = teamArray[indexPath.row - 1][@"Name"];//@"跆拳道战队(123456789)";
             cell.mAddress.text = @"所在地:山东临沂";
             [cell.mJoin setTitle:@"加入" forState:UIControlStateNormal];
+            cell.mJoin.tag = indexPath.row - 1;
+            [cell.mJoin addTarget:self action:@selector(joinTeamEvent:) forControlEvents:UIControlEventTouchUpInside];
             return cell;
         }
     }

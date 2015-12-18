@@ -173,7 +173,7 @@
     if(userid != nil && mydream!=nil && realizedream != nil)
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SavetMyDream",Url];
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SaveMyDream",Url];
         NSDictionary * prm=@{@"userid":userid,
                              @"mydream":mydream,
                              @"realizedream":realizedream};
@@ -258,6 +258,22 @@
     if (teamId) {
         NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeam",Url];
         NSDictionary * prm=@{@"teamid":teamId};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andAreaid:(NSString *)areaid{
+    if (startRowIndex && maximumRows && name && areaid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamPage",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"name":name,@"areaid":areaid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)JoinTeam:(NSString *)userid andTeamId:(NSString *)teamid andName:(NSString *)name{
+    if (userid && teamid && name) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/JoinTeam",Url];
+        NSDictionary *prm = @{@"userid":userid,@"teamid":teamid,@"name":name};
         [self PostRequest:url andpram:prm];
     }
 }
