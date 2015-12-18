@@ -8,6 +8,7 @@
 
 #import "MoreViewController.h"
 #import "ClearCacheViewController.h"
+#import "IntroViewController.h"
 @interface MoreViewController ()
 {
 #pragma mark - pram for tableView
@@ -207,6 +208,13 @@
             ClearCacheViewController * clearCacheViewController = [[ClearCacheViewController alloc] init];
             
             [self showViewController:clearCacheViewController sender:nil];
+        }
+        else if(indexPath.row == 1)
+        {
+            //推出关于核武者页面
+            IntroViewController * introduceViewController = [[IntroViewController alloc] init];
+            [self showViewController:introduceViewController sender:nil];
+            
         }
     }
     
