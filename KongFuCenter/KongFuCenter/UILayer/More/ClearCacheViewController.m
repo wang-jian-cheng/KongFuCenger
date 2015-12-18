@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) UIView * view_alert;
 
+@property (nonatomic, strong) UIView * view_alertChat;
+
 @end
 
 @implementation ClearCacheViewController
@@ -112,95 +114,115 @@
         case 0:
         {
 //            NSLog(@"1");
-//            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"是否清除全部缓存" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
-//            [self presentViewController:alert animated:YES completion:^{
-//                
-//            }];
-//            
-//            UIAlertAction * action = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-//                
-//            }];
-//            UIAlertAction * action1 = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-//                
-//            }];
-//            [alert addAction:action1];
-//            [alert addAction:action];
+            //不让用户点击cell
+            self.tableView.userInteractionEnabled = NO;
             
-            [UIView animateWithDuration:0.5 animations:^{
-                
-                self.tableView.backgroundColor = ItemsBaseColor;
-                
-            } completion:^(BOOL finished) {
-                
-                self.view_alert = [[UIView alloc] initWithFrame:CGRectMake(30, self.view.frame.size.height / 4 , self.view.frame.size.width - 60, 130)];
-                self.view_alert.backgroundColor = BACKGROUND_COLOR;
-                [self.tableView addSubview:self.view_alert];
-                
-                UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(self.view_alert.frame.size.width / 2 - 95, 30, 190, 30)];
-                title.text = @"是否清除全部缓存";
-                //            title.backgroundColor = [UIColor orangeColor];
-                title.font = [UIFont systemFontOfSize:23];
-                title.textColor = [UIColor whiteColor];
-                [self.view_alert addSubview:title];
-                
-                UIButton * btn_cancel = [UIButton buttonWithType:(UIButtonTypeSystem)];
-                btn_cancel.frame = CGRectMake(0, 90, self.view_alert.frame.size.width / 2, 39);
-                [btn_cancel setTitle:@"取消" forState:(UIControlStateNormal)];
-                [btn_cancel setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-                btn_cancel.titleLabel.font = [UIFont systemFontOfSize:20];
-                btn_cancel.backgroundColor = navi_bar_bg_color;
-                [self.view_alert addSubview:btn_cancel];
-                [btn_cancel addTarget:self action:@selector(btn_cancelAction) forControlEvents:(UIControlEventTouchUpInside)];
-                
-                UIButton * btn_ok = [UIButton buttonWithType:(UIButtonTypeSystem)];
-                btn_ok.frame = CGRectMake(self.view_alert.frame.size.width / 2, 90, self.view_alert.frame.size.width / 2, 39);
-                [btn_ok setTitle:@"确定" forState:(UIControlStateNormal)];
-                [btn_ok setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-                btn_ok.titleLabel.font = [UIFont systemFontOfSize:20];
-                btn_ok.backgroundColor = YellowBlock;
-                [self.view_alert addSubview:btn_ok];
-                [btn_ok addTarget:self action:@selector(btn_okAction)                forControlEvents:(UIControlEventTouchUpInside)];
-            }];
+            if(self.view_alert == nil)
+            {
+                [UIView animateWithDuration:0.5 animations:^{
+                    
+                    self.tableView.backgroundColor = ItemsBaseColor;
+                    
+                } completion:^(BOOL finished) {
+                    
+                    self.view_alert = [[UIView alloc] initWithFrame:CGRectMake(30 , self.view.frame.size.height / 4 + NavigationBar_HEIGHT + StatusBar_HEIGHT, self.view.frame.size.width - 60, 130)];
+                    self.view_alert.backgroundColor = BACKGROUND_COLOR;
+                    [self.view addSubview:self.view_alert];
+                    
+                    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(self.view_alert.frame.size.width / 2 - 95, 30, 190, 30)];
+                    title.text = @"是否清除全部缓存";
+                    //            title.backgroundColor = [UIColor orangeColor];
+                    title.font = [UIFont systemFontOfSize:23];
+                    title.textColor = [UIColor whiteColor];
+                    [self.view_alert addSubview:title];
+                    
+                    UIButton * btn_cancel = [UIButton buttonWithType:(UIButtonTypeSystem)];
+                    btn_cancel.frame = CGRectMake(0, 90, self.view_alert.frame.size.width / 2, 39);
+                    [btn_cancel setTitle:@"取消" forState:(UIControlStateNormal)];
+                    [btn_cancel setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+                    btn_cancel.titleLabel.font = [UIFont systemFontOfSize:20];
+                    btn_cancel.backgroundColor = navi_bar_bg_color;
+                    [self.view_alert addSubview:btn_cancel];
+                    [btn_cancel addTarget:self action:@selector(btn_cancelAction) forControlEvents:(UIControlEventTouchUpInside)];
+                    
+                    UIButton * btn_ok = [UIButton buttonWithType:(UIButtonTypeSystem)];
+                    btn_ok.frame = CGRectMake(self.view_alert.frame.size.width / 2, 90, self.view_alert.frame.size.width / 2, 39);
+                    [btn_ok setTitle:@"确定" forState:(UIControlStateNormal)];
+                    [btn_ok setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+                    btn_ok.titleLabel.font = [UIFont systemFontOfSize:20];
+                    btn_ok.backgroundColor = YellowBlock;
+                    [self.view_alert addSubview:btn_ok];
+                    [btn_ok addTarget:self action:@selector(btn_okAction)                forControlEvents:(UIControlEventTouchUpInside)];
+                }];
+
+            }
+            else
+            {
+                [UIView animateWithDuration:0.5 animations:^{
+                    self.tableView.backgroundColor = ItemsBaseColor;
+
+                } completion:^(BOOL finished) {
+                    self.view_alert.backgroundColor = BACKGROUND_COLOR;
+                    self.view_alert.hidden = NO;
+                }];
+            }
         }
             break;
         case 1:
-//            NSLog(@"2");
         {
-            [UIView animateWithDuration:0.5 animations:^{
-                
-                self.tableView.backgroundColor = ItemsBaseColor;
-                
-            } completion:^(BOOL finished) {
-                
-                self.view_alert = [[UIView alloc] initWithFrame:CGRectMake(30, self.view.frame.size.height / 4 , self.view.frame.size.width - 60, 130)];
-                self.view_alert.backgroundColor = BACKGROUND_COLOR;
-                [self.tableView addSubview:self.view_alert];
-                
-                UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(self.view_alert.frame.size.width / 2 - 115, 30, 230, 30)];
-                title.text = @"是否清除全部聊天缓存";
-                //            title.backgroundColor = [UIColor orangeColor];
-                title.font = [UIFont systemFontOfSize:23];
-                title.textColor = [UIColor whiteColor];
-                [self.view_alert addSubview:title];
-                
-                UIButton * btn_cancel = [UIButton buttonWithType:(UIButtonTypeSystem)];
-                btn_cancel.frame = CGRectMake(0, 90, self.view_alert.frame.size.width / 2, 39);
-                [btn_cancel setTitle:@"取消" forState:(UIControlStateNormal)];
-                [btn_cancel setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-                btn_cancel.titleLabel.font = [UIFont systemFontOfSize:20];
-                btn_cancel.backgroundColor = navi_bar_bg_color;
-                [self.view_alert addSubview:btn_cancel];
-                [btn_cancel addTarget:self action:@selector(btn_cancelAction) forControlEvents:(UIControlEventTouchUpInside)];
-                
-                UIButton * btn_ok1 = [UIButton buttonWithType:(UIButtonTypeSystem)];
-                btn_ok1.frame = CGRectMake(self.view_alert.frame.size.width / 2, 90, self.view_alert.frame.size.width / 2, 39);
-                [btn_ok1 setTitle:@"确定" forState:(UIControlStateNormal)];
-                [btn_ok1 setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-                btn_ok1.titleLabel.font = [UIFont systemFontOfSize:20];
-                btn_ok1.backgroundColor = YellowBlock;
-                [self.view_alert addSubview:btn_ok1];
-                [btn_ok1 addTarget:self action:@selector(btn_ok1Action)                forControlEvents:(UIControlEventTouchUpInside)];
-            }];
+            
+            self.tableView.userInteractionEnabled = NO;
+
+            
+            if(self.view_alertChat == nil)
+            {
+                [UIView animateWithDuration:0.5 animations:^{
+                    
+                    self.tableView.backgroundColor = ItemsBaseColor;
+                    
+                } completion:^(BOOL finished) {
+                    
+                    self.view_alertChat = [[UIView alloc] initWithFrame:CGRectMake(30, self.view.frame.size.height / 4 + NavigationBar_HEIGHT + StatusBar_HEIGHT, self.view.frame.size.width - 60, 130)];
+                    self.view_alertChat.backgroundColor = BACKGROUND_COLOR;
+                    [self.view addSubview:self.view_alertChat];
+                    
+                    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(self.view_alertChat.frame.size.width / 2 - 115, 30, 230, 30)];
+                    title.text = @"是否清除全部聊天缓存";
+                    //            title.backgroundColor = [UIColor orangeColor];
+                    title.font = [UIFont systemFontOfSize:23];
+                    title.textColor = [UIColor whiteColor];
+                    [self.view_alertChat addSubview:title];
+                    
+                    UIButton * btn_cancel1 = [UIButton buttonWithType:(UIButtonTypeSystem)];
+                    btn_cancel1.frame = CGRectMake(0, 90, self.view_alertChat.frame.size.width / 2, 39);
+                    [btn_cancel1 setTitle:@"取消" forState:(UIControlStateNormal)];
+                    [btn_cancel1 setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+                    btn_cancel1.titleLabel.font = [UIFont systemFontOfSize:20];
+                    btn_cancel1.backgroundColor = navi_bar_bg_color;
+                    [self.view_alertChat addSubview:btn_cancel1];
+                    [btn_cancel1 addTarget:self action:@selector(btn_cancel1Action) forControlEvents:(UIControlEventTouchUpInside)];
+                    
+                    UIButton * btn_ok1 = [UIButton buttonWithType:(UIButtonTypeSystem)];
+                    btn_ok1.frame = CGRectMake(self.view_alertChat.frame.size.width / 2, 90, self.view_alertChat.frame.size.width / 2, 39);
+                    [btn_ok1 setTitle:@"确定" forState:(UIControlStateNormal)];
+                    [btn_ok1 setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+                    btn_ok1.titleLabel.font = [UIFont systemFontOfSize:20];
+                    btn_ok1.backgroundColor = YellowBlock;
+                    [self.view_alertChat addSubview:btn_ok1];
+                    [btn_ok1 addTarget:self action:@selector(btn_ok1Action)                forControlEvents:(UIControlEventTouchUpInside)];
+                }];
+
+            }
+            else
+            {
+                [UIView animateWithDuration:0.5 animations:^{
+                    self.tableView.backgroundColor = ItemsBaseColor;
+                    
+                } completion:^(BOOL finished) {
+                    self.view_alertChat.backgroundColor = BACKGROUND_COLOR;
+                    self.view_alertChat.hidden = NO;
+                }];
+            }
         }
             break;
         default:
@@ -216,6 +238,7 @@
         self.view_alert.hidden = YES;
     } completion:^(BOOL finished) {
         
+        self.tableView.userInteractionEnabled = YES;
     }];
     
 }
@@ -226,17 +249,31 @@
         self.tableView.backgroundColor = BACKGROUND_COLOR;
         self.view_alert.hidden = YES;
     } completion:^(BOOL finished) {
-        
+        self.tableView.userInteractionEnabled = YES;
     }];
+}
+
+- (void)btn_cancel1Action
+{//不做任何操作
+    [UIView animateWithDuration:0.5 animations:^{
+        self.tableView.backgroundColor = BACKGROUND_COLOR;
+        self.view_alertChat.hidden = YES;
+    } completion:^(BOOL finished) {
+        self.tableView.userInteractionEnabled = YES;
+
+    }];
+    
 }
 
 - (void)btn_ok1Action
 {//清除全部聊天缓存
     [UIView animateWithDuration:0.5 animations:^{
         self.tableView.backgroundColor = BACKGROUND_COLOR;
-        self.view_alert.hidden = YES;
+        self.view_alertChat.hidden = YES;
     } completion:^(BOOL finished) {
         
+        self.tableView.userInteractionEnabled = YES;
+
     }];
 }
 
