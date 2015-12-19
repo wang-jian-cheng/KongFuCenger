@@ -14,7 +14,6 @@
 #import "SBXMLParser.h"
 //#import "HttpRequest.h"
 
-#define Url @"http://192.168.1.136:8033/"
 //#define Url @"http://115.28.67.86:8033/"
 //#define Url @"http://hihome.zhongyangjituan.com/
 
@@ -225,13 +224,13 @@
     }
 }
 
--(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid
+-(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows
 {
-    if(categoryid != nil)
+    if(categoryid != nil&&startRowIndex&&maximumRows)
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetOnlineStudyList",Url];
-        NSDictionary * prm=@{@"categoryid":categoryid};
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetOnlineStudyListByPage",Url];
+        NSDictionary * prm=@{@"categoryid":categoryid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         
@@ -243,6 +242,30 @@
         return Param_err;
     }
 }
+-(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid
+{
+    if(videoid != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetOnlineStudy",Url];
+        NSDictionary * prm=@{@"id":videoid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+
+
+
+
+
 #pragma mark - 核联盟
 
 -(void)getFriendForKeyValue:(NSString *)uid{
@@ -262,10 +285,10 @@
     }
 }
 
--(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andAreaid:(NSString *)areaid{
-    if (startRowIndex && maximumRows && name && areaid) {
+-(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andAreaid:(NSString *)citycode{
+    if (startRowIndex && maximumRows) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamPage",Url];
-        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"name":name,@"areaid":areaid};
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"name":name,@"citycode":citycode};
         [self PostRequest:url andpram:prm];
     }
 }
@@ -278,6 +301,8 @@
     }
 }
 
+
+
 #pragma mark 赋值回调
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName
 {
@@ -285,7 +310,22 @@
     callBackFunctionName = selectorName;
 }
 
+-(void)getProvince{
+    NSString *url = [NSString stringWithFormat:@"%@LoginAndRegister.asmx/GetProvince",Url];
+    [self PostRequest:url andpram:nil];
+}
 
+-(void)getCityByProvinceCode:(NSString *)provinceCode{
+    NSString *url = [NSString stringWithFormat:@"%@LoginAndRegister.asmx/GetCityByProvince",Url];
+    NSDictionary *prm = @{@"provinceCode":provinceCode};
+    [self PostRequest:url andpram:prm];
+}
+
+-(void)getCountryByCityCode:(NSString *)cityCode{
+    NSString *url = [NSString stringWithFormat:@"%@LoginAndRegister.asmx/GetCountyByCity",Url];
+    NSDictionary *prm = @{@"cityCode":cityCode};
+    [self PostRequest:url andpram:prm];
+}
 
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {

@@ -102,7 +102,17 @@
  *  @param categoryid    二级分类id
  *
  */
--(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid;
+-(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+
+/**
+ *  获取在线学习视频详情
+ *
+ *  @param videoid    视频id
+ *
+ */
+-(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid;
+
+
 #pragma mark - 核联盟
 //获取好友信息
 -(void)getFriendForKeyValue:(NSString *)uid;
@@ -111,9 +121,18 @@
 -(void)SelectTeam:(NSString *)teamId;
 
 //获取战队列表
--(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andAreaid:(NSString *)areaid;
+-(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andAreaid:(NSString *)citycode;
 
 //加入战队
 -(void)JoinTeam:(NSString *)userid andTeamId:(NSString *)teamid andName:(NSString *)name;
+
+//获取省
+-(void)getProvince;
+
+//根据省获取市
+-(void)getCityByProvinceCode:(NSString *)provinceCode;
+
+//根据市获取县
+-(void)getCountryByCityCode:(NSString *)cityCode;
 
 @end
