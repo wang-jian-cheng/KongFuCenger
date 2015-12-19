@@ -28,9 +28,6 @@
     
     //标识变量
     int curpage;//页数
-    int initPage;//是否初始化标识
-    NSString *selectCityCode;
-    NSString *selectCountryCode;
     
     //数据
     NSArray *teamArray;
@@ -63,14 +60,13 @@
     countryArray = [[NSMutableArray alloc] init];
     [countryArray addObject:itemDict];
     //initPage = 0;
-    selectCountryCode = @"371302";
     
-    provinceCode = @"12";
-    provinceTxt = @"天津";
-    cityCode = @"1202";
-    cityTxt = @"天津";
-    countryCode = @"120202";
-    countryTxt = @"dddd";
+    provinceCode = @"37";
+    provinceTxt = @"山东省";
+    cityCode = @"3713";
+    cityTxt = @"临沂市";
+    countryCode = @"371302";
+    countryTxt = @"兰山区";
     
     //初始化数据
     [self initAddressData];
@@ -96,15 +92,10 @@
 -(void)getInitProvinceCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         provinceArray = dict[@"data"];
-        provinceTxt = provinceArray[0][@"Name"];
-        if ([provinceTxt containsString:@"市"] || [provinceTxt containsString:@"县"]) {
-            provinceTxt = [provinceTxt substringToIndex:provinceTxt.length - 1];
-        }
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getInitCityCallBack:"];
         [dataProvider getCityByProvinceCode:[NSString stringWithFormat:@"%@",provinceCode]];
     }
-    //[addressPickView selectRow:[[provinceArray valueForKey:@"Name"] indexOfObject:@"山东省"] inComponent:0 animated:YES];
 }
 
 -(void)getInitCityCallBack:(id)dict{
@@ -121,6 +112,22 @@
             [dataProvider getCountryByCityCode:cityCode];
         }
     }
+    NSLog(@"%@",cityArray);
+    
+}
+
+-(void)getInitCountryCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        NSLog(@"%@",dict[@"data"]);
+        NSArray *itemArray = dict[@"data"];
+        for (int i = 0; i < itemArray.count; i++) {
+            [countryArray addObject:itemArray[i]];
+        }
+        [addressPickView selectRow:[[provinceArray valueForKey:@"Code"] indexOfObject:provinceCode] inComponent:0 animated:YES];
+        [addressPickView selectRow:[[cityArray valueForKey:@"Code"] indexOfObject:cityCode] inComponent:1 animated:YES];
+        [addressPickView selectRow:[[countryArray valueForKey:@"Code"] indexOfObject:countryCode] inComponent:2 animated:YES];
+        [addressPickView reloadAllComponents];
+    }
 }
 
 -(void)getCityCallBack:(id)dict{
@@ -132,49 +139,34 @@
     if ([dict[@"code"] intValue] == 200) {
         cityArray = dict[@"data"];
         if (cityArray.count > 0) {
-            NSString *cityCode = cityArray[0][@"Code"];
-            selectCityCode = cityCode;
+            NSString *cityCodeStr = cityArray[0][@"Code"];
+            cityCode = cityCodeStr;
             dataProvider = [[DataProvider alloc] init];
             [dataProvider setDelegateObject:self setBackFunctionName:@"getCountryCallBack:"];
-            [dataProvider getCountryByCityCode:cityCode];
-            
+            [dataProvider getCountryByCityCode:cityCodeStr];
+
             cityTxt = cityArray[0][@"Name"];
-            if ([cityTxt containsString:@"市"] || [cityTxt containsString:@"县"]) {
-                cityTxt = [cityTxt substringToIndex:cityTxt.length - 1];
-            }
         }
+        [addressPickView selectRow:0 inComponent:1 animated:YES];
         [addressPickView reloadComponent:1];
         [addressPickView reloadComponent:2];
     }
 }
 
--(void)getInitCountryCallBack:(id)dict{
-    if ([dict[@"code"] intValue] == 200) {
-        NSLog(@"%@",dict[@"data"]);
-        NSArray *itemArray = dict[@"data"];
-        for (int i = 0; i < itemArray.count; i++) {
-            [countryArray addObject:itemArray[i]];
-        }
-        //[addressPickView selectRow:[[countryArray valueForKey:@"Name"] indexOfObject:@"兰山区"] inComponent:2 animated:YES];
-        
-    }
-}
-
 -(void)getCountryCallBack:(id)dict{
+    NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"-1",@"Code",@"-全部-",@"Name", nil];
+    countryArray = [[NSMutableArray alloc] init];
+    [countryArray addObject:itemDict];
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict[@"data"]);
         NSArray *itemArray = dict[@"data"];
         for (int i = 0; i < itemArray.count; i++) {
             [countryArray addObject:itemArray[i]];
         }
-        selectCountryCode = countryArray[0][@"Code"];
+        countryCode = countryArray[0][@"Code"];
         countryTxt = countryArray[0][@"Name"];
-        if ([countryTxt containsString:@"市"] || [countryTxt containsString:@"县"]) {
-            countryTxt = [countryTxt substringToIndex:countryTxt.length - 1];
-        }
+        [addressPickView selectRow:0 inComponent:2 animated:YES];
         [addressPickView reloadComponent:2];
-        [addressPickView selectRow:[[countryArray valueForKey:@"Name"] indexOfObject:@"兰山区"] inComponent:2 animated:YES];
-        
     }
 }
 
@@ -229,11 +221,10 @@
 
 -(void)TeamTopRefresh
 {
-    NSLog(@"%@---%@----%d",selectCityCode,selectCountryCode,initPage);
     curpage=0;
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"GetTeamListBackCall:"];
-    [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:searchTxt.text andAreaid:[selectCountryCode isEqual:@"-1"]?selectCityCode:selectCountryCode];
+    [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:searchTxt.text andAreaid:[countryCode isEqual:@"-1"]?cityCode:countryCode];
 }
 
 -(void)TeamFootRefresh
@@ -241,7 +232,7 @@
     curpage++;
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
-    [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:searchTxt.text andAreaid:@"371302"];
+    [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:searchTxt.text andAreaid:[countryCode isEqual:@"-1"]?cityCode:countryCode];
 }
 
 -(void)GetTeamListBackCall:(id)dict
@@ -352,7 +343,6 @@
         return cell;
     }else{
         if (indexPath.row == 0) {
-            initPage++;
             UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = ItemsBaseColor;
@@ -469,29 +459,20 @@
     NSLog(@"%ld---%ld",(long)component,(long)row);
     if (component == 0) {
         provinceTxt = provinceArray[row][@"Name"];
-        if ([provinceTxt containsString:@"省"] || [provinceTxt containsString:@"市"] || [countryTxt containsString:@"区"]) {
-            provinceTxt = [provinceTxt substringToIndex:provinceTxt.length - 1];
-        }
-        NSString *provinceCode = provinceArray[row][@"Code"];
+        NSString *provinceCodeStr = provinceArray[row][@"Code"];
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getCityCallBack:"];
-        [dataProvider getCityByProvinceCode:provinceCode];
+        [dataProvider getCityByProvinceCode:provinceCodeStr];
     }else if(component == 1){
-        selectCityCode = cityArray[row][@"Code"];
+        cityCode = cityArray[row][@"Code"];
         cityTxt = cityArray[row][@"Name"];
-        if ([cityTxt containsString:@"市"] || [cityTxt containsString:@"县"]) {
-            cityTxt = [cityTxt substringToIndex:cityTxt.length - 1];
-        }
-        NSString *cityCode = cityArray[row][@"Code"];
+        NSString *cityCodeStr = cityArray[row][@"Code"];
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getCountryCallBack:"];
-        [dataProvider getCountryByCityCode:cityCode];
+        [dataProvider getCountryByCityCode:cityCodeStr];
     }else{
-        selectCountryCode = countryArray[row][@"Code"];
+        countryCode = countryArray[row][@"Code"];
         countryTxt = countryArray[row][@"Name"];
-        if ([countryTxt containsString:@"市"] || [countryTxt containsString:@"县"] || [countryTxt containsString:@"区"]) {
-            countryTxt = [countryTxt substringToIndex:countryTxt.length - 1];
-        }
     }
 }
 

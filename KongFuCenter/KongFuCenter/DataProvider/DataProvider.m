@@ -301,7 +301,19 @@
     }
 }
 
+-(void)GetFriendBySearch:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andNicName:(NSString *)nicName andAreaId:(NSString *)areaId andAge:(NSString *)age andSexuality:(NSString *)sexuality andUserid:(NSString *)userid{
+    NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetFriendBySearch",Url];
+    NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"nicName":nicName,@"areaId":areaId,@"age":age,@"sexuality":sexuality,@"userid":userid};
+    [self PostRequest:url andpram:prm];
+}
 
+-(void)SaveFriend:(NSString *)userid andFriendid:(NSString *)friendid{
+    if (userid && friendid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SaveFriend",Url];
+        NSDictionary *prm = @{@"userid":userid,@"friendid":friendid};
+        [self PostRequest:url andpram:prm];
+    }
+}
 
 
 

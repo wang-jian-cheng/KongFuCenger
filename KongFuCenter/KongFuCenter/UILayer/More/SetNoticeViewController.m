@@ -8,6 +8,7 @@
 
 #import "SetNoticeViewController.h"
 #import "ShieldViewController.h"
+#import <AudioToolbox/AudioToolbox.h>
 @interface SetNoticeViewController ()
 {
 #pragma mark - pram for tableView
@@ -25,6 +26,9 @@
     [self setBarTitle:@"聊天通知设置"];
     [self initViews];
     [self addLeftButton:@"left"];
+    
+    
+    
     // Do any additional setup after loading the view.
 }
 -(void)initViews
@@ -46,8 +50,6 @@
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
     
-    
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -55,6 +57,85 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+#pragma mark - UISwitch
+- (void)switchBtnAction:(UISwitch *)sender
+{
+    switch (sender.tag) {
+        case 0:
+        {
+            if(sender.isOn == 0)
+            {
+                NSLog(@"关闭朋友圈的评论提示");
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:@"0" forKey:@"comment"];
+            }
+            else
+            {
+                NSLog(@"打开朋友圈的评论提示");
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:@"1" forKey:@"comment"];
+            }
+        }
+            break;
+        case 1:
+        {
+            if(sender.isOn == 0)
+            {
+                NSLog(@"关闭接受新的聊天");
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:@"0" forKey:@"chat"];
+            }
+            else
+            {
+                NSLog(@"打开接受新的聊天");
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:@"1" forKey:@"chat"];
+            }
+        }
+            break;
+        case 2:
+        {
+            if(sender.isOn == 0)
+            {
+                NSLog(@"关闭声音");
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:@"0" forKey:@"sound"];
+            }
+            else
+            {
+                NSLog(@"打开声音");
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:@"1" forKey:@"sound"];
+            }
+        }
+            break;
+        case 3:
+        {
+            if(sender.isOn == 0)
+            {
+                NSLog(@"关闭震动");
+                AudioServicesDisposeSystemSoundID(kSystemSoundID_Vibrate);
+                
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                
+                [userDefaults setObject:@"0" forKey:@"shock"];
+
+            }
+            else
+            {
+                NSLog(@"打开震动");
+                AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+                
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                
+                [userDefaults setObject:@"1" forKey:@"shock"];
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
 
 #pragma mark -  tableview  Delegate
 
@@ -95,6 +176,18 @@
                 switchBtn.layer.cornerRadius = 14;
                 [cell addSubview:switchBtn];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                if([[userDefaults objectForKey:@"comment"] isEqualToString:@"0"])
+                {
+                    [switchBtn setOn:NO];
+                }
+                else
+                {
+                    [switchBtn setOn:YES];
+                }
+                
+                [switchBtn addTarget:self action:@selector(switchBtnAction:) forControlEvents:(UIControlEventValueChanged)];
 
             }
                 break;
@@ -111,6 +204,16 @@
                 [cell addSubview:switchBtn];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                if([[userDefaults objectForKey:@"chat"] isEqualToString:@"0"])
+                {
+                    [switchBtn setOn:NO];
+                }
+                else
+                {
+                    [switchBtn setOn:YES];
+                }
+                [switchBtn addTarget:self action:@selector(switchBtnAction:) forControlEvents:(UIControlEventValueChanged)];
             }
                 break;
             case 2:
@@ -124,8 +227,18 @@
                 switchBtn.layer.cornerRadius = 14;
                 [cell addSubview:switchBtn];
                 
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                if([[userDefaults objectForKey:@"sound"] isEqualToString:@"0"])
+                {
+                    [switchBtn setOn:NO];
+                }
+                else
+                {
+                    [switchBtn setOn:YES];
+                }
+                
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+                [switchBtn addTarget:self action:@selector(switchBtnAction:) forControlEvents:(UIControlEventValueChanged)];
             }
                  break;
             case 3:
@@ -140,7 +253,18 @@
                 [cell addSubview:switchBtn];
                 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+                
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                if([[userDefaults objectForKey:@"shock"] isEqualToString:@"0"])
+                {
+                    [switchBtn setOn:NO];
+                }
+                else
+                {
+                    [switchBtn setOn:YES];
+                }
+                
+                [switchBtn addTarget:self action:@selector(switchBtnAction:) forControlEvents:(UIControlEventValueChanged)];
             }
                 break;
             case 4:
@@ -157,6 +281,9 @@
     return cell;
     
 }
+
+
+
 
 //设置cell每行间隔的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -238,14 +365,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

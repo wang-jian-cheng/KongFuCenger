@@ -8,6 +8,6 @@
 
 #import "BaseNavigationController.h"
 
-@interface MakeMushaViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+@interface MakeMushaViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIActionSheetDelegate,UITextFieldDelegate>
 
 @end
