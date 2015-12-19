@@ -240,7 +240,6 @@
         
         self.tableView.userInteractionEnabled = YES;
     }];
-    
 }
 
 - (void)btn_okAction
@@ -248,6 +247,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         self.tableView.backgroundColor = BACKGROUND_COLOR;
         self.view_alert.hidden = YES;
+        [self clearCache];
     } completion:^(BOOL finished) {
         self.tableView.userInteractionEnabled = YES;
     }];
@@ -270,11 +270,38 @@
     [UIView animateWithDuration:0.5 animations:^{
         self.tableView.backgroundColor = BACKGROUND_COLOR;
         self.view_alertChat.hidden = YES;
+        [self clearCache];
     } completion:^(BOOL finished) {
         
         self.tableView.userInteractionEnabled = YES;
 
     }];
+}
+
+#pragma mark - 清除缓存
+-(void)clearCache
+{
+    dispatch_async(
+       dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+       , ^{
+           
+           NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+           NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:cachPath];
+           
+           for (NSString *p in files) {
+               NSError *error;
+               NSString *path = [cachPath stringByAppendingPathComponent:p];
+               if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+                   [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+               }
+           }
+           [self performSelectorOnMainThread:@selector(clearCacheSuccess)
+                                  withObject:nil waitUntilDone:YES];});
+}
+
+- (void)clearCacheSuccess
+{
+    NSLog(@"清除缓存成功");
 }
 
 @end

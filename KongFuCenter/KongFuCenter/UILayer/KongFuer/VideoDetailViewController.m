@@ -52,6 +52,7 @@
     
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
     
+    
     [dataprovider getStudyOnlineVideoDetial:_videoID];
 }
 -(void)GetVideoDetialCallBack:(id)dict
