@@ -8,11 +8,13 @@
 
 #import "MessagefankuiViewController.h"
 
-@interface MessagefankuiViewController ()
+@interface MessagefankuiViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) UITextField * text_title;
 
 @property (nonatomic, strong) UITextView * detail;
+//@property (nonatomic, strong) UITextField * detail;
+
 
 //图片
 @property (nonatomic, strong) UIImageView * image_1;
@@ -75,6 +77,9 @@
 //    self.text_title.backgroundColor = [UIColor orangeColor];
     self.text_title.textColor = [UIColor whiteColor];
     [self.view addSubview:self.text_title];
+    self.text_title.delegate = self;
+    self.text_title.returnKeyType = UIReturnKeyDone;
+    
     
     UIView * view_line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(title.frame) + 10, self.view.frame.size.width, 1)];
     view_line.backgroundColor = Separator_Color;
@@ -97,16 +102,20 @@
     [self.btn_1 setImage:[UIImage imageNamed:@"picture@2x"] forState:(UIControlStateNormal)];
     [self.btn_1 setTintColor:Separator_Color];
     [self.view addSubview:self.btn_1];
+    [self.btn_1 addTarget:self action:@selector(btn_1Action) forControlEvents:(UIControlEventTouchUpInside)];
     
     self.btn_2 = [UIButton buttonWithType:(UIButtonTypeSystem)];
     self.btn_2.frame = CGRectMake(CGRectGetMaxX(self.btn_1.frame) + 20, CGRectGetMaxY(view_line1.frame) + 10, 30, 30);
     [self.btn_2 setImage:[UIImage imageNamed:@"photo@2x"] forState:(UIControlStateNormal)];
     [self.btn_2 setTintColor:Separator_Color];
     [self.view addSubview:self.btn_2];
+    [self.btn_2 addTarget:self action:@selector(btn_2Action) forControlEvents:(UIControlEventTouchUpInside)];
+    
     
     self.image_1 = [[UIImageView alloc] initWithFrame:CGRectMake(15, CGRectGetMinY(view_line1.frame) - 10 - (self.view.frame.size.width - 70) / 3, (self.view.frame.size.width - 70) / 3, (self.view.frame.size.width - 70) / 3)];
 //    self.image_1.backgroundColor = [UIColor orangeColor];
     [self.view addSubview:self.image_1];
+    
     
     self.image_2 = [[UIImageView alloc] initWithFrame:CGRectMake(15 + ((self.view.frame.size.width - 70) / 3 + 20), CGRectGetMinY(view_line1.frame) - 10 - (self.view.frame.size.width - 70) / 3, (self.view.frame.size.width - 70) / 3, (self.view.frame.size.width - 70) / 3)];
 //    self.image_2.backgroundColor = [UIColor orangeColor];
@@ -122,11 +131,89 @@
     self.detail.font = [UIFont systemFontOfSize:19];
     self.detail.textColor = [UIColor whiteColor];
     [self.view addSubview:self.detail];
+    self.detail.delegate = self;
     
 }
 
+#pragma mark - textField
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.text_title resignFirstResponder];
+    
+    [self.detail resignFirstResponder];
+}
+
 #pragma mark - btn点击事件
+- (void)btn_1Action
+{
+//    NSLog(@"调用相册");
+    //创建图片控制器
+    UIImagePickerController * pick = [[UIImagePickerController alloc] init];
+    pick.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    //是否允许编辑
+    pick.allowsEditing = YES;
+    //代理
+    pick.delegate = self;
+    
+    [self presentViewController:pick animated:YES completion:^{
+        
+    }];
+}
 
+- (void)btn_2Action
+{
+    NSLog(@"调用相机");
+    
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+    //sourceType = UIImagePickerControllerSourceTypeCamera; //照相机
+    //sourceType = UIImagePickerControllerSourceTypePhotoLibrary; //图片库
+    //sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum; //保存的相片
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];//初始化
+    picker.delegate = self;
+    picker.allowsEditing = YES;//设置可编辑
+    picker.sourceType = sourceType;
+    //进入照相界面
+    [self presentViewController:picker animated:YES completion:^{
+        
+    }];
+}
 
+#pragma mark - 调用相册和相机的代理
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    //这个是被编辑过的,
+    if(self.image_1.image == nil)
+    {
+        self.image_1.image = info[UIImagePickerControllerEditedImage];
+    }
+    else
+    {
+        if(self.image_2.image == nil)
+        {
+            self.image_2.image = info[UIImagePickerControllerEditedImage];
+        }
+        else
+        {
+            if(self.image_3.image == nil)
+            {
+                self.image_3.image = info[UIImagePickerControllerEditedImage];
+            }
+            else
+            {
+                NSLog(@"不能添加更多图片");
+            }
+        }
+    }
+    //退出!!
+    [self dismissViewControllerAnimated:YES completion:^{
+    }];
+}
 
 @end
