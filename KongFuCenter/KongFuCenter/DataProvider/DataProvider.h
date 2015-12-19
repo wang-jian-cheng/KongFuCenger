@@ -135,4 +135,7 @@
 //根据市获取县
 -(void)getCountryByCityCode:(NSString *)cityCode;
 
+//上传视频
+-(void)uploadVideoWithPath:(NSURL *)videoPath;
+
 @end

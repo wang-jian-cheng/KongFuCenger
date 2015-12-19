@@ -28,6 +28,47 @@
 		8026D0F71C1BC6BE00D9CD44 /* ErWeiMaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8026D0F51C1BC6BE00D9CD44 /* ErWeiMaViewController.xib */; };
 		8026D0FD1C1C0A1300D9CD44 /* SBXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8026D0FA1C1C0A1300D9CD44 /* SBXMLParser.m */; };
 		8026D0FE1C1C0A1300D9CD44 /* XMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */; };
+		804951FD1C250B3800F5584A /* CIImageRendererUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951B41C250B3800F5584A /* CIImageRendererUtils.m */; };
+		804951FE1C250B3800F5584A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 804951B51C250B3800F5584A /* LICENSE */; };
+		804951FF1C250B3800F5584A /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 804951B61C250B3800F5584A /* README.md */; };
+		804952001C250B3800F5584A /* SCAssetExportSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951B81C250B3800F5584A /* SCAssetExportSession.m */; };
+		804952011C250B3800F5584A /* SCAudioConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951BA1C250B3800F5584A /* SCAudioConfiguration.m */; };
+		804952021C250B3800F5584A /* SCAudioTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951BC1C250B3800F5584A /* SCAudioTools.m */; };
+		804952031C250B3800F5584A /* SCContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951BF1C250B3800F5584A /* SCContext.m */; };
+		804952041C250B3800F5584A /* SCFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951C11C250B3800F5584A /* SCFilter.m */; };
+		804952051C250B3800F5584A /* SCFilterAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951C31C250B3800F5584A /* SCFilterAnimation.m */; };
+		804952061C250B3800F5584A /* SCFilterSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951C51C250B3800F5584A /* SCFilterSelectorView.m */; };
+		804952071C250B3800F5584A /* SCImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951C81C250B3800F5584A /* SCImageView.m */; };
+		804952081C250B3800F5584A /* SCIOPixelBuffers.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951CA1C250B3800F5584A /* SCIOPixelBuffers.m */; };
+		804952091C250B3800F5584A /* SCMediaTypeConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951CC1C250B3800F5584A /* SCMediaTypeConfiguration.m */; };
+		8049520A1C250B3800F5584A /* SCPhotoConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951CE1C250B3800F5584A /* SCPhotoConfiguration.m */; };
+		8049520B1C250B3800F5584A /* SCPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951D01C250B3800F5584A /* SCPlayer.m */; };
+		8049520C1C250B3800F5584A /* SCProcessingQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951D21C250B3800F5584A /* SCProcessingQueue.m */; };
+		8049520D1C250B3800F5584A /* SCRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951D41C250B3800F5584A /* SCRecorder.m */; };
+		8049520E1C250B3800F5584A /* SCRecorderFocusTargetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951D71C250B3800F5584A /* SCRecorderFocusTargetView.m */; };
+		8049520F1C250B3800F5584A /* SCRecorderTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951D91C250B3800F5584A /* SCRecorderTools.m */; };
+		804952101C250B3800F5584A /* SCRecorderToolsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951DB1C250B3800F5584A /* SCRecorderToolsView.m */; };
+		804952111C250B3800F5584A /* SCRecordSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951DD1C250B3800F5584A /* SCRecordSession.m */; };
+		804952121C250B3800F5584A /* SCRecordSessionSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951E01C250B3800F5584A /* SCRecordSessionSegment.m */; };
+		804952131C250B3800F5584A /* SCSampleBufferHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951E21C250B3800F5584A /* SCSampleBufferHolder.m */; };
+		804952141C250B3800F5584A /* SCSwipeableFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951E41C250B3800F5584A /* SCSwipeableFilterView.m */; };
+		804952151C250B3800F5584A /* SCVideoConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951E61C250B3800F5584A /* SCVideoConfiguration.m */; };
+		804952161C250B3800F5584A /* SCVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951E81C250B3800F5584A /* SCVideoPlayerView.m */; };
+		804952171C250B3800F5584A /* SCWeakSelectorTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951EA1C250B3800F5584A /* SCWeakSelectorTarget.m */; };
+		804952181C250B3800F5584A /* CALayer+AddUIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951ED1C250B3800F5584A /* CALayer+AddUIColor.m */; };
+		804952191C250B3800F5584A /* WechatShortVideo_37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 804951EF1C250B3800F5584A /* WechatShortVideo_37x-Checkmark.png */; };
+		8049521A1C250B3800F5584A /* WechatShortVideo_37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 804951F01C250B3800F5584A /* WechatShortVideo_37x-Checkmark@2x.png */; };
+		8049521B1C250B3800F5584A /* WechatShortVideo_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 804951F11C250B3800F5584A /* WechatShortVideo_close.png */; };
+		8049521C1C250B3800F5584A /* WechatShortVideo_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 804951F21C250B3800F5584A /* WechatShortVideo_close@2x.png */; };
+		8049521D1C250B3800F5584A /* WechatShortVideo_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 804951F31C250B3800F5584A /* WechatShortVideo_close@3x.png */; };
+		8049521E1C250B3800F5584A /* WechatShortVideo_scan_focus.png in Resources */ = {isa = PBXBuildFile; fileRef = 804951F41C250B3800F5584A /* WechatShortVideo_scan_focus.png */; };
+		8049521F1C250B3800F5584A /* WechatShortVideo_scan_focus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 804951F51C250B3800F5584A /* WechatShortVideo_scan_focus@2x.png */; };
+		804952201C250B3800F5584A /* WechatShortVideo_scan_focus@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 804951F61C250B3800F5584A /* WechatShortVideo_scan_focus@3x.png */; };
+		804952211C250B3800F5584A /* SCRecordSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951F81C250B3800F5584A /* SCRecordSessionManager.m */; };
+		804952221C250B3800F5584A /* WechatShortVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951FB1C250B3800F5584A /* WechatShortVideoController.m */; };
+		804952231C250B3800F5584A /* WechatShortVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804951FC1C250B3800F5584A /* WechatShortVideoController.xib */; };
+		804952271C2523FA00F5584A /* UploadVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 804952251C2523FA00F5584A /* UploadVideoViewController.m */; };
+		804952281C2523FA00F5584A /* UploadVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804952261C2523FA00F5584A /* UploadVideoViewController.xib */; };
 		80DB84611C23D3A6008CA670 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DB84411C23D3A6008CA670 /* MKAnnotationView+WebCache.m */; };
 		80DB84621C23D3A6008CA670 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DB84431C23D3A6008CA670 /* NSData+ImageContentType.m */; };
 		80DB84631C23D3A6008CA670 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DB84451C23D3A6008CA670 /* SDImageCache.m */; };
@@ -361,6 +402,82 @@
 		8026D0FA1C1C0A1300D9CD44 /* SBXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBXMLParser.m; sourceTree = "<group>"; };
 		8026D0FB1C1C0A1300D9CD44 /* XMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLElement.h; sourceTree = "<group>"; };
 		8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLElement.m; sourceTree = "<group>"; };
+		804951B21C250B3800F5584A /* CIImageRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIImageRenderer.h; sourceTree = "<group>"; };
+		804951B31C250B3800F5584A /* CIImageRendererUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIImageRendererUtils.h; sourceTree = "<group>"; };
+		804951B41C250B3800F5584A /* CIImageRendererUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIImageRendererUtils.m; sourceTree = "<group>"; };
+		804951B51C250B3800F5584A /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		804951B61C250B3800F5584A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		804951B71C250B3800F5584A /* SCAssetExportSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAssetExportSession.h; sourceTree = "<group>"; };
+		804951B81C250B3800F5584A /* SCAssetExportSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAssetExportSession.m; sourceTree = "<group>"; };
+		804951B91C250B3800F5584A /* SCAudioConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAudioConfiguration.h; sourceTree = "<group>"; };
+		804951BA1C250B3800F5584A /* SCAudioConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAudioConfiguration.m; sourceTree = "<group>"; };
+		804951BB1C250B3800F5584A /* SCAudioTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAudioTools.h; sourceTree = "<group>"; };
+		804951BC1C250B3800F5584A /* SCAudioTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAudioTools.m; sourceTree = "<group>"; };
+		804951BD1C250B3800F5584A /* SCAudioVideoRecorder-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCAudioVideoRecorder-Prefix.pch"; sourceTree = "<group>"; };
+		804951BE1C250B3800F5584A /* SCContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCContext.h; sourceTree = "<group>"; };
+		804951BF1C250B3800F5584A /* SCContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCContext.m; sourceTree = "<group>"; };
+		804951C01C250B3800F5584A /* SCFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilter.h; sourceTree = "<group>"; };
+		804951C11C250B3800F5584A /* SCFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilter.m; sourceTree = "<group>"; };
+		804951C21C250B3800F5584A /* SCFilterAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilterAnimation.h; sourceTree = "<group>"; };
+		804951C31C250B3800F5584A /* SCFilterAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilterAnimation.m; sourceTree = "<group>"; };
+		804951C41C250B3800F5584A /* SCFilterSelectorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilterSelectorView.h; sourceTree = "<group>"; };
+		804951C51C250B3800F5584A /* SCFilterSelectorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFilterSelectorView.m; sourceTree = "<group>"; };
+		804951C61C250B3800F5584A /* SCFilterSelectorViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFilterSelectorViewInternal.h; sourceTree = "<group>"; };
+		804951C71C250B3800F5584A /* SCImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCImageView.h; sourceTree = "<group>"; };
+		804951C81C250B3800F5584A /* SCImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCImageView.m; sourceTree = "<group>"; };
+		804951C91C250B3800F5584A /* SCIOPixelBuffers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCIOPixelBuffers.h; sourceTree = "<group>"; };
+		804951CA1C250B3800F5584A /* SCIOPixelBuffers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCIOPixelBuffers.m; sourceTree = "<group>"; };
+		804951CB1C250B3800F5584A /* SCMediaTypeConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMediaTypeConfiguration.h; sourceTree = "<group>"; };
+		804951CC1C250B3800F5584A /* SCMediaTypeConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMediaTypeConfiguration.m; sourceTree = "<group>"; };
+		804951CD1C250B3800F5584A /* SCPhotoConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPhotoConfiguration.h; sourceTree = "<group>"; };
+		804951CE1C250B3800F5584A /* SCPhotoConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPhotoConfiguration.m; sourceTree = "<group>"; };
+		804951CF1C250B3800F5584A /* SCPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPlayer.h; sourceTree = "<group>"; };
+		804951D01C250B3800F5584A /* SCPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPlayer.m; sourceTree = "<group>"; };
+		804951D11C250B3800F5584A /* SCProcessingQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCProcessingQueue.h; sourceTree = "<group>"; };
+		804951D21C250B3800F5584A /* SCProcessingQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCProcessingQueue.m; sourceTree = "<group>"; };
+		804951D31C250B3800F5584A /* SCRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecorder.h; sourceTree = "<group>"; };
+		804951D41C250B3800F5584A /* SCRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecorder.m; sourceTree = "<group>"; };
+		804951D51C250B3800F5584A /* SCRecorderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecorderDelegate.h; sourceTree = "<group>"; };
+		804951D61C250B3800F5584A /* SCRecorderFocusTargetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecorderFocusTargetView.h; sourceTree = "<group>"; };
+		804951D71C250B3800F5584A /* SCRecorderFocusTargetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecorderFocusTargetView.m; sourceTree = "<group>"; };
+		804951D81C250B3800F5584A /* SCRecorderTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecorderTools.h; sourceTree = "<group>"; };
+		804951D91C250B3800F5584A /* SCRecorderTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecorderTools.m; sourceTree = "<group>"; };
+		804951DA1C250B3800F5584A /* SCRecorderToolsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecorderToolsView.h; sourceTree = "<group>"; };
+		804951DB1C250B3800F5584A /* SCRecorderToolsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecorderToolsView.m; sourceTree = "<group>"; };
+		804951DC1C250B3800F5584A /* SCRecordSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecordSession.h; sourceTree = "<group>"; };
+		804951DD1C250B3800F5584A /* SCRecordSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecordSession.m; sourceTree = "<group>"; };
+		804951DE1C250B3800F5584A /* SCRecordSession_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecordSession_Internal.h; sourceTree = "<group>"; };
+		804951DF1C250B3800F5584A /* SCRecordSessionSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecordSessionSegment.h; sourceTree = "<group>"; };
+		804951E01C250B3800F5584A /* SCRecordSessionSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecordSessionSegment.m; sourceTree = "<group>"; };
+		804951E11C250B3800F5584A /* SCSampleBufferHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSampleBufferHolder.h; sourceTree = "<group>"; };
+		804951E21C250B3800F5584A /* SCSampleBufferHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSampleBufferHolder.m; sourceTree = "<group>"; };
+		804951E31C250B3800F5584A /* SCSwipeableFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSwipeableFilterView.h; sourceTree = "<group>"; };
+		804951E41C250B3800F5584A /* SCSwipeableFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSwipeableFilterView.m; sourceTree = "<group>"; };
+		804951E51C250B3800F5584A /* SCVideoConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoConfiguration.h; sourceTree = "<group>"; };
+		804951E61C250B3800F5584A /* SCVideoConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoConfiguration.m; sourceTree = "<group>"; };
+		804951E71C250B3800F5584A /* SCVideoPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVideoPlayerView.h; sourceTree = "<group>"; };
+		804951E81C250B3800F5584A /* SCVideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVideoPlayerView.m; sourceTree = "<group>"; };
+		804951E91C250B3800F5584A /* SCWeakSelectorTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWeakSelectorTarget.h; sourceTree = "<group>"; };
+		804951EA1C250B3800F5584A /* SCWeakSelectorTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWeakSelectorTarget.m; sourceTree = "<group>"; };
+		804951EC1C250B3800F5584A /* CALayer+AddUIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+AddUIColor.h"; sourceTree = "<group>"; };
+		804951ED1C250B3800F5584A /* CALayer+AddUIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+AddUIColor.m"; sourceTree = "<group>"; };
+		804951EF1C250B3800F5584A /* WechatShortVideo_37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WechatShortVideo_37x-Checkmark.png"; sourceTree = "<group>"; };
+		804951F01C250B3800F5584A /* WechatShortVideo_37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WechatShortVideo_37x-Checkmark@2x.png"; sourceTree = "<group>"; };
+		804951F11C250B3800F5584A /* WechatShortVideo_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WechatShortVideo_close.png; sourceTree = "<group>"; };
+		804951F21C250B3800F5584A /* WechatShortVideo_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WechatShortVideo_close@2x.png"; sourceTree = "<group>"; };
+		804951F31C250B3800F5584A /* WechatShortVideo_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WechatShortVideo_close@3x.png"; sourceTree = "<group>"; };
+		804951F41C250B3800F5584A /* WechatShortVideo_scan_focus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WechatShortVideo_scan_focus.png; sourceTree = "<group>"; };
+		804951F51C250B3800F5584A /* WechatShortVideo_scan_focus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WechatShortVideo_scan_focus@2x.png"; sourceTree = "<group>"; };
+		804951F61C250B3800F5584A /* WechatShortVideo_scan_focus@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WechatShortVideo_scan_focus@3x.png"; sourceTree = "<group>"; };
+		804951F71C250B3800F5584A /* SCRecordSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecordSessionManager.h; sourceTree = "<group>"; };
+		804951F81C250B3800F5584A /* SCRecordSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecordSessionManager.m; sourceTree = "<group>"; };
+		804951F91C250B3800F5584A /* WechatShortVideoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatShortVideoConfig.h; sourceTree = "<group>"; };
+		804951FA1C250B3800F5584A /* WechatShortVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatShortVideoController.h; sourceTree = "<group>"; };
+		804951FB1C250B3800F5584A /* WechatShortVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WechatShortVideoController.m; sourceTree = "<group>"; };
+		804951FC1C250B3800F5584A /* WechatShortVideoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WechatShortVideoController.xib; sourceTree = "<group>"; };
+		804952241C2523FA00F5584A /* UploadVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadVideoViewController.h; sourceTree = "<group>"; };
+		804952251C2523FA00F5584A /* UploadVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadVideoViewController.m; sourceTree = "<group>"; };
+		804952261C2523FA00F5584A /* UploadVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadVideoViewController.xib; sourceTree = "<group>"; };
 		80DB84401C23D3A6008CA670 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		80DB84411C23D3A6008CA670 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		80DB84421C23D3A6008CA670 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -1015,6 +1132,110 @@
 			path = xml;
 			sourceTree = "<group>";
 		};
+		804951B01C250B3800F5584A /* PhoneVideo */ = {
+			isa = PBXGroup;
+			children = (
+				804951B11C250B3800F5584A /* SCRecorder */,
+				804951EB1C250B3800F5584A /* WechatShortVideo */,
+			);
+			path = PhoneVideo;
+			sourceTree = "<group>";
+		};
+		804951B11C250B3800F5584A /* SCRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				804951B21C250B3800F5584A /* CIImageRenderer.h */,
+				804951B31C250B3800F5584A /* CIImageRendererUtils.h */,
+				804951B41C250B3800F5584A /* CIImageRendererUtils.m */,
+				804951B51C250B3800F5584A /* LICENSE */,
+				804951B61C250B3800F5584A /* README.md */,
+				804951B71C250B3800F5584A /* SCAssetExportSession.h */,
+				804951B81C250B3800F5584A /* SCAssetExportSession.m */,
+				804951B91C250B3800F5584A /* SCAudioConfiguration.h */,
+				804951BA1C250B3800F5584A /* SCAudioConfiguration.m */,
+				804951BB1C250B3800F5584A /* SCAudioTools.h */,
+				804951BC1C250B3800F5584A /* SCAudioTools.m */,
+				804951BD1C250B3800F5584A /* SCAudioVideoRecorder-Prefix.pch */,
+				804951BE1C250B3800F5584A /* SCContext.h */,
+				804951BF1C250B3800F5584A /* SCContext.m */,
+				804951C01C250B3800F5584A /* SCFilter.h */,
+				804951C11C250B3800F5584A /* SCFilter.m */,
+				804951C21C250B3800F5584A /* SCFilterAnimation.h */,
+				804951C31C250B3800F5584A /* SCFilterAnimation.m */,
+				804951C41C250B3800F5584A /* SCFilterSelectorView.h */,
+				804951C51C250B3800F5584A /* SCFilterSelectorView.m */,
+				804951C61C250B3800F5584A /* SCFilterSelectorViewInternal.h */,
+				804951C71C250B3800F5584A /* SCImageView.h */,
+				804951C81C250B3800F5584A /* SCImageView.m */,
+				804951C91C250B3800F5584A /* SCIOPixelBuffers.h */,
+				804951CA1C250B3800F5584A /* SCIOPixelBuffers.m */,
+				804951CB1C250B3800F5584A /* SCMediaTypeConfiguration.h */,
+				804951CC1C250B3800F5584A /* SCMediaTypeConfiguration.m */,
+				804951CD1C250B3800F5584A /* SCPhotoConfiguration.h */,
+				804951CE1C250B3800F5584A /* SCPhotoConfiguration.m */,
+				804951CF1C250B3800F5584A /* SCPlayer.h */,
+				804951D01C250B3800F5584A /* SCPlayer.m */,
+				804951D11C250B3800F5584A /* SCProcessingQueue.h */,
+				804951D21C250B3800F5584A /* SCProcessingQueue.m */,
+				804951D31C250B3800F5584A /* SCRecorder.h */,
+				804951D41C250B3800F5584A /* SCRecorder.m */,
+				804951D51C250B3800F5584A /* SCRecorderDelegate.h */,
+				804951D61C250B3800F5584A /* SCRecorderFocusTargetView.h */,
+				804951D71C250B3800F5584A /* SCRecorderFocusTargetView.m */,
+				804951D81C250B3800F5584A /* SCRecorderTools.h */,
+				804951D91C250B3800F5584A /* SCRecorderTools.m */,
+				804951DA1C250B3800F5584A /* SCRecorderToolsView.h */,
+				804951DB1C250B3800F5584A /* SCRecorderToolsView.m */,
+				804951DC1C250B3800F5584A /* SCRecordSession.h */,
+				804951DD1C250B3800F5584A /* SCRecordSession.m */,
+				804951DE1C250B3800F5584A /* SCRecordSession_Internal.h */,
+				804951DF1C250B3800F5584A /* SCRecordSessionSegment.h */,
+				804951E01C250B3800F5584A /* SCRecordSessionSegment.m */,
+				804951E11C250B3800F5584A /* SCSampleBufferHolder.h */,
+				804951E21C250B3800F5584A /* SCSampleBufferHolder.m */,
+				804951E31C250B3800F5584A /* SCSwipeableFilterView.h */,
+				804951E41C250B3800F5584A /* SCSwipeableFilterView.m */,
+				804951E51C250B3800F5584A /* SCVideoConfiguration.h */,
+				804951E61C250B3800F5584A /* SCVideoConfiguration.m */,
+				804951E71C250B3800F5584A /* SCVideoPlayerView.h */,
+				804951E81C250B3800F5584A /* SCVideoPlayerView.m */,
+				804951E91C250B3800F5584A /* SCWeakSelectorTarget.h */,
+				804951EA1C250B3800F5584A /* SCWeakSelectorTarget.m */,
+			);
+			path = SCRecorder;
+			sourceTree = "<group>";
+		};
+		804951EB1C250B3800F5584A /* WechatShortVideo */ = {
+			isa = PBXGroup;
+			children = (
+				804951EC1C250B3800F5584A /* CALayer+AddUIColor.h */,
+				804951ED1C250B3800F5584A /* CALayer+AddUIColor.m */,
+				804951EE1C250B3800F5584A /* Resources */,
+				804951F71C250B3800F5584A /* SCRecordSessionManager.h */,
+				804951F81C250B3800F5584A /* SCRecordSessionManager.m */,
+				804951F91C250B3800F5584A /* WechatShortVideoConfig.h */,
+				804951FA1C250B3800F5584A /* WechatShortVideoController.h */,
+				804951FB1C250B3800F5584A /* WechatShortVideoController.m */,
+				804951FC1C250B3800F5584A /* WechatShortVideoController.xib */,
+			);
+			path = WechatShortVideo;
+			sourceTree = "<group>";
+		};
+		804951EE1C250B3800F5584A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				804951EF1C250B3800F5584A /* WechatShortVideo_37x-Checkmark.png */,
+				804951F01C250B3800F5584A /* WechatShortVideo_37x-Checkmark@2x.png */,
+				804951F11C250B3800F5584A /* WechatShortVideo_close.png */,
+				804951F21C250B3800F5584A /* WechatShortVideo_close@2x.png */,
+				804951F31C250B3800F5584A /* WechatShortVideo_close@3x.png */,
+				804951F41C250B3800F5584A /* WechatShortVideo_scan_focus.png */,
+				804951F51C250B3800F5584A /* WechatShortVideo_scan_focus@2x.png */,
+				804951F61C250B3800F5584A /* WechatShortVideo_scan_focus@3x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		80DB843F1C23D3A6008CA670 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -1410,6 +1631,9 @@
 				B5F90ADB1C196A2D00D7879D /* Channel */,
 				B594090E1C0FCF05003DC15D /* KongFuPowerViewController.h */,
 				B594090F1C0FCF05003DC15D /* KongFuPowerViewController.m */,
+				804952241C2523FA00F5584A /* UploadVideoViewController.h */,
+				804952251C2523FA00F5584A /* UploadVideoViewController.m */,
+				804952261C2523FA00F5584A /* UploadVideoViewController.xib */,
 			);
 			path = KongFuPower;
 			sourceTree = "<group>";
@@ -1478,6 +1702,7 @@
 		B5AF704F1C17C20600C041AF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				804951B01C250B3800F5584A /* PhoneVideo */,
 				80DB843F1C23D3A6008CA670 /* SDWebImage */,
 				B7D846161C22AB7500718E9E /* MJRefresh */,
 				8026D0F81C1C0A1300D9CD44 /* xml */,
@@ -2154,9 +2379,11 @@
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
 				B7E4CD0F1C1FE15000C2E69A /* wydt.png in Resources */,
 				B7617E531C1C299700CF96E7 /* button_send_comment@2x.png in Resources */,
+				804952201C250B3800F5584A /* WechatShortVideo_scan_focus@3x.png in Resources */,
 				B53E738A1C167080009E7878 /* JiFenTableViewCell.xib in Resources */,
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
 				B5AF70701C181FAD00C041AF /* weixin@2x.png in Resources */,
+				804952191C250B3800F5584A /* WechatShortVideo_37x-Checkmark.png in Resources */,
 				B7617E4F1C1C299700CF96E7 /* 03@2x.png in Resources */,
 				B7E4CD221C1FE28500C2E69A /* wdwy.png in Resources */,
 				B7E4CD151C1FE1AE00C2E69A /* jjwz.png in Resources */,
@@ -2166,17 +2393,20 @@
 				B7E4CCFF1C1FA1F200C2E69A /* zdjs.png in Resources */,
 				B53791C01C1579F500C45BA7 /* hezhuangbei@2x.png in Resources */,
 				B53791CD1C15821E00C45BA7 /* right@2x.png in Resources */,
+				8049521B1C250B3800F5584A /* WechatShortVideo_close.png in Resources */,
 				B53791C71C157ED000C45BA7 /* showimg@2x.png in Resources */,
 				B5905E111C1BC53F00ECA9BA /* yewenback@2x.png in Resources */,
 				B7617E541C1C299700CF96E7 /* fw_r2_c2@2x.png in Resources */,
 				B53E739C1C16E676009E7878 /* btnCorner@2x.png in Resources */,
 				B5AF707C1C1830BA00C041AF /* moreNoword@2x.png in Resources */,
 				B5F13B271C1FBAAC00155038 /* ShareSDK.bundle in Resources */,
+				804951FE1C250B3800F5584A /* LICENSE in Resources */,
 				B5AF706A1C18032B00C041AF /* VipViewController.xib in Resources */,
 				B5F90ADA1C194FCA00D7879D /* clock@2x.png in Resources */,
 				B7E4CD001C1FA1F200C2E69A /* zdgg.png in Resources */,
 				802118E71C1AFAE100DCEE73 /* yinliangda.png in Resources */,
 				B7617E4E1C1C299700CF96E7 /* 02@2x.png in Resources */,
+				804952281C2523FA00F5584A /* UploadVideoViewController.xib in Resources */,
 				B5905E091C1BC2CF00ECA9BA /* search.png in Resources */,
 				B53E739A1C16E1EF009E7878 /* pointH@2x.png in Resources */,
 				B53E738C1C1673B3009E7878 /* tip@2x.png in Resources */,
@@ -2188,6 +2418,7 @@
 				B5AF70621C17F69B00C041AF /* ZhiBoViewController.xib in Resources */,
 				B7D846511C22AB7500718E9E /* MJRefresh.bundle in Resources */,
 				B53E73921C16AB0C009E7878 /* wuguanimg@2x.png in Resources */,
+				804952231C250B3800F5584A /* WechatShortVideoController.xib in Resources */,
 				B53E737B1C166389009E7878 /* collect@2x.png in Resources */,
 				B5AF70641C17FA7300C041AF /* zhibo@2x.png in Resources */,
 				B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */,
@@ -2216,11 +2447,14 @@
 				B5F13B3D1C1FE6E600155038 /* 108@2x.png in Resources */,
 				B53E737F1C166389009E7878 /* support@2x.png in Resources */,
 				802118EA1C1AFAE100DCEE73 /* nil.png in Resources */,
+				8049521E1C250B3800F5584A /* WechatShortVideo_scan_focus.png in Resources */,
 				B7E4CD131C1FE19C00C2E69A /* lmdt.png in Resources */,
 				B5F13B3C1C1FE6E600155038 /* 1024@2x.png in Resources */,
 				B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */,
 				B7617E4D1C1C299700CF96E7 /* 01@2x.png in Resources */,
 				B5D89A071C1165E400F55BFA /* temp@2x.png in Resources */,
+				8049521C1C250B3800F5584A /* WechatShortVideo_close@2x.png in Resources */,
+				8049521D1C250B3800F5584A /* WechatShortVideo_close@3x.png in Resources */,
 				B5F13B421C1FE6E600155038 /* 80@2x.png in Resources */,
 				B5905E0D1C1BC2CF00ECA9BA /* yijieshu.png in Resources */,
 				B5AF70731C18216C00C041AF /* selectRound@2x.png in Resources */,
@@ -2248,6 +2482,7 @@
 				B5AF70841C183A9F00C041AF /* down@2x.png in Resources */,
 				B5905E161C1BCC7700ECA9BA /* dajiahao@2x.png in Resources */,
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
+				8049521A1C250B3800F5584A /* WechatShortVideo_37x-Checkmark@2x.png in Resources */,
 				B7E4CCFE1C1FA1F200C2E69A /* zdcy.png in Resources */,
 				B7E4CD1D1C1FE20000C2E69A /* zphz.png in Resources */,
 				B5905E081C1BC2CF00ECA9BA /* jointeam.png in Resources */,
@@ -2262,6 +2497,7 @@
 				B5905E0C1C1BC2CF00ECA9BA /* xing.png in Resources */,
 				B53791BD1C1579F500C45BA7 /* hedongli@2x.png in Resources */,
 				B7CE7F3F1C16B0B00035D8CA /* MushaMatchCell.xib in Resources */,
+				8049521F1C250B3800F5584A /* WechatShortVideo_scan_focus@2x.png in Resources */,
 				B7E4CD011C1FA1F200C2E69A /* zdlt.png in Resources */,
 				B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */,
 			);
@@ -2342,6 +2578,7 @@
 				B7D8464E1C22AB7500718E9E /* MJRefreshGifHeader.m in Sources */,
 				B7D846501C22AB7500718E9E /* MJRefreshStateHeader.m in Sources */,
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
+				804952151C250B3800F5584A /* SCVideoConfiguration.m in Sources */,
 				B72E39F41C1AB4D0007356C4 /* MakeMushaViewController.m in Sources */,
 				80DB846C1C23D3A6008CA670 /* UIImage+MultiFormat.m in Sources */,
 				B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */,
@@ -2352,6 +2589,8 @@
 				B72E39F81C1AB5AD007356C4 /* MakeMushaCell.m in Sources */,
 				7BA51EB51C23D9F6004BBB30 /* IntroViewController.m in Sources */,
 				7BA51EB91C23E01E004BBB30 /* MessagefankuiViewController.m in Sources */,
+				8049520A1C250B3800F5584A /* SCPhotoConfiguration.m in Sources */,
+				8049520F1C250B3800F5584A /* SCRecorderTools.m in Sources */,
 				B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */,
 				80DB846B1C23D3A6008CA670 /* UIImage+GIF.m in Sources */,
 				B7D846491C22AB7500718E9E /* MJRefreshAutoNormalFooter.m in Sources */,
@@ -2367,8 +2606,10 @@
 				B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */,
 				80DB84661C23D3A6008CA670 /* SDWebImageDownloader.m in Sources */,
 				B5AF70591C17C21400C041AF /* Dialog.m in Sources */,
+				804952031C250B3800F5584A /* SCContext.m in Sources */,
 				B53791A41C151AED00C45BA7 /* VideoDetailViewController.m in Sources */,
 				B7D846431C22AB7500718E9E /* MJRefreshAutoFooter.m in Sources */,
+				804952271C2523FA00F5584A /* UploadVideoViewController.m in Sources */,
 				B7617E701C1C29A500CF96E7 /* YMReplyInputView.m in Sources */,
 				B5F4E39D1C1E6BD6001F81F0 /* JiangHuStoryViewController.m in Sources */,
 				B5F90ADE1C196AB800D7879D /* ChannelViewController.m in Sources */,
@@ -2377,56 +2618,73 @@
 				B5D899F91C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m in Sources */,
 				B5F90AF51C197F1700D7879D /* DataDefine.m in Sources */,
 				B53791B41C15709B00C45BA7 /* WuGuanDetailViewController.m in Sources */,
+				804951FD1C250B3800F5584A /* CIImageRendererUtils.m in Sources */,
 				B5F90AF21C197D3D00D7879D /* UIView+XD.m in Sources */,
+				804952041C250B3800F5584A /* SCFilter.m in Sources */,
 				B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */,
+				804952181C250B3800F5584A /* CALayer+AddUIColor.m in Sources */,
 				7BCBB22A1C2393C800C2AAAA /* ClearCacheViewController.m in Sources */,
 				B7D846531C22AB7500718E9E /* UIScrollView+MJExtension.m in Sources */,
 				B7D846481C22AB7500718E9E /* MJRefreshAutoGifFooter.m in Sources */,
 				80DB846F1C23D3A6008CA670 /* UIImageView+WebCache.m in Sources */,
 				B53791B01C156B8C00C45BA7 /* VideoListForStudyViewController.m in Sources */,
+				804952011C250B3800F5584A /* SCAudioConfiguration.m in Sources */,
 				B7617E3B1C1C298F00CF96E7 /* ILRegularExpressionManager.m in Sources */,
 				B7CE7F3A1C16AF780035D8CA /* MushaMatch.m in Sources */,
 				B7617E721C1C29A500CF96E7 /* YMTableViewCell.m in Sources */,
 				B5F90ACD1C190CF900D7879D /* ChoosePlanTypeViewController.m in Sources */,
 				B5F90AEE1C197D3D00D7879D /* LoginViewController.m in Sources */,
+				804951FF1C250B3800F5584A /* README.md in Sources */,
 				B7D8464C1C22AB7500718E9E /* MJRefreshBackNormalFooter.m in Sources */,
 				B7CE7F471C16C6F30035D8CA /* JoinTeamCell.m in Sources */,
+				804952081C250B3800F5584A /* SCIOPixelBuffers.m in Sources */,
 				B59409191C0FD720003DC15D /* Toolkit.m in Sources */,
 				B7617E401C1C298F00CF96E7 /* YMTextData.m in Sources */,
 				B53791C51C157CFF00C45BA7 /* KongFuStoreViewController.m in Sources */,
+				804952021C250B3800F5584A /* SCAudioTools.m in Sources */,
 				B7E4CD071C1FB22000C2E69A /* WYNewsViewController.m in Sources */,
 				B7617E291C1C289E00CF96E7 /* UnionNewsViewController.m in Sources */,
+				804952111C250B3800F5584A /* SCRecordSession.m in Sources */,
+				804952051C250B3800F5584A /* SCFilterAnimation.m in Sources */,
 				B5D89A041C11641000F55BFA /* WuGuanTableViewCell.m in Sources */,
 				80DB84631C23D3A6008CA670 /* SDImageCache.m in Sources */,
 				80DB846D1C23D3A6008CA670 /* UIImage+WebP.m in Sources */,
 				B7D846551C22AB7500718E9E /* UIView+MJExtension.m in Sources */,
 				802118EB1C1AFAE100DCEE73 /* Slider.m in Sources */,
 				B7617E6F1C1C29A500CF96E7 /* YMButton.m in Sources */,
+				804952211C250B3800F5584A /* SCRecordSessionManager.m in Sources */,
 				B5F90AF01C197D3D00D7879D /* RegisterViewController.m in Sources */,
 				B72C3CBE1C1558F000D3250A /* KongFuUnionViewController.m in Sources */,
+				8049520C1C250B3800F5584A /* SCProcessingQueue.m in Sources */,
 				B53E73961C16CF01009E7878 /* PersonInfoViewController.m in Sources */,
 				B7CE7F431C16C61E0035D8CA /* JoinTeamViewController.m in Sources */,
 				B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */,
 				7BA38E8D1C213930000996EE /* Member-ViewController.m in Sources */,
 				B569DB9C1C12B6C000325CFA /* UITableViewCell+EditMode.m in Sources */,
+				8049520B1C250B3800F5584A /* SCPlayer.m in Sources */,
 				B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */,
 				80DB846E1C23D3A6008CA670 /* UIImageView+HighlightedWebCache.m in Sources */,
 				7BA38E991C215E62000996EE /* AnnouncementViewController.m in Sources */,
 				B5AF707A1C18293F00C041AF /* TrainsPlanViewController.m in Sources */,
 				B577E2321C1A9A6C006695F1 /* SetNoticeViewController.m in Sources */,
 				B5F4E3A61C1EBBB6001F81F0 /* StrangerInfoViewController.m in Sources */,
+				804952071C250B3800F5584A /* SCImageView.m in Sources */,
+				8049520D1C250B3800F5584A /* SCRecorder.m in Sources */,
 				B7D8464B1C22AB7500718E9E /* MJRefreshBackGifFooter.m in Sources */,
 				B7D846541C22AB7500718E9E /* UIScrollView+MJRefresh.m in Sources */,
 				B7D8464F1C22AB7500718E9E /* MJRefreshNormalHeader.m in Sources */,
 				B5F90AE11C19702400D7879D /* ChannelVideosViewController.m in Sources */,
 				B5905E191C1BF21100ECA9BA /* PlayerForMatchViewController.m in Sources */,
+				804952101C250B3800F5584A /* SCRecorderToolsView.m in Sources */,
 				B7CE7F3E1C16B0B00035D8CA /* MushaMatchCell.m in Sources */,
 				B7D8464D1C22AB7500718E9E /* MJRefreshBackStateFooter.m in Sources */,
 				B7D846441C22AB7500718E9E /* MJRefreshBackFooter.m in Sources */,
 				8026D0FE1C1C0A1300D9CD44 /* XMLElement.m in Sources */,
 				B7617E3D1C1C298F00CF96E7 /* NSString+NSString_ILExtension.m in Sources */,
+				804952131C250B3800F5584A /* SCSampleBufferHolder.m in Sources */,
 				8026D0FD1C1C0A1300D9CD44 /* SBXMLParser.m in Sources */,
 				B7D846471C22AB7500718E9E /* MJRefreshHeader.m in Sources */,
+				804952171C250B3800F5584A /* SCWeakSelectorTarget.m in Sources */,
 				B7CCA2D41C21036400B7AC8C /* ChatLocationViewController.m in Sources */,
 				7BA3A3161C2289070028C8A3 /* ShieldViewController.m in Sources */,
 				B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */,
@@ -2436,13 +2694,16 @@
 				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
 				B7617E731C1C29A500CF96E7 /* YMTapGestureRecongnizer.m in Sources */,
 				B7617E3F1C1C298F00CF96E7 /* WFReplyBody.m in Sources */,
+				804952141C250B3800F5584A /* SCSwipeableFilterView.m in Sources */,
 				B5905DF81C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m in Sources */,
 				B5AF707F1C1837F600C041AF /* NewPlanViewController.m in Sources */,
 				7BA38E9C1C2162E8000996EE /* AnnouncementTableViewCell.m in Sources */,
 				B53E73851C166FCB009E7878 /* JiFenViewController.m in Sources */,
+				804952161C250B3800F5584A /* SCVideoPlayerView.m in Sources */,
 				B53E73891C167080009E7878 /* JiFenTableViewCell.m in Sources */,
 				B7617E6C1C1C29A500CF96E7 /* WFHudView.m in Sources */,
 				B7D846461C22AB7500718E9E /* MJRefreshFooter.m in Sources */,
+				804952121C250B3800F5584A /* SCRecordSessionSegment.m in Sources */,
 				80DB84681C23D3A6008CA670 /* SDWebImageManager.m in Sources */,
 				B5905E1C1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m in Sources */,
 				B7617E6B1C1C29A500CF96E7 /* WFActionSheet.m in Sources */,
@@ -2457,6 +2718,7 @@
 				B5F4E3A31C1EA45C001F81F0 /* FriendInfoViewController.m in Sources */,
 				B7D846451C22AB7500718E9E /* MJRefreshComponent.m in Sources */,
 				B7617E2C1C1C28AC00CF96E7 /* TeamNewsViewController.m in Sources */,
+				804952221C250B3800F5584A /* WechatShortVideoController.m in Sources */,
 				B5905E141C1BC7D800ECA9BA /* ApplyForMatchViewController.m in Sources */,
 				B5AF70611C17F69B00C041AF /* ZhiBoViewController.m in Sources */,
 				B577E2361C1AA7C2006695F1 /* DataProvider.m in Sources */,
@@ -2468,11 +2730,15 @@
 				8026D0F61C1BC6BE00D9CD44 /* ErWeiMaViewController.m in Sources */,
 				B59408C91C0FC9E8003DC15D /* main.m in Sources */,
 				B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */,
+				804952091C250B3800F5584A /* SCMediaTypeConfiguration.m in Sources */,
 				80DB84621C23D3A6008CA670 /* NSData+ImageContentType.m in Sources */,
 				80DB846A1C23D3A6008CA670 /* UIButton+WebCache.m in Sources */,
 				B7617E271C1C289E00CF96E7 /* UnionNewsCell.m in Sources */,
 				80DB84651C23D3A6008CA670 /* SDWebImageDecoder.m in Sources */,
+				804952061C250B3800F5584A /* SCFilterSelectorView.m in Sources */,
+				8049520E1C250B3800F5584A /* SCRecorderFocusTargetView.m in Sources */,
 				B5F90AED1C197D3D00D7879D /* InputText.m in Sources */,
+				804952001C250B3800F5584A /* SCAssetExportSession.m in Sources */,
 				80DB84691C23D3A6008CA670 /* SDWebImagePrefetcher.m in Sources */,
 				802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */,
 				B7617E711C1C29A500CF96E7 /* YMShowImageView.m in Sources */,

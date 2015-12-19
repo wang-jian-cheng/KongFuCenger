@@ -303,6 +303,20 @@
 
 
 
+
+
+#pragma mark 核动力
+-(void)uploadVideoWithPath:(NSURL *)videoPath
+{
+    if (videoPath) {
+        NSString *url = [NSString stringWithFormat:@"%@Hewuzhe.asmx/UpLoadVideo",Url];
+        NSDictionary *prm = @{@"fileName":@"video"};
+        [self uploadVideoWithFilePath:videoPath andurl:url andprm:prm];
+    }
+}
+
+
+
 #pragma mark 赋值回调
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName
 {
@@ -450,6 +464,58 @@
 {
     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:prm constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imagedata name:@"imgsrc" fileName:@"showorder_img.jpg" mimeType:@"image/jpg"];
+    }];
+    
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *str=[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSData * data =[str dataUsingEncoding:NSUTF8StringEncoding];
+        id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        SEL func_selector = NSSelectorFromString(callBackFunctionName);
+        if ([CallBackObject respondsToSelector:func_selector]) {
+            NSLog(@"回调成功...");
+            [CallBackObject performSelector:func_selector withObject:dict];
+        }else{
+            NSLog(@"回调失败...");
+            [SVProgressHUD dismiss];
+        }
+        NSLog(@"上传完成");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"上传失败->%@", error);
+        [SVProgressHUD showErrorWithStatus:@"请检查网络或防火墙" maskType:SVProgressHUDMaskTypeBlack];
+    }];
+    
+    //执行
+    NSOperationQueue * queue =[[NSOperationQueue alloc] init];
+    [queue addOperation:op];
+    //    FileDetail *file = [FileDetail fileWithName:@"avatar.jpg" data:data];
+    //    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+    //                            file,@"FILES",
+    //                            @"avatar",@"name",
+    //                            key, @"key", nil];
+    //    NSDictionary *result = [HttpRequest upload:[NSString stringWithFormat:@"%@index.php?act=member_index&op=avatar_upload",Url] widthParams:params];
+    //    NSLog(@"%@",result);
+}
+
+
+- (void)uploadVideoWithFilePath:(NSURL *)videoPath andurl:(NSString *)url andprm:(NSDictionary *)prm
+{
+    NSData *itemdata=[NSData dataWithContentsOfURL:videoPath];
+//    
+//    NSData * data=[[NSData alloc] initWithBase64EncodedData:itemdata options:0];
+    
+    
+    // Get NSString from NSData object in Base64
+    NSString *base64Encoded = [itemdata base64EncodedStringWithOptions:0];
+    
+    
+    // NSData from the Base64 encoded str
+    NSData *data = [[NSData alloc]
+                                      initWithBase64EncodedString:base64Encoded options:0];
+    
+    
+    NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:prm constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:data name:@"filestream" fileName:@"video.mov" mimeType:@"video/quicktime"];
     }];
     
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
