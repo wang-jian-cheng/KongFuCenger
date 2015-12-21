@@ -189,8 +189,9 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
-            [secondCateArr removeAllObjects];
-            secondCateArr = dict[@"data"];
+            if(secondCateArr != nil && secondCateArr.count > 0)
+                [secondCateArr removeAllObjects];
+            [secondCateArr addObjectsFromArray:dict[@"data"]];
             
             [mainCollectionView reloadData];
 

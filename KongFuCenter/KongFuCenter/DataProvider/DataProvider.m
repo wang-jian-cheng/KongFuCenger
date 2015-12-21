@@ -263,8 +263,29 @@
 
 
 
+#pragma mark - 武馆
 
-
+//Hewuzhe.asmx/SelectWuGuanPageByCityId
+-(NSInteger)getWuGuanList:(NSString *)cityid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
+{
+    if(cityid != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectWuGuanPageByCityId",Url];
+        NSDictionary * prm=@{@"cityid":cityid,
+                             @"startRowIndex":startRowIndex,
+                             @"maximumRows":maximumRows};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
 
 #pragma mark - 核联盟
 

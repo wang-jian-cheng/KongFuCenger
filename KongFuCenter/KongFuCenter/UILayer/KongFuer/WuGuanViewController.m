@@ -16,6 +16,8 @@
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    
+    UIButton *placeBtn;
 }
 @end
 
@@ -25,6 +27,8 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     [self initViews];
+    
+    
     // Do any additional setup after loading the view.
 }
 
@@ -46,6 +50,19 @@
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
     
+
+    placeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, StatusBar_HEIGHT, 100, NavigationBar_HEIGHT)];
+    [placeBtn setTitle:@"临沂" forState:UIControlStateNormal];
+    [placeBtn addTarget:self action:@selector(LocationBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    placeBtn.center = CGPointMake(SCREEN_WIDTH/2, NavigationBar_HEIGHT/2+StatusBar_HEIGHT);
+    [_topView addSubview:placeBtn];
+    
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(placeBtn.frame.size.width - 15,
+                                                                         (placeBtn.frame.size.height-150)/2, 15, 15)];
+    imgView.image = [UIImage imageNamed:@"upsanjiao"];
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
+    [placeBtn addSubview:imgView];
+    
 }
 
 
@@ -53,7 +70,49 @@
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
+#pragma mark - self data source
+-(void)loadWuguanList:(NSString*)cityId
+{
+    [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getWuguanListCallBack:"];
+    [dataprovider getWuGuanList:@"20644" andStartRowIndex:@"0" andMaximumRows:@"10"];
+}
 
+-(void)getWuguanListCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            NSDictionary *tempDict = dict[@"data"];
+            
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
+
+#pragma mark - click actions
+
+-(void)LocationBtnClick:(UIButton *)sender
+{
+    AutoLocationViewController *autoLocationViewCtl = [[AutoLocationViewController alloc] init];
+    autoLocationViewCtl.navtitle = @"城市推荐";
+    [self.navigationController pushViewController:autoLocationViewCtl animated:YES];
+}
 
 #pragma mark -  tableview  Delegate
 
