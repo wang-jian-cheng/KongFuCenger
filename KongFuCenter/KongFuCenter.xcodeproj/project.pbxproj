@@ -125,6 +125,12 @@
 		B53E73991C16E1EF009E7878 /* point@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E73971C16E1EF009E7878 /* point@2x.png */; };
 		B53E739A1C16E1EF009E7878 /* pointH@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E73981C16E1EF009E7878 /* pointH@2x.png */; };
 		B53E739C1C16E676009E7878 /* btnCorner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E739B1C16E676009E7878 /* btnCorner@2x.png */; };
+		B5451CBE1C2795C8001BB39F /* upsanjiao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5451CBD1C2795C8001BB39F /* upsanjiao@2x.png */; };
+		B5451CC21C279656001BB39F /* AutoLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5451CC01C279656001BB39F /* AutoLocationViewController.m */; };
+		B5451CC31C279656001BB39F /* AutoLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5451CC11C279656001BB39F /* AutoLocationViewController.xib */; };
+		B5451CC91C2796B6001BB39F /* ChineseString.m in Sources */ = {isa = PBXBuildFile; fileRef = B5451CC61C2796B6001BB39F /* ChineseString.m */; };
+		B5451CCA1C2796B6001BB39F /* pinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = B5451CC81C2796B6001BB39F /* pinyin.m */; };
+		B5451CCE1C27970E001BB39F /* CCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5451CCD1C27970E001BB39F /* CCLocationManager.m */; };
 		B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */; };
 		B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */; };
 		B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B569DB901C126F1C00325CFA /* temp2@2x.png */; };
@@ -566,6 +572,16 @@
 		B53E73971C16E1EF009E7878 /* point@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "point@2x.png"; sourceTree = "<group>"; };
 		B53E73981C16E1EF009E7878 /* pointH@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pointH@2x.png"; sourceTree = "<group>"; };
 		B53E739B1C16E676009E7878 /* btnCorner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnCorner@2x.png"; sourceTree = "<group>"; };
+		B5451CBD1C2795C8001BB39F /* upsanjiao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upsanjiao@2x.png"; sourceTree = "<group>"; };
+		B5451CBF1C279656001BB39F /* AutoLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLocationViewController.h; sourceTree = "<group>"; };
+		B5451CC01C279656001BB39F /* AutoLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoLocationViewController.m; sourceTree = "<group>"; };
+		B5451CC11C279656001BB39F /* AutoLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoLocationViewController.xib; sourceTree = "<group>"; };
+		B5451CC51C2796B6001BB39F /* ChineseString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseString.h; sourceTree = "<group>"; };
+		B5451CC61C2796B6001BB39F /* ChineseString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseString.m; sourceTree = "<group>"; };
+		B5451CC71C2796B6001BB39F /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
+		B5451CC81C2796B6001BB39F /* pinyin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pinyin.m; sourceTree = "<group>"; };
+		B5451CCC1C27970E001BB39F /* CCLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLocationManager.h; sourceTree = "<group>"; };
+		B5451CCD1C27970E001BB39F /* CCLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLocationManager.m; sourceTree = "<group>"; };
 		B569DB8A1C126BC600325CFA /* BaseVideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVideoCollectionViewCell.h; sourceTree = "<group>"; };
 		B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVideoCollectionViewCell.m; sourceTree = "<group>"; };
 		B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseVideoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -667,11 +683,11 @@
 		B5D899F71C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayoutAttributes.h; sourceTree = "<group>"; };
 		B5D899F81C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMCollectionViewFlemishBondLayoutAttributes.m; sourceTree = "<group>"; };
 		B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnFlag@2x.png"; sourceTree = "<group>"; };
-		B5D899FE1C11439E00F55BFA /* WuGuanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WuGuanViewController.h; sourceTree = "<group>"; };
-		B5D899FF1C11439E00F55BFA /* WuGuanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WuGuanViewController.m; sourceTree = "<group>"; };
-		B5D89A011C11641000F55BFA /* WuGuanTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WuGuanTableViewCell.h; sourceTree = "<group>"; };
-		B5D89A021C11641000F55BFA /* WuGuanTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WuGuanTableViewCell.m; sourceTree = "<group>"; };
-		B5D89A031C11641000F55BFA /* WuGuanTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WuGuanTableViewCell.xib; sourceTree = "<group>"; };
+		B5D899FE1C11439E00F55BFA /* WuGuanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WuGuanViewController.h; path = KongFuCenter/UILayer/KongFuer/WuGuanViewController.h; sourceTree = SOURCE_ROOT; };
+		B5D899FF1C11439E00F55BFA /* WuGuanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WuGuanViewController.m; path = KongFuCenter/UILayer/KongFuer/WuGuanViewController.m; sourceTree = SOURCE_ROOT; };
+		B5D89A011C11641000F55BFA /* WuGuanTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WuGuanTableViewCell.h; path = KongFuCenter/UILayer/KongFuer/WuGuanTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		B5D89A021C11641000F55BFA /* WuGuanTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WuGuanTableViewCell.m; path = KongFuCenter/UILayer/KongFuer/WuGuanTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		B5D89A031C11641000F55BFA /* WuGuanTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WuGuanTableViewCell.xib; path = KongFuCenter/UILayer/KongFuer/WuGuanTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		B5D89A061C1165E400F55BFA /* temp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp@2x.png"; sourceTree = "<group>"; };
 		B5D89A081C117A4000F55BFA /* MyCollectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCollectViewController.h; sourceTree = "<group>"; };
 		B5D89A091C117A4100F55BFA /* MyCollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
@@ -1347,6 +1363,14 @@
 		B53791B11C15707900C45BA7 /* WuGuan */ = {
 			isa = PBXGroup;
 			children = (
+				B5451CBF1C279656001BB39F /* AutoLocationViewController.h */,
+				B5451CC01C279656001BB39F /* AutoLocationViewController.m */,
+				B5451CC11C279656001BB39F /* AutoLocationViewController.xib */,
+				B5D899FE1C11439E00F55BFA /* WuGuanViewController.h */,
+				B5D899FF1C11439E00F55BFA /* WuGuanViewController.m */,
+				B5D89A011C11641000F55BFA /* WuGuanTableViewCell.h */,
+				B5D89A021C11641000F55BFA /* WuGuanTableViewCell.m */,
+				B5D89A031C11641000F55BFA /* WuGuanTableViewCell.xib */,
 				B53791B21C15709B00C45BA7 /* WuGuanDetailViewController.h */,
 				B53791B31C15709B00C45BA7 /* WuGuanDetailViewController.m */,
 			);
@@ -1356,6 +1380,7 @@
 		B53791B71C1579B100C45BA7 /* HeWuzhe */ = {
 			isa = PBXGroup;
 			children = (
+				B5451CBD1C2795C8001BB39F /* upsanjiao@2x.png */,
 				B5AF70801C183A9F00C041AF /* down@2x.png */,
 				B5AF70811C183A9F00C041AF /* photo@2x.png */,
 				B5AF70821C183A9F00C041AF /* picture@2x.png */,
@@ -1431,6 +1456,27 @@
 				B5F4E3A51C1EBBB6001F81F0 /* StrangerInfoViewController.m */,
 			);
 			path = PersonInfo;
+			sourceTree = "<group>";
+		};
+		B5451CC41C2796B6001BB39F /* ChineseSorting */ = {
+			isa = PBXGroup;
+			children = (
+				B5451CC51C2796B6001BB39F /* ChineseString.h */,
+				B5451CC61C2796B6001BB39F /* ChineseString.m */,
+				B5451CC71C2796B6001BB39F /* pinyin.h */,
+				B5451CC81C2796B6001BB39F /* pinyin.m */,
+			);
+			name = ChineseSorting;
+			path = ../UILayer/ChineseSorting;
+			sourceTree = "<group>";
+		};
+		B5451CCB1C27970E001BB39F /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				B5451CCC1C27970E001BB39F /* CCLocationManager.h */,
+				B5451CCD1C27970E001BB39F /* CCLocationManager.m */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		B569DB8F1C126F1C00325CFA /* temp */ = {
@@ -1670,11 +1716,6 @@
 				B59409091C0FCEE4003DC15D /* KongFuerViewController.m */,
 				B594091E1C102719003DC15D /* StudyOnLineViewController.h */,
 				B594091F1C102719003DC15D /* StudyOnLineViewController.m */,
-				B5D899FE1C11439E00F55BFA /* WuGuanViewController.h */,
-				B5D899FF1C11439E00F55BFA /* WuGuanViewController.m */,
-				B5D89A011C11641000F55BFA /* WuGuanTableViewCell.h */,
-				B5D89A021C11641000F55BFA /* WuGuanTableViewCell.m */,
-				B5D89A031C11641000F55BFA /* WuGuanTableViewCell.xib */,
 				B5D89A081C117A4000F55BFA /* MyCollectViewController.h */,
 				B5D89A091C117A4100F55BFA /* MyCollectViewController.m */,
 				B5D89A0B1C118BB800F55BFA /* MyCollectTableViewCell.h */,
@@ -1794,6 +1835,8 @@
 		B5F13A901C1FA75100155038 /* ThirdFramework */ = {
 			isa = PBXGroup;
 			children = (
+				B5451CCB1C27970E001BB39F /* Location */,
+				B5451CC41C2796B6001BB39F /* ChineseSorting */,
 				B5F2B3181C20F5BF003383AE /* Pingpp */,
 				B5F13AFE1C1FBA9A00155038 /* ShareSdk */,
 				B5F13AE71C1FA80000155038 /* SMS_SDK */,
@@ -2431,6 +2474,7 @@
 				B5AF70621C17F69B00C041AF /* ZhiBoViewController.xib in Resources */,
 				B7D846511C22AB7500718E9E /* MJRefresh.bundle in Resources */,
 				B53E73921C16AB0C009E7878 /* wuguanimg@2x.png in Resources */,
+				B5451CBE1C2795C8001BB39F /* upsanjiao@2x.png in Resources */,
 				804952231C250B3800F5584A /* WechatShortVideoController.xib in Resources */,
 				B53E737B1C166389009E7878 /* collect@2x.png in Resources */,
 				B5AF70641C17FA7300C041AF /* zhibo@2x.png in Resources */,
@@ -2462,6 +2506,7 @@
 				802118EA1C1AFAE100DCEE73 /* nil.png in Resources */,
 				8049521E1C250B3800F5584A /* WechatShortVideo_scan_focus.png in Resources */,
 				B7E4CD131C1FE19C00C2E69A /* lmdt.png in Resources */,
+				B5451CC31C279656001BB39F /* AutoLocationViewController.xib in Resources */,
 				B5F13B3C1C1FE6E600155038 /* 1024@2x.png in Resources */,
 				B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */,
 				B7617E4D1C1C299700CF96E7 /* 01@2x.png in Resources */,
@@ -2605,6 +2650,7 @@
 				8049520A1C250B3800F5584A /* SCPhotoConfiguration.m in Sources */,
 				8049520F1C250B3800F5584A /* SCRecorderTools.m in Sources */,
 				B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */,
+				B5451CC91C2796B6001BB39F /* ChineseString.m in Sources */,
 				80DB846B1C23D3A6008CA670 /* UIImage+GIF.m in Sources */,
 				B7D846491C22AB7500718E9E /* MJRefreshAutoNormalFooter.m in Sources */,
 				B59409001C0FCB0F003DC15D /* BaseNavigationController.m in Sources */,
@@ -2632,6 +2678,7 @@
 				B5F90AF51C197F1700D7879D /* DataDefine.m in Sources */,
 				B53791B41C15709B00C45BA7 /* WuGuanDetailViewController.m in Sources */,
 				804951FD1C250B3800F5584A /* CIImageRendererUtils.m in Sources */,
+				B5451CCE1C27970E001BB39F /* CCLocationManager.m in Sources */,
 				B5F90AF21C197D3D00D7879D /* UIView+XD.m in Sources */,
 				804952041C250B3800F5584A /* SCFilter.m in Sources */,
 				B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */,
@@ -2678,6 +2725,7 @@
 				8049520B1C250B3800F5584A /* SCPlayer.m in Sources */,
 				B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */,
 				80DB846E1C23D3A6008CA670 /* UIImageView+HighlightedWebCache.m in Sources */,
+				B5451CCA1C2796B6001BB39F /* pinyin.m in Sources */,
 				7BA38E991C215E62000996EE /* AnnouncementViewController.m in Sources */,
 				B5AF707A1C18293F00C041AF /* TrainsPlanViewController.m in Sources */,
 				B577E2321C1A9A6C006695F1 /* SetNoticeViewController.m in Sources */,
@@ -2724,6 +2772,7 @@
 				B5D89A001C11439E00F55BFA /* WuGuanViewController.m in Sources */,
 				B5AF705A1C17C21400C041AF /* MBProgressHUD.m in Sources */,
 				7BA38E961C215CFB000996EE /* IntroduceViewController.m in Sources */,
+				B5451CC21C279656001BB39F /* AutoLocationViewController.m in Sources */,
 				80DB84641C23D3A6008CA670 /* SDWebImageCompat.m in Sources */,
 				80DB84671C23D3A6008CA670 /* SDWebImageDownloaderOperation.m in Sources */,
 				802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */,
