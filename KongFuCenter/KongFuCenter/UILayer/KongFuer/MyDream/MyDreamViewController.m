@@ -280,6 +280,7 @@
         CGFloat labHeight = [Toolkit heightWithString:dreamStr fontSize:14 width:labWidth] ;
         
         UILabel *dreamContentLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, (dreamImgView.frame.size.height + 10), labWidth , labHeight)];
+//        dreamContentLab.backgroundColor = [UIColor orangeColor];
         dreamContentLab.font = [UIFont systemFontOfSize:14];
         dreamContentLab.textColor = [UIColor whiteColor];
         dreamContentLab.text = dreamStr;
@@ -338,7 +339,10 @@
     
     if(indexPath.section == 0)
     {
-        return 3*_cellHeight;
+        NSString *dreamStr = @"咏春拳的创始者是福建福清南少林的少林庵五枚师太，她姓朱名红梅，生于明朝天启三年（公元1623年）正月初五，那时候正是红梅盛开的日子。朱红梅，三岁读四书五经、六岁跟府中的将军们学武功，九岁跟御医学中医理论并修炼禅功";
+        CGFloat labHeight = [Toolkit heightWithString:dreamStr fontSize:14 width:self.view.frame.size.width - 30];
+        return labHeight + _cellHeight*1.5 + 30;
+//        return 3*_cellHeight;
     }
     if(indexPath.section == 1)
     {

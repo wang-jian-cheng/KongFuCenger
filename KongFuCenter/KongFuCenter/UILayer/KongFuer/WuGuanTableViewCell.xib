@@ -36,19 +36,19 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电话：0539-1234567" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhy-Tw-exZ">
-                        <rect key="frame" x="202" y="69" width="110" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：临沂市兰山区" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebw-dp-WFC">
+                        <rect key="frame" x="113" y="69" width="89" height="21"/>
                         <animations/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="110" id="PwK-mL-tKa"/>
-                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：临沂市兰山区" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebw-dp-WFC">
-                        <rect key="frame" x="113" y="69" width="79" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电话：0539-1234567" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhy-Tw-exZ">
+                        <rect key="frame" x="212" y="69" width="105" height="21"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="105" id="PwK-mL-tKa"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -62,7 +62,7 @@
                     <constraint firstAttribute="bottomMargin" secondItem="ebw-dp-WFC" secondAttribute="bottom" constant="1" id="AKD-MZ-2Uh"/>
                     <constraint firstItem="jhy-Tw-exZ" firstAttribute="top" secondItem="wkc-Xm-Qpr" secondAttribute="bottom" constant="17" id="DrJ-EX-7Wz"/>
                     <constraint firstItem="ebw-dp-WFC" firstAttribute="leading" secondItem="ErP-Dx-7bU" secondAttribute="trailing" constant="27" id="G1N-UL-wTo"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="jhy-Tw-exZ" secondAttribute="trailing" id="Ifd-fY-pM2"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="jhy-Tw-exZ" secondAttribute="trailing" constant="-5" id="Ifd-fY-pM2"/>
                     <constraint firstAttribute="bottomMargin" secondItem="ebw-dp-WFC" secondAttribute="bottom" constant="1" id="Ihi-wk-JZ6"/>
                     <constraint firstAttribute="topMargin" secondItem="ErP-Dx-7bU" secondAttribute="top" id="M39-Bv-q0f"/>
                     <constraint firstAttribute="bottomMargin" secondItem="ErP-Dx-7bU" secondAttribute="bottom" constant="1" id="UUR-qr-NTE"/>
