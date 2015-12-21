@@ -106,7 +106,7 @@
     
     lvLab = [[UILabel alloc] init];
     lvLab.textColor = [UIColor whiteColor];
-    lvLab.font = [UIFont systemFontOfSize:10];
+    lvLab.font = [UIFont systemFontOfSize:12];
     lvLab.textAlignment = NSTextAlignmentCenter;
     
     isPayLab = [[UILabel alloc] init];
@@ -165,6 +165,7 @@
             }
             
             jiFenNumLab.text = [NSString stringWithFormat:@"%@分",tempDict[@"Credit"]];
+//            jiFenNumLab.text = @"1000分";
             nickLab.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
             IdLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"UserName"]];
             
@@ -202,6 +203,14 @@
     vipViewCtl.navtitle = @"会员详情";
     [self.navigationController pushViewController:vipViewCtl animated:YES];
     
+}
+
+- (void)jiFenAction:(UIButton *)sender
+{
+//    NSLog(@"积分页面");
+    JiFenViewController *jiFenViewCtl = [[JiFenViewController alloc] init];
+    jiFenViewCtl.navtitle = @"我的积分";
+    [self.navigationController pushViewController:jiFenViewCtl animated:YES];
 }
 
 #define DreamBtn  0
@@ -327,47 +336,52 @@
                 IdLab.center = CGPointMake(SCREEN_WIDTH/2,(nickLab.frame.size.height+nickLab.frame.origin.y+10));
                 [cell addSubview:IdLab];
                 
+
                 
-                //vip
-//                UIImageView *vipImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liubianxing"]];
-//                vipImgView.frame = CGRectMake( 20 , 1.5*_cellHeight , 60, 1.5*_cellHeight - 20);
-//                vipImgView.contentMode = UIViewContentModeScaleAspectFit;
-//                [cell addSubview:vipImgView];
-                UIButton *vipBtnView = [[UIButton alloc] init];
-                vipBtnView.frame = CGRectMake( 20 , 1.5*_cellHeight , 60, 1.5*_cellHeight - 20);
-                vipBtnView.contentMode = UIViewContentModeScaleAspectFit;
-                [vipBtnView setImage:[UIImage imageNamed:@"liubianxing"] forState:UIControlStateNormal];
-                [vipBtnView addTarget:self action:@selector(vipClickBtn:) forControlEvents:UIControlEventTouchUpInside];
-                [cell addSubview:vipBtnView];
+                UIImageView *vipImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liubianxing"]];
+                vipImgView.frame = CGRectMake(20 , CGRectGetMinY(headView.frame) + 40 - 20, 65, 50);
+                vipImgView.contentMode = UIViewContentModeScaleAspectFit;
+                [cell addSubview:vipImgView];
                 
- 
+                lvLab.frame = CGRectMake(0, 0, 25, 14);
+                lvLab.center = CGPointMake(vipImgView.frame.size.width/2, vipImgView.frame.size.height / 4 + 5);
+                [vipImgView addSubview:lvLab];
                 
-                lvLab.frame = CGRectMake(0, 0, 40, 20);
-                lvLab.center = CGPointMake(vipBtnView.frame.size.width/2, vipBtnView.frame.size.height/4+8);
-                [vipBtnView addSubview:lvLab];
+                isPayLab.frame = CGRectMake(0, 0, 42, 20);
+                isPayLab.center = CGPointMake(vipImgView.frame.size.width / 2 , vipImgView.frame.size.height / 4 + 20);
+                [vipImgView addSubview:isPayLab];
                 
-                isPayLab.frame = CGRectMake(0, 0, vipBtnView.frame.size.width - 18, 20);
-                isPayLab.center = CGPointMake(vipBtnView.frame.size.width/2, vipBtnView.frame.size.height/4*3-7);
-                [vipBtnView addSubview:isPayLab];
+                UIButton * vip_btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+                vip_btn.frame = CGRectMake(20 , CGRectGetMinY(headView.frame) + 40 - 20, 65, 50);
+//                vip_btn.backgroundColor = [UIColor orangeColor];
+                [cell addSubview:vip_btn];
+                [vip_btn addTarget:self action:@selector(vipClickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+
                 
                 
                 UIImageView *jiFenImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liubianxing"]];
-                jiFenImgView.frame = CGRectMake( (SCREEN_WIDTH -60 - 20) , 1.5*_cellHeight , 60, 1.5*_cellHeight - 20);
+                jiFenImgView.frame = CGRectMake(SCREEN_WIDTH - 80 , CGRectGetMinY(headView.frame) + 40 - 20, 65, 50);
                 jiFenImgView.contentMode = UIViewContentModeScaleAspectFit;
                 [cell addSubview:jiFenImgView];
                 
-                UILabel *jiFenTitlelab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
-                jiFenTitlelab.center = CGPointMake(jiFenImgView.frame.size.width/2, jiFenImgView.frame.size.height/4+8);
+                UILabel *jiFenTitlelab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 25, 14)];
+                jiFenTitlelab.center = CGPointMake(jiFenImgView.frame.size.width/2, jiFenImgView.frame.size.height / 4 + 5);
                 jiFenTitlelab.textColor = [UIColor whiteColor];
-                jiFenTitlelab.font = [UIFont systemFontOfSize:10];
+                jiFenTitlelab.font = [UIFont systemFontOfSize:11];
                 jiFenTitlelab.textAlignment = NSTextAlignmentCenter;
                 jiFenTitlelab.text = @"积分";
                 [jiFenImgView addSubview:jiFenTitlelab];
-                
-                jiFenNumLab.frame = CGRectMake(0, 0, vipBtnView.frame.size.width - 18, 20);
-                jiFenNumLab.center = CGPointMake(vipBtnView.frame.size.width/2, vipBtnView.frame.size.height/4*3-7);
+
+                jiFenNumLab.frame = CGRectMake(0, 0, 42, 20);
+                jiFenNumLab.center = CGPointMake(jiFenImgView.frame.size.width / 2 , jiFenImgView.frame.size.height / 4 + 20);
+//                jiFenNumLab.backgroundColor = [UIColor blackColor];
                 [jiFenImgView addSubview:jiFenNumLab];
                 
+                UIButton * btn_jiFen = [UIButton buttonWithType:(UIButtonTypeSystem)];
+                btn_jiFen.frame = CGRectMake(SCREEN_WIDTH - 80 , CGRectGetMinY(headView.frame) + 40 - 20, 65, 50);
+                [cell addSubview:btn_jiFen];
+//                btn_jiFen.backgroundColor = [UIColor orangeColor];
+                [btn_jiFen addTarget:self action:@selector(jiFenAction:) forControlEvents:(UIControlEventTouchUpInside)];
             }
         }
     }
