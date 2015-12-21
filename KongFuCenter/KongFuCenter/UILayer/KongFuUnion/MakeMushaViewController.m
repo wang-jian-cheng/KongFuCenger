@@ -68,15 +68,24 @@
     mushaArray = [[NSArray alloc] init];
     userDefault = [NSUserDefaults standardUserDefaults];
 
-    provinceId = @"20";
-    provinceCode = @"37";
-    provinceTxt = @"山东省";
-    cityId = @"20642";
-    cityCode = @"3713";
-    cityTxt = @"临沂市";
-    countryId = @"20644";
-    countryCode = @"371302";
-    countryTxt = @"兰山区";
+    
+    NSString *HomeCode = [userDefault valueForKey:@"HomeCode"];
+    NSArray *HomeCodeArray = [HomeCode componentsSeparatedByString:@"&"];
+    
+    provinceCode = HomeCodeArray[0];//@"37";
+    provinceTxt = [userDefault valueForKey:@"HomeAreaprovinceName"];//@"山东省";
+    cityCode = HomeCodeArray[1];//@"3713";
+    cityTxt = [userDefault valueForKey:@"HomeAreaCityName"];//@"临沂市";
+    countryCode = HomeCodeArray[2];//@"371302";
+    countryTxt = [userDefault valueForKey:@"HomeAreaCountyName"];//@"兰山区";
+    
+    provinceCode = HomeCodeArray[0];
+    provinceTxt = [userDefault valueForKey:@"HomeAreaprovinceName"];
+    cityCode = HomeCodeArray[1];
+    cityTxt = [userDefault valueForKey:@"HomeAreaCityName"];
+    countryId = [userDefault valueForKey:@"HomeAreaId"];//@"20644";
+    countryCode = HomeCodeArray[2];
+    countryTxt = [userDefault valueForKey:@"HomeAreaCountyName"];
     selectAge = 0;
     selectAgeTxt = @"--全部--";
     selectSex = 0;
@@ -292,7 +301,7 @@
         }
         mushaArray=[[NSArray alloc] initWithArray:itemarray];
     }
-    [mTableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [mTableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 -(void)selectAgeEvent{

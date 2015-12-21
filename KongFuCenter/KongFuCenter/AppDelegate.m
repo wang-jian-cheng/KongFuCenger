@@ -259,12 +259,16 @@
     if ([dict[@"code"] intValue]==200 ) {
 
         DLog(@"%@ ",dict[@"data"]);
-        
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"Id"] forKey:@"id"];
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"NicName"] forKey:@"NicName"];
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"Token"] forKey:@"token"];
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"PhotoPath"] forKey:@"PhotoPath"];
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"TeamId"] forKey:@"TeamId"];
+        [mUserDefault setValue:[dict[@"data"] valueForKey:@"HomeAreaId"] forKey:@"HomeAreaId"];
+        [mUserDefault setValue:[dict[@"data"] valueForKey:@"HomeCode"] forKey:@"HomeCode"];
+        [mUserDefault setValue:[dict[@"data"] valueForKey:@"HomeAreaprovinceName"] forKey:@"HomeAreaprovinceName"];
+        [mUserDefault setValue:[dict[@"data"] valueForKey:@"HomeAreaCityName"] forKey:@"HomeAreaCityName"];
+        [mUserDefault setValue:[dict[@"data"] valueForKey:@"HomeAreaCountyName"] forKey:@"HomeAreaCountyName"];
         
         [self setNotificate];
     }
