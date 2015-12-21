@@ -17,6 +17,7 @@
 #import "TeamNewsViewController.h"
 #import "WYNewsViewController.h"
 #import "ChatListViewController.h"
+#import "MyFriendViewController.h"
 
 @interface KongFuUnionViewController ()
 {
@@ -56,7 +57,8 @@
 }
 
 -(void)clickLeftButton:(UIButton *)sender{
-    
+    MyFriendViewController *myFriendVC = [[MyFriendViewController alloc] init];
+    [self.navigationController pushViewController:myFriendVC animated:YES];
 }
 
 -(void)clickRightButton:(UIButton *)sender{
