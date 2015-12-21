@@ -52,14 +52,13 @@
     
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
     
-    
     [dataprovider getStudyOnlineVideoDetial:_videoID];
 }
 -(void)GetVideoDetialCallBack:(id)dict
 {
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
-        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
+//        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
         VideoPath=[NSString stringWithFormat:@"%@%@",Kimg_path,[dict[@"data"][@"VideoPath"] isEqual:[NSNull null]]?@"":dict[@"data"][@"VideoPath"]];
         VideoDict=dict[@"data"];
         [self initViews];
@@ -71,24 +70,32 @@
 -(void)initViews
 {
     _cellHeight = SCREEN_HEIGHT/12;
+    
     _sectionNum = 4;
     
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
+    
     _mainTableView.dataSource = self;
+    
     _mainTableView.separatorColor = Separator_Color;
+    
     _mainTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    
     _mainTableView.tableFooterView = [[UIView alloc] init];
+    
     //_mainTableView.scrollEnabled = NO;
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
+    
     [self.view addSubview:_mainTableView];
     
     
     moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
+    
     //     MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:self.view.bounds URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
     [self.view addSubview:moviePlayerview];
     
@@ -314,7 +321,8 @@
                 UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLab.frame.origin.x,
                                                                             (nameLab.frame.origin.y + nameLab.frame.size.height + 2),
                                                                              100, headView.frame.size.height/2)];
-                dateLab.text = @"发布于2015年04月20日";
+                
+                dateLab.text = [NSString stringWithFormat:@"发布于%@",[NSString stringWithFormat:@"%@",VideoDict[@"PublishTime"]].length<10?@"":[[NSString stringWithFormat:@"%@",VideoDict[@"PublishTime"]] substringToIndex:10]];
                 dateLab.textColor = TextColors;
                 dateLab.font = [UIFont systemFontOfSize:FontSize];
                 [cell addSubview:dateLab];
@@ -379,11 +387,11 @@
             {
                 UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 10, SCREEN_WIDTH, 30)];
                 titleLab.textColor = TextColors;
-                titleLab.text = @"名字：咏春拳最快制敌方法";
+                titleLab.text = [VideoDict[@"Title"] isEqual:[NSNull null]]?@"":VideoDict[@"Title"];
                 titleLab.font = [UIFont boldSystemFontOfSize:14];
                 [cell addSubview:titleLab];
                 
-                NSString *detailStr = @"简介：咏春拳是一门传统的中国武术，是一门禁止侵袭技术，是一个积极、精简的正当防卫系统";
+                NSString *detailStr = [VideoDict[@"Content"] isEqual:[NSNull null]]?@"":VideoDict[@"Content"];
                 CGFloat detailWidth = SCREEN_WIDTH-GapToLeft*2;
                 CGFloat detailHeight = [Toolkit heightWithString:detailStr fontSize:12 width:detailWidth];
                 

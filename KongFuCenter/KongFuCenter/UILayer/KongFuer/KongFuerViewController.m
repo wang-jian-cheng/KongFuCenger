@@ -167,7 +167,7 @@
             jiFenNumLab.text = [NSString stringWithFormat:@"%@分",tempDict[@"Credit"]];
 //            jiFenNumLab.text = @"1000分";
             nickLab.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
-            IdLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"UserName"]];
+            IdLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"Phone"]];
             
         }
         @catch (NSException *exception) {

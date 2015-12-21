@@ -135,4 +135,12 @@
 //根据市获取县
 -(void)getCountryByCityCode:(NSString *)cityCode;
 
+//上传视频
+-(void)uploadVideoWithPath:(NSURL *)videoPath;
+//根据条件获取用户
+-(void)GetFriendBySearch:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andNicName:(NSString *)nicName andAreaId:(NSString *)areaId andAge:(NSString *)age andSexuality:(NSString *)sexuality andUserid:(NSString *)userid;
+
+//添加武友
+-(void)SaveFriend:(NSString *)userid andFriendid:(NSString *)friendid;
+
 @end
