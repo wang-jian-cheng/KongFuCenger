@@ -238,7 +238,7 @@
         case KongFuHomeSugBtn:
         {
             WuGuanViewController *wuGuanSugViewCtl= [[WuGuanViewController alloc]init];
-            wuGuanSugViewCtl.navtitle = cateGoryH[KongFuHomeSugBtn];
+           // wuGuanSugViewCtl.navtitle = cateGoryH[KongFuHomeSugBtn];
             [self.navigationController pushViewController:wuGuanSugViewCtl animated:YES];
         }
             break;
