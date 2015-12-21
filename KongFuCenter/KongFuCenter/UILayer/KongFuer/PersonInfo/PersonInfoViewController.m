@@ -7,6 +7,7 @@
 //
 
 #import "PersonInfoViewController.h"
+#import "RegisterViewController.h"
 
 #define HighTAG         (2015+1)
 #define WeightTAG       (2015+2)
@@ -376,7 +377,15 @@
 
 
 #pragma mark - click action
-
+- (void)btn_passwordAction:(UIButton *)sender
+{
+    RegisterViewController * registerViewController = [[RegisterViewController alloc] init];
+    
+    registerViewController.pageMode = 2;
+    [self presentViewController:registerViewController animated:YES completion:^{
+        
+    }];
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -657,7 +666,7 @@
                 titlLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titlLab];
                 
-                nickName.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x),
+                nickName.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x) + 23,
                            0, SCREEN_HEIGHT - (titlLab.frame.size.width + titlLab.frame.origin.x)
                                              , _cellHeight);
                 nickName.backgroundColor = ItemsBaseColor;
@@ -674,7 +683,7 @@
                 titlLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titlLab];
                 
-                boyBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
+                boyBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) + 5,
                                                                              5, 50, _cellHeight - 10);
                 
                 [boyBtn setTitle:@"男" forState:UIControlStateNormal];
@@ -704,7 +713,7 @@
                 [cell addSubview:titlLab];
                 
                 
-                highBtn.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
+                highBtn.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) + 15,
                                                                                5, BtnWidth, _cellHeight - 10);
                 highBtn.backgroundColor = BACKGROUND_COLOR;
                 [highBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -745,7 +754,7 @@
                 [cell addSubview:titlLab];
                 
                 
-                ageBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
+                ageBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) + 15,
                                                                      5, BtnWidth, _cellHeight - 10);
                 ageBtn.backgroundColor = BACKGROUND_COLOR;
                 [ageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -780,7 +789,7 @@
                 titlLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titlLab];
                 
-                provinceBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
+                provinceBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) - 5,
                                                                      5, BtnWidth, _cellHeight - 10);
                 provinceBtn.backgroundColor = BACKGROUND_COLOR;
                 [provinceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -830,8 +839,8 @@
                 [cell addSubview:titlLab];
                 
                 
-                introductionText.frame = CGRectMake((titlLab.frame.size.width+titlLab.frame.origin.x + 5), 5,
-                                                    (SCREEN_WIDTH - 10 - (titlLab.frame.size.width+titlLab.frame.origin.x + 5)),
+                introductionText.frame = CGRectMake((titlLab.frame.size.width+titlLab.frame.origin.x + 5) - 19 , 5,
+                                                    (SCREEN_WIDTH - 10 - (titlLab.frame.size.width+titlLab.frame.origin.x + 5)) + 19,
                                                     (3*_cellHeight - 5*2) ) ;
                 
                 introductionText.text = @"喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武";
@@ -844,7 +853,8 @@
                 [cell addSubview:introductionText];
             }
                 break;
-                
+
+                break;
             default:
                 break;
         }
@@ -869,10 +879,18 @@
         [cell addSubview:titlLab];
         
         UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
+//        rightView.backgroundColor = [UIColor orangeColor];
         rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
         rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
         rightView.contentMode = UIViewContentModeScaleAspectFit;
         [cell addSubview:rightView];
+        
+        UIButton * btn_password = [UIButton buttonWithType:(UIButtonTypeSystem)];
+        btn_password.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight);
+        [cell addSubview:btn_password];
+//        btn_password.backgroundColor = [UIColor orangeColor];
+        [btn_password addTarget:self action:@selector(btn_passwordAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        
         
         if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
         {
@@ -922,11 +940,7 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
-    
-    
-    
 }
-
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();

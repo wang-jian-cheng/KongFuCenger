@@ -280,6 +280,7 @@
         CGFloat labHeight = [Toolkit heightWithString:dreamStr fontSize:14 width:labWidth] ;
         
         UILabel *dreamContentLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, (dreamImgView.frame.size.height + 10), labWidth , labHeight)];
+        dreamContentLab.font = [UIFont systemFontOfSize:14];
         dreamContentLab.textColor = [UIColor whiteColor];
         dreamContentLab.text = dreamStr;
         dreamContentLab.numberOfLines = 0;
