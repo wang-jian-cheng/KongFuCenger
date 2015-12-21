@@ -138,6 +138,7 @@
 {
     UIImage *imgBtn = [UIImage imageNamed:strImage];
     _imgRight.image = imgBtn;
+    _imgRight.contentMode = UIViewContentModeScaleAspectFill;
     [_imgRight setFrame:CGRectMake(_btnRight.frame.origin.x + 25, _btnRight.frame.origin.y,imgBtn.size.width , imgBtn.size.height )];
     _imgRight.center = CGPointMake(_imgRight.center.x, _imgLeft.center.y);
     
