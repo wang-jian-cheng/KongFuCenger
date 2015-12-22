@@ -16,6 +16,7 @@
 		7BA3A3161C2289070028C8A3 /* ShieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3A3151C2289070028C8A3 /* ShieldViewController.m */; };
 		7BA51EB51C23D9F6004BBB30 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA51EB41C23D9F6004BBB30 /* IntroViewController.m */; };
 		7BA51EB91C23E01E004BBB30 /* MessagefankuiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA51EB81C23E01E004BBB30 /* MessagefankuiViewController.m */; };
+		7BB6FF831C28E1B300713E06 /* 电话.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB6FF821C28E1B300713E06 /* 电话.png */; };
 		7BCBB22A1C2393C800C2AAAA /* ClearCacheViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCBB2291C2393C800C2AAAA /* ClearCacheViewController.m */; };
 		802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118D91C1AFAE100DCEE73 /* DIYButton.m */; };
 		802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118DC1C1AFAE100DCEE73 /* MoviePlayer.m */; };
@@ -389,6 +390,7 @@
 		7BA51EB41C23D9F6004BBB30 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		7BA51EB71C23E01E004BBB30 /* MessagefankuiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagefankuiViewController.h; sourceTree = "<group>"; };
 		7BA51EB81C23E01E004BBB30 /* MessagefankuiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagefankuiViewController.m; sourceTree = "<group>"; };
+		7BB6FF821C28E1B300713E06 /* 电话.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "电话.png"; sourceTree = "<group>"; };
 		7BCBB2281C2393C800C2AAAA /* ClearCacheViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearCacheViewController.h; sourceTree = "<group>"; };
 		7BCBB2291C2393C800C2AAAA /* ClearCacheViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearCacheViewController.m; sourceTree = "<group>"; };
 		802118D81C1AFAE100DCEE73 /* DIYButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYButton.h; sourceTree = "<group>"; };
@@ -1380,6 +1382,7 @@
 		B53791B71C1579B100C45BA7 /* HeWuzhe */ = {
 			isa = PBXGroup;
 			children = (
+				7BB6FF821C28E1B300713E06 /* 电话.png */,
 				B5451CBD1C2795C8001BB39F /* upsanjiao@2x.png */,
 				B5AF70801C183A9F00C041AF /* down@2x.png */,
 				B5AF70811C183A9F00C041AF /* photo@2x.png */,
@@ -2530,6 +2533,7 @@
 				B5F90B001C1985A100D7879D /* Loginweixin@2x.png in Resources */,
 				B5905E051C1BC2CF00ECA9BA /* friend_avatar.png in Resources */,
 				B7617E281C1C289E00CF96E7 /* UnionNewsCell.xib in Resources */,
+				7BB6FF831C28E1B300713E06 /* 电话.png in Resources */,
 				B53E737E1C166389009E7878 /* support_h@2x.png in Resources */,
 				B5905E041C1BC2CF00ECA9BA /* down_icon.png in Resources */,
 				B5F13B2C1C1FBAAC00155038 /* ShareSDKUI.bundle in Resources */,
