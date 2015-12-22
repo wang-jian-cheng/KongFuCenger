@@ -555,7 +555,7 @@
 //    NSLog(@"%@",result);
 }
 
-- (void)ShowOrderuploadImageWithImage:(NSData *)imagedata andurl:(NSString *)url andprm:(NSDictionary *)prm
+- (void)UploadImageWithImage:(NSData *)imagedata andurl:(NSString *)url andprm:(NSDictionary *)prm
 {
     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:prm constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imagedata name:@"filestream" fileName:@"showorder_img.jpg" mimeType:@"image/jpg"];
@@ -605,8 +605,7 @@
     
     
     // NSData from the Base64 encoded str
-    NSData *data = [[NSData alloc]
-                                      initWithBase64EncodedString:base64Encoded options:0];
+    NSData *data = [[NSData alloc]initWithBase64EncodedString:base64Encoded options:0];
     
     
     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:prm constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
