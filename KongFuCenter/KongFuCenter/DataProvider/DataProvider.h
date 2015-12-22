@@ -159,7 +159,7 @@
 -(void) getAllCitys;
 //上传图片
 //-(NSInteger)uploadImgWithData:(NSData *)imgData andImgName:(NSString *)imgName;
--(void)UploadImgWithImgdata:(NSString *)imagePath;
+-(void)UploadImgWithImgdata:(NSString *)imageData;
 
 
 @end
