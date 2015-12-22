@@ -147,4 +147,9 @@
 -(NSInteger)getWuGuanList:(NSString *)cityid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 //获取所有市列表
 -(void) getAllCitys;
+//上传图片
+-(NSInteger)uploadImgWithData:(NSData *)imgData andImgName:(NSString *)imgName;
+-(void)UploadImgWithImgdata:(NSString *)imagePath;
+
+
 @end

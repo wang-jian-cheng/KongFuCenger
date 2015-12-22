@@ -619,9 +619,9 @@
         //[SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
         NSData* imageData = UIImageJPEGRepresentation(editedImage, 0.8) ;
         id  imagebase64= [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-//        DataProvider * dataprovider=[[DataProvider alloc] init];
-//        [dataprovider setDelegateObject:self setBackFunctionName:@"UploadBackCall:"];
-//        [dataprovider UploadImgWithImgdata:fullPath ];
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"UploadBackCall:"];
+        [dataprovider uploadImgWithData:imagebase64 andImgName:nil];
     }];
 }
 

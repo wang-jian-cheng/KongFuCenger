@@ -724,7 +724,7 @@
 		B5AF70741C1821A500C041AF /* SelectRoundBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectRoundBtn.h; path = CommonUI/SelectRoundBtn.h; sourceTree = "<group>"; };
 		B5AF70751C1821A500C041AF /* SelectRoundBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectRoundBtn.m; path = CommonUI/SelectRoundBtn.m; sourceTree = "<group>"; };
 		B5AF70781C18293F00C041AF /* TrainsPlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainsPlanViewController.h; sourceTree = "<group>"; };
-		B5AF70791C18293F00C041AF /* TrainsPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainsPlanViewController.m; sourceTree = "<group>"; };
+		B5AF70791C18293F00C041AF /* TrainsPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrainsPlanViewController.m; path = ../TrainsPlan/TrainsPlanViewController.m; sourceTree = "<group>"; };
 		B5AF707B1C1830BA00C041AF /* moreNoword@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moreNoword@2x.png"; sourceTree = "<group>"; };
 		B5AF707D1C1837F600C041AF /* NewPlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPlanViewController.h; sourceTree = "<group>"; };
 		B5AF707E1C1837F600C041AF /* NewPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPlanViewController.m; sourceTree = "<group>"; };
@@ -1420,6 +1420,7 @@
 		B53791B11C15707900C45BA7 /* WuGuan */ = {
 			isa = PBXGroup;
 			children = (
+				B5AF705D1C17F67B00C041AF /* ZhiBo */,
 				B5451CBF1C279656001BB39F /* AutoLocationViewController.h */,
 				B5451CC01C279656001BB39F /* AutoLocationViewController.m */,
 				B5451CC11C279656001BB39F /* AutoLocationViewController.xib */,
@@ -1511,6 +1512,7 @@
 				B5F4E3A11C1EA45C001F81F0 /* FriendInfoViewController.h */,
 				B5F4E3A21C1EA45C001F81F0 /* FriendInfoViewController.m */,
 				B5F4E3A41C1EBBB5001F81F0 /* StrangerInfoViewController.h */,
+				B5AF70791C18293F00C041AF /* TrainsPlanViewController.m */,
 				B5F4E3A51C1EBBB6001F81F0 /* StrangerInfoViewController.m */,
 			);
 			path = PersonInfo;
@@ -1826,7 +1828,6 @@
 			children = (
 				B5AF70771C18292600C041AF /* TrainsPlan */,
 				B5AF70651C18031600C041AF /* VIP */,
-				B5AF705D1C17F67B00C041AF /* ZhiBo */,
 				B53E73931C16CEA4009E7878 /* PersonInfo */,
 				B53E738D1C168B47009E7878 /* MyDream */,
 				B53E73821C166FB9009E7878 /* JiFen */,
@@ -1895,7 +1896,8 @@
 				B5AF705F1C17F69B00C041AF /* ZhiBoViewController.m */,
 				B5AF70601C17F69B00C041AF /* ZhiBoViewController.xib */,
 			);
-			path = ZhiBo;
+			name = ZhiBo;
+			path = ../ZhiBo;
 			sourceTree = "<group>";
 		};
 		B5AF70651C18031600C041AF /* VIP */ = {
@@ -1914,7 +1916,6 @@
 			isa = PBXGroup;
 			children = (
 				B5AF70781C18293F00C041AF /* TrainsPlanViewController.h */,
-				B5AF70791C18293F00C041AF /* TrainsPlanViewController.m */,
 				B5AF707D1C1837F600C041AF /* NewPlanViewController.h */,
 				B5AF707E1C1837F600C041AF /* NewPlanViewController.m */,
 				B5F90ACB1C190CF900D7879D /* ChoosePlanTypeViewController.h */,
