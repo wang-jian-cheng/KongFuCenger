@@ -64,6 +64,11 @@
     
 }
 
+- (void)btn_callAction:(UIButton  *)sender
+{
+    NSLog(@"打电话");
+}
+
 #pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -111,6 +116,9 @@
                 
                 UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 5, SCREEN_WIDTH/2 , _cellHeight - 10)];
                 
+//                nameLab.backgroundColor = [UIColor orangeColor];
+                nameLab.text = @"精武门武馆";
+                nameLab.textColor = [UIColor whiteColor];
                 [cell addSubview:nameLab];
                 
                 UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/2 ), 0, SCREEN_WIDTH/2 , _cellHeight)];
@@ -141,6 +149,34 @@
                 relayBtn.tag = 2;
                 [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                 [backView addSubview:relayBtn];
+            }
+            else if (indexPath.row == 1)
+            {
+                UIImageView * image = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 15, cell.frame.size.height - 30 , cell.frame.size.height - 30)];
+//                image.backgroundColor = [UIColor orangeColor];
+                image.image = [UIImage imageNamed:@"dingwei@2x"];
+//                image.backgroundColor = Separator_Color;
+                [cell addSubview:image];
+                
+                UILabel * address = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(image.frame) + 5, 5, self.view.frame.size.width - CGRectGetMaxX(image.frame) - 15 - 60, cell.frame.size.height - 10)];
+                address.textColor = Separator_Color;
+                address.text = @"测试数据， 测试数据， 测试数据";
+                address.font = [UIFont systemFontOfSize:15];
+//                address.backgroundColor = [UIColor orangeColor];
+                [cell addSubview:address];
+                
+                UIView * line = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(address.frame) + 5, 3, 1, cell.frame.size.height - 6)];
+                line.backgroundColor = Separator_Color;
+                [cell addSubview:line];
+                
+                UIButton * btn_call = [UIButton buttonWithType:(UIButtonTypeSystem)];
+                btn_call.frame = CGRectMake(CGRectGetMaxX(line.frame) + 15, 10, 25 ,25);
+//                btn_call.backgroundColor = [UIColor orangeColor];
+                [btn_call addTarget:self action:@selector(btn_callAction:) forControlEvents:(UIControlEventTouchUpInside)];
+                [btn_call setImage:[UIImage imageNamed:@"电话"] forState:(UIControlStateNormal)];
+                [btn_call setTintColor:Separator_Color];
+                [cell addSubview:btn_call];
+                
             }
 
         }
