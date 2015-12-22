@@ -24,10 +24,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if(_pageMode == MODE_forget)
+    if(_pageMode == MODE_forget){
         _lblTitle.text=@"忘记密码";
-    else
+    }
+    else if (_pageMode == MODE_change)
+    {
+        _lblTitle.text=@"修改密码";
+    }
+    else{
         _lblTitle.text=@"注册";
+    }
     [self addLeftButton:@"left"];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
     [self.view addGestureRecognizer:tapGesture];

@@ -18,6 +18,12 @@
     UITableView *_mainTableView;
     
     UIButton *placeBtn;
+    
+    int pageNo;
+    int pageSize;
+    
+    NSMutableArray *WuGuanListArr;
+    NSString *cityID;
 }
 @end
 
@@ -26,6 +32,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
+    pageNo=0;
+    pageSize=6;
+    cityID = @"20642";
+    WuGuanListArr = [NSMutableArray array];
     [self initViews];
     
     
@@ -38,7 +48,7 @@
     _sectionNum = 10;
     
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT  )];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -47,8 +57,27 @@
     _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.scrollEnabled = NO;
     
-    _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
+   // _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    // 下拉刷新
+    _mainTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        pageNo=0;
+        [weakSelf loadWuguanList:cityID];
+        // 结束刷新
+        [_mainTableView.mj_header endRefreshing];
+    }];
+    [_mainTableView.mj_header beginRefreshing];
+    
+    // 上拉刷新
+    _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        [weakSelf FooterRefresh];
+        [_mainTableView.mj_footer endRefreshing];
+    }];
+
     
 
     placeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, StatusBar_HEIGHT, 100, NavigationBar_HEIGHT)];
@@ -58,10 +87,12 @@
     [_topView addSubview:placeBtn];
     
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(placeBtn.frame.size.width - 15,
-                                                                         (placeBtn.frame.size.height-150)/2, 15, 15)];
+                                                                         (placeBtn.frame.size.height-15)/2, 15, 15)];
     imgView.image = [UIImage imageNamed:@"upsanjiao"];
     imgView.contentMode = UIViewContentModeScaleAspectFit;
     [placeBtn addSubview:imgView];
+    
+    [self loadWuguanList:cityID];
     
 }
 
@@ -76,8 +107,10 @@
     [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getWuguanListCallBack:"];
-    [dataprovider getWuGuanList:@"20644" andStartRowIndex:@"0" andMaximumRows:@"10"];
+    [dataprovider getWuGuanList:cityId andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
 }
+
+
 
 -(void)getWuguanListCallBack:(id)dict
 {
@@ -85,8 +118,56 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
-            NSDictionary *tempDict = dict[@"data"];
+            ++pageNo;
+            if(WuGuanListArr != nil && WuGuanListArr.count>0)
+            {
+                [WuGuanListArr removeAllObjects];
+            }
             
+            [WuGuanListArr addObjectsFromArray:dict[@"data"]];
+            
+            [_mainTableView reloadData];
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
+-(void)FooterRefresh
+{
+    [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"FooterRefreshCallBack:"];
+    [dataprovider getWuGuanList:cityID andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+
+}
+
+-(void)FooterRefreshCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            ++pageNo;
+//            if(WuGuanListArr != nil && WuGuanListArr.count>0)
+//            {
+//                [WuGuanListArr removeAllObjects];
+//            }
+//            
+            [WuGuanListArr addObjectsFromArray:dict[@"data"]];
+            
+            [_mainTableView reloadData];
             
         }
         @catch (NSException *exception) {
@@ -105,12 +186,21 @@
 }
 
 
+#pragma mark - AutoLocationViewController delegate
+
+-(void)outCitySetting:(NSString *)City andID:(NSString *)cityId
+{
+    [placeBtn setTitle:City forState:UIControlStateNormal];
+    cityID = cityId;
+}
+
 #pragma mark - click actions
 
 -(void)LocationBtnClick:(UIButton *)sender
 {
     AutoLocationViewController *autoLocationViewCtl = [[AutoLocationViewController alloc] init];
     autoLocationViewCtl.navtitle = @"城市推荐";
+    autoLocationViewCtl.delegate = self;
     [self.navigationController pushViewController:autoLocationViewCtl animated:YES];
 }
 
@@ -118,7 +208,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return _sectionNum;
+    return WuGuanListArr.count;
     
 }
 
@@ -155,6 +245,29 @@
     cell  = [[[NSBundle mainBundle] loadNibNamed:@"WuGuanTableViewCell" owner:self options:nil] lastObject];
     cell.layer.masksToBounds=YES;
     cell.frame=CGRectMake(cell.frame.origin.x, cell.frame.origin.y, SCREEN_WIDTH, cell.frame.size.height);
+    
+    
+    @try {
+        if(WuGuanListArr ==nil || WuGuanListArr.count == 0 || indexPath.row > WuGuanListArr.count - 1)
+            return cell;
+        
+        NSDictionary *tempDict = [WuGuanListArr objectAtIndex:indexPath.row];
+        
+        cell.describeLab.text = tempDict[@"Content"];
+        cell.titleLab.text = tempDict[@"Title"];
+        cell.phoneLab.text = [NSString stringWithFormat:@"电话:%@",tempDict[@"TelePhone"]];
+        cell.addressLab.text = [NSString stringWithFormat:@"电话:%@",tempDict[@"Address"]];
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"ImagePath"]];
+        [cell.mainImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
+    }
+    @catch (NSException *exception) {
+    
+    }
+    @finally {
+        
+    }
+    
     
     return cell;
     

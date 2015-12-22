@@ -11,7 +11,7 @@
 
 @implementation UITableViewCell (EditMode)
 
--(void)setCellEditMode:(BOOL)enableEditMode andBtnCenter:(CGPoint)point
+-(void)setCellEditMode:(BOOL)enableEditMode andBtnCenter:(CGPoint)point andSelect:(BOOL)state
 {
     CGRect tempRect;
     
@@ -44,6 +44,7 @@
         
         SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:point];
         roundBtn.backgroundColor = Separator_Color;
+        roundBtn.selected = state;
         [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:roundBtn];
         

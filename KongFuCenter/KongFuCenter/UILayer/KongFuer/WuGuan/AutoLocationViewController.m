@@ -27,7 +27,7 @@
 @synthesize LetterResultArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addLeftButton:@"Icon_Back@2x.png"];
+    [self addLeftButton:@"left"];
     _lblTitle.text=@"当前位置－临沂";
     _lblTitle.textColor=[UIColor whiteColor];
     itemarray=[[NSArray alloc] init];
@@ -36,10 +36,9 @@
 }
 -(void)LoadAllData
 {
-//    DataProvider * dataprovider=[[DataProvider alloc] init];
-//    [dataprovider setDelegateObject:self setBackFunctionName:@"GetCityListBackCall:"];
-//    [dataprovider GetCity];
-//    [dataprovider GetCityList];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetCityListBackCall:"];
+    [dataprovider getAllCitys];
 }
 -(UIView *)BuildHeaderVeiw
 {
@@ -89,8 +88,8 @@
             }
 //            for (int i=0; i<num ;i++) {
 //                UIButton * btn_historyItem=[[UIButton alloc] initWithFrame:CGRectMake(w*(i%3)+10*(i%3+1), backview_history.frame.origin.y+15,w, 50)];
-//                [btn_historyItem setTitle:array[i][@"area_name"] forState:UIControlStateNormal];
-//                btn_historyItem.tag=[array[i][@"area_id"] intValue];
+//                [btn_historyItem setTitle:array[i][@"Name"] forState:UIControlStateNormal];
+//                btn_historyItem.tag=[array[i][@"Id"] intValue];
 //                [btn_historyItem setTitleColor:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1.0] forState:UIControlStateNormal];
 //                btn_historyItem.backgroundColor=[UIColor whiteColor];
 //                [btn_historyItem addTarget:self action:@selector(btn_click:) forControlEvents:UIControlEventTouchUpInside];
@@ -101,17 +100,17 @@
             for (int i=(int)array.count - 1; i>((int)array.count - num - 1) ;i--) {
                 
                 UIButton * btn_historyItem=[[UIButton alloc] initWithFrame:CGRectMake(w*(( array.count  - i -1 )%3)+10*((array.count - i -1)%3+1), backview_history.frame.origin.y+15,w, 50)];
-                NSString *cityName = array[i][@"area_name"];
-                NSInteger tag = [array[i][@"area_id"] intValue];
+                NSString *cityName = array[i][@"Name"];
+                NSInteger tag = [array[i][@"Id"] intValue];
                 
                 if(cityName == nil || [cityName isEqualToString:@""])
                 {
-                    cityName = array[i][@"cityname"];
+                    cityName = array[i][@"Name"];
                 }
                 
                 if(tag == 0)
                 {
-                    tag = [array[i][@"id"] intValue];
+                    tag = [array[i][@"Id"] intValue];
                 }
                 [btn_historyItem setTitle:cityName forState:UIControlStateNormal];
                 btn_historyItem.tag=tag;
@@ -132,13 +131,13 @@
 {
 //    if ([dict[@"status"][@"succeed"] intValue]==1) {
     if (!dict[@"datas"][@"error"]) {
-        _lblTitle.text=[NSString stringWithFormat:@"当前位置－%@",dict[@"datas"][@"area_name"]];
-        [btn_autolocation setTitle:dict[@"datas"][@"area_name"] forState:UIControlStateNormal];
-        btn_autolocation.tag=[dict[@"datas"][@"area_id"] intValue];
+        _lblTitle.text=[NSString stringWithFormat:@"当前位置－%@",dict[@"datas"][@"Name"]];
+        [btn_autolocation setTitle:dict[@"datas"][@"Name"] forState:UIControlStateNormal];
+        btn_autolocation.tag=[dict[@"datas"][@"Id"] intValue];
 //        NSMutableArray * strforhistory=cityinfoWithFile[@"history"];
 //        BOOL isexist=NO;
 //        for (NSDictionary *item in strforhistory) {
-//            if ([item[@"area_name"] isEqualToString:dict[@"datas"][@"area_name"]]) {
+//            if ([item[@"Name"] isEqualToString:dict[@"datas"][@"Name"]]) {
 //                isexist=YES;
 //                break;
 //            }
@@ -146,7 +145,7 @@
 //        if (!isexist) {
 //            [strforhistory addObject:dict[@"datas"]];
 //        }
-//        NSDictionary * areaData=@{@"area_id":dict[@"datas"][@"area_id"],@"area_name":dict[@"datas"][@"area_name"],@"history":strforhistory};
+//        NSDictionary * areaData=@{@"Id":dict[@"datas"][@"Id"],@"Name":dict[@"datas"][@"Name"],@"history":strforhistory};
 //        [self SaveCityInfo:areaData];
     }
     [SVProgressHUD dismiss];
@@ -159,18 +158,18 @@
         NSMutableArray *array=[[NSMutableArray alloc] initWithArray:cityinfoWithFile[@"history"]];
         if (array) {
             for (NSDictionary *item in array) {
-                if ([item[@"area_name"] isEqualToString:sender.currentTitle]) {
+                if ([item[@"Name"] isEqualToString:sender.currentTitle]) {
                     isexist=YES;
                     break;
                 }
             }
             if (!isexist) {
-                NSDictionary * dict=[[ NSDictionary alloc] initWithObjectsAndKeys:sender.currentTitle,@"area_name",
-                                     [NSString stringWithFormat:@"%ld",(long)sender.tag],@"area_id", nil];
+                NSDictionary * dict=[[ NSDictionary alloc] initWithObjectsAndKeys:sender.currentTitle,@"Name",
+                                     [NSString stringWithFormat:@"%ld",(long)sender.tag],@"Id", nil];
                 [array addObject:dict];
             }
             
-            NSDictionary * areaData=@{@"area_id":[NSString stringWithFormat:@"%ld",(long)sender.tag],@"area_name":sender.currentTitle,@"history":array};
+            NSDictionary * areaData=@{@"Id":[NSString stringWithFormat:@"%ld",(long)sender.tag],@"Name":sender.currentTitle,@"history":array};
             [self SaveCityInfo:areaData];
         }
     }
@@ -187,37 +186,48 @@
         NSString *plistPath = [rootPath stringByAppendingPathComponent:@"CityInfo.plist"];
         cityinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangeCity" object:nil];
-        
+        if([self.delegate respondsToSelector:@selector(outCitySetting:andID:)])
+        {
+            [self.delegate outCitySetting:dict[@"Name"] andID:dict[@"Id"]];
+        }
+
         
         [self.navigationController popViewControllerAnimated:YES];
         
-        if([self.delegate respondsToSelector:@selector(outCitySetting:)])
-        {
-            [self.delegate outCitySetting:dict[@"area_name"]];
-        }
-    }
+       }
     return result;
 }
 -(void)GetCityListBackCall:(id)dict
 {
-    NSLog(@"获取城市列表%@",dict);
-    if ([dict[@"status"][@"succeed"] intValue]==1) {
+    DLog(@"获取城市列表%@",dict);
+    if ([dict[@"code"] intValue]==200) {
 //    if (!dict[@"datas"][@"error"]) {
-//        itemarray=[[NSArray alloc] initWithArray:dict[@"datas"][@"area_list"]];
-        itemarray=[[NSArray alloc] initWithArray:dict[@"data"][@"citylist"]];
-        NSMutableArray * itemmutablearray=[[NSMutableArray alloc] init];
-        for (int i=0; i<itemarray.count; i++) {
-//            [itemmutablearray addObject:itemarray[i][@"area_name"]];
-            
-            [itemmutablearray addObject:itemarray[i][@"cityname"]];
+        
+        @try {
+            //        itemarray=[[NSArray alloc] initWithArray:dict[@"datas"][@"area_list"]];
+            itemarray=[[NSArray alloc] initWithArray:dict[@"data"]];
+            NSMutableArray * itemmutablearray=[[NSMutableArray alloc] init];
+            for (int i=0; i<itemarray.count; i++) {
+                //            [itemmutablearray addObject:itemarray[i][@"Name"]];
+                
+                [itemmutablearray addObject:itemarray[i][@"Name"]];
+            }
+            self.indexArray = [ChineseString IndexArray:itemmutablearray];
+            self.LetterResultArr = [ChineseString LetterSortArray:itemmutablearray];
+            UITableView * tableview=[[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
+            tableview.delegate=self;
+            tableview.dataSource=self;
+            tableview.tableHeaderView=[self BuildHeaderVeiw];
+            [self.view addSubview:tableview];
+
         }
-        self.indexArray = [ChineseString IndexArray:itemmutablearray];
-        self.LetterResultArr = [ChineseString LetterSortArray:itemmutablearray];
-        UITableView * tableview=[[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
-        tableview.delegate=self;
-        tableview.dataSource=self;
-        tableview.tableHeaderView=[self BuildHeaderVeiw];
-        [self.view addSubview:tableview];
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+        
     }
     else
     {
@@ -300,19 +310,19 @@
         BOOL isexist=NO;
         NSDictionary * dict=[[NSDictionary alloc] init];
         for (NSDictionary *item in itemarray) {
-            if ([item[@"cityname"] isEqualToString:strCityName]) {
+            if ([item[@"Name"] isEqualToString:strCityName]) {
                 dict=item;
             }
         }
         NSMutableArray *array=[[NSMutableArray alloc] initWithArray:cityinfoWithFile[@"history"]];
         if (array) {
             for (NSDictionary *item in array) {
-                if ([item[@"area_name"] isEqualToString:dict[@"cityname"]]) {
+                if ([item[@"Name"] isEqualToString:dict[@"Name"]]) {
                     isexist=YES;
                     break;
                 }
                 
-                if ([item[@"cityname"] isEqualToString:dict[@"cityname"]]) {
+                if ([item[@"cityname"] isEqualToString:dict[@"Name"]]) {
                     isexist=YES;
                     break;
                 }
@@ -322,7 +332,8 @@
             if (!isexist) {
                 [array addObject:dict];
             }
-            NSDictionary * areaData=@{@"area_id":dict[@"id"],@"citynum":dict[@"citynum"],@"area_name":dict[@"cityname"],@"history":array};
+            NSDictionary * areaData=@{@"Id":dict[@"Id"],@"citynum":dict[@"Code"],@"Name":dict[@"Name"],@"history":array};
+         //   NSDictionary * areaData=@{@"Id":dict[@"Id"],@"Name":dict[@"cityname"],@"history":array};
             [self SaveCityInfo:areaData];
         }
         else
@@ -330,12 +341,12 @@
             NSMutableArray * myarr=[[NSMutableArray alloc] initWithObjects:dict, nil];
             array=myarr;
         }
-        NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:dict[@"id"],@"area_id",
-                            dict[@"cityname"],@"area_name",
-                            dict[@"citynum"], @"citynum",
-                            array,@"history",nil];
-        //    NSDictionary * prm=@{@"area_id":dict[@"datas"][@"area_id"],@"area_name":dict[@"datas"][@"area_name"],@"history":jsonString};
-        [self SaveCityInfo:prm];
+//        NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:dict[@"Id"],@"Id",
+//                            dict[@"Name"],@"Name",
+//                            dict[@"Code"], @"citynum",
+//                            array,@"history",nil];
+        //    NSDictionary * prm=@{@"Id":dict[@"datas"][@"Id"],@"Name":dict[@"datas"][@"Name"],@"history":jsonString};
+     //   [self SaveCityInfo:prm];
     }
     @catch (NSException *exception) {
         

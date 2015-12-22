@@ -70,6 +70,13 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="jhy-Tw-exZ" secondAttribute="bottom" constant="10" id="orQ-4W-ucz"/>
             </constraints>
+            <connections>
+                <outlet property="addressLab" destination="ebw-dp-WFC" id="par-aE-tFn"/>
+                <outlet property="describeLab" destination="wkc-Xm-Qpr" id="FCx-Kh-GgQ"/>
+                <outlet property="mainImg" destination="ErP-Dx-7bU" id="4Im-fg-CpL"/>
+                <outlet property="phoneLab" destination="jhy-Tw-exZ" id="Xec-k7-0gX"/>
+                <outlet property="titleLab" destination="uBh-Qn-F6O" id="212-LR-USO"/>
+            </connections>
             <point key="canvasLocation" x="471" y="397"/>
         </tableViewCell>
     </objects>
