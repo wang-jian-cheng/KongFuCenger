@@ -103,6 +103,10 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [searchTxt resignFirstResponder];
+}
+
 #pragma mark 自定义方法
 -(void)initAddressData{
     dataProvider = [[DataProvider alloc] init];
@@ -325,6 +329,7 @@
 -(void)addFriendCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showSuccessWithStatus:@"关注成功~"];
+        [self TeamTopRefresh];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"关注失败~"];
     }
@@ -468,6 +473,7 @@
         int isFriend = [mushaArray[indexPath.row][@"IsFriend"] intValue];
         if (isFriend == 0) {
             [cell.mConcern setTitle:@"关注" forState:UIControlStateNormal];
+            [cell.mConcern setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
             cell.mConcern.tag = [mushaArray[indexPath.row][@"Id"] intValue];
             [cell.mConcern addTarget:self action:@selector(addFriendEvent:) forControlEvents:UIControlEventTouchUpInside];
         }else{

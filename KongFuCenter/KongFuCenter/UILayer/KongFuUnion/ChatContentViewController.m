@@ -31,7 +31,7 @@
     UILabel *mTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, StatusBar_HEIGHT + (NavigationBar_HEIGHT - 21) / 2, SCREEN_WIDTH, 21)];
     mTitle.textAlignment = NSTextAlignmentCenter;
     mTitle.textColor = [UIColor whiteColor];
-    mTitle.text = @"会话";
+    mTitle.text = _mTitle;
     [topView addSubview:mTitle];
     
     UIButton *leftTitle = [[UIButton alloc] initWithFrame:CGRectMake(14, StatusBar_HEIGHT + (NavigationBar_HEIGHT - 20) / 2, 20, 20)];

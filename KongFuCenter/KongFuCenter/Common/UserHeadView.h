@@ -34,6 +34,7 @@
 -(id)initWithFrame:(CGRect)frame andImg:(UIImage *)img;
 //会跳转至个人资料页
 -(id)initWithFrame:(CGRect)frame andImgName:(NSString *)name andNav:(UINavigationController *)navCtl;
+-(id)initWithFrame:(CGRect)frame andImg:(UIImage *)img andNav:(UINavigationController *)navCtl;
 //头像设置成圆形
 -(void)makeSelfRound;
 @end
