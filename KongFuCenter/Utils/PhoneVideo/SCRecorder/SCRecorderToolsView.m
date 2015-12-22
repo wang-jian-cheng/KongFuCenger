@@ -107,7 +107,7 @@ static char *ContextDidChangeDevice = "DidChangeDevice";
     
     CGPoint viewPoint = [self.recorder convertPointOfInterestToViewCoordinates:currentFocusPoint];
     viewPoint = [self convertPoint:viewPoint fromView:self.recorder.previewView];
-    self.cameraFocusTargetView.center = viewPoint;
+  //  self.cameraFocusTargetView.center = viewPoint;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

@@ -31,6 +31,8 @@
     NSMutableArray *infoArr;
     BOOL relayoutViewFlag;
     
+    NSString *imgPath;
+    
 #pragma mark - other Views
     
     UILabel *userName ;
@@ -287,6 +289,11 @@
         @try {
             NSDictionary *tempDict = dict[@"data"];
             
+            
+            NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
+            
+            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
+            
             jiFenLab.text = [NSString stringWithFormat:@"积分：%@",tempDict[@"Credit"]];
             userName.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
             idLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"UserName"]];
@@ -341,7 +348,13 @@
         sex = @"1";
     else
         sex = @"2";
-    [dataprovider setUserInfo:[Toolkit getUserID] andNickName:nickName.text andSex:sex andHeight:[highBtn.titleLabel.text substringToIndex:(highBtn.titleLabel.text.length - 2)] andWeight:[weightBtn.titleLabel.text substringToIndex:(weightBtn.titleLabel.text.length - 2)] andAddr:@"20644" andExpe:[learnTimeBtn.titleLabel.text substringToIndex:(learnTimeBtn.titleLabel.text.length - 1)]];
+    [dataprovider setUserInfo:[Toolkit getUserID]
+                  andNickName:nickName.text
+                       andSex:sex
+                    andHeight:[highBtn.titleLabel.text substringToIndex:(highBtn.titleLabel.text.length - 2)]
+                    andWeight:[weightBtn.titleLabel.text substringToIndex:(weightBtn.titleLabel.text.length - 2)]
+                      andAddr:@"20644"
+                      andExpe:[learnTimeBtn.titleLabel.text substringToIndex:(learnTimeBtn.titleLabel.text.length - 1)]];
 }
 
 
@@ -618,10 +631,10 @@
         NSLog(@"选择完成");
         //[SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
         NSData* imageData = UIImageJPEGRepresentation(editedImage, 0.8) ;
-        id  imagebase64= [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        NSString *imagebase64= [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
         DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider setDelegateObject:self setBackFunctionName:@"UploadBackCall:"];
-        [dataprovider uploadImgWithData:imagebase64 andImgName:nil];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"UploadCallBack:"];
+        [dataprovider UploadImgWithImgdata:imagebase64];
     }];
 }
 
@@ -811,11 +824,28 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
--(void)UploadBackCall:(id)dict
+-(void)UploadCallBack:(id)dict
 {
     DLog(@"%@",dict);
-    //    [img_touxiang setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,dict[@"data"][@"url"]]]]]
-    //     ];
+    @try {
+        if([dict[@"code"] integerValue] == 200)
+        {
+            imgPath = dict[@"data"][@"ImagePath"];
+            
+            [self setuserInfo];
+        }
+        else
+        {
+            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+            [alert show];
+        }
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
     [SVProgressHUD dismiss];
 //    if ([dict[@"code"] intValue]==200) {
 //        imgAvatar=[dict[@"datas"][@"imgsrc"][@"imgsrc"] isEqual:[NSNull null]]?@"":dict[@"datas"][@"imgsrc"][@"imgsrc"];

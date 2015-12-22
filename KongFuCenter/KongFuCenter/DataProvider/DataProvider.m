@@ -107,6 +107,28 @@
     }
 }
 
+-(NSInteger)uploadHeadImg:(NSString *)userId andImgData:(NSString *)filestream  andImgName:(NSString *)fileName
+{
+    if(userId != nil  && filestream !=nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/UpdateUser",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"fileName":(fileName==nil?@"imgname.jpg":fileName),
+                             @"filestream":filestream};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+
+}
+
 
 
 //int userid 用户ID
@@ -163,8 +185,9 @@
 {
     if (imagePath) {
         NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/UpLoadImage",Url];
-        NSDictionary * prm=@{@"fileName":@"imgsrc"};
-        [self uploadImageWithImage:imagePath andurl:url andprm:prm];
+        NSDictionary * prm=@{@"fileName":@"imgsrc.jpg",@"filestream":imagePath};
+        [self PostRequest:url andpram:prm];
+      //  [self uploadImageWithImage:imagePath andurl:url andprm:prm];
         //        [self ShowOrderuploadImageWithImage:imagePath andurl:url andprm:prm];
     }
     
@@ -378,8 +401,12 @@
 {
     if (videoPath) {
         NSString *url = [NSString stringWithFormat:@"%@Hewuzhe.asmx/UpLoadVideo",Url];
-        NSDictionary *prm = @{@"fileName":@"video"};
-        [self uploadVideoWithFilePath:videoPath andurl:url andprm:prm];
+        NSData* imageData = [[NSData alloc] initWithContentsOfURL:videoPath];
+        NSString *imagebase64= [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        
+        NSDictionary *prm = @{@"fileName":@"video.mov",@"filestream":imagebase64};
+        [self PostRequest:url andpram:prm];
+        //        [self uploadVideoWithFilePath:videoPath andurl:url andprm:prm];
     }
 }
 
