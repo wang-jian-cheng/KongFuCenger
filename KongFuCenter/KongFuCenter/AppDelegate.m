@@ -17,6 +17,7 @@
 #import <ShareSDKConnector/ShareSDKConnector.h>
 #import "WXApi.h"
 #import "WeiboSDK.h"
+#import "FirstScrollController.h"
 
 #define LogIn_UserID_key    @"mAccountID"
 #define LogIn_UserPass_key   @"password"
@@ -25,6 +26,7 @@
 {
     CustomTabBarViewController *_tabBarViewCol;
     LoginViewController *_loginViewCtl;
+    FirstScrollController *firstCol;
     NSUserDefaults *mUserDefault;
     NSArray *friendArray;
     NSDictionary *teamDict;
@@ -123,6 +125,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    
+    
     [self ThirdFrameWorksInit];
     [self initUI];
     
@@ -132,9 +136,15 @@
 -(void) initUI
 {
 
+    /**
+     设置根VC
+     */
+    _loginViewCtl = [[LoginViewController alloc] init];
+    
+    firstCol=[[FirstScrollController alloc]init];
     
     _tabBarViewCol = [[CustomTabBarViewController alloc] init];
-    _loginViewCtl = [[LoginViewController alloc] init];
+    
     if(self.window == nil)
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds] ];
     
@@ -143,18 +153,38 @@
     NSString *mRegistAcount = [mUserDefault valueForKey:LogIn_UserID_key];
     NSString *mRegistPwd = [mUserDefault valueForKey:LogIn_UserPass_key];
     
-    if((mRegistAcount == nil||[mRegistAcount isEqualToString:@"" ])||(mRegistPwd == nil || [mRegistPwd isEqualToString:@"" ]))
-    {
-         self.window.rootViewController = _loginViewCtl;
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]) {
+        
+        self.window.rootViewController =_tabBarViewCol;
+        
+        
+        if((mRegistAcount == nil||[mRegistAcount isEqualToString:@"" ])||(mRegistPwd == nil || [mRegistPwd isEqualToString:@"" ]))
+        {
+            self.window.rootViewController = _loginViewCtl;
+        }
+        else
+        {
+            self.window.rootViewController = _tabBarViewCol;
+            
+            [self TryLoginFun];
+        }
+        
+        
+        
     }
     else
     {
-        self.window.rootViewController = _tabBarViewCol;
+        self.window.rootViewController =firstCol;
         
-        [self TryLoginFun];
+        [self.window makeKeyAndVisible];
+        //[self getAliPay];
+        
+        
+        [self.window makeKeyAndVisible];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView1:) name:@"changeRootView1" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView:) name:@"changeRootView" object:nil];
-    
     
     //集成融云App Key
     [[RCIM sharedRCIM] initWithAppKey:@"3argexb6r2qhe"];
@@ -325,6 +355,12 @@
         return;
     }
     
+}
+
+-(void)changeRootView1:(id)sender
+{
+    self.window.rootViewController = [[LoginViewController alloc] init];
+    return;
 }
 
 
