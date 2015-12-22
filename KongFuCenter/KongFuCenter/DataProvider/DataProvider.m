@@ -303,6 +303,8 @@
         NSDictionary * prm=@{@"userid":uid};
         [self PostRequest:url andpram:prm];
 
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 

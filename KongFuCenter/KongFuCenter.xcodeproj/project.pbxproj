@@ -293,6 +293,8 @@
 		B72E39F81C1AB5AD007356C4 /* MakeMushaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */; };
 		B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */; };
 		B739FB391C279991004100C2 /* MyFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B739FB381C279991004100C2 /* MyFriendViewController.m */; };
+		B739FB3D1C27D9D2004100C2 /* MyFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B739FB3B1C27D9D2004100C2 /* MyFriendTableViewCell.m */; };
+		B739FB3E1C27D9D2004100C2 /* MyFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B739FB3C1C27D9D2004100C2 /* MyFriendTableViewCell.xib */; };
 		B7617E1F1C1C27D500CF96E7 /* JHStoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */; };
 		B7617E271C1C289E00CF96E7 /* UnionNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */; };
 		B7617E281C1C289E00CF96E7 /* UnionNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E241C1C289E00CF96E7 /* UnionNewsCell.xib */; };
@@ -853,6 +855,9 @@
 		B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeMushaCell.xib; sourceTree = "<group>"; };
 		B739FB371C279991004100C2 /* MyFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFriendViewController.h; sourceTree = "<group>"; };
 		B739FB381C279991004100C2 /* MyFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFriendViewController.m; sourceTree = "<group>"; };
+		B739FB3A1C27D9D2004100C2 /* MyFriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFriendTableViewCell.h; sourceTree = "<group>"; };
+		B739FB3B1C27D9D2004100C2 /* MyFriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFriendTableViewCell.m; sourceTree = "<group>"; };
+		B739FB3C1C27D9D2004100C2 /* MyFriendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFriendTableViewCell.xib; sourceTree = "<group>"; };
 		B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHStoryTableViewCell.xib; sourceTree = "<group>"; };
 		B7617E221C1C289E00CF96E7 /* UnionNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnionNewsCell.h; sourceTree = "<group>"; };
 		B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnionNewsCell.m; sourceTree = "<group>"; };
@@ -2169,6 +2174,9 @@
 			children = (
 				B739FB371C279991004100C2 /* MyFriendViewController.h */,
 				B739FB381C279991004100C2 /* MyFriendViewController.m */,
+				B739FB3A1C27D9D2004100C2 /* MyFriendTableViewCell.h */,
+				B739FB3B1C27D9D2004100C2 /* MyFriendTableViewCell.m */,
+				B739FB3C1C27D9D2004100C2 /* MyFriendTableViewCell.xib */,
 			);
 			name = MyFriend;
 			sourceTree = "<group>";
@@ -2551,6 +2559,7 @@
 				B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */,
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
 				B7E4CD0F1C1FE15000C2E69A /* wydt.png in Resources */,
+				B739FB3E1C27D9D2004100C2 /* MyFriendTableViewCell.xib in Resources */,
 				B7617E531C1C299700CF96E7 /* button_send_comment@2x.png in Resources */,
 				804952201C250B3800F5584A /* WechatShortVideo_scan_focus@3x.png in Resources */,
 				B53E738A1C167080009E7878 /* JiFenTableViewCell.xib in Resources */,
@@ -2912,6 +2921,7 @@
 				80DB84671C23D3A6008CA670 /* SDWebImageDownloaderOperation.m in Sources */,
 				802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */,
 				B7617E6D1C1C29A500CF96E7 /* WFPopView.m in Sources */,
+				B739FB3D1C27D9D2004100C2 /* MyFriendTableViewCell.m in Sources */,
 				B5F4E3A91C1EC3B9001F81F0 /* VideoDetailForMatchViewController.m in Sources */,
 				B5F4E3A31C1EA45C001F81F0 /* FriendInfoViewController.m in Sources */,
 				B7D846451C22AB7500718E9E /* MJRefreshComponent.m in Sources */,
