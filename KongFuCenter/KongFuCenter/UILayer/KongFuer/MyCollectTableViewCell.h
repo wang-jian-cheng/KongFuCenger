@@ -10,4 +10,11 @@
 
 @interface MyCollectTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIButton *btn_1;
+
+@property (weak, nonatomic) IBOutlet UIButton *btn_2;
+
+
+
+
 @end

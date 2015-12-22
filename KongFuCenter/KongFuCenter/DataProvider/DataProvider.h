@@ -66,6 +66,16 @@
  *
  */
 -(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience;
+/**
+ *  上传用户头像
+ *
+ *  @param userId    用户id
+ *  @param filestream  图片数据
+ *  @param fileName     头像上传
+ *
+ */
+-(NSInteger)uploadHeadImg:(NSString *)userId andImgData:(NSString *)filestream  andImgName:(NSString *)fileName;
+
 #pragma mark - 放飞梦想
 /**
  *  获取用户梦想
@@ -147,4 +157,15 @@
 -(NSInteger)getWuGuanList:(NSString *)cityid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 //获取所有市列表
 -(void) getAllCitys;
+//上传图片
+//-(NSInteger)uploadImgWithData:(NSData *)imgData andImgName:(NSString *)imgName;
+-(void)UploadImgWithImgdata:(NSString *)imageData;
+
+/*
+我的收藏
+ */
+- (NSInteger )collectData:(NSString *)userId andIsVideo:(NSString *)isVideo  andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
+-(NSInteger)setCollect:(NSString *)userId andIsVideo:(NSString *)isVideo andStartRowIndex:(NSString *)startRowIndex andMaximumRowst:(NSString *)maximumRows;
+
+
 @end

@@ -107,6 +107,72 @@
     }
 }
 
+-(NSInteger)uploadHeadImg:(NSString *)userId andImgData:(NSString *)filestream  andImgName:(NSString *)fileName
+{
+    if(userId != nil  && filestream !=nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/UpLoadPhoto",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"fileName":(fileName==nil?@"imgname.jpg":fileName),
+                             @"filestream":filestream};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+
+}
+
+- (NSInteger )collectData:(NSString *)userId andIsVideo:(NSString *)isVideo  andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
+{
+    if(userId != nil  && isVideo !=nil && startRowIndex != nil & maximumRows != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectFavoriteByUserId",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"isVideo":isVideo,
+                             @"startRowIndex":startRowIndex,
+                             @"maximumRows":maximumRows};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+    
+}
+
+-(NSInteger)setCollect:(NSString *)userId andIsVideo:(NSString *)isVideo andStartRowIndex:(NSString *)startRowIndex andMaximumRowst:(NSString *)maximumRows
+{
+    if(userId != nil&&isVideo != nil&&startRowIndex != nil&&maximumRows != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectFavoriteByUserId",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"isVideo":isVideo,
+                             @"maximumRows":maximumRows,
+                             @"startRowIndex":startRowIndex};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
 
 
 //int userid 用户ID
@@ -143,6 +209,32 @@
         DLog(@"Err:%d",Param_err);
         return Param_err;
     }
+}
+#pragma mark - 图片上传
+//-(NSInteger)uploadImgWithData:(NSData *)imgData andImgName:(NSString *)imgName
+//{
+//    if (imgData) {
+//        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/UpLoadImage",Url];
+//        NSDictionary * prm=@{@"fileName":(imgName==nil?@"imgsrc.jpg":imgName)};
+//        [self ShowOrderuploadImageWithImage:imgData andurl:url andprm:prm];
+//        return OK;
+//    }else{
+//        [SVProgressHUD dismiss];
+//        DLog(@"Err:%d",Param_err);
+//        return Param_err;
+//    }
+//
+//}
+-(void)UploadImgWithImgdata:(NSString *)imageData
+{
+    if (imageData) {
+        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/UpLoadImage",Url];
+        NSDictionary * prm=@{@"fileName":@"imgsrc.jpg",@"filestream":imageData};
+        [self PostRequest:url andpram:prm];
+      //  [self uploadImageWithImage:imagePath andurl:url andprm:prm];
+        //        [self ShowOrderuploadImageWithImage:imagePath andurl:url andprm:prm];
+    }
+    
 }
 
 
@@ -353,8 +445,12 @@
 {
     if (videoPath) {
         NSString *url = [NSString stringWithFormat:@"%@Hewuzhe.asmx/UpLoadVideo",Url];
-        NSDictionary *prm = @{@"fileName":@"video"};
-        [self uploadVideoWithFilePath:videoPath andurl:url andprm:prm];
+        NSData* imageData = [[NSData alloc] initWithContentsOfURL:videoPath];
+        NSString *imagebase64= [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        
+        NSDictionary *prm = @{@"fileName":@"video.mov",@"filestream":imagebase64};
+        [self PostRequest:url andpram:prm];
+        //        [self uploadVideoWithFilePath:videoPath andurl:url andprm:prm];
     }
 }
 
@@ -469,7 +565,7 @@
 {
     NSData *data=[NSData dataWithContentsOfFile:imagePath];
     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:prm constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:data name:@"imgsrc" fileName:@"avatar.jpg" mimeType:@"image/jpg"];
+        [formData appendPartWithFileData:data name:@"filestream" fileName:@"avatar.jpg" mimeType:@"image/jpg"];
     }];
     
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -503,10 +599,10 @@
 //    NSLog(@"%@",result);
 }
 
-- (void)ShowOrderuploadImageWithImage:(NSData *)imagedata andurl:(NSString *)url andprm:(NSDictionary *)prm
+- (void)UploadImageWithImage:(NSData *)imagedata andurl:(NSString *)url andprm:(NSDictionary *)prm
 {
     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:prm constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:imagedata name:@"imgsrc" fileName:@"showorder_img.jpg" mimeType:@"image/jpg"];
+        [formData appendPartWithFileData:imagedata name:@"filestream" fileName:@"showorder_img.jpg" mimeType:@"image/jpg"];
     }];
     
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -553,8 +649,7 @@
     
     
     // NSData from the Base64 encoded str
-    NSData *data = [[NSData alloc]
-                                      initWithBase64EncodedString:base64Encoded options:0];
+    NSData *data = [[NSData alloc]initWithBase64EncodedString:base64Encoded options:0];
     
     
     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:prm constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
