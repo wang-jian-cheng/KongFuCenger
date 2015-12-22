@@ -35,9 +35,56 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self initDatas];
     [self initViews];
+    [self getDatas];
     
     // Do any additional setup after loading the view.
 }
+
+#pragma mark - 解析数据
+-(void)getDatas
+{
+    [self getUserInfo];
+}
+
+-(void)getUserInfo
+{
+
+    [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
+//    [dataprovider collectData:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"1" andMaximumRows:@"6"];
+    [dataprovider setCollect:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"0" andMaximumRowst:@"10"];
+    
+}
+
+-(void)getUserInfoCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
+
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];

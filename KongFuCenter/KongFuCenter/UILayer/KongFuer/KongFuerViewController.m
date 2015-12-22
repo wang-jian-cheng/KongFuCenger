@@ -144,8 +144,6 @@
 
 }
 
-
-
 -(void)getUserInfoCallBack:(id)dict
 {
     [SVProgressHUD dismiss];

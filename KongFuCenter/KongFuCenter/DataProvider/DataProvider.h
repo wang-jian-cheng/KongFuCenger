@@ -161,5 +161,11 @@
 //-(NSInteger)uploadImgWithData:(NSData *)imgData andImgName:(NSString *)imgName;
 -(void)UploadImgWithImgdata:(NSString *)imageData;
 
+/*
+我的收藏
+ */
+- (NSInteger )collectData:(NSString *)userId andIsVideo:(NSString *)isVideo  andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
+-(NSInteger)setCollect:(NSString *)userId andIsVideo:(NSString *)isVideo andStartRowIndex:(NSString *)startRowIndex andMaximumRowst:(NSString *)maximumRows;
+
 
 @end

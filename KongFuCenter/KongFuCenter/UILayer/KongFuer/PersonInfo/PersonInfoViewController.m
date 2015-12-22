@@ -382,10 +382,7 @@
     }
 }
 
-
-
 #pragma mark - textView delegate
-
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
