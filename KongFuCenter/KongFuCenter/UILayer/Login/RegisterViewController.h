@@ -13,7 +13,8 @@
 typedef enum _pageMode
 {
     MODE_Reg = 0,
-    MODE_forget
+    MODE_forget,
+    MODE_change
 }PageMode;
 
 @interface RegisterViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>

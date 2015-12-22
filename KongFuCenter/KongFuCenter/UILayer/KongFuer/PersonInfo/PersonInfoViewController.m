@@ -7,6 +7,7 @@
 //
 
 #import "PersonInfoViewController.h"
+#import "RegisterViewController.h"
 
 #define HighTAG         (2015+1)
 #define WeightTAG       (2015+2)
@@ -15,8 +16,8 @@
 #define ProvinceTAG     (2015+5)
 #define CityTAG         (2015+6)
 #define AreaTAG         (2015+7)
-
-@interface PersonInfoViewController ()
+#define ORIGINAL_MAX_WIDTH 640.0f
+@interface PersonInfoViewController ()<UserHeadViewDelegate>
 {
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
@@ -36,12 +37,12 @@
     UILabel *idLab;
     UILabel *jiFenLab ;
     UITextField *nickName;
-    
+    UserHeadView  *headView ;
     
     
 }
 @end
-
+#define GapToLeft   20
 @implementation PersonInfoViewController
 
 - (void)viewDidLoad {
@@ -70,6 +71,8 @@
     _mainTableView.separatorColor =  Separator_Color;
     _mainTableView.tableFooterView = [[UIView alloc] init];
     _mainTableView.separatorInset = UIEdgeInsetsZero;
+    headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 10,  2*_cellHeight - 20, 2*_cellHeight - 20)
+                                        andImgName:@"headImg"];
     //_mainTableView.scrollEnabled = NO;
     //设置cell分割线从最左边开始
     if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
@@ -366,6 +369,8 @@
     }
 }
 
+
+
 #pragma mark - textView delegate
 
 
@@ -376,7 +381,15 @@
 
 
 #pragma mark - click action
-
+- (void)btn_passwordAction:(UIButton *)sender
+{
+    RegisterViewController * registerViewController = [[RegisterViewController alloc] init];
+    
+    registerViewController.pageMode = 2;
+    [self presentViewController:registerViewController animated:YES completion:^{
+        
+    }];
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -570,6 +583,248 @@
 {
     [self setuserInfo];
 }
+#pragma mark - userheadview delegate 
+
+-(void)userHeadViewClick
+{
+    [self editPortrait];
+}
+
+#pragma mark - 图片截取
+
+- (void)editPortrait {
+    UIActionSheet *choiceSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"取消"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"拍照", @"从相册中选取", nil];
+    [choiceSheet showInView:self.view];
+}
+
+#pragma mark VPImageCropperDelegate
+- (void)imageCropper:(VPImageCropperViewController *)cropperViewController didFinished:(UIImage *)editedImage {
+    headView.headImgView.image = editedImage;
+    [cropperViewController dismissViewControllerAnimated:YES completion:^{
+        // TO DO
+        [self saveImage:editedImage withName:@"avatar.jpg"];
+        
+        headView.headImgView.image = editedImage ;
+        
+//        headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 10,  2*_cellHeight - 20, 2*_cellHeight - 20)
+//                                                andImg:editedImage];
+//        [_mainTableView reloadData];
+   //     headView.headImgView = [];
+        NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"avatar.jpg"];
+        NSLog(@"选择完成");
+        //[SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+        NSData* imageData = UIImageJPEGRepresentation(editedImage, 0.8) ;
+        id  imagebase64= [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+//        DataProvider * dataprovider=[[DataProvider alloc] init];
+//        [dataprovider setDelegateObject:self setBackFunctionName:@"UploadBackCall:"];
+//        [dataprovider UploadImgWithImgdata:fullPath ];
+    }];
+}
+
+#pragma mark - 保存图片至沙盒
+- (void) saveImage:(UIImage *)currentImage withName:(NSString *)imageName
+{
+    NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
+    // 获取沙盒目录
+    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:imageName];
+    // 将图片写入文件
+    [imageData writeToFile:fullPath atomically:NO];
+}
+
+- (void)imageCropperDidCancel:(VPImageCropperViewController *)cropperViewController {
+    [cropperViewController dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
+#pragma mark UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        // 拍照
+        if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
+            UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+            controller.sourceType = UIImagePickerControllerSourceTypeCamera;
+            if ([self isFrontCameraAvailable]) {
+                controller.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+            }
+            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
+            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
+            controller.mediaTypes = mediaTypes;
+            controller.delegate = self;
+            [self presentViewController:controller
+                               animated:YES
+                             completion:^(void){
+                                 NSLog(@"Picker View Controller is presented");
+                             }];
+        }
+        
+    } else if (buttonIndex == 1) {
+        // 从相册中选取
+        if ([self isPhotoLibraryAvailable]) {
+            UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+            controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
+            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
+            controller.mediaTypes = mediaTypes;
+            controller.delegate = self;
+            [self presentViewController:controller
+                               animated:YES
+                             completion:^(void){
+                                 NSLog(@"Picker View Controller is presented");
+                             }];
+        }
+    }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [picker dismissViewControllerAnimated:YES completion:^() {
+        UIImage *portraitImg = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        portraitImg = [self imageByScalingToMaxSize:portraitImg];
+        // 裁剪
+        VPImageCropperViewController *imgEditorVC = [[VPImageCropperViewController alloc] initWithImage:portraitImg cropFrame:CGRectMake(0, 100.0f, self.view.frame.size.width, self.view.frame.size.width) limitScaleRatio:3.0];
+        imgEditorVC.delegate = self;
+        [self presentViewController:imgEditorVC animated:YES completion:^{
+            // TO DO
+        }];
+    }];
+}
+
+
+#pragma mark - UINavigationControllerDelegate
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    
+}
+
+#pragma mark camera utility
+- (BOOL) isCameraAvailable{
+    return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+}
+
+- (BOOL) isRearCameraAvailable{
+    return [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
+}
+
+- (BOOL) isFrontCameraAvailable {
+    return [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront];
+}
+
+- (BOOL) doesCameraSupportTakingPhotos {
+    return [self cameraSupportsMedia:(__bridge NSString *)kUTTypeImage sourceType:UIImagePickerControllerSourceTypeCamera];
+}
+
+- (BOOL) isPhotoLibraryAvailable{
+    return [UIImagePickerController isSourceTypeAvailable:
+            UIImagePickerControllerSourceTypePhotoLibrary];
+}
+- (BOOL) canUserPickVideosFromPhotoLibrary{
+    return [self
+            cameraSupportsMedia:(__bridge NSString *)kUTTypeMovie sourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+}
+- (BOOL) canUserPickPhotosFromPhotoLibrary{
+    return [self
+            cameraSupportsMedia:(__bridge NSString *)kUTTypeImage sourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+}
+
+- (BOOL) cameraSupportsMedia:(NSString *)paramMediaType sourceType:(UIImagePickerControllerSourceType)paramSourceType{
+    __block BOOL result = NO;
+    if ([paramMediaType length] == 0) {
+        return NO;
+    }
+    NSArray *availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:paramSourceType];
+    [availableMediaTypes enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
+        NSString *mediaType = (NSString *)obj;
+        if ([mediaType isEqualToString:paramMediaType]){
+            result = YES;
+            *stop= YES;
+        }
+    }];
+    return result;
+}
+#pragma mark image scale utility
+- (UIImage *)imageByScalingToMaxSize:(UIImage *)sourceImage {
+    if (sourceImage.size.width < ORIGINAL_MAX_WIDTH) return sourceImage;
+    CGFloat btWidth = 0.0f;
+    CGFloat btHeight = 0.0f;
+    if (sourceImage.size.width > sourceImage.size.height) {
+        btHeight = ORIGINAL_MAX_WIDTH;
+        btWidth = sourceImage.size.width * (ORIGINAL_MAX_WIDTH / sourceImage.size.height);
+    } else {
+        btWidth = ORIGINAL_MAX_WIDTH;
+        btHeight = sourceImage.size.height * (ORIGINAL_MAX_WIDTH / sourceImage.size.width);
+    }
+    CGSize targetSize = CGSizeMake(btWidth, btHeight);
+    return [self imageByScalingAndCroppingForSourceImage:sourceImage targetSize:targetSize];
+}
+- (UIImage *)imageByScalingAndCroppingForSourceImage:(UIImage *)sourceImage targetSize:(CGSize)targetSize {
+    UIImage *newImage = nil;
+    CGSize imageSize = sourceImage.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    CGFloat targetWidth = targetSize.width;
+    CGFloat targetHeight = targetSize.height;
+    CGFloat scaleFactor = 0.0;
+    CGFloat scaledWidth = targetWidth;
+    CGFloat scaledHeight = targetHeight;
+    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+    if (CGSizeEqualToSize(imageSize, targetSize) == NO)
+    {
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+        
+        if (widthFactor > heightFactor)
+            scaleFactor = widthFactor; // scale to fit height
+        else
+            scaleFactor = heightFactor; // scale to fit width
+        scaledWidth  = width * scaleFactor;
+        scaledHeight = height * scaleFactor;
+        
+        // center the image
+        if (widthFactor > heightFactor)
+        {
+            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+        }
+        else
+            if (widthFactor < heightFactor)
+            {
+                thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+            }
+    }
+    UIGraphicsBeginImageContext(targetSize); // this will crop
+    CGRect thumbnailRect = CGRectZero;
+    thumbnailRect.origin = thumbnailPoint;
+    thumbnailRect.size.width  = scaledWidth;
+    thumbnailRect.size.height = scaledHeight;
+    
+    [sourceImage drawInRect:thumbnailRect];
+    
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    if(newImage == nil) NSLog(@"could not scale image");
+    
+    //pop the context to get back to the default
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+-(void)UploadBackCall:(id)dict
+{
+    DLog(@"%@",dict);
+    //    [img_touxiang setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,dict[@"data"][@"url"]]]]]
+    //     ];
+    [SVProgressHUD dismiss];
+//    if ([dict[@"code"] intValue]==200) {
+//        imgAvatar=[dict[@"datas"][@"imgsrc"][@"imgsrc"] isEqual:[NSNull null]]?@"":dict[@"datas"][@"imgsrc"][@"imgsrc"];
+//    }
+//    else
+//    {
+//        [SVProgressHUD showErrorWithStatus:dict[@"message"] maskType:SVProgressHUDMaskTypeBlack];
+//    }
+}
 
 
 #pragma mark -  tableview  Delegate
@@ -591,7 +846,7 @@
     return 1;
     
 }
-#define GapToLeft   20
+
 #pragma mark - setting for cell
 
 #define BtnWidth    60
@@ -603,10 +858,12 @@
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*2)];
         cell.backgroundColor = ItemsBaseColor;
         
-        UserHeadView  *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 10,  2*_cellHeight - 20, 2*_cellHeight - 20)
-                                                           andImgName:@"headImg"];
+        
+        headView.delegate  = self;
         
         [headView makeSelfRound];
+        
+        
         
         userName = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
                                                                       20, 100,((headView.frame.size.height )/3 -5) )];
@@ -657,7 +914,7 @@
                 titlLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titlLab];
                 
-                nickName.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x),
+                nickName.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x) + 23,
                            0, SCREEN_HEIGHT - (titlLab.frame.size.width + titlLab.frame.origin.x)
                                              , _cellHeight);
                 nickName.backgroundColor = ItemsBaseColor;
@@ -674,7 +931,7 @@
                 titlLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titlLab];
                 
-                boyBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
+                boyBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) + 5,
                                                                              5, 50, _cellHeight - 10);
                 
                 [boyBtn setTitle:@"男" forState:UIControlStateNormal];
@@ -704,7 +961,7 @@
                 [cell addSubview:titlLab];
                 
                 
-                highBtn.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
+                highBtn.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) + 15,
                                                                                5, BtnWidth, _cellHeight - 10);
                 highBtn.backgroundColor = BACKGROUND_COLOR;
                 [highBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -745,7 +1002,7 @@
                 [cell addSubview:titlLab];
                 
                 
-                ageBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
+                ageBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) + 15,
                                                                      5, BtnWidth, _cellHeight - 10);
                 ageBtn.backgroundColor = BACKGROUND_COLOR;
                 [ageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -780,7 +1037,7 @@
                 titlLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titlLab];
                 
-                provinceBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10),
+                provinceBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) - 5,
                                                                      5, BtnWidth, _cellHeight - 10);
                 provinceBtn.backgroundColor = BACKGROUND_COLOR;
                 [provinceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -830,8 +1087,8 @@
                 [cell addSubview:titlLab];
                 
                 
-                introductionText.frame = CGRectMake((titlLab.frame.size.width+titlLab.frame.origin.x + 5), 5,
-                                                    (SCREEN_WIDTH - 10 - (titlLab.frame.size.width+titlLab.frame.origin.x + 5)),
+                introductionText.frame = CGRectMake((titlLab.frame.size.width+titlLab.frame.origin.x + 5) - 19 , 5,
+                                                    (SCREEN_WIDTH - 10 - (titlLab.frame.size.width+titlLab.frame.origin.x + 5)) + 19,
                                                     (3*_cellHeight - 5*2) ) ;
                 
                 introductionText.text = @"喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武";
@@ -844,7 +1101,8 @@
                 [cell addSubview:introductionText];
             }
                 break;
-                
+
+                break;
             default:
                 break;
         }
@@ -869,10 +1127,18 @@
         [cell addSubview:titlLab];
         
         UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
+//        rightView.backgroundColor = [UIColor orangeColor];
         rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
         rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
         rightView.contentMode = UIViewContentModeScaleAspectFit;
         [cell addSubview:rightView];
+        
+        UIButton * btn_password = [UIButton buttonWithType:(UIButtonTypeSystem)];
+        btn_password.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight);
+        [cell addSubview:btn_password];
+//        btn_password.backgroundColor = [UIColor orangeColor];
+        [btn_password addTarget:self action:@selector(btn_passwordAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        
         
         if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
         {
@@ -922,11 +1188,7 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
-    
-    
-    
 }
-
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();

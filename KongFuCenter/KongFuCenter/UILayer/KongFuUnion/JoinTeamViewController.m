@@ -59,14 +59,16 @@
     NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"-1",@"Code",@"-全部-",@"Name", nil];
     countryArray = [[NSMutableArray alloc] init];
     [countryArray addObject:itemDict];
-    //initPage = 0;
     
-    provinceCode = @"37";
-    provinceTxt = @"山东省";
-    cityCode = @"3713";
-    cityTxt = @"临沂市";
-    countryCode = @"371302";
-    countryTxt = @"兰山区";
+    NSString *HomeCode = [userDefault valueForKey:@"HomeCode"];
+    NSArray *HomeCodeArray = [HomeCode componentsSeparatedByString:@"&"];
+    
+    provinceCode = HomeCodeArray[0];//@"37";
+    provinceTxt = [userDefault valueForKey:@"HomeAreaprovinceName"];//@"山东省";
+    cityCode = HomeCodeArray[1];//@"3713";
+    cityTxt = [userDefault valueForKey:@"HomeAreaCityName"];//@"临沂市";
+    countryCode = HomeCodeArray[2];//@"371302";
+    countryTxt = [userDefault valueForKey:@"HomeAreaCountyName"];//@"兰山区";
     
     //初始化数据
     [self initAddressData];

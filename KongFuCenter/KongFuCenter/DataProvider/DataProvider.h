@@ -143,4 +143,8 @@
 //添加武友
 -(void)SaveFriend:(NSString *)userid andFriendid:(NSString *)friendid;
 
+//根据城市获取武馆
+-(NSInteger)getWuGuanList:(NSString *)cityid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
+//获取所有市列表
+-(void) getAllCitys;
 @end
