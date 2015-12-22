@@ -18,9 +18,9 @@
         UIButton *headBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         //[headBtn setImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
         [headBtn addTarget:self action:@selector(UserHeadBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        UIImageView *headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        headImgView.image = [UIImage imageNamed:name];
-        [headBtn addSubview:headImgView];
+        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        _headImgView.image = [UIImage imageNamed:name];
+        [headBtn addSubview:_headImgView];
         _enableRespondClick = YES;
         tempNav = navCtl;
         [self addSubview:headBtn];
@@ -37,9 +37,28 @@
         UIButton *headBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         //[headBtn setImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
         [headBtn addTarget:self action:@selector(UserHeadBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        UIImageView *headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        headImgView.image = [UIImage imageNamed:name];
-        [headBtn addSubview:headImgView];
+        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        _headImgView.image = [UIImage imageNamed:name];
+        [headBtn addSubview:_headImgView];
+        _enableRespondClick = YES;
+        [self addSubview:headBtn];
+        
+    }
+    return self;
+}
+
+
+-(id)initWithFrame:(CGRect)frame andImg:(UIImage *)img
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        UIButton *headBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        //[headBtn setImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
+        [headBtn addTarget:self action:@selector(UserHeadBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        _headImgView.image = img;
+        [headBtn addSubview:_headImgView];
         _enableRespondClick = YES;
         [self addSubview:headBtn];
         
@@ -86,8 +105,11 @@
                     [tempNav pushViewController:strangerInfoViewCtl animated:YES];
             }
         }
-        
-        
+    }
+    
+    if([self.delegate respondsToSelector:@selector(userHeadViewClick)])
+    {
+        [self.delegate userHeadViewClick];
     }
 }
 
