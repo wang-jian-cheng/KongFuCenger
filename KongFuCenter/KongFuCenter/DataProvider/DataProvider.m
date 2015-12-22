@@ -112,7 +112,7 @@
     if(userId != nil  && filestream !=nil)
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/UpdateUser",Url];
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/UpLoadPhoto",Url];
         NSDictionary * prm=@{@"userid":userId,
                              @"fileName":(fileName==nil?@"imgname.jpg":fileName),
                              @"filestream":filestream};
@@ -167,25 +167,25 @@
     }
 }
 #pragma mark - 图片上传
--(NSInteger)uploadImgWithData:(NSData *)imgData andImgName:(NSString *)imgName
+//-(NSInteger)uploadImgWithData:(NSData *)imgData andImgName:(NSString *)imgName
+//{
+//    if (imgData) {
+//        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/UpLoadImage",Url];
+//        NSDictionary * prm=@{@"fileName":(imgName==nil?@"imgsrc.jpg":imgName)};
+//        [self ShowOrderuploadImageWithImage:imgData andurl:url andprm:prm];
+//        return OK;
+//    }else{
+//        [SVProgressHUD dismiss];
+//        DLog(@"Err:%d",Param_err);
+//        return Param_err;
+//    }
+//
+//}
+-(void)UploadImgWithImgdata:(NSString *)imageData
 {
-    if (imgData) {
+    if (imageData) {
         NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/UpLoadImage",Url];
-        NSDictionary * prm=@{@"fileName":(imgName==nil?@"imgsrc.jpg":imgName)};
-        [self ShowOrderuploadImageWithImage:imgData andurl:url andprm:prm];
-        return OK;
-    }else{
-        [SVProgressHUD dismiss];
-        DLog(@"Err:%d",Param_err);
-        return Param_err;
-    }
-
-}
--(void)UploadImgWithImgdata:(NSString *)imagePath
-{
-    if (imagePath) {
-        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/UpLoadImage",Url];
-        NSDictionary * prm=@{@"fileName":@"imgsrc.jpg",@"filestream":imagePath};
+        NSDictionary * prm=@{@"fileName":@"imgsrc.jpg",@"filestream":imageData};
         [self PostRequest:url andpram:prm];
       //  [self uploadImageWithImage:imagePath andurl:url andprm:prm];
         //        [self ShowOrderuploadImageWithImage:imagePath andurl:url andprm:prm];

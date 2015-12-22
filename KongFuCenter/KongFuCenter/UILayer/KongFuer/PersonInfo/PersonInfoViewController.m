@@ -634,7 +634,7 @@
         NSString *imagebase64= [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider setDelegateObject:self setBackFunctionName:@"UploadCallBack:"];
-        [dataprovider UploadImgWithImgdata:imagebase64];
+        [dataprovider uploadHeadImg:[Toolkit getUserID] andImgData:imagebase64 andImgName:nil];
     }];
 }
 
@@ -832,7 +832,7 @@
         {
             imgPath = dict[@"data"][@"ImagePath"];
             
-            [self setuserInfo];
+            [self getUserInfo];
         }
         else
         {
