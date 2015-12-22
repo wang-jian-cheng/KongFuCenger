@@ -112,8 +112,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MyFriendTableViewCell *cell = [[MyFriendTableViewCell alloc] init];
     cell.backgroundColor = ItemsBaseColor;
-    NSString *photoImage =
-    cell.mImageView.image =
+    //NSString *photoImage =
+    //cell.mImageView.image =
     
     
     
