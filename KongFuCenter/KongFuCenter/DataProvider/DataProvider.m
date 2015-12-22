@@ -144,6 +144,31 @@
         return Param_err;
     }
 }
+#pragma mark - 图片上传
+-(NSInteger)uploadImgWithData:(NSData *)imgData andImgName:(NSString *)imgName
+{
+    if (imgData) {
+        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/UpLoadImage",Url];
+        NSDictionary * prm=@{@"fileName":(imgName==nil?@"imgsrc.jpg":imgName)};
+        [self ShowOrderuploadImageWithImage:imgData andurl:url andprm:prm];
+        return OK;
+    }else{
+        [SVProgressHUD dismiss];
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+
+}
+-(void)UploadImgWithImgdata:(NSString *)imagePath
+{
+    if (imagePath) {
+        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/UpLoadImage",Url];
+        NSDictionary * prm=@{@"fileName":@"imgsrc"};
+        [self uploadImageWithImage:imagePath andurl:url andprm:prm];
+        //        [self ShowOrderuploadImageWithImage:imagePath andurl:url andprm:prm];
+    }
+    
+}
 
 
 #pragma mark - 放飞梦想
@@ -469,7 +494,7 @@
 {
     NSData *data=[NSData dataWithContentsOfFile:imagePath];
     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:prm constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:data name:@"imgsrc" fileName:@"avatar.jpg" mimeType:@"image/jpg"];
+        [formData appendPartWithFileData:data name:@"filestream" fileName:@"avatar.jpg" mimeType:@"image/jpg"];
     }];
     
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -506,7 +531,7 @@
 - (void)ShowOrderuploadImageWithImage:(NSData *)imagedata andurl:(NSString *)url andprm:(NSDictionary *)prm
 {
     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:prm constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:imagedata name:@"imgsrc" fileName:@"showorder_img.jpg" mimeType:@"image/jpg"];
+        [formData appendPartWithFileData:imagedata name:@"filestream" fileName:@"showorder_img.jpg" mimeType:@"image/jpg"];
     }];
     
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
