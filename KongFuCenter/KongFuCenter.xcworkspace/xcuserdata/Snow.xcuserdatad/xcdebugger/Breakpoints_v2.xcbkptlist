@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
             endingLineNumber = "120"
-            landmarkName = "-setUserInfo:andNickName:andSex:andHeight:andWeight:andAddr:andExpe:"
+            landmarkName = "-uploadHeadImg:andImgData:andImgName:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -31,8 +31,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "113"
             endingLineNumber = "113"
-            landmarkName = "@implementation DataProvider"
-            landmarkType = "3">
+            landmarkName = "-uploadHeadImg:andImgData:andImgName:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -47,8 +47,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
             endingLineNumber = "134"
-            landmarkName = "-setUserInfo:andNickName:andSex:andHeight:andWeight:andAddr:andExpe:"
-            landmarkType = "5">
+            landmarkName = "@implementation DataProvider"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -127,7 +127,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "353"
             endingLineNumber = "353"
-            landmarkName = "-getCountryByCityCode:"
+            landmarkName = "-getFriendForKeyValue:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -239,7 +239,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "254"
             endingLineNumber = "254"
-            landmarkName = "-getStudyOnlineVideoDetial:"
+            landmarkName = "-getStudyOnlineMainCategory"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -255,7 +255,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "235"
             endingLineNumber = "235"
-            landmarkName = "-getStudyOnlineVideoList:andstartRowIndex:andmaximumRows:"
+            landmarkName = "-setMyDream:andMyDream:andHow:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -351,7 +351,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "518"
             endingLineNumber = "518"
-            landmarkName = "-uploadVideoWithFilePath:andurl:andprm:"
+            landmarkName = "-GetRequest:andpram:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -367,8 +367,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "311"
             endingLineNumber = "311"
-            landmarkName = "-SaveFriend:andFriendid:"
-            landmarkType = "5">
+            landmarkName = "@implementation DataProvider"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -383,7 +383,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "526"
             endingLineNumber = "526"
-            landmarkName = "-uploadVideoWithFilePath:andurl:andprm:"
+            landmarkName = "-uploadImageWithImage:andurl:andprm:"
             landmarkType = "5">
             <Locations>
                <Location
@@ -431,7 +431,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "535"
             endingLineNumber = "535"
-            landmarkName = "-uploadVideoWithFilePath:andurl:andprm:"
+            landmarkName = "-uploadImageWithImage:andurl:andprm:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
