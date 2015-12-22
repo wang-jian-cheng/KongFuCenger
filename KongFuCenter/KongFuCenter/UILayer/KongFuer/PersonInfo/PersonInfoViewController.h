@@ -9,7 +9,12 @@
 #import "BaseNavigationController.h"
 #import "UserHeadView.h"
 #import "Dialog.h"
-@interface PersonInfoViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
+#import "VPImageCropperViewController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import "UIImageView+WebCache.h"
+@interface PersonInfoViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,VPImageCropperDelegate>
+//VPImageCropperDelegate
 {
     CGFloat _keyHeight;
     NSIndexPath *tempIndexPath;
@@ -29,5 +34,7 @@
     
     UITextView *introductionText;
     UIPickerView *_pickerView;
+    
+   
 }
 @end

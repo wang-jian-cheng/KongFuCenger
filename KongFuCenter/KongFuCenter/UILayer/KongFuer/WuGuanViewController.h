@@ -10,6 +10,7 @@
 #import "WuGuan/WuGuanDetailViewController.h"
 #import "AutoLocationViewController.h"
 #import "DataProvider.h"
-@interface WuGuanViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+#import "UIImageView+WebCache.h"
+@interface WuGuanViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,AutoLocationDelegate>
 
 @end

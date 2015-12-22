@@ -7,6 +7,8 @@
 //
 
 #import "MyFriendViewController.h"
+#import "ChineseString.h"
+#import "MyFriendTableViewCell.h"
 
 @interface MyFriendViewController (){
     
@@ -15,8 +17,13 @@
     CGFloat mCellHeight;
     
     //数据
-    NSArray *keys;
-    NSMutableDictionary *names;
+    NSArray *friendArray;
+    NSMutableArray *indexArray;
+    NSMutableArray *LetterResultArr;
+    
+    //通用
+    DataProvider *dataProvider;
+    NSUserDefaults *userDefault;
 }
 
 @end
@@ -32,11 +39,12 @@
     [self setBarTitle:@"我的武友"];
     [self addLeftButton:@"left"];
     
+    dataProvider = [[DataProvider alloc] init];
+    userDefault = [NSUserDefaults standardUserDefaults];
+    friendArray = [[NSArray alloc] init];
+    
     //初始化数据
     [self initData];
-    
-    //初始化View
-    [self initViews];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -46,12 +54,22 @@
 
 #pragma mark 自定义方法
 -(void)initData{
-    names = [[NSMutableDictionary alloc] init];
-    [names setValue:[[NSArray alloc] initWithObjects:@"1",@"2",@"3", nil] forKey:@"A"];
-    [names setValue:[[NSArray alloc] initWithObjects:@"4",@"5",@"6", nil] forKey:@"B"];
-    [names setValue:[[NSArray alloc] initWithObjects:@"7",@"8",@"9", nil] forKey:@"C"];
-    
-    keys = [[names allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    [SVProgressHUD showWithStatus:@"加载中"];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getFriendCallBack:"];
+    [dataProvider getFriendForKeyValue:[userDefault valueForKey:@"id"]];
+}
+
+-(void)getFriendCallBack:(id)dict{
+    friendArray = dict[@"data"];
+    NSMutableArray * itemmutablearray=[[NSMutableArray alloc] init];
+    for (int i=0; i<friendArray.count; i++) {
+        [itemmutablearray addObject:friendArray[i][@"Value"][@"NicName"]];
+    }
+    indexArray = [ChineseString IndexArray:itemmutablearray];
+    LetterResultArr = [ChineseString LetterSortArray:itemmutablearray];
+    [SVProgressHUD dismiss];
+    //初始化View
+    [self initViews];
 }
 
 -(void)initViews{
@@ -69,13 +87,11 @@
 
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return keys.count;
+    return indexArray.count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSString *key = [keys objectAtIndex:section];
-    NSDictionary *nameSection = [names valueForKey:key];
-    return nameSection.count;
+    return [[LetterResultArr objectAtIndex:section] count];
 }
 
 #pragma mark setting for section
@@ -84,19 +100,25 @@
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return [keys objectAtIndex:section];
+    return [indexArray objectAtIndex:section];
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    return keys;
+    return indexArray;
 }
 
 #pragma mark setting for cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
+    MyFriendTableViewCell *cell = [[MyFriendTableViewCell alloc] init];
     cell.backgroundColor = ItemsBaseColor;
-    cell.textLabel.text = [[names objectForKey:[keys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+    //NSString *photoImage =
+    //cell.mImageView.image =
+    
+    
+    
+    
+    //cell.textLabel.text = [[LetterResultArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
     return cell;
 }
 

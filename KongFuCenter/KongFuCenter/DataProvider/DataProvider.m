@@ -287,6 +287,14 @@
     }
 }
 
+#pragma mark - 位置 城市
+-(void) getAllCitys
+{
+ 
+    NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/GetCity",Url];
+    [self PostRequest:url andpram:nil];
+}
+
 #pragma mark - 核联盟
 
 -(void)getFriendForKeyValue:(NSString *)uid{
@@ -295,6 +303,8 @@
         NSDictionary * prm=@{@"userid":uid};
         [self PostRequest:url andpram:prm];
 
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 

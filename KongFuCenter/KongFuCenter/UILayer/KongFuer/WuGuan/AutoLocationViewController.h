@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNavigationController.h"
+#import "MJRefresh.h"
+
 
 @protocol AutoLocationDelegate  <NSObject>
 
--(void)outCitySetting:(NSString *)City;
+-(void)outCitySetting:(NSString *)City andID:(NSString *)cityId;
 
 @end
 
