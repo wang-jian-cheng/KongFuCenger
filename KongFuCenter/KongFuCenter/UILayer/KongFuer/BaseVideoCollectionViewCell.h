@@ -12,7 +12,12 @@
 @property (weak, nonatomic) IBOutlet UIImageView *img_logo;
 @property (weak, nonatomic) IBOutlet UIButton *btn_second;
 @property (weak, nonatomic) IBOutlet UIButton *btn_first;
+@property (weak, nonatomic) IBOutlet UIButton *btn_thrid;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_title;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_content;
+
+
+
+
 
 @end
