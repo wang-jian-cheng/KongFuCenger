@@ -139,7 +139,7 @@
     UILabel *idLab = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, 40, 25)];
     idLab.backgroundColor = YellowBlock;
     idLab.textColor = [UIColor whiteColor];
-    idLab.text = [NSString stringWithFormat:@"%03ld",indexPath.row];
+    idLab.text = [NSString stringWithFormat:@"%03ld",(long)indexPath.row];
     idLab.textAlignment = NSTextAlignmentCenter;
     idLab.font = [UIFont systemFontOfSize:14];
     [baseImg addSubview:idLab];
