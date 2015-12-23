@@ -24,6 +24,8 @@
 
 @property (nonatomic, strong) NSMutableArray * arr_voiceData;
 
+@property (nonatomic, strong) NSMutableArray * arr_TitleData;
+
 @end
 
 #define _CELL  @"acell"
@@ -46,6 +48,8 @@
 -(void)getDatas
 {
     [self getUserInfo];
+    
+    [self getUserInfo1];
 }
 
 -(void)getUserInfo
@@ -88,6 +92,45 @@
     }
 }
 
+-(void)getUserInfo1
+{
+    [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack1:"];
+    //    [dataprovider collectData:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"1" andMaximumRows:@"6"];
+    [dataprovider setCollect:[Toolkit getUserID] andIsVideo:@"false" andStartRowIndex:@"0" andMaximumRowst:@"10"];
+}
+
+-(void)getUserInfoCallBack1:(id)dict
+{
+    //    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+            NSLog(@"%@",dict[@"data"]);
+            NSArray * arr_ = dict[@"data"];
+            model_collect * model = [[model_collect alloc] init];
+            [model setValuesForKeysWithDictionary:arr_.firstObject];
+            
+            [self.arr_TitleData addObject:model];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+            [_mainTableView reloadData];
+            [SVProgressHUD dismiss];
+            NSLog(@"完成");
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
 
 
 
@@ -337,7 +380,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return _cellTableCount;
+    return self.arr_TitleData.count;
     
 }
 
@@ -357,7 +400,16 @@
     cell.frame=CGRectMake(cell.frame.origin.x, cell.frame.origin.y, SCREEN_WIDTH, cell.frame.size.height);
 //    cell.btn_1.backgroundColor = [UIColor orangeColor];
     
-    
+    model_collect * model = self.arr_TitleData[indexPath.row];
+    NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,model.ImagePath];
+    [cell.image sd_setImageWithURL:[NSURL URLWithString:url]];
+    cell.name.text = model.Title;
+    cell.detail.text = model.Content;
+    NSRange x = NSMakeRange(5, 5);
+    //    [model.OperateTime substringWithRange:x];
+    cell.date.text = [model.OperateTime substringWithRange:x];
+
+#warning +++++++++++
     [cell.btn_1 setTitle:@"1000" forState:(UIControlStateNormal)];
     [cell.btn_1 setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
     [cell.btn_1 addTarget:self action:@selector(btn_1Action:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -590,6 +642,15 @@
         self.arr_voiceData = [NSMutableArray array];
     }
     return _arr_voiceData;
+}
+
+- (NSMutableArray *)arr_TitleData
+{
+    if(_arr_TitleData == nil)
+    {
+        self.arr_TitleData = [NSMutableArray array];
+    }
+    return _arr_TitleData;
 }
 
 @end
