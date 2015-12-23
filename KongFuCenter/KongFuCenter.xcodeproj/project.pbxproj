@@ -2193,11 +2193,11 @@
 		B739FB361C27997A004100C2 /* MyFriend */ = {
 			isa = PBXGroup;
 			children = (
+				B739FB371C279991004100C2 /* MyFriendViewController.h */,
+				B739FB381C279991004100C2 /* MyFriendViewController.m */,
 				B5D345CD1C28EA7500D39891 /* MyFriendTableViewCell.h */,
 				B5D345CE1C28EA7500D39891 /* MyFriendTableViewCell.m */,
 				B5D345CF1C28EA7500D39891 /* MyFriendTableViewCell.xib */,
-				B739FB371C279991004100C2 /* MyFriendViewController.h */,
-				B739FB381C279991004100C2 /* MyFriendViewController.m */,
 			);
 			name = MyFriend;
 			sourceTree = "<group>";
@@ -3018,14 +3018,6 @@
 				B59408D11C0FC9E8003DC15D /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		B59408D51C0FC9E8003DC15D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B59408D61C0FC9E8003DC15D /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 		B5D3459C1C28E97D00D39891 /* JKImagePickerController.strings */ = {

@@ -104,6 +104,7 @@
     {
         DLog(@"Err:%d",Param_err);
         return Param_err;
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -210,6 +211,18 @@
         return Param_err;
     }
 }
+
+-(void)ChangePassWord:(NSString *)userid andoldpwd:(NSString *)oldpwd andpassword:(NSString *)password{
+    if (userid) {
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/ChangePassWord",Url];
+        NSDictionary * prm=@{@"userid":userid,
+                             @"oldpwd":oldpwd,
+                             @"password":password
+                             };
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 #pragma mark - 图片上传
 //-(NSInteger)uploadImgWithData:(NSData *)imgData andImgName:(NSString *)imgName
 //{

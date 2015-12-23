@@ -76,6 +76,9 @@
  */
 -(NSInteger)uploadHeadImg:(NSString *)userId andImgData:(NSString *)filestream  andImgName:(NSString *)fileName;
 
+//修改密码
+-(void)ChangePassWord:(NSString *)userid andoldpwd:(NSString *)oldpwd andpassword:(NSString *)password;
+
 #pragma mark - 放飞梦想
 /**
  *  获取用户梦想
