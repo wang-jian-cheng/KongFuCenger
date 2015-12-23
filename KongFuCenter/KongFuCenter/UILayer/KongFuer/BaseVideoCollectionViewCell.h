@@ -20,6 +20,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *free;
 
+@property (weak, nonatomic) IBOutlet UIButton *select;
+
 
 
 
