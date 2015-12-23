@@ -9,6 +9,7 @@
 #import "MakeMushaViewController.h"
 #import "MakeMushaCell.h"
 #import "MJRefresh.h"
+#import "UserHeadView.h"
 
 @interface MakeMushaViewController (){
     
@@ -465,7 +466,11 @@
         }
         NSString *PhotoPath = mushaArray[indexPath.row][@"PhotoPath"];
         NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
-        cell.mImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:cell.mImageView.frame andImg:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] andNav:self.navigationController];
+        headView.userId = mushaArray[indexPath.row][@"Id"];
+        [headView makeSelfRound];
+        
+        [cell addSubview:headView];
         cell.mName.text = mushaArray[indexPath.row][@"NicName"];//@"李小龙";
         cell.mLevel.text = [NSString stringWithFormat:@"等级:lv%@",mushaArray[indexPath.row][@"Rank"]];//@"等级:lv1";
         cell.mConcern.backgroundColor = [UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1];

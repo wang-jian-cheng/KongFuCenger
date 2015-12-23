@@ -17,6 +17,8 @@
 {
     
     UIImageView *btnImgView;
+    UIButton *delBtn;
+    UIButton *newBtn;
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
     NSInteger _cellNum;
@@ -27,7 +29,8 @@
     BOOL EnditMode;
     NSMutableArray *studyCateArr;
     NSMutableArray *btnArr;
-    
+    NSMutableArray *cellBtnArr;
+    NSMutableArray *planInfoArr;
     
     BOOL moreSettingBackViewFlag;
     
@@ -39,7 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    [self addRightButton:@"moreNoword@2x.png"];
+    [self addRightButton:@"moreNoword"];
     [self initDatas];
     [self initViews];
     
@@ -53,6 +56,7 @@
     [studyCateArr addObjectsFromArray:@[@"周计划",@"月计划",@"季计划",@"年计划"]];
     
     btnArr = [NSMutableArray array];
+    cellBtnArr = [NSMutableArray array];
 }
 
 -(void)initViews
@@ -100,6 +104,24 @@
     _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.scrollEnabled = NO;
+
+    __unsafe_unretained __typeof(self) weakSelf = self;
+
+    _mainTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        pageNo=0;
+        [weakSelf getPlans];
+        // 结束刷新
+        [_mainTableView.mj_header endRefreshing];
+    }];
+    [_mainTableView.mj_header beginRefreshing];
+    
+    // 上拉刷新
+    _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        [weakSelf FooterRefresh];
+        [_mainTableView.mj_footer endRefreshing];
+    }];
+    
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight));
     
@@ -113,7 +135,7 @@
     
     moreSettingBackView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100 -10), Header_Height, 100, 88)];
     moreSettingBackView.backgroundColor = ItemsBaseColor;
-    UIButton *newBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
+    newBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
     [newBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [newBtn setTitle:@"发布" forState:UIControlStateNormal];
     newBtn.tag = NEW_BtnTag;
@@ -121,9 +143,9 @@
     
     UIView *lineView2 =[[UIView alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width - 2, 1)];
     lineView2.backgroundColor = Separator_Color;
-    UIButton *delBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
+    delBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
     [delBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [delBtn setTitle:@"删除" forState:UIControlStateNormal];
+    [delBtn setTitle:@"编辑" forState:UIControlStateNormal];
     [delBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     delBtn.tag = DEL_BtnTag;
     
@@ -139,11 +161,83 @@
 }
 
 
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+#pragma mark - self data source
+
+-(void)FooterRefresh
+{
+    [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"FooterRefreshCallBack:"];
+    [dataprovider getPlanInfo:[Toolkit getUserID] andCateId:@"0" andStartRow:@"0" andMaxNumRows:@"10"];
+    
+}
+
+-(void)FooterRefreshCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            
+            
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:[dict[@"data"] substringToIndex:4] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
+}
+
+-(void)getPlans
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getPlansCallBack:"];
+    [dataprovider getPlanInfo:[Toolkit getUserID] andCateId:@"0" andStartRow:@"0" andMaxNumRows:@"10"];
+
+}
+
+-(void)getPlansCallBack:(id)dict
+{
+
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            
+        
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:[dict[@"data"] substringToIndex:4] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
 #pragma mark - Btn click
 
 -(void)cateBtnClick:(UIButton *)sender
@@ -171,14 +265,30 @@
 {
     if(sender.tag == DEL_BtnTag)
     {
-        EnditMode = !EnditMode;
+    
+        if([sender.titleLabel.text isEqualToString:@"编辑"])
+        {
+            EnditMode = YES;
+            [delBtn setTitle:@"删除" forState:UIControlStateNormal];
+            [newBtn setTitle:@"取消" forState:UIControlStateNormal];
+        }
         [_mainTableView reloadData];
+
     }
     else  if(sender.tag == NEW_BtnTag)
     {
-        NewPlanViewController *newPlanViewCtl = [[NewPlanViewController alloc] init];
-        newPlanViewCtl.navtitle = @"发布训练计划";
-        [self.navigationController pushViewController:newPlanViewCtl animated:YES];
+        if([sender.titleLabel.text isEqualToString:@"取消"])
+        {
+            EnditMode = NO;
+            [_mainTableView reloadData];
+
+        }
+        else if([sender.titleLabel.text isEqualToString:@"发布"])
+        {
+            NewPlanViewController *newPlanViewCtl = [[NewPlanViewController alloc] init];
+            newPlanViewCtl.navtitle = @"发布训练计划";
+            [self.navigationController pushViewController:newPlanViewCtl animated:YES];
+        }
     }
 }
 
@@ -379,12 +489,27 @@
     
     if(EnditMode)
     {
-//        SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake(15, _cellHeight/2)];
-//        roundBtn.backgroundColor = Separator_Color;
-//        [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//        [cell addSubview:roundBtn];
+        if(indexPath.section ==0 && indexPath.row == 0)
+        {
+            if(cellBtnArr == nil)
+            {
+                cellBtnArr = [NSMutableArray array];
+            }
+            if(cellBtnArr != nil&&cellBtnArr.count >0)
+            {
+                [cellBtnArr removeAllObjects];
+            }
+        }
         
-        [cell setCellEditMode:YES andBtnCenter:CGPointMake(15, _cellHeight/2)];
+        SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake(15, _cellHeight/2)];
+        roundBtn.backgroundColor = Separator_Color;
+        [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        roundBtn.tag = indexPath.row;
+        [cell addSubview:roundBtn];
+        
+        [cellBtnArr addObject:roundBtn];
+        
+//        [cell setCellEditMode:YES andBtnCenter:CGPointMake(15, _cellHeight/2)];
     }
     else
     {

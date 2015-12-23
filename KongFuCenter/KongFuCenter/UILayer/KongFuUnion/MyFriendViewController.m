@@ -183,7 +183,7 @@
     }else if(indexPath.section == 1){
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
         cell.backgroundColor = ItemsBaseColor;
-        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(8, 7, 55, 55) andImg:[UIImage imageNamed:@"me"] andNav:self.navigationController];
+        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(8, 7, 55, 55) andImg:[UIImage imageNamed:@"me"]];
         //headView.userId = friendArray[indexPath.row][@"Value"][@"Id"];
         [headView makeSelfRound];
         [cell addSubview:headView];

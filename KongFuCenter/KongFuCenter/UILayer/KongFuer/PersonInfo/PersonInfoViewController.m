@@ -643,9 +643,10 @@
     RegisterViewController * registerViewController = [[RegisterViewController alloc] init];
     
     registerViewController.pageMode = 2;
-    [self presentViewController:registerViewController animated:YES completion:^{
-        
-    }];
+    [self.navigationController pushViewController:registerViewController animated:YES];
+//    [self presentViewController:registerViewController animated:YES completion:^{
+//        
+//    }];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
