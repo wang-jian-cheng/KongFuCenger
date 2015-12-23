@@ -53,7 +53,7 @@
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rNn-Zi-Rua">
-                        <rect key="frame" x="200" y="63.5" width="50" height="17"/>
+                        <rect key="frame" x="200" y="63" width="50" height="17"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="7RF-rd-kno"/>
@@ -91,6 +91,10 @@
             <connections>
                 <outlet property="btn_1" destination="rNn-Zi-Rua" id="WUQ-cn-zSL"/>
                 <outlet property="btn_2" destination="vCh-k0-ft5" id="anu-Wz-9Ow"/>
+                <outlet property="date" destination="iAA-8E-8ZV" id="rKN-qx-VAq"/>
+                <outlet property="detail" destination="6pI-5E-5iL" id="gn8-Iz-SjM"/>
+                <outlet property="image" destination="PzI-wN-5IR" id="AUC-9R-qCf"/>
+                <outlet property="name" destination="rLd-Mo-jCv" id="oPM-wF-cpF"/>
             </connections>
             <point key="canvasLocation" x="471" y="323"/>
         </tableViewCell>

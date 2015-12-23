@@ -193,7 +193,6 @@
 		B5AF70711C181FAD00C041AF /* zhifubao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AF706F1C181FAD00C041AF /* zhifubao@2x.png */; };
 		B5AF70731C18216C00C041AF /* selectRound@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AF70721C18216C00C041AF /* selectRound@2x.png */; };
 		B5AF70761C1821A500C041AF /* SelectRoundBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AF70751C1821A500C041AF /* SelectRoundBtn.m */; };
-		B5AF707A1C18293F00C041AF /* TrainsPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AF70791C18293F00C041AF /* TrainsPlanViewController.m */; };
 		B5AF707C1C1830BA00C041AF /* moreNoword@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AF707B1C1830BA00C041AF /* moreNoword@2x.png */; };
 		B5AF707F1C1837F600C041AF /* NewPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AF707E1C1837F600C041AF /* NewPlanViewController.m */; };
 		B5AF70841C183A9F00C041AF /* down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AF70801C183A9F00C041AF /* down@2x.png */; };
@@ -219,6 +218,7 @@
 		B5D345CC1C28E97E00D39891 /* PhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345BC1C28E97E00D39891 /* PhotoCell.m */; };
 		B5D345D01C28EA7500D39891 /* MyFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345CE1C28EA7500D39891 /* MyFriendTableViewCell.m */; };
 		B5D345D11C28EA7500D39891 /* MyFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D345CF1C28EA7500D39891 /* MyFriendTableViewCell.xib */; };
+		B5D345D31C2A3AE100D39891 /* TrainsPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345D21C2A3AE100D39891 /* TrainsPlanViewController.m */; };
 		B5D899F91C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */; };
 		B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899F81C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m */; };
 		B5D899FD1C113CDB00F55BFA /* btnFlag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */; };
@@ -707,7 +707,6 @@
 		B5AF70741C1821A500C041AF /* SelectRoundBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectRoundBtn.h; path = CommonUI/SelectRoundBtn.h; sourceTree = "<group>"; };
 		B5AF70751C1821A500C041AF /* SelectRoundBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectRoundBtn.m; path = CommonUI/SelectRoundBtn.m; sourceTree = "<group>"; };
 		B5AF70781C18293F00C041AF /* TrainsPlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainsPlanViewController.h; sourceTree = "<group>"; };
-		B5AF70791C18293F00C041AF /* TrainsPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrainsPlanViewController.m; path = ../TrainsPlan/TrainsPlanViewController.m; sourceTree = "<group>"; };
 		B5AF707B1C1830BA00C041AF /* moreNoword@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moreNoword@2x.png"; sourceTree = "<group>"; };
 		B5AF707D1C1837F600C041AF /* NewPlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPlanViewController.h; sourceTree = "<group>"; };
 		B5AF707E1C1837F600C041AF /* NewPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPlanViewController.m; sourceTree = "<group>"; };
@@ -751,6 +750,7 @@
 		B5D345CD1C28EA7500D39891 /* MyFriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFriendTableViewCell.h; sourceTree = "<group>"; };
 		B5D345CE1C28EA7500D39891 /* MyFriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFriendTableViewCell.m; sourceTree = "<group>"; };
 		B5D345CF1C28EA7500D39891 /* MyFriendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFriendTableViewCell.xib; sourceTree = "<group>"; };
+		B5D345D21C2A3AE100D39891 /* TrainsPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainsPlanViewController.m; sourceTree = "<group>"; };
 		B5D899F51C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayout.h; sourceTree = "<group>"; };
 		B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMCollectionViewFlemishBondLayout.m; sourceTree = "<group>"; };
 		B5D899F71C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayoutAttributes.h; sourceTree = "<group>"; };
@@ -1453,7 +1453,6 @@
 		B53791B11C15707900C45BA7 /* WuGuan */ = {
 			isa = PBXGroup;
 			children = (
-				B5AF705D1C17F67B00C041AF /* ZhiBo */,
 				B5451CBF1C279656001BB39F /* AutoLocationViewController.h */,
 				B5451CC01C279656001BB39F /* AutoLocationViewController.m */,
 				B5451CC11C279656001BB39F /* AutoLocationViewController.xib */,
@@ -1545,7 +1544,6 @@
 				B5F4E3A11C1EA45C001F81F0 /* FriendInfoViewController.h */,
 				B5F4E3A21C1EA45C001F81F0 /* FriendInfoViewController.m */,
 				B5F4E3A41C1EBBB5001F81F0 /* StrangerInfoViewController.h */,
-				B5AF70791C18293F00C041AF /* TrainsPlanViewController.m */,
 				B5F4E3A51C1EBBB6001F81F0 /* StrangerInfoViewController.m */,
 			);
 			path = PersonInfo;
@@ -1800,10 +1798,12 @@
 		B59409071C0FCE60003DC15D /* KongFuer */ = {
 			isa = PBXGroup;
 			children = (
+
+				B53E73931C16CEA4009E7878 /* PersonInfo */,
+				B5AF705D1C17F67B00C041AF /* ZhiBo */,
 				7B580B081C2A291200BFF83D /* Model */,
 				B5AF70771C18292600C041AF /* TrainsPlan */,
 				B5AF70651C18031600C041AF /* VIP */,
-				B53E73931C16CEA4009E7878 /* PersonInfo */,
 				B53E738D1C168B47009E7878 /* MyDream */,
 				B53E73821C166FB9009E7878 /* JiFen */,
 				B53791B11C15707900C45BA7 /* WuGuan */,
@@ -1875,8 +1875,7 @@
 				B5AF705F1C17F69B00C041AF /* ZhiBoViewController.m */,
 				B5AF70601C17F69B00C041AF /* ZhiBoViewController.xib */,
 			);
-			name = ZhiBo;
-			path = ../ZhiBo;
+			path = ZhiBo;
 			sourceTree = "<group>";
 		};
 		B5AF70651C18031600C041AF /* VIP */ = {
@@ -1895,6 +1894,7 @@
 			isa = PBXGroup;
 			children = (
 				B5AF70781C18293F00C041AF /* TrainsPlanViewController.h */,
+				B5D345D21C2A3AE100D39891 /* TrainsPlanViewController.m */,
 				B5AF707D1C1837F600C041AF /* NewPlanViewController.h */,
 				B5AF707E1C1837F600C041AF /* NewPlanViewController.m */,
 				B5F90ACB1C190CF900D7879D /* ChoosePlanTypeViewController.h */,
@@ -2845,6 +2845,7 @@
 				B5AF70591C17C21400C041AF /* Dialog.m in Sources */,
 				804952031C250B3800F5584A /* SCContext.m in Sources */,
 				B53791A41C151AED00C45BA7 /* VideoDetailViewController.m in Sources */,
+				B5D345D31C2A3AE100D39891 /* TrainsPlanViewController.m in Sources */,
 				B7D846431C22AB7500718E9E /* MJRefreshAutoFooter.m in Sources */,
 				804952271C2523FA00F5584A /* UploadVideoViewController.m in Sources */,
 				B7617E701C1C29A500CF96E7 /* YMReplyInputView.m in Sources */,
@@ -2909,7 +2910,6 @@
 				80DB846E1C23D3A6008CA670 /* UIImageView+HighlightedWebCache.m in Sources */,
 				B5451CCA1C2796B6001BB39F /* pinyin.m in Sources */,
 				7BA38E991C215E62000996EE /* AnnouncementViewController.m in Sources */,
-				B5AF707A1C18293F00C041AF /* TrainsPlanViewController.m in Sources */,
 				B577E2321C1A9A6C006695F1 /* SetNoticeViewController.m in Sources */,
 				B5F4E3A61C1EBBB6001F81F0 /* StrangerInfoViewController.m in Sources */,
 				804952071C250B3800F5584A /* SCImageView.m in Sources */,

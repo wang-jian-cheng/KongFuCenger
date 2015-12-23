@@ -20,6 +20,7 @@
     
     
     BOOL EnditMode;
+    NSMutableArray *cellBtnArr;
 }
 @end
 
@@ -73,6 +74,12 @@
     EnditMode = !EnditMode;
     [_mainTableView reloadData];
 }
+
+-(void)roundBtnClick:(UIButton *)sender
+{
+    sender.selected = ! sender.selected;
+}
+
 
 #pragma mark -  tableview  Delegate
 
@@ -163,22 +170,26 @@
     
     if(EnditMode)
     {
+        if(indexPath.section ==0 && indexPath.row == 0)
+        {
+            if(cellBtnArr == nil)
+            {
+                cellBtnArr = [NSMutableArray array];
+            }
+            if(cellBtnArr != nil&&cellBtnArr.count >0)
+            {
+                [cellBtnArr removeAllObjects];
+            }
+        }
         
+        SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake(15, _cellHeight/2)];
+        roundBtn.backgroundColor = Separator_Color;
+        [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        roundBtn.tag = indexPath.row;
+        [cell addSubview:roundBtn];
         
-//        for (int i =0 ; i<cell.contentView.subviews.count; i++) {
-//            UIView *tempView ;
-//            
-//            
-//            tempView = [cell.contentView.subviews objectAtIndex:i];
-//            tempView.frame = CGRectMake(30, 0, 100, 100);
-//            
-//            
-//            [cell layoutSubviews];
-//            
-//            //            [ [cell.subviews objectAtIndex:i] removeFromSuperview];//清空一下原来cell上面的view'防止cell的重用影响到后面section的显示
-//        }
-//        
-        [cell setCellEditMode:YES andBtnCenter:CGPointMake(15, _cellHeight/2) ];
+        [cellBtnArr addObject:roundBtn];
+        
     }
     else
     {
