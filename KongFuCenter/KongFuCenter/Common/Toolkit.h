@@ -8,26 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 
-//typedef struct _zyColor
-//{
-//    CGFloat red;
-//    CGFloat green;
-//    CGFloat blue;
-//    CGFloat alpha;
-//}zyColor;
-//
 @interface Toolkit : NSObject
 
-//+ (NSString *)getSystemLanguage;
-//+ (void)setSystemLanguage:(NSString *)strLanguage;
- + (BOOL)isEnglishSysLanguage;
+
++ (BOOL)isEnglishSysLanguage;
 + (BOOL)isSystemIOS7;
 +(BOOL)isSystemIOS8;
-// + (UIImage *)drawsimiLine:(UIImageView *)imageView;
-//+ (void)setExtraCellLineHidden: (UITableView *)tableView; //隐藏多余的seperator
-
 + (NSString *)base64EncodedStringFrom:(NSData *)data;
 
 /**
@@ -40,4 +29,17 @@
 +(UIImageView *)drawLine:(CGFloat)startX andSY:(CGFloat)startY andEX:(CGFloat)endX andEY:(CGFloat)endY andLW:(CGFloat)lineWidth andColor:(UIColor *)color andView:(UIView *)tempView;
 //获取userId
 +(NSString *)getUserID;
+
+
+#pragma mark - camera
+
++ (BOOL) isCameraAvailable;
++ (BOOL) isRearCameraAvailable;
++ (BOOL) isFrontCameraAvailable;
++ (BOOL) doesCameraSupportTakingPhotos;
++ (BOOL) isPhotoLibraryAvailable;
++ (BOOL) canUserPickVideosFromPhotoLibrary;
++ (BOOL) canUserPickPhotosFromPhotoLibrary;
++ (BOOL) cameraSupportsMedia:(NSString *)paramMediaType sourceType:(UIImagePickerControllerSourceType)paramSourceType;
+
 @end

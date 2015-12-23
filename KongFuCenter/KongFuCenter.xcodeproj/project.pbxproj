@@ -219,6 +219,8 @@
 		B5D345D01C28EA7500D39891 /* MyFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345CE1C28EA7500D39891 /* MyFriendTableViewCell.m */; };
 		B5D345D11C28EA7500D39891 /* MyFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D345CF1C28EA7500D39891 /* MyFriendTableViewCell.xib */; };
 		B5D345D31C2A3AE100D39891 /* TrainsPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345D21C2A3AE100D39891 /* TrainsPlanViewController.m */; };
+		B5D345DA1C2A792E00D39891 /* PictureShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345D91C2A792E00D39891 /* PictureShowView.m */; };
+		B5D345DD1C2A8B5A00D39891 /* UploadDataToServer.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345DC1C2A8B5A00D39891 /* UploadDataToServer.m */; };
 		B5D899F91C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */; };
 		B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899F81C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m */; };
 		B5D899FD1C113CDB00F55BFA /* btnFlag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */; };
@@ -751,6 +753,10 @@
 		B5D345CE1C28EA7500D39891 /* MyFriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFriendTableViewCell.m; sourceTree = "<group>"; };
 		B5D345CF1C28EA7500D39891 /* MyFriendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFriendTableViewCell.xib; sourceTree = "<group>"; };
 		B5D345D21C2A3AE100D39891 /* TrainsPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainsPlanViewController.m; sourceTree = "<group>"; };
+		B5D345D81C2A792E00D39891 /* PictureShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureShowView.h; sourceTree = "<group>"; };
+		B5D345D91C2A792E00D39891 /* PictureShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureShowView.m; sourceTree = "<group>"; };
+		B5D345DB1C2A8B5A00D39891 /* UploadDataToServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadDataToServer.h; sourceTree = "<group>"; };
+		B5D345DC1C2A8B5A00D39891 /* UploadDataToServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadDataToServer.m; sourceTree = "<group>"; };
 		B5D899F51C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayout.h; sourceTree = "<group>"; };
 		B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMCollectionViewFlemishBondLayout.m; sourceTree = "<group>"; };
 		B5D899F71C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayoutAttributes.h; sourceTree = "<group>"; };
@@ -1429,6 +1435,7 @@
 		B53791A91C1525CD00C45BA7 /* CommonUI */ = {
 			isa = PBXGroup;
 			children = (
+				B5D345D41C2A77EB00D39891 /* PictureShow */,
 				B53791A21C151AED00C45BA7 /* VideoDetailViewController.h */,
 				B53791A31C151AED00C45BA7 /* VideoDetailViewController.m */,
 				B53791A51C151FEB00C45BA7 /* UserHeadView.h */,
@@ -1744,6 +1751,8 @@
 				B59409031C0FCD56003DC15D /* CommonDef.h */,
 				B569DB9A1C12B6C000325CFA /* UITableViewCell+EditMode.h */,
 				B569DB9B1C12B6C000325CFA /* UITableViewCell+EditMode.m */,
+				B5D345DB1C2A8B5A00D39891 /* UploadDataToServer.h */,
+				B5D345DC1C2A8B5A00D39891 /* UploadDataToServer.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1798,7 +1807,6 @@
 		B59409071C0FCE60003DC15D /* KongFuer */ = {
 			isa = PBXGroup;
 			children = (
-
 				B53E73931C16CEA4009E7878 /* PersonInfo */,
 				B5AF705D1C17F67B00C041AF /* ZhiBo */,
 				7B580B081C2A291200BFF83D /* Model */,
@@ -1963,6 +1971,15 @@
 				B5D345BA1C28E97D00D39891 /* UIView+JKPicker.m */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		B5D345D41C2A77EB00D39891 /* PictureShow */ = {
+			isa = PBXGroup;
+			children = (
+				B5D345D81C2A792E00D39891 /* PictureShowView.h */,
+				B5D345D91C2A792E00D39891 /* PictureShowView.m */,
+			);
+			path = PictureShow;
 			sourceTree = "<group>";
 		};
 		B5D899F31C11211900F55BFA /* RamCollectionView */ = {
@@ -2812,6 +2829,7 @@
 				B7D8464E1C22AB7500718E9E /* MJRefreshGifHeader.m in Sources */,
 				B7D846501C22AB7500718E9E /* MJRefreshStateHeader.m in Sources */,
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
+				B5D345DA1C2A792E00D39891 /* PictureShowView.m in Sources */,
 				804952151C250B3800F5584A /* SCVideoConfiguration.m in Sources */,
 				B72E39F41C1AB4D0007356C4 /* MakeMushaViewController.m in Sources */,
 				80DB846C1C23D3A6008CA670 /* UIImage+MultiFormat.m in Sources */,
@@ -2869,6 +2887,7 @@
 				B7D846531C22AB7500718E9E /* UIScrollView+MJExtension.m in Sources */,
 				B7D846481C22AB7500718E9E /* MJRefreshAutoGifFooter.m in Sources */,
 				80DB846F1C23D3A6008CA670 /* UIImageView+WebCache.m in Sources */,
+				B5D345DD1C2A8B5A00D39891 /* UploadDataToServer.m in Sources */,
 				B53791B01C156B8C00C45BA7 /* VideoListForStudyViewController.m in Sources */,
 				804952011C250B3800F5584A /* SCAudioConfiguration.m in Sources */,
 				B7617E3B1C1C298F00CF96E7 /* ILRegularExpressionManager.m in Sources */,

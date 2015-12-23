@@ -402,6 +402,11 @@
 
 #pragma mark - 训练计划
 
+-(void)updataPlan
+{
+    
+}
+
 -(void)getPlanInfo:(NSString *)userid andCateId:(NSString *)cateid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows
 {
     if(userid&&cateid&&startRowIndex&&maximumRows)
