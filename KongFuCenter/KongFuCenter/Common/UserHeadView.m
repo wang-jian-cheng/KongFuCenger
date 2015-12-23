@@ -88,8 +88,14 @@
 
 -(BOOL)CheckIsFriend:(NSString *)userId
 {
-
-    return YES;
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSArray *friendIDArray = [[[userDefault valueForKey:@"friendData"] valueForKey:@"Value"] valueForKey:@"Id"];
+    NSLog(@"%@",friendIDArray);
+    if ([friendIDArray containsObject:userId]) {
+        return YES;
+    }else{
+        return NO;
+    }
 }
 
 -(void)UserHeadBtnClick:(UIButton *)sender
@@ -121,6 +127,7 @@
 
                 StrangerInfoViewController *strangerInfoViewCtl = [[StrangerInfoViewController alloc] init];
                 strangerInfoViewCtl.navtitle = @"好友资料";
+                strangerInfoViewCtl.userID = self.userId;
                 if(tempNav!=nil)
                     [tempNav pushViewController:strangerInfoViewCtl animated:YES];
             }

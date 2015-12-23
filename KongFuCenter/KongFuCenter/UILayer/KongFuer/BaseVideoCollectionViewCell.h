@@ -16,6 +16,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbl_title;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_content;
 
+@property (weak, nonatomic) IBOutlet UILabel *date;
+
+@property (weak, nonatomic) IBOutlet UILabel *free;
 
 
 

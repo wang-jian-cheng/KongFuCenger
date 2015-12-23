@@ -19,6 +19,9 @@
     UITextField * txt_newPwd;
     UITextField * txt_againNewPwd;
     NSUserDefaults *mUserDefault;
+    
+    //修改密码
+    UITextField *txt_oldPwd;
 }
 
 - (void)viewDidLoad {
@@ -88,118 +91,162 @@
     UITableViewCell * cell=[[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;//设置cell不可点击
     cell.backgroundColor = ItemsBaseColor;
-    switch (indexPath.row) {
-        case 0:
-        {
-            txt_phoneNum=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-140, 30)];
-            txt_phoneNum.keyboardType = UIKeyboardTypeNumberPad;
-            txt_phoneNum.placeholder=@"请输入您的手机号";
-            txt_phoneNum.textColor = [UIColor whiteColor];
-            [txt_phoneNum setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
-            [cell addSubview:txt_phoneNum];
-            
-        }
-            break;
-        case 1:
-        {
-            txt_vrifyCode=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-140, 30)];
-            txt_vrifyCode.keyboardType = UIKeyboardTypeNumberPad;
-            txt_vrifyCode.placeholder=@"请输入您的验证码";
-            txt_vrifyCode.textColor = [UIColor whiteColor];
-            [txt_vrifyCode setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
-            [cell addSubview:txt_vrifyCode];
-            
-            UIButton * btn_GetvrifyCode=[[UIButton alloc] initWithFrame:CGRectMake(txt_vrifyCode.frame.size.width+txt_vrifyCode.frame.origin.x, 10, 100, 30)];
-            [btn_GetvrifyCode setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [btn_GetvrifyCode setTitle:@"获取验证码" forState:UIControlStateNormal];
-            btn_GetvrifyCode.layer.masksToBounds=YES;
-            btn_GetvrifyCode.layer.cornerRadius = 5;
-            btn_GetvrifyCode.titleLabel.font = [UIFont systemFontOfSize:14];
-            btn_GetvrifyCode.backgroundColor = [UIColor blackColor];
-            [btn_GetvrifyCode addTarget:self action:@selector(sendeVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
-            btn_GetvrifyCode.titleLabel.textAlignment = NSTextAlignmentCenter;
-            [cell addSubview:btn_GetvrifyCode];
-        }
-            break;
-        case 2:
+    if (_pageMode == MODE_change) {
+        if (indexPath.row == 0) {
+            txt_oldPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-140, 30)];
+            txt_oldPwd.keyboardType = UIKeyboardTypeNumberPad;
+            txt_oldPwd.placeholder=@"请输入您的原密码";
+            txt_oldPwd.textColor = [UIColor whiteColor];
+            [txt_oldPwd setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
+            [cell addSubview:txt_oldPwd];
+        }else if (indexPath.row == 1){
             txt_newPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-40, 30)];
             txt_newPwd.secureTextEntry = YES;
             txt_newPwd.placeholder=@"请输入您的新密码";
             txt_newPwd.textColor = [UIColor whiteColor];
             [txt_newPwd setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
             [cell addSubview:txt_newPwd];
-            break;
-        case 3:
+        }else if (indexPath.row == 2){
             txt_againNewPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-40, 30)];
             txt_againNewPwd.secureTextEntry = YES;
             txt_againNewPwd.placeholder=@"请再次输入您的密码";
             txt_againNewPwd.textColor = [UIColor whiteColor];
             [txt_againNewPwd setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
             [cell addSubview:txt_againNewPwd];
-            break;
-        case 4:
-        {
-            
-            cell.backgroundColor = BACKGROUND_COLOR;
-            //if(_pageMode == MODE_Reg)
-            if(0)
-            {
-                UIButton * btn_fuwuxieyi=[[UIButton alloc] initWithFrame:CGRectMake(20, 10, 100, 30)];
-                [btn_fuwuxieyi setImage:[UIImage imageNamed:@"regster_select_icon@2x.png"] forState:UIControlStateNormal];
-                [btn_fuwuxieyi setTitle:@"服务协议" forState:UIControlStateNormal];
-                [btn_fuwuxieyi setTitleColor:BACKGROUND_COLOR forState:UIControlStateNormal];
-                
-                btn_fuwuxieyi.imageView.contentMode = UIViewContentModeScaleAspectFit;
-                btn_fuwuxieyi.titleLabel.font = [UIFont systemFontOfSize:14];
-                [cell addSubview:btn_fuwuxieyi];
-                
-                UIButton * btn_yinsi=[[UIButton alloc] initWithFrame:CGRectMake(btn_fuwuxieyi.frame.size.width+btn_fuwuxieyi.frame.origin.x+ 20, 10, 100, 30)];
-                [btn_yinsi setImage:[UIImage imageNamed:@"regster_select_icon@2x.png"] forState:UIControlStateNormal];
-                [btn_yinsi setTitle:@"隐私政策" forState:UIControlStateNormal];
-                [btn_yinsi setTitleColor:BACKGROUND_COLOR forState:UIControlStateNormal];
-                
-                
-                btn_yinsi.imageView.contentMode = UIViewContentModeScaleAspectFit;
-                btn_yinsi.titleLabel.font = [UIFont systemFontOfSize:14];
-                [cell addSubview:btn_yinsi];
-            }
-        }
-            break;
-        case 5:
-        {
+        }else if (indexPath.row == 3){
             cell.backgroundColor = BACKGROUND_COLOR;
             UIButton * btn_sure=[[UIButton alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH - 20*2, 44)];
             btn_sure.backgroundColor=YellowBlock;
             [btn_sure setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [btn_sure setTitle:@"确定" forState:UIControlStateNormal];
-            if(_pageMode == MODE_Reg)
-            {
-                [btn_sure addTarget:self action:@selector(LoginFunC:) forControlEvents:UIControlEventTouchUpInside];
-            }
-            else
-            {
-                [btn_sure addTarget:self action:@selector(ForgetFunC:) forControlEvents:UIControlEventTouchUpInside];
-            }
+            [btn_sure addTarget:self action:@selector(ChangePwdFunC:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:btn_sure];
         }
-            break;
-        default:
-            break;
+        if (indexPath.row<2) {
+            UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(20,cell.frame.size.height-1 , SCREEN_WIDTH-40, 1)];
+            fenge.backgroundColor=BACKGROUND_COLOR;
+            [cell addSubview:fenge];
+        }
+    }else{
+        switch (indexPath.row) {
+            case 0:
+            {
+                txt_phoneNum=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-140, 30)];
+                txt_phoneNum.keyboardType = UIKeyboardTypeNumberPad;
+                txt_phoneNum.placeholder=@"请输入您的手机号";
+                txt_phoneNum.textColor = [UIColor whiteColor];
+                [txt_phoneNum setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
+                [cell addSubview:txt_phoneNum];
+                
+            }
+                break;
+            case 1:
+            {
+                txt_vrifyCode=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-140, 30)];
+                txt_vrifyCode.keyboardType = UIKeyboardTypeNumberPad;
+                txt_vrifyCode.placeholder=@"请输入您的验证码";
+                txt_vrifyCode.textColor = [UIColor whiteColor];
+                [txt_vrifyCode setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
+                [cell addSubview:txt_vrifyCode];
+                
+                UIButton * btn_GetvrifyCode=[[UIButton alloc] initWithFrame:CGRectMake(txt_vrifyCode.frame.size.width+txt_vrifyCode.frame.origin.x, 10, 100, 30)];
+                [btn_GetvrifyCode setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [btn_GetvrifyCode setTitle:@"获取验证码" forState:UIControlStateNormal];
+                btn_GetvrifyCode.layer.masksToBounds=YES;
+                btn_GetvrifyCode.layer.cornerRadius = 5;
+                btn_GetvrifyCode.titleLabel.font = [UIFont systemFontOfSize:14];
+                btn_GetvrifyCode.backgroundColor = [UIColor blackColor];
+                [btn_GetvrifyCode addTarget:self action:@selector(sendeVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
+                btn_GetvrifyCode.titleLabel.textAlignment = NSTextAlignmentCenter;
+                [cell addSubview:btn_GetvrifyCode];
+            }
+                break;
+            case 2:
+                txt_newPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-40, 30)];
+                txt_newPwd.secureTextEntry = YES;
+                txt_newPwd.placeholder=@"请输入您的新密码";
+                txt_newPwd.textColor = [UIColor whiteColor];
+                [txt_newPwd setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
+                [cell addSubview:txt_newPwd];
+                break;
+            case 3:
+                txt_againNewPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-40, 30)];
+                txt_againNewPwd.secureTextEntry = YES;
+                txt_againNewPwd.placeholder=@"请再次输入您的密码";
+                txt_againNewPwd.textColor = [UIColor whiteColor];
+                [txt_againNewPwd setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
+                [cell addSubview:txt_againNewPwd];
+                break;
+            case 4:
+            {
+                
+                cell.backgroundColor = BACKGROUND_COLOR;
+                //if(_pageMode == MODE_Reg)
+                if(0)
+                {
+                    UIButton * btn_fuwuxieyi=[[UIButton alloc] initWithFrame:CGRectMake(20, 10, 100, 30)];
+                    [btn_fuwuxieyi setImage:[UIImage imageNamed:@"regster_select_icon@2x.png"] forState:UIControlStateNormal];
+                    [btn_fuwuxieyi setTitle:@"服务协议" forState:UIControlStateNormal];
+                    [btn_fuwuxieyi setTitleColor:BACKGROUND_COLOR forState:UIControlStateNormal];
+                    
+                    btn_fuwuxieyi.imageView.contentMode = UIViewContentModeScaleAspectFit;
+                    btn_fuwuxieyi.titleLabel.font = [UIFont systemFontOfSize:14];
+                    [cell addSubview:btn_fuwuxieyi];
+                    
+                    UIButton * btn_yinsi=[[UIButton alloc] initWithFrame:CGRectMake(btn_fuwuxieyi.frame.size.width+btn_fuwuxieyi.frame.origin.x+ 20, 10, 100, 30)];
+                    [btn_yinsi setImage:[UIImage imageNamed:@"regster_select_icon@2x.png"] forState:UIControlStateNormal];
+                    [btn_yinsi setTitle:@"隐私政策" forState:UIControlStateNormal];
+                    [btn_yinsi setTitleColor:BACKGROUND_COLOR forState:UIControlStateNormal];
+                    
+                    
+                    btn_yinsi.imageView.contentMode = UIViewContentModeScaleAspectFit;
+                    btn_yinsi.titleLabel.font = [UIFont systemFontOfSize:14];
+                    [cell addSubview:btn_yinsi];
+                }
+            }
+                break;
+            case 5:
+            {
+                cell.backgroundColor = BACKGROUND_COLOR;
+                UIButton * btn_sure=[[UIButton alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH - 20*2, 44)];
+                btn_sure.backgroundColor=YellowBlock;
+                [btn_sure setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [btn_sure setTitle:@"确定" forState:UIControlStateNormal];
+                if(_pageMode == MODE_Reg)
+                {
+                    [btn_sure addTarget:self action:@selector(LoginFunC:) forControlEvents:UIControlEventTouchUpInside];
+                }else if(_pageMode == MODE_change){
+                    [btn_sure addTarget:self action:@selector(ChangePwdFunC:) forControlEvents:UIControlEventTouchUpInside];
+                }
+                else
+                {
+                    [btn_sure addTarget:self action:@selector(ForgetFunC:) forControlEvents:UIControlEventTouchUpInside];
+                }
+                [cell addSubview:btn_sure];
+            }
+                break;
+            default:
+                break;
+        }
+        
+        if (indexPath.row<4) {
+            UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(20,cell.frame.size.height-1 , SCREEN_WIDTH-40, 1)];
+            fenge.backgroundColor=BACKGROUND_COLOR;
+            [cell addSubview:fenge];
+        }
     }
-    
-    if (indexPath.row<4) {
-        UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(20,cell.frame.size.height-1 , SCREEN_WIDTH-40, 1)];
-        fenge.backgroundColor=BACKGROUND_COLOR;
-        [cell addSubview:fenge];
-    }
-    
     
     
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    if(_pageMode == MODE_Reg){
+        return 6;
+    }else if (_pageMode == MODE_change){
+        return 4;
+    }
+    return 0;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -243,6 +290,7 @@
     {
         UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请正确填写手机号" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
         [alert show];
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -258,23 +306,23 @@
     if ([txt_newPwd.text isEqualToString:txt_againNewPwd.text]&&txt_newPwd.text.length>0&&txt_vrifyCode.text.length>0) {
         
         
-    NSLog(@"验证成功");
-    @try {
-        NSInteger ret;
-        DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider setDelegateObject:self setBackFunctionName:@"RegisteBackCall:"];
-        ret =[dataprovider reg:txt_phoneNum.text andPassWord:txt_newPwd.text];
-        if(ret!=OK)
-        {
-            DLog(@"ret = %ld",ret);
-        }
-    }
-    @catch (NSException *exception) {
-
-    }
-    @finally {
-        
-    }
+//    NSLog(@"验证成功");
+//    @try {
+//        NSInteger ret;
+//        DataProvider * dataprovider=[[DataProvider alloc] init];
+//        [dataprovider setDelegateObject:self setBackFunctionName:@"RegisteBackCall:"];
+//        ret =[dataprovider reg:txt_phoneNum.text andPassWord:txt_newPwd.text];
+//        if(ret!=OK)
+//        {
+//            DLog(@"ret = %ld",ret);
+//        }
+//    }
+//    @catch (NSException *exception) {
+//
+//    }
+//    @finally {
+//        
+//    }
 
   
         [SVProgressHUD showWithStatus:@"正在注册..." maskType:SVProgressHUDMaskTypeBlack];
@@ -412,7 +460,28 @@
 //    }
 }
 
+-(void)ChangePwdFunC:(UIButton *)sender{
+    if ([txt_newPwd.text isEqualToString:txt_againNewPwd.text]&&txt_oldPwd.text.length>0) {
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"ChangePwdCallBack:"];
+        [dataProvider ChangePassWord:[mUserDefault valueForKey:@"id"] andoldpwd:txt_oldPwd.text andpassword:txt_newPwd.text];
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请正确填写信息" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+        [alert show];
+    }
+}
 
+-(void)ChangePwdCallBack:(id)dict{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"修改密码成功~"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:@"修改密码失败~"];
+    }
+}
 
 #endif
 - (void)didReceiveMemoryWarning {

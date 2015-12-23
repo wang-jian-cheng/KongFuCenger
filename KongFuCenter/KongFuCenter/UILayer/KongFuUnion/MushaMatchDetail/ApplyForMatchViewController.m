@@ -85,7 +85,7 @@
     //设置view的frame，往上平移
     [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height -Header_Height -keyboardRect.size.height)];
     
-    NSLog(@"tempIndexPath.section = %ld tempIndexPath.row = %ld",tempIndexPath.section,tempIndexPath.row);
+    NSLog(@"tempIndexPath.section = %ld tempIndexPath.row = %ld",(long)tempIndexPath.section,tempIndexPath.row);
     
     [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     

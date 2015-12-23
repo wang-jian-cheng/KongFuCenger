@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _lblTitle.text=@"扫描二维码";
+    _lblStatus.hidden=YES;
     [self addLeftButton:@"Icon_Back@2x.png"];
     _captureSession = nil;
     _isReading = NO;
@@ -24,6 +25,9 @@
 }
 
 - (BOOL)startReading {
+    
+    _viewPreview.frame=CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64);
+    
     NSError *error;
     
     //1.初始化捕捉设备（AVCaptureDevice），类型为AVMediaTypeVideo
