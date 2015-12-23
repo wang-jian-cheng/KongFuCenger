@@ -492,6 +492,46 @@
     }
 }
 
+-(void)GetNewVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows
+{
+    if (startRowIndex && maximumRows) {
+        NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/NewVideo",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)GetHotVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows
+{
+    if (startRowIndex && maximumRows) {
+        NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/HotVideo",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)GetTuiJianVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows
+{
+    if (startRowIndex && maximumRows) {
+        NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/TuijianVideo",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)GetYuanChuangVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows
+{
+    if (startRowIndex && maximumRows) {
+        NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/YuanchuangVideo",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)SendVideoInfo:()
+
+
+
+
+
+
+
 
 
 #pragma mark 赋值回调

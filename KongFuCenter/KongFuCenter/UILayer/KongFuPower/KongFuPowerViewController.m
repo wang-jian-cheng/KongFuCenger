@@ -9,6 +9,7 @@
 #import "KongFuPowerViewController.h"
 #import "WechatShortVideoController.h"
 #import "UploadVideoViewController.h"
+#import "MJRefresh.h"
 
 @interface KongFuPowerViewController ()<WechatShortVideoDelegate>
 {
@@ -22,6 +23,12 @@
     NSMutableArray *studyCateArr;
     NSMutableArray *btnArr;
     
+    int videoType;
+    
+    int dataPage;
+    
+    int pageSize;
+    
 }
 @end
 
@@ -34,10 +41,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
      self.view.backgroundColor = BACKGROUND_COLOR;
+    
     [self setBarTitle:@"核动力"];
+    
     [self addRightButton:@"plus@2x.png"];
+    
+    videoType=0;
+    
+    dataPage=0;
+    
+    pageSize=6;
+    
     [self initDatas];
+    
     [self initViews];
     
     // Do any additional setup after loading the view.
@@ -94,7 +112,7 @@
     _sectionNum = 3;
     
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height -44 - TabBar_HEIGHT)];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height  - TabBar_HEIGHT+6)];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -104,6 +122,28 @@
     //_mainTableView.scrollEnabled = NO;
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
+    
+    
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = _mainTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    _mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf TeamTopRefresh];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [_mainTableView.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    _mainTableView.mj_footer = footer;
+    
+    
     
     dataArr = @[@"zhenzidan",@"lixiaolong",@"chenglong"];
     [self.view addSubview:_mainTableView];
@@ -160,7 +200,11 @@
         }
     }
     NSInteger tag = sender.tag;
+    
+    videoType=(int)tag;
+    
     switch (tag) {
+            
         case CHANNEL_BTN:
         {
             ChannelViewController *channelViewCtl = [[ChannelViewController alloc] init];
@@ -170,6 +214,7 @@
             break;
             
         default:
+            [_mainTableView.mj_header beginRefreshing];
             break;
     }
     
@@ -211,6 +256,64 @@
     
     
 }
+
+
+-(void)TeamTopRefresh
+{
+    dataPage=0;
+    [self RequestData];
+}
+
+-(void)TeamFootRefresh
+{
+    ++dataPage;
+    [self RequestData];
+}
+
+-(void)TopRefreshCallBack:(id)dict
+{
+    NSLog(@"%@",dict);
+}
+-(void)FooterRefreshCallBack:(id)dict
+{
+    NSLog(@"%@",dict);
+}
+
+
+-(void)RequestData
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    
+    [dataprovider setDelegateObject:self setBackFunctionName:dataPage==0?@"TopRefreshCallBack:":@"FooterRefreshCallBack:"];
+    
+    switch (videoType) {
+        case NEWEST_BTN:
+        {
+            [dataprovider GetNewVideoList:[NSString stringWithFormat:@"%d",dataPage*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+        }
+            break;
+            
+        case HOST_BTN:
+        {
+            [dataprovider GetHotVideoList:[NSString stringWithFormat:@"%d",dataPage*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+        }
+            break;
+        case RECOMMEND_BTN:
+        {
+            [dataprovider GetTuiJianVideoList:[NSString stringWithFormat:@"%d",dataPage*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+        }
+            break;
+        case ORIGINAL_BTN:
+        {
+            [dataprovider GetYuanChuangVideoList:[NSString stringWithFormat:@"%d",dataPage*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 
 #pragma mark -animation
 #define SHOW_ANIM_KEY   @"showSettingView"
