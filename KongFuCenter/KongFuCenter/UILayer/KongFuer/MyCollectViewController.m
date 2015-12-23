@@ -7,7 +7,8 @@
 //
 
 #import "MyCollectViewController.h"
-
+#import "model_collect.h"
+#import "UIImageView+WebCache.h"
 @interface MyCollectViewController ()
 {
     NSArray *cateArr;
@@ -19,9 +20,10 @@
     NSInteger _cellTableCount;
     CGFloat _cellTableHeight;
     UITableView *_mainTableView;
-    
-    
 }
+
+@property (nonatomic, strong) NSMutableArray * arr_voiceData;
+
 @end
 
 #define _CELL  @"acell"
@@ -48,30 +50,34 @@
 
 -(void)getUserInfo
 {
-
     [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
 //    [dataprovider collectData:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"1" andMaximumRows:@"6"];
     [dataprovider setCollect:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"0" andMaximumRowst:@"10"];
-    
 }
 
 -(void)getUserInfoCallBack:(id)dict
 {
-    [SVProgressHUD dismiss];
-    
-    DLog(@"%@",dict);
+//    DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try
         {
+            NSLog(@"%@",dict[@"data"]);
+            NSArray * arr_ = dict[@"data"];
+            model_collect * model = [[model_collect alloc] init];
+            [model setValuesForKeysWithDictionary:arr_.firstObject];
             
+            [self.arr_voiceData addObject:model];
         }
         @catch (NSException *exception) {
             
         }
         @finally {
             
+            [mainCollectionView reloadData];
+            [SVProgressHUD dismiss];
+            NSLog(@"完成");
         }
     }
     else
@@ -95,7 +101,7 @@
     cateArr = @[@"视频",@"文章"];
     btnArr  = [NSMutableArray array];
     EditMode = NO;
-    _cellCollectionCount = 6;
+    _cellCollectionCount = self.arr_voiceData.count;
 }
 
 -(void)initViews
@@ -260,30 +266,58 @@
 
 - (void)btn_firstAction:(UIButton *)sender
 {
+    
+    model_collect * model = self.arr_voiceData[sender.tag / 10];
+    
     if (sender.selected == 0)
     {
         sender.selected = 1;
         [sender setImage:[UIImage imageNamed:@"support_h@2x"] forState:(UIControlStateNormal)];
+        
+        int x = [model.LikeNum intValue] + 1;
+        model.LikeNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
+        NSLog(@"%@",model.LikeNum);
     }
     else
     {
         sender.selected = 0;
         [sender setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+        int x = [model.LikeNum intValue] - 1;
+        model.LikeNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
     }
+    
+//    [mainCollectionView reloadData];
 }
 
 - (void)btn_secondAction:(UIButton *)sender
 {
+    
+    model_collect * model = self.arr_voiceData[sender.tag / 10];
+    
     if (sender.selected == 0)
     {
         sender.selected = 1;
         [sender setImage:[UIImage imageNamed:@"collect_h@2x"] forState:(UIControlStateNormal)];
+        
+        int x = [model.FavoriteNum intValue] + 1;
+        model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:model.FavoriteNum forState:(UIControlStateNormal)];
+
     }
     else
     {
         sender.selected = 0;
         [sender setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+        
+        int x = [model.FavoriteNum intValue] - 1;
+        model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:model.FavoriteNum forState:(UIControlStateNormal)];
+
     }
+    
+//    [mainCollectionView reloadData];
 }
 //?
 - (void)btn_thridAction:(UIButton *)sender
@@ -322,6 +356,7 @@
     cell.layer.masksToBounds=YES;
     cell.frame=CGRectMake(cell.frame.origin.x, cell.frame.origin.y, SCREEN_WIDTH, cell.frame.size.height);
 //    cell.btn_1.backgroundColor = [UIColor orangeColor];
+    
     
     [cell.btn_1 setTitle:@"1000" forState:(UIControlStateNormal)];
     [cell.btn_1 setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
@@ -421,11 +456,9 @@
 
 -( NSInteger )collectionView:( UICollectionView *)collectionView numberOfItemsInSection:( NSInteger )section
 {
-    return _cellCollectionCount;
+    return self.arr_voiceData.count;
     
 }
-
-
 
 //定义展示的Section的个数
 
@@ -448,21 +481,49 @@
     // Set up the reuse identifier
     cell = [collectionView dequeueReusableCellWithReuseIdentifier: @"BaseVideoCell"
                                                      forIndexPath:indexPath];
-    
-    
     cell.backgroundColor = ItemsBaseColor;
     
-    [cell.btn_first setTitle:@"1000" forState:(UIControlStateNormal)];
+    model_collect * model = self.arr_voiceData[indexPath.row];
+    
+    cell.lbl_title.text = model.Title;
+    cell.lbl_content.text = model.Content;
+//    cell.img_logo.image = [UIImage imageNamed:model.ImagePath];
+    NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,model.ImagePath];
+    [cell.img_logo sd_setImageWithURL:[NSURL URLWithString:url]];
+    
+    NSRange x = NSMakeRange(5, 5);
+//    [model.OperateTime substringWithRange:x];
+    cell.date.text = [model.OperateTime substringWithRange:x];
+    
+    
+//    NSLog(@"%@",model.IsFree);
+    NSString * str_free = [NSString stringWithFormat:@"%@",model.IsFree];
+    if([str_free isEqualToString:@"0"])
+    {
+        cell.free.hidden = YES;
+    }
+    else
+    {
+        cell.free.hidden = NO;
+        cell.btn_thrid.hidden = YES;
+    }
+    
+//    NSLog(@"%@",model.LikeNum);
+    
+    [cell.btn_first setTitle:[NSString stringWithFormat:@"%@",model.LikeNum] forState:(UIControlStateNormal)];
     [cell.btn_first setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
     [cell.btn_first addTarget:self action:@selector(btn_firstAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    cell.btn_first.tag = indexPath.row * 10;
     
-    [cell.btn_second setTitle:@"1000" forState:(UIControlStateNormal)];
+    [cell.btn_second setTitle:[NSString stringWithFormat:@"%@",model.FavoriteNum] forState:(UIControlStateNormal)];
     [cell.btn_second setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
     [cell.btn_second addTarget:self action:@selector(btn_secondAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    cell.btn_second.tag = indexPath.row * 10;
     
-    [cell.btn_thrid setTitle:@"1000" forState:(UIControlStateNormal)];
+    [cell.btn_thrid setTitle:[NSString stringWithFormat:@"%@",model.RepeatNum] forState:(UIControlStateNormal)];
     [cell.btn_thrid setImage:[UIImage imageNamed:@"relay@2x"] forState:(UIControlStateNormal)];
     [cell.btn_thrid addTarget:self action:@selector(btn_thridAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    cell.btn_thrid.tag = indexPath.row * 10;
 //    cell.btn_thrid.enabled = NO;
     
     return cell;
@@ -521,14 +582,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - 懒加载
+- (NSMutableArray *)arr_voiceData
+{
+    if(_arr_voiceData == nil)
+    {
+        self.arr_voiceData = [NSMutableArray array];
+    }
+    return _arr_voiceData;
 }
-*/
 
 @end
