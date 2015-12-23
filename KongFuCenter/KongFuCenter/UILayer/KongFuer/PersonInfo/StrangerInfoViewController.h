@@ -10,4 +10,6 @@
 #import "UserHeadView.h"
 @interface StrangerInfoViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
+@property(strong,nonatomic) NSString *userID;
+
 @end

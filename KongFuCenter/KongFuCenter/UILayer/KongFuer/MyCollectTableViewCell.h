@@ -14,6 +14,14 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btn_2;
 
+@property (weak, nonatomic) IBOutlet UIImageView *image;
+
+@property (weak, nonatomic) IBOutlet UILabel *name;
+
+@property (weak, nonatomic) IBOutlet UILabel *detail;
+
+@property (weak, nonatomic) IBOutlet UILabel *date;
+
 
 
 

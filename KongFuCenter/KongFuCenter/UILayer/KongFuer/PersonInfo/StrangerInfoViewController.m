@@ -14,6 +14,9 @@
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    DataProvider *dataProvider;
+    NSDictionary *userInfoArray;
+    NSUserDefaults *userDefault;
 }
 @end
 #define GapToLeft   20
@@ -22,8 +25,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    [self initViews];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = BACKGROUND_COLOR;
+    
+    userInfoArray = [[NSDictionary alloc] init];
+    userDefault = [NSUserDefaults standardUserDefaults];
+    
+    [self initData];
+}
+
+-(void)initData{
+    [SVProgressHUD showWithStatus:@"加载中"];
+    dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getUserInfoById:"];
+    [dataProvider getUserInfo:_userID];
+}
+
+-(void)getUserInfoById:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        userInfoArray = dict[@"data"];
+        NSLog(@"%@",userInfoArray);
+        [self initViews];
+    }
 }
 
 -(void)initViews
@@ -44,6 +67,7 @@
     UIButton *opBtn = [[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight, SCREEN_WIDTH- 2*GapToLeft, _cellHeight)];
     opBtn.backgroundColor = YellowBlock;
     [opBtn setTitle:@"关注好友" forState:UIControlStateNormal];
+    [opBtn addTarget:self action:@selector(AttentionFriendEvent) forControlEvents:UIControlEventTouchUpInside];
     [tempView addSubview:opBtn];
     _mainTableView.tableFooterView = tempView;
     //_mainTableView.scrollEnabled = NO;
@@ -51,6 +75,21 @@
     //  _mainTableView.contentSize = CGSizeMake(SCREEN_WIDTH, 15*_cellHeight);
     [self.view addSubview:_mainTableView];
     
+}
+
+-(void)AttentionFriendEvent{
+    dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"addFriendCallBack:"];
+    [dataProvider SaveFriend:[userDefault valueForKey:@"id"] andFriendid:_userID];
+}
+
+-(void)addFriendCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"关注成功~"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:@"关注失败~"];
+    }
 }
 
 
@@ -150,14 +189,17 @@
     }
     else if(indexPath.section == 0)
     {
-        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight/2, 2*_cellHeight, 2*_cellHeight) andImgName:@"me"];
+        NSString *photoPath = [userInfoArray valueForKey:@"PhotoPath"];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoPath];
+        //UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight/2, 2*_cellHeight, 2*_cellHeight) andImgName:@"me"];
+        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight/2, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]]];
         [headView makeSelfRound];
         [cell addSubview:headView];
         
         
         
         UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x+headView.frame.size.width)+5, _cellHeight/2+10, 200, (headView.frame.size.height)/3)];
-        nameLab.text = @"成龙";
+        nameLab.text = [userInfoArray valueForKey:@"NicName"];//@"成龙";
         nameLab.textColor = YellowBlock;
         nameLab.font = [UIFont boldSystemFontOfSize:18];
         [cell addSubview:nameLab];
@@ -168,7 +210,15 @@
                                                                           (headView.frame.size.height)/3)];
         otherInfoLab.textColor = [UIColor whiteColor];
         otherInfoLab.font = [UIFont systemFontOfSize:18];
-        otherInfoLab.text = [NSString stringWithFormat:@"%@－%d岁",@"男",26];
+        
+        NSString *birthday = [userInfoArray valueForKey:@"Birthday"];
+        NSInteger mYear = [[birthday substringToIndex:4] intValue];
+        NSDate *now = [NSDate date];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+        NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
+        NSInteger age = [dateComponent year] - mYear;
+        otherInfoLab.text = [NSString stringWithFormat:@"%@－%d岁",[[NSString stringWithFormat:@"%@",[userInfoArray valueForKey:@"Sexuality"]] isEqual:@"0"]?@"男":@"女",(int)age];
         
         [cell addSubview:otherInfoLab];
         

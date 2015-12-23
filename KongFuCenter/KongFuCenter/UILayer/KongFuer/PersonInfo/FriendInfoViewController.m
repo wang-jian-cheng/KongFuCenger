@@ -7,6 +7,7 @@
 //
 
 #import "FriendInfoViewController.h"
+#import "ChatContentViewController.h"
 
 @interface FriendInfoViewController ()
 {
@@ -26,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    
+    self.view.backgroundColor = BACKGROUND_COLOR;
     userDefault = [NSUserDefaults standardUserDefaults];
     userInfoArray = [[NSDictionary alloc] init];
     
@@ -34,12 +35,14 @@
 }
 
 -(void)initData{
+    [SVProgressHUD showWithStatus:@"加载中"];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getUserInfoById:"];
     [dataProvider getUserInfo:_userID];
 }
 
 -(void)getUserInfoById:(id)dict{
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         userInfoArray = dict[@"data"];
         NSLog(@"%@",userInfoArray);
@@ -65,6 +68,7 @@
     UIButton *opBtn = [[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight, SCREEN_WIDTH- 2*GapToLeft, _cellHeight)];
     opBtn.backgroundColor = YellowBlock;
     [opBtn setTitle:@"发送消息" forState:UIControlStateNormal];
+    [opBtn addTarget:self action:@selector(sendMessageEvent) forControlEvents:UIControlEventTouchUpInside];
     [tempView addSubview:opBtn];
     _mainTableView.tableFooterView = tempView;
     //_mainTableView.scrollEnabled = NO;
@@ -72,6 +76,20 @@
   //  _mainTableView.contentSize = CGSizeMake(SCREEN_WIDTH, 15*_cellHeight);
     [self.view addSubview:_mainTableView];
     
+}
+
+-(void)sendMessageEvent{
+    //新建一个聊天会话View Controller对象
+    ChatContentViewController *chat = [[ChatContentViewController alloc]init];
+    //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
+    chat.conversationType = ConversationType_PRIVATE;
+    //设置会话的目标会话ID。（单聊、客服、公众账号服务为对方的ID，讨论组、群聊、聊天室为会话的ID）
+    chat.targetId = [NSString stringWithFormat:@"%@",_userID];
+    chat.userName = @"nihao";
+    //设置聊天会话界面要显示的标题
+    chat.title = @"想显示的会话标题";
+    //显示聊天会话界面
+    [self.navigationController pushViewController:chat animated:YES];
 }
 
 
@@ -123,7 +141,6 @@
             UIImageView *backImg = [[UIImageView alloc]  initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*4)];
             backImg.image = [UIImage imageNamed:@"head_bg"];
             [cell addSubview:backImg];
-            NSLog(@"%@",userInfoArray);
             NSString *PhotoPath = [userInfoArray valueForKey:@"PhotoPath"];
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
             UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 3*_cellHeight, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]]];
@@ -146,7 +163,7 @@
                                                                               _cellHeight/2)];
             otherInfoLab.textColor = [UIColor whiteColor];
             otherInfoLab.font = [UIFont systemFontOfSize:14];
-            NSString *sex = [userInfoArray valueForKey:@"Sexuality"];
+            NSString *sex = [NSString stringWithFormat:@"%@",[userInfoArray valueForKey:@"Sexuality"]];
             NSString *birthday = [userInfoArray valueForKey:@"Birthday"];
             NSInteger mYear = [[birthday substringToIndex:4] intValue];
             NSDate *now = [NSDate date];
@@ -173,7 +190,7 @@
             [cell addSubview:titleLab];
 
             UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -200), 0, 200, _cellHeight)];
-            numLab.text = @"18810375555";
+            numLab.text = [userInfoArray valueForKey:@"Phone"];
             numLab.textColor = [UIColor grayColor];
             numLab.textAlignment = NSTextAlignmentRight;
             [cell addSubview:numLab];
@@ -189,7 +206,7 @@
             [cell addSubview:titleLab];
 
             UILabel *heightLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -200), 0, 200, _cellHeight)];
-            heightLab.text = @"180Cm";
+            heightLab.text = [NSString stringWithFormat:@"%@cm",[userInfoArray valueForKey:@"Height"]];//@"180Cm";
             heightLab.textColor = [UIColor grayColor];
             heightLab.textAlignment = NSTextAlignmentRight;
             [cell addSubview:heightLab];
@@ -205,7 +222,7 @@
             [cell addSubview:titleLab];
 
             UILabel *weightLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -200), 0, 200, _cellHeight)];
-            weightLab.text = @"8kg";
+            weightLab.text = [NSString stringWithFormat:@"%@kg",[userInfoArray valueForKey:@"Weight"]];//@"8kg";
             weightLab.textColor = [UIColor grayColor];
             weightLab.textAlignment = NSTextAlignmentRight;
             [cell addSubview:weightLab];
@@ -222,7 +239,7 @@
 
             
             UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -200), 0, 200, _cellHeight)];
-            timeLab.text = @"3年";
+            timeLab.text = [NSString stringWithFormat:@"%@年",[userInfoArray valueForKey:@"Experience"]];//@"3年";
             timeLab.textColor = [UIColor grayColor];
             timeLab.textAlignment = NSTextAlignmentRight;
             [cell addSubview:timeLab];

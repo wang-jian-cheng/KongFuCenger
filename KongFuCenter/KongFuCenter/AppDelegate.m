@@ -218,6 +218,7 @@
 -(void)getFriendBackCall:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         friendArray = dict[@"data"];
+        [mUserDefault setValue:friendArray forKey:@"friendData"];
         [[RCIM sharedRCIM] setUserInfoDataSource:self];
     }
 }

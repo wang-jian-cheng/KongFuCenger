@@ -104,6 +104,7 @@
     {
         DLog(@"Err:%d",Param_err);
         return Param_err;
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -210,6 +211,18 @@
         return Param_err;
     }
 }
+
+-(void)ChangePassWord:(NSString *)userid andoldpwd:(NSString *)oldpwd andpassword:(NSString *)password{
+    if (userid) {
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/ChangePassWord",Url];
+        NSDictionary * prm=@{@"userid":userid,
+                             @"oldpwd":oldpwd,
+                             @"password":password
+                             };
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 #pragma mark - 图片上传
 //-(NSInteger)uploadImgWithData:(NSData *)imgData andImgName:(NSString *)imgName
 //{
@@ -385,6 +398,23 @@
  
     NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/GetCity",Url];
     [self PostRequest:url andpram:nil];
+}
+
+#pragma mark - 训练计划
+
+-(void)getPlanInfo:(NSString *)userid andCateId:(NSString *)cateid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows
+{
+    if(userid&&cateid&&startRowIndex&&maximumRows)
+    {
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetPlanByCate",Url];
+        NSDictionary * prm=@{@"userid":userid,
+                             @"cateid":cateid,
+                             @"startRowIndex":startRowIndex,
+                             @"maximumRows":maximumRows};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+
 }
 
 #pragma mark - 核联盟
