@@ -385,38 +385,6 @@
             endingLineNumber = "526"
             landmarkName = "-uploadImageWithImage:andurl:andprm:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[DataProvider uploadVideoWithFilePath:andurl:andprm:]"
-                  moduleName = "KongFuCenter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Snow/Documents/KongFuCenger/KongFuCenter/KongFuCenter/DataProvider/DataProvider.m"
-                  timestampString = "472359900.479743"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "528"
-                  endingLineNumber = "528"
-                  offsetFromSymbolStart = "284">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__54-[DataProvider uploadVideoWithFilePath:andurl:andprm:]_block_invoke"
-                  moduleName = "KongFuCenter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Snow/Documents/KongFuCenger/KongFuCenter/KongFuCenter/DataProvider/DataProvider.m"
-                  timestampString = "472359900.479898"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "528"
-                  endingLineNumber = "528"
-                  offsetFromSymbolStart = "72">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
