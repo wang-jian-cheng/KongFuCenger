@@ -478,6 +478,14 @@
     }
 }
 
+-(void)GetDongtaiPageByFriends:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows{
+    if (userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetDongtaiPageByFriends",Url];
+        NSDictionary *prm = @{@"userid":userid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 #pragma mark 核动力
 -(void)uploadVideoWithPath:(NSURL *)videoPath
 {

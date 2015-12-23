@@ -45,6 +45,10 @@
     UIView *moreSettingBackView;
     
     
+    //通用
+    NSUserDefaults *userDefault;
+    DataProvider *dataProvider;
+    
 }
 
 @property (nonatomic,strong) WFPopView *operationView;
@@ -57,12 +61,7 @@
 
 #pragma mark - 数据源
 - (void)configData{
-    
-    _tableDataSource = [[NSMutableArray alloc] init];
-    _contentDataSource = [[NSMutableArray alloc] init];
-    _replyIndex = -1;//代表是直接评论
-    
-    
+
     WFReplyBody *body1 = [[WFReplyBody alloc] init];
     body1.replyUser = kAdmin;
     body1.repliedUser = @"红领巾";
@@ -179,11 +178,57 @@
     [self addLeftButton:@"left"];
     [self addRightButton:@"moreNoword@2x"];
     
+    userDefault = [NSUserDefaults standardUserDefaults];
+    dataProvider = [[DataProvider alloc] init];
+    _tableDataSource = [[NSMutableArray alloc] init];
+    _contentDataSource = [[NSMutableArray alloc] init];
+    _replyIndex = -1;//代表是直接评论
+    
     [self configData];
-    
     [self initTableview];
-    
     [self loadTextData];
+    
+    //[self initData];
+}
+
+-(void)initData{
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getWYNewsCallBack:"];
+    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
+}
+
+-(void)getWYNewsCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        NSLog(@"%@",dict);
+        for(NSDictionary *itemDict in dict[@"data"]){
+            WFReplyBody *body1 = [[WFReplyBody alloc] init];
+            body1.replyUser = kAdmin;
+            body1.repliedUser = @"红领巾";
+            body1.replyInfo = kContentText1;
+            
+            WFMessageBody *messBody1 = [[WFMessageBody alloc] init];
+            messBody1.posterContent = [itemDict valueForKey:@"Content"];
+            NSArray *picArray =[itemDict valueForKey:@"PicList"];
+            for (int i = 0; i < picArray.count; i++) {
+                messBody1.posterPostImage = @[@"yewenback@2x.png",@"yewenback@2x.png",@"yewenback@2x.png"];
+            }
+            NSArray *ComArray =[itemDict valueForKey:@"ComList"];
+            for (int i = 0; i < ComArray.count; i++) {
+                messBody1.posterReplies = [NSMutableArray arrayWithObjects:body1,body1,body1, nil];
+            }
+            messBody1.posterImgstr = @"mao.jpg";
+            messBody1.posterName = kAdmin;//[itemDict valueForKey:@"NicName"];
+            messBody1.posterIntro = @"";
+            messBody1.posterFavour = [NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
+            messBody1.isFavour = YES;
+            
+            [_contentDataSource addObject:messBody1];
+        }
+        
+        [self initTableview];
+        
+        [self loadTextData];
+        
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -405,13 +450,21 @@
         cell.backgroundColor = ItemsBaseColor;
     }
     cell.stamp = indexPath.row;
-    cell.replyBtn.appendIndexPath = indexPath;
-    [cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
+    //cell.replyBtn.appendIndexPath = indexPath;
+    //[cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.CommentBtn addTarget:self action:@selector(commentEvent) forControlEvents:UIControlEventTouchUpInside];
     cell.delegate = self;
     [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
     cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
     
     return cell;
+}
+
+-(void)commentEvent{
+    replyView = [[YMReplyInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, screenWidth,44) andAboveView:self.view];
+    replyView.delegate = self;
+    replyView.replyTag = _selectedIndexPath.row;
+    [self.view addSubview:replyView];
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -443,19 +496,22 @@
     [headView addSubview:headBackgroundIv];
     
     UIView *headImgView = [[UIView alloc] initWithFrame:CGRectMake(0, headView.frame.size.height - 50 - 10, SCREEN_WIDTH, 60)];
-    UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake(20 , 0, 50, 50)];
-    headImg.image = [UIImage imageNamed:@"headImg"];
+    UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50)];
+    NSString *photoPath = [userDefault valueForKey:@"PhotoPath"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoPath];
+    headImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
     [headImgView addSubview:headImg];
-    UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake(headImg.frame.origin.x + headImg.frame.size.width+ 2, headImg.frame.origin.y + 2, 100, 21)];
+    UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - headImg.frame.size.width - 10 - 120 - 5, (headImg.frame.size.height - 21) / 2, 120, 21)];
     name_lbl.textColor = [UIColor whiteColor];
-    name_lbl.text = @"成龙";
-    name_lbl.font = [UIFont systemFontOfSize:13];
+    name_lbl.textAlignment = NSTextAlignmentRight;
+    name_lbl.text = [userDefault valueForKey:@"NicName"];//@"成龙";
+    name_lbl.font = [UIFont systemFontOfSize:15];
     [headImgView addSubview:name_lbl];
-    UILabel *id_lbl = [[UILabel alloc] initWithFrame:CGRectMake(headImg.frame.origin.x + headImg.frame.size.width+ 2, name_lbl.frame.origin.y + name_lbl.frame.size.height / 2 +10, 100, 21)];
-    id_lbl.textColor = [UIColor whiteColor];
-    id_lbl.text = @"ID:123456789";
-    id_lbl.font = [UIFont systemFontOfSize:13];
-    [headImgView addSubview:id_lbl];
+//    UILabel *id_lbl = [[UILabel alloc] initWithFrame:CGRectMake(headImg.frame.origin.x + headImg.frame.size.width+ 2, name_lbl.frame.origin.y + name_lbl.frame.size.height / 2 +10, 100, 21)];
+//    id_lbl.textColor = [UIColor whiteColor];
+//    id_lbl.text = @"ID:123456789";
+//    id_lbl.font = [UIFont systemFontOfSize:13];
+//    [headImgView addSubview:id_lbl];
     [headView addSubview:headImgView];
     
 }

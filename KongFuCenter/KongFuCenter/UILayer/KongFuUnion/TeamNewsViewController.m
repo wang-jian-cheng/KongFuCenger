@@ -408,8 +408,8 @@
         cell.backgroundColor = ItemsBaseColor;
     }
     cell.stamp = indexPath.row;
-    cell.replyBtn.appendIndexPath = indexPath;
-    [cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
+    //cell.replyBtn.appendIndexPath = indexPath;
+    //[cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
     cell.delegate = self;
     cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
     [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];

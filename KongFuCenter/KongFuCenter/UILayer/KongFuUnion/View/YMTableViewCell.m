@@ -73,9 +73,33 @@
         replyImageView.backgroundColor = BACKGROUND_COLOR;//[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
         [self.contentView addSubview:replyImageView];
         
-        _replyBtn = [YMButton buttonWithType:0];
-        [_replyBtn setImage:[UIImage imageNamed:@"fw_r2_c2.png"] forState:0];
-        [self.contentView addSubview:_replyBtn];
+//        _replyBtn = [YMButton buttonWithType:0];
+//        [_replyBtn setImage:[UIImage imageNamed:@"fw_r2_c2.png"] forState:0];
+//        [self.contentView addSubview:_replyBtn];
+        
+        _zanNum = [[UILabel alloc] init];
+        _zanNum.textAlignment = NSTextAlignmentRight;
+        _zanNum.font = [UIFont systemFontOfSize:14];
+        _zanNum.textColor = [UIColor whiteColor];
+        _zanNum.text = @"12345";
+        [self.contentView addSubview:_zanNum];
+        
+        _zanBtn = [UIButton buttonWithType:0];
+        [_zanBtn setImage:[UIImage imageNamed:@"wyzan"] forState:0];
+        [self.contentView addSubview:_zanBtn];
+        
+        _vLine = [[UILabel alloc] init];
+        _vLine.backgroundColor = [UIColor colorWithRed:0.53 green:0.53 blue:0.55 alpha:1];
+        [self.contentView addSubview:_vLine];
+        
+        _CommentBtn = [UIButton buttonWithType:0];
+        [_CommentBtn setImage:[UIImage imageNamed:@"wyhf"] forState:0];
+        [self.contentView addSubview:_CommentBtn];
+        
+        _CommentBtnHF = [UIButton buttonWithType:0];
+        _CommentBtnHF.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_CommentBtnHF setTitle:@"回复" forState:UIControlStateNormal];
+        [self.contentView addSubview:_CommentBtnHF];
         
         _favourImage = [[UIImageView alloc] initWithFrame:CGRectZero];
         _favourImage.image = [UIImage imageNamed:@"zan.png"];
@@ -298,14 +322,24 @@
     if (ymData.replyDataSource.count == 0) {//没回复的时候
         
         replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, 0, 0);
-        _replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 40, 18);
+        //_replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 40, 18);
+        _zanNum.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 41 - 100,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 100, 15);
+        _zanBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 40,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 18, 15);
+        _vLine.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 18,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 1, 15);
+        _CommentBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 13,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 18, 15);
+        _CommentBtnHF.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 + 5,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 40, 15);
         _commentDate.frame = CGRectMake(offSet_X, replyImageView.frame.origin.y - 24, 100, 18);
         
     }else{
         
         replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, screenWidth - offSet_X * 2, backView_H + 20 - 8);//微调
         
-        _replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6, replyImageView.frame.origin.y - 24, 40, 18);
+        //_replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6, replyImageView.frame.origin.y - 24, 40, 18);
+        _zanNum.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 41 - 100, replyImageView.frame.origin.y - 24, 100, 15);
+        _zanBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 40, replyImageView.frame.origin.y - 24, 18, 15);
+        _vLine.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 18, replyImageView.frame.origin.y - 24, 1, 15);
+        _CommentBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 13, replyImageView.frame.origin.y - 24, 18, 15);
+        _CommentBtnHF.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 + 5, replyImageView.frame.origin.y - 24, 40, 15);
         _commentDate.frame = CGRectMake(offSet_X, replyImageView.frame.origin.y - 24, 100, 18);
         
     }
