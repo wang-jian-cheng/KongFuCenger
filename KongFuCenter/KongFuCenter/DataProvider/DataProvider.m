@@ -387,6 +387,23 @@
     [self PostRequest:url andpram:nil];
 }
 
+#pragma mark - 训练计划
+
+-(void)getPlanInfo:(NSString *)userid andCateId:(NSString *)cateid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows
+{
+    if(userid&&cateid&&startRowIndex&&maximumRows)
+    {
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetPlanByCate",Url];
+        NSDictionary * prm=@{@"userid":userid,
+                             @"cateid":cateid,
+                             @"startRowIndex":startRowIndex,
+                             @"maximumRows":maximumRows};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+
+}
+
 #pragma mark - 核联盟
 
 -(void)getFriendForKeyValue:(NSString *)uid{

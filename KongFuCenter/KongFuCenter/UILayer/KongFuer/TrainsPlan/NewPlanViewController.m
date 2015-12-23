@@ -15,12 +15,15 @@
     NSInteger _cellHeight;
     NSInteger _cellTextViewHeight;//包含textview的cell的高度
     UITableView *_mainTableView;
-    BOOL    _keyShow;       //标记键盘是否显示
     UITextField *_titleField;//标题
     UITextView *_textView;
     CGFloat _keyHeight;
     UIButton *tipbtn;
 }
+@property (nonatomic, strong) UIImageView *portraitImageView;
+@property (nonatomic, retain) UICollectionView *collectionView;
+@property (nonatomic, strong) NSMutableArray   *assetsArray;
+
 @end
 
 @implementation NewPlanViewController
@@ -30,7 +33,6 @@
     [self addLeftButton:@"left"];
     _cellHeight = self.view.frame.size.height/11;
     [self addRightbuttontitle:@"确定"];
-    _keyShow = false;
     [self initViews];
     
     //添加键盘的监听事件
@@ -56,11 +58,9 @@
     NSValue *keyboardObject = [[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey];
     
     CGRect keyboardRect;
-    _keyShow = true;
     [keyboardObject getValue:&keyboardRect];
     
     
-    _keyHeight = keyboardRect.size.height;
     //调整放置有textView的view的位置
     
     //设置动画
@@ -71,9 +71,13 @@
     //               CGRectMake(0, self.view.frame.size.height-keyboardRect.size.height-kViewHeight, 320, kViewHeight)]
     //设置view的frame，往上平移
     [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height -Header_Height -keyboardRect.size.height)];
-    _cellTextViewHeight = _mainTableView.frame.size.height - 2*_cellHeight;
-    //[_mainTableView reloadData];
-    [UIView commitAnimations];
+    
+  //  [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+
+//    _cellTextViewHeight = _mainTableView.frame.size.height - 3*_cellHeight;
+//    [_mainTableView reloadData];
+   // [UIView commitAnimations];
     
 }
 
@@ -83,12 +87,11 @@
     //定义动画
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
-    _keyShow = false;
-    //设置view的frame，往下平移
+        //设置view的frame，往下平移
     [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height - Header_Height)];
-    _cellTextViewHeight = _mainTableView.frame.size.height - 2*_cellHeight;
-    //[_mainTableView reloadData];
-    [UIView commitAnimations];
+ //   _cellTextViewHeight = _mainTableView.frame.size.height - 3*_cellHeight;
+ //   [_mainTableView reloadData];
+  //  [UIView commitAnimations];
     
 }
 
@@ -120,9 +123,7 @@
         }
     }
     _cellCount = 4;
-    _cellTextViewHeight = SCREEN_HEIGHT - 2*_cellHeight - 64;
-    
-    _keyHeight = 252;//216;//default
+    _cellTextViewHeight = SCREEN_HEIGHT - 3*_cellHeight - 64;
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
     [self.view addGestureRecognizer:tapGesture];
@@ -162,14 +163,7 @@
     
 //    [self.view endEditing:YES];
     
-    if(_keyShow == true)
-    {
-        _keyShow = false;
-        [_textView resignFirstResponder];//关闭textview的键盘
-        [_titleField resignFirstResponder];//关闭titleField的键盘
-        [self setViewMove];
-        
-    }
+    [self.view endEditing:YES];
 }
 
 //指定每个分区中有多少行，默认为1
@@ -194,23 +188,10 @@
 }
 
 #pragma mark -textField
-//-(void)textFieldDidBeginEditing:(UITextField *)textField
-//{
-//
-//    if(!_keyShow)
-//    {
-//        _keyShow =true;
-//        [self setViewMove];
-//    }
-//}
-//
+
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if(!_keyShow)
-    {
-        _keyShow =true;
-        [self setViewMove];
-    }
+   
     
     return YES;
 }
@@ -218,37 +199,8 @@
 #pragma mark - TextView
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    if(!_keyShow)
-    {
-        _keyShow =true;
-        [self setViewMove];
-    }
-    return YES;
-}
 
-//根据键盘是否出现调整高度
--(void)setViewMove
-{
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.1];
-    
-    CGRect rect = _mainTableView.frame;
-    
-    if(_keyShow)
-    {
-        NSLog(@"move up");
-        rect.size.height = SCREEN_HEIGHT -Header_Height -_keyHeight;//64--216 == 288
-        _mainTableView.frame = rect;
-        
-    }
-    else{
-        NSLog(@"move down");
-        rect.size.height = self.view.frame.size.height -Header_Height;
-        _mainTableView.frame = rect;
-    }
-    _cellTextViewHeight = _mainTableView.frame.size.height - 2*_cellHeight;
-    [_mainTableView reloadData];
-    [UIView commitAnimations];
+    return YES;
 }
 
 #pragma mark - setting for cell
@@ -256,6 +208,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell  *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cellHeight)];
     cell.backgroundColor = BACKGROUND_COLOR;
+    
     switch (indexPath.row) {
         case 0:
         {
@@ -289,26 +242,46 @@
             _textView.backgroundColor  = BACKGROUND_COLOR;
             _textView.font = [UIFont systemFontOfSize:15];
             _textView.delegate = self;
-            _textView.returnKeyType = UIReturnKeyDefault;
-            _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//            _textView.returnKeyType = UIReturnKeyDefault;
+//            _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             
             [cell addSubview:_textView];
         }
             break;
         case 3:
         {
+            
+            tempIndexPath = indexPath;
+            
             UIButton *picBtns = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.height, cell.frame.size.height)];
             [picBtns setImage:[UIImage imageNamed:@"picture"] forState:UIControlStateNormal];
+            [picBtns addTarget:self action:@selector(composePicAdd) forControlEvents:UIControlEventTouchUpInside];
             
             UIButton *photoBtns = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.height, 0, cell.frame.size.height, cell.frame.size.height)];
             [photoBtns setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
             
-            UIButton *otherBtns = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.width - cell.frame.size.height, 0, cell.frame.size.height, cell.frame.size.height)];
-            [otherBtns setImage:[UIImage imageNamed:@"down"] forState:UIControlStateNormal];
             
             [cell addSubview:picBtns];
             [cell addSubview:photoBtns];
-            [cell addSubview:otherBtns];
+            
+            
+            if (!_collectionView) {
+                UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+                layout.minimumLineSpacing = 5.0;
+                layout.minimumInteritemSpacing = 5.0;
+                layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+                
+                _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(picBtns.frame.size.width+photoBtns.frame.origin.x+5, 0, SCREEN_WIDTH-(2*cell.frame.size.height), cell.frame.size.height) collectionViewLayout:layout];
+                _collectionView.backgroundColor = [UIColor clearColor];
+                [_collectionView registerClass:[PhotoCell class] forCellWithReuseIdentifier:kPhotoCellIdentifier];
+                _collectionView.delegate = self;
+                _collectionView.dataSource = self;
+                _collectionView.showsHorizontalScrollIndicator = NO;
+                _collectionView.showsVerticalScrollIndicator = NO;
+                
+                [cell addSubview:_collectionView];
+                
+            }
         }
             break;
         default:
@@ -327,7 +300,7 @@
 
 //设置cell每行间隔的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%f-%f",SCREEN_HEIGHT,self.view.frame.size.height);
+ //   NSLog(@"%f-%f",SCREEN_HEIGHT,self.view.frame.size.height);
     if(indexPath.row==2)
         return _cellTextViewHeight;
     return _cellHeight;
@@ -456,6 +429,179 @@
     return 1;
     
 }
+
+#pragma mark - 图片截取
+
+- (void)editPortrait {
+    UIActionSheet *choiceSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"取消"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"拍照", @"从相册中选取", nil];
+    [choiceSheet showInView:self.view];
+}
+
+#pragma mark VPImageCropperDelegate
+- (void)imageCropper:(VPImageCropperViewController *)cropperViewController didFinished:(UIImage *)editedImage {
+    photoImg = editedImage;
+    [cropperViewController dismissViewControllerAnimated:YES completion:^{
+        // TO DO
+        [self saveImage:editedImage withName:@"avatar.jpg"];
+        
+        photoImg = editedImage ;
+        
+        
+//        NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"avatar.jpg"];
+//        NSLog(@"选择完成");
+//        //[SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+//        NSData* imageData = UIImageJPEGRepresentation(editedImage, 0.8) ;
+//        NSString *imagebase64= [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+//        DataProvider * dataprovider=[[DataProvider alloc] init];
+//        [dataprovider setDelegateObject:self setBackFunctionName:@"UploadCallBack:"];
+//        [dataprovider uploadHeadImg:[Toolkit getUserID] andImgData:imagebase64 andImgName:nil];
+    }];
+}
+
+#pragma mark - 保存图片至沙盒
+- (void) saveImage:(UIImage *)currentImage withName:(NSString *)imageName
+{
+    NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
+    // 获取沙盒目录
+    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:imageName];
+    // 将图片写入文件
+    [imageData writeToFile:fullPath atomically:NO];
+}
+
+- (void)imageCropperDidCancel:(VPImageCropperViewController *)cropperViewController {
+    [cropperViewController dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
+
+
+#pragma mark 新浪图片多选
+
+
+- (void)composePicAdd
+{
+    JKImagePickerController *imagePickerController = [[JKImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.showsCancelButton = YES;
+    imagePickerController.allowsMultipleSelection = YES;
+    imagePickerController.minimumNumberOfSelection = 1;
+    imagePickerController.maximumNumberOfSelection = 3;
+    imagePickerController.selectedAssetArray = self.assetsArray;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:imagePickerController];
+    [self presentViewController:navigationController animated:YES completion:NULL];
+    
+}
+
+#pragma mark - JKImagePickerControllerDelegate
+- (void)imagePickerController:(JKImagePickerController *)imagePicker didSelectAsset:(JKAssets *)asset isSource:(BOOL)source
+{
+    [imagePicker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+- (void)imagePickerController:(JKImagePickerController *)imagePicker didSelectAssets:(NSArray *)assets isSource:(BOOL)source
+{
+    self.assetsArray = [NSMutableArray arrayWithArray:assets];
+    
+    [imagePicker dismissViewControllerAnimated:YES completion:^{
+        [self.collectionView reloadData];
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(JKImagePickerController *)imagePicker
+{
+    [imagePicker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
+
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [self.assetsArray count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    PhotoCell *cell = (PhotoCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:indexPath];
+    
+    if(photoImg != nil)
+    {
+        if(indexPath.row == 0)
+        {
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:photoImg];
+            imgView.frame = cell.frame;
+            
+            [cell addSubview:imgView];
+        }
+    }
+    if(indexPath.row > 0)
+    {
+        cell.tag=indexPath.row;
+        cell.asset = [self.assetsArray objectAtIndex:[indexPath row]];
+    }
+    return cell;
+    
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(40, 40);
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"%ld",(long)[indexPath row]);
+    
+}
+
+
+-(void)BuildSliderData
+{
+    [SVProgressHUD showWithStatus:@"正在保存数据" maskType:SVProgressHUDMaskTypeBlack];
+    @try {
+        NSUserDefaults * userdefaults=[NSUserDefaults standardUserDefaults];
+        for (int i=0; i<self.assetsArray.count; i++) {
+            //            UIImage * itemimg=[UIImage imageWithCGImage:[[self.assetsArray[i] defaultRepresentation] fullScreenImage]];
+            
+            //            if (uplodaimage<self.assetsArray.count) {
+            //                JKAssets * itemasset=(JKAssets *)self.assetsArray[i];
+            //                ALAssetsLibrary   *lib = [[ALAssetsLibrary alloc] init];
+            //                [lib assetForURL:itemasset.assetPropertyURL resultBlock:^(ALAsset *asset) {
+            //                    if (asset) {
+            //                        [sliderSelectArray addObject:UIImageJPEGRepresentation([UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]], 1.0)];
+            //                    }
+            //                } failureBlock:^(NSError *error) {
+            //
+            //                }];
+            //
+            //            }
+ //           [img_uploaded addObject:[userdefaults objectForKey:[NSString stringWithFormat:@"%d",i]]];
+        }
+        
+    }
+    @catch (NSException *exception) {
+        NSLog(@"构造轮播图数据出错");
+    }
+    @finally {
+    //    [self UpdateAndRequest];
+    }
+    
+    
+    
+    
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

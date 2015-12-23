@@ -8,6 +8,13 @@
 
 #import "BaseNavigationController.h"
 #import "ChoosePlanTypeViewController.h"
-@interface NewPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate,ChoosePlanTypeDelegate>
-
+#import "JKImagePickerController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "PhotoCell.h"
+#import "VPImageCropperViewController.h"
+@interface NewPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate,ChoosePlanTypeDelegate,UICollectionViewDelegate,UICollectionViewDataSource,JKImagePickerControllerDelegate,UIActionSheetDelegate>
+{
+    NSIndexPath *tempIndexPath;
+    UIImage *photoImg;
+}
 @end
