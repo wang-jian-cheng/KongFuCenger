@@ -10,4 +10,6 @@
 #import "UserHeadView.h"
 @interface FriendInfoViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
+@property(strong,nonatomic) NSString *userID;
+
 @end

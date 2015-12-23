@@ -112,7 +112,7 @@
     if(userId != nil  && filestream !=nil)
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/UpLoadPhoto",Url];
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/UpLoadPhoto",Url];
         NSDictionary * prm=@{@"userid":userId,
                              @"fileName":(fileName==nil?@"imgname.jpg":fileName),
                              @"filestream":filestream};
@@ -129,6 +129,50 @@
 
 }
 
+- (NSInteger )collectData:(NSString *)userId andIsVideo:(NSString *)isVideo  andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
+{
+    if(userId != nil  && isVideo !=nil && startRowIndex != nil & maximumRows != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectFavoriteByUserId",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"isVideo":isVideo,
+                             @"startRowIndex":startRowIndex,
+                             @"maximumRows":maximumRows};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+    
+}
+
+-(NSInteger)setCollect:(NSString *)userId andIsVideo:(NSString *)isVideo andStartRowIndex:(NSString *)startRowIndex andMaximumRowst:(NSString *)maximumRows
+{
+    if(userId != nil&&isVideo != nil&&startRowIndex != nil&&maximumRows != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectFavoriteByUserId",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"isVideo":isVideo,
+                             @"maximumRows":maximumRows,
+                             @"startRowIndex":startRowIndex};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
 
 
 //int userid 用户ID

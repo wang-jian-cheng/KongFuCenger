@@ -35,9 +35,56 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self initDatas];
     [self initViews];
+    [self getDatas];
     
     // Do any additional setup after loading the view.
 }
+
+#pragma mark - 解析数据
+-(void)getDatas
+{
+    [self getUserInfo];
+}
+
+-(void)getUserInfo
+{
+
+    [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
+//    [dataprovider collectData:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"1" andMaximumRows:@"6"];
+    [dataprovider setCollect:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"0" andMaximumRowst:@"10"];
+    
+}
+
+-(void)getUserInfoCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
+
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
@@ -182,7 +229,67 @@
     }
 }
 
+#pragma mark - btn_1 btn_2
+- (void)btn_1Action:(UIButton *)sender
+{
+    if (sender.selected == 0)
+    {
+        sender.selected = 1;
+        [sender setImage:[UIImage imageNamed:@"support_h@2x"] forState:(UIControlStateNormal)];
+    }
+    else
+    {
+        sender.selected = 0;
+        [sender setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+    }
+}
 
+- (void)btn_2Action:(UIButton *)sender
+{
+    if (sender.selected == 0)
+    {
+        sender.selected = 1;
+        [sender setImage:[UIImage imageNamed:@"collect_h@2x"] forState:(UIControlStateNormal)];
+    }
+    else
+    {
+        sender.selected = 0;
+        [sender setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+    }
+}
+
+- (void)btn_firstAction:(UIButton *)sender
+{
+    if (sender.selected == 0)
+    {
+        sender.selected = 1;
+        [sender setImage:[UIImage imageNamed:@"support_h@2x"] forState:(UIControlStateNormal)];
+    }
+    else
+    {
+        sender.selected = 0;
+        [sender setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+    }
+}
+
+- (void)btn_secondAction:(UIButton *)sender
+{
+    if (sender.selected == 0)
+    {
+        sender.selected = 1;
+        [sender setImage:[UIImage imageNamed:@"collect_h@2x"] forState:(UIControlStateNormal)];
+    }
+    else
+    {
+        sender.selected = 0;
+        [sender setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+    }
+}
+//?
+- (void)btn_thridAction:(UIButton *)sender
+{
+    NSLog(@"跳到转发页面");
+}
 
 #pragma mark -  tableview  Delegate
 
@@ -214,42 +321,15 @@
     cell  = [[[NSBundle mainBundle] loadNibNamed:@"MyCollectTableViewCell" owner:self options:nil] lastObject];
     cell.layer.masksToBounds=YES;
     cell.frame=CGRectMake(cell.frame.origin.x, cell.frame.origin.y, SCREEN_WIDTH, cell.frame.size.height);
+//    cell.btn_1.backgroundColor = [UIColor orangeColor];
     
-  //  cell.editingStyle = UITableViewCellEditingStyleInsert;
-    if(EditMode == YES)
-    {
-        
-        NSArray *subViews;
-        
-        subViews = cell.contentView.subviews;
-        
-//        for(UIView *tempView in subViews)
-//        {
-//            //            tempRect = tempView.frame;
-//            //            tempRect.origin.x += gapSize;
-//            tempView.frame = CGRectMake(30, 0, 100, 100);
-//        }
-//        
-        
-        for (int i =0 ; i<cell.contentView.subviews.count; i++) {
-            UIView *tempView ;
-            
-            
-            tempView = [cell.contentView.subviews objectAtIndex:i];
-            tempView.frame = CGRectMake(30, 0, 100, 100);
-            
-            
-            [cell.contentView layoutSubviews];
-            
-//            [ [cell.subviews objectAtIndex:i] removeFromSuperview];//清空一下原来cell上面的view'防止cell的重用影响到后面section的显示
-        }
-        
-       // [cell setCellEditMode:YES andGapSize:30];
-    }
-    else
-    {
-       
-    }
+    [cell.btn_1 setTitle:@"1000" forState:(UIControlStateNormal)];
+    [cell.btn_1 setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+    [cell.btn_1 addTarget:self action:@selector(btn_1Action:) forControlEvents:(UIControlEventTouchUpInside)];
+    
+    [cell.btn_2 setTitle:@"1000" forState:(UIControlStateNormal)];
+    [cell.btn_2 setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+    [cell.btn_2 addTarget:self action:@selector(btn_2Action:) forControlEvents:(UIControlEventTouchUpInside)];
     
     return cell;
     
@@ -266,7 +346,6 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
-    
 }
 
 
@@ -336,10 +415,6 @@
 }
 
 
-
-
-
-
 #pragma mark - UICollectionViewDataSource
 
 //定义展示的UICollectionViewCell的个数
@@ -376,9 +451,21 @@
     
     
     cell.backgroundColor = ItemsBaseColor;
+    
+    [cell.btn_first setTitle:@"1000" forState:(UIControlStateNormal)];
+    [cell.btn_first setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+    [cell.btn_first addTarget:self action:@selector(btn_firstAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    
+    [cell.btn_second setTitle:@"1000" forState:(UIControlStateNormal)];
+    [cell.btn_second setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+    [cell.btn_second addTarget:self action:@selector(btn_secondAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    
+    [cell.btn_thrid setTitle:@"1000" forState:(UIControlStateNormal)];
+    [cell.btn_thrid setImage:[UIImage imageNamed:@"relay@2x"] forState:(UIControlStateNormal)];
+    [cell.btn_thrid addTarget:self action:@selector(btn_thridAction:) forControlEvents:(UIControlEventTouchUpInside)];
+//    cell.btn_thrid.enabled = NO;
+    
     return cell;
-    
-    
 }
 
 

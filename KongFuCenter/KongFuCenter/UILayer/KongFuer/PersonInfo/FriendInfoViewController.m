@@ -14,6 +14,9 @@
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    DataProvider *dataProvider;
+    NSUserDefaults *userDefault;
+    NSDictionary *userInfoArray;
 }
 @end
 #define GapToLeft   20//(cell.textLabel.frame.origin.x)
@@ -23,8 +26,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    [self initViews];
-    // Do any additional setup after loading the view.
+    
+    userDefault = [NSUserDefaults standardUserDefaults];
+    userInfoArray = [[NSDictionary alloc] init];
+    
+    [self initData];
+}
+
+-(void)initData{
+    dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getUserInfoById:"];
+    [dataProvider getUserInfo:_userID];
+}
+
+-(void)getUserInfoById:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        userInfoArray = dict[@"data"];
+        NSLog(@"%@",userInfoArray);
+        [self initViews];
+    }
 }
 
 -(void)initViews
@@ -103,8 +123,10 @@
             UIImageView *backImg = [[UIImageView alloc]  initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*4)];
             backImg.image = [UIImage imageNamed:@"head_bg"];
             [cell addSubview:backImg];
-            
-            UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 3*_cellHeight, 2*_cellHeight, 2*_cellHeight) andImgName:@"me"];
+            NSLog(@"%@",userInfoArray);
+            NSString *PhotoPath = [userInfoArray valueForKey:@"PhotoPath"];
+            NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+            UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 3*_cellHeight, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]]];
             [headView makeSelfRound];
             headView.layer.borderWidth = 1;
             headView.layer.borderColor = [[UIColor blackColor] CGColor];
@@ -113,7 +135,7 @@
             
             
             UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x+headView.frame.size.width), 4*_cellHeight+5, 200, _cellHeight/2)];
-            nameLab.text = @"成龙";
+            nameLab.text = [userInfoArray valueForKey:@"NicName"];
             nameLab.textColor = YellowBlock;
             nameLab.font = [UIFont boldSystemFontOfSize:16];
             [cell addSubview:nameLab];
@@ -124,7 +146,16 @@
                                                                               _cellHeight/2)];
             otherInfoLab.textColor = [UIColor whiteColor];
             otherInfoLab.font = [UIFont systemFontOfSize:14];
-            otherInfoLab.text = [NSString stringWithFormat:@"%@  %d岁  %@",@"男",26,@"山东 临沂 兰山区"];
+            NSString *sex = [userInfoArray valueForKey:@"Sexuality"];
+            NSString *birthday = [userInfoArray valueForKey:@"Birthday"];
+            NSInteger mYear = [[birthday substringToIndex:4] intValue];
+            NSDate *now = [NSDate date];
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+            NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
+            NSInteger age = [dateComponent year] - mYear;
+            NSString *address = [userInfoArray valueForKey:@"HomeAddress"];
+            otherInfoLab.text = [NSString stringWithFormat:@"%@  %d岁  %@",[sex isEqual:@"0"]?@"男":@"女",(int)age,address];
             
             [cell addSubview:otherInfoLab];
             
