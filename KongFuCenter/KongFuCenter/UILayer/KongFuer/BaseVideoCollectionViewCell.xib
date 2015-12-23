@@ -115,6 +115,8 @@
                 <outlet property="btn_first" destination="ZsY-ka-gcm" id="N12-L0-Zrt"/>
                 <outlet property="btn_second" destination="1Rc-LC-KAq" id="kw3-PV-0Sx"/>
                 <outlet property="btn_thrid" destination="kvZ-ZD-oBB" id="Zgv-3l-z9m"/>
+                <outlet property="date" destination="MJh-qQ-8Rh" id="1Hy-bc-AEO"/>
+                <outlet property="free" destination="dfF-Fs-r4D" id="gOF-PX-dJr"/>
                 <outlet property="img_logo" destination="2Y2-hO-mbS" id="Hil-5H-7Im"/>
                 <outlet property="lbl_content" destination="OEV-Gg-tUC" id="3B6-4c-Tyb"/>
                 <outlet property="lbl_title" destination="sZw-DK-NZ7" id="81t-tx-COH"/>

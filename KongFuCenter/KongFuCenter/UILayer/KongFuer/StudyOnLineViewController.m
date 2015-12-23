@@ -236,7 +236,7 @@
 -( NSInteger )collectionView:( UICollectionView *)collectionView numberOfItemsInSection:( NSInteger )section
 {
 
-    return secondCateArr.count  ;
+    return secondCateArr.count;
     
 }
 
@@ -245,7 +245,7 @@
 
 -( NSInteger )numberOfSectionsInCollectionView:( UICollectionView *)collectionView
 {
-    return 1 ;
+    return 1;
 }
 
 //每个UICollectionView展示的内容

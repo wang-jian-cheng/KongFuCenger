@@ -113,7 +113,7 @@
     if(userId != nil  && filestream !=nil)
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/UpLoadPhoto",Url];
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/UpLoadPhoto",Url];
         NSDictionary * prm=@{@"userid":userId,
                              @"fileName":(fileName==nil?@"imgname.jpg":fileName),
                              @"filestream":filestream};

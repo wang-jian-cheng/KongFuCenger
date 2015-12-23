@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00B391A3E16E2E9529C00832 /* Pods_KongFuCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CB30C136C8571924D6B829 /* Pods_KongFuCenter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7B580B0C1C2A298F00BFF83D /* model_collect.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B580B0B1C2A298F00BFF83D /* model_collect.m */; };
 		7BA38E8D1C213930000996EE /* Member-ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E8C1C213930000996EE /* Member-ViewController.m */; };
 		7BA38E901C214305000996EE /* MemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E8F1C214305000996EE /* MemberTableViewCell.m */; };
 		7BA38E961C215CFB000996EE /* IntroduceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E951C215CFB000996EE /* IntroduceViewController.m */; };
@@ -399,6 +400,8 @@
 /* Begin PBXFileReference section */
 		19CB30C136C8571924D6B829 /* Pods_KongFuCenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KongFuCenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EE0DD3D61F21623918CAE75 /* Pods-KongFuCenter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KongFuCenter.release.xcconfig"; path = "Pods/Target Support Files/Pods-KongFuCenter/Pods-KongFuCenter.release.xcconfig"; sourceTree = "<group>"; };
+		7B580B0A1C2A298F00BFF83D /* model_collect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = model_collect.h; sourceTree = "<group>"; };
+		7B580B0B1C2A298F00BFF83D /* model_collect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = model_collect.m; sourceTree = "<group>"; };
 		7BA38E8B1C213930000996EE /* Member-ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Member-ViewController.h"; sourceTree = "<group>"; };
 		7BA38E8C1C213930000996EE /* Member-ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Member-ViewController.m"; sourceTree = "<group>"; };
 		7BA38E8E1C214305000996EE /* MemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberTableViewCell.h; sourceTree = "<group>"; };
@@ -1085,6 +1088,23 @@
 				6EE0DD3D61F21623918CAE75 /* Pods-KongFuCenter.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		7B580B081C2A291200BFF83D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7B580B091C2A294400BFF83D /* Model_collect */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7B580B091C2A294400BFF83D /* Model_collect */ = {
+			isa = PBXGroup;
+			children = (
+				7B580B0A1C2A298F00BFF83D /* model_collect.h */,
+				7B580B0B1C2A298F00BFF83D /* model_collect.m */,
+			);
+			name = Model_collect;
 			sourceTree = "<group>";
 		};
 		7BA38E841C213596000996EE /* JC-pagezhandui */ = {
@@ -1780,6 +1800,7 @@
 		B59409071C0FCE60003DC15D /* KongFuer */ = {
 			isa = PBXGroup;
 			children = (
+				7B580B081C2A291200BFF83D /* Model */,
 				B5AF70771C18292600C041AF /* TrainsPlan */,
 				B5AF70651C18031600C041AF /* VIP */,
 				B53E73931C16CEA4009E7878 /* PersonInfo */,
@@ -2840,6 +2861,7 @@
 				804952041C250B3800F5584A /* SCFilter.m in Sources */,
 				B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */,
 				804952181C250B3800F5584A /* CALayer+AddUIColor.m in Sources */,
+				7B580B0C1C2A298F00BFF83D /* model_collect.m in Sources */,
 				7BCBB22A1C2393C800C2AAAA /* ClearCacheViewController.m in Sources */,
 				B5D345CC1C28E97E00D39891 /* PhotoCell.m in Sources */,
 				B5D345C21C28E97E00D39891 /* JKAssetsGroupsView.m in Sources */,

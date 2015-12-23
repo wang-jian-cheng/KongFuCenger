@@ -107,7 +107,15 @@ static char *ContextDidChangeDevice = "DidChangeDevice";
     
     CGPoint viewPoint = [self.recorder convertPointOfInterestToViewCoordinates:currentFocusPoint];
     viewPoint = [self convertPoint:viewPoint fromView:self.recorder.previewView];
-  //  self.cameraFocusTargetView.center = viewPoint;
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 )
+        self.cameraFocusTargetView.center = viewPoint;
+    else
+    {
+        CGRect tempFrame = self.cameraFocusTargetView.frame;
+        tempFrame.origin.x = (SCREEN_WIDTH -tempFrame.size.width)/2;
+        tempFrame.origin.y = (self.recorder.previewView.frame.size.height -tempFrame.size.height)/2;
+        self.cameraFocusTargetView.frame = tempFrame;
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
