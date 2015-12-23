@@ -18,19 +18,9 @@
                         <animations/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="创新理念" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZw-DK-NZ7">
-                        <rect key="frame" x="8" y="86" width="151" height="22"/>
+                        <rect key="frame" x="8" y="86" width="151" height="21.5"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="跆拳道是一种强身健体的锻炼方式怒江但是那段你撒的那三大撒到哪" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEV-Gg-tUC">
-                        <rect key="frame" x="8" y="104" width="151" height="33"/>
-                        <animations/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="33" id="nCP-MR-i4i"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -64,7 +54,7 @@
                         <state key="normal" title="Button"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvZ-ZD-oBB">
-                        <rect key="frame" x="108" y="134" width="40" height="17"/>
+                        <rect key="frame" x="103" y="134" width="40" height="17"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <state key="normal" title="Button"/>
@@ -79,6 +69,25 @@
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <state key="normal" title="Button"/>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r5E-Ek-Vut">
+                        <rect key="frame" x="142" y="125" width="30" height="30"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="U73-xD-W66"/>
+                            <constraint firstAttribute="height" constant="30" id="ah8-XB-gQ6"/>
+                        </constraints>
+                        <state key="normal" image="point.png"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="跆拳道是一种强身健体的锻炼方式怒江但是那段你撒的那三大撒到哪" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEV-Gg-tUC">
+                        <rect key="frame" x="8" y="103.5" width="151" height="33.5"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="nCP-MR-i4i"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -86,7 +95,7 @@
             <animations/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="OEV-Gg-tUC" secondAttribute="trailing" constant="8" id="0JG-3n-IeJ"/>
-                <constraint firstItem="kvZ-ZD-oBB" firstAttribute="leading" secondItem="1Rc-LC-KAq" secondAttribute="trailing" constant="10" id="1hF-HV-Qec"/>
+                <constraint firstItem="kvZ-ZD-oBB" firstAttribute="leading" secondItem="1Rc-LC-KAq" secondAttribute="trailing" constant="5" id="1hF-HV-Qec"/>
                 <constraint firstItem="2Y2-hO-mbS" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="2Vi-iY-Mbk"/>
                 <constraint firstItem="MJh-qQ-8Rh" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="7gE-uY-KtJ"/>
                 <constraint firstAttribute="trailing" secondItem="2Y2-hO-mbS" secondAttribute="trailing" id="8bD-N0-Wr4"/>
@@ -94,6 +103,7 @@
                 <constraint firstItem="OEV-Gg-tUC" firstAttribute="top" secondItem="sZw-DK-NZ7" secondAttribute="bottom" constant="-4" id="IPe-ib-Pb1"/>
                 <constraint firstItem="ZsY-ka-gcm" firstAttribute="leading" secondItem="OEV-Gg-tUC" secondAttribute="leading" id="MAx-5S-gkq"/>
                 <constraint firstAttribute="bottom" secondItem="OEV-Gg-tUC" secondAttribute="bottom" constant="13" id="Ovx-EX-LSN"/>
+                <constraint firstAttribute="trailing" secondItem="r5E-Ek-Vut" secondAttribute="trailing" constant="-5" id="Qkf-tC-3bL"/>
                 <constraint firstItem="MJh-qQ-8Rh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="aNV-kd-Z8P"/>
                 <constraint firstAttribute="bottom" secondItem="1Rc-LC-KAq" secondAttribute="bottom" constant="-1" id="bm7-Zr-Fba"/>
                 <constraint firstItem="sZw-DK-NZ7" firstAttribute="leading" secondItem="OEV-Gg-tUC" secondAttribute="trailing" constant="-151" id="cf7-Sm-Bbl"/>
@@ -102,6 +112,7 @@
                 <constraint firstItem="OEV-Gg-tUC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="kEg-Zm-NGk"/>
                 <constraint firstAttribute="trailing" secondItem="sZw-DK-NZ7" secondAttribute="trailing" constant="8" id="kei-fP-5wY"/>
                 <constraint firstItem="sZw-DK-NZ7" firstAttribute="top" secondItem="2Y2-hO-mbS" secondAttribute="bottom" constant="2" id="l1p-d4-cvh"/>
+                <constraint firstAttribute="bottom" secondItem="r5E-Ek-Vut" secondAttribute="bottom" constant="-5" id="lFw-iz-DrL"/>
                 <constraint firstItem="1Rc-LC-KAq" firstAttribute="leading" secondItem="ZsY-ka-gcm" secondAttribute="trailing" constant="10" id="lk6-gF-w3n"/>
                 <constraint firstItem="kvZ-ZD-oBB" firstAttribute="height" secondItem="1Rc-LC-KAq" secondAttribute="height" id="noT-SS-4yq"/>
                 <constraint firstAttribute="trailing" secondItem="dfF-Fs-r4D" secondAttribute="trailing" constant="5" id="rqE-el-dxQ"/>
@@ -120,11 +131,13 @@
                 <outlet property="img_logo" destination="2Y2-hO-mbS" id="Hil-5H-7Im"/>
                 <outlet property="lbl_content" destination="OEV-Gg-tUC" id="3B6-4c-Tyb"/>
                 <outlet property="lbl_title" destination="sZw-DK-NZ7" id="81t-tx-COH"/>
+                <outlet property="select" destination="r5E-Ek-Vut" id="5dA-US-L7Z"/>
             </connections>
-            <point key="canvasLocation" x="378.5" y="402"/>
+            <point key="canvasLocation" x="185.5" y="307"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="point.png" width="15" height="15"/>
         <image name="temp2.png" width="320" height="155"/>
     </resources>
 </document>

@@ -159,6 +159,9 @@
 //添加武友
 -(void)SaveFriend:(NSString *)userid andFriendid:(NSString *)friendid;
 
+//获取武友动态
+-(void)GetDongtaiPageByFriends:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+
 //根据城市获取武馆
 -(NSInteger)getWuGuanList:(NSString *)cityid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 //获取所有市列表

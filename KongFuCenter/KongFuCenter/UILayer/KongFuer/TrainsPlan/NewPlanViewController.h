@@ -12,9 +12,17 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "PhotoCell.h"
 #import "VPImageCropperViewController.h"
-@interface NewPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate,ChoosePlanTypeDelegate,UICollectionViewDelegate,UICollectionViewDataSource,JKImagePickerControllerDelegate,UIActionSheetDelegate>
+#import "PictureShowView.h"
+#import "UploadDataToServer.h"
+
+@interface NewPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate,ChoosePlanTypeDelegate,UICollectionViewDelegate,UICollectionViewDataSource,JKImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,VPImageCropperDelegate,UIGestureRecognizerDelegate,UploadDataToServerDelegate>
 {
     NSIndexPath *tempIndexPath;
     UIImage *photoImg;
+    //img upload
+    NSMutableArray * img_uploaded;
+    NSInteger uploadImgIndex;
+    NSMutableArray * img_prm;
+
 }
 @end

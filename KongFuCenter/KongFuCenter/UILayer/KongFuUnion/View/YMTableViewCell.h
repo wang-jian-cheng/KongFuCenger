@@ -29,7 +29,12 @@
 @property (nonatomic,strong) NSMutableArray * ymShuoshuoArray;
 @property (nonatomic,assign) id<cellDelegate> delegate;
 @property (nonatomic,assign) NSInteger stamp;
-@property (nonatomic,strong) YMButton *replyBtn;
+//@property (nonatomic,strong) YMButton *replyBtn;
+@property (nonatomic,strong) UILabel *zanNum;
+@property (nonatomic,strong) UIButton *zanBtn;
+@property (nonatomic,strong) UILabel *vLine;
+@property (nonatomic,strong) UIButton *CommentBtn;
+@property (nonatomic,strong) UIButton *CommentBtnHF;
 
 @property (nonatomic,strong) UILabel *commentDate;
 @property (nonatomic,strong) UIImageView *favourImage;//点赞的图
