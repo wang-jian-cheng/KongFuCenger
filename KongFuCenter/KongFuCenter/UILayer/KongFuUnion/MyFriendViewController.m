@@ -239,6 +239,40 @@
     }
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0 || indexPath.section == 1) {
+        return NO;
+    }else{
+        return YES;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"%@",((ChineseString *)LetterResultArr[indexPath.section - 2][indexPath.row]).string);
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [SVProgressHUD showWithStatus:@"正在删除"];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"DelBackCall:"];
+        NSString *friendID = ((ChineseString *)LetterResultArr[indexPath.section - 2][indexPath.row]).friendID;
+        [dataProvider DeleteFriend:[userDefault valueForKey:@"id"] andfriendid:friendID];
+    }
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+    }
+}
+
+-(void)DelBackCall:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showWithStatus:@"删除成功~"];
+        [self initData];
+    }else{
+        [SVProgressHUD showWithStatus:@"删除失败~"];
+    }
+}
+
 #pragma mark - textfield deledate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];

@@ -468,7 +468,15 @@
     }
 }
 
-
+-(void)DeleteFriend:(NSString *)userid andfriendid:(NSString *)friendid{
+    if (userid && friendid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/DeleteFriend",Url];
+        NSDictionary *prm = @{@"userid":userid,@"friendid":friendid};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
 
 #pragma mark 核动力
 -(void)uploadVideoWithPath:(NSURL *)videoPath
