@@ -180,4 +180,15 @@
 //积分
 -(void)getJiFenList:(NSString *)userid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows;
 
+
+
+#pragma mark 核动力
+//获取最新视频列表
+-(void)GetNewVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
+//获取热门视频列表
+-(void)GetHotVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
+//获取推荐视频列表
+-(void)GetTuiJianVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
+//获取原创视频列表
+-(void)GetYuanChuangVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
 @end

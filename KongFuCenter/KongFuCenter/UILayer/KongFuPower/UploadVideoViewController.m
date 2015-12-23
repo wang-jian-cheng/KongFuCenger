@@ -52,7 +52,7 @@
     [_player setItemByUrl:_VideoFilePath];
     [_player play];
     
-    txt_title=[[UITextView alloc] initWithFrame:CGRectMake(playerView.frame.origin.x+playerView.frame.size.width+10, 74, SCREEN_WIDTH-(playerView.frame.origin.x+playerView.frame.size.width+10), playerView.frame.size.height)];
+    txt_title=[[UITextView alloc] initWithFrame:CGRectMake(playerView.frame.origin.x+playerView.frame.size.width+10, 74, SCREEN_WIDTH-(playerView.frame.origin.x+playerView.frame.size.width+20), playerView.frame.size.height)];
     txt_title.backgroundColor=ItemsBaseColor;
     
     [self.view addSubview:txt_title];
@@ -90,12 +90,35 @@
     [dataprovider setDelegateObject:self setBackFunctionName:@"uploadVideoCallBack:"];
     
     [dataprovider uploadVideoWithPath:_VideoFilePath];
+    [SVProgressHUD showWithStatus:@"正在上传视频..." maskType:SVProgressHUDMaskTypeBlack];
 }
 
 -(void)uploadVideoCallBack:(id)dict
 {
     NSLog(@"%@",dict);
+    [SVProgressHUD dismiss];
+    [SVProgressHUD showWithStatus:@"正在保存视频信息..." maskType:SVProgressHUDMaskTypeBlack];
+    
+//    code = 200;
+//    date =     {
+//        ImageName = "UpLoad\\Image\\83e46012-91f3-4a31-a27b-fdb658601adf.JPG";
+//        VideoDuration = "00:00:08";
+//        VideoName = "UpLoad\\Video\\279b6db9-455e-4feb-9e03-1e5fa15a9879.mov";
+//    };
+    
+    if ([dict[@"code"] intValue]==200) {
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        
+        [dataprovider setDelegateObject:self setBackFunctionName:@"UploadVideoInfoCallBack:"];
+    }
 }
+
+
+-(void)UploadVideoInfoCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+}
+
 
 
 - (void)didReceiveMemoryWarning {
