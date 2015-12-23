@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,22 +15,40 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OD1-Mz-WPv">
-                        <rect key="frame" x="8" y="5" width="60" height="60"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUA-g1-B8b">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUA-g1-B8b">
                         <rect key="frame" x="76" y="8" width="189" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="w7V-SX-AEa"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HhG-I1-KeL">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HhG-I1-KeL">
                         <rect key="frame" x="76" y="40" width="189" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OD1-Mz-WPv">
+                        <rect key="frame" x="8" y="7" width="55" height="55"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="55" id="GSy-3e-clT"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="OD1-Mz-WPv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="1Qm-SW-EW8"/>
+                    <constraint firstItem="BUA-g1-B8b" firstAttribute="leading" secondItem="OD1-Mz-WPv" secondAttribute="trailing" constant="13" id="3zD-hy-fZN"/>
+                    <constraint firstItem="BUA-g1-B8b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="8IC-1y-HfV"/>
+                    <constraint firstItem="HhG-I1-KeL" firstAttribute="top" secondItem="BUA-g1-B8b" secondAttribute="bottom" constant="11" id="AHb-Qi-WTR"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="BUA-g1-B8b" secondAttribute="trailing" constant="47" id="ElZ-O1-khz"/>
+                    <constraint firstItem="OD1-Mz-WPv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LM2-qs-zNE"/>
+                    <constraint firstItem="BUA-g1-B8b" firstAttribute="trailing" secondItem="HhG-I1-KeL" secondAttribute="trailing" id="WCY-6f-66R"/>
+                    <constraint firstItem="HhG-I1-KeL" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="lPU-yB-U3z"/>
+                    <constraint firstItem="OD1-Mz-WPv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-1" id="svm-PO-vZA"/>
+                    <constraint firstItem="BUA-g1-B8b" firstAttribute="leading" secondItem="HhG-I1-KeL" secondAttribute="leading" id="vES-hg-hiX"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="mImageView" destination="OD1-Mz-WPv" id="XD7-Qi-Ko5"/>

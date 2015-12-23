@@ -8,6 +8,6 @@
 
 #import "BaseNavigationController.h"
 
-@interface MyFriendViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+@interface MyFriendViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 @end

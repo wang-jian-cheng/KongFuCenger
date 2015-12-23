@@ -453,6 +453,7 @@
     }
 }
 
+
 #pragma mark - get Locations
 -(void)getProvince
 {//    [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
@@ -627,8 +628,8 @@
 
 
 
-#pragma mark - textView delegate
 
+#pragma mark - textView delegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {

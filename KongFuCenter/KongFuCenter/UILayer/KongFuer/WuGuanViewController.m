@@ -258,7 +258,7 @@
         cell.phoneLab.text = [NSString stringWithFormat:@"电话:%@",tempDict[@"TelePhone"]];
         cell.addressLab.text = [NSString stringWithFormat:@"电话:%@",tempDict[@"Address"]];
         
-        NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"ImagePath"]];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,tempDict[@"ImagePath"]];
         [cell.mainImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
     }
     @catch (NSException *exception) {

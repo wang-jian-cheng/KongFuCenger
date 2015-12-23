@@ -84,6 +84,10 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [searchTxt resignFirstResponder];
+}
+
 #pragma mark 自定义方法
 -(void)initAddressData{
     dataProvider = [[DataProvider alloc] init];

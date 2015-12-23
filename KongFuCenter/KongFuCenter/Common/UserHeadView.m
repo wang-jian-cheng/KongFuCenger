@@ -29,6 +29,25 @@
     return self;
 }
 
+-(id)initWithFrame:(CGRect)frame andImg:(UIImage *)img andNav:(UINavigationController *)navCtl
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        UIButton *headBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        //[headBtn setImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
+        [headBtn addTarget:self action:@selector(UserHeadBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        _headImgView.image = img;
+        [headBtn addSubview:_headImgView];
+        _enableRespondClick = YES;
+        tempNav = navCtl;
+        [self addSubview:headBtn];
+        
+    }
+    return self;
+}
+
 -(id)initWithFrame:(CGRect)frame andImgName:(NSString *)name
 {
     self = [super initWithFrame:frame];
@@ -70,7 +89,7 @@
 -(BOOL)CheckIsFriend:(NSString *)userId
 {
 
-    return NO;
+    return YES;
 }
 
 -(void)UserHeadBtnClick:(UIButton *)sender
@@ -79,7 +98,7 @@
     
     if(self.enableRespondClick == YES)
     {
-        if(self.userId == nil || [self.userId isEqualToString:[Toolkit getUserID]])//自己
+        if(self.userId == nil || [self.userId isEqual:[Toolkit getUserID]])//自己
         {
             PersonInfoViewController *personInfoViewCtl = [[PersonInfoViewController alloc] init];
             personInfoViewCtl.navtitle = @"个人资料";
@@ -93,6 +112,7 @@
             {
                 FriendInfoViewController *friendInfoViewCtl = [[FriendInfoViewController alloc] init];
                 friendInfoViewCtl.navtitle = @"好友资料";
+                friendInfoViewCtl.userID = self.userId;
                 if(tempNav!=nil)
                     [tempNav pushViewController:friendInfoViewCtl animated:YES];
             }
