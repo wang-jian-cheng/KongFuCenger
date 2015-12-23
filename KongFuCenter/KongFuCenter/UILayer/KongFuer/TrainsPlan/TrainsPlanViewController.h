@@ -9,7 +9,6 @@
 #import "BaseNavigationController.h"
 #import "SelectRoundBtn.h"
 #import "NewPlanViewController.h"
-#import "UITableViewCell+EditMode.h"
 #import "MJRefresh.h"
 @interface TrainsPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
 {

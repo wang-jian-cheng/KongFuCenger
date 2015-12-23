@@ -422,6 +422,23 @@
 
 }
 
+#pragma mark - 积分
+-(void)getJiFenList:(NSString *)userid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows
+{
+    if(userid&&startRowIndex&&maximumRows)
+    {
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetCreditRecord",Url];
+        NSDictionary * prm=@{@"userid":userid,
+                             @"startRowIndex":startRowIndex,
+                             @"maximumRows":maximumRows};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    
+}
+
+
+
 #pragma mark - 核联盟
 
 -(void)getFriendForKeyValue:(NSString *)uid{

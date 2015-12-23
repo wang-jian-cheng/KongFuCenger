@@ -1162,12 +1162,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472554886.267518"
+            timestampString = "472568842.71273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "560"
-            endingLineNumber = "560"
-            landmarkName = "-GetRequest:andpram:"
+            startingLineNumber = "577"
+            endingLineNumber = "577"
+            landmarkName = "-PostRequest:andpram:"
             landmarkType = "5">
             <Locations>
                <Location
@@ -1206,16 +1206,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472554886.267518"
+            timestampString = "472568842.71273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "561"
-            endingLineNumber = "561"
-            landmarkName = "-GetRequest:andpram:"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
+            landmarkName = "-PostRequest:andpram:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1552,6 +1552,22 @@
             startingLineNumber = "67"
             endingLineNumber = "67"
             landmarkName = "-uploadImgBackCall:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuer/JiFen/JiFenViewController.m"
+            timestampString = "472569502.900286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "-getUserInfoCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
