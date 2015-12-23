@@ -253,8 +253,7 @@
             titleLab.textColor = [UIColor whiteColor];
             titleLab.font = [UIFont systemFontOfSize:16];
             [cell addSubview:titleLab];
-            
-            NSString *contentStr = @"666 很好 很好 很好，666 很好 很好 很好，666 很好 很好 很好，666 很好 很好 很好，666 很好 很好 很好";
+            NSString *contentStr = [userInfoArray valueForKey:@"Description"];
             CGFloat contentWidth = (SCREEN_WIDTH -GapToLeft - 20);
             CGFloat contentHeight = [Toolkit heightWithString:contentStr fontSize:16 width:contentWidth]+10;
             contentHeight = contentHeight > (_cellHeight*3)?(_cellHeight*3):contentHeight;

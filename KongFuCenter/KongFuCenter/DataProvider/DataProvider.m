@@ -473,7 +473,23 @@
     }
 }
 
+-(void)DeleteFriend:(NSString *)userid andfriendid:(NSString *)friendid{
+    if (userid && friendid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/DeleteFriend",Url];
+        NSDictionary *prm = @{@"userid":userid,@"friendid":friendid};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
 
+-(void)GetDongtaiPageByFriends:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows{
+    if (userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetDongtaiPageByFriends",Url];
+        NSDictionary *prm = @{@"userid":userid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }
+}
 
 #pragma mark 核动力
 -(void)uploadVideoWithPath:(NSURL *)videoPath

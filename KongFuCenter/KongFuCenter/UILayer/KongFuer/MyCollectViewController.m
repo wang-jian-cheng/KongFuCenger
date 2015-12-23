@@ -24,6 +24,12 @@
 
 @property (nonatomic, strong) NSMutableArray * arr_voiceData;
 
+@property (nonatomic, strong) NSMutableArray * arr_TitleData;
+
+@property (nonatomic, assign) BOOL isDelete;
+
+@property (nonatomic, strong) NSMutableArray * arr_deleteVoice;
+
 @end
 
 #define _CELL  @"acell"
@@ -33,7 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    [self addRightbuttontitle:@"编辑"];
+    [self addRightbuttontitle:@"删除"];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self initDatas];
     [self initViews];
@@ -41,11 +47,14 @@
     
     // Do any additional setup after loading the view.
 }
+#warning -------------------隐藏删除
 
 #pragma mark - 解析数据
 -(void)getDatas
 {
     [self getUserInfo];
+    
+    [self getUserInfo1];
 }
 
 -(void)getUserInfo
@@ -88,6 +97,45 @@
     }
 }
 
+-(void)getUserInfo1
+{
+    [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack1:"];
+    //    [dataprovider collectData:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"1" andMaximumRows:@"6"];
+    [dataprovider setCollect:[Toolkit getUserID] andIsVideo:@"false" andStartRowIndex:@"0" andMaximumRowst:@"10"];
+}
+
+-(void)getUserInfoCallBack1:(id)dict
+{
+    //    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+            NSLog(@"%@",dict[@"data"]);
+            NSArray * arr_ = dict[@"data"];
+            model_collect * model = [[model_collect alloc] init];
+            [model setValuesForKeysWithDictionary:arr_.firstObject];
+            
+            [self.arr_TitleData addObject:model];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+            [_mainTableView reloadData];
+            [SVProgressHUD dismiss];
+            NSLog(@"完成");
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
 
 
 
@@ -190,11 +238,43 @@
 
 -(void)clickRightButton:(UIButton *)sender
 {
-    DLog(@" Click ");
-    
-    EditMode = !EditMode;
-    
-    [_mainTableView reloadData];
+    if(self.isDelete == 0)
+    {
+        [self addRightbuttontitle:@"确定"];
+        self.isDelete = 1;
+        NSLog(@"可以编辑");
+        //不让文章点击
+        UIButton * btn = [self.view viewWithTag:1];
+        btn.enabled = NO;
+        
+        for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
+            UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
+            btn_select.hidden = NO;
+        }
+    }
+    else
+    {
+        [self addRightbuttontitle:@"删除"];
+        self.isDelete = 0;
+        
+        UIButton * btn = [self.view viewWithTag:1];
+        btn.enabled = YES;
+        NSLog(@"%ld",self.arr_voiceData.count);
+        
+        
+        for (int i = 0 ; i < self.arr_deleteVoice.count; i ++)
+        {
+            [self.arr_voiceData removeObjectAtIndex:[self.arr_deleteVoice[i] integerValue]];
+        }
+        
+        NSLog(@"%ld",self.arr_voiceData.count);
+        
+//        EditMode = !EditMode;
+        [mainCollectionView reloadData];
+        
+        self.arr_deleteVoice = nil;
+        
+    }
 }
 
 -(void)cateBtnClick:(UIButton *)sender
@@ -238,29 +318,50 @@
 #pragma mark - btn_1 btn_2
 - (void)btn_1Action:(UIButton *)sender
 {
+    model_collect * model = self.arr_TitleData[sender.tag / 100];
+    
     if (sender.selected == 0)
     {
         sender.selected = 1;
         [sender setImage:[UIImage imageNamed:@"support_h@2x"] forState:(UIControlStateNormal)];
+        
+        int x = [model.LikeNum intValue] + 1;
+        model.LikeNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
+        NSLog(@"%@",model.LikeNum);
     }
     else
     {
         sender.selected = 0;
         [sender setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+        
+        int x = [model.LikeNum intValue] - 1;
+        model.LikeNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
     }
 }
 
 - (void)btn_2Action:(UIButton *)sender
 {
+    model_collect * model = self.arr_TitleData[sender.tag / 100];
+    
     if (sender.selected == 0)
     {
         sender.selected = 1;
         [sender setImage:[UIImage imageNamed:@"collect_h@2x"] forState:(UIControlStateNormal)];
+        
+        int x = [model.FavoriteNum intValue] + 1;
+        model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:model.FavoriteNum forState:(UIControlStateNormal)];
     }
     else
     {
         sender.selected = 0;
         [sender setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+        
+        int x = [model.FavoriteNum intValue] - 1;
+        model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:model.FavoriteNum forState:(UIControlStateNormal)];
     }
 }
 
@@ -325,6 +426,46 @@
     NSLog(@"跳到转发页面");
 }
 
+//
+- (void)cell_selectAction:(UIButton *)sender
+{
+    if (sender.selected == 0)
+    {
+        sender.selected = 1;
+        [sender setImage:[UIImage imageNamed:@"selectRound@2x"] forState:(UIControlStateNormal)];
+        
+        long x = sender.tag / 1000 - 1;
+        
+        NSString * str = [NSString stringWithFormat:@"%ld",x];
+        
+        [self.arr_deleteVoice addObject:str];
+        
+//        NSLog(@"%ld",self.arr_deleteVoice.count);
+        
+        
+    }
+    else
+    {
+        sender.selected = 0;
+        [sender setImage:[UIImage imageNamed:@"point@2x"] forState:(UIControlStateNormal)];
+        
+        long x = sender.tag / 1000 - 1;
+
+        for(int i = 0 ; i < self.arr_deleteVoice.count ; i ++)
+        {
+            if([self.arr_deleteVoice[i] isEqualToString:[NSString stringWithFormat:@"%ld",x]])
+            {
+                [self.arr_deleteVoice removeObjectAtIndex:i];
+                break;
+            }
+        }
+        
+//        NSLog(@"%ld",self.arr_deleteVoice.count);
+
+        
+    }
+}
+
 #pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -337,7 +478,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return _cellTableCount;
+    return self.arr_TitleData.count;
     
 }
 
@@ -357,14 +498,26 @@
     cell.frame=CGRectMake(cell.frame.origin.x, cell.frame.origin.y, SCREEN_WIDTH, cell.frame.size.height);
 //    cell.btn_1.backgroundColor = [UIColor orangeColor];
     
-    
-    [cell.btn_1 setTitle:@"1000" forState:(UIControlStateNormal)];
+    model_collect * model = self.arr_TitleData[indexPath.row];
+    NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,model.ImagePath];
+    [cell.image sd_setImageWithURL:[NSURL URLWithString:url]];
+    cell.name.text = model.Title;
+    cell.detail.text = model.Content;
+    NSRange x = NSMakeRange(5, 5);
+    //    [model.OperateTime substringWithRange:x];
+    cell.date.text = [model.OperateTime substringWithRange:x];
+
+
+    [cell.btn_1 setTitle:[NSString stringWithFormat:@"%@",model.LikeNum] forState:(UIControlStateNormal)];
     [cell.btn_1 setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
     [cell.btn_1 addTarget:self action:@selector(btn_1Action:) forControlEvents:(UIControlEventTouchUpInside)];
+    cell.btn_1.tag = indexPath.row * 100;
     
-    [cell.btn_2 setTitle:@"1000" forState:(UIControlStateNormal)];
+    [cell.btn_2 setTitle:[NSString stringWithFormat:@"%@",model.FavoriteNum] forState:(UIControlStateNormal)];
     [cell.btn_2 setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
     [cell.btn_2 addTarget:self action:@selector(btn_2Action:) forControlEvents:(UIControlEventTouchUpInside)];
+    cell.btn_2.tag = indexPath.row * 100;
+
     
     return cell;
     
@@ -406,6 +559,18 @@
 {
     return UITableViewCellEditingStyleDelete;
 }
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+        [self.arr_TitleData removeObject:self.arr_TitleData[indexPath.row]];
+        //删除多行,单行UI,刷新数据
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationLeft)];
+        //            [tableView reloadData];
+    
+}
+
+
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -456,7 +621,10 @@
 
 -( NSInteger )collectionView:( UICollectionView *)collectionView numberOfItemsInSection:( NSInteger )section
 {
+    
+
     return self.arr_voiceData.count;
+    
     
 }
 
@@ -495,8 +663,6 @@
 //    [model.OperateTime substringWithRange:x];
     cell.date.text = [model.OperateTime substringWithRange:x];
     
-    
-//    NSLog(@"%@",model.IsFree);
     NSString * str_free = [NSString stringWithFormat:@"%@",model.IsFree];
     if([str_free isEqualToString:@"0"])
     {
@@ -507,24 +673,29 @@
         cell.free.hidden = NO;
         cell.btn_thrid.hidden = YES;
     }
+//    cell.select.layer.cornerRadius = 8;
+//    cell.select.backgroundColor = [UIColor orangeColor];
     
-//    NSLog(@"%@",model.LikeNum);
-    
+    cell.select.hidden = YES;
+    cell.select.tag = (indexPath.item + 1) * 1000;
+    [cell.select addTarget:self action:@selector(cell_selectAction:) forControlEvents:(UIControlEventTouchUpInside)];
+
     [cell.btn_first setTitle:[NSString stringWithFormat:@"%@",model.LikeNum] forState:(UIControlStateNormal)];
     [cell.btn_first setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
     [cell.btn_first addTarget:self action:@selector(btn_firstAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    cell.btn_first.tag = indexPath.row * 10;
+    cell.btn_first.tag = indexPath.item * 10;
     
     [cell.btn_second setTitle:[NSString stringWithFormat:@"%@",model.FavoriteNum] forState:(UIControlStateNormal)];
     [cell.btn_second setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
     [cell.btn_second addTarget:self action:@selector(btn_secondAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    cell.btn_second.tag = indexPath.row * 10;
+    cell.btn_second.tag = indexPath.item * 10;
     
     [cell.btn_thrid setTitle:[NSString stringWithFormat:@"%@",model.RepeatNum] forState:(UIControlStateNormal)];
     [cell.btn_thrid setImage:[UIImage imageNamed:@"relay@2x"] forState:(UIControlStateNormal)];
     [cell.btn_thrid addTarget:self action:@selector(btn_thridAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    cell.btn_thrid.tag = indexPath.row * 10;
+    cell.btn_thrid.tag = indexPath.item * 10;
 //    cell.btn_thrid.enabled = NO;
+    
     
     return cell;
 }
@@ -591,5 +762,24 @@
     }
     return _arr_voiceData;
 }
+
+- (NSMutableArray *)arr_TitleData
+{
+    if(_arr_TitleData == nil)
+    {
+        self.arr_TitleData = [NSMutableArray array];
+    }
+    return _arr_TitleData;
+}
+
+- (NSMutableArray *)arr_deleteVoice
+{
+    if(_arr_deleteVoice == nil)
+    {
+        self.arr_deleteVoice = [NSMutableArray array];
+    }
+    return _arr_deleteVoice;
+}
+
 
 @end
