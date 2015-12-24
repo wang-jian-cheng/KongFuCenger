@@ -30,4 +30,6 @@
 
 @property (nonatomic, copy) NSString * UserId;
 
+@property (nonatomic, copy) NSString * IsLike;
+
 @end

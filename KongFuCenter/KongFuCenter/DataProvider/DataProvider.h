@@ -185,6 +185,9 @@
 //积分
 -(void)getJiFenList:(NSString *)userid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows;
 
+//成长记录数据
+- (NSInteger )growUserId:(NSString *)userId andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
+
 
 #pragma mark 核动力
 //获取最新视频列表

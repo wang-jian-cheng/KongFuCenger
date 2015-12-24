@@ -218,6 +218,29 @@
     }
 }
 
+//成长记录数据
+- (NSInteger )growUserId:(NSString *)userId andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
+{
+    if(startRowIndex != nil && userId != nil && maximumRows != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetUpRecord",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"startRowIndex":startRowIndex,
+                             @"maximumRows":maximumRows};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+
 //int userid 用户ID
 //string nicname 昵称
 //int sexuality 性别 0：未知 1：男 2：女

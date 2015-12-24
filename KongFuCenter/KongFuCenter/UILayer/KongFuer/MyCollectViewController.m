@@ -378,6 +378,8 @@
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"2"];
+//        [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack12:"];
+
     }
     else
     {
@@ -386,6 +388,9 @@
         int x = [model.LikeNum intValue] - 1;
         model.LikeNum = [NSString stringWithFormat:@"%d",x];
         [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider voicedelete:model.MessageId andUserId:model.UserId andFlg:@"2"];
+//        [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack12:"];
     }
     
 //    [mainCollectionView reloadData];
@@ -712,10 +717,26 @@
     [cell.btn_first addTarget:self action:@selector(btn_firstAction:) forControlEvents:(UIControlEventTouchUpInside)];
     cell.btn_first.tag = indexPath.item * 10;
     
+    NSString * str_IsLike = [NSString stringWithFormat:@"%@",model.IsLike];
+    if([str_IsLike isEqualToString:@"1"])
+    {
+        [cell.btn_first setSelected:YES];
+        [cell.btn_first setImage:[UIImage imageNamed:@"support_h@2x"] forState:(UIControlStateNormal)];
+    }
+    else
+    {
+        [cell.btn_first setSelected:NO];
+        [cell.btn_first setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+    }
+    
+    
+    
+    
     [cell.btn_second setTitle:[NSString stringWithFormat:@"%@",model.FavoriteNum] forState:(UIControlStateNormal)];
-    [cell.btn_second setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+    [cell.btn_second setImage:[UIImage imageNamed:@"collect_h@2x"] forState:(UIControlStateNormal)];
     [cell.btn_second addTarget:self action:@selector(btn_secondAction:) forControlEvents:(UIControlEventTouchUpInside)];
     cell.btn_second.tag = indexPath.item * 10;
+    cell.btn_second.userInteractionEnabled = NO;
     
     [cell.btn_thrid setTitle:[NSString stringWithFormat:@"%@",model.RepeatNum] forState:(UIControlStateNormal)];
     [cell.btn_thrid setImage:[UIImage imageNamed:@"relay@2x"] forState:(UIControlStateNormal)];

@@ -34,6 +34,7 @@
     
     [self initViews];
     
+    [self getDatas];
     // Do any additional setup after loading the view.
 }
 
@@ -316,14 +317,45 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - 解析数据
+-(void)getDatas
+{
+    [self getUserInfo];
 }
-*/
+
+-(void)getUserInfo
+{
+    [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
+    [dataprovider growUserId:[Toolkit getUserID] andStartRowIndex:@"0" andMaximumRows:@"30"];
+    
+}
+
+-(void)getUserInfoCallBack:(id)dict
+{
+        DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+            [_mainTableView reloadData];
+            [SVProgressHUD dismiss];
+            NSLog(@"完成");
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
 
 @end
