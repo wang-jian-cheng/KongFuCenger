@@ -175,6 +175,11 @@
  */
 - (NSInteger )collectData:(NSString *)userId andIsVideo:(NSString *)isVideo  andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 -(NSInteger)setCollect:(NSString *)userId andIsVideo:(NSString *)isVideo andStartRowIndex:(NSString *)startRowIndex andMaximumRowst:(NSString *)maximumRows;
+
+//视频(我的收藏)
+- (NSInteger )voiceAction:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg;
+- (NSInteger )voicedelete:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg;
+
 //训练计划
 -(void)getPlanInfo:(NSString *)userid andCateId:(NSString *)cateid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows;
 //积分
@@ -188,6 +193,9 @@
 
 //对回复进行评论
 -(void)CommentComment:(NSString *)mid anduserid:(NSString *)userid andcomment:(NSString *)comment;
+
+//成长记录数据
+- (NSInteger )growUserId:(NSString *)userId andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 
 #pragma mark 核动力
 //获取最新视频列表
