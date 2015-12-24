@@ -86,15 +86,34 @@
 }
 
 
--(BOOL)CheckIsFriend:(NSString *)userId
+-(void)CheckIsFriend:(NSString *)userId
 {
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"isFriendCallBack:"];
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSArray *friendIDArray = [[[userDefault valueForKey:@"friendData"] valueForKey:@"Value"] valueForKey:@"Id"];
-    NSLog(@"%@",friendIDArray);
-    if ([friendIDArray containsObject:userId]) {
-        return YES;
-    }else{
-        return NO;
+    [dataProvider IsWuyou:[userDefault valueForKey:@"id"] andfriendid:userId];
+}
+
+-(void)isFriendCallBack:(id)dict{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        if([dict[@"data"] intValue] == 1)//好友
+        {
+            FriendInfoViewController *friendInfoViewCtl = [[FriendInfoViewController alloc] init];
+            friendInfoViewCtl.navtitle = @"好友资料";
+            friendInfoViewCtl.userID = self.userId;
+            if(tempNav!=nil)
+                [tempNav pushViewController:friendInfoViewCtl animated:YES];
+        }
+        else//陌生人
+        {
+            
+            StrangerInfoViewController *strangerInfoViewCtl = [[StrangerInfoViewController alloc] init];
+            strangerInfoViewCtl.navtitle = @"好友资料";
+            strangerInfoViewCtl.userID = self.userId;
+            if(tempNav!=nil)
+                [tempNav pushViewController:strangerInfoViewCtl animated:YES];
+        }
     }
 }
 
@@ -114,23 +133,7 @@
         }
         else
         {
-            if([self CheckIsFriend:self.userId] == YES)//好友
-            {
-                FriendInfoViewController *friendInfoViewCtl = [[FriendInfoViewController alloc] init];
-                friendInfoViewCtl.navtitle = @"好友资料";
-                friendInfoViewCtl.userID = self.userId;
-                if(tempNav!=nil)
-                    [tempNav pushViewController:friendInfoViewCtl animated:YES];
-            }
-            else//陌生人
-            {
-
-                StrangerInfoViewController *strangerInfoViewCtl = [[StrangerInfoViewController alloc] init];
-                strangerInfoViewCtl.navtitle = @"好友资料";
-                strangerInfoViewCtl.userID = self.userId;
-                if(tempNav!=nil)
-                    [tempNav pushViewController:strangerInfoViewCtl animated:YES];
-            }
+            [self CheckIsFriend:self.userId];
         }
     }
     

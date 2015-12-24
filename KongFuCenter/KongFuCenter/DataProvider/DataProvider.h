@@ -180,6 +180,14 @@
 //积分
 -(void)getJiFenList:(NSString *)userid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows;
 
+//是否是武友
+-(void)IsWuyou:(NSString *)userid andfriendid:(NSString *)friendid;
+
+//对主题进行评论
+-(void)MessageComment:(NSString *)mid anduserid:(NSString *)userid andcomment:(NSString *)comment;
+
+//对回复进行评论
+-(void)CommentComment:(NSString *)mid anduserid:(NSString *)userid andcomment:(NSString *)comment;
 
 #pragma mark 核动力
 //获取最新视频列表
