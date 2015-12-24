@@ -43,13 +43,28 @@
 
 -(void)initDatas
 {
-    studyCateArr = [NSMutableArray array];
-    [studyCateArr addObjectsFromArray:@[@"正向品格",@"极限武术",@"教练核能",@"运营管理"]];
+//    studyCateArr = [NSMutableArray array];
+//    [studyCateArr addObjectsFromArray:@[@"正向品格",@"极限武术",@"教练核能",@"运营管理"]];
+    
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetDataCallBack:"];
+    
+    [dataprovider GetChinnel:@"0" andmaximumRows:@"100"];
     
     secondCateArr= [NSMutableArray array];
-    [secondCateArr addObjectsFromArray:@[@"电影",@"励志",@"表演",@"理念",@"技术",@"赛事",@"运营",@"教学",@"大师",@"4",@"3",@"2",@"1"]];
+//    [secondCateArr addObjectsFromArray:@[@"电影",@"励志",@"表演",@"理念",@"技术",@"赛事",@"运营",@"教学",@"大师",@"4",@"3",@"2",@"1"]];
     
     btnArr = [NSMutableArray array];
+}
+-(void)GetDataCallBack:(id)dict
+{
+    NSLog(@"%@",dict);
+    
+    if ([dict[@"code"] intValue]==200) {
+        secondCateArr=[[NSMutableArray alloc] initWithArray:dict[@"data"]];
+        [mainCollectionView reloadData];
+    }
 }
 
 -(void)initViews
@@ -140,7 +155,7 @@
     }
     
     UILabel *cateNameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
-    cateNameLab.text = secondCateArr[indexPath.row];
+    cateNameLab.text = secondCateArr[indexPath.row][@"Name"];
     cateNameLab.textColor = [UIColor whiteColor];
     cateNameLab.font = [UIFont boldSystemFontOfSize:20];
     cateNameLab.backgroundColor = [UIColor blackColor];
@@ -160,11 +175,22 @@
 -( void )collectionView:( UICollectionView *)collectionView didSelectItemAtIndexPath:( NSIndexPath *)indexPath
 {
     
+    if (!_isVideoSelectCadagray) {
+        ChannelVideosViewController *videoList = [[ChannelVideosViewController alloc] init];
+        videoList.navtitle = secondCateArr[indexPath.row][@"Name"];
+        videoList.cateid=secondCateArr[indexPath.row][@"Id"];
+        [self.navigationController pushViewController:videoList animated:YES];
+    }
+    else
+    {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"select_channel_finish" object:[NSString stringWithFormat:@"%@",secondCateArr[indexPath.row][@"Id"]]];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
     NSLog(@"click cell");
     
-    ChannelVideosViewController *videoList = [[ChannelVideosViewController alloc] init];
-    videoList.navtitle = secondCateArr[indexPath.row];
-    [self.navigationController pushViewController:videoList animated:YES];
+    
     
 }
 

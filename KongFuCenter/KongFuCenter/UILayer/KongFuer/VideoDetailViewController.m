@@ -60,6 +60,7 @@
     if ([dict[@"code"] intValue]==200) {
 //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
         VideoPath=[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"][@"VideoPath"] isEqual:[NSNull null]]?@"":dict[@"data"][@"VideoPath"]];
+        VideoPath=[VideoPath stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
         VideoDict=dict[@"data"];
         [self initViews];
     }

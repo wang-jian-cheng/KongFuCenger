@@ -189,4 +189,10 @@
 -(void)GetTuiJianVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
 //获取原创视频列表
 -(void)GetYuanChuangVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
+//获取视频频道
+-(void)GetChinnel:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
+//保存视频信息
+-(void)SendVideoInfo:(NSDictionary *)prm;
+//根据视频频道获取视频列表
+-(void)GetVideoByCategory:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andcateid:(NSString *)cateid;
 @end
