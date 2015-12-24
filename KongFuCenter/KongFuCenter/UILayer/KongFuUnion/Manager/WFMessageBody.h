@@ -49,4 +49,9 @@
  */
 @property (nonatomic,assign) BOOL isFavour;
 
+/**
+ *  赞的数量
+ */
+@property (nonatomic,assign) int zanNum;
+
 @end
