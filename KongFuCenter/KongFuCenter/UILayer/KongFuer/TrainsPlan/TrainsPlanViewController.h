@@ -23,5 +23,7 @@
     
     int pageNo;
     int pageSize;
+    
+    NSMutableArray *planArr;
 }
 @end

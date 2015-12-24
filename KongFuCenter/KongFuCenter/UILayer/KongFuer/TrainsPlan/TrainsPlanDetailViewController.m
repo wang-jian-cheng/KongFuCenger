@@ -18,7 +18,6 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     _cellHeight = self.view.frame.size.height/12;
-    picArr = [NSMutableArray array];
     [self addRightbuttontitle:@"确定"];
     
     [self initViews];
@@ -64,6 +63,20 @@
 }
 
 
+-(void)setPlanInfo:(NSDictionary *)planInfo
+{
+    _planInfo = planInfo;
+    if(_planInfo != nil)
+    {
+        if(picArr == nil)
+            picArr = [NSMutableArray array];
+        else
+            [picArr removeAllObjects];
+        [picArr addObjectsFromArray:_planInfo[@"ImageList"]];
+    }
+    [_mainTableView reloadData];
+}
+
 
 #pragma mark - tableView
 
@@ -76,110 +89,140 @@
 //设置每行调用的cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell  *cell = [[UITableViewCell alloc] init];
-    if(indexPath.row == 2)
-    {
-        cell.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellTextViewHeight);
-    }
-    else
-    {
-        cell.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cellHeight);
-    }
     cell.backgroundColor = BACKGROUND_COLOR;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    switch (indexPath.row) {
-        case 0:
+    if(self.planInfo == nil)
+        return cell;
+    
+    @try {
+        if(indexPath.row == 2)
         {
-            _titleField.frame = CGRectMake(10, 0, cell.frame.size.width, _cellHeight);
-            _titleField.placeholder = @"标题";
-            _titleField.backgroundColor  = BACKGROUND_COLOR;
-            [cell addSubview:_titleField];
-            
+            cell.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellTextViewHeight);
         }
-            break;
-        case  1:
+        else
         {
-//            cell.textLabel.text = @"发帖内容";
-//            
-//            tipbtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150 ), 0, 150, _cellHeight)];
-//            tipbtn.backgroundColor = BACKGROUND_COLOR;
-//            [tipbtn addTarget:self action:@selector(pushViewAction:) forControlEvents:UIControlEventTouchUpInside];
-//            
-//            UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
-//            rightView.frame = CGRectMake((tipbtn.frame.size.width - 20 -20), 0, 15, 15);
-//            rightView.center = CGPointMake((tipbtn.frame.size.width - 15 -10), _cellHeight/2);
-//            rightView.contentMode = UIViewContentModeScaleAspectFit;
-//            [tipbtn addSubview:rightView];
-//            
-//            [cell addSubview:tipbtn];
+            cell.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cellHeight);
         }
-        case 2:
-        {
-            _textView.frame = CGRectMake(10, 0, cell.frame.size.width,_cellTextViewHeight);
-            _textView.backgroundColor  = BACKGROUND_COLOR;
-            _textView.font = [UIFont systemFontOfSize:15];
-//            _textView.delegate = self;
-            //            _textView.returnKeyType = UIReturnKeyDefault;
-            //            _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-            
-            [cell addSubview:_textView];
-        }
-            break;
-        case 3:
-        {
-            
-            
-            UIButton *picBtns = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.height, cell.frame.size.height)];
-            [picBtns setImage:[UIImage imageNamed:@"picture"] forState:UIControlStateNormal];
-  //          [picBtns addTarget:self action:@selector(composePicAdd) forControlEvents:UIControlEventTouchUpInside];
-            
-            UIButton *photoBtns = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.height, 0, cell.frame.size.height, cell.frame.size.height)];
-            [photoBtns setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
-  //          [photoBtns addTarget:self action:@selector(editPortrait) forControlEvents:UIControlEventTouchUpInside];
-            
-            [cell addSubview:picBtns];
-            [cell addSubview:photoBtns];
-            
-            
-            if (!_collectionView) {
-                
-                UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-                layout.minimumLineSpacing = 5.0;
-                layout.minimumInteritemSpacing = 5.0;
-                layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-                
-                
-                _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-2*_cellHeight, _cellHeight) collectionViewLayout:layout];
-                _collectionView.backgroundColor = [UIColor clearColor];
-                [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:_CELL];
-                _collectionView.delegate = self;
-                _collectionView.dataSource = self;
-                _collectionView.showsHorizontalScrollIndicator = NO;
-                _collectionView.showsVerticalScrollIndicator = NO;
-                
-                
-                _collectionView.frame = CGRectMake(picBtns.frame.size.width+photoBtns.frame.origin.x+5, 0, SCREEN_WIDTH-(2*cell.frame.size.height), cell.frame.size.height);
-                
-                [cell addSubview:_collectionView];
-                
-                
-                
-            }
-            else
+        
+        switch (indexPath.row) {
+            case 0:
             {
-                [cell addSubview:_collectionView];
+                _titleField.frame = CGRectMake(10, 0, cell.frame.size.width, _cellHeight);
+                _titleField.text = self.planInfo[@"Title"];
+                _titleField.backgroundColor  = BACKGROUND_COLOR;
+                _titleField.enabled = NO;
+                _titleField.textAlignment = NSTextAlignmentCenter;
+                _titleField.textColor = [UIColor whiteColor];
+                _titleField.font = [UIFont systemFontOfSize:16];
+                [cell addSubview:_titleField];
+                
             }
-            
+                break;
+            case  1:
+            {
+                UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
+                timeLab.textColor = [UIColor whiteColor];
+                timeLab.text = [NSString stringWithFormat:@"%@~%@",self.planInfo[@"StartTime"],self.planInfo[@"EndTime"]];
+                [cell addSubview:timeLab];
+            }
+            case 2:
+            {
+                _textView.frame = CGRectMake(10, 0, cell.frame.size.width,_cellTextViewHeight);
+                _textView.backgroundColor  = BACKGROUND_COLOR;
+                _textView.font = [UIFont systemFontOfSize:15];
+                _textView.editable = NO;
+                _textView.text = self.planInfo[@"Content"];
+                //            _textView.delegate = self;
+                //            _textView.returnKeyType = UIReturnKeyDefault;
+                //            _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+                
+                [cell addSubview:_textView];
+            }
+                break;
+            case 3:
+            {
+                
+                UIScrollView *imgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
+                [cell addSubview:imgScrollView];
+                
+                CGFloat BtnWidth = _cellHeight - 10;
+                int i;
+                for ( i = 0; i < picArr.count; i++) {
+                    UIButton *imgBtn = [[UIButton alloc] initWithFrame:CGRectMake(10+i*(BtnWidth+10), 5, BtnWidth, BtnWidth)];
+                    imgBtn.tag = i;
+                    [imgBtn addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    [cell addSubview:imgBtn];
+                    
+                    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imgBtn.frame.size.width, imgBtn.frame.size.height)];
+                    NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,picArr[i][@"ImagePath"]];
+                    [imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+                    
+                    [imgBtn addSubview:imgView];
+                }
+                
+                imgScrollView.contentSize = CGSizeMake(i*(BtnWidth+10)+20,_cellHeight );
+                [cell addSubview:imgScrollView];
+                
+//                UIButton *picBtns = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.height, cell.frame.size.height)];
+//                [picBtns setImage:[UIImage imageNamed:@"picture"] forState:UIControlStateNormal];
+//                //          [picBtns addTarget:self action:@selector(composePicAdd) forControlEvents:UIControlEventTouchUpInside];
+//                
+//                UIButton *photoBtns = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.height, 0, cell.frame.size.height, cell.frame.size.height)];
+//                [photoBtns setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
+//                //          [photoBtns addTarget:self action:@selector(editPortrait) forControlEvents:UIControlEventTouchUpInside];
+//                
+//                [cell addSubview:picBtns];
+//                [cell addSubview:photoBtns];
+                
+                
+//                if (!_collectionView) {
+//                    
+//                    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+//                    layout.minimumLineSpacing = 5.0;
+//                    layout.minimumInteritemSpacing = 5.0;
+//                    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//                    
+//                    
+//                    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-2*_cellHeight, _cellHeight) collectionViewLayout:layout];
+//                    _collectionView.backgroundColor = [UIColor clearColor];
+//                    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:_CELL];
+//                    _collectionView.delegate = self;
+//                    _collectionView.dataSource = self;
+//                    _collectionView.showsHorizontalScrollIndicator = NO;
+//                    _collectionView.showsVerticalScrollIndicator = NO;
+//                    
+//                    
+//                    _collectionView.frame = CGRectMake(picBtns.frame.size.width+photoBtns.frame.origin.x+5, 0, SCREEN_WIDTH-(2*cell.frame.size.height), cell.frame.size.height);
+//                    
+//                    [cell addSubview:_collectionView];
+//                    
+//                    
+//                    
+//                }
+//                else
+//                {
+//                    [cell addSubview:_collectionView];
+//                }
+//
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        default:
-            break;
+
     }
-    if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
-    {
-        [cell setSeparatorInset:UIEdgeInsetsZero];
-        [cell setLayoutMargins:UIEdgeInsetsZero];
+    @catch (NSException *exception) {
     }
-    return cell;
+    @finally {
+        if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
+        {
+            [cell setSeparatorInset:UIEdgeInsetsZero];
+            [cell setLayoutMargins:UIEdgeInsetsZero];
+        }
+        return cell;
+
+    }
     
 }
 
@@ -205,9 +248,17 @@
     UICollectionViewCell *cell = (UICollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:_CELL forIndexPath:indexPath];
     
     
+    
+    
     UIButton *imgBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0,  cell.frame.size.width,  cell.frame.size.height)];
     [imgBtn addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     imgBtn.tag = indexPath.row;
+    
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:imgBtn.frame];
+    NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,picArr[indexPath.row][@"ImagePath"]];
+    [imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+    
+    [imgBtn addSubview:imgView];
     // imgBtn.backgroundColor = [UIColor redColor];
     [cell bringSubviewToFront:imgBtn];
     [cell addSubview:imgBtn];
@@ -218,7 +269,7 @@
 
 -(void)imgBtnClick:(UIButton *)sender
 {
-    
+//    PictureShowView *picShow = [PictureShowView alloc] initWithTitle:nil showImg:
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout

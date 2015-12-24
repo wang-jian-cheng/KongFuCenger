@@ -59,6 +59,9 @@
     
     btnArr = [NSMutableArray array];
     cellBtnArr = [NSMutableArray array];
+    planArr = [NSMutableArray array];
+    
+    cateId = 51;
 }
 
 -(void)initViews
@@ -94,7 +97,7 @@
     
     
     _cellHeight = 200;
-    _sectionNum = 3;
+    _sectionNum = 1;
     pageSize = 10;
     
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
@@ -203,8 +206,11 @@
     if ([dict[@"code"] intValue]==200) {
         @try {
             pageNo ++;
-        
+            if(planArr !=nil&&planArr.count>0)
+              [planArr removeAllObjects];
             
+            [planArr addObjectsFromArray:dict[@"data"]];
+            [_mainTableView reloadData];
         }
         @catch (NSException *exception) {
             
@@ -400,7 +406,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return section+1;
+    return planArr.count;
     
 }
 
@@ -413,96 +419,112 @@
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];;
     
-    cell.backgroundColor = BACKGROUND_COLOR;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    UIView *roundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    roundView.center = CGPointMake(LineGap, 20);
-    roundView.backgroundColor = ItemsBaseColor;
-    [cell addSubview:roundView];
-    
-    
-    UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(LineGap+ ViewsGaptoLine, 0, 100, 30)];
-    timeLab.textAlignment = NSTextAlignmentLeft;
-    timeLab.text = @"刚刚发布";
-    timeLab.textColor = [UIColor grayColor];
-    timeLab.font = [UIFont boldSystemFontOfSize:16];
-    
-    //用backgroundColor设置背景色
-    //  UIColor *color = [UIColor colorWithPatternImage:[UIImage imageNamed:@"temp2"]];
-    //    historyContentLab.backgroundColor = color;
-    UIImageView *backImg = [[UIImageView alloc] init];//[[UIImageView alloc] initWithImage:img(@"temp2")];
-    backImg.frame = CGRectMake(LineGap+ ViewsGaptoLine, timeLab.frame.size.height, SCREEN_WIDTH - LineGap - 30, _cellHeight-timeLab.frame.size.height -10);
-    backImg.layer.cornerRadius = 5;
-    backImg.backgroundColor = ItemsBaseColor;
-    backImg.layer.masksToBounds  = YES;
-    
-    
-    UILabel *historyTitleLab=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, backImg.frame.size.width -20, 30)];
-    historyTitleLab.text = @"我最新学习咏春拳的招式";
-    historyTitleLab.textAlignment = NSTextAlignmentLeft;
-    historyTitleLab.textColor = [UIColor whiteColor];
-    historyTitleLab.font = [UIFont boldSystemFontOfSize:16];
-    
-    UILabel *historyContentLab = [[UILabel alloc] initWithFrame:
-                                  CGRectMake(10,
-                                             (historyTitleLab.frame.size.height+historyTitleLab.frame.origin.y),
-                                             backImg.frame.size.width -20,
-                                             (backImg.frame.size.height - (historyTitleLab.frame.size.height+historyTitleLab.frame.origin.y)/*顶部*/ - 50/*底部*/))
-                                  ];
-    historyContentLab.text = @"咏春拳是中国的传统武术，是一门禁止侵袭的技术，是一个积极精简的防卫系统,是：撒旦活塞队你撒第三名那肯定马上看到美食卡牡丹卡少年夫妇被腹背受敌发布的是腹背受敌积分榜上大部分还是";
-    historyContentLab.numberOfLines = 0;
-    historyContentLab.textAlignment = NSTextAlignmentLeft;
-    historyContentLab.textColor = [UIColor whiteColor];
-    historyContentLab.font = [UIFont systemFontOfSize:16];
-    
-    UILabel *timeLabInImg = [[UILabel alloc] initWithFrame:CGRectMake((backImg.frame.size.width - 10 -60), (backImg.frame.size.height - 40), 60, 30)];
-    timeLabInImg.text = @"5:00";
-    timeLabInImg.textColor = [UIColor whiteColor];
-    timeLabInImg.textAlignment = NSTextAlignmentCenter;
-    timeLabInImg.backgroundColor = BACKGROUND_COLOR;
-    timeLabInImg.alpha = 0.8;
-    timeLabInImg.font = [UIFont boldSystemFontOfSize:14];
-    timeLabInImg.layer.cornerRadius = 5;
-    timeLabInImg.layer.masksToBounds = YES;
-    
-    [cell.contentView addSubview:timeLab];
-    [cell.contentView addSubview:backImg];
-    [backImg addSubview:historyContentLab];
-    [backImg addSubview:historyTitleLab];
-    [backImg addSubview:timeLabInImg];
-    
-    
-    [cell setEditing:YES];
-    
-    if(EnditMode)
-    {
-        if(indexPath.section ==0 && indexPath.row == 0)
+    @try {
+        
+        if(planArr == nil || planArr.count == 0 || indexPath.row > planArr.count -1)
+            return cell;
+        
+        NSDictionary *tempDict = planArr[indexPath.row];
+        
+        
+        cell.backgroundColor = BACKGROUND_COLOR;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        UIView *roundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+        roundView.center = CGPointMake(LineGap, 20);
+        roundView.backgroundColor = ItemsBaseColor;
+        [cell addSubview:roundView];
+        
+        
+        UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(LineGap+ ViewsGaptoLine, 0, SCREEN_WIDTH - (LineGap+ ViewsGaptoLine), 30)];
+        timeLab.textAlignment = NSTextAlignmentLeft;
+        timeLab.text = [NSString stringWithFormat:@"%@~%@",tempDict[@"StartTime"],tempDict[@"EndTime"]];
+        timeLab.textColor = [UIColor grayColor];
+        timeLab.font = [UIFont boldSystemFontOfSize:16];
+        
+        //用backgroundColor设置背景色
+        //  UIColor *color = [UIColor colorWithPatternImage:[UIImage imageNamed:@"temp2"]];
+        //    historyContentLab.backgroundColor = color;
+        UIImageView *backImg = [[UIImageView alloc] init];//[[UIImageView alloc] initWithImage:img(@"temp2")];
+        backImg.frame = CGRectMake(LineGap+ ViewsGaptoLine, timeLab.frame.size.height, SCREEN_WIDTH - LineGap - 30, _cellHeight-timeLab.frame.size.height -10);
+        backImg.layer.cornerRadius = 5;
+        backImg.backgroundColor = ItemsBaseColor;
+        backImg.layer.masksToBounds  = YES;
+        
+        
+        UILabel *historyTitleLab=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, backImg.frame.size.width -20, 30)];
+        historyTitleLab.text = tempDict[@"Title"];
+        historyTitleLab.textAlignment = NSTextAlignmentLeft;
+        historyTitleLab.textColor = [UIColor whiteColor];
+        historyTitleLab.font = [UIFont boldSystemFontOfSize:16];
+        
+        UILabel *historyContentLab = [[UILabel alloc] initWithFrame:
+                                      CGRectMake(10,
+                                                 (historyTitleLab.frame.size.height+historyTitleLab.frame.origin.y),
+                                                 backImg.frame.size.width -20,
+                                                 (backImg.frame.size.height - (historyTitleLab.frame.size.height+historyTitleLab.frame.origin.y)/*顶部*/ - 50/*底部*/))
+                                      ];
+        historyContentLab.text = tempDict[@"Content"];
+        historyContentLab.numberOfLines = 0;
+        historyContentLab.textAlignment = NSTextAlignmentLeft;
+        historyContentLab.textColor = [UIColor whiteColor];
+        historyContentLab.font = [UIFont systemFontOfSize:16];
+        
+        UILabel *timeLabInImg = [[UILabel alloc] initWithFrame:CGRectMake((backImg.frame.size.width - 10 -60), (backImg.frame.size.height - 40), 60, 30)];
+        timeLabInImg.text = @"5:00";
+        timeLabInImg.textColor = [UIColor whiteColor];
+        timeLabInImg.textAlignment = NSTextAlignmentCenter;
+        timeLabInImg.backgroundColor = BACKGROUND_COLOR;
+        timeLabInImg.alpha = 0.8;
+        timeLabInImg.font = [UIFont boldSystemFontOfSize:14];
+        timeLabInImg.layer.cornerRadius = 5;
+        timeLabInImg.layer.masksToBounds = YES;
+        
+        [cell.contentView addSubview:timeLab];
+        [cell.contentView addSubview:backImg];
+        [backImg addSubview:historyContentLab];
+        [backImg addSubview:historyTitleLab];
+        [backImg addSubview:timeLabInImg];
+        
+        
+        [cell setEditing:YES];
+        
+        if(EnditMode)
         {
-            if(cellBtnArr == nil)
+            if(indexPath.section ==0 && indexPath.row == 0)
             {
-                cellBtnArr = [NSMutableArray array];
+                if(cellBtnArr == nil)
+                {
+                    cellBtnArr = [NSMutableArray array];
+                }
+                if(cellBtnArr != nil&&cellBtnArr.count >0)
+                {
+                    [cellBtnArr removeAllObjects];
+                }
             }
-            if(cellBtnArr != nil&&cellBtnArr.count >0)
-            {
-                [cellBtnArr removeAllObjects];
-            }
+            
+            SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake(15, _cellHeight/2)];
+            roundBtn.backgroundColor = Separator_Color;
+            [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            roundBtn.tag = indexPath.row;
+            [cell addSubview:roundBtn];
+            
+            [cellBtnArr addObject:roundBtn];
+            
+            //        [cell setCellEditMode:YES andBtnCenter:CGPointMake(15, _cellHeight/2)];
+        }
+        else
+        {
+            
         }
         
-        SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake(15, _cellHeight/2)];
-        roundBtn.backgroundColor = Separator_Color;
-        [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        roundBtn.tag = indexPath.row;
-        [cell addSubview:roundBtn];
         
-        [cellBtnArr addObject:roundBtn];
-        
-//        [cell setCellEditMode:YES andBtnCenter:CGPointMake(15, _cellHeight/2)];
     }
-    else
-    {
-
-    }
+    @catch (NSException *exception) {
     
+    }
+    @finally {
+        
+    }
     
     
     return cell;
@@ -538,6 +560,8 @@
         default:
             break;
     }
+    trainPlanDetailViewCtl.planInfo = planArr[indexPath.row];
+    
     [self.navigationController pushViewController:trainPlanDetailViewCtl animated:YES];
     
 }
@@ -580,7 +604,7 @@
 #pragma mark - setting for section
 //设置section的header view
 
-#define SectionHeight  30
+#define SectionHeight  0
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -598,10 +622,10 @@
     UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(dateLab.frame.origin.x+dateLab.frame.size.width, SectionHeight/2,(SCREEN_WIDTH - 30 - dateLab.frame.size.width)/2,1)];
     lineView2.backgroundColor = [UIColor whiteColor];
     lineView2.alpha = 0.1;
-    
-    [tempView addSubview:lineView1];
-    [tempView addSubview:dateLab];
-    [tempView addSubview:lineView2];
+//    
+//    [tempView addSubview:lineView1];
+//    [tempView addSubview:dateLab];
+//    [tempView addSubview:lineView2];
     switch (section) {
         case 0:
         {

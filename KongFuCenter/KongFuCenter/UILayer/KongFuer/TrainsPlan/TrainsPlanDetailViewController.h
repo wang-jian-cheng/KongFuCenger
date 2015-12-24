@@ -7,9 +7,12 @@
 //
 
 #import "BaseNavigationController.h"
+#import "UIImageView+WebCache.h"
+#import "PictureShowView.h"
 #ifndef _CELL
 #define _CELL @ "acell"
 #endif
+
 
 @interface TrainsPlanDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 {
@@ -23,7 +26,9 @@
     UITextField *_titleField;//标题
     UITextView *_textView;
     CGFloat _keyHeight;
+    
+
 }
 @property (nonatomic, retain) UICollectionView *collectionView;
-
+@property (nonatomic) NSDictionary *planInfo;
 @end
