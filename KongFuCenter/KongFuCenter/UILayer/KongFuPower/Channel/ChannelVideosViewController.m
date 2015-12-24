@@ -7,7 +7,12 @@
 //
 
 #import "ChannelVideosViewController.h"
+#import "DataProvider.h"
+#import "MJRefresh.h"
+
 #define GapToLeft   20
+#define PageSize 6
+
 @interface ChannelVideosViewController ()
 {
     UIImageView *btnImgView;
@@ -20,6 +25,8 @@
     NSMutableArray *studyCateArr;
     NSMutableArray *btnArr;
     
+    int dataPage;
+    
 }
 @end
 
@@ -30,44 +37,113 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addLeftButton:@"left"];
     
+    
     [self initViews];
-    // Do any additional setup after loading the view.
 }
 -(void)initViews
 {
-    
-    
-    
     _cellHeight = (SCREEN_HEIGHT - Header_Height - TabBar_HEIGHT)/2;
+    
     _sectionNum = 3;
     
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height+50  )];
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height  )];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
+    
     _mainTableView.dataSource = self;
+    
     _mainTableView.separatorColor =  Separator_Color;
-    _mainTableView.tableFooterView = [[UIView alloc] init];
+    
     //_mainTableView.scrollEnabled = NO;
     
-    _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
+    dataArr =[[NSArray alloc] init];
     
-    dataArr = @[@"zhenzidan",@"lixiaolong",@"chenglong"];
     [self.view addSubview:_mainTableView];
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = _mainTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    _mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf TeamTopRefresh];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [_mainTableView.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    _mainTableView.mj_footer = footer;
     
     
     
     
 }
 
+-(void)TeamTopRefresh
+{
+    dataPage=0;
+    [self RequestData];
+}
+
+-(void)TeamFootRefresh
+{
+    ++dataPage;
+    [self RequestData];
+}
+
+-(void)TopRefreshCallBack:(id)dict
+{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        dataArr=dict[@"data"];
+        if (!_mainTableView) {
+            [self initViews];
+        }
+    }
+    else
+    {
+        dataArr=[[NSArray alloc] init];
+    }
+    [_mainTableView reloadData];
+}
+-(void)FooterRefreshCallBack:(id)dict
+{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        NSMutableArray * itemMutableArray=[[NSMutableArray alloc] initWithArray:dataArr];
+        NSArray * itemarr=[[NSArray alloc] initWithArray:dict[@"data"]];
+        for (id item in itemarr) {
+            [itemMutableArray addObject:item];
+        }
+        dataArr=[[NSArray alloc] initWithArray:itemMutableArray];
+        
+        [_mainTableView reloadData];
+    }
+    [_mainTableView.mj_footer endRefreshing];
+}
+
+
+-(void)RequestData
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    
+    [dataprovider setDelegateObject:self setBackFunctionName:dataPage==0?@"TopRefreshCallBack:":@"FooterRefreshCallBack:"];
+    
+    [dataprovider GetVideoByCategory:[NSString stringWithFormat:@"%d",dataPage*PageSize] andmaximumRows:[NSString stringWithFormat:@"%d",PageSize] andcateid:_cateid];
+}
 
 
 #pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return _sectionNum;
+    return dataArr.count;
     
 }
 
@@ -86,7 +162,10 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
     cell.backgroundColor = ItemsBaseColor;
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
-    backgroundView.image = [UIImage imageNamed:dataArr[indexPath.section]];
+    
+    [backgroundView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,dataArr[indexPath.section][@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@""]];
+    
+    //    backgroundView.image = [UIImage imageNamed:dataArr[indexPath.section][@""]];
     cell.backgroundView = backgroundView;
     {
         
@@ -97,7 +176,7 @@
         
         //线上
         UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, (lineView.frame.origin.y - 30), 200, 30)];
-        titleLab.text = @"降龙十八掌真传演示仅供参考";
+        titleLab.text = dataArr[indexPath.section][@"Title"];
         titleLab.textColor = [UIColor whiteColor];
         titleLab.font = [UIFont boldSystemFontOfSize:16];
         [cell addSubview:titleLab];
@@ -108,6 +187,7 @@
         
         //under line
         UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, lineView.frame.origin.y+(50 - 35)/2, 35, 35) andImgName:@"me" andNav:(self.navigationController)];
+        [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,dataArr[indexPath.section][@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@""]];
         [headView makeSelfRound];
         [cell addSubview:headView];
         
@@ -116,7 +196,7 @@
                                                                      (headView.frame.size.height/4+headView.frame.origin.y), 60, headView.frame.size.height/2)];
         
         nameLab.textColor = [UIColor whiteColor];
-        nameLab.text = @"鹿晗鹿丸梅花鹿";
+        nameLab.text = [dataArr[indexPath.section][@"NicName"] isEqual:[NSNull null]]?@"":dataArr[indexPath.section][@"NicName"];
         nameLab.font = [UIFont systemFontOfSize:14];
         [cell addSubview:nameLab];
         
@@ -126,7 +206,7 @@
                                                                           (SCREEN_WIDTH - (nameLab.frame.origin.x+nameLab.frame.size.width + 10) -10)/2,
                                                                           headView.frame.size.height/2)];
         [commentBtn setImage:[UIImage imageNamed:@"chat"] forState:UIControlStateNormal];
-        [commentBtn setTitle:@"100条评论" forState:UIControlStateNormal];
+        [commentBtn setTitle:[NSString stringWithFormat:@"%@条评论",[dataArr[indexPath.section][@"CommentNum"] isEqual:[NSNull null]]?@"0":dataArr[indexPath.section][@"CommentNum"]] forState:UIControlStateNormal];
         commentBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [cell addSubview:commentBtn];
         
@@ -135,7 +215,7 @@
                                                                        commentBtn.frame.size.width,//(SCREEN_WIDTH - (nameLab.frame.origin.x+nameLab.frame.size.width + 10) -10)/2,
                                                                        headView.frame.size.height/2)];
         [timeBtn setImage:[UIImage imageNamed:@"clock"] forState:UIControlStateNormal];
-        [timeBtn setTitle:@"10:00之前" forState:UIControlStateNormal];
+        [timeBtn setTitle:[dataArr[indexPath.section][@"PublishTime"] isEqual:[NSNull null]]?@"0":dataArr[indexPath.section][@"PublishTime"] forState:UIControlStateNormal];
         timeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         
         [cell addSubview:timeBtn];
@@ -161,68 +241,13 @@
     
     VideoDetailViewController *videoDetailViewCtl = [[VideoDetailViewController alloc] init];
     videoDetailViewCtl.navtitle =@"视频";
+    videoDetailViewCtl.videoID=dataArr[indexPath.section][@"Id"];
     [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
     
 }
 
 
-- (void)drawRect:(CGRect)rect {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor); CGContextFillRect(context, rect); //上分割线，
-    
-    CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
-    CGContextStrokeRect(context, CGRectMake(5, -1, rect.size.width - 10, 1)); //下分割线
-    CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
-    CGContextStrokeRect(context, CGRectMake(5, 10, 100, 10));
-}
 
-
-//设置划动cell是否出现del按钮，可供删除数据里进行处理
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return NO;
-}
-
-- (UITableViewCellEditingStyle)tableView: (UITableView *)tableView editingStyleForRowAtIndexPath: (NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleDelete;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return  YES;
-}
-
-
--(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return  @"删除";
-}
-
-//设置选中的行所执行的动作
-
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    return indexPath;
-    
-}
-
-#pragma mark - setting for section
-//设置section的header view
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *tempView = [[UIView alloc] init];
-    return tempView;
-}
-
-//设置section header 的高度
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 0;
-}
 
 //设置section footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

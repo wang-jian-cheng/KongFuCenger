@@ -242,6 +242,7 @@
             messBody.posterIntro = @"";
             messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
             messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
+            messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
             
             [_contentDataSource addObject:messBody];
         }
@@ -489,7 +490,7 @@
     }else{
         [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan_no"] forState:UIControlStateNormal];
     }
-    cell.zanNum.text = [NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey:@"LikeNum"]];
+    cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey:@"LikeNum"]];
     cell.delegate = self;
     [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
     cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
@@ -498,22 +499,39 @@
 }
 
 -(void)zanEvent:(UIButton *)sender{
-    dataProvider = [[DataProvider alloc] init];
-    [dataProvider setDelegateObject:self setBackFunctionName:@"zanEvent:"];
-    
-    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:_selectedIndexPath.row];
+    NSLog(@"%d",(int)sender.tag);
+    selectRow = (int)sender.tag;
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
     WFMessageBody *m = ymData.messageBody;
     if (m.isFavour == YES) {//此时该取消赞
-        m.isFavour = NO;
+        dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
+        [dataProvider voicedelete:[wyArray[sender.tag] valueForKey:@"Id"] andUserId:[userDefault valueForKey:@"id"] andFlg:@"2"];
     }else{
-        m.isFavour = YES;
+        dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
+        [dataProvider voiceAction:[wyArray[sender.tag] valueForKey:@"Id"] andUserId:[userDefault valueForKey:@"id"] andFlg:@"2"];
     }
-    ymData.messageBody = m;
-    //清空属性数组。否则会重复添加
-    [ymData.attributedDataFavour removeAllObjects];
-    ymData.favourHeight = [ymData calculateFavourHeightWithWidth:self.view.frame.size.width];
-    [_tableDataSource replaceObjectAtIndex:_selectedIndexPath.row withObject:ymData];
-    [mainTable reloadData];
+}
+
+-(void)zanCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
+        WFMessageBody *m = ymData.messageBody;
+        if (m.isFavour == YES) {//此时该取消赞
+            m.isFavour = NO;
+            m.zanNum--;
+        }else{
+            m.isFavour = YES;
+            m.zanNum++;
+        }
+        ymData.messageBody = m;
+        //清空属性数组。否则会重复添加
+        [ymData.attributedDataFavour removeAllObjects];
+        ymData.favourHeight = [ymData calculateFavourHeightWithWidth:self.view.frame.size.width];
+        [_tableDataSource replaceObjectAtIndex:selectRow withObject:ymData];
+        [mainTable reloadData];
+    }
 }
 
 -(void)commentEvent:(UIButton *)sender{

@@ -11,4 +11,6 @@
 #import "ChannelVideosViewController.h"
 @interface ChannelViewController : BaseNavigationController<UICollectionViewDelegate,UICollectionViewDataSource,RAMCollectionViewFlemishBondLayoutDelegate>
 @property (nonatomic, strong) RAMCollectionViewFlemishBondLayout *collectionViewLayout;
+@property (nonatomic) BOOL isVideoSelectCadagray;
+
 @end

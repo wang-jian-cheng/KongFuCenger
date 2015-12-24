@@ -686,6 +686,36 @@
         [self PostRequest:url andpram:prm];
     }
 }
+-(void)GetChinnel:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows
+{
+    if (startRowIndex && maximumRows) {
+        NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/GetChannel",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)SendVideoInfo:(NSDictionary *)prm
+{
+    if (prm) {
+        NSString *url = [NSString stringWithFormat:@"%@Hewuzhe.asmx/SaveOrEditVideoMessage",Url];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)GetVideoByCategory:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andcateid:(NSString *)cateid
+{
+    if (startRowIndex && maximumRows&&cateid) {
+        NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/SelectVideoByCategory",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"cateid":cateid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+
+
+
+
+
 
 
 #pragma mark 赋值回调
