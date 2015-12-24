@@ -33,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
+    showPicArr = [NSMutableArray array];
     [self initViews];
     // Do any additional setup after loading the view.
 }
@@ -57,6 +58,80 @@
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
     
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    _mainTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        [weakSelf getWuGuanDetail];
+                [self getWuGuanPic];
+        // 结束刷新
+        [_mainTableView.mj_header endRefreshing];
+    }];
+    [_mainTableView.mj_header beginRefreshing];
+    
+
+    
+}
+#pragma mark - click actions
+
+
+
+-(void)shareContentBuild
+{
+    NSArray* imageArray = @[[UIImage imageNamed:@"108"]];
+    
+    NSString *strurl=[NSString stringWithFormat:@"http://www.hewuzhe.com/"];
+    if (imageArray) {
+        @try {
+            NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+            [shareParams SSDKSetupShareParamsByText:[[@"核武者上线啦！快来乐享" stringByAppendingString:@"降龙十八掌"] stringByAppendingString:strurl]
+                                             images:imageArray
+                                                url:[NSURL URLWithString:strurl]
+                                              title:@"核武者"
+                                               type:SSDKContentTypeAuto];
+            
+            
+            [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+                                     items:nil
+                               shareParams:shareParams
+                       onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                           
+                           switch (state) {
+                               case SSDKResponseStateSuccess:
+                               {
+                                   UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                       message:nil
+                                                                                      delegate:nil
+                                                                             cancelButtonTitle:@"确定"
+                                                                             otherButtonTitles:nil];
+                                   [alertView show];
+                                   break;
+                               }
+                               case SSDKResponseStateFail:
+                               {
+                                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                                   message:[NSString stringWithFormat:@"%@",error]
+                                                                                  delegate:nil
+                                                                         cancelButtonTitle:@"OK"
+                                                                         otherButtonTitles:nil, nil];
+                                   [alert show];
+                                   break;
+                               }
+                               default:
+                                   break;
+                           }
+                           
+                       }];
+            
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Crash");
+        }
+        @finally {
+            
+        }
+        
+    }
 }
 
 -(void)btnClick:(UIButton *)sender
@@ -69,6 +144,85 @@
     NSLog(@"打电话");
 }
 
+#pragma mark - self data source
+-(void)getWuGuanPic
+{
+    if(self.wuGuanId!=nil)
+    {
+        [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"getWuguanPicCallBack:"];
+        [dataprovider getWuguanPic:self.wuGuanId];
+    }
+}
+
+-(void)getWuguanPicCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            
+            if(showPicArr != nil && showPicArr.count > 0)
+            {
+                [showPicArr removeAllObjects];
+            }
+            
+            [showPicArr addObjectsFromArray:dict[@"data"]];
+            
+            }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
+}
+
+-(void)getWuGuanDetail
+{
+    if(self.wuGuanId!=nil)
+    {
+        [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"getWuguanDetailCallBack:"];
+        [dataprovider getWuguanDetail:self.wuGuanId];
+    }
+}
+
+
+-(void)getWuguanDetailCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            wuGuanDetailDict = dict[@"data"];
+            [_mainTableView reloadData];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
+}
 #pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -113,56 +267,61 @@
             if(indexPath.row == 0)
             {
                 CGFloat FontSize = 12;
-                
-                UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 5, SCREEN_WIDTH/2 , _cellHeight - 10)];
-                
-//                nameLab.backgroundColor = [UIColor orangeColor];
-                nameLab.text = @"精武门武馆";
-                nameLab.textColor = [UIColor whiteColor];
-                [cell addSubview:nameLab];
-                
-                UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/2 ), 0, SCREEN_WIDTH/2 , _cellHeight)];
-                backView.backgroundColor = cell.backgroundColor;
-                [cell addSubview:backView];
-                CGFloat btnW = backView.frame.size.width/4 - 5;
-                CGFloat btnGap = 5;
-                
-                
-                CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 5, btnW, backView.frame.size.height-10)];
-                [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
-                shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-                
-                [shareBtn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
-                shareBtn.imageView.contentMode = UIViewContentModeCenter;
-                shareBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-                shareBtn.tag = 2;
-                [shareBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-                
-                [backView addSubview:shareBtn];
-                
-                CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 5, btnW, backView.frame.size.height-10)];
-                [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
-                relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-                [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
-                relayBtn.imageView.contentMode = UIViewContentModeCenter;
-                relayBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-                relayBtn.tag = 2;
-                [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-                [backView addSubview:relayBtn];
+                @try {
+                    if(wuGuanDetailDict ==nil)
+                        return cell;
+                    
+                    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 5, SCREEN_WIDTH/2 , _cellHeight - 10)];
+                    nameLab.text = wuGuanDetailDict[@"Title"];
+                    nameLab.textColor = [UIColor whiteColor];
+                    [cell addSubview:nameLab];
+                    
+                    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/2 ), 0, SCREEN_WIDTH/2 , _cellHeight)];
+                    backView.backgroundColor = cell.backgroundColor;
+                    [cell addSubview:backView];
+                    CGFloat btnW = backView.frame.size.width/4 - 5;
+                    CGFloat btnGap = 5;
+                    
+                    
+                    CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 5, btnW, backView.frame.size.height-10)];
+                    [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
+                    shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                    
+                    [shareBtn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+                    shareBtn.imageView.contentMode = UIViewContentModeCenter;
+                    shareBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                    shareBtn.tag = 2;
+                    [shareBtn addTarget:self action:@selector(shareContentBuild) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    [backView addSubview:shareBtn];
+                    
+                    CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 5, btnW, backView.frame.size.height-10)];
+                    [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
+                    relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                    [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
+                    relayBtn.imageView.contentMode = UIViewContentModeCenter;
+                    relayBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                    relayBtn.tag = 2;
+                    [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    [backView addSubview:relayBtn];
+                }
+                @catch (NSException *exception) {
+                    
+                }
+                @finally {
+                    
+                }
             }
             else if (indexPath.row == 1)
             {
                 UIImageView * image = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 15, cell.frame.size.height - 30 , cell.frame.size.height - 30)];
-//                image.backgroundColor = [UIColor orangeColor];
                 image.image = [UIImage imageNamed:@"dingwei@2x"];
-//                image.backgroundColor = Separator_Color;
                 [cell addSubview:image];
                 
                 UILabel * address = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(image.frame) + 5, 5, self.view.frame.size.width - CGRectGetMaxX(image.frame) - 15 - 60, cell.frame.size.height - 10)];
                 address.textColor = Separator_Color;
-                address.text = @"测试数据， 测试数据， 测试数据";
+                address.text =wuGuanDetailDict[@"Address"];
                 address.font = [UIFont systemFontOfSize:15];
-//                address.backgroundColor = [UIColor orangeColor];
                 [cell addSubview:address];
                 
                 UIView * line = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(address.frame) + 5, 3, 1, cell.frame.size.height - 6)];
@@ -171,7 +330,6 @@
                 
                 UIButton * btn_call = [UIButton buttonWithType:(UIButtonTypeSystem)];
                 btn_call.frame = CGRectMake(CGRectGetMaxX(line.frame) + 15, 10, 25 ,25);
-//                btn_call.backgroundColor = [UIColor orangeColor];
                 [btn_call addTarget:self action:@selector(btn_callAction:) forControlEvents:(UIControlEventTouchUpInside)];
                 [btn_call setImage:[UIImage imageNamed:@"电话"] forState:(UIControlStateNormal)];
                 [btn_call setTintColor:Separator_Color];
@@ -197,7 +355,7 @@
             {
 
                 
-                NSString *detailStr = @"简介：咏春拳是一门传统的中国武术，是一门禁止侵袭技术，是一个积极、精简的正当防卫系统";
+                NSString *detailStr = wuGuanDetailDict[@"Content"];
                 CGFloat detailWidth = SCREEN_WIDTH-GapToLeft*2;
                 CGFloat detailHeight = [Toolkit heightWithString:detailStr fontSize:12 width:detailWidth];
                 
@@ -225,7 +383,7 @@
                 
                 
                 UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
-                numLab.text = @"共100张";
+                numLab.text = [NSString stringWithFormat:@"共%ld张",showPicArr.count];
                 numLab.font = [UIFont systemFontOfSize:12];
                 numLab.textColor = TextColors;
                 [cell addSubview:numLab];
@@ -238,28 +396,59 @@
             
             if(indexPath.row == 1)
             {
-                for(int i = 0;i< 3;i++)
-                {
+                
+                if (!_collectionView) {
                     
-                    CGFloat gapWidth;
-                    gapWidth =(SCREEN_WIDTH - GapToLeft*2)/3 - (2*_cellHeight -30);
+                    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+                    layout.minimumLineSpacing = 5.0;
+                    layout.minimumInteritemSpacing = 5.0;
+                    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
                     
-                    UIImageView *tempView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"temp"]];
                     
-                    tempView.frame = CGRectMake(GapToLeft+i*(2*_cellHeight -30 + gapWidth), 10, 2*_cellHeight -30,(2*_cellHeight -30) );
+                    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-2*_cellHeight, _cellHeight) collectionViewLayout:layout];
+                    _collectionView.backgroundColor = [UIColor clearColor];
+                    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:_CELL];
+                    _collectionView.delegate = self;
+                    _collectionView.dataSource = self;
+                    _collectionView.showsHorizontalScrollIndicator = NO;
+                    _collectionView.showsVerticalScrollIndicator = NO;
                     
-                    [cell addSubview:tempView];
-//                    UILabel *templab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft+i*(2*_cellHeight -30 + gapWidth),
-//                                                                                 (tempView.frame.origin.y+tempView.frame.size.height+2),
-//                                                                                 2*_cellHeight -30,
-//                                                                                 2*_cellHeight - (tempView.frame.origin.y+tempView.frame.size.height+2) )];
-//                    templab.text = @"咏春拳";
-//                    templab.textColor = TextColors;
-//                    templab.font = [UIFont systemFontOfSize:14];
-//                    templab.textAlignment = NSTextAlignmentCenter;
-//                    [cell addSubview:templab];
+                    
+                    _collectionView.frame = CGRectMake(GapToLeft,15, SCREEN_WIDTH-2*GapToLeft,  2*_cellHeight -30);
+                    
+                    [cell addSubview:_collectionView];
+                    
+                    
                     
                 }
+                else
+                {
+                    [cell addSubview:_collectionView];
+                }
+                
+
+//                for(int i = 0;i< 3;i++)
+//                {
+//                    
+//                    CGFloat gapWidth;
+//                    gapWidth =(SCREEN_WIDTH - GapToLeft*2)/3 - (2*_cellHeight -30);
+//                    
+//                    UIImageView *tempView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"temp"]];
+//                    
+//                    tempView.frame = CGRectMake(GapToLeft+i*(2*_cellHeight -30 + gapWidth), 10, 2*_cellHeight -30,(2*_cellHeight -30) );
+//                    
+//                    [cell addSubview:tempView];
+////                    UILabel *templab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft+i*(2*_cellHeight -30 + gapWidth),
+////                                                                                 (tempView.frame.origin.y+tempView.frame.size.height+2),
+////                                                                                 2*_cellHeight -30,
+////                                                                                 2*_cellHeight - (tempView.frame.origin.y+tempView.frame.size.height+2) )];
+////                    templab.text = @"咏春拳";
+////                    templab.textColor = TextColors;
+////                    templab.font = [UIFont systemFontOfSize:14];
+////                    templab.textAlignment = NSTextAlignmentCenter;
+////                    [cell addSubview:templab];
+//                    
+//                }
             }
         }
             
@@ -364,15 +553,12 @@
 {
     UIView *tempView = [[UIView alloc] init];
     
-    //    switch (section) {
-    //        case 1:
-    //
-    //            break;
-    //
-    //        default:
-    //            break;
-    //    }
+    UIImageView *mainImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,3*_cellHeight )];\
+
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,wuGuanDetailDict[@"ImagePath"]];
+    [mainImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
     
+    [tempView addSubview:mainImg];
     return tempView;
 }
 
@@ -394,6 +580,54 @@
 }
 
 
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return showPicArr.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = (UICollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:_CELL forIndexPath:indexPath];
+    
+    if( showPicArr!= nil&&showPicArr.count > 0&&indexPath.row < showPicArr.count)
+    {
+        UIImageView *showImg =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,showPicArr[indexPath.row][@"ImagePath"]];
+        [showImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
+        [cell addSubview:showImg];
+    }
+    
+    UIButton *imgBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0,  cell.frame.size.width,  cell.frame.size.height)];
+    [imgBtn addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    imgBtn.tag = indexPath.row;
+    // imgBtn.backgroundColor = [UIColor redColor];
+    [cell bringSubviewToFront:imgBtn];
+    [cell addSubview:imgBtn];
+    
+    return cell;
+    
+}
+
+-(void)imgBtnClick:(UIButton *)sender
+{
+    
+    NSLog(@"sender .tag = %ld",sender.tag);
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(40, 40);
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"%ld",(long)[indexPath row]);
+    
+}
 
 
 

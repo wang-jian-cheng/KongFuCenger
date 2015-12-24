@@ -58,7 +58,7 @@
     @try {
         if([dict[@"code"] integerValue] == 200)
         {
-            [imgPath addObject:dict[@"date"][@"ImagePath"]];
+            [imgPath addObject:dict[@"data"][@"ImagePath"]];
             if([self.delegate respondsToSelector:@selector(uploadImgsOneFinishDelegate:andImgIndex:)])
             {
                 [self.delegate uploadImgsOneFinishDelegate:dict andImgIndex:uploadImgCount];
@@ -66,6 +66,7 @@
             uploadImgCount ++;
             if(uploadImgCount >= allImgCount)
             {
+                [SVProgressHUD dismiss];
                 if([self.delegate respondsToSelector:@selector(uploadImgsAllFinishDelegate:)])
                 {
                     [self.delegate uploadImgsAllFinishDelegate:imgPath];
@@ -88,7 +89,6 @@
     @finally {
         
     }
-    [SVProgressHUD dismiss];
 
 }
 

@@ -34,6 +34,8 @@
     
     BOOL moreSettingBackViewFlag;
     
+    NSInteger cateId;
+    
 }
 @end
 
@@ -79,7 +81,7 @@
         cateBtn.backgroundColor = ItemsBaseColor;
         [cateBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [cateBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
-        cateBtn.tag = i;
+        cateBtn.tag = WeekPlan - i;
         
         [cateBtn addTarget:self action:@selector(cateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [viewForBtns addSubview:cateBtn];
@@ -93,7 +95,7 @@
     
     _cellHeight = 200;
     _sectionNum = 3;
-    
+    pageSize = 10;
     
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
@@ -174,43 +176,23 @@
 {
     [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"FooterRefreshCallBack:"];
-    [dataprovider getPlanInfo:[Toolkit getUserID] andCateId:@"0" andStartRow:@"0" andMaxNumRows:@"10"];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getPlansCallBack:"];
+    [dataprovider getPlanInfo:[Toolkit getUserID]
+                    andCateId:[NSString stringWithFormat:@"%ld",cateId]
+                  andStartRow:[NSString stringWithFormat:@"%d",pageNo*pageSize]
+                andMaxNumRows:[NSString stringWithFormat:@"%d",pageSize]];
     
 }
 
--(void)FooterRefreshCallBack:(id)dict
-{
-    [SVProgressHUD dismiss];
-    DLog(@"%@",dict);
-    if ([dict[@"code"] intValue]==200) {
-        @try {
-            
-            
-            
-        }
-        @catch (NSException *exception) {
-            
-        }
-        @finally {
-            
-        }
-    }
-    else
-    {
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:[dict[@"data"] substringToIndex:4] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
-        [alert show];
-        
-    }
-
-}
 
 -(void)getPlans
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getPlansCallBack:"];
-    [dataprovider getPlanInfo:[Toolkit getUserID] andCateId:@"0" andStartRow:@"0" andMaxNumRows:@"10"];
-
+    [dataprovider getPlanInfo:[Toolkit getUserID]
+                    andCateId:[NSString stringWithFormat:@"%ld",cateId]
+                  andStartRow:[NSString stringWithFormat:@"%d",pageNo*pageSize]
+                andMaxNumRows:[NSString stringWithFormat:@"%d",pageSize]];
 }
 
 -(void)getPlansCallBack:(id)dict
@@ -220,7 +202,7 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
-            
+            pageNo ++;
         
             
         }
@@ -246,7 +228,6 @@
     [btnImgView removeFromSuperview];
     btnImgView.frame = CGRectMake((sender.frame.size.width-15)/2, (sender.frame.size.height - 15), 15, 15);
     [sender addSubview:btnImgView];
-    
     for(int i =0;i<btnArr.count;i++)
     {
         if(i != sender.tag)
@@ -254,6 +235,12 @@
             ((UIButton *)btnArr[i]).selected = NO;
         }
     }
+
+    
+    //更新数据
+    cateId = sender.tag;
+    [_mainTableView.mj_header beginRefreshing];
+
 }
 
 -(void)roundBtnClick:(UIButton *)sender
@@ -534,6 +521,25 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
+    TrainsPlanDetailViewController *trainPlanDetailViewCtl = [[TrainsPlanDetailViewController alloc] init];
+    switch (cateId) {
+        case WeekPlan:
+            trainPlanDetailViewCtl.navtitle = @"周计划";
+            break;
+        case MonthPlan:
+            trainPlanDetailViewCtl.navtitle = @"月计划";
+            break;
+        case SeasonPlan:
+            trainPlanDetailViewCtl.navtitle = @"季计划";
+            break;
+        case YearPlan:
+            trainPlanDetailViewCtl.navtitle = @"年计划";
+            break;
+        default:
+            break;
+    }
+    [self.navigationController pushViewController:trainPlanDetailViewCtl animated:YES];
+    
 }
 
 
@@ -555,7 +561,6 @@
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"111111111111111111");
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
