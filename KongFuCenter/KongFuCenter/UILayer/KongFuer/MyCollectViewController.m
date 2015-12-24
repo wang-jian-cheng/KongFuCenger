@@ -47,7 +47,6 @@
     
     // Do any additional setup after loading the view.
 }
-#warning -------------------隐藏删除
 
 #pragma mark - 解析数据
 -(void)getDatas
@@ -137,7 +136,7 @@
     }
 }
 
-
+#pragma mark ----------------
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -242,10 +241,6 @@
     {
         [self addRightbuttontitle:@"确定"];
         self.isDelete = 1;
-        NSLog(@"可以编辑");
-        //不让文章点击
-        UIButton * btn = [self.view viewWithTag:1];
-        btn.enabled = NO;
         
         for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
             UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
@@ -256,10 +251,6 @@
     {
         [self addRightbuttontitle:@"删除"];
         self.isDelete = 0;
-        
-        UIButton * btn = [self.view viewWithTag:1];
-        btn.enabled = YES;
-        NSLog(@"%ld",self.arr_voiceData.count);
         
         
         for (int i = 0 ; i < self.arr_deleteVoice.count; i ++)
@@ -292,18 +283,22 @@
         {
             [self.view addSubview:mainCollectionView];
         }
+        _lblRight.hidden = NO;
     }
     else if(sender.tag == 1)
     {
         if(mainCollectionView.superview != nil)
         {
             [mainCollectionView removeFromSuperview];
+            
         }
         
         if(_mainTableView.superview == nil)
         {
             [self.view addSubview:_mainTableView];
         }
+        
+        _lblRight.hidden = YES;
     }
     
     for(int i =0;i<btnArr.count;i++)
@@ -328,7 +323,7 @@
         int x = [model.LikeNum intValue] + 1;
         model.LikeNum = [NSString stringWithFormat:@"%d",x];
         [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
-        NSLog(@"%@",model.LikeNum);
+        
     }
     else
     {
@@ -353,6 +348,7 @@
         int x = [model.FavoriteNum intValue] + 1;
         model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
         [sender setTitle:model.FavoriteNum forState:(UIControlStateNormal)];
+        
     }
     else
     {
@@ -378,7 +374,10 @@
         int x = [model.LikeNum intValue] + 1;
         model.LikeNum = [NSString stringWithFormat:@"%d",x];
         [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
-        NSLog(@"%@",model.LikeNum);
+        
+        
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"2"];
     }
     else
     {
@@ -405,7 +404,9 @@
         int x = [model.FavoriteNum intValue] + 1;
         model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
         [sender setTitle:model.FavoriteNum forState:(UIControlStateNormal)];
-
+        
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"1"];
     }
     else
     {
@@ -416,16 +417,42 @@
         model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
         [sender setTitle:model.FavoriteNum forState:(UIControlStateNormal)];
 
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider voicedelete:model.MessageId andUserId:model.UserId andFlg:@"1"];
+        
     }
     
 //    [mainCollectionView reloadData];
 }
-//?
+
+//
 - (void)btn_thridAction:(UIButton *)sender
 {
-    NSLog(@"跳到转发页面");
+    model_collect * model = self.arr_voiceData[sender.tag / 10];
+    
+    if (sender.selected == 0)
+    {
+        sender.selected = 1;
+        
+        int x = [model.RepeatNum intValue] + 1;
+        model.RepeatNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:model.RepeatNum forState:(UIControlStateNormal)];
+        
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"0"];
+    }
+    else
+    {
+        sender.selected = 0;
+        
+        int x = [model.RepeatNum intValue] - 1;
+        model.RepeatNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:model.RepeatNum forState:(UIControlStateNormal)];
+        
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider voicedelete:model.MessageId andUserId:model.UserId andFlg:@"0"];
+    }
 }
-
 //
 - (void)cell_selectAction:(UIButton *)sender
 {
@@ -708,14 +735,14 @@
 
 -( void )collectionView:( UICollectionView *)collectionView didSelectItemAtIndexPath:( NSIndexPath *)indexPath
 {
+    model_collect * model = self.arr_voiceData[indexPath.item];
+//    NSLog(@"%@",model.MessageId);
     
     VideoDetailViewController *viewDetailViewCtl = [[VideoDetailViewController alloc] init];
-    
+    viewDetailViewCtl.videoID = model.MessageId;
     [self.navigationController pushViewController:viewDetailViewCtl animated:YES];
     
-    
-    NSLog(@"click cell");
-    
+
     
 }
 

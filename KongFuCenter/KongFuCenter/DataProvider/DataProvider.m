@@ -130,6 +130,7 @@
 
 }
 
+#pragma mark - 我的收藏
 - (NSInteger )collectData:(NSString *)userId andIsVideo:(NSString *)isVideo  andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
 {
     if(userId != nil  && isVideo !=nil && startRowIndex != nil & maximumRows != nil)
@@ -175,6 +176,47 @@
     }
 }
 
+- (NSInteger )voiceAction:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg
+{
+    if(Id != nil && userId != nil && flg != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/MessageRepeatAndFavorite",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"flg":flg,
+                             @"id":Id};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+//视频的取消
+- (NSInteger )voicedelete:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg
+{
+    if(Id != nil && userId != nil && flg != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/MessageRepeatAndFavoriteCancel",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"flg":flg,
+                             @"id":Id};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
 
 //int userid 用户ID
 //string nicname 昵称
@@ -554,8 +596,6 @@
         [self PostRequest:url andpram:prm];
     }
 }
-
-
 
 
 #pragma mark 赋值回调
