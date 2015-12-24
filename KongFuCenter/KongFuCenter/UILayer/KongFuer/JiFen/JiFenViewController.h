@@ -9,6 +9,18 @@
 #import "BaseNavigationController.h"
 #import "JiFenTableViewCell.h"
 #import "UserHeadView.h"
-@interface JiFenViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
+#import "SelectRoundBtn.h"
+#import "NewPlanViewController.h"
+#import "MJRefresh.h"
+
+@interface JiFenViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+{
+    UserHeadView  *headView;
+    UILabel *userName;
+    UILabel *jiFenLab;
+    int pageNo;
+    int pageSize;
+    
+}
 @end

@@ -45,6 +45,11 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
 
 -(void)GetVideoDetial
 {
@@ -195,10 +200,22 @@
     
 }
 
-
+#warning +++++++
 -(void)btnClick:(UIButton *)sender
 {
     sender.selected = !sender.selected;
+    
+    switch (sender.tag) {
+        case 0:
+            break;
+        case 1:
+            break;
+            
+        default:
+            break;
+    }
+    
+    
 }
 
 

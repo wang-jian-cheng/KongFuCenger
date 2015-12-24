@@ -16,6 +16,8 @@
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    
+    NSMutableArray *jiFenArr;
 }
 @end
 
@@ -24,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
+    jiFenArr = [NSMutableArray array];
     [self initViews];
     // Do any additional setup after loading the view.
 }
@@ -31,7 +34,7 @@
 {
     _cellHeight = SCREEN_HEIGHT/11;
     _sectionNum = 2;
-    
+    pageSize = 10;
     
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
@@ -45,12 +48,121 @@
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
     
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    _mainTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        pageNo=0;
+        [self getUserInfo];
+        [weakSelf getJiFenList];
+        // 结束刷新
+        [_mainTableView.mj_header endRefreshing];
+    }];
+    [_mainTableView.mj_header beginRefreshing];
+    
+    // 上拉刷新
+    _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        [weakSelf FooterRefresh];
+        [_mainTableView.mj_footer endRefreshing];
+    }];
+
+    
+    headView = [[UserHeadView alloc] initWithFrame: CGRectMake(GapToLeft, 20,  3*_cellHeight - 20*2, 3*_cellHeight - 20*2) andImg:[UIImage imageNamed:@"headImg"] andNav:self.navigationController];
+    userName = [[UILabel alloc] init];
+    jiFenLab = [[UILabel alloc] init];
+    
+    
 }
 
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
+#pragma mark - self data source
+
+-(void)FooterRefresh
+{
+    [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"FooterRefreshCallBack:"];
+    [dataprovider getJiFenList:[Toolkit getUserID] andStartRow:[NSString stringWithFormat:@"%d",(pageNo*pageSize)] andMaxNumRows:[NSString stringWithFormat:@"%d",pageSize]];
+    
+}
+
+
+-(void)getUserInfo
+{
+    [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
+    [dataprovider getUserInfo:[Toolkit getUserID]];
+    
+}
+
+
+-(void)getUserInfoCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            NSDictionary *tempDict = dict[@"data"];
+            
+            
+            NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
+            
+            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
+            
+            jiFenLab.text = [NSString stringWithFormat:@"积分：%@",tempDict[@"Credit"]];
+            userName.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
+            [_mainTableView reloadData];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+-(void)getJiFenList
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getJiFenCallBack:"];
+    [dataprovider getJiFenList:[Toolkit getUserID] andStartRow:[NSString stringWithFormat:@"%d",pageSize*pageNo] andMaxNumRows:[NSString stringWithFormat:@"%d",pageSize]];
+}
+
+-(void)getJiFenCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            NSDictionary *tempDict = dict[@"data"];
+            pageNo++;
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+  
 }
 
 
@@ -66,8 +178,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 1;
-    
+    if(section == 0)
+        return 1;
+    else
+    {
+        return jiFenArr.count;
+    }
 }
 
 #pragma mark - setting for cell
@@ -78,22 +194,19 @@
     {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3)];
         
-        UserHeadView  *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 20,  3*_cellHeight - 20*2, 3*_cellHeight - 20*2)
-                                                           andImgName:@"headImg"
-                                                               andNav:self.navigationController];
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [headView makeSelfRound];
         
-        UILabel *userName = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
-                                                                     20+20, 100,((headView.frame.size.height - 40)/2 -5) )];
-        userName.text = @"成龙";
+        userName.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
+                                                                     20+20, 100,((headView.frame.size.height - 40)/2 -5) );
+    //    userName.text = @"成龙";
         userName.textColor = [UIColor whiteColor];
         [cell addSubview:userName];
         
-        UILabel *jiFenLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
+        jiFenLab.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
                                                                      (userName.frame.origin.y+userName.frame.size.height), 200,
-                                                                      userName.frame.size.height)];
-        jiFenLab.text = @"积分：1000个";
+                                                                      userName.frame.size.height);
+      //  jiFenLab.text = @"积分：1000个";
         jiFenLab.textColor = [UIColor whiteColor];
         [cell addSubview:jiFenLab];
         

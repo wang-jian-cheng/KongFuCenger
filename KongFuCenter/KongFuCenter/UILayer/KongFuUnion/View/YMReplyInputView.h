@@ -12,6 +12,7 @@
 
 - (void)YMReplyInputWithReply:(NSString *)replyText appendTag:(NSInteger)inputTag;
 - (void)destorySelf;
+- (void)sendButton:(id)sender;
 
 @end
 
@@ -48,6 +49,5 @@
 - (void)showCommentView;
 - (id) initWithFrame:(CGRect)frame andAboveView:(UIView *)bgView;
 - (void)disappear;
-
 
 @end

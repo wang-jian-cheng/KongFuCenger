@@ -121,6 +121,8 @@
 
     self.backgroundColor = [UIColor colorWithRed:(0xD9 / 255.0) green:(0xDC / 255.0) blue:(0xE0 / 255.0) alpha:1.0];
     [self showCommentView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateComment) name:@"updateComment" object:nil];
  }
 
 - (void)layoutSubviews
@@ -410,12 +412,15 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         return;
     }
     
-    [_delegate YMReplyInputWithReply:textView.text appendTag:_replyTag];
-    [self disappear];
-    
+    if([self.delegate respondsToSelector:@selector(sendButton:)]){
+        [self.delegate sendButton:textView];
+    }
 }
 
-
+-(void)updateComment{
+    [_delegate YMReplyInputWithReply:textView.text appendTag:_replyTag];
+    [self disappear];
+}
 
 
 

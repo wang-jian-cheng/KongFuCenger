@@ -14,7 +14,7 @@
 #import "VPImageCropperViewController.h"
 #import "PictureShowView.h"
 #import "UploadDataToServer.h"
-
+#import "TrainsPlanViewController.h"
 @interface NewPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate,ChoosePlanTypeDelegate,UICollectionViewDelegate,UICollectionViewDataSource,JKImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,VPImageCropperDelegate,UIGestureRecognizerDelegate,UploadDataToServerDelegate>
 {
     NSIndexPath *tempIndexPath;

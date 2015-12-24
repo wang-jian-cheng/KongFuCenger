@@ -727,7 +727,8 @@
         
         ymData = (YMTextData *)[_tableDataSource objectAtIndex:inputTag];
         WFMessageBody *m = ymData.messageBody;
-        [m.posterReplies addObject:body];
+        //[m.posterReplies addObject:body];
+        [m.posterReplies insertObject:body atIndex:0];
         ymData.messageBody = m;
         
     }else{
@@ -740,7 +741,8 @@
         body.repliedUser = [(WFReplyBody *)[m.posterReplies objectAtIndex:_replyIndex] replyUser];
         body.replyInfo = replyText;
         
-        [m.posterReplies addObject:body];
+        //[m.posterReplies addObject:body];
+        [m.posterReplies insertObject:body atIndex:0];
         ymData.messageBody = m;
         
     }

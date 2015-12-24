@@ -284,11 +284,20 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
-    
-    WuGuanDetailViewController *wuGuanDetailViewCtl = [[WuGuanDetailViewController alloc] init];
-    
-    wuGuanDetailViewCtl.navtitle = @"武馆详情";
-    [self.navigationController pushViewController:wuGuanDetailViewCtl animated:YES];
+    @try {
+        WuGuanDetailViewController *wuGuanDetailViewCtl = [[WuGuanDetailViewController alloc] init];
+        wuGuanDetailViewCtl.wuGuanId = WuGuanListArr[indexPath.row][@"Id"];
+        wuGuanDetailViewCtl.navtitle = @"武馆详情";
+        [self.navigationController pushViewController:wuGuanDetailViewCtl animated:YES];
+        
+
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
     
     
 }

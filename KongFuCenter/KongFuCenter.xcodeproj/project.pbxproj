@@ -221,6 +221,7 @@
 		B5D345D31C2A3AE100D39891 /* TrainsPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345D21C2A3AE100D39891 /* TrainsPlanViewController.m */; };
 		B5D345DA1C2A792E00D39891 /* PictureShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345D91C2A792E00D39891 /* PictureShowView.m */; };
 		B5D345DD1C2A8B5A00D39891 /* UploadDataToServer.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345DC1C2A8B5A00D39891 /* UploadDataToServer.m */; };
+		B5D345E01C2BC71800D39891 /* TrainsPlanDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345DF1C2BC71800D39891 /* TrainsPlanDetailViewController.m */; };
 		B5D899F91C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */; };
 		B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899F81C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m */; };
 		B5D899FD1C113CDB00F55BFA /* btnFlag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */; };
@@ -296,6 +297,7 @@
 		B5F90AFE1C1985A100D7879D /* LoginQQ@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AF91C1985A100D7879D /* LoginQQ@2x.png */; };
 		B5F90AFF1C1985A100D7879D /* Logintitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AFA1C1985A100D7879D /* Logintitle@2x.png */; };
 		B5F90B001C1985A100D7879D /* Loginweixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AFB1C1985A100D7879D /* Loginweixin@2x.png */; };
+		B728F67C1C2BD7AD004E90F3 /* wyzan_no.png in Resources */ = {isa = PBXBuildFile; fileRef = B728F67B1C2BD7AD004E90F3 /* wyzan_no.png */; };
 		B72C3CBE1C1558F000D3250A /* KongFuUnionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */; };
 		B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CC21C15668800D3250A /* RecruitComment.m */; };
 		B72C3CC81C1568C900D3250A /* RecruitCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CC61C1568C900D3250A /* RecruitCommentCell.m */; };
@@ -759,6 +761,8 @@
 		B5D345D91C2A792E00D39891 /* PictureShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureShowView.m; sourceTree = "<group>"; };
 		B5D345DB1C2A8B5A00D39891 /* UploadDataToServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadDataToServer.h; sourceTree = "<group>"; };
 		B5D345DC1C2A8B5A00D39891 /* UploadDataToServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadDataToServer.m; sourceTree = "<group>"; };
+		B5D345DE1C2BC71800D39891 /* TrainsPlanDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainsPlanDetailViewController.h; sourceTree = "<group>"; };
+		B5D345DF1C2BC71800D39891 /* TrainsPlanDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainsPlanDetailViewController.m; sourceTree = "<group>"; };
 		B5D899F51C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayout.h; sourceTree = "<group>"; };
 		B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMCollectionViewFlemishBondLayout.m; sourceTree = "<group>"; };
 		B5D899F71C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayoutAttributes.h; sourceTree = "<group>"; };
@@ -868,6 +872,7 @@
 		B5F90AF91C1985A100D7879D /* LoginQQ@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoginQQ@2x.png"; sourceTree = "<group>"; };
 		B5F90AFA1C1985A100D7879D /* Logintitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Logintitle@2x.png"; sourceTree = "<group>"; };
 		B5F90AFB1C1985A100D7879D /* Loginweixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loginweixin@2x.png"; sourceTree = "<group>"; };
+		B728F67B1C2BD7AD004E90F3 /* wyzan_no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wyzan_no.png; sourceTree = "<group>"; };
 		B72C3CBB1C1558F000D3250A /* KongFuUnionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KongFuUnionViewController.h; sourceTree = "<group>"; };
 		B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KongFuUnionViewController.m; sourceTree = "<group>"; };
 		B72C3CC11C15668800D3250A /* RecruitComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecruitComment.h; sourceTree = "<group>"; };
@@ -1627,6 +1632,7 @@
 				B7E4CCFD1C1FA1F200C2E69A /* zdlt.png */,
 				B7E096D51C1E5F1000E0E73B /* head_bg.png */,
 				B7E0BF2D1C2A8C6A000DD4E1 /* wyzan.png */,
+				B728F67B1C2BD7AD004E90F3 /* wyzan_no.png */,
 				B7E0BF2F1C2A9199000DD4E1 /* wyhf.png */,
 				B5905E101C1BC53F00ECA9BA /* yewenback@2x.png */,
 				B5905E0E1C1BC34A00ECA9BA /* dingwei@2x.png */,
@@ -1913,6 +1919,8 @@
 				B5AF707E1C1837F600C041AF /* NewPlanViewController.m */,
 				B5F90ACB1C190CF900D7879D /* ChoosePlanTypeViewController.h */,
 				B5F90ACC1C190CF900D7879D /* ChoosePlanTypeViewController.m */,
+				B5D345DE1C2BC71800D39891 /* TrainsPlanDetailViewController.h */,
+				B5D345DF1C2BC71800D39891 /* TrainsPlanDetailViewController.m */,
 			);
 			path = TrainsPlan;
 			sourceTree = "<group>";
@@ -2697,6 +2705,7 @@
 				B53791BF1C1579F500C45BA7 /* hewuzhe@2x.png in Resources */,
 				B5F90AFF1C1985A100D7879D /* Logintitle@2x.png in Resources */,
 				B5F13B3D1C1FE6E600155038 /* 108@2x.png in Resources */,
+				B728F67C1C2BD7AD004E90F3 /* wyzan_no.png in Resources */,
 				B53E737F1C166389009E7878 /* support@2x.png in Resources */,
 				802118EA1C1AFAE100DCEE73 /* nil.png in Resources */,
 				8049521E1C250B3800F5584A /* WechatShortVideo_scan_focus.png in Resources */,
@@ -2925,6 +2934,7 @@
 				B5F90AF01C197D3D00D7879D /* RegisterViewController.m in Sources */,
 				B72C3CBE1C1558F000D3250A /* KongFuUnionViewController.m in Sources */,
 				8049520C1C250B3800F5584A /* SCProcessingQueue.m in Sources */,
+				B5D345E01C2BC71800D39891 /* TrainsPlanDetailViewController.m in Sources */,
 				B53E73961C16CF01009E7878 /* PersonInfoViewController.m in Sources */,
 				B7CE7F431C16C61E0035D8CA /* JoinTeamViewController.m in Sources */,
 				B739FB391C279991004100C2 /* MyFriendViewController.m in Sources */,

@@ -19,7 +19,7 @@
 
 #define dataCount 10
 #define kLocationToBottom 20
-#define kAdmin @"小虎-tiger"
+//#define kAdmin @"小虎-tiger"
 
 #define sendNews  (2015+1)
 #define smallVideo  (2015+2)
@@ -48,6 +48,12 @@
     //通用
     NSUserDefaults *userDefault;
     DataProvider *dataProvider;
+    
+    //数据
+    NSArray *wyArray;
+    int selectRow;
+    NSString *kAdmin;
+    BOOL isComment;
     
 }
 
@@ -105,7 +111,7 @@
     messBody1.posterImgstr = @"mao.jpg";
     messBody1.posterName = @"迪恩·温彻斯特";
     messBody1.posterIntro = @"";
-    messBody1.posterFavour = [NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
+    messBody1.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
     messBody1.isFavour = YES;
     
     WFMessageBody *messBody2 = [[WFMessageBody alloc] init];
@@ -174,7 +180,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     
-    [self setBarTitle:@"战队动态"];
+    [self setBarTitle:@"武友动态"];
     [self addLeftButton:@"left"];
     [self addRightButton:@"moreNoword@2x"];
     
@@ -182,46 +188,63 @@
     dataProvider = [[DataProvider alloc] init];
     _tableDataSource = [[NSMutableArray alloc] init];
     _contentDataSource = [[NSMutableArray alloc] init];
+    wyArray = [[NSArray alloc] init];
     _replyIndex = -1;//代表是直接评论
+    kAdmin = [userDefault valueForKey:@"NicName"];
     
-    [self configData];
-    [self initTableview];
-    [self loadTextData];
+    //[self configData];
+    //[self initTableview];
+    //[self loadTextData];
     
-    //[self initData];
+    [self initData];
 }
 
 -(void)initData{
+    [SVProgressHUD showWithStatus:@"加载中"];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getWYNewsCallBack:"];
     [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
 }
 
 -(void)getWYNewsCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict);
+        wyArray = dict[@"data"];
         for(NSDictionary *itemDict in dict[@"data"]){
-            WFReplyBody *body1 = [[WFReplyBody alloc] init];
-            body1.replyUser = kAdmin;
-            body1.repliedUser = @"红领巾";
-            body1.replyInfo = kContentText1;
-            
-            WFMessageBody *messBody1 = [[WFMessageBody alloc] init];
-            messBody1.posterContent = [itemDict valueForKey:@"Content"];
+            WFMessageBody *messBody = [[WFMessageBody alloc] init];
+            messBody.posterContent = [itemDict valueForKey:@"Content"];
             NSArray *picArray =[itemDict valueForKey:@"PicList"];
             for (int i = 0; i < picArray.count; i++) {
-                messBody1.posterPostImage = @[@"yewenback@2x.png",@"yewenback@2x.png",@"yewenback@2x.png"];
+                messBody.posterPostImage = @[@"yewenback@2x.png",@"yewenback@2x.png",@"yewenback@2x.png"];
             }
             NSArray *ComArray =[itemDict valueForKey:@"ComList"];
-            for (int i = 0; i < ComArray.count; i++) {
-                messBody1.posterReplies = [NSMutableArray arrayWithObjects:body1,body1,body1, nil];
+            if (ComArray.count == 0) {
+                WFReplyBody *body = [[WFReplyBody alloc] init];
+                body.replyUser = @"";
+                body.repliedUser = @"";
+                body.replyInfo = @"";
+                messBody.posterReplies = [[NSMutableArray alloc] init];
+            }else{
+                NSMutableArray *commentArray = [[NSMutableArray alloc] init];;
+                for (int i = 0; i < ComArray.count; i++) {
+                    WFReplyBody *body = [[WFReplyBody alloc] init];
+                    body.replyUser = [ComArray[i] valueForKey:@"NicName"];
+                    body.repliedUser = [[NSString stringWithFormat:@"%@",[ComArray[i] valueForKey:@"ParentId"]] isEqual:@"0"]?@"":[ComArray[i] valueForKey:@"CommentedNicName"];
+                    body.replyInfo = [ComArray[i] valueForKey:@"Content"];
+                    [commentArray addObject:body];
+                }
+                messBody.posterReplies = commentArray;
             }
-            messBody1.posterImgstr = @"mao.jpg";
-            messBody1.posterName = kAdmin;//[itemDict valueForKey:@"NicName"];
-            messBody1.posterIntro = @"";
-            messBody1.posterFavour = [NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
-            messBody1.isFavour = YES;
+            NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
+            NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+            messBody.posterImgstr = url;//@"mao.jpg";
+            messBody.posterName = [itemDict valueForKey:@"NicName"];
+            messBody.posterIntro = @"";
+            messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
+            messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
+            messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
             
-            [_contentDataSource addObject:messBody1];
+            [_contentDataSource addObject:messBody];
         }
         
         [self initTableview];
@@ -452,7 +475,22 @@
     cell.stamp = indexPath.row;
     //cell.replyBtn.appendIndexPath = indexPath;
     //[cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.CommentBtn addTarget:self action:@selector(commentEvent) forControlEvents:UIControlEventTouchUpInside];
+    cell.CommentBtn.tag = indexPath.row;
+    [cell.CommentBtn addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
+    cell.CommentBtnHF.tag = indexPath.row;
+    [cell.CommentBtnHF addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
+    cell.commentDate.text = @"发布时间";//[NSString stringWithFormat:@"%d",(int)indexPath.row];
+    
+    cell.zanBtn.tag = indexPath.row;
+    [cell.zanBtn addTarget:self action:@selector(zanEvent:) forControlEvents:UIControlEventTouchUpInside];
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:indexPath.row];
+    WFMessageBody *m = ymData.messageBody;
+    if (m.isFavour == YES) {//此时该取消赞
+        [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan"] forState:UIControlStateNormal];
+    }else{
+        [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan_no"] forState:UIControlStateNormal];
+    }
+    cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey:@"LikeNum"]];
     cell.delegate = self;
     [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
     cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
@@ -460,11 +498,69 @@
     return cell;
 }
 
--(void)commentEvent{
+-(void)zanEvent:(UIButton *)sender{
+    NSLog(@"%d",(int)sender.tag);
+    selectRow = (int)sender.tag;
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
+    WFMessageBody *m = ymData.messageBody;
+    if (m.isFavour == YES) {//此时该取消赞
+        dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
+        [dataProvider voicedelete:[wyArray[sender.tag] valueForKey:@"Id"] andUserId:[userDefault valueForKey:@"id"] andFlg:@"2"];
+    }else{
+        dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
+        [dataProvider voiceAction:[wyArray[sender.tag] valueForKey:@"Id"] andUserId:[userDefault valueForKey:@"id"] andFlg:@"2"];
+    }
+}
+
+-(void)zanCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
+        WFMessageBody *m = ymData.messageBody;
+        if (m.isFavour == YES) {//此时该取消赞
+            m.isFavour = NO;
+            m.zanNum--;
+        }else{
+            m.isFavour = YES;
+            m.zanNum++;
+        }
+        ymData.messageBody = m;
+        //清空属性数组。否则会重复添加
+        [ymData.attributedDataFavour removeAllObjects];
+        ymData.favourHeight = [ymData calculateFavourHeightWithWidth:self.view.frame.size.width];
+        [_tableDataSource replaceObjectAtIndex:selectRow withObject:ymData];
+        [mainTable reloadData];
+    }
+}
+
+-(void)commentEvent:(UIButton *)sender{
+    isComment = YES;
+    selectRow = (int)sender.tag;
     replyView = [[YMReplyInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, screenWidth,44) andAboveView:self.view];
     replyView.delegate = self;
-    replyView.replyTag = _selectedIndexPath.row;
+    replyView.replyTag = sender.tag;//_selectedIndexPath.row;
     [self.view addSubview:replyView];
+}
+
+-(void)sendButton:(id)sender{
+    if (isComment) {
+        dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"mainCommentCallBack:"];
+        [dataProvider MessageComment:[wyArray[selectRow] valueForKey:@"Id"] anduserid:[userDefault valueForKey:@"id"] andcomment:((UITextView *)sender).text];
+    }else{
+        dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"mainCommentCallBack:"];
+        [dataProvider CommentComment:[[wyArray[selectRow] valueForKey:@"ComList"][_replyIndex] valueForKey:@"Id"] anduserid:[userDefault valueForKey:@"id"] andcomment:((UITextView *)sender).text];
+
+    }
+}
+
+-(void)mainCommentCallBack:(id)dict{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateComment" object:nil];
+    }
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -634,9 +730,10 @@
 
 #pragma mark - 点评论整块区域的回调
 - (void)clickRichText:(NSInteger)index replyIndex:(NSInteger)replyIndex{
-    
+    isComment = NO;
     [self.operationView dismiss];
     
+    selectRow = (int)index;
     _replyIndex = replyIndex;
     
     YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:index];
@@ -653,6 +750,7 @@
         if (replyView) {
             return;
         }
+        
         replyView = [[YMReplyInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, screenWidth,44) andAboveView:self.view];
         replyView.delegate = self;
         replyView.lblPlaceholder.text = [NSString stringWithFormat:@"回复%@:",b.replyUser];
@@ -674,7 +772,8 @@
         
         ymData = (YMTextData *)[_tableDataSource objectAtIndex:inputTag];
         WFMessageBody *m = ymData.messageBody;
-        [m.posterReplies addObject:body];
+        //[m.posterReplies addObject:body];
+        [m.posterReplies insertObject:body atIndex:0];
         ymData.messageBody = m;
         
     }else{
@@ -687,7 +786,8 @@
         body.repliedUser = [(WFReplyBody *)[m.posterReplies objectAtIndex:_replyIndex] replyUser];
         body.replyInfo = replyText;
         
-        [m.posterReplies addObject:body];
+        //[m.posterReplies addObject:body];
+        [m.posterReplies insertObject:body atIndex:0];
         ymData.messageBody = m;
         
     }
