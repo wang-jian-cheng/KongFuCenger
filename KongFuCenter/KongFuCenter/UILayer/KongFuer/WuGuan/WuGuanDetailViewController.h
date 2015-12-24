@@ -8,6 +8,19 @@
 
 #import "BaseNavigationController.h"
 #import "CustomButton.h"
-@interface WuGuanDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+#import "MJRefresh.h"
+#import "UIImageView+WebCache.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+#import <ShareSDKInterfaceAdapter/ISSContainer.h>
+#define _CELL @ "acell"
 
+@interface WuGuanDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+{
+    NSDictionary *wuGuanDetailDict;
+    NSMutableArray *showPicArr;
+    
+}
+@property (nonatomic, retain,readonly) UICollectionView *collectionView;
+@property(nonatomic)NSString *wuGuanId;
 @end

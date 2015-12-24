@@ -11,6 +11,7 @@
 #import "AutoLocationViewController.h"
 #import "DataProvider.h"
 #import "UIImageView+WebCache.h"
+#import "MJRefresh.h"
 @interface WuGuanViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,AutoLocationDelegate>
 
 @end

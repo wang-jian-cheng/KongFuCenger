@@ -19,6 +19,12 @@
     UITextView *_textView;
     CGFloat _keyHeight;
     UIButton *tipbtn;
+    
+    
+    NSString *startDateStr;
+    NSString *endDateStr;
+    NSString *updataTimeStr;
+    NSString *cateId;
 }
 @property (nonatomic, strong) UIImageView *portraitImageView;
 @property (nonatomic, retain) UICollectionView *collectionView;
@@ -31,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    _cellHeight = self.view.frame.size.height/11;
+    _cellHeight = self.view.frame.size.height/12;
     [self addRightbuttontitle:@"确定"];
     
     img_uploaded = [NSMutableArray array];
@@ -107,8 +113,8 @@
     [_mainTableView setDataSource:self];
     _mainTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;//UITableViewCellSeparatorStyleSingleLine;
     _mainTableView.separatorInset = UIEdgeInsetsZero;
-    _mainTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    
+  //  _mainTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    _mainTableView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height);
     
     _mainTableView.separatorColor =  Separator_Color;
     //_mainTableView.separatorEffect = ;
@@ -173,49 +179,98 @@
     // 输出点击的view的类名
     NSLog(@"-%@", NSStringFromClass([touch.view class]));
     
-    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
-//    if ([NSStringFromClass([touch.view class]) isEqualToString:@"JTCalendarMonthWeekDaysView"]
-//        ||[NSStringFromClass([touch.view class]) isEqualToString:@"JTCalendarMonthWeekDaysView"]
-//        ||[NSStringFromClass([touch.view class]) isEqualToString:@"UITextView"]
-//        || [NSStringFromClass([touch.view class]) isEqualToString:@"MAMapScrollView"]
-//        || [NSStringFromClass([touch.view class]) isEqualToString:@"MAPinAnnotationView"]
-//        ) {
-//        
-//        //     NSLog(@"return no");
-//        return NO;
-//    }
     return  YES;
 }
 
 
 
-//指定每个分区中有多少行，默认为1
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    
-    //    switch (section) {
-    //        case 0:
-    //            return 3;
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    
-    return _cellCount;
-}
 -(void)outView:(NSString *)planType
 {
     [tipbtn setTitle:planType forState:UIControlStateNormal];
     tipbtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+    
+    
+    if([planType isEqualToString:@"周计划"])
+    {
+        cateId = [NSString stringWithFormat:@"%d",WeekPlan];
+    }
+    else if ([planType isEqualToString:@"月计划"])
+    {
+        cateId = [NSString stringWithFormat:@"%d",MonthPlan];
+    }
+    else if([planType isEqualToString:@"季计划"])
+    {
+        cateId = [NSString stringWithFormat:@"%d",SeasonPlan];
+    }
+    else if ([planType isEqualToString:@"年计划"])
+    {
+        cateId = [NSString stringWithFormat:@"%d",YearPlan];
+    }
+    
+    [self getDateAndTime];
 }
+#pragma mark - 时间获取
+-(void)getDateAndTime
+{
+    NSDate *now = [NSDate date];
+    startDateStr = [NSString stringWithFormat:@"%@",now];
+    NSTimeInterval nowTimeInterVal = now.timeIntervalSince1970;
+    NSTimeInterval OneDay = 24*60*60;
+    switch ([cateId integerValue]) {
+        case WeekPlan:
+        {
+            NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:(nowTimeInterVal +7*OneDay)];
+            endDateStr = [NSString stringWithFormat:@"%@",endDate];
+        }
+            break;
+        case MonthPlan:
+        {
+            NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:(nowTimeInterVal +30*OneDay)];
+            endDateStr = [NSString stringWithFormat:@"%@",endDate];
+        }
+            break;
+        case SeasonPlan:
+        {
+            NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:(nowTimeInterVal +3*30*OneDay)];
+            endDateStr = [NSString stringWithFormat:@"%@",endDate];
+        }
+            break;
+        case YearPlan:
+        {
+            NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:(nowTimeInterVal +12*30*OneDay)];
+            endDateStr = [NSString stringWithFormat:@"%@",endDate];
+        }
+            break;
+
+        default:
+            break;
+    }
+    
+    NSLog(@"start time  = %@",startDateStr);
+    NSLog(@"end time = %@",endDateStr);
+    
+}
+
 #pragma mark - 保存计划
 -(void)clickRightButton:(UIButton *)sender
 {
+    if(_titleField.text == nil || _titleField.text.length ==0)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入完整信息" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alertView show];
+        return;
+    }
+    if(cateId == nil)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择分类" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alertView show];
+        return;
+    }
+    
     [self BuildSliderData];
 }
 
-
+#pragma mark - self datasource
 
 -(void)BuildSliderData
 {
@@ -241,7 +296,10 @@
             [uploadImg uploadImg:img_uploaded];
         }
         else{
-        
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"uploadPlansCallBack:"];
+            [dataprovider updatePlan:[Toolkit getUserID] andCateId:cateId andTitle:_titleField.text andContent:_textView.text andPicList:@"" andStartDate:startDateStr andEndDate:endDateStr ];
+
         }
     }
 }
@@ -250,10 +308,46 @@
 
 -(void)uploadImgsAllFinishDelegate:(NSArray *)imgPath
 {
-    for(NSString *tempStr in imgPath)
+    NSString *allImgPath;
+    if(imgPath.count >0)
     {
-        NSLog(@"%@",tempStr);
+        allImgPath = imgPath[0];
+        for(int i = 1;i< imgPath.count ;i++)
+        {
+            allImgPath = [NSString stringWithFormat:@"%@&%@",allImgPath,imgPath[i]];
+            
+        }
     }
+    
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"uploadPlansCallBack:"];
+    [dataprovider updatePlan:[Toolkit getUserID] andCateId:cateId andTitle:_titleField.text andContent:_textView.text andPicList:allImgPath andStartDate:startDateStr andEndDate:endDateStr ];
+    
+}
+
+-(void)uploadPlansCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:[dict[@"data"] substringToIndex:4] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
 }
 
 #pragma mark - textField
@@ -272,10 +366,25 @@
     return YES;
 }
 
-#pragma mark - setting for cell
+#pragma mark - tableView
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    
+    return _cellCount;
+}
+
 //设置每行调用的cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell  *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cellHeight)];
+    UITableViewCell  *cell = [[UITableViewCell alloc] init];
+    if(indexPath.row == 2)
+    {
+        cell.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellTextViewHeight);
+    }
+    else
+    {
+        cell.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cellHeight);
+    }
     cell.backgroundColor = BACKGROUND_COLOR;
     
     switch (indexPath.row) {
@@ -307,7 +416,7 @@
         }
         case 2:
         {
-            _textView.frame = CGRectMake(10, 0, cell.frame.size.width, _mainTableView.frame.size.height - 2*_cellHeight);
+            _textView.frame = CGRectMake(10, 0, cell.frame.size.width,_cellTextViewHeight);
             _textView.backgroundColor  = BACKGROUND_COLOR;
             _textView.font = [UIFont systemFontOfSize:15];
             _textView.delegate = self;
@@ -388,128 +497,6 @@
     
 }
 
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
-    NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
-    
-
-    
-}
-
-
-- (void)drawRect:(CGRect)rect {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor); CGContextFillRect(context, rect); //上分割线，
-    
-    CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
-    CGContextStrokeRect(context, CGRectMake(5, -1, rect.size.width - 10, 1)); //下分割线
-    CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
-    CGContextStrokeRect(context, CGRectMake(5, 10, 100, 10));
-}
-
-
-//设置划动cell是否出现del按钮，可供删除数据里进行处理
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return NO;
-}
-
-- (UITableViewCellEditingStyle)tableView: (UITableView *)tableView editingStyleForRowAtIndexPath: (NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleDelete;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return  YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSMutableArray *numberRowOfCellArray = [NSMutableArray array] ;
-    [numberRowOfCellArray addObject:[NSIndexPath indexPathForRow:0 inSection:0]];
-    
-    NSLog(@"点击了删除  Section  = %ld Row =%ld",(long)indexPath.section,(long)indexPath.row);
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        //        [_mainTableView.cell.infoItems removeObjectAtIndex:(indexPath.row*2)];
-        //        [_mainTableView.cell.infoItems removeObjectAtIndex:(indexPath.row*2)];
-        //        [_mainTableView beginUpdates];
-        //        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
-        //        [_mainTableView endUpdates];
-    }
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-}
-
-
-
-
--(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return  @"删除";
-}
-
-//设置选中的行所执行的动作
-
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    return indexPath;
-    
-}
-
-#pragma mark - setting for section
-//设置section的header view
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *tempView = [[UIView alloc] init];
-    //    if(section == 0)
-    //    {
-    //        tempView.frame = CGRectMake(0, 0, self.view.frame.size.width, 1);
-    //        UILabel *titleLabel = [[UILabel alloc] init];
-    //        titleLabel.frame = CGRectMake(20,0 , 150, 30);
-    //        titleLabel.text = @"权限选择";
-    //        titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    //        titleLabel.textColor  = ZY_UIBASECOLOR;
-    //        [tempView addSubview:titleLabel];
-    //    }
-    
-    return tempView;
-}
-
-//设置section的footer view
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *tempView = [[UIView alloc] init];
-    if(section == 0)
-    {
-        tempView.frame = CGRectMake(0, 0, self.view.frame.size.width, 1);
-        tempView.backgroundColor =[UIColor colorWithRed:189/255.0 green:170/255.0 blue:152/255.0 alpha:1.0];//[UIColor colorWithRed:189/255.0 green:170/255.0 blue:152/255.0 alpha:1.0];
-    }
-    return tempView;
-    
-}
-
-
-//设置section header 的高度
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    
-    return 0;
-}
-//设置section footer的高度
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    
-    return 1;
-    
-}
 
 #pragma mark - 图片截取
 

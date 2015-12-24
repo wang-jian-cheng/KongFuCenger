@@ -125,6 +125,33 @@
  */
 -(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid;
 
+#pragma mark - 武馆
+
+//根据城市获取武馆
+-(NSInteger)getWuGuanList:(NSString *)cityid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
+
+/**
+ *  获取武馆详情
+ *
+ *  @param wuGuanId   武馆id
+ *
+ */
+
+-(void)getWuguanDetail:(NSString *)wuGuanId;
+/**
+ *  获取武馆相关图片
+ *
+ *  @param messageid   武馆id
+ *
+ */
+
+-(void)getWuguanPic:(NSString *)messageid;
+#pragma mark - 训练计划
+//保存计划
+-(void)updatePlan:(NSString *)userid andCateId:(NSString *)cateid andTitle:(NSString *)title andContent:(NSString *)content andPicList:(NSString *)piclist andStartDate:(NSString *)starttime andEndDate:(NSString *)endtime;
+
+//获取训练计划
+-(void)getPlanInfo:(NSString *)userid andCateId:(NSString *)cateid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows;
 
 #pragma mark - 核联盟
 //获取好友信息
@@ -161,9 +188,6 @@
 
 //获取武友动态
 -(void)GetDongtaiPageByFriends:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
-
-//根据城市获取武馆
--(NSInteger)getWuGuanList:(NSString *)cityid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 //获取所有市列表
 -(void) getAllCitys;
 //上传图片
@@ -180,8 +204,6 @@
 - (NSInteger )voiceAction:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg;
 - (NSInteger )voicedelete:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg;
 
-//训练计划
--(void)getPlanInfo:(NSString *)userid andCateId:(NSString *)cateid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows;
 //积分
 -(void)getJiFenList:(NSString *)userid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows;
 

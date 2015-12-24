@@ -324,6 +324,9 @@
         model.LikeNum = [NSString stringWithFormat:@"%d",x];
         [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
         
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"2"];
+        
     }
     else
     {
@@ -333,6 +336,9 @@
         int x = [model.LikeNum intValue] - 1;
         model.LikeNum = [NSString stringWithFormat:@"%d",x];
         [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
+        
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider voicedelete:model.MessageId andUserId:model.UserId andFlg:@"2"];
     }
 }
 
@@ -540,15 +546,28 @@
     cell.date.text = [model.OperateTime substringWithRange:x];
 
 
+
     [cell.btn_1 setTitle:[NSString stringWithFormat:@"%@",model.LikeNum] forState:(UIControlStateNormal)];
     [cell.btn_1 setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
     [cell.btn_1 addTarget:self action:@selector(btn_1Action:) forControlEvents:(UIControlEventTouchUpInside)];
     cell.btn_1.tag = indexPath.row * 100;
+    NSString * str_IsLike = [NSString stringWithFormat:@"%@",model.IsLike];
+    if([str_IsLike isEqualToString:@"1"])
+    {
+        [cell.btn_1 setSelected:YES];
+        [cell.btn_1 setImage:[UIImage imageNamed:@"support_h@2x"] forState:(UIControlStateNormal)];
+    }
+    else
+    {
+        [cell.btn_1 setSelected:NO];
+        [cell.btn_1 setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+    }
     
     [cell.btn_2 setTitle:[NSString stringWithFormat:@"%@",model.FavoriteNum] forState:(UIControlStateNormal)];
-    [cell.btn_2 setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+    [cell.btn_2 setImage:[UIImage imageNamed:@"collect_h@2x"] forState:(UIControlStateNormal)];
     [cell.btn_2 addTarget:self action:@selector(btn_2Action:) forControlEvents:(UIControlEventTouchUpInside)];
     cell.btn_2.tag = indexPath.row * 100;
+    cell.btn_2.userInteractionEnabled = NO;
 
     
     return cell;

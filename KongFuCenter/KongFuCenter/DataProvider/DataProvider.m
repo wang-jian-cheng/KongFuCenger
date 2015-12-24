@@ -456,7 +456,33 @@
         return Param_err;
     }
 }
+-(void)getWuguanDetail:(NSString *)wuGuanId
+{
+    if(wuGuanId != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectWuGuan",Url];
+        NSDictionary * prm=@{@"id":wuGuanId};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+}
 
+-(void)getWuguanPic:(NSString *)messageid
+{
+//
+    if(messageid != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectImageByMessageId",Url];
+        NSDictionary * prm=@{@"messageid":messageid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+
+}
 #pragma mark - 位置 城市
 -(void) getAllCitys
 {
@@ -467,9 +493,22 @@
 
 #pragma mark - 训练计划
 
--(void)updataPlan
+-(void)updatePlan:(NSString *)userid andCateId:(NSString *)cateid andTitle:(NSString *)title andContent:(NSString *)content andPicList:(NSString *)piclist andStartDate:(NSString *)starttime andEndDate:(NSString *)endtime
 {
-    
+    if(userid&&title&&content&&piclist&&cateid&&starttime&&endtime)
+    {
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SavePlan",Url];
+        NSDictionary * prm=@{@"userid":userid,
+                             @"title":title,
+                             @"cateid":cateid,
+                             @"content":content,
+                             @"piclist":piclist,
+                             @"starttime":starttime,
+                             @"endtime":endtime
+                             };
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
 }
 
 -(void)getPlanInfo:(NSString *)userid andCateId:(NSString *)cateid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows

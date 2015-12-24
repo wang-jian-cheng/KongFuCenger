@@ -10,6 +10,13 @@
 #import "SelectRoundBtn.h"
 #import "NewPlanViewController.h"
 #import "MJRefresh.h"
+#import "TrainsPlanDetailViewController.h"
+
+#define WeekPlan    51
+#define MonthPlan   50
+#define SeasonPlan  49
+#define YearPlan    48
+
 @interface TrainsPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
 {
     UIView *moreSettingBackView;
