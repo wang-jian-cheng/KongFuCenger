@@ -102,6 +102,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+    [self TeamTopRefresh];
 }
 
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

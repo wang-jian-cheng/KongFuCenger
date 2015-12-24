@@ -570,6 +570,34 @@
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetDongtaiPageByFriends",Url];
         NSDictionary *prm = @{@"userid":userid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)IsWuyou:(NSString *)userid andfriendid:(NSString *)friendid{
+    if (userid && friendid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/IsWuyou",Url];
+        NSDictionary *prm = @{@"userid":userid,@"friendid":friendid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)MessageComment:(NSString *)mid anduserid:(NSString *)userid andcomment:(NSString *)comment{
+    if (mid && userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/MessageComment",Url];
+        NSDictionary *prm = @{@"id":mid,@"userid":userid,@"comment":comment};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)CommentComment:(NSString *)mid anduserid:(NSString *)userid andcomment:(NSString *)comment{
+    if (mid && userid) {
+        if (mid && userid) {
+            NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/CommentComment",Url];
+            NSDictionary *prm = @{@"id":mid,@"userid":userid,@"comment":comment};
+            [self PostRequest:url andpram:prm];
+        }
     }
 }
 

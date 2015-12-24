@@ -85,7 +85,7 @@
         [self.contentView addSubview:_zanNum];
         
         _zanBtn = [UIButton buttonWithType:0];
-        [_zanBtn setImage:[UIImage imageNamed:@"wyzan"] forState:0];
+        //[_zanBtn setImage:[UIImage imageNamed:@"wyzan"] forState:0];
         [self.contentView addSubview:_zanBtn];
         
         _vLine = [[UILabel alloc] init];
@@ -108,7 +108,7 @@
         _commentDate = [[UILabel alloc] initWithFrame:CGRectZero];
         _commentDate.textColor = [UIColor whiteColor];
         _commentDate.font = [UIFont systemFontOfSize:14];
-        _commentDate.text = @"刚刚发布";
+        //_commentDate.text = @"刚刚发布";
         [self.contentView addSubview:_commentDate];
     }
     return self;
@@ -140,7 +140,7 @@
     tempDate = ymData;
     
 #pragma mark -  //头像 昵称 简介
-    _userHeaderImage.image = [UIImage imageNamed:tempDate.messageBody.posterImgstr];
+    _userHeaderImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tempDate.messageBody.posterImgstr]]];//[UIImage imageNamed:tempDate.messageBody.posterImgstr];
     _userNameLbl.text = tempDate.messageBody.posterName;
     _userIntroLbl.text = tempDate.messageBody.posterIntro;
     
