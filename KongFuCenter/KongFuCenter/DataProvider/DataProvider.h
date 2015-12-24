@@ -181,7 +181,6 @@
 -(void)getJiFenList:(NSString *)userid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows;
 
 
-
 #pragma mark 核动力
 //获取最新视频列表
 -(void)GetNewVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;

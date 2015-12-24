@@ -554,12 +554,6 @@
         [self PostRequest:url andpram:prm];
     }
 }
--(void)SendVideoInfo:()
-
-
-
-
-
 
 
 
