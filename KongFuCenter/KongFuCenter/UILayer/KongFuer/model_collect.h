@@ -26,6 +26,10 @@
 //转发数
 @property (nonatomic, copy) NSString * RepeatNum;
 
+@property (nonatomic, copy) NSString * MessageId;
 
+@property (nonatomic, copy) NSString * UserId;
+
+@property (nonatomic, copy) NSString * IsLike;
 
 @end

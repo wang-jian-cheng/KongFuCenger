@@ -237,6 +237,7 @@
     
     VideoDetailViewController *viewDetailViewCtl = [[VideoDetailViewController alloc] init];
     viewDetailViewCtl.videoID=videoArray[indexPath.row][@"Id"];
+//    NSLog(@"%@",videoArray[indexPath.row][@"Id"]);
     [self.navigationController pushViewController:viewDetailViewCtl animated:YES];
     
     

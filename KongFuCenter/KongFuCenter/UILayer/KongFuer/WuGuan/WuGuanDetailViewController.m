@@ -136,7 +136,7 @@
 
 -(void)btnClick:(UIButton *)sender
 {
-    
+    sender.selected = !sender.selected;
 }
 
 - (void)btn_callAction:(UIButton  *)sender

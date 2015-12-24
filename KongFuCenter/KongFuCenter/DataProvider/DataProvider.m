@@ -130,6 +130,7 @@
 
 }
 
+#pragma mark - 我的收藏
 - (NSInteger )collectData:(NSString *)userId andIsVideo:(NSString *)isVideo  andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
 {
     if(userId != nil  && isVideo !=nil && startRowIndex != nil & maximumRows != nil)
@@ -163,6 +164,70 @@
                              @"isVideo":isVideo,
                              @"maximumRows":maximumRows,
                              @"startRowIndex":startRowIndex};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+- (NSInteger )voiceAction:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg
+{
+    if(Id != nil && userId != nil && flg != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/MessageRepeatAndFavorite",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"flg":flg,
+                             @"id":Id};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+//视频的取消
+- (NSInteger )voicedelete:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg
+{
+    if(Id != nil && userId != nil && flg != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/MessageRepeatAndFavoriteCancel",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"flg":flg,
+                             @"id":Id};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+//成长记录数据
+- (NSInteger )growUserId:(NSString *)userId andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
+{
+    if(startRowIndex != nil && userId != nil && maximumRows != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetUpRecord",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"startRowIndex":startRowIndex,
+                             @"maximumRows":maximumRows};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         
@@ -544,6 +609,34 @@
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetDongtaiPageByFriends",Url];
         NSDictionary *prm = @{@"userid":userid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)IsWuyou:(NSString *)userid andfriendid:(NSString *)friendid{
+    if (userid && friendid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/IsWuyou",Url];
+        NSDictionary *prm = @{@"userid":userid,@"friendid":friendid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)MessageComment:(NSString *)mid anduserid:(NSString *)userid andcomment:(NSString *)comment{
+    if (mid && userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/MessageComment",Url];
+        NSDictionary *prm = @{@"id":mid,@"userid":userid,@"comment":comment};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)CommentComment:(NSString *)mid anduserid:(NSString *)userid andcomment:(NSString *)comment{
+    if (mid && userid) {
+        if (mid && userid) {
+            NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/CommentComment",Url];
+            NSDictionary *prm = @{@"id":mid,@"userid":userid,@"comment":comment};
+            [self PostRequest:url andpram:prm];
+        }
     }
 }
 
@@ -593,8 +686,6 @@
         [self PostRequest:url andpram:prm];
     }
 }
-
-
 
 
 #pragma mark 赋值回调
