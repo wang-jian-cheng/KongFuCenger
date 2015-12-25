@@ -226,6 +226,8 @@
 -(void)getTeamBackCall:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         teamDict = dict[@"data"];
+        [mUserDefault setValue:[teamDict valueForKey:@"ImagePath"] forKey:@"TeamImg"];
+        [mUserDefault setValue:[teamDict valueForKey:@"Name"] forKey:@"TeamName"];
         [[RCIM sharedRCIM] setGroupInfoDataSource:self];
     }
 }

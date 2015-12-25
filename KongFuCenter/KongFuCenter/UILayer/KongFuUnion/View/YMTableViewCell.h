@@ -10,6 +10,7 @@
 #import "YMTextData.h"
 #import "WFTextView.h"
 #import "YMButton.h"
+#import "MoviePlayer.h"
 
 
 @protocol cellDelegate <NSObject>
@@ -35,9 +36,9 @@
 @property (nonatomic,strong) UILabel *vLine;
 @property (nonatomic,strong) UIButton *CommentBtn;
 @property (nonatomic,strong) UIButton *CommentBtnHF;
-
 @property (nonatomic,strong) UILabel *commentDate;
 @property (nonatomic,strong) UIImageView *favourImage;//点赞的图
+@property (nonatomic,strong) MoviePlayer *moViePlayer;
 
 /**
  *  用户头像imageview
