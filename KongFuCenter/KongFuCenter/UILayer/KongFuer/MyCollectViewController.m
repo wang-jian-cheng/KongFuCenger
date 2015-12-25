@@ -254,22 +254,38 @@
         [self addRightbuttontitle:@"删除"];
         self.isDelete = 0;
         
+        NSLog(@"%ld",self.arr_voiceData.count);
         
-        for (int i = 0 ; i < self.arr_deleteVoice.count; i ++)
+        
+        if(self.arr_deleteVoice.count == 1)
         {
             
-            model_collect * model = [self.arr_voiceData objectAtIndex:[self.arr_deleteVoice[i] integerValue]];
-            [self.arr_voiceData removeObjectAtIndex:[self.arr_deleteVoice[i] integerValue]];
+        }
+        else
+        {
+            for(int i = 0; i < self.arr_deleteVoice.count ; i ++)
+            {
+                for (int j = 0; j < self.arr_deleteVoice.count - 1 - i; j ++)
+                {
+                   if([self.arr_deleteVoice[j] integerValue] < [self.arr_deleteVoice[j + 1] integerValue])
+                   {
+                       [self.arr_deleteVoice exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+                   }
+                }
+            }
+        }
         
+        for (NSString * str in self.arr_deleteVoice) {
+            
+            model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
+            [self.arr_voiceData removeObjectAtIndex:[str integerValue]];
+            
             DataProvider * dataprovider=[[DataProvider alloc] init];
             [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
             
-
+            [mainCollectionView reloadData];
         }
-        
-        NSLog(@"%ld",self.arr_voiceData.count);
-        
-//        EditMode = !EditMode;
+
         [mainCollectionView reloadData];
         
         self.arr_deleteVoice = nil;
