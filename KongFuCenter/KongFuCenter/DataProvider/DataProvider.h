@@ -219,6 +219,12 @@
 //成长记录数据
 - (NSInteger )growUserId:(NSString *)userId andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 
+//上传动态
+-(void)SaveDongtai:(NSString *)userid andcontent:(NSString *)content andpathlist:(NSString *)pathlist andvideopath:(NSString *)videopath andvideoDuration:(NSString *)videoDuration;
+
+//获取我的动态
+-(void)SelectDongtaiByFriendId:(NSString *)friendid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+
 #pragma mark 核动力
 //获取最新视频列表
 -(void)GetNewVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
