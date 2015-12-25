@@ -140,8 +140,7 @@
 
 - (void)setYMViewWith:(YMTextData *)ymData{
     
-    _moViePlayer = [[MoviePlayer alloc] initWithFrame:CGRectMake(10, 10,SCREEN_WIDTH - 20,50) URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
-    return;
+   
     
     tempDate = ymData;
     
