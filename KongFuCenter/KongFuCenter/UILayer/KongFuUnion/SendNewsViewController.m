@@ -326,7 +326,8 @@
     
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"uploadPlansCallBack:"];
-    [dataprovider updatePlan:[Toolkit getUserID] andCateId:cateId andTitle:_titleField.text andContent:_textView.text andPicList:allImgPath andStartDate:startDateStr andEndDate:endDateStr ];
+    //[dataprovider updatePlan:[Toolkit getUserID] andCateId:cateId andTitle:_titleField.text andContent:_textView.text andPicList:allImgPath andStartDate:startDateStr andEndDate:endDateStr ];
+    [dataprovider SaveDongtai:[userDefault valueForKey:@"id"] andcontent:_textView.text andpathlist:allImgPath andvideopath:@"" andvideoDuration:@""];
     
 }
 
