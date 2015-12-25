@@ -319,8 +319,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "289"
             endingLineNumber = "289"
-            landmarkName = "-ChangePassWord:andoldpwd:andpassword:"
-            landmarkType = "5">
+            landmarkName = "@implementation DataProvider"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -767,7 +767,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "324"
             endingLineNumber = "324"
-            landmarkName = "-getMyDream:"
+            landmarkName = "-ChangePassWord:andoldpwd:andpassword:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1119,7 +1119,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "155"
             endingLineNumber = "155"
-            landmarkName = "-collectData:andIsVideo:andStartRowIndex:andMaximumRows:"
+            landmarkName = "-setCollect:andIsVideo:andStartRowIndex:andMaximumRowst:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1167,7 +1167,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "628"
             endingLineNumber = "628"
-            landmarkName = "-IsWuyou:andfriendid:"
+            landmarkName = "-JoinTeam:andTeamId:andName:"
             landmarkType = "5">
             <Locations>
                <Location
@@ -1215,7 +1215,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "629"
             endingLineNumber = "629"
-            landmarkName = "-IsWuyou:andfriendid:"
+            landmarkName = "-JoinTeam:andTeamId:andName:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1786,7 +1786,7 @@
                   moduleName = "KongFuCenter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangjc/work/Project/KongFuCenter/code/KongFuCenter/KongFuCenter/UILayer/KongFuer/PersonInfo/PersonInfoViewController.m"
-                  timestampString = "472726907.445367"
+                  timestampString = "472742874.572211"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "834"
@@ -1801,7 +1801,7 @@
                   moduleName = "KongFuCenter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangjc/work/Project/KongFuCenter/code/KongFuCenter/KongFuCenter/UILayer/KongFuer/PersonInfo/PersonInfoViewController.m"
-                  timestampString = "472726907.445781"
+                  timestampString = "472742874.572543"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "834"
@@ -1894,7 +1894,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/TeamNewsViewController.m"

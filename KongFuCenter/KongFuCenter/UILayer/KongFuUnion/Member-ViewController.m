@@ -10,7 +10,9 @@
 #import "CommonDef.h"
 #import "MemberTableViewCell.h"
 @interface Member_ViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
-
+{
+    NSMutableArray *teamMemberArr;
+}
 @property (nonatomic, strong) UIView * searchView;
 
 @property (nonatomic, strong) UITableView * tableView;
@@ -23,11 +25,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    teamMemberArr = [NSMutableArray array];
+    
     [self p_navigation];
 
     [self p_searchView];
     
     [self p_tableView];
+    
+    [self getTeamMembers];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,6 +41,43 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark - self data source
+-(void)getTeamMembers
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getTeamMemberCallBack:"];
+    [dataprovider getTeamMember:get_sp(@"TeamId")];
+
+}
+
+-(void)getTeamMemberCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            if(teamMemberArr !=nil && teamMemberArr.count > 0)
+            {
+                [teamMemberArr removeAllObjects];
+            }
+            [teamMemberArr addObjectsFromArray:dict[@"data"]];
+            [self.tableView reloadData];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
 #pragma mark - 背景色和navigation
 - (void)p_navigation
 {
@@ -76,7 +119,7 @@
     
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 30, 0, 0);
     self.tableView.separatorColor = Separator_Color;
-    
+    self.tableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.tableView];
     //注册
     [self.tableView registerClass:[MemberTableViewCell class] forCellReuseIdentifier:@"cell_member"];
@@ -90,7 +133,7 @@
 
 - (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 11;
+    return teamMemberArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,6 +141,23 @@
     MemberTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell_member" forIndexPath:indexPath];
     
     cell.backgroundColor = ItemsBaseColor;
+    
+    @try {
+        if(indexPath.row > teamMemberArr.count - 1||teamMemberArr == nil || teamMemberArr.count == 0)
+            return cell;
+        
+        NSDictionary *tempDict = teamMemberArr[indexPath.row];
+        cell.name.text = tempDict[@"NicName"];
+        cell.number.text = tempDict[@"Phone"];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
+        [cell.image sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
     
     return cell;
 }

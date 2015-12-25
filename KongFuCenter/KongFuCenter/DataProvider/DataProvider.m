@@ -729,6 +729,18 @@
         [self PostRequest:url andpram:prm];
     }
 }
+
+-(void)getTeamMember:(NSString *)teamid
+{
+    if(teamid)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamMember",Url];
+        NSDictionary *prm = @{@"teamid":teamid};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+
+    }
+}
 #pragma mark 核动力
 -(void)uploadVideoWithPath:(NSURL *)videoPath
 {
