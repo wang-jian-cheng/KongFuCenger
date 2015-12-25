@@ -40,6 +40,8 @@
     
     //初始化View
     [self initViews];
+    
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -49,6 +51,9 @@
 
 #pragma mark 自定义方法
 -(void)initDatas{
+    
+    [self getUnionCates];
+    
     menuArray = [[NSMutableArray alloc] init];
     [menuArray addObjectsFromArray:@[@"公益慈善",@"交流活动",@"技术培训",@"全国巡演"]];
 }
@@ -95,6 +100,37 @@
     btnMenu.selected = YES;
     
     NSLog(@"%d",(int)btnMenu.tag);
+}
+#pragma mark - self data source
+
+-(void)getUnionCates
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getUnionNewsCateCallback:"];
+    [dataprovider getUnionNewsCate];
+}
+
+-(void)getUnionNewsCateCallback:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
 }
 
 #pragma mark tableview delegate

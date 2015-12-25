@@ -709,7 +709,26 @@
         [self PostRequest:url andpram:prm];
     }
 }
+#pragma mark - 联盟动态
+-(void)getUnionNewsCate
+{
+    NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetLianmengCate",Url];
+    [self PostRequest:url andpram:nil];
+}
+#pragma mark - 战队动态
 
+-(void)getSelfTeamNews:(NSString *)userid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
+{
+    if(userid && startRowIndex && maximumRows)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetTeamDongtaiPageByUserId",Url];
+        NSDictionary *prm = @{@"userid":userid,
+                              @"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+}
 #pragma mark 核动力
 -(void)uploadVideoWithPath:(NSURL *)videoPath
 {
