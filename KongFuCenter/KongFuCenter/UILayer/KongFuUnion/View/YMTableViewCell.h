@@ -38,7 +38,7 @@
 @property (nonatomic,strong) UIButton *CommentBtnHF;
 @property (nonatomic,strong) UILabel *commentDate;
 @property (nonatomic,strong) UIImageView *favourImage;//点赞的图
-@property (nonatomic,strong) MoviePlayer *moViePlayer;
+@property (nonatomic,strong) UIImageView *videoImg;
 
 /**
  *  用户头像imageview
