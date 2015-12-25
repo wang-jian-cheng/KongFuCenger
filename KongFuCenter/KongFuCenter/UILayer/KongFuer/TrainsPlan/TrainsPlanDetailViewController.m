@@ -18,7 +18,7 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     _cellHeight = self.view.frame.size.height/12;
-    [self addRightbuttontitle:@"确定"];
+//    [self addRightbuttontitle:@"确定"];
     
     [self initViews];
     
@@ -114,16 +114,19 @@
                 _titleField.enabled = NO;
                 _titleField.textAlignment = NSTextAlignmentCenter;
                 _titleField.textColor = [UIColor whiteColor];
-                _titleField.font = [UIFont systemFontOfSize:16];
+                _titleField.font = [UIFont boldSystemFontOfSize:18];
                 [cell addSubview:_titleField];
                 
             }
                 break;
             case  1:
             {
-                UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
+                UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH, _cellHeight)];
                 timeLab.textColor = [UIColor whiteColor];
-                timeLab.text = [NSString stringWithFormat:@"%@~%@",self.planInfo[@"StartTime"],self.planInfo[@"EndTime"]];
+                timeLab.font = [UIFont systemFontOfSize:14];
+                timeLab.text = [NSString stringWithFormat:@"%@~%@",
+                                [self.planInfo[@"StartTime"] substringToIndex:10],
+                                [self.planInfo[@"EndTime"] substringToIndex:10]];
                 [cell addSubview:timeLab];
             }
             case 2:
@@ -152,7 +155,7 @@
                     UIButton *imgBtn = [[UIButton alloc] initWithFrame:CGRectMake(10+i*(BtnWidth+10), 5, BtnWidth, BtnWidth)];
                     imgBtn.tag = i;
                     [imgBtn addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                    [cell addSubview:imgBtn];
+                    [imgScrollView addSubview:imgBtn];
                     
                     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imgBtn.frame.size.width, imgBtn.frame.size.height)];
                     NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,picArr[i][@"ImagePath"]];
@@ -269,7 +272,10 @@
 
 -(void)imgBtnClick:(UIButton *)sender
 {
-//    PictureShowView *picShow = [PictureShowView alloc] initWithTitle:nil showImg:
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,picArr[sender.tag][@"ImagePath"]];
+    PictureShowView *picShow = [[PictureShowView alloc] initWithUrl:url andHolderImg:[UIImage imageNamed:@"me"]];
+    [picShow show];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout

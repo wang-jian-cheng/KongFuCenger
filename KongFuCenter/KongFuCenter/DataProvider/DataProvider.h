@@ -63,9 +63,10 @@
  * @param weight 体重 单位/KG
  * @param homeAreaId 地址
  * @param experience 习武经历 单位/年
+ * @param description 个人简历
  *
  */
--(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience;
+-(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience andDescription:(NSString *)description;
 /**
  *  上传用户头像
  *
@@ -152,6 +153,8 @@
 
 //获取训练计划
 -(void)getPlanInfo:(NSString *)userid andCateId:(NSString *)cateid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows;
+//删除计划
+-(void)delePlan:(NSString*)planId;
 
 #pragma mark - 核联盟
 //获取好友信息
@@ -203,6 +206,13 @@
 //视频(我的收藏)
 - (NSInteger )voiceAction:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg;
 - (NSInteger )voicedelete:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg;
+//获取评论的信息
+-(NSInteger )getMessageIdInfo:(NSString *)messageId;
+
+//获取其他作品
+-(NSInteger )getUserid:(NSString *)userId andNum:(NSString *)num;
+
+
 
 //积分
 -(void)getJiFenList:(NSString *)userid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows;

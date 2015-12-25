@@ -69,9 +69,9 @@
     UIView *_coverView;
     UIView *_alertView;
     
-    UIImageView *_imgShowView;
     UIImageView *headImg;
     UIButton *delBtn ;
+    NSString *_url;
 }
 @end
 
@@ -92,6 +92,21 @@
     }
     return self;
 }
+#if SHOW_URLIMG
+- (instancetype)initWithUrl:(NSString *)url andHolderImg:(UIImage *)showImg{
+    self = [super init];
+    if (self) {
+        _url = url;
+        _showImg = showImg;
+        
+        self.delegate = self;
+        //  _alertType = AlertType_Hint;
+        [self buildViews];
+        //   [self initViews];
+    }
+    return self;
+}
+#endif
 
 - (CGRect)screenBounds
 {
@@ -133,8 +148,16 @@
         }
         
         _imgShowView.contentMode = UIViewContentModeScaleAspectFit;
-        
-        _imgShowView.image =_showImg;
+#if SHOW_URLIMG
+        if(_url !=nil)
+        {
+            [_imgShowView sd_setImageWithURL:[NSURL URLWithString:_url] placeholderImage:_showImg];
+        }
+        else
+#endif
+        {
+            _imgShowView.image =_showImg;
+        }
       //  self.contentSize = img.size;
     }
     else
