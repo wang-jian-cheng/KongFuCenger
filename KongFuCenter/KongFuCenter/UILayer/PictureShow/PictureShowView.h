@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#define SHOW_URLIMG 1
 
+#if SHOW_URLIMG
+#import "UIImageView+WebCache.h"
+#endif
 @protocol PictureShowViewDelegate <NSObject>
 
 -(void)didClickDelPicBtn:(NSInteger)index;
@@ -30,7 +34,11 @@
 
 @property (nonatomic) BOOL rotating;
 @property (nonatomic) CGSize minSize;
+@property (nonatomic) UIImageView *imgShowView;
 
+#if SHOW_URLIMG
+- (instancetype)initWithUrl:(NSString *)url andHolderImg:(UIImage *)showImg;
+#endif
 - (instancetype)initWithTitle:(NSString *)title showImg:(UIImage *)showImg;
 - (void)show;
 - (void)dismiss;

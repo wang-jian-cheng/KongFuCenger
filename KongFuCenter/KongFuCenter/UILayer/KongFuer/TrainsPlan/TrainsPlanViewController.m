@@ -35,7 +35,8 @@
     BOOL moreSettingBackViewFlag;
     
     NSInteger cateId;
-    
+    NSMutableArray *delArr;
+    NSInteger deleCount;
 }
 @end
 
@@ -60,7 +61,7 @@
     btnArr = [NSMutableArray array];
     cellBtnArr = [NSMutableArray array];
     planArr = [NSMutableArray array];
-    
+    delArr  = [NSMutableArray array];
     cateId = 51;
 }
 
@@ -226,6 +227,50 @@
         
     }
 }
+
+-(void)delPlans
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"delePlansCallBack:"];
+    [dataprovider delePlan:delArr[deleCount]];
+}
+
+-(void)delePlansCallBack:(id)dict
+{
+   // [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            deleCount ++;
+            if(deleCount >= delArr.count)
+            {
+                [SVProgressHUD dismiss];
+                //[_mainTableView reloadData];
+                [_mainTableView.mj_header beginRefreshing];
+                [delArr removeAllObjects];
+                deleCount = 0;
+                
+            }
+            else
+            {
+                [self delPlans];
+            }
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:[dict[@"data"] substringToIndex:4] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
+}
 #pragma mark - Btn click
 
 -(void)cateBtnClick:(UIButton *)sender
@@ -241,17 +286,23 @@
             ((UIButton *)btnArr[i]).selected = NO;
         }
     }
-
-    
     //更新数据
     cateId = sender.tag;
     [_mainTableView.mj_header beginRefreshing];
+    
+    EnditMode = NO;
+    [delBtn setTitle:@"编辑" forState:UIControlStateNormal];
+    [newBtn setTitle:@"发布" forState:UIControlStateNormal];
+    [_mainTableView reloadData];
+
 
 }
 
 -(void)roundBtnClick:(UIButton *)sender
 {
     sender.selected = ! sender.selected;
+    
+    [delArr addObject:planArr[sender.tag][@"Id"]];
 }
 
 -(void)btnClick:(UIButton *)sender
@@ -265,6 +316,10 @@
             [delBtn setTitle:@"删除" forState:UIControlStateNormal];
             [newBtn setTitle:@"取消" forState:UIControlStateNormal];
         }
+        else if([sender.titleLabel.text isEqualToString:@"删除"])
+        {
+            [self delPlans];
+        }
         [_mainTableView reloadData];
 
     }
@@ -273,6 +328,8 @@
         if([sender.titleLabel.text isEqualToString:@"取消"])
         {
             EnditMode = NO;
+            [delBtn setTitle:@"编辑" forState:UIControlStateNormal];
+            [newBtn setTitle:@"发布" forState:UIControlStateNormal];
             [_mainTableView reloadData];
 
         }
@@ -437,7 +494,9 @@
         
         UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(LineGap+ ViewsGaptoLine, 0, SCREEN_WIDTH - (LineGap+ ViewsGaptoLine), 30)];
         timeLab.textAlignment = NSTextAlignmentLeft;
-        timeLab.text = [NSString stringWithFormat:@"%@~%@",tempDict[@"StartTime"],tempDict[@"EndTime"]];
+        timeLab.text = [NSString stringWithFormat:@"%@~%@",
+                        [tempDict[@"StartTime"] substringToIndex:10],
+                        [tempDict[@"EndTime"] substringToIndex:10]];
         timeLab.textColor = [UIColor grayColor];
         timeLab.font = [UIFont boldSystemFontOfSize:16];
         
@@ -470,7 +529,11 @@
         historyContentLab.font = [UIFont systemFontOfSize:16];
         
         UILabel *timeLabInImg = [[UILabel alloc] initWithFrame:CGRectMake((backImg.frame.size.width - 10 -60), (backImg.frame.size.height - 40), 60, 30)];
-        timeLabInImg.text = @"5:00";
+        
+        NSRange tempRange;
+        tempRange.length = 5;
+        tempRange.location = 11;
+        timeLabInImg.text = [tempDict[@"PublishTime"] substringWithRange:tempRange];
         timeLabInImg.textColor = [UIColor whiteColor];
         timeLabInImg.textAlignment = NSTextAlignmentCenter;
         timeLabInImg.backgroundColor = BACKGROUND_COLOR;
@@ -490,6 +553,7 @@
         
         if(EnditMode)
         {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             if(indexPath.section ==0 && indexPath.row == 0)
             {
                 if(cellBtnArr == nil)
@@ -514,7 +578,7 @@
         }
         else
         {
-            
+          //  cell.selectionStyle = UITableViewCellSelectionStyleGray;
         }
         
         
@@ -542,7 +606,12 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
-    
+    if(EnditMode)
+    {
+        UIButton *tempBtn = cellBtnArr[indexPath.row];
+        tempBtn.selected = !tempBtn.selected;
+        return;
+    }
     TrainsPlanDetailViewController *trainPlanDetailViewCtl = [[TrainsPlanDetailViewController alloc] init];
     switch (cateId) {
         case WeekPlan:
