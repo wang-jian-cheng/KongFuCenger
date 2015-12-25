@@ -104,7 +104,6 @@
     {
         DLog(@"Err:%d",Param_err);
         return Param_err;
-        [SVProgressHUD dismiss];
     }
 }
 
@@ -228,6 +227,49 @@
         NSDictionary * prm=@{@"userid":userId,
                              @"startRowIndex":startRowIndex,
                              @"maximumRows":maximumRows};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+//获取评论的信息
+-(NSInteger )getMessageIdInfo:(NSString *)messageId
+{
+    
+    if(messageId != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectCommentByMessageId",Url];
+        NSDictionary * prm=@{@"messageId":messageId};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+//获取其他作品
+-(NSInteger )getUserid:(NSString *)userId andNum:(NSString *)num
+{
+    
+    if(userId != nil && num != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hedongli.asmx/GetOtherVideo",Url];
+        NSDictionary * prm=@{@"userid":userId,
+                             @"num":num};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         

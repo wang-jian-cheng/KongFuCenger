@@ -740,7 +740,7 @@
     cell.date.text = [model.OperateTime substringWithRange:x];
     
     NSString * str_free = [NSString stringWithFormat:@"%@",model.IsFree];
-    if([str_free isEqualToString:@"0"])
+    if([str_free isEqualToString:@"1"])
     {
         cell.free.hidden = YES;
     }

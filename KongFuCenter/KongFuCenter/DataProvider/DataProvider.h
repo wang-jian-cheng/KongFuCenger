@@ -206,6 +206,13 @@
 //视频(我的收藏)
 - (NSInteger )voiceAction:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg;
 - (NSInteger )voicedelete:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg;
+//获取评论的信息
+-(NSInteger )getMessageIdInfo:(NSString *)messageId;
+
+//获取其他作品
+-(NSInteger )getUserid:(NSString *)userId andNum:(NSString *)num;
+
+
 
 //积分
 -(void)getJiFenList:(NSString *)userid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows;

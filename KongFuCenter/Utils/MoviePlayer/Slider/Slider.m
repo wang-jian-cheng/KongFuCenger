@@ -94,6 +94,8 @@
     else if ([keyPath isEqualToString:@"value"]){
         // 修改滑块位置
         CGFloat progress = self.slider.value / (self.slider.maximumValue - self.slider.minimumValue);
+        NSLog(@"%f",self.frame.size.width * progress);
+        NSLog(@"%f",self.frame.size.height / 2);
         self.thumbView.center = CGPointMake(self.frame.size.width * progress, self.frame.size.height / 2);
     }
     

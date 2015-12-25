@@ -39,8 +39,8 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     VideoDict=[[NSDictionary alloc] init];
-    [self GetVideoDetial];
-    
+
+    [self getData];
     
     // Do any additional setup after loading the view.
 }
@@ -51,13 +51,20 @@
 }
 
 
+- (void)getData
+{
+    [self GetVideoDetial];
+    
+    [self GetVideoDetial1];
+    //获取其他作品
+    [self GetVideoDetial2];
+}
+
 -(void)GetVideoDetial
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
-    
-    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
-    
     [dataprovider getStudyOnlineVideoDetial:_videoID];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
 }
 -(void)GetVideoDetialCallBack:(id)dict
 {
@@ -69,8 +76,74 @@
         VideoDict=dict[@"data"];
         [self initViews];
     }
+}
+
+-(void)GetVideoDetial1
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider getMessageIdInfo:_videoID];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack1:"];
+}
+
+-(void)GetVideoDetialCallBack1:(id)dict
+{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+            [_mainTableView reloadData];
+            [SVProgressHUD dismiss];
+            NSLog(@"完成");
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
     
 }
+
+-(void)GetVideoDetial2
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider getUserid:[Toolkit getUserID] andNum:@"99"];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack2:"];
+}
+
+-(void)GetVideoDetialCallBack2:(id)dict
+{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+            [_mainTableView reloadData];
+            [SVProgressHUD dismiss];
+            NSLog(@"完成");
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+    
+}
+
 
 
 -(void)initViews
@@ -200,7 +273,6 @@
     
 }
 
-#warning +++++++
 -(void)btnClick:(UIButton *)sender
 {
 //    sender.selected = !sender.selected;
@@ -246,11 +318,26 @@
             }
         }
             break;
+        case 3:
+        {
+            if(sender.selected == NO)
+            {
+                sender.selected = YES;
+                NSLog(@"转发");
+                
+                DataProvider * dataprovider=[[DataProvider alloc] init];
+                [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"0"];
+            }
+            else
+            {
+                sender.selected = NO;
+            }
+        }
+            break;
             
         default:
             break;
     }
-    
     
 }
 

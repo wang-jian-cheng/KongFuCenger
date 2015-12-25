@@ -42,6 +42,7 @@
 
     _messageBody = messageBody;
     _showImageArray = messageBody.posterPostImage;
+    _showVideoArray = messageBody.posterPostVideo;
     _foldOrNot = YES;
     _showShuoShuo = messageBody.posterContent;
     _defineAttrData = [self findAttrWith:messageBody.posterReplies];
@@ -145,6 +146,7 @@
     }
     
     [self calculateShowImageHeight];
+    [self calculateShowVideoHeight];
     
     return height;
     
@@ -156,6 +158,17 @@
         self.showImageArray = 0;
     }else{
         self.showImageHeight = (ShowImage_H + 10) * ((self.showImageArray.count - 1)/3 + 1);
+    }
+    
+}
+
+//视频高度
+- (void)calculateShowVideoHeight{
+    
+    if (self.showVideoArray.count == 0) {
+        self.showVideoArray = 0;
+    }else{
+        self.showImageHeight = 50;
     }
     
 }

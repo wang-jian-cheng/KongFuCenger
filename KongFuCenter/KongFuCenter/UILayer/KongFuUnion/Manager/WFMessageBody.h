@@ -35,6 +35,11 @@
 @property (nonatomic,strong) NSArray *posterPostImage;//
 
 /**
+ *  用户发送的视频数组
+ */
+@property (nonatomic,strong) NSArray *posterPostVideo;//
+
+/**
  *  用户收到的赞 (该数组存点赞的人的昵称)
  */
 @property (nonatomic,strong) NSMutableArray *posterFavour;
