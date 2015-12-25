@@ -203,12 +203,48 @@
 #warning +++++++
 -(void)btnClick:(UIButton *)sender
 {
-    sender.selected = !sender.selected;
+//    sender.selected = !sender.selected;
     
     switch (sender.tag) {
         case 0:
+        {
+            if(sender.selected == NO)
+            {
+                sender.selected = YES;
+                NSLog(@"点赞");
+                
+                DataProvider * dataprovider=[[DataProvider alloc] init];
+                [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"2"];
+            }
+            else
+            {
+                sender.selected = NO;
+                NSLog(@"取消点赞");
+                
+                DataProvider * dataprovider=[[DataProvider alloc] init];
+                [dataprovider voicedelete:_videoID andUserId:[Toolkit getUserID] andFlg:@"2"];
+            }
+        }
             break;
         case 1:
+        {
+            if(sender.selected == NO)
+            {
+                sender.selected = YES;
+                NSLog(@"收藏");
+                
+                DataProvider * dataprovider=[[DataProvider alloc] init];
+                [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"1"];
+            }
+            else
+            {
+                sender.selected = NO;
+                NSLog(@"取消收藏");
+                
+                DataProvider * dataprovider=[[DataProvider alloc] init];
+                [dataprovider voicedelete:_videoID andUserId:[Toolkit getUserID] andFlg:@"1"];
+            }
+        }
             break;
             
         default:
