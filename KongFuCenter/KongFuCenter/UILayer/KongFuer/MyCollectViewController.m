@@ -73,10 +73,12 @@
         {
             NSLog(@"%@",dict[@"data"]);
             NSArray * arr_ = dict[@"data"];
-            model_collect * model = [[model_collect alloc] init];
-            [model setValuesForKeysWithDictionary:arr_.firstObject];
             
-            [self.arr_voiceData addObject:model];
+            for (NSDictionary * dic in arr_) {
+                model_collect * model = [[model_collect alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.arr_voiceData addObject:model];
+            }
         }
         @catch (NSException *exception) {
             
@@ -255,7 +257,14 @@
         
         for (int i = 0 ; i < self.arr_deleteVoice.count; i ++)
         {
+            
+            model_collect * model = [self.arr_voiceData objectAtIndex:[self.arr_deleteVoice[i] integerValue]];
             [self.arr_voiceData removeObjectAtIndex:[self.arr_deleteVoice[i] integerValue]];
+        
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
+            
+
         }
         
         NSLog(@"%ld",self.arr_voiceData.count);
@@ -325,7 +334,7 @@
         [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"2"];
+        [dataprovider voiceAction:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"2"];
         
     }
     else
