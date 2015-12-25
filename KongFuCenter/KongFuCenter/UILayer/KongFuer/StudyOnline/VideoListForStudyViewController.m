@@ -217,10 +217,21 @@
     
     [cell.img_logo sd_setImageWithURL:[NSURL URLWithString:[videoArray[indexPath.row][@"ImagePath"] isEqual:[NSNull null]]?@"":[NSString stringWithFormat:@"%@%@",Url,videoArray[indexPath.row][@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@""]];
     [cell.btn_first setTitle:[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"LikeNum"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"LikeNum"]] forState:UIControlStateNormal];
+    [cell.btn_first setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+    
     [cell.btn_second setTitle:[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"FavoriteNum"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"FavoriteNum"]] forState:UIControlStateNormal];
+    [cell.btn_second setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+    
     cell.lbl_title.text=[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"Title"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"Title"]];
     cell.lbl_content.text=[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"Content"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"Content"]];
     cell.backgroundColor = ItemsBaseColor;
+    
+    
+    cell.select.hidden = YES;
+    cell.btn_thrid.hidden = YES;
+    
+    
+    
     return cell;
     
     

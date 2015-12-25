@@ -73,10 +73,12 @@
         {
             NSLog(@"%@",dict[@"data"]);
             NSArray * arr_ = dict[@"data"];
-            model_collect * model = [[model_collect alloc] init];
-            [model setValuesForKeysWithDictionary:arr_.firstObject];
             
-            [self.arr_voiceData addObject:model];
+            for (NSDictionary * dic in arr_) {
+                model_collect * model = [[model_collect alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.arr_voiceData addObject:model];
+            }
         }
         @catch (NSException *exception) {
             
@@ -252,15 +254,38 @@
         [self addRightbuttontitle:@"删除"];
         self.isDelete = 0;
         
-        
-        for (int i = 0 ; i < self.arr_deleteVoice.count; i ++)
-        {
-            [self.arr_voiceData removeObjectAtIndex:[self.arr_deleteVoice[i] integerValue]];
-        }
-        
         NSLog(@"%ld",self.arr_voiceData.count);
         
-//        EditMode = !EditMode;
+        
+        if(self.arr_deleteVoice.count == 1)
+        {
+            
+        }
+        else
+        {
+            for(int i = 0; i < self.arr_deleteVoice.count ; i ++)
+            {
+                for (int j = 0; j < self.arr_deleteVoice.count - 1 - i; j ++)
+                {
+                   if([self.arr_deleteVoice[j] integerValue] < [self.arr_deleteVoice[j + 1] integerValue])
+                   {
+                       [self.arr_deleteVoice exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+                   }
+                }
+            }
+        }
+        
+        for (NSString * str in self.arr_deleteVoice) {
+            
+            model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
+            [self.arr_voiceData removeObjectAtIndex:[str integerValue]];
+            
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
+            
+            [mainCollectionView reloadData];
+        }
+
         [mainCollectionView reloadData];
         
         self.arr_deleteVoice = nil;
@@ -325,7 +350,7 @@
         [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"2"];
+        [dataprovider voiceAction:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"2"];
         
     }
     else

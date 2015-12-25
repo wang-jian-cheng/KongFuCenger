@@ -297,6 +297,8 @@
 		B5F90AFE1C1985A100D7879D /* LoginQQ@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AF91C1985A100D7879D /* LoginQQ@2x.png */; };
 		B5F90AFF1C1985A100D7879D /* Logintitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AFA1C1985A100D7879D /* Logintitle@2x.png */; };
 		B5F90B001C1985A100D7879D /* Loginweixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F90AFB1C1985A100D7879D /* Loginweixin@2x.png */; };
+		B712CC951C2CCEFE00B1A2E8 /* MyNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B712CC941C2CCEFD00B1A2E8 /* MyNewsViewController.m */; };
+		B712CC981C2CDC9D00B1A2E8 /* SendNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B712CC971C2CDC9D00B1A2E8 /* SendNewsViewController.m */; };
 		B728F67C1C2BD7AD004E90F3 /* wyzan_no.png in Resources */ = {isa = PBXBuildFile; fileRef = B728F67B1C2BD7AD004E90F3 /* wyzan_no.png */; };
 		B72C3CBE1C1558F000D3250A /* KongFuUnionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */; };
 		B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CC21C15668800D3250A /* RecruitComment.m */; };
@@ -872,6 +874,10 @@
 		B5F90AF91C1985A100D7879D /* LoginQQ@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoginQQ@2x.png"; sourceTree = "<group>"; };
 		B5F90AFA1C1985A100D7879D /* Logintitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Logintitle@2x.png"; sourceTree = "<group>"; };
 		B5F90AFB1C1985A100D7879D /* Loginweixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loginweixin@2x.png"; sourceTree = "<group>"; };
+		B712CC931C2CCEFD00B1A2E8 /* MyNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNewsViewController.h; sourceTree = "<group>"; };
+		B712CC941C2CCEFD00B1A2E8 /* MyNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNewsViewController.m; sourceTree = "<group>"; };
+		B712CC961C2CDC9D00B1A2E8 /* SendNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendNewsViewController.h; sourceTree = "<group>"; };
+		B712CC971C2CDC9D00B1A2E8 /* SendNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendNewsViewController.m; sourceTree = "<group>"; };
 		B728F67B1C2BD7AD004E90F3 /* wyzan_no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wyzan_no.png; sourceTree = "<group>"; };
 		B72C3CBB1C1558F000D3250A /* KongFuUnionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KongFuUnionViewController.h; sourceTree = "<group>"; };
 		B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KongFuUnionViewController.m; sourceTree = "<group>"; };
@@ -2210,6 +2216,15 @@
 			path = login;
 			sourceTree = "<group>";
 		};
+		B712CC921C2CCED700B1A2E8 /* MyNews */ = {
+			isa = PBXGroup;
+			children = (
+				B712CC931C2CCEFD00B1A2E8 /* MyNewsViewController.h */,
+				B712CC941C2CCEFD00B1A2E8 /* MyNewsViewController.m */,
+			);
+			name = MyNews;
+			sourceTree = "<group>";
+		};
 		B72C3CC01C15660800D3250A /* RecruitComment */ = {
 			isa = PBXGroup;
 			children = (
@@ -2476,8 +2491,11 @@
 		B7E4CD041C1FB1C400C2E69A /* WYNews */ = {
 			isa = PBXGroup;
 			children = (
+				B712CC921C2CCED700B1A2E8 /* MyNews */,
 				B7E4CD051C1FB22000C2E69A /* WYNewsViewController.h */,
 				B7E4CD061C1FB22000C2E69A /* WYNewsViewController.m */,
+				B712CC961C2CDC9D00B1A2E8 /* SendNewsViewController.h */,
+				B712CC971C2CDC9D00B1A2E8 /* SendNewsViewController.m */,
 			);
 			name = WYNews;
 			sourceTree = "<group>";
@@ -2869,6 +2887,7 @@
 				B7617E6E1C1C29A500CF96E7 /* WFTextView.m in Sources */,
 				B7CCA2E41C211F5F00B7AC8C /* ChatContentViewController.m in Sources */,
 				B5AF70691C18032B00C041AF /* VipViewController.m in Sources */,
+				B712CC981C2CDC9D00B1A2E8 /* SendNewsViewController.m in Sources */,
 				7BA38E901C214305000996EE /* MemberTableViewCell.m in Sources */,
 				B5AF706D1C180CCE00C041AF /* PayForVipViewController.m in Sources */,
 				80DB84611C23D3A6008CA670 /* MKAnnotationView+WebCache.m in Sources */,
@@ -3033,6 +3052,7 @@
 				B5D345CB1C28E97E00D39891 /* UIView+JKPicker.m in Sources */,
 				B5F90AED1C197D3D00D7879D /* InputText.m in Sources */,
 				804952001C250B3800F5584A /* SCAssetExportSession.m in Sources */,
+				B712CC951C2CCEFE00B1A2E8 /* MyNewsViewController.m in Sources */,
 				80DB84691C23D3A6008CA670 /* SDWebImagePrefetcher.m in Sources */,
 				802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */,
 				B7617E711C1C29A500CF96E7 /* YMShowImageView.m in Sources */,
