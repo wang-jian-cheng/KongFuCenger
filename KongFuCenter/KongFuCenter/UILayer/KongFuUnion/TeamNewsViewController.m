@@ -59,117 +59,55 @@
 
 
 #pragma mark - 数据源
-- (void)configData{
+- (void)configData:(NSArray *)dongtaiArr
+{
     
-    _tableDataSource = [[NSMutableArray alloc] init];
-    _contentDataSource = [[NSMutableArray alloc] init];
-    _replyIndex = -1;//代表是直接评论
+    if(dongtaiArr== nil || dongtaiArr.count == 0)
+        return;
     
-    
-    WFReplyBody *body1 = [[WFReplyBody alloc] init];
-    body1.replyUser = kAdmin;
-    body1.repliedUser = @"红领巾";
-    body1.replyInfo = kContentText1;
-    
-    
-    WFReplyBody *body2 = [[WFReplyBody alloc] init];
-    body2.replyUser = @"迪恩";
-    body2.repliedUser = @"";
-    body2.replyInfo = kContentText2;
-    
-    
-    WFReplyBody *body3 = [[WFReplyBody alloc] init];
-    body3.replyUser = @"山姆";
-    body3.repliedUser = @"";
-    body3.replyInfo = kContentText3;
-    
-    
-    WFReplyBody *body4 = [[WFReplyBody alloc] init];
-    body4.replyUser = @"雷锋";
-    body4.repliedUser = @"简森·阿克斯";
-    body4.replyInfo = kContentText4;
-    
-    
-    WFReplyBody *body5 = [[WFReplyBody alloc] init];
-    body5.replyUser = kAdmin;
-    body5.repliedUser = @"";
-    body5.replyInfo = kContentText5;
-    
-    
-    WFReplyBody *body6 = [[WFReplyBody alloc] init];
-    body6.replyUser = @"红领巾";
-    body6.repliedUser = @"";
-    body6.replyInfo = kContentText6;
-    
-    
-    WFMessageBody *messBody1 = [[WFMessageBody alloc] init];
-    messBody1.posterContent = kShuoshuoText1;
-    messBody1.posterPostImage = @[@"yewenback@2x.png",@"yewenback@2x.png",@"yewenback@2x.png"];
-    messBody1.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4, nil];
-    messBody1.posterImgstr = @"mao.jpg";
-    messBody1.posterName = @"迪恩·温彻斯特";
-    messBody1.posterIntro = @"";
-    messBody1.posterFavour = [NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
-    messBody1.isFavour = YES;
-    
-    WFMessageBody *messBody2 = [[WFMessageBody alloc] init];
-    messBody2.posterContent = kShuoshuoText1;
-    messBody2.posterPostImage = @[];
-    messBody2.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4, nil];
-    messBody2.posterImgstr = @"mao.jpg";
-    messBody2.posterName = @"山姆·温彻斯特";
-    messBody2.posterIntro = @"";
-    messBody2.posterFavour = [NSMutableArray arrayWithObjects:@"塞纳留斯",@"希尔瓦娜斯",@"鹿盔", nil];
-    messBody2.isFavour = NO;
-    
-    
-    WFMessageBody *messBody3 = [[WFMessageBody alloc] init];
-    messBody3.posterContent = kShuoshuoText3;
-    messBody3.posterPostImage = @[@"yewenback.png",@"yewenback.png",@"yewenback.png",@"yewenback.png",@"yewenback.png",@"yewenback.png"];
-    messBody3.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4,body6,body5,body4, nil];
-    messBody3.posterImgstr = @"mao.jpg";
-    messBody3.posterName = @"伊利丹怒风";
-    messBody3.posterIntro = @"";
-    messBody3.posterFavour = [NSMutableArray arrayWithObjects:@"路人甲",kAdmin,@"希尔瓦娜斯",@"鹿盔",@"黑手", nil];
-    messBody3.isFavour = YES;
-    
-    WFMessageBody *messBody4 = [[WFMessageBody alloc] init];
-    messBody4.posterContent = kShuoshuoText4;
-    messBody4.posterPostImage = @[@"yewenback.png",@"yewenback.png",@"yewenback.png",@"yewenback.png"];
-    messBody4.posterReplies = [NSMutableArray arrayWithObjects:body1, nil];
-    messBody4.posterImgstr = @"mao.jpg";
-    messBody4.posterName = @"基尔加丹";
-    messBody4.posterIntro = @"";
-    messBody4.posterFavour = [NSMutableArray arrayWithObjects:@"路人甲",nil];
-    messBody4.isFavour = NO;
-    
-    WFMessageBody *messBody5 = [[WFMessageBody alloc] init];
-    messBody5.posterContent = kShuoshuoText5;
-    messBody5.posterPostImage = @[@"yewenback.png",@"yewenback.png",@"yewenback.png",@"yewenback.png"];
-    messBody5.posterReplies = [NSMutableArray arrayWithObjects:body2,body4,body5, nil];
-    messBody5.posterImgstr = @"mao.jpg";
-    messBody5.posterName = @"阿克蒙德";
-    messBody5.posterIntro = @"";
-    messBody5.posterFavour = [NSMutableArray arrayWithObjects:@"希尔瓦娜斯",@"格鲁尔",@"魔兽世界5区石锤人类联盟女圣骑丨阿诺丨",@"钢铁女武神",@"魔兽世界5区石锤人类联盟女盗贼chaotics",@"克苏恩",@"克尔苏加德",@"钢铁议会", nil];
-    messBody5.isFavour = NO;
-    
-    WFMessageBody *messBody6 = [[WFMessageBody alloc] init];
-    messBody6.posterContent = kShuoshuoText5;
-    messBody6.posterPostImage = @[@"yewenback.png",@"yewenback.png",@"yewenback.png",@"yewenback.png"];
-    messBody6.posterReplies = [NSMutableArray arrayWithObjects:body2,body4,body5,body4,body6, nil];
-    messBody6.posterImgstr = @"mao.jpg";
-    messBody6.posterName = @"红领巾";
-    messBody6.posterIntro = @"";
-    messBody6.posterFavour = [NSMutableArray arrayWithObjects:@"爆裂熔炉",@"希尔瓦娜斯",@"阿尔萨斯",@"死亡之翼",@"玛里苟斯", nil];
-    messBody6.isFavour = NO;
-    
-    
-    [_contentDataSource addObject:messBody1];
-    [_contentDataSource addObject:messBody2];
-    [_contentDataSource addObject:messBody3];
-    [_contentDataSource addObject:messBody4];
-    [_contentDataSource addObject:messBody5];
-    [_contentDataSource addObject:messBody6];
+    @try {
+        for (int i = 0; i< dongtaiArr.count; i++) {
+            
+            NSDictionary *tempDict = dongtaiArr[i];
+            NSMutableArray *comlist = [NSMutableArray array];
+            [comlist addObjectsFromArray:tempDict[@"ComList"]];
+            NSMutableArray *comlistFromShow = [NSMutableArray array];
+            for (int j =0; j<comlist.count; j++) {
+                WFReplyBody *body1 = [[WFReplyBody alloc] init];
+                body1.replyUser = kAdmin;
+                body1.repliedUser = @"红领巾";
+                body1.replyInfo = kContentText1;
+                [comlistFromShow addObject:body1];
+            }
+            
+            
+            WFMessageBody *messBody1 = [[WFMessageBody alloc] init];
+            messBody1.posterContent = tempDict[@"Content"];
+            messBody1.posterPostImage = @[@"yewenback@2x.png",@"yewenback@2x.png",@"yewenback@2x.png"];
+            messBody1.posterReplies = comlistFromShow;
+            
+            NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path ,get_sp(@"TeamImg")];
+            messBody1.posterImgstr = url;
+            messBody1.posterName = get_sp(@"TeamName");
+            
+            messBody1.posterIntro = @"";
+            messBody1.posterFavour = [NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
+            messBody1.isFavour = YES;
+            
+            
+            [_contentDataSource addObject:messBody1];
+            
+
+        }
+        
+
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
     
 }
 
@@ -180,13 +118,15 @@
     
     [self setBarTitle:@"战队动态"];
     [self addLeftButton:@"left"];
-    [self addRightButton:@"moreNoword@2x"];
-    
-    [self configData];
-    
+    [self addRightButton:@"moreNoword"];
+    pageSize = 10;
+  //  [self configData];
+    _tableDataSource = [[NSMutableArray alloc] init];
+    _contentDataSource = [[NSMutableArray alloc] init];
+    _replyIndex = -1;//代表是直接评论
+
     [self initTableview];
     
-    [self loadTextData];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -202,8 +142,61 @@
     }
     else
     {
-        
         [self positionDismissView:moreSettingBackView];
+    }
+}
+
+#pragma mark - self data source
+
+-(void)getTeamNews
+{
+    [SVProgressHUD showWithStatus:@"刷新" maskType:SVProgressHUDMaskTypeBlack];
+
+    if(self.teamId == nil)
+    {
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"getSelfTeamNewsCallBack:"];
+        [dataprovider getSelfTeamNews:[Toolkit getUserID]
+                     andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize]
+                       andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+    }
+}
+
+
+-(void)FooterRefresh
+{
+    [self getTeamNews];
+}
+
+
+
+-(void)getSelfTeamNewsCallBack:(id)dict
+{
+    
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            pageNo++;
+            if(_contentDataSource != nil || _contentDataSource.count>0)
+                [_contentDataSource removeAllObjects];
+            [self configData:dict[@"data"]];
+            
+            [self loadTextData];
+
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
     }
 }
 
@@ -279,6 +272,26 @@
     // mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     mainTable.delegate = self;
     mainTable.dataSource = self;
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    mainTable.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        pageNo=0;
+        [weakSelf getTeamNews];
+        // 结束刷新
+        [mainTable.mj_header endRefreshing];
+    }];
+    [mainTable.mj_header beginRefreshing];
+    
+    // 上拉刷新
+    mainTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        [weakSelf FooterRefresh];
+        [mainTable.mj_footer endRefreshing];
+    }];
+    
+
+    
     [self.view addSubview:mainTable];
     
     [self initHeadView];
@@ -568,16 +581,16 @@
 {
 //    NSLog(@"跳转到战队成员");
     Member_ViewController * member_ViewController = [[Member_ViewController alloc] init];
-    
-    [self showViewController:member_ViewController sender:nil];
+    [self.navigationController pushViewController:member_ViewController animated:YES];
+//    [self showViewController:member_ViewController sender:nil];
 }
 
 - (void)btn_2Action:(UIButton *)sender
 {
 //    NSLog(@"跳转到战队介绍");
     IntroduceViewController * introduceViewController = [[IntroduceViewController alloc] init];
-    
-    [self showViewController:introduceViewController sender:nil];
+    [self.navigationController pushViewController:introduceViewController animated:YES];
+    //[self showViewController:introduceViewController sender:nil];
 }
 
 - (void)btn_3Action:(UIButton *)sender
@@ -585,8 +598,8 @@
 //    NSLog(@"跳转到战队公告");
     
     AnnouncementViewController * announcementViewController = [[AnnouncementViewController alloc] init];
-    
-    [self showViewController:announcementViewController sender:nil];
+    [self.navigationController pushViewController:announcementViewController animated:YES];
+    //[self showViewController:announcementViewController sender:nil];
 }
 
 
