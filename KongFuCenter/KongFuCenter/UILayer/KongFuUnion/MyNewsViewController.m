@@ -6,7 +6,7 @@
 //  Copyright © 2015年 zykj. All rights reserved.
 //
 
-#import "WYNewsViewController.h"
+#import "MyNewsViewController.h"
 #import "YMTableViewCell.h"
 #import "ContantHead.h"
 #import "YMShowImageView.h"
@@ -16,8 +16,6 @@
 #import "WFMessageBody.h"
 #import "WFPopView.h"
 #import "WFActionSheet.h"
-#import "MyNewsViewController.h"
-#import "SendNewsViewController.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -26,7 +24,7 @@
 #define sendNews  (2015+1)
 #define smallVideo  (2015+2)
 
-@interface WYNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate>
+@interface MyNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate>
 {
     NSMutableArray *_imageDataSource;
     
@@ -64,16 +62,16 @@
 
 @end
 
-@implementation WYNewsViewController
+@implementation MyNewsViewController
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     
-    [self setBarTitle:@"武友动态"];
+    [self setBarTitle:@"我的动态"];
     [self addLeftButton:@"left"];
-    [self addRightButton:@"moreNoword@2x"];
+    [self addRightbuttontitle:@"评论回复"];
     
     userDefault = [NSUserDefaults standardUserDefaults];
     dataProvider = [[DataProvider alloc] init];
@@ -92,11 +90,12 @@
 
 -(void)initData{
     [SVProgressHUD showWithStatus:@"加载中"];
-    [dataProvider setDelegateObject:self setBackFunctionName:@"getWYNewsCallBack:"];
-    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getMyNewsCallBack:"];
+    //[dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
+    [dataProvider SelectDongtaiByFriendId:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
 }
 
--(void)getWYNewsCallBack:(id)dict{
+-(void)getMyNewsCallBack:(id)dict{
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict);
@@ -270,8 +269,7 @@
 {
     if(sender.tag == sendNews)
     {
-        SendNewsViewController *sendNewsVC = [[SendNewsViewController alloc] init];
-        [self.navigationController pushViewController:sendNewsVC animated:YES];
+        
     }
     else  if(sender.tag == smallVideo)
     {
@@ -408,11 +406,6 @@
     return cell;
 }
 
--(void)tapPhotoImg{
-    MyNewsViewController *myNewsVC = [[MyNewsViewController alloc] init];
-    [self.navigationController pushViewController:myNewsVC animated:YES];
-}
-
 -(NSString *)compareDate:(NSDate *)date{
     
     NSDate * today = [NSDate date];
@@ -500,7 +493,7 @@
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"mainCommentCallBack:"];
         [dataProvider CommentComment:[[wyArray[selectRow] valueForKey:@"ComList"][_replyIndex] valueForKey:@"Id"] anduserid:[userDefault valueForKey:@"id"] andcomment:((UITextView *)sender).text];
-
+        
     }
 }
 
@@ -544,10 +537,6 @@
     NSString *photoPath = [userDefault valueForKey:@"PhotoPath"];
     NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoPath];
     headImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPhotoImg)];
-    [headImg setUserInteractionEnabled:YES];
-    [headImg addGestureRecognizer:tapGesture];
-    
     [headImgView addSubview:headImg];
     UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - headImg.frame.size.width - 10 - 120 - 5, (headImg.frame.size.height - 21) / 2, 120, 21)];
     name_lbl.textColor = [UIColor whiteColor];
@@ -555,11 +544,11 @@
     name_lbl.text = [userDefault valueForKey:@"NicName"];//@"成龙";
     name_lbl.font = [UIFont systemFontOfSize:15];
     [headImgView addSubview:name_lbl];
-//    UILabel *id_lbl = [[UILabel alloc] initWithFrame:CGRectMake(headImg.frame.origin.x + headImg.frame.size.width+ 2, name_lbl.frame.origin.y + name_lbl.frame.size.height / 2 +10, 100, 21)];
-//    id_lbl.textColor = [UIColor whiteColor];
-//    id_lbl.text = @"ID:123456789";
-//    id_lbl.font = [UIFont systemFontOfSize:13];
-//    [headImgView addSubview:id_lbl];
+    //    UILabel *id_lbl = [[UILabel alloc] initWithFrame:CGRectMake(headImg.frame.origin.x + headImg.frame.size.width+ 2, name_lbl.frame.origin.y + name_lbl.frame.size.height / 2 +10, 100, 21)];
+    //    id_lbl.textColor = [UIColor whiteColor];
+    //    id_lbl.text = @"ID:123456789";
+    //    id_lbl.font = [UIFont systemFontOfSize:13];
+    //    [headImgView addSubview:id_lbl];
     [headView addSubview:headImgView];
     
 }

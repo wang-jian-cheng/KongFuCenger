@@ -640,6 +640,22 @@
     }
 }
 
+-(void)SaveDongtai:(NSString *)userid andcontent:(NSString *)content andpathlist:(NSString *)pathlist andvideopath:(NSString *)videopath andvideoDuration:(NSString *)videoDuration{
+    if (userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SaveDongtai",Url];
+        NSDictionary *prm = @{@"userid":userid,@"content":content,@"pathlist":pathlist,@"videopath":videopath,@"videoDuration":videoDuration};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)SelectDongtaiByFriendId:(NSString *)friendid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows{
+    if (friendid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectDongtaiByFriendId",Url];
+        NSDictionary *prm = @{@"friendid":friendid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 #pragma mark 核动力
 -(void)uploadVideoWithPath:(NSURL *)videoPath
 {
@@ -748,7 +764,7 @@
     manage.responseSerializer=[AFHTTPResponseSerializer serializer];
     manage.requestSerializer=[AFHTTPRequestSerializer serializer];
     manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/plain"];//可接收到的数据类型
-    manage.requestSerializer.timeoutInterval=10;//设置请求时限
+    manage.requestSerializer.timeoutInterval=20;//设置请求时限
     NSDictionary * prm =[[NSDictionary alloc] init];
     if (pram!=nil) {
         prm=pram;
