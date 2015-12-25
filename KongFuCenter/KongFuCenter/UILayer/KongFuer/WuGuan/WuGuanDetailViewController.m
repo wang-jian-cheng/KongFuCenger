@@ -55,6 +55,16 @@
     _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.scrollEnabled = NO;
     
+    
+    UIImageView *mainImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,3*_cellHeight )];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,wuGuanDetailDict[@"ImagePath"]];
+    [mainImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
+    _mainTableView.tableHeaderView = mainImg;
+//    [tempView addSubview:mainImg];
+
+    
+    
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
     
@@ -137,14 +147,68 @@
 -(void)btnClick:(UIButton *)sender
 {
     sender.selected = !sender.selected;
+    
+    
+    if(sender.tag == 3)
+    {
+        [self wuGuanRelay];
+    }
 }
 
 - (void)btn_callAction:(UIButton  *)sender
 {
     NSLog(@"打电话");
+#if 0
+    NSString *phoneNum = @"10086";//wuGuanDetailDict[@"TelePhone"];// 电话号码
+    
+    NSURL *phoneURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",phoneNum]];
+    
+    
+    UIWebView *phoneCallWebView = [[UIWebView alloc] initWithFrame:CGRectZero];// 这个webView只是一个后台的容易 不需要add到页面上来  效果跟方法二一样 但是这个方法是合法的
+    
+    [phoneCallWebView loadRequest:[NSURLRequest requestWithURL:phoneURL]];
+    [self.view addSubview:phoneCallWebView];
+    
+#endif
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"10086"];
+    //            NSLog(@"str======%@",str);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    
 }
 
 #pragma mark - self data source
+
+-(void)wuGuanRelay
+{
+    [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"wuguanRelayCallBack:"];
+    [dataprovider voiceAction:self.wuGuanId andUserId:[Toolkit getUserID] andFlg:@"0"];
+}
+
+-(void)wuguanRelayCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
+}
 -(void)getWuGuanPic
 {
     if(self.wuGuanId!=nil)
@@ -258,7 +322,7 @@
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
     cell.backgroundColor = ItemsBaseColor;
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     switch (indexPath.section) {
             
@@ -301,7 +365,7 @@
                     [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
                     relayBtn.imageView.contentMode = UIViewContentModeCenter;
                     relayBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-                    relayBtn.tag = 2;
+                    relayBtn.tag = 3;
                     [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                     [backView addSubview:relayBtn];
                 }
@@ -553,12 +617,6 @@
 {
     UIView *tempView = [[UIView alloc] init];
     
-    UIImageView *mainImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,3*_cellHeight )];\
-
-    NSString *url = [NSString stringWithFormat:@"%@%@",Url,wuGuanDetailDict[@"ImagePath"]];
-    [mainImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
-    
-    [tempView addSubview:mainImg];
     return tempView;
 }
 
@@ -566,9 +624,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    if(section == 0)
-        return 3*_cellHeight;
-    else
+//    if(section == 0)
+//        return 3*_cellHeight;
+//    else
     return 0;
 }
 

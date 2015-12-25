@@ -268,6 +268,12 @@
         if(secondCateArr == nil ||secondCateArr.count == 0||indexPath.row > secondCateArr.count -1)
             return cell;
         
+        
+        UIImageView *backView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,secondCateArr[indexPath.row][@"ImagePath"]];
+        [backView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+        [cell addSubview:backView];
+        
         UILabel *cateNameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
         cateNameLab.text = secondCateArr[indexPath.row][@"Name"];
         cateNameLab.textColor = [UIColor whiteColor];

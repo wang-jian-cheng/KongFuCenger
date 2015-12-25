@@ -37,6 +37,7 @@
     /*区／县*/
     NSMutableArray  *areaArr;
     
+    NSString *cityID;
     NSString *imgPath;
     BOOL loadDataFlag;
     
@@ -75,7 +76,7 @@
     _cellHeight = SCREEN_HEIGHT/12;
     _sectionNum = 3;
     
-    
+    cityID = @"1";
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
@@ -204,8 +205,8 @@
             
             [provinceBtn setTitle:[infoArr objectAtIndex:row][@"Name"] forState:UIControlStateNormal];
             for (NSDictionary *tempDict in provinceArr) {
-                NSLog(@"[tempDict[Name] = %@",tempDict[@"Name"]);
-                NSLog(@"provinceBtn.titleLabel.text = %@",provinceBtn.titleLabel.text);
+//                NSLog(@"[tempDict[Name] = %@",tempDict[@"Name"]);
+//                NSLog(@"provinceBtn.titleLabel.text = %@",provinceBtn.titleLabel.text);
                 if([tempDict[@"Name"] isEqualToString:provinceBtn.titleLabel.text] )
                 {
                     provinceId = [NSString stringWithFormat:@"%@",tempDict[@"Code"]];
@@ -249,6 +250,7 @@
             break;
         case AreaTAG:
             [areaBtn setTitle:[infoArr objectAtIndex:row][@"Name"] forState:UIControlStateNormal];
+            cityID = infoArr[row][@"Id"];
             break;
         default:
             break;
@@ -351,7 +353,7 @@
             
             jiFenLab.text = [NSString stringWithFormat:@"积分：%@",tempDict[@"Credit"]];
             userName.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
-            idLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"UserName"]];
+            idLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"Phone"]];
             if([tempDict[@"Sexuality"] integerValue] == 1)
             {
                 boyBtn.selected = YES;
@@ -372,7 +374,8 @@
             [provinceBtn setTitle:tempDict[@"HomeAreaprovinceName"] forState:UIControlStateNormal];
             [cityBtn setTitle:tempDict[@"HomeAreaCityName"] forState:UIControlStateNormal];
             [areaBtn setTitle:tempDict[@"HomeAreaCountyName"] forState:UIControlStateNormal];
-            
+            introductionText.text = tempDict[@"Description"];
+
             
             [self getProvince];
 //2015-09-09 09:09:09
@@ -424,8 +427,9 @@
                        andSex:sex
                     andHeight:[highBtn.titleLabel.text substringToIndex:(highBtn.titleLabel.text.length - 2)]
                     andWeight:[weightBtn.titleLabel.text substringToIndex:(weightBtn.titleLabel.text.length - 2)]
-                      andAddr:@"19387"
-                      andExpe:[learnTimeBtn.titleLabel.text substringToIndex:(learnTimeBtn.titleLabel.text.length - 1)]];
+                      andAddr:cityID
+                      andExpe:[learnTimeBtn.titleLabel.text substringToIndex:(learnTimeBtn.titleLabel.text.length - 1)]
+               andDescription:introductionText.text];
 }
 
 
@@ -456,7 +460,10 @@
 
 #pragma mark - get Locations
 -(void)getProvince
-{//    [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
+{
+    if(provinceArr != nil || provinceArr.count > 0)
+        [provinceArr removeAllObjects];
+//    [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getProvinceCallBack:"];
     [dataprovider getProvince];
@@ -468,8 +475,6 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
-            if(provinceArr != nil || provinceArr.count > 0)
-                [provinceArr removeAllObjects];
 
             [provinceArr addObjectsFromArray:dict[@"data"]];
             
@@ -477,8 +482,8 @@
             NSString *provinceId;
             
             for (NSDictionary *tempDict in provinceArr) {
-                NSLog(@"[tempDict[Name] = %@",tempDict[@"Name"]);
-                NSLog(@"provinceBtn.titleLabel.text = %@",provinceBtn.titleLabel.text);
+//                NSLog(@"[tempDict[Name] = %@",tempDict[@"Name"]);
+//                NSLog(@"provinceBtn.titleLabel.text = %@",provinceBtn.titleLabel.text);
                 if([tempDict[@"Name"] isEqualToString:provinceBtn.titleLabel.text] )
                 {
                     provinceId = [NSString stringWithFormat:@"%@",tempDict[@"Code"]];
@@ -492,7 +497,7 @@
                 [alert show];
                 return;
             }
-            [self getCityByProvince:provinceId];
+           // [self getCityByProvince:provinceId];
             
 
         }
@@ -513,6 +518,9 @@
 
 -(void)getCityByProvince:(NSString *)ProvinceId
 {
+    if(cityArr != nil || cityArr.count > 0)
+        [cityArr removeAllObjects];
+    
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getCityByProvinceCallBack:"];
     [dataprovider getCityByProvinceCode:ProvinceId];
@@ -525,8 +533,7 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
-            if(cityArr != nil || cityArr.count > 0)
-                [cityArr removeAllObjects];
+            
             [cityArr addObjectsFromArray:dict[@"data"]];
             
            
@@ -537,9 +544,14 @@
                     [cityBtn setTitle:cityArr[0][@"Name"] forState:UIControlStateNormal];
                     
                 }
+                else
+                    return;
+                
                 [infoArr addObjectsFromArray:dict[@"data"]];
                 [self.view addSubview:_pickerView];
-                [_pickerView reloadAllComponents];
+                
+                if(_pickerView.tag == CityTAG)
+                    [_pickerView reloadAllComponents];
                 [self reLayoutTableViewHeight:_pickerView.frame.size.height];
                 
                 
@@ -583,6 +595,9 @@
 
 -(void)getAreaByCity:(NSString *)cityCode
 {
+    if(areaArr != nil || areaArr.count > 0)
+        [areaArr removeAllObjects];
+    
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getAreaByCityCallBack:"];
     [dataprovider getCityByProvinceCode:cityCode];
@@ -595,16 +610,16 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
-            if(areaArr != nil || areaArr.count > 0)
-                [areaArr removeAllObjects];
-            
+           
             [areaArr addObjectsFromArray:dict[@"data"]];
-            
             if(areaArr.count > 0)
                 [areaBtn  setTitle:areaArr[0][@"Name"] forState:UIControlStateNormal] ;
+            else
+                return;
             [infoArr addObjectsFromArray:dict[@"data"]];
             [self.view addSubview:_pickerView];
-            [_pickerView reloadAllComponents];
+            if(_pickerView.tag == AreaTAG)
+                [_pickerView reloadAllComponents];
             [self reLayoutTableViewHeight:_pickerView.frame.size.height];
             
             
@@ -1397,7 +1412,7 @@
                                                     (SCREEN_WIDTH - 10 - (titlLab.frame.size.width+titlLab.frame.origin.x + 5)) + 19,
                                                     (3*_cellHeight - 5*2) ) ;
                 
-                introductionText.text = @"喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武";
+//                introductionText.text = @"喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武";
                 introductionText.textColor = [UIColor whiteColor];
                 introductionText.backgroundColor = BACKGROUND_COLOR;
                 introductionText.font = [UIFont systemFontOfSize:14];

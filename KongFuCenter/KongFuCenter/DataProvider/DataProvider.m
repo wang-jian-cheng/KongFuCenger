@@ -292,11 +292,11 @@
 //int experience 习武经历 单位/年
 
 
--(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience
+-(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience andDescription:(NSString *)description
 {
    
     
-    if(userId != nil&&nicname != nil&&sexuality != nil&&height != nil&&weight != nil&&homeAreaId != nil&&experience != nil)
+    if(userId != nil&&nicname != nil&&sexuality != nil&&height != nil&&weight != nil&&homeAreaId != nil&&experience != nil&&description)
     {
         
         NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/ChangeInfor",Url];
@@ -306,7 +306,8 @@
                              @"height":height,
                              @"weight":weight,
                              @"homeAreaId":homeAreaId,
-                             @"experience":experience};
+                             @"experience":experience,
+                             @"description":description};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         
@@ -566,6 +567,17 @@
         [self PostRequest:url andpram:prm];
     }
 
+}
+
+-(void)delePlan:(NSString*)planId
+{
+    if(planId)
+    {
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/DeletePlan",Url];
+        NSDictionary * prm=@{@"id":planId};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
 }
 
 #pragma mark - 积分

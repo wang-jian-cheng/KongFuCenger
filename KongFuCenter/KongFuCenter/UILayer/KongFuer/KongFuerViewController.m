@@ -30,6 +30,8 @@
     
     UILabel *nickLab;
     UILabel *IdLab;
+    
+    UserHeadView *headView;
 
 }
 @end
@@ -118,6 +120,12 @@
     jiFenNumLab.textColor = YellowBlock;
     jiFenNumLab.font = [UIFont systemFontOfSize:10];
     jiFenNumLab.textAlignment = NSTextAlignmentCenter;
+    
+    
+    headView = [[UserHeadView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -80)/2 ,_cellHeight/2, 80, 80)
+                                                      andImgName:@"headImg"
+                                                          andNav:self.navigationController];
+
 }
 
 
@@ -166,6 +174,8 @@
 //            jiFenNumLab.text = @"1000分";
             nickLab.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
             IdLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"Phone"]];
+            NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
+            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
             
         }
         @catch (NSException *exception) {
@@ -316,9 +326,7 @@
             
             {//账号
                 //head
-                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -80)/2 ,_cellHeight/2, 80, 80)
-                                                                  andImgName:@"headImg"
-                                                                      andNav:self.navigationController];
+                
                 [headView makeSelfRound];
                 headView.center = CGPointMake(SCREEN_WIDTH/2, _cellHeight*1.5);
                 [cell addSubview:headView];
