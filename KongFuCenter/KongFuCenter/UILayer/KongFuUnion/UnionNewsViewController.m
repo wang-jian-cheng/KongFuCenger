@@ -38,7 +38,8 @@
     [self setBarTitle:@"联盟动态"];
     [self addLeftButton:@"left"];
 
-#warning +++++
+    
+    [self GetVideoDetial1];
 }
 
 -(void)viewWillAppear:(BOOL)animated
