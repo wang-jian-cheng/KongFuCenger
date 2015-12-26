@@ -12,7 +12,7 @@
 #import "MJRefresh.h"
 #import "UIImageView+WebCache.h"
 
-@interface KongFuPowerViewController ()<WechatShortVideoDelegate>
+@interface KongFuPowerViewController ()<WechatShortVideoDelegate ,UIImagePickerControllerDelegate ,UINavigationControllerDelegate>
 {
     UIImageView *btnImgView;
 #pragma mark - pram for tableView
@@ -227,7 +227,21 @@
     if(sender.tag == Local_BtnTag)
     {
         
-
+//        LocalVoiceViewController * localVoiceViewController = [[LocalVoiceViewController alloc] init];
+//        
+//        [self showViewController:localVoiceViewController sender:nil];
+        
+        UIImagePickerController * pick = [[UIImagePickerController alloc] init];
+        pick.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        pick.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+        //是否允许编辑
+        pick.allowsEditing = YES;
+        //代理
+        pick.delegate = self;
+        [self presentViewController:pick animated:YES completion:^{
+            
+        }];
+        
     }
     else  if(sender.tag == Take_BtnTag)
     {
@@ -243,8 +257,6 @@
 
 -(void)clickRightButton:(UIButton *)sender
 {
-    
-    
     if(moreSettingBackView.hidden == YES)
     {
         moreSettingBackView.hidden = NO;
@@ -252,11 +264,8 @@
     }
     else
     {
-        
         [self positionDismissView:moreSettingBackView];
     }
-    
-    
 }
 
 
@@ -552,6 +561,45 @@
     uploadVideoVC.VideoFilePath=filePath;
     
     [self.navigationController pushViewController:uploadVideoVC animated:YES];
+    
 }
+
+#pragma mark - 相册的代理
+- (void)imagePickerController:(UIImagePickerController *)picker   didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+    
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    
+    if([mediaType isEqualToString:@"public.movie"])
+    {
+        NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
+        //        NSLog(@"found a video");
+        //        NSLog(@"%@",videoURL);
+        UploadVideoViewController * uploadVideoViewController = [[UploadVideoViewController alloc] init];
+        
+        uploadVideoViewController.VideoFilePath = videoURL;
+        
+        [self showViewController:uploadVideoViewController sender:nil];
+    }
+    else
+    {
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请您选择视频文件" preferredStyle:(UIAlertControllerStyleAlert)];
+        
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
+        
+        UIAlertAction * action = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alert addAction:action];
+    }
+    
+}
+
 
 @end
