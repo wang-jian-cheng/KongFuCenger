@@ -8,7 +8,7 @@
 
 #import "UnionNewsViewController.h"
 #import "UnionNewsCell.h"
-
+#import "model_UnionNew.h"
 @interface UnionNewsViewController (){
     
     //datatable
@@ -22,6 +22,9 @@
     UIImageView *menuImgView;
 }
 
+@property (nonatomic, strong) NSMutableArray * arr_title;
+
+
 @end
 
 @implementation UnionNewsViewController
@@ -34,12 +37,8 @@
     mCellHeight = SCREEN_HEIGHT / 6;
     [self setBarTitle:@"联盟动态"];
     [self addLeftButton:@"left"];
-    
-    //初始化数据
-    [self initDatas];
-    
-    //初始化View
-    [self initViews];
+
+    [self GetVideoDetial1];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -47,10 +46,102 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+#pragma mark - 解析数据
+-(void)GetVideoDetial
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider growCateid:@"" andStartRowIndex:@"0" andMaximumRows:@"66"];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
+}
+-(void)GetVideoDetialCallBack:(id)dict
+{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+            [mTableView reloadData];
+            [SVProgressHUD dismiss];
+            NSLog(@"完成");
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+
+}
+
+//2--------2
+-(void)GetVideoDetial1
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider getlianmengdongtai];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack1:"];
+}
+-(void)GetVideoDetialCallBack1:(id)dict
+{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+            NSArray * arr_1 = dict[@"data"];
+            for (NSDictionary * dict in arr_1) {
+                
+                model_UnionNew * model = [[model_UnionNew alloc] init];
+                
+                [model setValuesForKeysWithDictionary:dict];
+                
+                [self.arr_title addObject:model];
+            }
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+            [mTableView reloadData];
+            //初始化数据
+            [self initDatas];
+            //初始化View
+            [self initViews];
+            
+            model_UnionNew * model = self.arr_title.firstObject;
+            
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            [dataprovider growCateid:model.Id andStartRowIndex:@"0" andMaximumRows:@"66"];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
+            
+            [SVProgressHUD dismiss];
+            NSLog(@"完成");
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+    
+}
+
 #pragma mark 自定义方法
 -(void)initDatas{
     menuArray = [[NSMutableArray alloc] init];
-    [menuArray addObjectsFromArray:@[@"公益慈善",@"交流活动",@"技术培训",@"全国巡演"]];
+    NSMutableArray * title = [[NSMutableArray alloc] init];
+    for (model_UnionNew * model in self.arr_title) {
+        
+        [title addObject:model.Name];
+        
+    }
+    [menuArray addObjectsFromArray:title];
+//    [menuArray addObjectsFromArray:@[@"公益慈善",@"交流活动",@"技术培训",@"全国巡演"]];
 }
 
 -(void)initViews{
@@ -94,7 +185,11 @@
     [btnMenu addSubview:menuImgView];
     btnMenu.selected = YES;
     
-    NSLog(@"%d",(int)btnMenu.tag);
+    model_UnionNew * model = self.arr_title[btnMenu.tag];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider growCateid:model.Id andStartRowIndex:@"0" andMaximumRows:@"66"];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
+    
 }
 
 #pragma mark tableview delegate
@@ -146,6 +241,16 @@
     [self.navigationController pushViewController:unionNew animated:YES];
     
     
+}
+
+#pragma mark - 懒加载
+- (NSMutableArray *)arr_title
+{
+    if(_arr_title == nil)
+    {
+        self.arr_title = [NSMutableArray array];
+    }
+    return _arr_title;
 }
 
 @end

@@ -17,6 +17,7 @@
 		7BA3A3161C2289070028C8A3 /* ShieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3A3151C2289070028C8A3 /* ShieldViewController.m */; };
 		7BA51EB51C23D9F6004BBB30 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA51EB41C23D9F6004BBB30 /* IntroViewController.m */; };
 		7BA51EB91C23E01E004BBB30 /* MessagefankuiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA51EB81C23E01E004BBB30 /* MessagefankuiViewController.m */; };
+		7BAA22C01C2D34FE001E7EBB /* model_UnionNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA22BF1C2D34FE001E7EBB /* model_UnionNew.m */; };
 		7BB6FF831C28E1B300713E06 /* 电话.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB6FF821C28E1B300713E06 /* 电话.png */; };
 		7BCBB22A1C2393C800C2AAAA /* ClearCacheViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCBB2291C2393C800C2AAAA /* ClearCacheViewController.m */; };
 		802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 802118D91C1AFAE100DCEE73 /* DIYButton.m */; };
@@ -426,6 +427,8 @@
 		7BA51EB41C23D9F6004BBB30 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		7BA51EB71C23E01E004BBB30 /* MessagefankuiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagefankuiViewController.h; sourceTree = "<group>"; };
 		7BA51EB81C23E01E004BBB30 /* MessagefankuiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagefankuiViewController.m; sourceTree = "<group>"; };
+		7BAA22BE1C2D34FE001E7EBB /* model_UnionNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = model_UnionNew.h; sourceTree = "<group>"; };
+		7BAA22BF1C2D34FE001E7EBB /* model_UnionNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = model_UnionNew.m; sourceTree = "<group>"; };
 		7BB6FF821C28E1B300713E06 /* 电话.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "电话.png"; sourceTree = "<group>"; };
 		7BCBB2281C2393C800C2AAAA /* ClearCacheViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearCacheViewController.h; sourceTree = "<group>"; };
 		7BCBB2291C2393C800C2AAAA /* ClearCacheViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearCacheViewController.m; sourceTree = "<group>"; };
@@ -1196,6 +1199,15 @@
 				7BA51EB81C23E01E004BBB30 /* MessagefankuiViewController.m */,
 			);
 			name = Messagefankui;
+			sourceTree = "<group>";
+		};
+		7BAA22BD1C2D34D2001E7EBB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7BAA22BE1C2D34FE001E7EBB /* model_UnionNew.h */,
+				7BAA22BF1C2D34FE001E7EBB /* model_UnionNew.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		7BCBB2271C23930500C2AAAA /* ClearCache-JC */ = {
@@ -2272,6 +2284,7 @@
 		B7617E201C1C286600CF96E7 /* UnionNews */ = {
 			isa = PBXGroup;
 			children = (
+				7BAA22BD1C2D34D2001E7EBB /* Models */,
 				B7617E221C1C289E00CF96E7 /* UnionNewsCell.h */,
 				B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */,
 				B7617E241C1C289E00CF96E7 /* UnionNewsCell.xib */,
@@ -2999,6 +3012,7 @@
 				B7617E3F1C1C298F00CF96E7 /* WFReplyBody.m in Sources */,
 				804952141C250B3800F5584A /* SCSwipeableFilterView.m in Sources */,
 				B5905DF81C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m in Sources */,
+				7BAA22C01C2D34FE001E7EBB /* model_UnionNew.m in Sources */,
 				B5AF707F1C1837F600C041AF /* NewPlanViewController.m in Sources */,
 				7BA38E9C1C2162E8000996EE /* AnnouncementTableViewCell.m in Sources */,
 				B53E73851C166FCB009E7878 /* JiFenViewController.m in Sources */,
