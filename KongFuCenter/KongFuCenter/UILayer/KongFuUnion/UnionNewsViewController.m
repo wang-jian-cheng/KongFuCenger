@@ -38,7 +38,7 @@
     [self setBarTitle:@"联盟动态"];
     [self addLeftButton:@"left"];
 
-    [self GetVideoDetial1];
+#warning +++++
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -47,12 +47,6 @@
 }
 
 #pragma mark - 解析数据
--(void)GetVideoDetial
-{
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider growCateid:@"" andStartRowIndex:@"0" andMaximumRows:@"66"];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
-}
 -(void)GetVideoDetialCallBack:(id)dict
 {
     NSLog(@"%@",dict);
@@ -133,6 +127,9 @@
 
 #pragma mark 自定义方法
 -(void)initDatas{
+    
+    [self getUnionCates];
+    
     menuArray = [[NSMutableArray alloc] init];
     NSMutableArray * title = [[NSMutableArray alloc] init];
     for (model_UnionNew * model in self.arr_title) {
@@ -190,6 +187,37 @@
     [dataprovider growCateid:model.Id andStartRowIndex:@"0" andMaximumRows:@"66"];
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
     
+}
+#pragma mark - self data source
+
+-(void)getUnionCates
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getUnionNewsCateCallback:"];
+    [dataprovider getUnionNewsCate];
+}
+
+-(void)getUnionNewsCateCallback:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
 }
 
 #pragma mark tableview delegate

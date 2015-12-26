@@ -110,6 +110,9 @@
         _commentDate.font = [UIFont systemFontOfSize:14];
         //_commentDate.text = @"刚刚发布";
         [self.contentView addSubview:_commentDate];
+        
+        _videoImg = [[UIImageView alloc] init];
+        [self.contentView addSubview:_videoImg];
     }
     return self;
 }
@@ -214,7 +217,8 @@
         tap.appendArray = ymData.showImageArray;
         image.backgroundColor = [UIColor clearColor];
         image.tag = kImageTag + i;
-        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[ymData.showImageArray objectAtIndex:i]]];
+        //image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[ymData.showImageArray objectAtIndex:i]]];
+        image.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[ymData.showImageArray objectAtIndex:i]]]];
         [self.contentView addSubview:image];
         [_imageArray addObject:image];
         
@@ -244,9 +248,23 @@
     float backView_Y = 0;
     float backView_H = 0;
     
+    //显示视频
+    if(![ymData.showVideoArray[0] isEqual:@""]){
+        //MoviePlayer *moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(offSet_X + 30, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
+        
+        //MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:CGRectMake(offSet_X + 30, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - 2 * offSet_X - 30, 0) URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
+        //[self.contentView addSubview:view];
+        
+        //_moViePlayer = [[MoviePlayer alloc] initWithFrame:CGRectMake(10, 100,SCREEN_WIDTH - 20,200) URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
+        
+        _videoImg.frame = CGRectMake(offSet_X + 30, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - 2 * offSet_X - 30, 100);
+        _videoImg.image = [UIImage imageNamed:@"me"];
+    }else{
+        _videoImg.image = nil;
+    }
     
     
-    WFTextView *favourView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X + 30, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - 2 * offSet_X - 30, 0)];
+    WFTextView *favourView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X + 30, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance + ([ymData.showVideoArray[0] isEqual:@""]?0:80), screenWidth - 2 * offSet_X - 30, 0)];
     favourView.delegate = self;
     favourView.attributedData = ymData.attributedDataFavour;
     favourView.isDraw = YES;
@@ -254,7 +272,7 @@
     favourView.canClickAll = NO;
     favourView.textColor = [UIColor redColor];
     [favourView setOldString:ymData.showFavour andNewString:ymData.completionFavour];
-    favourView.frame = CGRectMake(offSet_X + 30,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - offSet_X * 2 - 30, ymData.favourHeight);
+    favourView.frame = CGRectMake(offSet_X + 30,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance + ([ymData.showVideoArray[0] isEqual:@""]?0:80), screenWidth - offSet_X * 2 - 30, ymData.favourHeight);
     [self.contentView addSubview:favourView];
     backView_H += ((ymData.favourHeight == 0)?(-kReply_FavourDistance):ymData.favourHeight);
     [_ymFavourArray addObject:favourView];
@@ -328,7 +346,8 @@
         _vLine.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 18,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 1, 15);
         _CommentBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 13,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 18, 15);
         _CommentBtnHF.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 + 5,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 40, 15);
-        _commentDate.frame = CGRectMake(offSet_X, replyImageView.frame.origin.y - 24, 100, 18);
+        //_commentDate.frame = CGRectMake(offSet_X, replyImageView.frame.origin.y - 24, 100, 18);
+        _commentDate.frame = CGRectMake(offSet_X, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 100, 18);
         
     }else{
         

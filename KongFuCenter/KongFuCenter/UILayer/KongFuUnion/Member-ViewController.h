@@ -7,7 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "UIImageView+WebCache.h"
 @interface Member_ViewController : BaseNavigationController
 
 @end

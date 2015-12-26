@@ -287,10 +287,9 @@
         
     }
     @finally {
-        
+        return cell;
     }
    
-    return cell;
     
     
 }

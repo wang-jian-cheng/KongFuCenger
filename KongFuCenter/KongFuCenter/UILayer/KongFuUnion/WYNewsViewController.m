@@ -18,6 +18,9 @@
 #import "WFActionSheet.h"
 #import "MyNewsViewController.h"
 #import "SendNewsViewController.h"
+#import "WechatShortVideoController.h"
+#import "SendVideoViewController.h"
+#import "ceshiViewController.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -26,7 +29,7 @@
 #define sendNews  (2015+1)
 #define smallVideo  (2015+2)
 
-@interface WYNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate>
+@interface WYNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate,WechatShortVideoDelegate>
 {
     NSMutableArray *_imageDataSource;
     
@@ -73,7 +76,7 @@
     
     [self setBarTitle:@"武友动态"];
     [self addLeftButton:@"left"];
-    [self addRightButton:@"moreNoword@2x"];
+    [self addRightButton:@"moreNoword"];
     
     userDefault = [NSUserDefaults standardUserDefaults];
     dataProvider = [[DataProvider alloc] init];
@@ -97,7 +100,6 @@
 }
 
 -(void)getWYNewsCallBack:(id)dict{
-    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict);
         wyArray = dict[@"data"];
@@ -105,9 +107,11 @@
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             messBody.posterContent = [itemDict valueForKey:@"Content"];
             NSArray *picArray =[itemDict valueForKey:@"PicList"];
+            NSMutableArray *imgArray = [[NSMutableArray alloc] init];
             for (int i = 0; i < picArray.count; i++) {
-                messBody.posterPostImage = @[@"yewenback@2x.png",@"yewenback@2x.png",@"yewenback@2x.png"];
+                //[imgArray addObject:[NSString stringWithFormat:@"%@%@",Url,[picArray[i] valueForKey:@"ImagePath"]]];
             }
+            messBody.posterPostImage = imgArray;
             NSArray *ComArray =[itemDict valueForKey:@"ComList"];
             if (ComArray.count == 0) {
                 WFReplyBody *body = [[WFReplyBody alloc] init];
@@ -135,6 +139,11 @@
             messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
             messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
             
+            NSMutableArray *videoArray = [[NSMutableArray alloc] init];
+            [videoArray addObject:[itemDict valueForKey:@"VideoDuration"]];
+            [videoArray addObject:[itemDict valueForKey:@"VideoPath"]];
+            messBody.posterPostVideo = videoArray;
+            
             [_contentDataSource addObject:messBody];
         }
         
@@ -142,7 +151,16 @@
         
         [self loadTextData];
         
+        [SVProgressHUD dismiss];
+        
     }
+}
+
+- (void)finishWechatShortVideoCapture:(NSURL *)filePath {
+    NSLog(@"filePath is %@", filePath);
+    SendVideoViewController *sendVideoVC = [[SendVideoViewController alloc] init];
+    sendVideoVC.VideoFilePath=filePath;
+    [self.navigationController pushViewController:sendVideoVC animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -270,12 +288,19 @@
 {
     if(sender.tag == sendNews)
     {
-        SendNewsViewController *sendNewsVC = [[SendNewsViewController alloc] init];
-        [self.navigationController pushViewController:sendNewsVC animated:YES];
+        //SendNewsViewController *sendNewsVC = [[SendNewsViewController alloc] init];
+        //[self.navigationController pushViewController:sendNewsVC animated:YES];
+        
+        ceshiViewController *ceshiVC = [[ceshiViewController alloc] init];
+        [self.navigationController pushViewController:ceshiVC animated:YES];
     }
     else  if(sender.tag == smallVideo)
     {
+        WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
         
+        wechatShortVideoController.delegate = self;
+        
+        [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
     }
 }
 
@@ -351,7 +376,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     YMTextData *ym = [_tableDataSource objectAtIndex:indexPath.row];
     BOOL unfold = ym.foldOrNot;
-    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance);
+    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance) + ([ym.showVideoArray[0] isEqual:@""]?0:80);
 }
 
 

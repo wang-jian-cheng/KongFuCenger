@@ -7,7 +7,12 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "DataProvider.h"
+#import "MJRefresh.h"
 @interface TeamNewsViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
-
+{
+    int pageNo;
+    int pageSize;
+}
+@property(nonatomic)NSString *teamId;//设置则显示其他战队动态
 @end
