@@ -212,7 +212,11 @@
 //获取其他作品
 -(NSInteger )getUserid:(NSString *)userId andNum:(NSString *)num;
 
+//分页获取联盟动态
+- (NSInteger )growCateid:(NSString *)cateid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 
+//获取联盟动态横向分类
+-(NSInteger )getlianmengdongtai;
 
 //积分
 -(void)getJiFenList:(NSString *)userid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows;

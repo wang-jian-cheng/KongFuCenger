@@ -40,10 +40,9 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
     [self.view addGestureRecognizer:tapGesture];
     
-    
-    
     [self InitAllView];
 }
+
 
 -(void)InitAllView
 {
@@ -203,7 +202,9 @@
         
         [SVProgressHUD showSuccessWithStatus:@"发布成功" maskType:SVProgressHUDMaskTypeBlack];
         
-        [self.navigationController popViewControllerAnimated:YES];
+        
+//        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 -(void)JumpToChannelVC

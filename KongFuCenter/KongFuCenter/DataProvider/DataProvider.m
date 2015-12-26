@@ -283,6 +283,37 @@
 }
 
 
+//分页获取联盟动态
+- (NSInteger )growCateid:(NSString *)cateid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
+{
+    if(startRowIndex != nil && cateid != nil && maximumRows != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/GetDongtaiPageByLianmeng",Url];
+        NSDictionary * prm=@{@"cateid":cateid,
+                             @"startRowIndex":startRowIndex,
+                             @"maximumRows":maximumRows};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+//获取联盟动态横向分类
+-(NSInteger)getlianmengdongtai
+{
+    NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/GetLianmengCate",Url];
+    [self PostRequest:url andpram:nil];
+    return OK;
+}
+
+
 //int userid 用户ID
 //string nicname 昵称
 //int sexuality 性别 0：未知 1：男 2：女
@@ -409,13 +440,9 @@
 
 -(NSInteger)getStudyOnlineMainCategory
 {
- 
     NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetBigCateForOnlineStudy",Url];
-
     [self PostRequest:url andpram:nil];
-        
     return OK;
-  
 }
 
 -(NSInteger)getStudyOnlineSecundCategory:(NSString *)categoryid
