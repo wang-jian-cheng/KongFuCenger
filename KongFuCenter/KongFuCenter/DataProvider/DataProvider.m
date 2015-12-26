@@ -680,6 +680,7 @@
     if (mid && userid) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/MessageComment",Url];
         NSDictionary *prm = @{@"id":mid,@"userid":userid,@"comment":comment};
+        DLog(@"%@",prm);
         [self PostRequest:url andpram:prm];
     }
 }
@@ -689,6 +690,7 @@
         if (mid && userid) {
             NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/CommentComment",Url];
             NSDictionary *prm = @{@"id":mid,@"userid":userid,@"comment":comment};
+            DLog(@"%@",prm);
             [self PostRequest:url andpram:prm];
         }
     }
@@ -741,6 +743,19 @@
 
     }
 }
+-(void)delComment:(NSString*)messageID
+{
+    if(messageID)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/DeleteComment",Url];
+        NSDictionary *prm = @{@"id":messageID};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+
+}
+
 #pragma mark 核动力
 -(void)uploadVideoWithPath:(NSURL *)videoPath
 {

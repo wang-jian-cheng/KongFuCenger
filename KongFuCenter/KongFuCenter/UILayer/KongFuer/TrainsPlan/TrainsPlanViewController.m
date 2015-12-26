@@ -180,7 +180,7 @@
 {
     [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"getPlansCallBack:"];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"FootergetPlansCallBack:"];
     [dataprovider getPlanInfo:[Toolkit getUserID]
                     andCateId:[NSString stringWithFormat:@"%ld",cateId]
                   andStartRow:[NSString stringWithFormat:@"%d",pageNo*pageSize]
@@ -188,6 +188,32 @@
     
 }
 
+-(void)FootergetPlansCallBack:(id)dict
+{
+    
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            pageNo ++;
+            
+            [planArr addObjectsFromArray:dict[@"data"]];
+            [_mainTableView reloadData];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:[dict[@"data"] substringToIndex:4] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
 
 -(void)getPlans
 {

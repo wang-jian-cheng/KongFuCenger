@@ -26,5 +26,8 @@
  */
 @property (nonatomic,copy) NSString *replyInfo;
 
-
+/**
+ *  评论信息字典
+ */
+@property (nonatomic,copy) NSDictionary *replyDict;
 @end

@@ -49,5 +49,5 @@
 - (void)showCommentView;
 - (id) initWithFrame:(CGRect)frame andAboveView:(UIView *)bgView;
 - (void)disappear;
-
+-(void)updateComment;
 @end

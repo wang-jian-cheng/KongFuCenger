@@ -249,7 +249,7 @@
     float backView_H = 0;
     
     //显示视频
-    if(![ymData.showVideoArray[0] isEqual:@""]){
+    if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0){
         //MoviePlayer *moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(offSet_X + 30, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
         
         //MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:CGRectMake(offSet_X + 30, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - 2 * offSet_X - 30, 0) URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];

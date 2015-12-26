@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface JiFenTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *dateLab;
+@property (weak, nonatomic) IBOutlet UILabel *howLab;
+@property (weak, nonatomic) IBOutlet UILabel *jiFenLab;
 
 @end

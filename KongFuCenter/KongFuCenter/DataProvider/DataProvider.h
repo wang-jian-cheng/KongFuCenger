@@ -238,6 +238,8 @@
 -(void)getSelfTeamNews:(NSString *)userid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 //获取战队成员
 -(void)getTeamMember:(NSString *)teamid;
+//删除评论
+-(void)delComment:(NSString*)messageID;
 
 #pragma mark - 联盟动态
 -(void)getUnionNewsCate;

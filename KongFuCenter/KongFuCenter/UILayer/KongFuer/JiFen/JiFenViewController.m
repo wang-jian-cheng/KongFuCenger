@@ -52,6 +52,8 @@
     
     _mainTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         pageNo=0;
+        if(jiFenArr!=nil && jiFenArr.count > 0)
+            [jiFenArr removeAllObjects];
         [self getUserInfo];
         [weakSelf getJiFenList];
         // 结束刷新
@@ -148,6 +150,8 @@
         @try {
             NSDictionary *tempDict = dict[@"data"];
             pageNo++;
+            [jiFenArr addObjectsFromArray:dict[@"data"]];
+            [_mainTableView reloadData];
         }
         @catch (NSException *exception) {
             
@@ -192,73 +196,94 @@
 
     if(indexPath.section == 0)
     {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3)];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [headView makeSelfRound];
-        
-        userName.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
-                                                                     20+20, 100,((headView.frame.size.height - 40)/2 -5) );
-    //    userName.text = @"成龙";
-        userName.textColor = [UIColor whiteColor];
-        [cell addSubview:userName];
-        
-        jiFenLab.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
-                                                                     (userName.frame.origin.y+userName.frame.size.height), 200,
-                                                                      userName.frame.size.height);
-      //  jiFenLab.text = @"积分：1000个";
-        jiFenLab.textColor = [UIColor whiteColor];
-        [cell addSubview:jiFenLab];
-        
+        @try {
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3)];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [headView makeSelfRound];
+            
+            userName.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
+                                        20+20, 100,((headView.frame.size.height - 40)/2 -5) );
+            //    userName.text = @"成龙";
+            userName.textColor = [UIColor whiteColor];
+            [cell addSubview:userName];
+            
+            jiFenLab.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
+                                        (userName.frame.origin.y+userName.frame.size.height), 200,
+                                        userName.frame.size.height);
+            //  jiFenLab.text = @"积分：1000个";
+            jiFenLab.textColor = [UIColor whiteColor];
+            [cell addSubview:jiFenLab];
+            
+            
+            [cell addSubview:headView];
+            
+            cell.backgroundColor = ItemsBaseColor;
+            return cell;
 
-        [cell addSubview:headView];
-        
-        cell.backgroundColor = ItemsBaseColor;
-        return cell;
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
     }
     else
     {
-//  
-//        static NSString *CellIdentifier = @"jiFenCell";
-//        JiFenTableViewCell *cell = (JiFenTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//        cell.contentView.backgroundColor=ItemsBaseColor;
-//        cell.layer.masksToBounds=YES;
-//        cell.layer.cornerRadius=5;
-//        cell.bounds=CGRectMake(0, 0, SCREEN_WIDTH-50, cell.frame.size.height);
-//        cell  = [[[NSBundle mainBundle] loadNibNamed:@"JiFenTableViewCell" owner:self options:nil] lastObject];
-//        cell.layer.masksToBounds=YES;
-//        cell.frame=CGRectMake(cell.frame.origin.x, cell.frame.origin.y, SCREEN_WIDTH, _cellHeight);
-//        cell.backgroundColor = ItemsBaseColor;。
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
-        UIImageView *tipImgView = [[UIImageView alloc ] initWithFrame:CGRectMake(GapToLeft, 10, _cellHeight/2, _cellHeight/2)];
-        tipImgView.image = [UIImage imageNamed:@"tip"];
-        tipImgView.contentMode = UIViewContentModeScaleAspectFit;
+
+        @try {
+            NSDictionary *tempDict = jiFenArr[indexPath.row];
+            
+            //
+            //        static NSString *CellIdentifier = @"jiFenCell";
+            //        JiFenTableViewCell *cell = (JiFenTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            //        cell.contentView.backgroundColor=ItemsBaseColor;
+            //        cell.layer.masksToBounds=YES;
+            //        cell.layer.cornerRadius=5;
+            //        cell.bounds=CGRectMake(0, 0, SCREEN_WIDTH-50, cell.frame.size.height);
+            //        cell  = [[[NSBundle mainBundle] loadNibNamed:@"JiFenTableViewCell" owner:self options:nil] lastObject];
+            //        cell.layer.masksToBounds=YES;
+            //        cell.frame=CGRectMake(cell.frame.origin.x, cell.frame.origin.y, SCREEN_WIDTH, _cellHeight);
+            //        cell.backgroundColor = ItemsBaseColor;。
+            UIImageView *tipImgView = [[UIImageView alloc ] initWithFrame:CGRectMake(GapToLeft, 10, _cellHeight/2, _cellHeight/2)];
+            tipImgView.image = [UIImage imageNamed:@"tip"];
+            tipImgView.contentMode = UIViewContentModeScaleAspectFit;
+            
+            UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake((tipImgView.frame.size.width+tipImgView.frame.origin.x+10),
+                                                                         5,(SCREEN_WIDTH - (tipImgView.frame.size.width+tipImgView.frame.origin.x+10)) , (_cellHeight -10)/2)];
+            dateLab.textColor = [UIColor grayColor];
+            dateLab.text = tempDict[@"CreditTime"];
+            dateLab.font = [UIFont systemFontOfSize:14];
+            UILabel *contentLab = [[UILabel alloc] initWithFrame:CGRectMake((tipImgView.frame.size.width+tipImgView.frame.origin.x+10),
+                                                                            (dateLab.frame.origin.y+dateLab.frame.size.height), 200, (_cellHeight -10)/2)];
+            contentLab.text = tempDict[@"CreditCome"];
+            contentLab.textColor= [UIColor whiteColor];
+            contentLab.font = [UIFont systemFontOfSize:14];
+            UILabel *countLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -10 -50),
+                                                                          (dateLab.frame.origin.y+dateLab.frame.size.height),
+                                                                          50,
+                                                                          ((_cellHeight -10)/2))];
+            countLab.text = [NSString stringWithFormat:@"+%@个",tempDict[@"CreditNum"]];
+            countLab.textColor= [UIColor whiteColor];
+            countLab.font = [UIFont systemFontOfSize:14];
+            cell.backgroundColor = ItemsBaseColor;
+            
+            [cell addSubview:tipImgView];
+            [cell addSubview:dateLab];
+            [cell addSubview:contentLab];
+            [cell addSubview:countLab];
+
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            return cell;
+
+        }
         
-        UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake((tipImgView.frame.size.width+tipImgView.frame.origin.x+10),
-                                                                    5,100 , (_cellHeight -10)/2)];
-        dateLab.textColor = [UIColor grayColor];
-        dateLab.text = @"2015-08-15";
-        dateLab.font = [UIFont systemFontOfSize:14];
-        UILabel *contentLab = [[UILabel alloc] initWithFrame:CGRectMake((tipImgView.frame.size.width+tipImgView.frame.origin.x+10),
-                                                                        (dateLab.frame.origin.y+dateLab.frame.size.height), 200, (_cellHeight -10)/2)];
-        contentLab.text = @"来源：评论了一条信息";
-        contentLab.textColor= [UIColor whiteColor];
-        contentLab.font = [UIFont systemFontOfSize:14];
-        UILabel *countLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -10 -50),
-                                                                      (dateLab.frame.origin.y+dateLab.frame.size.height),
-                                                                      50,
-                                                                      ((_cellHeight -10)/2))];
-        countLab.text = @"+10个";
-        countLab.textColor= [UIColor whiteColor];
-        countLab.font = [UIFont systemFontOfSize:14];
-        cell.backgroundColor = ItemsBaseColor;
-        
-        [cell addSubview:tipImgView];
-        [cell addSubview:dateLab];
-        [cell addSubview:contentLab];
-        [cell addSubview:countLab];
-        
-        return cell;
         
     }
 

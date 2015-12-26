@@ -101,7 +101,7 @@
 
 -(void)getWYNewsCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
-        NSLog(@"%@",dict);
+        DLog(@"%@",dict);
         wyArray = dict[@"data"];
         for(NSDictionary *itemDict in dict[@"data"]){
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
@@ -532,7 +532,8 @@
 -(void)mainCommentCallBack:(id)dict{
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateComment" object:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateComment" object:nil];//ios7 多次调用会导致崩溃
+    [replyView updateComment];
     }
 }
 

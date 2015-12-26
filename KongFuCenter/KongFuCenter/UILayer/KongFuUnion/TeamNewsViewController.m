@@ -22,7 +22,7 @@
 
 #define dataCount 10
 #define kLocationToBottom 20
-#define kAdmin @"小虎-tiger"
+#define kAdmin get_sp(@"NicName")//@"小虎-tiger"
 
 #define sendNews  (2015+1)
 #define smallVideo  (2015+2)
@@ -47,6 +47,7 @@
     
     UIView *moreSettingBackView;
     
+    NSInteger actionIndex;
     
 }
 
@@ -73,17 +74,34 @@
             [comlist addObjectsFromArray:tempDict[@"ComList"]];
             NSMutableArray *comlistFromShow = [NSMutableArray array];
             for (int j =0; j<comlist.count; j++) {
+                
+                NSDictionary *tempDict = comlist[j];
                 WFReplyBody *body1 = [[WFReplyBody alloc] init];
-                body1.replyUser = kAdmin;
-                body1.repliedUser = @"红领巾";
-                body1.replyInfo = kContentText1;
+                body1.replyUser = tempDict[@"NicName"];
+                
+                body1.repliedUser =[[NSString stringWithFormat:@"%@",[tempDict valueForKey:@"ParentId"]] isEqual:@"0"]?@"":[tempDict valueForKey:@"CommentedNicName"];
+//                if(![tempDict[@"CommentedNicName"] isEqualToString:@""])
+//                {
+//                    body1.repliedUser = tempDict[@"CommentedNicName"];
+//                }
+                body1.replyInfo = tempDict[@"Content"];
+                body1.replyDict = [[NSDictionary alloc] initWithDictionary:tempDict];
                 [comlistFromShow addObject:body1];
             }
             
             
             WFMessageBody *messBody1 = [[WFMessageBody alloc] init];
             messBody1.posterContent = tempDict[@"Content"];
-            messBody1.posterPostImage = @[@"yewenback@2x.png",@"yewenback@2x.png",@"yewenback@2x.png"];
+            
+            NSMutableArray *picList = [NSMutableArray array];
+            [picList addObjectsFromArray:tempDict[@"PicList"]];
+            NSMutableArray *picPath = [NSMutableArray array];
+
+            for (int j = 0; j<picList.count; j++) {
+                [picPath addObject:[NSString stringWithFormat:@"%@%@",Kimg_path,picList[i][@"ImagePath"]]];
+            }
+            
+            messBody1.posterPostImage = picPath;
             messBody1.posterReplies = comlistFromShow;
             
             NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path ,get_sp(@"TeamImg")];
@@ -91,9 +109,12 @@
             messBody1.posterName = get_sp(@"TeamName");
             
             messBody1.posterIntro = @"";
-            messBody1.posterFavour = [NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
-            messBody1.isFavour = YES;
+            messBody1.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
             
+            
+            messBody1.isFavour = [tempDict[@"IsLike"] integerValue];
+            messBody1.zanNum = [[tempDict valueForKey:@"LikeNum"] intValue];
+
             
             [_contentDataSource addObject:messBody1];
             
@@ -115,11 +136,15 @@
     
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
+    NSString *str = kAdmin;
+    
+    NSLog(@"%@",str);
     
     [self setBarTitle:@"战队动态"];
     [self addLeftButton:@"left"];
     [self addRightButton:@"moreNoword"];
     pageSize = 10;
+    wyArray = [NSMutableArray array];
   //  [self configData];
     _tableDataSource = [[NSMutableArray alloc] init];
     _contentDataSource = [[NSMutableArray alloc] init];
@@ -128,6 +153,67 @@
     [self initTableview];
     
 }
+- (void) initTableview{
+    
+    mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
+    mainTable.backgroundColor = [UIColor clearColor];
+    // mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    mainTable.delegate = self;
+    mainTable.dataSource = self;
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    mainTable.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        pageNo=0;
+        [wyArray removeAllObjects];
+        if(_tableDataSource != nil && _tableDataSource.count > 0)
+            [_tableDataSource removeAllObjects];
+        [weakSelf getTeamNews];
+        // 结束刷新
+        [mainTable.mj_header endRefreshing];
+    }];
+    [mainTable.mj_header beginRefreshing];
+    
+    // 上拉刷新
+    mainTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        [weakSelf FooterRefresh];
+        [mainTable.mj_footer endRefreshing];
+    }];
+    
+    
+    
+    [self.view addSubview:mainTable];
+    
+    [self initHeadView];
+    
+    moreSettingBackView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100 -10), Header_Height, 100, 88)];
+    moreSettingBackView.backgroundColor = ItemsBaseColor;
+    UIButton *newBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
+    [newBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [newBtn setTitle:@"发动态" forState:UIControlStateNormal];
+    newBtn.tag = sendNews;
+    [newBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *lineView2 =[[UIView alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width - 2, 1)];
+    lineView2.backgroundColor = Separator_Color;
+    UIButton *delBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
+    [delBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [delBtn setTitle:@"小视频" forState:UIControlStateNormal];
+    [delBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    delBtn.tag = smallVideo;
+    
+    
+    
+    [moreSettingBackView addSubview:newBtn];
+    [moreSettingBackView addSubview:delBtn];
+    [moreSettingBackView addSubview:lineView2];
+    
+    [self.view addSubview:moreSettingBackView];
+    moreSettingBackView.hidden = YES;
+    
+}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
@@ -177,6 +263,8 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
+            [wyArray addObjectsFromArray:dict[@"data"]];
+
             pageNo++;
             if(_contentDataSource != nil || _contentDataSource.count>0)
                 [_contentDataSource removeAllObjects];
@@ -189,7 +277,7 @@
             
         }
         @finally {
-            
+            [mainTable reloadData];
         }
     }
     else
@@ -203,7 +291,7 @@
 #pragma mark -加载数据
 - (void)loadTextData{
     //dispatch_async
-    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSMutableArray * ymDataArray =[[NSMutableArray alloc]init];
         
@@ -265,63 +353,6 @@
 }
 
 
-- (void) initTableview{
-    
-    mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
-    mainTable.backgroundColor = [UIColor clearColor];
-    // mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-    mainTable.delegate = self;
-    mainTable.dataSource = self;
-    
-    __unsafe_unretained __typeof(self) weakSelf = self;
-    
-    mainTable.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        pageNo=0;
-        [weakSelf getTeamNews];
-        // 结束刷新
-        [mainTable.mj_header endRefreshing];
-    }];
-    [mainTable.mj_header beginRefreshing];
-    
-    // 上拉刷新
-    mainTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        [weakSelf FooterRefresh];
-        [mainTable.mj_footer endRefreshing];
-    }];
-    
-
-    
-    [self.view addSubview:mainTable];
-    
-    [self initHeadView];
-    
-    moreSettingBackView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100 -10), Header_Height, 100, 88)];
-    moreSettingBackView.backgroundColor = ItemsBaseColor;
-    UIButton *newBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
-    [newBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [newBtn setTitle:@"发动态" forState:UIControlStateNormal];
-    newBtn.tag = sendNews;
-    [newBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *lineView2 =[[UIView alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width - 2, 1)];
-    lineView2.backgroundColor = Separator_Color;
-    UIButton *delBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
-    [delBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [delBtn setTitle:@"小视频" forState:UIControlStateNormal];
-    [delBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    delBtn.tag = smallVideo;
-    
-    
-    
-    [moreSettingBackView addSubview:newBtn];
-    [moreSettingBackView addSubview:delBtn];
-    [moreSettingBackView addSubview:lineView2];
-    
-    [self.view addSubview:moreSettingBackView];
-    moreSettingBackView.hidden = YES;
-    
-}
 
 -(void)btnClick:(UIButton *)sender
 {
@@ -420,6 +451,24 @@
         cell = [[YMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.backgroundColor = ItemsBaseColor;
     }
+    
+    cell.CommentBtn.tag = indexPath.row;
+    [cell.CommentBtn addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
+    cell.CommentBtnHF.tag = indexPath.row;
+    [cell.CommentBtnHF addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.zanBtn.tag = indexPath.row;
+    [cell.zanBtn addTarget:self action:@selector(zanEvent:) forControlEvents:UIControlEventTouchUpInside];
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:indexPath.row];
+    WFMessageBody *m = ymData.messageBody;
+    if (m.isFavour == YES) {//此时该取消赞
+        [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan"] forState:UIControlStateNormal];
+    }else{
+        [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan_no"] forState:UIControlStateNormal];
+    }
+    cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey
+    
+    
     cell.stamp = indexPath.row;
     //cell.replyBtn.appendIndexPath = indexPath;
     //[cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -460,12 +509,14 @@
     
     UIView *headImgView = [[UIView alloc] initWithFrame:CGRectMake(0, (headView.frame.size.height - 85) / 2, SCREEN_WIDTH, headView.frame.size.height / 2)];
     UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 40) / 2 , 0, 40, 40)];
-    headImg.image = [UIImage imageNamed:@"headImg"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,get_sp(@"TeamImg")];
+    [headImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
     [headImgView addSubview:headImg];
     UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100) / 2, headImg.frame.origin.y + headImg.frame.size.height, 100, 21)];
     name_lbl.textColor = [UIColor whiteColor];
     name_lbl.textAlignment = NSTextAlignmentCenter;
-    name_lbl.text = @"成龙战队";
+    name_lbl.text = get_sp(@"TeamName");
     name_lbl.font = [UIFont systemFontOfSize:13];
     [headImgView addSubview:name_lbl];
     UILabel *address_lbl = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100) / 2, name_lbl.frame.origin.y + name_lbl.frame.size.height - 5, 100, 21)];
@@ -631,6 +682,107 @@
 }
 
 
+-(void)zanEvent:(UIButton *)sender{
+    NSLog(@"%d",(int)sender.tag);
+    selectRow = (int)sender.tag;
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
+    WFMessageBody *m = ymData.messageBody;
+    if (m.isFavour == YES) {//此时该取消赞
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
+        [dataProvider voicedelete:[wyArray[sender.tag] valueForKey:@"Id"] andUserId:[Toolkit getUserID] andFlg:@"2"];
+    }else{
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
+        [dataProvider voiceAction:[wyArray[sender.tag] valueForKey:@"Id"] andUserId:[Toolkit getUserID] andFlg:@"2"];
+    }
+}
+-(void)zanCallBack:(id)dict{
+    
+    DLog(@"%@",dict);
+    
+    if ([dict[@"code"] intValue] == 200) {
+        YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
+        WFMessageBody *m = ymData.messageBody;
+        if (m.isFavour == YES) {//此时该取消赞
+            m.isFavour = NO;
+            m.zanNum--;
+        }else{
+            m.isFavour = YES;
+            m.zanNum++;
+        }
+        ymData.messageBody = m;
+        //清空属性数组。否则会重复添加
+        [ymData.attributedDataFavour removeAllObjects];
+        ymData.favourHeight = [ymData calculateFavourHeightWithWidth:self.view.frame.size.width];
+        [_tableDataSource replaceObjectAtIndex:selectRow withObject:ymData];
+        [mainTable reloadData];
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
+
+#pragma mark - 评论
+
+-(void)commentEvent:(UIButton *)sender{
+    isComment = YES;
+    selectRow = (int)sender.tag;
+    replyView = [[YMReplyInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, screenWidth,44) andAboveView:self.view];
+    replyView.delegate = self;
+    replyView.replyTag = sender.tag;//_selectedIndexPath.row;
+    [self.view addSubview:replyView];
+}
+
+
+-(void)sendButton:(id)sender
+{
+    
+    @try {
+        if (isComment) {
+            DataProvider *dataProvider = [[DataProvider alloc] init];
+            [dataProvider setDelegateObject:self setBackFunctionName:@"mainCommentCallBack:"];
+            [dataProvider MessageComment:[wyArray[selectRow] valueForKey:@"Id"]
+                               anduserid:[Toolkit getUserID]
+                              andcomment:((UITextView *)sender).text];
+        }else{
+            DataProvider *dataProvider = [[DataProvider alloc] init];
+            [dataProvider setDelegateObject:self setBackFunctionName:@"mainCommentCallBack:"];
+            [dataProvider CommentComment:[[wyArray[selectRow] valueForKey:@"ComList"][_replyIndex] valueForKey:@"Id"]
+                               anduserid:[Toolkit getUserID]
+                              andcomment:((UITextView *)sender).text];
+            
+        }
+    }
+    @catch (NSException *exception) {
+    
+    }
+    @finally {
+        
+    }
+
+
+}
+
+-(void)mainCommentCallBack:(id)dict{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        
+//        dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//        dispatch_async(defaultQueue, ^{
+//                    });
+//        
+     //   [[NSNotificationCenter defaultCenter] postNotificationName:@"updateComment" object:nil userInfo:nil];
+        [replyView updateComment];
+        
+        [mainTable.mj_header beginRefreshing];
+    }
+}
+
+
 #pragma mark - 真の评论
 - (void)replyMessage:(YMButton *)sender{
     
@@ -785,25 +937,69 @@
 
 - (void)actionSheet:(WFActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
+        actionIndex = actionSheet.actionIndex;
+        @try {
+            YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:actionSheet.actionIndex];
+            WFMessageBody *m = ymData.messageBody;
+            [SVProgressHUD showWithStatus:@"删除中" maskType:SVProgressHUDMaskTypeBlack];
+            DataProvider *dataProvider = [[DataProvider alloc] init];
+            [dataProvider setDelegateObject:self setBackFunctionName:@"delCommentCallBack:"];
+            
+            WFReplyBody *tempReply = m.posterReplies[_replyIndex];
+            [dataProvider delComment:tempReply.replyDict[@"Id"]];
+
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+        
         //delete
-        YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:actionSheet.actionIndex];
-        WFMessageBody *m = ymData.messageBody;
-        [m.posterReplies removeObjectAtIndex:_replyIndex];
-        ymData.messageBody = m;
-        [ymData.completionReplySource removeAllObjects];
-        [ymData.attributedDataReply removeAllObjects];
-        
-        
-        ymData.replyHeight = [ymData calculateReplyHeightWithWidth:self.view.frame.size.width];
-        [_tableDataSource replaceObjectAtIndex:actionSheet.actionIndex withObject:ymData];
-        
-        [mainTable reloadData];
-        
     }else{
         
     }
-    _replyIndex = -1;
+    
 }
+
+-(void)delCommentCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        @try {
+            YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:actionIndex];
+            WFMessageBody *m = ymData.messageBody;
+            
+            [m.posterReplies removeObjectAtIndex:_replyIndex];
+            ymData.messageBody = m;
+            [ymData.completionReplySource removeAllObjects];
+            [ymData.attributedDataReply removeAllObjects];
+            
+            
+            ymData.replyHeight = [ymData calculateReplyHeightWithWidth:self.view.frame.size.width];
+            [_tableDataSource replaceObjectAtIndex:actionIndex withObject:ymData];
+            
+
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            [mainTable reloadData];
+            _replyIndex = -1;
+
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"删除失败" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+
+}
+
 
 - (void)dealloc{
     

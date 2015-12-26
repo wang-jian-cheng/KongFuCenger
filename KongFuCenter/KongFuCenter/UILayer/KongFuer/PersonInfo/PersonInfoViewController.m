@@ -346,7 +346,7 @@
         @try {
             NSDictionary *tempDict = dict[@"data"];
             
-            
+            [[NSUserDefaults standardUserDefaults] setValue:[dict[@"data"] valueForKey:@"NicName"] forKey:@"NicName"];
             NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
             
             [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];

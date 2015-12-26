@@ -682,7 +682,7 @@
 
 -(void)setLoginValue:(NSDictionary *)dict{
     @try {
-        NSLog(@"%@",dict);
+        DLog(@"%@",dict);
             [mUserDefault setValue:[dict valueForKey:@"UserName"] forKey:LogIn_UserID_key];//上次登录的账户
             [mUserDefault setValue:passWordText.text forKey:LogIn_UserPass_key];//上次登录的账户
             [mUserDefault setValue:[dict valueForKey:@"Id"] forKey:@"id"];

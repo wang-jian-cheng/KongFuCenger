@@ -159,7 +159,7 @@
     if ([dict[@"code"] intValue]==200) {
         @try {
             NSDictionary *tempDict = dict[@"data"];
-
+            [[NSUserDefaults standardUserDefaults] setValue:[dict[@"data"] valueForKey:@"NicName"] forKey:@"NicName"];
             lvLab.text = [NSString stringWithFormat:@"lv%@",tempDict[@"Rank"]];
             if([tempDict[@"IsPay"] integerValue ] == 0)
             {
