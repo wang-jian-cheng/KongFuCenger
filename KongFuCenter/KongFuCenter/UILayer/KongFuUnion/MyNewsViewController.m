@@ -175,19 +175,19 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
--(void)clickRightButton:(UIButton *)sender
-{
-    if(moreSettingBackView.hidden == YES)
-    {
-        moreSettingBackView.hidden = NO;
-        [self positionShowView:moreSettingBackView];
-    }
-    else
-    {
-        
-        [self positionDismissView:moreSettingBackView];
-    }
-}
+//-(void)clickRightButton:(UIButton *)sender
+//{
+//    if(moreSettingBackView.hidden == YES)
+//    {
+//        moreSettingBackView.hidden = NO;
+//        [self positionShowView:moreSettingBackView];
+//    }
+//    else
+//    {
+//        
+//        [self positionDismissView:moreSettingBackView];
+//    }
+//}
 
 #pragma mark -加载数据
 - (void)loadTextData{
