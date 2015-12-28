@@ -25,6 +25,11 @@
     [self startReading];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
 - (BOOL)startReading {
     
     _viewPreview.frame=CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64);
