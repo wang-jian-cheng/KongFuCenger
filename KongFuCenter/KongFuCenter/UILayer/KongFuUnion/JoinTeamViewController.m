@@ -38,6 +38,7 @@
     //通用
     NSUserDefaults *userDefault;
     DataProvider *dataProvider;
+    NSString *teamId;
 }
 
 @end
@@ -272,7 +273,7 @@
 }
 
 -(void)joinTeamEvent:(UIButton *)btn{
-    NSString *teamId = teamArray[btn.tag][@"Id"];
+    teamId = teamArray[btn.tag][@"Id"];
     NSString *teamName = teamArray[btn.tag][@"Name"];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"joinTeamCallBack:"];
@@ -282,7 +283,7 @@
 -(void)joinTeamCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showSuccessWithStatus:@"加入战队成功~"];
-        [userDefault setValue:@"" forKey:@"TeamId"];
+        [userDefault setValue:teamId forKey:@"TeamId"];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"加入战队失败~"];
     }
@@ -405,7 +406,12 @@
             cell.mImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,teamArray[indexPath.row - 1][@"ImagePath"]]]]];//[UIImage imageNamed:@"jointeam"];
             cell.mName.text = teamArray[indexPath.row - 1][@"Name"];//@"跆拳道战队(123456789)";
             cell.mAddress.text = teamArray[indexPath.row - 1][@"Address"];
-            [cell.mJoin setTitle:@"加入" forState:UIControlStateNormal];
+            if ([[NSString stringWithFormat:@"%@",[userDefault valueForKey:@"TeamId"]] isEqual:@"0"]) {
+                [cell.mJoin setTitle:@"加入" forState:UIControlStateNormal];
+                [cell.mJoin setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+            }else{
+                [cell.mJoin setTitle:@"已加入" forState:UIControlStateNormal];
+            }
             cell.mJoin.tag = indexPath.row - 1;
             [cell.mJoin addTarget:self action:@selector(joinTeamEvent:) forControlEvents:UIControlEventTouchUpInside];
             return cell;
