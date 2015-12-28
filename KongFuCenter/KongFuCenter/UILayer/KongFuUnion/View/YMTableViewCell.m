@@ -11,6 +11,7 @@
 #import "ContantHead.h"
 #import "YMTapGestureRecongnizer.h"
 #import "WFHudView.h"
+#import "UIImageView+WebCache.h"
 
 #define kImageTag 9999
 
@@ -143,7 +144,8 @@
     tempDate = ymData;
     
 #pragma mark -  //头像 昵称 简介
-    _userHeaderImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tempDate.messageBody.posterImgstr]]];//[UIImage imageNamed:tempDate.messageBody.posterImgstr];
+    //_userHeaderImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tempDate.messageBody.posterImgstr]]];//[UIImage imageNamed:tempDate.messageBody.posterImgstr];
+    [_userHeaderImage sd_setImageWithURL:[NSURL URLWithString:tempDate.messageBody.posterImgstr] placeholderImage:[UIImage imageNamed:@"me"]];
     _userNameLbl.text = tempDate.messageBody.posterName;
     _userIntroLbl.text = tempDate.messageBody.posterIntro;
     
@@ -218,7 +220,8 @@
         image.backgroundColor = [UIColor clearColor];
         image.tag = kImageTag + i;
         //image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[ymData.showImageArray objectAtIndex:i]]];
-        image.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[ymData.showImageArray objectAtIndex:i]]]];
+        //image.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[ymData.showImageArray objectAtIndex:i]]]];
+        [image sd_setImageWithURL:[NSURL URLWithString:[ymData.showImageArray objectAtIndex:i]] placeholderImage:[UIImage imageNamed:@"me"]];
         [self.contentView addSubview:image];
         [_imageArray addObject:image];
         
@@ -249,7 +252,7 @@
     float backView_H = 0;
     
     //显示视频
-    if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0){
+    if([self isExitVideo:ymData]){
         //MoviePlayer *moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(offSet_X + 30, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
         
         //MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:CGRectMake(offSet_X + 30, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - 2 * offSet_X - 30, 0) URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
@@ -257,8 +260,11 @@
         
         //_moViePlayer = [[MoviePlayer alloc] initWithFrame:CGRectMake(10, 100,SCREEN_WIDTH - 20,200) URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
         
-        _videoImg.frame = CGRectMake(offSet_X + 30, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - 2 * offSet_X - 30, 100);
-        _videoImg.image = [UIImage imageNamed:@"me"];
+        //_videoImg.frame = CGRectMake(offSet_X + 30, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - 2 * offSet_X - 30, 80);
+        //_videoImg.image = [UIImage imageNamed:@"me"];
+        NSString *url = [ymData.showVideoArray[0] stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
+        
+        [_videoImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
     }else{
         _videoImg.image = nil;
     }
@@ -324,7 +330,7 @@
         
         [_ilcoreText setOldString:matchString andNewString:[ymData.completionReplySource objectAtIndex:i]];
         
-        _ilcoreText.frame = CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance + ymData.favourHeight + (ymData.favourHeight == 0?0:kReply_FavourDistance), screenWidth - offSet_X * 2, [_ilcoreText getTextHeight]);
+        _ilcoreText.frame = CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance + ymData.favourHeight + (ymData.favourHeight == 0?0:kReply_FavourDistance) + ([self isExitVideo:ymData]?127:0), screenWidth - offSet_X * 2, [_ilcoreText getTextHeight]);
         [self.contentView addSubview:_ilcoreText];
         origin_Y += [_ilcoreText getTextHeight] + 5 ;
         
@@ -338,21 +344,20 @@
     
     
     if (ymData.replyDataSource.count == 0) {//没回复的时候
-        
-        replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, 0, 0);
+        _videoImg.frame = CGRectMake(offSet_X, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, screenWidth - 2 * offSet_X, 120);
+        replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance + (![self isExitVideo:ymData]?0:127), 0, 0);
         //_replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 40, 18);
-        _zanNum.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 41 - 100,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 100, 15);
-        _zanBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 40,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 18, 15);
-        _vLine.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 18,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 1, 15);
-        _CommentBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 13,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 18, 15);
-        _CommentBtnHF.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 + 5,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 40, 15);
+        _zanNum.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 41 - 100,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24+ (![self isExitVideo:ymData]?0:127), 100, 15);
+        _zanBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 40,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24+ (![self isExitVideo:ymData]?0:127), 18, 15);
+        _vLine.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 18,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24+ (![self isExitVideo:ymData]?0:127), 1, 15);
+        _CommentBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 13,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24+ (![self isExitVideo:ymData]?0:127), 18, 15);
+        _CommentBtnHF.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 + 5,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24+ (![self isExitVideo:ymData]?0:127), 40, 15);
         //_commentDate.frame = CGRectMake(offSet_X, replyImageView.frame.origin.y - 24, 100, 18);
-        _commentDate.frame = CGRectMake(offSet_X, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 100, 18);
+        _commentDate.frame = CGRectMake(offSet_X, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24+ (![self isExitVideo:ymData]?0:127), 100, 18);
         
     }else{
-        
-        replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, screenWidth - offSet_X * 2, backView_H + 20 - 8);//微调
-        
+        _videoImg.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance - 24, screenWidth - 2 * offSet_X, 100);
+        replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance + (![self isExitVideo:ymData]?0:127), screenWidth - offSet_X * 2, backView_H + 20 - 8);//微调
         //_replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6, replyImageView.frame.origin.y - 24, 40, 18);
         _zanNum.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 41 - 100, replyImageView.frame.origin.y - 24, 100, 15);
         _zanBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 40, replyImageView.frame.origin.y - 24, 18, 15);
@@ -364,6 +369,10 @@
     }
     
     
+}
+
+-(BOOL)isExitVideo:(YMTextData *)ymData{
+    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0;
 }
 
 #pragma mark - ilcoreTextDelegate

@@ -278,19 +278,78 @@
         for (NSString * str in self.arr_deleteVoice) {
             
             model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
-            [self.arr_voiceData removeObjectAtIndex:[str integerValue]];
             
             DataProvider * dataprovider=[[DataProvider alloc] init];
             [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack3:"];
             
-            [mainCollectionView reloadData];
+//            [self.arr_voiceData removeObjectAtIndex:[str integerValue]];
+//            [mainCollectionView reloadData];
         }
 
-        [mainCollectionView reloadData];
+//        [mainCollectionView reloadData];
         
-        self.arr_deleteVoice = nil;
+//        self.arr_deleteVoice = nil;
         
     }
+}
+
+- (void)getUserInfoCallBack3:(id)dict
+{
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+            if(self.arr_deleteVoice.count == 1)
+            {
+                
+            }
+            else
+            {
+                for(int i = 0; i < self.arr_deleteVoice.count ; i ++)
+                {
+                    for (int j = 0; j < self.arr_deleteVoice.count - 1 - i; j ++)
+                    {
+                        if([self.arr_deleteVoice[j] integerValue] < [self.arr_deleteVoice[j + 1] integerValue])
+                        {
+                            [self.arr_deleteVoice exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+                        }
+                    }
+                }
+            }
+            
+            for (NSString * str in self.arr_deleteVoice) {
+                
+//                model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
+//                
+//                DataProvider * dataprovider=[[DataProvider alloc] init];
+//                [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
+//                [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack3:"];
+                
+                [self.arr_voiceData removeObjectAtIndex:[str integerValue]];
+                [mainCollectionView reloadData];
+            }
+            
+            [mainCollectionView reloadData];
+            
+            self.arr_deleteVoice = nil;
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+//            [_mainTableView reloadData];
+//            [SVProgressHUD dismiss];
+            NSLog(@"完成");
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
 }
 
 -(void)cateBtnClick:(UIButton *)sender

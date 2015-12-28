@@ -88,7 +88,7 @@
     _imgRight.center = CGPointMake(_imgRight.center.x, _imgLeft.center.y);
     [self.view addSubview:_imgRight];
     
-    _lblRight = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60-10 ,_orginY ,60,NavigationBar_HEIGHT)];
+    _lblRight = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60-10 ,_orginY ,80,NavigationBar_HEIGHT)];
     
     _lblRight.numberOfLines = 0;
     _lblRight.textAlignment=NSTextAlignmentCenter;

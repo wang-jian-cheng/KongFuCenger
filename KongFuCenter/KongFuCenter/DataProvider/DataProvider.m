@@ -643,6 +643,8 @@
         NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeam",Url];
         NSDictionary * prm=@{@"teamid":teamId};
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -724,10 +726,10 @@
     }
 }
 
--(void)SaveDongtai:(NSString *)userid andcontent:(NSString *)content andpathlist:(NSString *)pathlist andvideopath:(NSString *)videopath andvideoDuration:(NSString *)videoDuration{
+-(void)SaveDongtai:(NSString *)userid andcontent:(NSString *)content andpathlist:(NSString *)pathlist andvideoImage:(NSString *)videoImage andvideopath:(NSString *)videopath andvideoDuration:(NSString *)videoDuration{
     if (userid) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SaveDongtai",Url];
-        NSDictionary *prm = @{@"userid":userid,@"content":content,@"pathlist":pathlist,@"videopath":videopath,@"videoDuration":videoDuration};
+        NSDictionary *prm = @{@"userid":userid,@"content":content,@"pathlist":pathlist,@"videopath":videopath,@"videoImage":videoImage,@"videoDuration":videoDuration};
         [self PostRequest:url andpram:prm];
     }
 }

@@ -389,6 +389,7 @@
 		B7E4CD1D1C1FE20000C2E69A /* zphz.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD1C1C1FE20000C2E69A /* zphz.png */; };
 		B7E4CD1F1C1FE24600C2E69A /* sys.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD1E1C1FE24600C2E69A /* sys.png */; };
 		B7E4CD221C1FE28500C2E69A /* wdwy.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E4CD211C1FE28500C2E69A /* wdwy.png */; };
+		B7E7CF761C31036C00FDA06B /* PlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E7CF751C31036C00FDA06B /* PlayVideoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1028,6 +1029,8 @@
 		B7E4CD1C1C1FE20000C2E69A /* zphz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zphz.png; sourceTree = "<group>"; };
 		B7E4CD1E1C1FE24600C2E69A /* sys.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sys.png; sourceTree = "<group>"; };
 		B7E4CD211C1FE28500C2E69A /* wdwy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wdwy.png; sourceTree = "<group>"; };
+		B7E7CF741C31036C00FDA06B /* PlayVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayVideoViewController.h; sourceTree = "<group>"; };
+		B7E7CF751C31036C00FDA06B /* PlayVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayVideoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2519,6 +2522,8 @@
 				B712CC9A1C2D1D6B00B1A2E8 /* SendVideoViewController.m */,
 				B737AEA91C2D32BC00BE9615 /* ceshiViewController.h */,
 				B737AEAA1C2D32BC00BE9615 /* ceshiViewController.m */,
+				B7E7CF741C31036C00FDA06B /* PlayVideoViewController.h */,
+				B7E7CF751C31036C00FDA06B /* PlayVideoViewController.m */,
 			);
 			name = WYNews;
 			sourceTree = "<group>";
@@ -2939,6 +2944,7 @@
 				804952041C250B3800F5584A /* SCFilter.m in Sources */,
 				B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */,
 				804952181C250B3800F5584A /* CALayer+AddUIColor.m in Sources */,
+				B7E7CF761C31036C00FDA06B /* PlayVideoViewController.m in Sources */,
 				7B580B0C1C2A298F00BFF83D /* model_collect.m in Sources */,
 				7BCBB22A1C2393C800C2AAAA /* ClearCacheViewController.m in Sources */,
 				B5D345CC1C28E97E00D39891 /* PhotoCell.m in Sources */,
@@ -3244,7 +3250,7 @@
 				);
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3294,7 +3300,7 @@
 				);
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

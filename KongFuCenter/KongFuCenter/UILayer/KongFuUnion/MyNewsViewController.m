@@ -16,6 +16,7 @@
 #import "WFMessageBody.h"
 #import "WFPopView.h"
 #import "WFActionSheet.h"
+#import "PlayVideoViewController.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -92,21 +93,22 @@
     [SVProgressHUD showWithStatus:@"加载中"];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getMyNewsCallBack:"];
     //[dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
-    [dataProvider SelectDongtaiByFriendId:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
+    [dataProvider SelectDongtaiByFriendId:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"5"];
 }
 
 -(void)getMyNewsCallBack:(id)dict{
-    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
-        NSLog(@"%@",dict);
+        DLog(@"%@",dict);
         wyArray = dict[@"data"];
         for(NSDictionary *itemDict in dict[@"data"]){
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             messBody.posterContent = [itemDict valueForKey:@"Content"];
             NSArray *picArray =[itemDict valueForKey:@"PicList"];
+            NSMutableArray *imgArray = [[NSMutableArray alloc] init];
             for (int i = 0; i < picArray.count; i++) {
-                messBody.posterPostImage = @[@"yewenback@2x.png",@"yewenback@2x.png",@"yewenback@2x.png"];
+                [imgArray addObject:[NSString stringWithFormat:@"%@%@",Url,[picArray[i] valueForKey:@"ImagePath"]]];
             }
+            messBody.posterPostImage = imgArray;
             NSArray *ComArray =[itemDict valueForKey:@"ComList"];
             if (ComArray.count == 0) {
                 WFReplyBody *body = [[WFReplyBody alloc] init];
@@ -134,12 +136,20 @@
             messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
             messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
             
+            NSMutableArray *videoArray = [[NSMutableArray alloc] init];
+            [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[itemDict valueForKey:@"ImagePath"]]];
+            [videoArray addObject:[itemDict valueForKey:@"VideoPath"]];
+            [videoArray addObject:[itemDict valueForKey:@"VideoDuration"]];
+            messBody.posterPostVideo = videoArray;
+            
             [_contentDataSource addObject:messBody];
         }
         
         [self initTableview];
         
         [self loadTextData];
+        
+        [SVProgressHUD dismiss];
         
     }
 }
@@ -349,7 +359,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     YMTextData *ym = [_tableDataSource objectAtIndex:indexPath.row];
     BOOL unfold = ym.foldOrNot;
-    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance);
+    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance) + ([ym.showVideoArray[0] isEqual:@""]?0:80);
 }
 
 
@@ -399,11 +409,28 @@
         [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan_no"] forState:UIControlStateNormal];
     }
     cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey:@"LikeNum"]];
+    if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0){
+        UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoImgEvent:)];
+        cell.videoImg.userInteractionEnabled = YES;
+        NSLog(@"%d",(int)indexPath.row);
+        [cell.videoImg addGestureRecognizer:clickVideoImg];
+        clickVideoImg.view.tag = indexPath.row;
+    }
+    
     cell.delegate = self;
     [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
     cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
     
     return cell;
+}
+
+-(void)clickVideoImgEvent:(id)sender{
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer*)sender;
+    UIView *views = (UIView*) tap.view;
+    NSLog(@"%d",(int)views.tag);
+    PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
+    playVideoVC.videoPath = [wyArray[views.tag] valueForKey:@"VideoPath"];
+    [self.navigationController pushViewController:playVideoVC animated:YES];
 }
 
 -(NSString *)compareDate:(NSDate *)date{
