@@ -170,7 +170,9 @@
         
         [prm setObject:@"0" forKey:@"id"];
         
-        [prm setObject:dict[@"data"][@"ImageName"] forKey:@"ImagePath"];
+        
+        
+        [prm setObject:[[NSString stringWithFormat:@"%@",dict[@"data"][@"ImageName"]] stringByReplacingOccurrencesOfString:@"\\" withString:@"/"] forKey:@"ImagePath"];
         
         [prm setObject:txt_Content.text forKey:@"Content"];
         
