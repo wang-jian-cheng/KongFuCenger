@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/StudyOnLineViewController.m"
-            timestampString = "472720472.850625"
+            timestampString = "472988907.440616"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "-collectionView:layout:highlightedCellDirectionForGroup:atIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/StudyOnLineViewController.m"
-            timestampString = "472720472.850625"
+            timestampString = "472988907.440616"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "370"
-            endingLineNumber = "370"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
             landmarkName = "-collectionView:layout:highlightedCellDirectionForGroup:atIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/StudyOnLineViewController.m"
-            timestampString = "472720472.850625"
+            timestampString = "472988907.440616"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "364"
-            endingLineNumber = "364"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
             landmarkName = "-collectionView:layout:highlightedCellDirectionForGroup:atIndexPath:"
             landmarkType = "5">
          </BreakpointContent>

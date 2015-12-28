@@ -150,6 +150,7 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"FooterRefreshCallBack:"];
     [dataprovider getWuGuanList:cityID andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+    
 
 }
 

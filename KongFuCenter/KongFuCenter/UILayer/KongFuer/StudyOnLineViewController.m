@@ -193,6 +193,20 @@
                 [secondCateArr removeAllObjects];
             [secondCateArr addObjectsFromArray:dict[@"data"]];
             
+            
+            mainCollectionView = [[UICollectionView alloc]  initWithFrame:CGRectMake(0, 44+Header_Height, SCREEN_WIDTH , SCREEN_HEIGHT-(44+Header_Height)) collectionViewLayout:self.collectionViewLayout];
+            
+            
+            [mainCollectionView registerClass :[ UICollectionViewCell class ] forCellWithReuseIdentifier : _CELL ];
+            
+            mainCollectionView.delegate= self;
+            mainCollectionView.dataSource =self;
+            mainCollectionView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*2);
+            mainCollectionView.showsHorizontalScrollIndicator = YES;
+            mainCollectionView.showsVerticalScrollIndicator = NO;
+            mainCollectionView.backgroundColor = BACKGROUND_COLOR;
+        
+            [self.view addSubview:mainCollectionView];
             [mainCollectionView reloadData];
 
         }
@@ -218,6 +232,11 @@
     [btnImgView removeFromSuperview];
     btnImgView.frame = CGRectMake((sender.frame.size.width-15)/2, (sender.frame.size.height - 15), 15, 15);
     [sender addSubview:btnImgView];
+    
+    if(secondCateArr !=nil)
+        [secondCateArr removeAllObjects];
+    
+    [mainCollectionView removeFromSuperview];
     [self getSecundCategory:studyCateArr[sender.tag][@"Id"]];
     for(int i =0;i<btnArr.count;i++)
     {
@@ -271,7 +290,7 @@
         
         UIImageView *backView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
         NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,secondCateArr[indexPath.row][@"ImagePath"]];
-        [backView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+      //  [backView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
         [cell addSubview:backView];
         
         UILabel *cateNameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];

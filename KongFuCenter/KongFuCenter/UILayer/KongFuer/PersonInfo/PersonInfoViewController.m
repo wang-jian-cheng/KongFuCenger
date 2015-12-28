@@ -497,7 +497,7 @@
                 [alert show];
                 return;
             }
-           // [self getCityByProvince:provinceId];
+            [self getCityByProvince:provinceId];
             
 
         }
@@ -545,10 +545,13 @@
                     
                 }
                 else
+                {
+                    [cityBtn setTitle:@"" forState:UIControlStateNormal];
+                    [areaBtn setTitle:@"" forState:UIControlStateNormal];
                     return;
-                
+                }
                 [infoArr addObjectsFromArray:dict[@"data"]];
-                [self.view addSubview:_pickerView];
+//                [self.view addSubview:_pickerView];
                 
                 if(_pickerView.tag == CityTAG)
                     [_pickerView reloadAllComponents];
@@ -615,7 +618,10 @@
             if(areaArr.count > 0)
                 [areaBtn  setTitle:areaArr[0][@"Name"] forState:UIControlStateNormal] ;
             else
+            {
+                [areaBtn setTitle:@"" forState:UIControlStateNormal];
                 return;
+            }
             [infoArr addObjectsFromArray:dict[@"data"]];
             [self.view addSubview:_pickerView];
             if(_pickerView.tag == AreaTAG)
@@ -666,10 +672,11 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    UITextField *textNum=[alertView textFieldAtIndex:0];
+    
     switch (alertView.tag) {
         case HighTAG:
         {
+            UITextField *textNum=[alertView textFieldAtIndex:0];
             if ([textNum.text intValue]==0) {
             // [Dialog simpleToast:@"请正确"];
             return;
@@ -682,6 +689,7 @@
             break;
         case WeightTAG:
         {
+            UITextField *textNum=[alertView textFieldAtIndex:0];
             if ([textNum.text intValue]==0) {
                 // [Dialog simpleToast:@"请正确"];
                 return;
@@ -696,6 +704,7 @@
             
         case AgeTAG:
         {
+            UITextField *textNum=[alertView textFieldAtIndex:0];
             if ([textNum.text intValue]==0) {
                 // [Dialog simpleToast:@"请正确"];
                 return;
@@ -708,6 +717,7 @@
             break;
         case LearnTimeTAG:
         {
+            UITextField *textNum=[alertView textFieldAtIndex:0];
             if ([textNum.text intValue]==0) {
                 // [Dialog simpleToast:@"请正确"];
                 return;
@@ -823,7 +833,8 @@
                 return;
             }
             [self getCityByProvince:provinceId];
-            
+            [self.view addSubview:_pickerView];
+
           
         }
             break;
@@ -1174,315 +1185,325 @@
 //设置每行调用的cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if(indexPath.section == 0)
-    {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*2)];
-        cell.backgroundColor = ItemsBaseColor;
-        
-        
-        headView.delegate  = self;
-        
-        [headView makeSelfRound];
-        
-        
-        
-        userName = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
-                                                                      20, 100,((headView.frame.size.height )/3 -5) )];
-       // userName.text = @"成龙";
-        userName.textColor = [UIColor whiteColor];
-        userName.font = [UIFont systemFontOfSize:14];
-        [cell addSubview:userName];
-        
-        idLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
-                                                                  (userName.frame.origin.y+userName.frame.size.height), 200,
-                                                                  ((headView.frame.size.height )/3 -5))];
-        idLab.textColor = [UIColor whiteColor];
-      //  idLab.text = @"ID:12345678900";
-        idLab.font = [UIFont systemFontOfSize:14];
-        [cell addSubview:idLab];
-        
-        jiFenLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
-                                                                      (idLab.frame.origin.y+idLab.frame.size.height), 200,
-                                                                      userName.frame.size.height)];
-      //  jiFenLab.text = @"积分：1000";
-        jiFenLab.textColor = [UIColor whiteColor];
-        jiFenLab.font = [UIFont systemFontOfSize:14];
-        [cell addSubview:jiFenLab];
-        
-        
-        [cell addSubview:headView];
-        cell.backgroundColor = ItemsBaseColor;
-        
-        if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
+    
+    @try {
+        if(indexPath.section == 0)
         {
-            [cell setSeparatorInset:UIEdgeInsetsZero];
-            [cell setLayoutMargins:UIEdgeInsetsZero];
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*2)];
+            cell.backgroundColor = ItemsBaseColor;
+            
+            
+            headView.delegate  = self;
+            
+            [headView makeSelfRound];
+            
+            
+            
+            userName = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
+                                                                 20, 100,((headView.frame.size.height )/3 -5) )];
+            // userName.text = @"成龙";
+            userName.textColor = [UIColor whiteColor];
+            userName.font = [UIFont systemFontOfSize:14];
+            [cell addSubview:userName];
+            
+            idLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
+                                                              (userName.frame.origin.y+userName.frame.size.height), 200,
+                                                              ((headView.frame.size.height )/3 -5))];
+            idLab.textColor = [UIColor whiteColor];
+            //  idLab.text = @"ID:12345678900";
+            idLab.font = [UIFont systemFontOfSize:14];
+            [cell addSubview:idLab];
+            
+            jiFenLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
+                                                                 (idLab.frame.origin.y+idLab.frame.size.height), 200,
+                                                                 userName.frame.size.height)];
+            //  jiFenLab.text = @"积分：1000";
+            jiFenLab.textColor = [UIColor whiteColor];
+            jiFenLab.font = [UIFont systemFontOfSize:14];
+            [cell addSubview:jiFenLab];
+            
+            
+            [cell addSubview:headView];
+            cell.backgroundColor = ItemsBaseColor;
+            
+            if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
+            {
+                [cell setSeparatorInset:UIEdgeInsetsZero];
+                [cell setLayoutMargins:UIEdgeInsetsZero];
+            }
+            return cell;
         }
-        return cell;
-    }
-    else if(indexPath.section == 1)
-    {
-        
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
-        cell.backgroundColor = ItemsBaseColor;
-        
-        switch (indexPath.row) {
-            case 0:
-            {
-                UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 40, _cellHeight)];
-                titlLab.text =@"昵称:";
-                titlLab.textColor = [UIColor whiteColor];
-                titlLab.font = [UIFont systemFontOfSize:14];
-                [cell addSubview:titlLab];
-                
-                nickName.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x) + 23,
-                           0, SCREEN_HEIGHT - (titlLab.frame.size.width + titlLab.frame.origin.x)
-                                             , _cellHeight);
-                nickName.backgroundColor = ItemsBaseColor;
-                nickName.placeholder = @"请输入您的昵称";
-                [cell addSubview:nickName];
-                
-            }
-                break;
-            case 1:
-            {
-                UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 40, _cellHeight)];
-                titlLab.text =@"性别:";
-                titlLab.textColor = [UIColor whiteColor];
-                titlLab.font = [UIFont systemFontOfSize:14];
-                [cell addSubview:titlLab];
-                
-                boyBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) + 5,
-                                                                             5, 50, _cellHeight - 10);
-                
-                [boyBtn setTitle:@"男" forState:UIControlStateNormal];
-                [boyBtn setImage:[UIImage imageNamed:@"point"] forState:UIControlStateNormal];
-                [boyBtn setImage:[UIImage imageNamed:@"pointH"] forState:UIControlStateSelected];
-                [boyBtn addTarget:self action:@selector(sexBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-               // boyBtn.selected = YES;
-                [cell addSubview:boyBtn];
-                
-                grilBtn.frame = CGRectMake((boyBtn.frame.size.width + boyBtn.frame.origin.x+20),
-                                                                             5, 50, _cellHeight - 10);
-                
-                [grilBtn setTitle:@"女" forState:UIControlStateNormal];
-                [grilBtn setImage:[UIImage imageNamed:@"point"] forState:UIControlStateNormal];
-                [grilBtn setImage:[UIImage imageNamed:@"pointH"] forState:UIControlStateSelected];
-                [grilBtn addTarget:self action:@selector(sexBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                [cell addSubview:grilBtn];
-                
-            }
-                break;
-            case 2:
-            {
-                UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 40, _cellHeight)];
-                titlLab.text =@"身高:";
-                titlLab.textColor = [UIColor whiteColor];
-                titlLab.font = [UIFont systemFontOfSize:14];
-                [cell addSubview:titlLab];
-                
-                
-                highBtn.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) + 15,
-                                                                               5, BtnWidth, _cellHeight - 10);
-                highBtn.backgroundColor = BACKGROUND_COLOR;
-                [highBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//                UIImageView *btnCornerView = [[UIImageView alloc] initWithFrame:CGRectMake((highBtn.frame.size.width - 15),
-//                                                                                          (highBtn.frame.size.height - 15),
-//                                                                                          13, 13)];
-//                btnCornerView.image = [UIImage imageNamed:@"btnCorner"];
-//                [highBtn addSubview:btnCornerView];
-                [highBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                highBtn.tag = HighTAG;
-                [cell addSubview:highBtn];
-                
-                UILabel * weightTitlLab = [[UILabel alloc] initWithFrame:CGRectMake((highBtn.frame.size.width + highBtn.frame.origin.x + 10), 0, 65, _cellHeight)];
-                weightTitlLab.text =@"体重:";
-                weightTitlLab.textColor = [UIColor whiteColor];
-                weightTitlLab.font = [UIFont systemFontOfSize:14];
-                
-                [cell addSubview:weightTitlLab];
-                
-                weightBtn.frame = CGRectMake((weightTitlLab.frame.size.width + weightTitlLab.frame.origin.x + 10),
-                                                                               5, BtnWidth, _cellHeight - 10);
-                weightBtn.backgroundColor = BACKGROUND_COLOR;
-                [weightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                weightBtn.tag = WeightTAG;
-
-                [weightBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                [cell addSubview:weightBtn];
-                
-                
-            }
-                break;
-            case 3:
-            {
-                UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 40, _cellHeight)];
-                titlLab.text =@"年龄:";
-                titlLab.textColor = [UIColor whiteColor];
-                titlLab.font = [UIFont systemFontOfSize:14];
-                [cell addSubview:titlLab];
-                
-                
-                ageBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) + 15,
-                                                                     5, BtnWidth, _cellHeight - 10);
-                ageBtn.backgroundColor = BACKGROUND_COLOR;
-                [ageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-
-                [ageBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                ageBtn.tag = AgeTAG;
-                [cell addSubview:ageBtn];
-                
-                UILabel * timeTitlLab = [[UILabel alloc] initWithFrame:CGRectMake((ageBtn.frame.size.width + ageBtn.frame.origin.x + 10), 0, 65, _cellHeight)];
-                timeTitlLab.text =@"习武时间:";
-                timeTitlLab.textColor = [UIColor whiteColor];
-                timeTitlLab.font = [UIFont systemFontOfSize:14];
-                
-                [cell addSubview:timeTitlLab];
-                
-                learnTimeBtn.frame = CGRectMake((timeTitlLab.frame.size.width + timeTitlLab.frame.origin.x + 10),
-                                                                       5, BtnWidth, _cellHeight - 10);
-                learnTimeBtn.backgroundColor = BACKGROUND_COLOR;
-                [learnTimeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                learnTimeBtn.tag = LearnTimeTAG;
-
-                [learnTimeBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                [cell addSubview:learnTimeBtn];
-                
-            }
-                break;
-            case 4:
-            {
-                UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 60, _cellHeight)];
-                titlLab.text =@"所在地:";
-                titlLab.textColor = [UIColor whiteColor];
-                titlLab.font = [UIFont systemFontOfSize:14];
-                [cell addSubview:titlLab];
-                
-                provinceBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) - 5,
-                                                                     5, BtnWidth, _cellHeight - 10);
-                provinceBtn.backgroundColor = BACKGROUND_COLOR;
-                [provinceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                UIImageView *btnCornerView = [[UIImageView alloc] initWithFrame:CGRectMake((provinceBtn.frame.size.width - 15),
-                                                                                          (provinceBtn.frame.size.height - 15),
-                                                                                          13, 13)];
-                btnCornerView.image = [UIImage imageNamed:@"btnCorner"];
-                [provinceBtn addSubview:btnCornerView];
-                [provinceBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                provinceBtn.tag = ProvinceTAG;
-                [cell addSubview:provinceBtn];
-                
-                cityBtn.frame = CGRectMake((provinceBtn.frame.size.width + provinceBtn.frame.origin.x + 2), 5, BtnWidth, _cellHeight - 10);
-                cityBtn.backgroundColor = BACKGROUND_COLOR;
-                [cityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                UIImageView *btnCornerView2 = [[UIImageView alloc] initWithFrame:CGRectMake((cityBtn.frame.size.width - 15),
-                                                                                           (cityBtn.frame.size.height - 15),
-                                                                                           13, 13)];
-                btnCornerView2.image = [UIImage imageNamed:@"btnCorner"];
-                [cityBtn addSubview:btnCornerView2];
-                [cityBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                cityBtn.tag = CityTAG;
-                [cell addSubview:cityBtn];
-                
-                
-                areaBtn.frame = CGRectMake((cityBtn.frame.size.width + cityBtn.frame.origin.x + 2),
-                                                                       5, BtnWidth, _cellHeight - 10);
-                areaBtn.backgroundColor = BACKGROUND_COLOR;
-                [areaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                areaBtn.tag = AreaTAG;
-                UIImageView *btnCornerView3 = [[UIImageView alloc] initWithFrame:CGRectMake((cityBtn.frame.size.width - 15),
-                                                                                            (cityBtn.frame.size.height - 15),
-                                                                                            13, 13)];
-                btnCornerView3.image = [UIImage imageNamed:@"btnCorner"];
-                [areaBtn addSubview:btnCornerView3];
-                [areaBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                [cell addSubview:areaBtn];
-                
-            }
-                break;
-            case 5:
-            {
-                UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 80, _cellHeight)];
-                titlLab.text =@"个人简历:";
-                titlLab.textColor = [UIColor whiteColor];
-                titlLab.font = [UIFont systemFontOfSize:14];
-                [cell addSubview:titlLab];
-                
-                
-                introductionText.frame = CGRectMake((titlLab.frame.size.width+titlLab.frame.origin.x + 5) - 19 , 5,
-                                                    (SCREEN_WIDTH - 10 - (titlLab.frame.size.width+titlLab.frame.origin.x + 5)) + 19,
-                                                    (3*_cellHeight - 5*2) ) ;
-                
-//                introductionText.text = @"喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武";
-                introductionText.textColor = [UIColor whiteColor];
-                introductionText.backgroundColor = BACKGROUND_COLOR;
-                introductionText.font = [UIFont systemFontOfSize:14];
-                introductionText.textAlignment = NSTextAlignmentLeft;
-                introductionText.delegate = self;
-                tempIndexPath = indexPath;
-                [cell addSubview:introductionText];
-            }
-                break;
-
-                break;
-            default:
-                break;
-        }
-        
-        if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
+        else if(indexPath.section == 1)
         {
-            [cell setSeparatorInset:UIEdgeInsetsZero];
-            [cell setLayoutMargins:UIEdgeInsetsZero];
+            
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
+            cell.backgroundColor = ItemsBaseColor;
+            
+            switch (indexPath.row) {
+                case 0:
+                {
+                    UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 40, _cellHeight)];
+                    titlLab.text =@"昵称:";
+                    titlLab.textColor = [UIColor whiteColor];
+                    titlLab.font = [UIFont systemFontOfSize:14];
+                    [cell addSubview:titlLab];
+                    
+                    nickName.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x) + 23,
+                                                 0, SCREEN_HEIGHT - (titlLab.frame.size.width + titlLab.frame.origin.x)
+                                                 , _cellHeight);
+                    nickName.backgroundColor = ItemsBaseColor;
+                    nickName.placeholder = @"请输入您的昵称";
+                    [cell addSubview:nickName];
+                    
+                }
+                    break;
+                case 1:
+                {
+                    UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 40, _cellHeight)];
+                    titlLab.text =@"性别:";
+                    titlLab.textColor = [UIColor whiteColor];
+                    titlLab.font = [UIFont systemFontOfSize:14];
+                    [cell addSubview:titlLab];
+                    
+                    boyBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) + 5,
+                                              5, 50, _cellHeight - 10);
+                    
+                    [boyBtn setTitle:@"男" forState:UIControlStateNormal];
+                    [boyBtn setImage:[UIImage imageNamed:@"point"] forState:UIControlStateNormal];
+                    [boyBtn setImage:[UIImage imageNamed:@"pointH"] forState:UIControlStateSelected];
+                    [boyBtn addTarget:self action:@selector(sexBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    // boyBtn.selected = YES;
+                    [cell addSubview:boyBtn];
+                    
+                    grilBtn.frame = CGRectMake((boyBtn.frame.size.width + boyBtn.frame.origin.x+20),
+                                               5, 50, _cellHeight - 10);
+                    
+                    [grilBtn setTitle:@"女" forState:UIControlStateNormal];
+                    [grilBtn setImage:[UIImage imageNamed:@"point"] forState:UIControlStateNormal];
+                    [grilBtn setImage:[UIImage imageNamed:@"pointH"] forState:UIControlStateSelected];
+                    [grilBtn addTarget:self action:@selector(sexBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    [cell addSubview:grilBtn];
+                    
+                }
+                    break;
+                case 2:
+                {
+                    UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 40, _cellHeight)];
+                    titlLab.text =@"身高:";
+                    titlLab.textColor = [UIColor whiteColor];
+                    titlLab.font = [UIFont systemFontOfSize:14];
+                    [cell addSubview:titlLab];
+                    
+                    
+                    highBtn.frame =  CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) + 15,
+                                                5, BtnWidth, _cellHeight - 10);
+                    highBtn.backgroundColor = BACKGROUND_COLOR;
+                    [highBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    //                UIImageView *btnCornerView = [[UIImageView alloc] initWithFrame:CGRectMake((highBtn.frame.size.width - 15),
+                    //                                                                                          (highBtn.frame.size.height - 15),
+                    //                                                                                          13, 13)];
+                    //                btnCornerView.image = [UIImage imageNamed:@"btnCorner"];
+                    //                [highBtn addSubview:btnCornerView];
+                    [highBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    highBtn.tag = HighTAG;
+                    [cell addSubview:highBtn];
+                    
+                    UILabel * weightTitlLab = [[UILabel alloc] initWithFrame:CGRectMake((highBtn.frame.size.width + highBtn.frame.origin.x + 10), 0, 65, _cellHeight)];
+                    weightTitlLab.text =@"体重:";
+                    weightTitlLab.textColor = [UIColor whiteColor];
+                    weightTitlLab.font = [UIFont systemFontOfSize:14];
+                    
+                    [cell addSubview:weightTitlLab];
+                    
+                    weightBtn.frame = CGRectMake((weightTitlLab.frame.size.width + weightTitlLab.frame.origin.x + 10),
+                                                 5, BtnWidth, _cellHeight - 10);
+                    weightBtn.backgroundColor = BACKGROUND_COLOR;
+                    [weightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    weightBtn.tag = WeightTAG;
+                    
+                    [weightBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    [cell addSubview:weightBtn];
+                    
+                    
+                }
+                    break;
+                case 3:
+                {
+                    UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 40, _cellHeight)];
+                    titlLab.text =@"年龄:";
+                    titlLab.textColor = [UIColor whiteColor];
+                    titlLab.font = [UIFont systemFontOfSize:14];
+                    [cell addSubview:titlLab];
+                    
+                    
+                    ageBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) + 15,
+                                              5, BtnWidth, _cellHeight - 10);
+                    ageBtn.backgroundColor = BACKGROUND_COLOR;
+                    [ageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    
+                    [ageBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    ageBtn.tag = AgeTAG;
+                    [cell addSubview:ageBtn];
+                    
+                    UILabel * timeTitlLab = [[UILabel alloc] initWithFrame:CGRectMake((ageBtn.frame.size.width + ageBtn.frame.origin.x + 10), 0, 65, _cellHeight)];
+                    timeTitlLab.text =@"习武时间:";
+                    timeTitlLab.textColor = [UIColor whiteColor];
+                    timeTitlLab.font = [UIFont systemFontOfSize:14];
+                    
+                    [cell addSubview:timeTitlLab];
+                    
+                    learnTimeBtn.frame = CGRectMake((timeTitlLab.frame.size.width + timeTitlLab.frame.origin.x + 10),
+                                                    5, BtnWidth, _cellHeight - 10);
+                    learnTimeBtn.backgroundColor = BACKGROUND_COLOR;
+                    [learnTimeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    learnTimeBtn.tag = LearnTimeTAG;
+                    
+                    [learnTimeBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    [cell addSubview:learnTimeBtn];
+                    
+                }
+                    break;
+                case 4:
+                {
+                    UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 60, _cellHeight)];
+                    titlLab.text =@"所在地:";
+                    titlLab.textColor = [UIColor whiteColor];
+                    titlLab.font = [UIFont systemFontOfSize:14];
+                    [cell addSubview:titlLab];
+                    
+                    provinceBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) - 5,
+                                                   5, BtnWidth, _cellHeight - 10);
+                    provinceBtn.backgroundColor = BACKGROUND_COLOR;
+                    [provinceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    UIImageView *btnCornerView = [[UIImageView alloc] initWithFrame:CGRectMake((provinceBtn.frame.size.width - 15),
+                                                                                               (provinceBtn.frame.size.height - 15),
+                                                                                               13, 13)];
+                    btnCornerView.image = [UIImage imageNamed:@"btnCorner"];
+                    [provinceBtn addSubview:btnCornerView];
+                    [provinceBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    provinceBtn.tag = ProvinceTAG;
+                    [cell addSubview:provinceBtn];
+                    
+                    cityBtn.frame = CGRectMake((provinceBtn.frame.size.width + provinceBtn.frame.origin.x + 2), 5, BtnWidth, _cellHeight - 10);
+                    cityBtn.backgroundColor = BACKGROUND_COLOR;
+                    [cityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    UIImageView *btnCornerView2 = [[UIImageView alloc] initWithFrame:CGRectMake((cityBtn.frame.size.width - 15),
+                                                                                                (cityBtn.frame.size.height - 15),
+                                                                                                13, 13)];
+                    btnCornerView2.image = [UIImage imageNamed:@"btnCorner"];
+                    [cityBtn addSubview:btnCornerView2];
+                    [cityBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    cityBtn.tag = CityTAG;
+                    [cell addSubview:cityBtn];
+                    
+                    
+                    areaBtn.frame = CGRectMake((cityBtn.frame.size.width + cityBtn.frame.origin.x + 2),
+                                               5, BtnWidth, _cellHeight - 10);
+                    areaBtn.backgroundColor = BACKGROUND_COLOR;
+                    [areaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    areaBtn.tag = AreaTAG;
+                    UIImageView *btnCornerView3 = [[UIImageView alloc] initWithFrame:CGRectMake((cityBtn.frame.size.width - 15),
+                                                                                                (cityBtn.frame.size.height - 15),
+                                                                                                13, 13)];
+                    btnCornerView3.image = [UIImage imageNamed:@"btnCorner"];
+                    [areaBtn addSubview:btnCornerView3];
+                    [areaBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    [cell addSubview:areaBtn];
+                    
+                }
+                    break;
+                case 5:
+                {
+                    UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 80, _cellHeight)];
+                    titlLab.text =@"个人简历:";
+                    titlLab.textColor = [UIColor whiteColor];
+                    titlLab.font = [UIFont systemFontOfSize:14];
+                    [cell addSubview:titlLab];
+                    
+                    
+                    introductionText.frame = CGRectMake((titlLab.frame.size.width+titlLab.frame.origin.x + 5) - 19 , 5,
+                                                        (SCREEN_WIDTH - 10 - (titlLab.frame.size.width+titlLab.frame.origin.x + 5)) + 19,
+                                                        (3*_cellHeight - 5*2) ) ;
+                    
+                    //                introductionText.text = @"喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武喜欢习武";
+                    introductionText.textColor = [UIColor whiteColor];
+                    introductionText.backgroundColor = BACKGROUND_COLOR;
+                    introductionText.font = [UIFont systemFontOfSize:14];
+                    introductionText.textAlignment = NSTextAlignmentLeft;
+                    introductionText.delegate = self;
+                    tempIndexPath = indexPath;
+                    [cell addSubview:introductionText];
+                }
+                    break;
+                    
+                    break;
+                default:
+                    break;
+            }
+            
+            if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
+            {
+                [cell setSeparatorInset:UIEdgeInsetsZero];
+                [cell setLayoutMargins:UIEdgeInsetsZero];
+            }
+            return cell;
+            
         }
-        return cell;
-        
-    }
-    else if(indexPath.section == 2)
-    {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
-        cell.backgroundColor = ItemsBaseColor;
-        
-        UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 80, _cellHeight)];
-        titlLab.text =@"修改密码:";
-        titlLab.textColor = [UIColor whiteColor];
-        titlLab.font = [UIFont systemFontOfSize:14];
-        [cell addSubview:titlLab];
-        
-        UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
-//        rightView.backgroundColor = [UIColor orangeColor];
-        rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
-        rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
-        rightView.contentMode = UIViewContentModeScaleAspectFit;
-        [cell addSubview:rightView];
-        
-        UIButton * btn_password = [UIButton buttonWithType:(UIButtonTypeSystem)];
-        btn_password.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight);
-        [cell addSubview:btn_password];
-//        btn_password.backgroundColor = [UIColor orangeColor];
-        [btn_password addTarget:self action:@selector(btn_passwordAction:) forControlEvents:(UIControlEventTouchUpInside)];
-        
-        
-        if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
+        else if(indexPath.section == 2)
         {
-            [cell setSeparatorInset:UIEdgeInsetsZero];
-            [cell setLayoutMargins:UIEdgeInsetsZero];
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
+            cell.backgroundColor = ItemsBaseColor;
+            
+            UILabel * titlLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 80, _cellHeight)];
+            titlLab.text =@"修改密码:";
+            titlLab.textColor = [UIColor whiteColor];
+            titlLab.font = [UIFont systemFontOfSize:14];
+            [cell addSubview:titlLab];
+            
+            UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
+            //        rightView.backgroundColor = [UIColor orangeColor];
+            rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 0, 15, 15);
+            rightView.center = CGPointMake((SCREEN_WIDTH - 15 -10), _cellHeight/2);
+            rightView.contentMode = UIViewContentModeScaleAspectFit;
+            [cell addSubview:rightView];
+            
+            UIButton * btn_password = [UIButton buttonWithType:(UIButtonTypeSystem)];
+            btn_password.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight);
+            [cell addSubview:btn_password];
+            //        btn_password.backgroundColor = [UIColor orangeColor];
+            [btn_password addTarget:self action:@selector(btn_passwordAction:) forControlEvents:(UIControlEventTouchUpInside)];
+            
+            
+            if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
+            {
+                [cell setSeparatorInset:UIEdgeInsetsZero];
+                [cell setLayoutMargins:UIEdgeInsetsZero];
+            }
+            return cell;
+            
         }
-        return cell;
-
-    }
-    else
-    {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
-        cell.backgroundColor = ItemsBaseColor;
-        
-        
-        if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
+        else
         {
-            [cell setSeparatorInset:UIEdgeInsetsZero];
-            [cell setLayoutMargins:UIEdgeInsetsZero];
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
+            cell.backgroundColor = ItemsBaseColor;
+            
+            
+            if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
+            {
+                [cell setSeparatorInset:UIEdgeInsetsZero];
+                [cell setLayoutMargins:UIEdgeInsetsZero];
+            }
+            return cell;
+            
         }
-        return cell;
+    }
+    @catch (NSException *exception) {
         
     }
+    @finally {
+        
+    }
+  
     
 }
 
