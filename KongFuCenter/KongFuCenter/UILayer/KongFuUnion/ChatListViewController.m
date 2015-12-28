@@ -81,11 +81,11 @@
     [rightTitle addTarget:self action:@selector(clickRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:rightTitle];
     
-    UIButton *rightTitleGroup = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, StatusBar_HEIGHT + (NavigationBar_HEIGHT - 20) / 2, 40, 20)];
-    [rightTitleGroup setTitle:@"群组" forState:UIControlStateNormal];
-    rightTitleGroup.tag = 1;
-    [rightTitleGroup addTarget:self action:@selector(clickRightBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [topView addSubview:rightTitleGroup];
+    //UIButton *rightTitleGroup = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, StatusBar_HEIGHT + (NavigationBar_HEIGHT - 20) / 2, 40, 20)];
+//    [rightTitleGroup setTitle:@"群组" forState:UIControlStateNormal];
+//    rightTitleGroup.tag = 1;
+//    [rightTitleGroup addTarget:self action:@selector(clickRightBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [topView addSubview:rightTitleGroup];
     
     UITableView *listTableView = self.conversationListTableView;
     listTableView.frame = CGRectMake(0, NavigationBar_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT);
@@ -113,16 +113,16 @@
         //显示聊天会话界面
         [self.navigationController pushViewController:chat animated:YES];
     }else{
-        //新建一个聊天会话View Controller对象
-        ChatContentViewController *chat = [[ChatContentViewController alloc]init];
-        //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
-        chat.conversationType = ConversationType_GROUP;
-        //设置会话的目标会话ID。（单聊、客服、公众账号服务为对方的ID，讨论组、群聊、聊天室为会话的ID）
-        chat.targetId = [NSString stringWithFormat:@"%@",[userDefault valueForKey:@"TeamId"]];
-        //设置聊天会话界面要显示的标题
-        chat.title = @"想显示的会话标题";
-        //显示聊天会话界面
-        [self.navigationController pushViewController:chat animated:YES];
+//        //新建一个聊天会话View Controller对象
+//        ChatContentViewController *chat = [[ChatContentViewController alloc]init];
+//        //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
+//        chat.conversationType = ConversationType_GROUP;
+//        //设置会话的目标会话ID。（单聊、客服、公众账号服务为对方的ID，讨论组、群聊、聊天室为会话的ID）
+//        chat.targetId = [NSString stringWithFormat:@"%@",[userDefault valueForKey:@"TeamId"]];
+//        //设置聊天会话界面要显示的标题
+//        chat.title = @"想显示的会话标题";
+//        //显示聊天会话界面
+//        [self.navigationController pushViewController:chat animated:YES];
     }
 }
 
