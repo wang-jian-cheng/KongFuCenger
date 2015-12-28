@@ -211,14 +211,15 @@
         {
             //推出清除缓存页面
             ClearCacheViewController * clearCacheViewController = [[ClearCacheViewController alloc] init];
-            
-            [self showViewController:clearCacheViewController sender:nil];
+            [self.navigationController pushViewController:clearCacheViewController animated:YES];
+//            [self showViewController:clearCacheViewController sender:nil];
         }
         else if(indexPath.row == 1)
         {
             //推出关于核武者页面
             IntroViewController * introduceViewController = [[IntroViewController alloc] init];
-            [self showViewController:introduceViewController sender:nil];
+            [self.navigationController pushViewController:introduceViewController animated:YES];
+            //[self showViewController:introduceViewController sender:nil];
             
         }
     }
