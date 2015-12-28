@@ -134,6 +134,15 @@
             WYNewsViewController *wyNewsVC = [[WYNewsViewController alloc] init];
             [self.navigationController pushViewController:wyNewsVC animated:YES];
         }else if(indexPath.row == 1){
+            
+            NSString *value = get_sp(@"TeamId");
+            if(value == nil || value.length == 0)
+            {
+                UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"未加入战队" message:@"还没有加入战队呦～～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                [alertView show];
+                return;
+            }
+            
             TeamNewsViewController *teamNewsVC = [[TeamNewsViewController alloc] init];
             [self.navigationController pushViewController:teamNewsVC animated:YES];
         }else{
