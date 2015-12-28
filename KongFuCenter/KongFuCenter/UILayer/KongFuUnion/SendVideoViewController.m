@@ -157,7 +157,7 @@
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue]==200) {
         
-        [SVProgressHUD showSuccessWithStatus:@"发布成功" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showSuccessWithStatus:@"发布成功"];
         
         [self.navigationController popViewControllerAnimated:YES];
     }

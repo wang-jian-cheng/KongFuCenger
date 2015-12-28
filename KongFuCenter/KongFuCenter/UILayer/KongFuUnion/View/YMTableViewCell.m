@@ -344,7 +344,7 @@
     
     
     if (ymData.replyDataSource.count == 0) {//没回复的时候
-        _videoImg.frame = CGRectMake(offSet_X, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, screenWidth - 2 * offSet_X, 120);
+        _videoImg.frame = CGRectMake(offSet_X, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 80, 80);
         replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance + (![self isExitVideo:ymData]?0:127), 0, 0);
         //_replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 40, 18);
         _zanNum.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 41 - 100,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24+ (![self isExitVideo:ymData]?0:127), 100, 15);
@@ -356,7 +356,7 @@
         _commentDate.frame = CGRectMake(offSet_X, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24+ (![self isExitVideo:ymData]?0:127), 100, 18);
         
     }else{
-        _videoImg.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance - 24, screenWidth - 2 * offSet_X, 100);
+        _videoImg.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance - 24, 80, 80);
         replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance + (![self isExitVideo:ymData]?0:127), screenWidth - offSet_X * 2, backView_H + 20 - 8);//微调
         //_replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6, replyImageView.frame.origin.y - 24, 40, 18);
         _zanNum.frame = CGRectMake(screenWidth - offSet_X - 40 + 6 - 41 - 100, replyImageView.frame.origin.y - 24, 100, 15);
@@ -372,7 +372,7 @@
 }
 
 -(BOOL)isExitVideo:(YMTextData *)ymData{
-    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0;
+    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[1] isEqual:@""]&&ymData.showVideoArray.count>0;
 }
 
 #pragma mark - ilcoreTextDelegate

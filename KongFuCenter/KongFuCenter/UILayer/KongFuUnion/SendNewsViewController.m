@@ -337,8 +337,8 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
-            
-            
+            [SVProgressHUD showSuccessWithStatus:@"发布成功~"];
+            [self.navigationController popViewControllerAnimated:YES];
         }
         @catch (NSException *exception) {
             
