@@ -303,8 +303,8 @@
             }
             DataProvider * dataprovider=[[DataProvider alloc] init];
             [dataprovider setDelegateObject:self setBackFunctionName:@"sendNewsCallBack:"];
-            [dataprovider SaveDongtai:[userDefault valueForKey:@"id"] andcontent:_textView.text andpathlist:@"" andvideopath:@"" andvideoDuration:@""];
-            
+            //[dataprovider SaveDongtai:[userDefault valueForKey:@"id"] andcontent:_textView.text andpathlist:@"" andvideopath:@"" andvideoDuration:@""];
+            [dataprovider SaveDongtai:[userDefault valueForKey:@"id"] andcontent:_textView.text andpathlist:@"" andvideoImage:@"" andvideopath:@"" andvideoDuration:@""];
         }
     }
 }
@@ -327,8 +327,8 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"uploadPlansCallBack:"];
     //[dataprovider updatePlan:[Toolkit getUserID] andCateId:cateId andTitle:_titleField.text andContent:_textView.text andPicList:allImgPath andStartDate:startDateStr andEndDate:endDateStr ];
-    [dataprovider SaveDongtai:[userDefault valueForKey:@"id"] andcontent:_textView.text andpathlist:allImgPath andvideopath:@"" andvideoDuration:@""];
-    
+    //[dataprovider SaveDongtai:[userDefault valueForKey:@"id"] andcontent:_textView.text andpathlist:allImgPath andvideopath:@"" andvideoDuration:@""];
+    [dataprovider SaveDongtai:[userDefault valueForKey:@"id"] andcontent:_textView.text andpathlist:allImgPath andvideoImage:@"" andvideopath:@"" andvideoDuration:@""];
 }
 
 -(void)sendNewsCallBack:(id)dict

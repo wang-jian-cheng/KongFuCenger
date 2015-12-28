@@ -21,6 +21,7 @@
 #import "WechatShortVideoController.h"
 #import "SendVideoViewController.h"
 #import "ceshiViewController.h"
+#import "PlayVideoViewController.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -59,6 +60,7 @@
     int selectRow;
     NSString *kAdmin;
     BOOL isComment;
+    int curpage;//页数
     
 }
 
@@ -90,13 +92,38 @@
     //[self initTableview];
     //[self loadTextData];
     
-    [self initData];
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = mainTable;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mainTable.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf TeamTopRefresh];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [mainTable.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    mainTable.mj_footer = footer;
 }
 
--(void)initData{
+-(void)TeamTopRefresh{
+    curpage = 0;
     [SVProgressHUD showWithStatus:@"加载中"];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getWYNewsCallBack:"];
-    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
+    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
+}
+
+-(void)TeamFootRefresh
+{
+    curpage++;
+    dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
+    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
 }
 
 -(void)getWYNewsCallBack:(id)dict{
@@ -109,7 +136,7 @@
             NSArray *picArray =[itemDict valueForKey:@"PicList"];
             NSMutableArray *imgArray = [[NSMutableArray alloc] init];
             for (int i = 0; i < picArray.count; i++) {
-                //[imgArray addObject:[NSString stringWithFormat:@"%@%@",Url,[picArray[i] valueForKey:@"ImagePath"]]];
+                [imgArray addObject:[NSString stringWithFormat:@"%@%@",Url,[picArray[i] valueForKey:@"ImagePath"]]];
             }
             messBody.posterPostImage = imgArray;
             NSArray *ComArray =[itemDict valueForKey:@"ComList"];
@@ -140,8 +167,9 @@
             messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
             
             NSMutableArray *videoArray = [[NSMutableArray alloc] init];
-            [videoArray addObject:[itemDict valueForKey:@"VideoDuration"]];
+            [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[itemDict valueForKey:@"ImagePath"]]];
             [videoArray addObject:[itemDict valueForKey:@"VideoPath"]];
+            [videoArray addObject:[itemDict valueForKey:@"VideoDuration"]];
             messBody.posterPostVideo = videoArray;
             
             [_contentDataSource addObject:messBody];
@@ -154,6 +182,24 @@
         [SVProgressHUD dismiss];
         
     }
+}
+
+-(void)FootRefireshBackCall:(id)dict
+{
+    
+    NSLog(@"上拉刷新");
+    // 结束刷新
+    [mainTable.mj_footer endRefreshing];
+    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:wyArray];
+    if ([dict[@"code"] intValue] == 200) {
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        wyArray=[[NSArray alloc] initWithArray:itemarray];
+    }
+    [mainTable reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)finishWechatShortVideoCapture:(NSURL *)filePath {
@@ -253,6 +299,7 @@
     // mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     mainTable.delegate = self;
     mainTable.dataSource = self;
+    mainTable.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mainTable];
     
     [self initHeadView];
@@ -288,11 +335,8 @@
 {
     if(sender.tag == sendNews)
     {
-        //SendNewsViewController *sendNewsVC = [[SendNewsViewController alloc] init];
-        //[self.navigationController pushViewController:sendNewsVC animated:YES];
-        
-        ceshiViewController *ceshiVC = [[ceshiViewController alloc] init];
-        [self.navigationController pushViewController:ceshiVC animated:YES];
+        SendNewsViewController *sendNewsVC = [[SendNewsViewController alloc] init];
+        [self.navigationController pushViewController:sendNewsVC animated:YES];
     }
     else  if(sender.tag == smallVideo)
     {
@@ -426,11 +470,28 @@
         [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan_no"] forState:UIControlStateNormal];
     }
     cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey:@"LikeNum"]];
+    if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0){
+        UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoImgEvent:)];
+        cell.videoImg.userInteractionEnabled = YES;
+        NSLog(@"%d",(int)indexPath.row);
+        [cell.videoImg addGestureRecognizer:clickVideoImg];
+        clickVideoImg.view.tag = indexPath.row;
+    }
+    
     cell.delegate = self;
     [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
     cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
     
     return cell;
+}
+
+-(void)clickVideoImgEvent:(id)sender{
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer*)sender;
+    UIView *views = (UIView*) tap.view;
+    NSLog(@"%d",(int)views.tag);
+    PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
+    playVideoVC.videoPath = [wyArray[views.tag] valueForKey:@"VideoPath"];
+    [self.navigationController pushViewController:playVideoVC animated:YES];
 }
 
 -(void)tapPhotoImg{

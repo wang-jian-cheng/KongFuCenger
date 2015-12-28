@@ -119,7 +119,8 @@
         DataProvider * dataprovider=[[DataProvider alloc] init];
         
         [dataprovider setDelegateObject:self setBackFunctionName:@"sendVideoInfoCallBack:"];
-        [dataprovider SaveDongtai:[userDefault valueForKey:@"id"] andcontent:txt_Content.text andpathlist:dict[@"data"][@"ImageName"] andvideopath:dict[@"data"][@"VideoName"] andvideoDuration:dict[@"data"][@"VideoDuration"]];
+        //[dataprovider SaveDongtai:[userDefault valueForKey:@"id"] andcontent:txt_Content.text andpathlist:dict[@"data"][@"ImageName"] andvideopath:dict[@"data"][@"VideoName"] andvideoDuration:dict[@"data"][@"VideoDuration"]];
+        [dataprovider SaveDongtai:[userDefault valueForKey:@"id"] andcontent:txt_Content.text andpathlist:@"" andvideoImage:dict[@"data"][@"ImageName"] andvideopath:dict[@"data"][@"VideoName"] andvideoDuration:dict[@"data"][@"VideoDuration"]];
         
         
 //        NSMutableDictionary * prm=[[NSMutableDictionary alloc] init];
