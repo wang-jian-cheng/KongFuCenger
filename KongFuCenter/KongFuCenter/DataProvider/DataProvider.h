@@ -210,7 +210,7 @@
 -(NSInteger )getMessageIdInfo:(NSString *)messageId;
 
 //获取其他作品
--(NSInteger )getUserid:(NSString *)userId andNum:(NSString *)num;
+-(NSInteger )getUserid:(NSString *)userId andNum:(NSString *)num andmessageID:(NSString *)messageID;
 
 //分页获取联盟动态
 - (NSInteger )growCateid:(NSString *)cateid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
