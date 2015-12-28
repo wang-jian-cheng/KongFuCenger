@@ -86,8 +86,12 @@
 
 -(void)clickOutBtn:(UIButton *)sender
 {
+    set_sp( @"OUTLOGIN",@"YES");
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"loginpage" forKey:@"rootView"]];
-}
+    
+    
+    }
 
 #pragma mark -  tableview  Delegate
 

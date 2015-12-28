@@ -290,6 +290,12 @@
 -(void)TryLoginFun{
     
     
+    NSString *value =  get_sp(@"OUTLOGIN");
+    if(![value isEqualToString:@"NO"])
+    {
+        self.window.rootViewController = _loginViewCtl;
+        return;
+    }
     [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
@@ -308,6 +314,7 @@
     if ([dict[@"code"] intValue]==200 ) {
 
         DLog(@"%@ ",dict[@"data"]);
+        set_sp(@"OUTLOGIN",@"NO");
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"Id"] forKey:@"id"];
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"NicName"] forKey:@"NicName"];
         [mUserDefault setValue:[dict[@"data"] valueForKey:@"Token"] forKey:@"token"];

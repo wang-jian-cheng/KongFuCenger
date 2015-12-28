@@ -17,11 +17,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _lblTitle.text=@"扫描二维码";
+    [self addLeftButton:@"left"];
     _lblStatus.hidden=YES;
-    [self addLeftButton:@"Icon_Back@2x.png"];
+//    [self addLeftButton:@"Icon_Back@2x.png"];
     _captureSession = nil;
     _isReading = NO;
     [self startReading];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
 - (BOOL)startReading {

@@ -49,6 +49,13 @@
     
     NSInteger actionIndex;
     
+    NSMutableDictionary *commentDict;//根据评论内容获取id的字典
+    
+    NSMutableArray *commentArr;//根据评论位置保存和获取id
+    NSString *delCommmentId;
+    NSString *commentSection;
+    
+    
 }
 
 @property (nonatomic,strong) WFPopView *operationView;
@@ -73,6 +80,8 @@
             NSMutableArray *comlist = [NSMutableArray array];
             [comlist addObjectsFromArray:tempDict[@"ComList"]];
             NSMutableArray *comlistFromShow = [NSMutableArray array];
+            NSMutableArray *comListFroDel = [NSMutableArray array];
+            [comListFroDel addObject:@"zhanwei"];//加一个占位让每个动态都有数据和index对应
             for (int j =0; j<comlist.count; j++) {
                 
                 NSDictionary *tempDict = comlist[j];
@@ -87,8 +96,17 @@
                 body1.replyInfo = tempDict[@"Content"];
                 body1.replyDict = [[NSDictionary alloc] initWithDictionary:tempDict];
                 [comlistFromShow addObject:body1];
+                [comListFroDel addObject:tempDict[@"Id"]];
+                
+//                NSDictionary *tempCommentDict = @{@"CommenterId":tempDict[@"CommenterId"],/*评论人id*/
+//                                                  @"MessageId":tempDict[@"MessageId"],/*动态id*/
+//                                                  @"commentId":tempDict[@"Id"]/*评论id*/};
+//                [commentDict setObject:tempCommentDict forKey:tempDict[@"Content"]];
             }
             
+            
+            [commentArr addObject:comListFroDel];//添加每个动态的评论
+
             
             WFMessageBody *messBody1 = [[WFMessageBody alloc] init];
             messBody1.posterContent = tempDict[@"Content"];
@@ -115,6 +133,12 @@
             messBody1.isFavour = [tempDict[@"IsLike"] integerValue];
             messBody1.zanNum = [[tempDict valueForKey:@"LikeNum"] intValue];
 
+            
+            NSMutableArray *videoArray = [[NSMutableArray alloc] init];
+            [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[tempDict valueForKey:@"ImagePath"]]];
+            [videoArray addObject:[tempDict valueForKey:@"VideoPath"]];
+            [videoArray addObject:[tempDict valueForKey:@"VideoDuration"]];
+//            messBody1.posterPostVideo = videoArray;
             
             [_contentDataSource addObject:messBody1];
             
@@ -145,6 +169,7 @@
     [self addRightButton:@"moreNoword"];
     pageSize = 10;
     wyArray = [NSMutableArray array];
+    commentArr = [NSMutableArray array];
   //  [self configData];
     _tableDataSource = [[NSMutableArray alloc] init];
     _contentDataSource = [[NSMutableArray alloc] init];
@@ -175,13 +200,21 @@
     [mainTable.mj_header beginRefreshing];
     
     // 上拉刷新
-    mainTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        [weakSelf FooterRefresh];
-        [mainTable.mj_footer endRefreshing];
-    }];
+//    mainTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//        
+//        [weakSelf FooterRefresh];
+//        [mainTable.mj_footer endRefreshing];
+//    }];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(FooterRefresh)];
     
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
     
+    // 设置footer
+    mainTable.mj_footer = footer;
+    
+  //  mainTable.mj_footer.automaticallyRefresh = NO;
     
     [self.view addSubview:mainTable];
     
@@ -252,6 +285,8 @@
 -(void)FooterRefresh
 {
     [self getTeamNews];
+    [mainTable.mj_footer endRefreshing];
+    
 }
 
 
@@ -512,6 +547,11 @@
     
     NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,get_sp(@"TeamImg")];
     [headImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
+    
+    headImg.layer.cornerRadius = headImg.frame.size.width * 0.5;
+    headImg.layer.borderWidth = 0.1;
+    headImg.layer.masksToBounds = YES;
+    
     [headImgView addSubview:headImg];
     UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100) / 2, headImg.frame.origin.y + headImg.frame.size.height, 100, 21)];
     name_lbl.textColor = [UIColor whiteColor];
@@ -595,11 +635,14 @@
     UIImageView *iv4 = [[UIImageView alloc] initWithFrame:CGRectMake(itemWidth * 3 + (itemWidth - 15) / 2, 5, 15, 15)];
     iv4.image = [UIImage imageNamed:@"zdlt"];
     [menuView addSubview:iv4];
-    UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth * 3, iv4.frame.origin.y + iv4.frame.size.height + 1, itemWidth, 21)];
-    label4.font = [UIFont systemFontOfSize:13];
-    label4.textAlignment = NSTextAlignmentCenter;
-    label4.textColor = [UIColor whiteColor];
-    label4.text = @"战队聊天";
+    UIButton *label4 = [[UIButton alloc] initWithFrame:CGRectMake(itemWidth * 3, iv4.frame.origin.y + iv4.frame.size.height + 1, itemWidth, 21)];
+    [label4 addTarget:self action:@selector(chatBtkClick:) forControlEvents:UIControlEventTouchUpInside];
+    [label4 setTitle:@"战队聊天" forState:UIControlStateNormal];
+    label4.titleLabel.font = [UIFont systemFontOfSize:13];
+//    label4.font = [UIFont systemFontOfSize:13];
+//    label4.textAlignment = NSTextAlignmentCenter;
+//    label4.textColor = [UIColor whiteColor];
+//    label4.text = @"战队聊天";
     [menuView addSubview:label4];
     
     [headView addSubview:menuView];
@@ -651,6 +694,19 @@
     AnnouncementViewController * announcementViewController = [[AnnouncementViewController alloc] init];
     [self.navigationController pushViewController:announcementViewController animated:YES];
     //[self showViewController:announcementViewController sender:nil];
+}
+-(void)chatBtkClick:(UIButton *)sender
+{
+    //新建一个聊天会话View Controller对象
+    ChatContentViewController *chat = [[ChatContentViewController alloc]init];
+    //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
+    chat.conversationType = ConversationType_GROUP;
+    //设置会话的目标会话ID。（单聊、客服、公众账号服务为对方的ID，讨论组、群聊、聊天室为会话的ID）
+    chat.targetId = [NSString stringWithFormat:@"%@",get_sp(@"TeamId")];
+    //设置聊天会话界面要显示的标题
+    chat.title = @"想显示的会话标题";
+    //显示聊天会话界面
+    [self.navigationController pushViewController:chat animated:YES];
 }
 
 
@@ -734,6 +790,7 @@
     replyView = [[YMReplyInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, screenWidth,44) andAboveView:self.view];
     replyView.delegate = self;
     replyView.replyTag = sender.tag;//_selectedIndexPath.row;
+    commentSection = [NSString  stringWithFormat:@"%ld",sender.tag];
     [self.view addSubview:replyView];
 }
 
@@ -777,8 +834,11 @@
 //        
      //   [[NSNotificationCenter defaultCenter] postNotificationName:@"updateComment" object:nil userInfo:nil];
         [replyView updateComment];
+        NSMutableArray *tempArr = commentArr[[commentSection intValue]];
+        [tempArr insertObject:dict[@"insertid"] atIndex:1];
         
-        [mainTable.mj_header beginRefreshing];
+        //  dict[@"insertid"];
+    //    [mainTable.mj_header beginRefreshing];
     }
 }
 
@@ -863,7 +923,16 @@
         WFActionSheet *actionSheet = [[WFActionSheet alloc] initWithTitle:@"删除评论？" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil, nil];
         actionSheet.actionIndex = index;
         [actionSheet showInView:self.view];
+        @try {
+            delCommmentId =[NSString stringWithFormat:@"%@", commentArr[index][replyIndex+1]];
+        }
         
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
         
         
     }else{
@@ -939,14 +1008,22 @@
     if (buttonIndex == 0) {
         actionIndex = actionSheet.actionIndex;
         @try {
-            YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:actionSheet.actionIndex];
-            WFMessageBody *m = ymData.messageBody;
+            //YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:actionSheet.actionIndex];
+           // WFMessageBody *m = ymData.messageBody;
             [SVProgressHUD showWithStatus:@"删除中" maskType:SVProgressHUDMaskTypeBlack];
             DataProvider *dataProvider = [[DataProvider alloc] init];
             [dataProvider setDelegateObject:self setBackFunctionName:@"delCommentCallBack:"];
             
-            WFReplyBody *tempReply = m.posterReplies[_replyIndex];
-            [dataProvider delComment:tempReply.replyDict[@"Id"]];
+           // WFReplyBody *tempReply = m.posterReplies[_replyIndex];
+            if(delCommmentId ==nil||delCommmentId.length ==0)
+            {
+                [SVProgressHUD dismiss];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"删除失败" message:@"请重新进入页面重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                [alertView show];
+                return;
+            }
+            [dataProvider delComment:delCommmentId];
+
 
         }
         @catch (NSException *exception) {
