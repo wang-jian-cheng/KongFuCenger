@@ -49,7 +49,7 @@
     UITextField *nickName;
     UserHeadView  *headView ;
     
-    
+    BOOL clickAddBtn ;
 }
 @end
 #define GapToLeft   20
@@ -402,7 +402,7 @@
 -(void)setuserInfo
 {
     
-    NSString *areaId = @"1";
+    NSString *areaId = @"";
     
     for (NSDictionary *tempDict in areaArr) {
         
@@ -497,7 +497,8 @@
                 [alert show];
                 return;
             }
-            [self getCityByProvince:provinceId];
+            if(clickAddBtn == YES || loadDataFlag ==YES)
+                [self getCityByProvince:provinceId];
             
 
         }
@@ -552,12 +553,14 @@
                 }
                 [infoArr addObjectsFromArray:dict[@"data"]];
 //                [self.view addSubview:_pickerView];
+                if(clickAddBtn == YES)
+                {
                 
-                if(_pickerView.tag == CityTAG)
-                    [_pickerView reloadAllComponents];
-                [self reLayoutTableViewHeight:_pickerView.frame.size.height];
-                
-                
+                    if(_pickerView.tag == CityTAG)
+                        [_pickerView reloadAllComponents];
+                    [self reLayoutTableViewHeight:_pickerView.frame.size.height];
+                    clickAddBtn = NO;
+                }
                 NSString *cityCode;
                 
                 for (NSDictionary *tempDict in cityArr) {
@@ -623,10 +626,13 @@
                 return;
             }
             [infoArr addObjectsFromArray:dict[@"data"]];
-            [self.view addSubview:_pickerView];
-            if(_pickerView.tag == AreaTAG)
-                [_pickerView reloadAllComponents];
-            [self reLayoutTableViewHeight:_pickerView.frame.size.height];
+                        if(clickAddBtn == YES)
+            {
+                if(_pickerView.tag == AreaTAG)
+                    [_pickerView reloadAllComponents];
+                [self reLayoutTableViewHeight:_pickerView.frame.size.height];
+                clickAddBtn = NO;
+            }
             
             
             
@@ -751,6 +757,7 @@
         case HighTAG:
         {
             
+            
             UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"请输入身高（Cm）" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             
             alert.tag=sender.tag;
@@ -808,9 +815,10 @@
         {
             [infoArr addObjectsFromArray:provinceArr];
             [self.view addSubview:_pickerView];
+            clickAddBtn = YES;
             [_pickerView reloadAllComponents];
             [self reLayoutTableViewHeight:_pickerView.frame.size.height];
-        }
+                    }
             break;
         case CityTAG:
         {
@@ -832,6 +840,8 @@
                 [alert show];
                 return;
             }
+            clickAddBtn = YES;
+
             [self getCityByProvince:provinceId];
             [self.view addSubview:_pickerView];
 
@@ -857,7 +867,10 @@
                 [alert show];
                 return;
             }
+            clickAddBtn = YES;
             [self getAreaByCity:cityCode];
+            [self.view addSubview:_pickerView];
+
         }
             break;
         default:
