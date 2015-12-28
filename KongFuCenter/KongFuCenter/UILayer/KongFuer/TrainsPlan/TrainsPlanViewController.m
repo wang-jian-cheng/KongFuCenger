@@ -256,6 +256,9 @@
 
 -(void)delPlans
 {
+    if (delArr.count == 0) {
+        return;
+    }
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"delePlansCallBack:"];
     [dataprovider delePlan:delArr[deleCount]];
