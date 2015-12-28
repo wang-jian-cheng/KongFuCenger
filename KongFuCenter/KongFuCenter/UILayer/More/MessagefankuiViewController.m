@@ -91,7 +91,6 @@
     pick.allowsEditing = YES;
     //代理
     pick.delegate = self;
-    
     [self presentViewController:pick animated:YES completion:^{
         
     }];
