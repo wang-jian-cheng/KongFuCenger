@@ -261,15 +261,16 @@
 }
 
 //获取其他作品
--(NSInteger )getUserid:(NSString *)userId andNum:(NSString *)num
+-(NSInteger )getUserid:(NSString *)userId andNum:(NSString *)num andmessageID:(NSString *)messageID
 {
     
-    if(userId != nil && num != nil)
+    if(userId != nil && num != nil&&messageID)
     {
         
         NSString * url=[NSString stringWithFormat:@"%@Hedongli.asmx/GetOtherVideo",Url];
         NSDictionary * prm=@{@"userid":userId,
-                             @"num":num};
+                             @"num":num,
+                             @"id":messageID};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         

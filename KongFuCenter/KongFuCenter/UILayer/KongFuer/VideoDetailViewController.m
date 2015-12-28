@@ -29,7 +29,13 @@
     
     NSString * VideoPath;
     
-    NSDictionary * VideoDict;
+    NSDictionary * VideoDict;//视频信息
+    
+    NSArray * videoCommentArray;//评论列表
+    
+    int OtherVideo;
+    
+    NSArray * otherVideoArray;
 }
 @end
 
@@ -38,7 +44,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
+    
+    OtherVideo=0;
+    
+    otherVideoArray=[[NSArray alloc] init];
+    
     VideoDict=[[NSDictionary alloc] init];
+    
+    videoCommentArray=[[NSArray alloc] init];
 
     [self getData];
     
@@ -56,8 +69,6 @@
     [self GetVideoDetial];
     
     [self GetVideoDetial1];
-    //获取其他作品
-    [self GetVideoDetial2];
 }
 
 -(void)GetVideoDetial
@@ -72,8 +83,17 @@
     if ([dict[@"code"] intValue]==200) {
 //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
         VideoPath=[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"][@"VideoPath"] isEqual:[NSNull null]]?@"":dict[@"data"][@"VideoPath"]];
+        
         VideoPath=[VideoPath stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
+        
         VideoDict=dict[@"data"];
+        
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        
+        [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack2:"];
+        
+        [dataprovider getUserid:dict[@"data"][@"UserId"] andNum:@"4" andmessageID:dict[@"data"][@"Id"]];
+        
         [self initViews];
     }
 }
@@ -81,8 +101,10 @@
 -(void)GetVideoDetial1
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider getMessageIdInfo:_videoID];
+    
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack1:"];
+    
+    [dataprovider getMessageIdInfo:_videoID];
 }
 
 -(void)GetVideoDetialCallBack1:(id)dict
@@ -111,12 +133,6 @@
     
 }
 
--(void)GetVideoDetial2
-{
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider getUserid:[Toolkit getUserID] andNum:@"99"];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack2:"];
-}
 
 -(void)GetVideoDetialCallBack2:(id)dict
 {
@@ -277,6 +293,8 @@
 {
 //    sender.selected = !sender.selected;
     
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
     switch (sender.tag) {
         case 0:
         {
@@ -285,7 +303,6 @@
                 sender.selected = YES;
                 NSLog(@"点赞");
                 
-                DataProvider * dataprovider=[[DataProvider alloc] init];
                 [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"2"];
             }
             else
@@ -293,7 +310,7 @@
                 sender.selected = NO;
                 NSLog(@"取消点赞");
                 
-                DataProvider * dataprovider=[[DataProvider alloc] init];
+//                DataProvider * dataprovider=[[DataProvider alloc] init];
                 [dataprovider voicedelete:_videoID andUserId:[Toolkit getUserID] andFlg:@"2"];
             }
         }
@@ -305,7 +322,7 @@
                 sender.selected = YES;
                 NSLog(@"收藏");
                 
-                DataProvider * dataprovider=[[DataProvider alloc] init];
+//                DataProvider * dataprovider=[[DataProvider alloc] init];
                 [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"1"];
             }
             else
@@ -313,7 +330,8 @@
                 sender.selected = NO;
                 NSLog(@"取消收藏");
                 
-                DataProvider * dataprovider=[[DataProvider alloc] init];
+//                DataProvider * dataprovider=[[DataProvider alloc] init];
+                
                 [dataprovider voicedelete:_videoID andUserId:[Toolkit getUserID] andFlg:@"1"];
             }
         }
@@ -325,7 +343,7 @@
                 sender.selected = YES;
                 NSLog(@"转发");
                 
-                DataProvider * dataprovider=[[DataProvider alloc] init];
+//                DataProvider * dataprovider=[[DataProvider alloc] init];
                 [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"0"];
             }
             else
@@ -342,6 +360,16 @@
 }
 
 
+-(void)MakeActionCallBack:(id)dict
+{
+    if ([dict[@"code"] intValue]==200) {
+        [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"操作失败" maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
 #pragma mark - 键盘操作
 
 // 键盘弹出时
@@ -632,10 +660,18 @@
                 
                 UITextView *commentTextView = [[UITextView alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width+5),
                                                                                       5,
-                                                                                       (SCREEN_WIDTH -(headView.frame.origin.x + headView.frame.size.width+5) - 10),(_cellHeight - 5*2) )];
+                                                                                       (SCREEN_WIDTH -(headView.frame.origin.x + headView.frame.size.width+5) - 80),(_cellHeight - 5*2) )];
                 
                 tempIndexPath = indexPath;
                 [cell addSubview:commentTextView];
+                
+                UIButton * btn_SendComment=[[UIButton alloc] initWithFrame:CGRectMake(commentTextView.frame.size.width+commentTextView.frame.origin.x+10, commentTextView.frame.origin.y, 60, commentTextView.frame.size.height)];
+                
+                [btn_SendComment setTitle:@"发布" forState:UIControlStateNormal];
+                [btn_SendComment setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                
+                btn_SendComment.backgroundColor=ItemsBaseColor;
+                [cell addSubview:btn_SendComment];
             }
             else
             {
