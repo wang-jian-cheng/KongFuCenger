@@ -309,7 +309,6 @@
 		B72E39F41C1AB4D0007356C4 /* MakeMushaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F31C1AB4D0007356C4 /* MakeMushaViewController.m */; };
 		B72E39F81C1AB5AD007356C4 /* MakeMushaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */; };
 		B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */; };
-		B737AEAB1C2D32BC00BE9615 /* ceshiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B737AEAA1C2D32BC00BE9615 /* ceshiViewController.m */; };
 		B739FB391C279991004100C2 /* MyFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B739FB381C279991004100C2 /* MyFriendViewController.m */; };
 		B7617E1F1C1C27D500CF96E7 /* JHStoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */; };
 		B7617E271C1C289E00CF96E7 /* UnionNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */; };
@@ -899,8 +898,6 @@
 		B72E39F51C1AB5AD007356C4 /* MakeMushaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeMushaCell.h; sourceTree = "<group>"; };
 		B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeMushaCell.m; sourceTree = "<group>"; };
 		B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeMushaCell.xib; sourceTree = "<group>"; };
-		B737AEA91C2D32BC00BE9615 /* ceshiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ceshiViewController.h; sourceTree = "<group>"; };
-		B737AEAA1C2D32BC00BE9615 /* ceshiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ceshiViewController.m; sourceTree = "<group>"; };
 		B739FB371C279991004100C2 /* MyFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFriendViewController.h; sourceTree = "<group>"; };
 		B739FB381C279991004100C2 /* MyFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFriendViewController.m; sourceTree = "<group>"; };
 		B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHStoryTableViewCell.xib; sourceTree = "<group>"; };
@@ -2520,8 +2517,6 @@
 				B712CC971C2CDC9D00B1A2E8 /* SendNewsViewController.m */,
 				B712CC991C2D1D6A00B1A2E8 /* SendVideoViewController.h */,
 				B712CC9A1C2D1D6B00B1A2E8 /* SendVideoViewController.m */,
-				B737AEA91C2D32BC00BE9615 /* ceshiViewController.h */,
-				B737AEAA1C2D32BC00BE9615 /* ceshiViewController.m */,
 				B7E7CF741C31036C00FDA06B /* PlayVideoViewController.h */,
 				B7E7CF751C31036C00FDA06B /* PlayVideoViewController.m */,
 			);
@@ -3075,7 +3070,6 @@
 				B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */,
 				804952091C250B3800F5584A /* SCMediaTypeConfiguration.m in Sources */,
 				80DB84621C23D3A6008CA670 /* NSData+ImageContentType.m in Sources */,
-				B737AEAB1C2D32BC00BE9615 /* ceshiViewController.m in Sources */,
 				80DB846A1C23D3A6008CA670 /* UIButton+WebCache.m in Sources */,
 				B7617E271C1C289E00CF96E7 /* UnionNewsCell.m in Sources */,
 				80DB84651C23D3A6008CA670 /* SDWebImageDecoder.m in Sources */,

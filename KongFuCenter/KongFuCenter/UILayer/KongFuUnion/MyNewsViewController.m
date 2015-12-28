@@ -17,6 +17,7 @@
 #import "WFPopView.h"
 #import "WFActionSheet.h"
 #import "PlayVideoViewController.h"
+#import "MJRefresh.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -51,10 +52,11 @@
     DataProvider *dataProvider;
     
     //数据
-    NSArray *wyArray;
     int selectRow;
     NSString *kAdmin;
     BOOL isComment;
+    int curpage;//页数
+    int sumpage;
     
 }
 
@@ -78,18 +80,18 @@
     dataProvider = [[DataProvider alloc] init];
     _tableDataSource = [[NSMutableArray alloc] init];
     _contentDataSource = [[NSMutableArray alloc] init];
-    wyArray = [[NSArray alloc] init];
     _replyIndex = -1;//代表是直接评论
     kAdmin = [userDefault valueForKey:@"NicName"];
     
     //[self configData];
-    //[self initTableview];
+    [self initTableview];
     //[self loadTextData];
     
-    [self initData];
+    //[self initData];
 }
 
--(void)initData{
+-(void)TeamTopRefresh{
+    curpage = 0;
     [SVProgressHUD showWithStatus:@"加载中"];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getMyNewsCallBack:"];
     //[dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
@@ -98,8 +100,15 @@
 
 -(void)getMyNewsCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
+        if(_contentDataSource != nil || _contentDataSource.count>0){
+            [_contentDataSource removeAllObjects];
+        }
+        
+        if(_tableDataSource != nil || _tableDataSource.count>0){
+            [_tableDataSource removeAllObjects];
+        }
         DLog(@"%@",dict);
-        wyArray = dict[@"data"];
+        sumpage = [dict[@"recordcount"] intValue];
         for(NSDictionary *itemDict in dict[@"data"]){
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             messBody.posterContent = [itemDict valueForKey:@"Content"];
@@ -120,6 +129,7 @@
                 NSMutableArray *commentArray = [[NSMutableArray alloc] init];;
                 for (int i = 0; i < ComArray.count; i++) {
                     WFReplyBody *body = [[WFReplyBody alloc] init];
+                    body.cID = [ComArray[i] valueForKey:@"Id"];
                     body.replyUser = [ComArray[i] valueForKey:@"NicName"];
                     body.repliedUser = [[NSString stringWithFormat:@"%@",[ComArray[i] valueForKey:@"ParentId"]] isEqual:@"0"]?@"":[ComArray[i] valueForKey:@"CommentedNicName"];
                     body.replyInfo = [ComArray[i] valueForKey:@"Content"];
@@ -129,12 +139,15 @@
             }
             NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+            messBody.mID = [itemDict valueForKey:@"Id"];
             messBody.posterImgstr = url;//@"mao.jpg";
             messBody.posterName = [itemDict valueForKey:@"NicName"];
             messBody.posterIntro = @"";
             messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
             messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
             messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
+            
+            messBody.sendTime = [NSString stringWithFormat:@"%@",[itemDict valueForKey:@"PublishTime"]];
             
             NSMutableArray *videoArray = [[NSMutableArray alloc] init];
             [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[itemDict valueForKey:@"ImagePath"]]];
@@ -145,12 +158,16 @@
             [_contentDataSource addObject:messBody];
         }
         
-        [self initTableview];
+        //[self initTableview];
         
         [self loadTextData];
         
+        [mainTable reloadData];
+        
         [SVProgressHUD dismiss];
         
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -273,6 +290,36 @@
     [self.view addSubview:moreSettingBackView];
     moreSettingBackView.hidden = YES;
     
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = mainTable;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mainTable.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf TeamTopRefresh];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [mainTable.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    mainTable.mj_footer = footer;
+    
+}
+
+-(void)TeamFootRefresh
+{
+    curpage++;
+    if (curpage >= sumpage) {
+        [mainTable.mj_footer endRefreshing];
+        return;
+    }
+    dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
+    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
 }
 
 -(void)btnClick:(UIButton *)sender
@@ -372,6 +419,8 @@
         cell = [[YMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.backgroundColor = ItemsBaseColor;
     }
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:indexPath.row];
+    WFMessageBody *m = ymData.messageBody;
     cell.stamp = indexPath.row;
     //cell.replyBtn.appendIndexPath = indexPath;
     //[cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -380,7 +429,7 @@
     cell.CommentBtnHF.tag = indexPath.row;
     [cell.CommentBtnHF addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
     
-    NSString *PublishTime = [wyArray[indexPath.row] valueForKey:@"PublishTime"];
+    NSString *PublishTime = m.sendTime;//[wyArray[indexPath.row] valueForKey:@"PublishTime"];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *date = [dateFormatter dateFromString:PublishTime];
@@ -401,8 +450,6 @@
     
     cell.zanBtn.tag = indexPath.row;
     [cell.zanBtn addTarget:self action:@selector(zanEvent:) forControlEvents:UIControlEventTouchUpInside];
-    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:indexPath.row];
-    WFMessageBody *m = ymData.messageBody;
     if (m.isFavour == YES) {//此时该取消赞
         [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan"] forState:UIControlStateNormal];
     }else{
@@ -428,8 +475,9 @@
     UITapGestureRecognizer *tap = (UITapGestureRecognizer*)sender;
     UIView *views = (UIView*) tap.view;
     NSLog(@"%d",(int)views.tag);
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:views.tag];
     PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
-    playVideoVC.videoPath = [wyArray[views.tag] valueForKey:@"VideoPath"];
+    playVideoVC.videoPath = ymData.showVideoArray[1];
     [self.navigationController pushViewController:playVideoVC animated:YES];
 }
 
@@ -474,11 +522,11 @@
     if (m.isFavour == YES) {//此时该取消赞
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
-        [dataProvider voicedelete:[wyArray[sender.tag] valueForKey:@"Id"] andUserId:[userDefault valueForKey:@"id"] andFlg:@"2"];
+        [dataProvider voicedelete:m.mID andUserId:[userDefault valueForKey:@"id"] andFlg:@"2"];
     }else{
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
-        [dataProvider voiceAction:[wyArray[sender.tag] valueForKey:@"Id"] andUserId:[userDefault valueForKey:@"id"] andFlg:@"2"];
+        [dataProvider voiceAction:m.mID andUserId:[userDefault valueForKey:@"id"] andFlg:@"2"];
     }
 }
 
@@ -512,15 +560,17 @@
 }
 
 -(void)sendButton:(id)sender{
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
+    WFMessageBody *m = ymData.messageBody;
     if (isComment) {
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"mainCommentCallBack:"];
-        [dataProvider MessageComment:[wyArray[selectRow] valueForKey:@"Id"] anduserid:[userDefault valueForKey:@"id"] andcomment:((UITextView *)sender).text];
+        [dataProvider MessageComment:m.mID anduserid:[userDefault valueForKey:@"id"] andcomment:((UITextView *)sender).text];
     }else{
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"mainCommentCallBack:"];
-        [dataProvider CommentComment:[[wyArray[selectRow] valueForKey:@"ComList"][_replyIndex] valueForKey:@"Id"] anduserid:[userDefault valueForKey:@"id"] andcomment:((UITextView *)sender).text];
-        
+        WFReplyBody *b = [m.posterReplies objectAtIndex:_replyIndex];
+        [dataProvider CommentComment:b.cID anduserid:[userDefault valueForKey:@"id"] andcomment:((UITextView *)sender).text];
     }
 }
 

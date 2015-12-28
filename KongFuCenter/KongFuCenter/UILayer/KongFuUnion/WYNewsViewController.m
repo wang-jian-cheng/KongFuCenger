@@ -20,9 +20,9 @@
 #import "SendNewsViewController.h"
 #import "WechatShortVideoController.h"
 #import "SendVideoViewController.h"
-#import "ceshiViewController.h"
 #import "PlayVideoViewController.h"
 #import "MJRefresh.h"
+#import "UIImageView+WebCache.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -61,6 +61,7 @@
     NSString *kAdmin;
     BOOL isComment;
     int curpage;//页数
+    int sumpage;
     
 }
 
@@ -97,15 +98,19 @@
     curpage = 0;
     [SVProgressHUD showWithStatus:@"加载中"];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getWYNewsCallBack:"];
-    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 1] andmaximumRows:@"1"];
+    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
 }
 
 -(void)TeamFootRefresh
 {
+    if ((curpage + 1) * 5 >= sumpage) {
+        [mainTable.mj_footer endRefreshing];
+        return;
+    }
     curpage++;
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
-    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 1] andmaximumRows:@"1"];
+    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
 }
 
 -(void)getWYNewsCallBack:(id)dict{
@@ -118,6 +123,7 @@
             [_tableDataSource removeAllObjects];
         }
         DLog(@"%@",dict);
+        sumpage = [dict[@"recordcount"] intValue];
         for(NSDictionary *itemDict in dict[@"data"]){
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             messBody.posterContent = [itemDict valueForKey:@"Content"];
@@ -257,6 +263,11 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [self TeamTopRefresh];
 }
 
 -(void)clickRightButton:(UIButton *)sender
@@ -340,7 +351,7 @@
 
 - (void) initTableview{
     
-    mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
+    mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64 + 45)];
     mainTable.backgroundColor = [UIColor clearColor];
     // mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     mainTable.delegate = self;
@@ -484,11 +495,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     YMTextData *ym = [_tableDataSource objectAtIndex:indexPath.row];
     BOOL unfold = ym.foldOrNot;
-    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance) + (![self isExitVideo:ym]?0:127);
+    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance) + (![self isExitVideo:ym]?30:127);
 }
 
 -(BOOL)isExitVideo:(YMTextData *)ymData{
-    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0;
+    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[1] isEqual:@""]&&ymData.showVideoArray.count>0;
 }
 
 
@@ -701,7 +712,7 @@
     UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50)];
     NSString *photoPath = [userDefault valueForKey:@"PhotoPath"];
     NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoPath];
-    headImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+    [headImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPhotoImg)];
     [headImg setUserInteractionEnabled:YES];
     [headImg addGestureRecognizer:tapGesture];
@@ -710,7 +721,7 @@
     UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - headImg.frame.size.width - 10 - 120 - 5, (headImg.frame.size.height - 21) / 2, 120, 21)];
     name_lbl.textColor = [UIColor whiteColor];
     name_lbl.textAlignment = NSTextAlignmentRight;
-    name_lbl.text = [userDefault valueForKey:@"NicName"];//@"成龙";
+    name_lbl.text = [[NSString stringWithFormat:@"%@",[userDefault valueForKey:@"NicName"]] isEqual:@""]?@"匿名":[userDefault valueForKey:@"NicName"];//@"成龙";
     name_lbl.font = [UIFont systemFontOfSize:15];
     [headImgView addSubview:name_lbl];
 //    UILabel *id_lbl = [[UILabel alloc] initWithFrame:CGRectMake(headImg.frame.origin.x + headImg.frame.size.width+ 2, name_lbl.frame.origin.y + name_lbl.frame.size.height / 2 +10, 100, 21)];
