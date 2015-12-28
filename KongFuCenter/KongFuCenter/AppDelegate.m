@@ -315,16 +315,16 @@
 
         DLog(@"%@ ",dict[@"data"]);
         set_sp(@"OUTLOGIN",@"NO");
-        [mUserDefault setValue:[dict[@"data"] valueForKey:@"Id"] forKey:@"id"];
-        [mUserDefault setValue:[dict[@"data"] valueForKey:@"NicName"] forKey:@"NicName"];
-        [mUserDefault setValue:[dict[@"data"] valueForKey:@"Token"] forKey:@"token"];
-        [mUserDefault setValue:[dict[@"data"] valueForKey:@"PhotoPath"] forKey:@"PhotoPath"];
-        [mUserDefault setValue:[dict[@"data"] valueForKey:@"TeamId"] forKey:@"TeamId"];
-        [mUserDefault setValue:[dict[@"data"] valueForKey:@"HomeAreaId"] forKey:@"HomeAreaId"];
-        [mUserDefault setValue:[dict[@"data"] valueForKey:@"HomeCode"] forKey:@"HomeCode"];
-        [mUserDefault setValue:[dict[@"data"] valueForKey:@"HomeAreaprovinceName"] forKey:@"HomeAreaprovinceName"];
-        [mUserDefault setValue:[dict[@"data"] valueForKey:@"HomeAreaCityName"] forKey:@"HomeAreaCityName"];
-        [mUserDefault setValue:[dict[@"data"] valueForKey:@"HomeAreaCountyName"] forKey:@"HomeAreaCountyName"];
+        [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"Id"]] forKey:@"id"];
+        [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"NicName"]] forKey:@"NicName"];
+        [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"Token"]] forKey:@"token"];
+        [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"PhotoPath"]] forKey:@"PhotoPath"];
+        [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"TeamId"] ] forKey:@"TeamId"];
+        [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"HomeAreaId"]] forKey:@"HomeAreaId"];
+        [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"HomeCode"]] forKey:@"HomeCode"];
+        [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"HomeAreaprovinceName"] ]forKey:@"HomeAreaprovinceName"];
+        [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"HomeAreaCityName"]] forKey:@"HomeAreaCityName"];
+        [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"HomeAreaCountyName"]] forKey:@"HomeAreaCountyName"];
         
         [self setNotificate];
     }

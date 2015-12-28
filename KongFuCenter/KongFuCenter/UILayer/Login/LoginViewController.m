@@ -686,13 +686,13 @@
         
             set_sp(@"OUTLOGIN",@"NO");
 
-            [mUserDefault setValue:[dict valueForKey:@"UserName"] forKey:LogIn_UserID_key];//上次登录的账户
+            [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"UserName"]] forKey:LogIn_UserID_key];//上次登录的账户
             [mUserDefault setValue:passWordText.text forKey:LogIn_UserPass_key];//上次登录的账户
-            [mUserDefault setValue:[dict valueForKey:@"Id"] forKey:@"id"];
-            [mUserDefault setValue:[dict valueForKey:@"Token"] forKey:@"token"];
-            [mUserDefault setValue:[dict valueForKey:@"NicName"] forKey:@"NicName"];
-            [mUserDefault setValue:[dict valueForKey:@"PhotoPath"] forKey:@"PhotoPath"];
-            [mUserDefault setValue:[dict valueForKey:@"TeamId"] forKey:@"TeamId"];
+            [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"Id"]] forKey:@"id"];
+            [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"Token"]] forKey:@"token"];
+            [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"NicName"]] forKey:@"NicName"];
+            [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"PhotoPath"]] forKey:@"PhotoPath"];
+            [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"TeamId"]] forKey:@"TeamId"];
         
             //连接融云服务器
             [[NSNotificationCenter defaultCenter] postNotificationName:@"connectServer" object:nil];

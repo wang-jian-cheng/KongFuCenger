@@ -166,7 +166,7 @@
     
     [self setBarTitle:@"战队动态"];
     [self addLeftButton:@"left"];
-    [self addRightButton:@"moreNoword"];
+//    [self addRightButton:@"moreNoword"];
     pageSize = 10;
     wyArray = [NSMutableArray array];
     commentArr = [NSMutableArray array];
@@ -254,15 +254,15 @@
 
 -(void)clickRightButton:(UIButton *)sender
 {
-    if(moreSettingBackView.hidden == YES)
-    {
-        moreSettingBackView.hidden = NO;
-        [self positionShowView:moreSettingBackView];
-    }
-    else
-    {
-        [self positionDismissView:moreSettingBackView];
-    }
+//    if(moreSettingBackView.hidden == YES)
+//    {
+//        moreSettingBackView.hidden = NO;
+//        [self positionShowView:moreSettingBackView];
+//    }
+//    else
+//    {
+//        [self positionDismissView:moreSettingBackView];
+//    }
 }
 
 #pragma mark - self data source
