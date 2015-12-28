@@ -11,6 +11,11 @@
 @interface WFReplyBody : NSObject
 
 /**
+ *  评论ID
+ */
+@property (nonatomic,copy) NSString *cID;
+
+/**
  *  评论者
  */
 @property (nonatomic,copy) NSString *replyUser;

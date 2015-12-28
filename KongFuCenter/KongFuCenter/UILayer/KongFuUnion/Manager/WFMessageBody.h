@@ -10,6 +10,11 @@
 
 @interface WFMessageBody : NSObject
 /**
+ *  发布的动态ID
+ */
+@property (nonatomic,copy) NSString *mID;
+
+/**
  *  用户头像url 此处直接用图片名代替
  */
 @property (nonatomic,copy) NSString *posterImgstr;//
@@ -58,5 +63,10 @@
  *  赞的数量
  */
 @property (nonatomic,assign) int zanNum;
+
+/**
+ *  发布时间
+ */
+@property (nonatomic,strong) NSString *sendTime;
 
 @end
