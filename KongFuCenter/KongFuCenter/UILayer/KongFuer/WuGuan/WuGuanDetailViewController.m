@@ -44,8 +44,7 @@
     _cellHeight = SCREEN_HEIGHT/12;
     _sectionNum = 3;
     
-    
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height ) style:UITableViewStyleGrouped];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -351,7 +350,7 @@
                     nameLab.textColor = [UIColor whiteColor];
                     [cell addSubview:nameLab];
                     
-                    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/2 ), 0, SCREEN_WIDTH/2 , _cellHeight)];
+                    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/3 *2), 0, SCREEN_WIDTH/3 , _cellHeight)];
                     backView.backgroundColor = cell.backgroundColor;
                     [cell addSubview:backView];
                     CGFloat btnW = backView.frame.size.width/4 - 5;
@@ -630,9 +629,17 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *tempView = [[UIView alloc] init];
-    
+    tempView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1);
     return tempView;
 }
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *tempView = [[UIView alloc] init];
+    tempView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 10) ;
+    return tempView;
+}
+
 
 //设置section header 的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -641,7 +648,7 @@
 //    if(section == 0)
 //        return 3*_cellHeight;
 //    else
-    return 0;
+    return 1;
 }
 
 //设置section footer的高度
