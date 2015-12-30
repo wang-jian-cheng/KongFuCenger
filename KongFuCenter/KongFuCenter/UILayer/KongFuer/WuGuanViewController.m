@@ -48,7 +48,7 @@
     _sectionNum = 10;
     
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT  )];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT-Header_Height+10  )];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -249,10 +249,10 @@
     
     
     @try {
-        if(WuGuanListArr ==nil || WuGuanListArr.count == 0 || indexPath.row > WuGuanListArr.count - 1)
+        if(WuGuanListArr ==nil || WuGuanListArr.count == 0 || indexPath.section > WuGuanListArr.count - 1)
             return cell;
         
-        NSDictionary *tempDict = [WuGuanListArr objectAtIndex:indexPath.row];
+        NSDictionary *tempDict = [WuGuanListArr objectAtIndex:indexPath.section];
         
         cell.describeLab.text = tempDict[@"Content"];
         cell.titleLab.text = tempDict[@"Title"];
@@ -287,7 +287,7 @@
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     @try {
         WuGuanDetailViewController *wuGuanDetailViewCtl = [[WuGuanDetailViewController alloc] init];
-        wuGuanDetailViewCtl.wuGuanId = WuGuanListArr[indexPath.row][@"Id"];
+        wuGuanDetailViewCtl.wuGuanId = WuGuanListArr[indexPath.section][@"Id"];
         wuGuanDetailViewCtl.navtitle = @"武馆详情";
         [self.navigationController pushViewController:wuGuanDetailViewCtl animated:YES];
         

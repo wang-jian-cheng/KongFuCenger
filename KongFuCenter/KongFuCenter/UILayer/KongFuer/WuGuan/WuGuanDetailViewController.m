@@ -289,6 +289,17 @@
 }
 #pragma mark -  tableview  Delegate
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat sectionHeaderHeight = 40;
+    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    }
+    else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return _sectionNum;
@@ -421,7 +432,7 @@
                 
                 NSString *detailStr = wuGuanDetailDict[@"Content"];
                 CGFloat detailWidth = SCREEN_WIDTH-GapToLeft*2;
-                CGFloat detailHeight = [Toolkit heightWithString:detailStr fontSize:12 width:detailWidth];
+                CGFloat detailHeight = [Toolkit heightWithString:detailStr fontSize:12 width:detailWidth] +20;
                 
                 UILabel *detailLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft,
                                                                                5,
@@ -540,14 +551,17 @@
     }
     
     switch (indexPath.section) {
-        case 0:
+        case WuGuanSection:
             return _cellHeight;
             break;
-        case 1:
-            
-            return 3*_cellHeight;
+        case WuGuanDetailSection:
+        {
+            NSString *detailStr = wuGuanDetailDict[@"Content"];
+            CGFloat detailWidth = SCREEN_WIDTH-GapToLeft*2;
+            return [Toolkit heightWithString:detailStr fontSize:12 width:detailWidth]+20;
+        }
             break;
-        case 2:
+        case WuGuanShowSection:
             return 2*_cellHeight;
             break;
             

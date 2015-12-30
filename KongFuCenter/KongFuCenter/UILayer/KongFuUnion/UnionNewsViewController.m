@@ -227,7 +227,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 6;
+    return 1;
 }
 
 #pragma mark setting for section
