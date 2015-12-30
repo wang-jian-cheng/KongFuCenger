@@ -326,6 +326,10 @@
         if (error == nil) {
             [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
             UISaveVideoAtPathToSavedPhotosAlbum(url.path, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+            
+            if (url.path) {
+                [self dismissViewControllerAnimated:YES completion:^{}];
+            }
         } else {
             self.progressHUD.labelText = [NSString stringWithFormat:@"Failed to save\n%@", error.localizedDescription];
             self.progressHUD.mode = MBProgressHUDModeCustomView;

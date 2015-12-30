@@ -57,6 +57,7 @@
     if (self) {
         self.moviePlayer = [[MPMoviePlayerController alloc]initWithContentURL:url];
         self.moviePlayer.view.frame = self.bounds;
+        self.moviePlayer.scalingMode=MPMovieScalingModeFill;
         // 去除系统自带的控件
         self.moviePlayer.controlStyle = MPMovieControlStyleNone;
         // 视屏开始播放的时候，这个view开始响应用户的操作，把它关闭

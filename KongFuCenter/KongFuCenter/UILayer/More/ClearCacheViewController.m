@@ -301,7 +301,7 @@
 
 - (void)clearCacheSuccess
 {
-    NSLog(@"清除缓存成功");
+    [SVProgressHUD showSuccessWithStatus:@"清除成功" maskType:SVProgressHUDMaskTypeBlack];
 }
 
 @end
