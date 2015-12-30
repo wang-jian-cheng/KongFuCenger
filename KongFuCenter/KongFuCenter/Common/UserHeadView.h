@@ -32,6 +32,7 @@
 //不会跳转
 -(id)initWithFrame:(CGRect)frame andImgName:(NSString *)name;
 -(id)initWithFrame:(CGRect)frame andImg:(UIImage *)img;
+-(id)initWithFrame:(CGRect)frame andurl:(NSString *)url;
 //会跳转至个人资料页
 -(id)initWithFrame:(CGRect)frame andImgName:(NSString *)name andNav:(UINavigationController *)navCtl;
 -(id)initWithFrame:(CGRect)frame andImg:(UIImage *)img andNav:(UINavigationController *)navCtl;

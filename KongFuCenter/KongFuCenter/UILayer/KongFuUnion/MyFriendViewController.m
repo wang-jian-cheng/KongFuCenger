@@ -183,14 +183,16 @@
     }else if(indexPath.section == 1){
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
         cell.backgroundColor = ItemsBaseColor;
-        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(8, 7, 55, 55) andImg:[UIImage imageNamed:@"me"]];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,[userDefault valueForKey:@"TeamImg"]];
+        //UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(8, 7, 55, 55) andImg:[UIImage imageNamed:@"me"]];
+        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(8, 7, 55, 55) andurl:url];
         //headView.userId = friendArray[indexPath.row][@"Value"][@"Id"];
         [headView makeSelfRound];
         [cell addSubview:headView];
         
         nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(8 + headView.frame.size.width + 5, (mCellHeight - 21) / 2, 100, 21)];
         nameLbl.textColor = [UIColor whiteColor];
-        nameLbl.text = @"成龙战队";
+        nameLbl.text = [userDefault valueForKey:@"TeamName"];
         [cell addSubview:nameLbl];
         return cell;
     }else{

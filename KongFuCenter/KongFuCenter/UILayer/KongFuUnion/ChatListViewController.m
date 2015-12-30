@@ -9,6 +9,8 @@
 #import "ChatListViewController.h"
 #import <RongIMKit/RongIMKit.h>
 #import "ChatContentViewController.h"
+#import "MyFriendViewController.h"
+#import "MakeMushaViewController.h"
 
 @interface ChatListViewController (){
     UIView *topView;
@@ -75,7 +77,7 @@
     [leftTitle addTarget:self action:@selector(clickLeftBtn) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:leftTitle];
     
-    UIButton *rightTitle = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 90, StatusBar_HEIGHT + (NavigationBar_HEIGHT - 20) / 2, 40, 20)];
+    UIButton *rightTitle = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, StatusBar_HEIGHT + (NavigationBar_HEIGHT - 20) / 2, 40, 20)];
     [rightTitle setTitle:@"单聊" forState:UIControlStateNormal];
     rightTitle.tag = 0;
     [rightTitle addTarget:self action:@selector(clickRightBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -102,16 +104,22 @@
 -(void)clickRightBtn:(UIButton *)btn{
     if (btn.tag == 0) {
         //新建一个聊天会话View Controller对象
-        ChatContentViewController *chat = [[ChatContentViewController alloc]init];
-        //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
-        chat.conversationType = ConversationType_PRIVATE;
-        //设置会话的目标会话ID。（单聊、客服、公众账号服务为对方的ID，讨论组、群聊、聊天室为会话的ID）
-        chat.targetId = [NSString stringWithFormat:@"%@",[userDefault valueForKey:@"id"]];
-        chat.userName = @"nihao";
-        //设置聊天会话界面要显示的标题
-        chat.title = @"想显示的会话标题";
-        //显示聊天会话界面
-        [self.navigationController pushViewController:chat animated:YES];
+//        ChatContentViewController *chat = [[ChatContentViewController alloc]init];
+//        //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
+//        chat.conversationType = ConversationType_PRIVATE;
+//        //设置会话的目标会话ID。（单聊、客服、公众账号服务为对方的ID，讨论组、群聊、聊天室为会话的ID）
+//        chat.targetId = [NSString stringWithFormat:@"%@",[userDefault valueForKey:@"id"]];
+//        chat.userName = @"nihao";
+//        //设置聊天会话界面要显示的标题
+//        chat.title = @"想显示的会话标题";
+//        //显示聊天会话界面
+//        [self.navigationController pushViewController:chat animated:YES];
+        
+        //获取好友信息
+        [SVProgressHUD showWithStatus:@"加载中"];
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"getFriendBackCall:"];
+        [dataProvider getFriendForKeyValue:[userDefault valueForKey:@"id"]];
     }else{
 //        //新建一个聊天会话View Controller对象
 //        ChatContentViewController *chat = [[ChatContentViewController alloc]init];
@@ -123,6 +131,20 @@
 //        chat.title = @"想显示的会话标题";
 //        //显示聊天会话界面
 //        [self.navigationController pushViewController:chat animated:YES];
+    }
+}
+
+-(void)getFriendBackCall:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        friendArray = dict[@"data"];
+        if (friendArray.count > 0) {
+            MyFriendViewController *myFriendVC = [[MyFriendViewController alloc] init];
+            [self.navigationController pushViewController:myFriendVC animated:YES];
+        }else{
+            MakeMushaViewController *makeMushaVC = [[MakeMushaViewController alloc] init];
+            [self.navigationController pushViewController:makeMushaVC animated:YES];
+        }
     }
 }
 
