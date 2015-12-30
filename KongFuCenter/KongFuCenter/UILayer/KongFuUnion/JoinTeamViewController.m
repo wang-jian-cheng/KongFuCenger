@@ -39,6 +39,8 @@
     NSUserDefaults *userDefault;
     DataProvider *dataProvider;
     NSString *teamId;
+    NSString *teamImg;
+    NSString *teamName;
 }
 
 @end
@@ -273,11 +275,12 @@
 }
 
 -(void)joinTeamEvent:(UIButton *)btn{
-    
+    NSLog(@"%@",teamArray);
     if([btn.titleLabel.text  isEqualToString:@"加入"])
     {
         teamId = [NSString stringWithFormat:@"%@",teamArray[btn.tag][@"Id"] ];
-        NSString *teamName = teamArray[btn.tag][@"Name"];
+        teamImg = [NSString stringWithFormat:@"%@",teamArray[btn.tag][@"ImagePath"] ];
+        teamName = [NSString stringWithFormat:@"%@",teamArray[btn.tag][@"Name"] ];
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"joinTeamCallBack:"];
         [dataProvider JoinTeam:[userDefault valueForKey:@"id"] andTeamId:teamId andName:teamName];
@@ -294,6 +297,8 @@
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showSuccessWithStatus:@"加入战队成功~"];
         [userDefault setValue:teamId forKey:@"TeamId"];
+        [userDefault setValue:teamImg forKey:@"TeamImg"];
+        [userDefault setValue:teamName forKey:@"TeamName"];
         [mTableView.mj_header beginRefreshing];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"加入战队失败~"];
@@ -305,6 +310,8 @@
     if ([dict[@"code"] intValue] == 200) {
         
         remove_sp(@"TeamId");
+        remove_sp(@"TeamImg");
+        remove_sp(@"TeamName");
         [mTableView.mj_header beginRefreshing];
 
     }else{
