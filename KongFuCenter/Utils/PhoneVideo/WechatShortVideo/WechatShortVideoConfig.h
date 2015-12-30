@@ -60,7 +60,7 @@
 #define RECORD_BTN_TITLE    @"按住拍"
 
 //Tip color normal
-#define NORMAL_TIPCOLOR     WeALColor(42, 200, 0)
+#define NORMAL_TIPCOLOR     WeALColor(255, 120, 12)
 //Tip color warning
 #define WARNING_TIPCOLOR    WeALColor(216, 0, 40)
 
