@@ -798,6 +798,9 @@
 //    [model.OperateTime substringWithRange:x];
     cell.date.text = [model.OperateTime substringWithRange:x];
     
+    [cell.img_logo sd_setImageWithURL:[NSURL URLWithString:url]];
+    
+    
     NSString * str_free = [NSString stringWithFormat:@"%@",model.IsFree];
     if([str_free isEqualToString:@"1"])
     {
