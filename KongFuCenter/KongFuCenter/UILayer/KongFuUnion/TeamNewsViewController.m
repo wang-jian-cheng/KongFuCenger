@@ -279,6 +279,14 @@
                      andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize]
                        andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
     }
+    else
+    {
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"getSelfTeamNewsCallBack:"];
+        [dataprovider getOtherTeamNews:self.teamId
+                      andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize]
+                       andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+    }
 }
 
 

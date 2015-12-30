@@ -664,6 +664,15 @@
     }
 }
 
+-(void)quitTeam:(NSString *)userid andTeamID:(NSString *)teamid
+{
+    if (userid && teamid ) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/QuitGroup",Url];
+        NSDictionary *prm = @{@"userid":userid,
+                              @"teamid":teamid};
+        [self PostRequest:url andpram:prm];
+    }
+}
 -(void)GetFriendBySearch:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andNicName:(NSString *)nicName andAreaId:(NSString *)areaId andAge:(NSString *)age andSexuality:(NSString *)sexuality andUserid:(NSString *)userid{
     NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetFriendBySearch",Url];
     NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"nicName":nicName,@"areaId":areaId,@"age":age,@"sexuality":sexuality,@"userid":userid};
@@ -761,6 +770,19 @@
         [self PostRequest:url andpram:prm];
     }
 }
+-(void)getOtherTeamNews:(NSString *)teamid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
+{
+    if(teamid && startRowIndex && maximumRows)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetTeamDongtaiPageByTeamId",Url];
+        NSDictionary *prm = @{@"teamid":teamid,
+                              @"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+
+}
 
 -(void)getTeamMember:(NSString *)teamid
 {
@@ -773,6 +795,33 @@
 
     }
 }
+
+-(void)getTeamIntro:(NSString *)teamid
+{
+    if(teamid)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamIntroduce",Url];
+        NSDictionary *prm = @{@"teamid":teamid};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+}
+
+-(void)getTeamAnnouncement:(NSString *)teamid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
+{
+    if(teamid && startRowIndex && maximumRows)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamAnnouncement",Url];
+        NSDictionary *prm = @{@"teamid":teamid,
+                              @"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+
+}
+
 -(void)delComment:(NSString*)messageID
 {
     if(messageID)
@@ -908,7 +957,7 @@
 //        XMLElement * root = [parser parserXML:[str dataUsingEncoding:NSASCIIStringEncoding]];
 //        NSLog(@"解析后：root=%@",root.text);
 //        /*解析xml字符串结束*/
-        
+        NSLog(@"check time 1");
         NSData * data =[str dataUsingEncoding:NSUTF8StringEncoding];
         id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         

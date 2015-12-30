@@ -290,7 +290,7 @@
         
         UIImageView *backView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
         NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,secondCateArr[indexPath.row][@"ImagePath"]];
-      //  [backView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+        [backView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"temp2"]];
         [cell addSubview:backView];
         
         UILabel *cateNameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];

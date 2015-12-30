@@ -216,8 +216,8 @@
             }
             if(provinceId == nil)
             {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-                [alert show];
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//                [alert show];
                 return;
             }
             [self getCityByProvince:provinceId];
@@ -240,8 +240,8 @@
             }
             if(cityCode == nil)
             {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-                [alert show];
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//                [alert show];
                 return;
             }
             [self getAreaByCity:cityCode];
@@ -493,8 +493,8 @@
             }
             if(provinceId == nil)
             {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-                [alert show];
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//                [alert show];
                 return;
             }
             if(clickAddBtn == YES || loadDataFlag ==YES)
@@ -574,8 +574,8 @@
                 }
                 if(cityCode == nil)
                 {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-                    [alert show];
+//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//                    [alert show];
                     return;
                 }
                 [self getAreaByCity:cityCode];
@@ -669,7 +669,7 @@
 {
     RegisterViewController * registerViewController = [[RegisterViewController alloc] init];
     
-    registerViewController.pageMode = 2;
+    registerViewController.pageMode = MODE_change;
     [self.navigationController pushViewController:registerViewController animated:YES];
 //    [self presentViewController:registerViewController animated:YES completion:^{
 //        
@@ -836,8 +836,8 @@
             }
             if(provinceId == nil)
             {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-                [alert show];
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//                [alert show];
                 return;
             }
             clickAddBtn = YES;
@@ -863,8 +863,8 @@
             }
             if(cityCode == nil)
             {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-                [alert show];
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//                [alert show];
                 return;
             }
             clickAddBtn = YES;

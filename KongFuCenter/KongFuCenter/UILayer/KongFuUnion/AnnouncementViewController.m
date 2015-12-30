@@ -18,8 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    pageSize = 10;
     // Do any additional setup after loading the view.
-    
+    announceArr = [NSMutableArray array];
     [self p_navigation];
     
     [self p_setupView];
@@ -28,6 +29,44 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - self data source 
+-(void)FooterRefresh
+{
+    [self getTeamAnnounce];
+}
+
+-(void) getTeamAnnounce
+{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getTeamAnnounceCallBack:"];
+    [dataProvider getTeamAnnouncement:get_sp(TEAM_ID)
+                     andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize]
+                       andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+}
+
+-(void)getTeamAnnounceCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        @try {
+            pageNo ++;
+            [self.tableView reloadData];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
 }
 
 #pragma mark - 背景色和navigation
@@ -54,7 +93,26 @@
     
     [self.view addSubview:self.tableView];
     
-    //注册
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    self.tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        pageNo=0;
+        [announceArr removeAllObjects];
+        
+        [weakSelf getTeamAnnounce];
+        // 结束刷新
+        [self.tableView.mj_header endRefreshing];
+    }];
+    [self.tableView.mj_header beginRefreshing];
+    
+//     上拉刷新
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+    
+            [weakSelf FooterRefresh];
+            [self.tableView.mj_footer endRefreshing];
+        }];
+    
     [self.tableView registerClass:[AnnouncementTableViewCell class] forCellReuseIdentifier:@"cell_Announcement"];
     
 }
