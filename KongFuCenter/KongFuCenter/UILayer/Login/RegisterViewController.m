@@ -76,10 +76,17 @@
 //    
 ////    [self dismissViewControllerAnimated:YES completion:nil];
 //    
-//}
+////}
 -(void)clickLeftButton:(UIButton *)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if(self.pageMode == MODE_change)
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,7 +101,6 @@
     if (_pageMode == MODE_change) {
         if (indexPath.row == 0) {
             txt_oldPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-140, 30)];
-            txt_oldPwd.keyboardType = UIKeyboardTypeNumberPad;
             txt_oldPwd.placeholder=@"请输入您的原密码";
             txt_oldPwd.textColor = [UIColor whiteColor];
             [txt_oldPwd setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -182,7 +188,7 @@
                 
                 cell.backgroundColor = BACKGROUND_COLOR;
                 //if(_pageMode == MODE_Reg)
-                if(0)
+                if(1)
                 {
                     UIButton * btn_fuwuxieyi=[[UIButton alloc] initWithFrame:CGRectMake(20, 10, 100, 30)];
                     [btn_fuwuxieyi setImage:[UIImage imageNamed:@"regster_select_icon@2x.png"] forState:UIControlStateNormal];
@@ -246,7 +252,7 @@
     }else if (_pageMode == MODE_change){
         return 4;
     }
-    return 0;
+    return 6;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

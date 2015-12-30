@@ -36,9 +36,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    taocanArr = @[@"一个月20元",
-                  @"两个月40元",
-                  @"三个月60元"];
+    taocanArr = @[@"一个月 300元",
+                  @"三个月 600元",
+                  @" 半年 900元",
+                  @" 一年1200元"];
     selectBtnArr = [NSMutableArray array];
     roundBtnArr = [NSMutableArray array];
 
@@ -52,7 +53,7 @@
 {
     _cellHeight = SCREEN_HEIGHT /12;
     _sectionNum = 2;
-    for(int i =0;i<3;i++)
+    for(int i =0;i<taocanArr.count;i++)
     {
         UIButton *selectBtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 60 -20), 10, 60, _cellHeight-20)];
         [selectBtn setTitle:@"开通" forState:UIControlStateNormal];
@@ -68,13 +69,16 @@
     for(int i = 0;i<2;i++)
     {
         SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake((SCREEN_WIDTH - 60), _cellHeight/2)];
+        if (i == 0) {
+            roundBtn.selected = YES;
+        }
         roundBtn.backgroundColor = BACKGROUND_COLOR;
         [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         roundBtn.tag = i+1000;
         [roundBtnArr addObject:roundBtn];
     }
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, 8*_cellHeight)];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, (taocanArr.count+5)*_cellHeight)];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -284,7 +288,7 @@
     
     if(section == 0)
     {
-        return 4;
+        return taocanArr.count+1;
     }
     else if(section == 1)
     {
@@ -349,7 +353,7 @@
                         cell.textLabel.textColor = [UIColor whiteColor];
                         
                         NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:taocanArr[indexPath.row - 1]];
-                        [str addAttribute:NSForegroundColorAttributeName value:YellowBlock range:NSMakeRange(3,2)];
+                        [str addAttribute:NSForegroundColorAttributeName value:YellowBlock range:NSMakeRange(3,4)];
                         cell.textLabel.attributedText = str;
                         cell.textLabel.font = [UIFont systemFontOfSize:14];
 

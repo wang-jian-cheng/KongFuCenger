@@ -168,6 +168,8 @@
 
 //加入战队
 -(void)JoinTeam:(NSString *)userid andTeamId:(NSString *)teamid andName:(NSString *)name;
+//退出战队
+-(void)quitTeam:(NSString *)userid andTeamID:(NSString *)teamid;
 
 //获取省
 -(void)getProvince;
@@ -240,10 +242,17 @@
 -(void)SelectDongtaiByFriendId:(NSString *)friendid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
 #pragma mark － 战队动态
 -(void)getSelfTeamNews:(NSString *)userid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
+//获取其他战队状态
+-(void)getOtherTeamNews:(NSString *)teamid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 //获取战队成员
 -(void)getTeamMember:(NSString *)teamid;
+//获取战队介绍　
+-(void)getTeamIntro:(NSString *)teamid;
 //删除评论
 -(void)delComment:(NSString*)messageID;
+//获取战队公告
+-(void)getTeamAnnouncement:(NSString *)teamid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
+
 
 #pragma mark - 联盟动态
 -(void)getUnionNewsCate;

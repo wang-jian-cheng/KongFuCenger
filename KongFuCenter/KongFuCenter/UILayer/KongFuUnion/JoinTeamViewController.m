@@ -273,20 +273,47 @@
 }
 
 -(void)joinTeamEvent:(UIButton *)btn{
-    teamId = teamArray[btn.tag][@"Id"];
-    NSString *teamName = teamArray[btn.tag][@"Name"];
-    dataProvider = [[DataProvider alloc] init];
-    [dataProvider setDelegateObject:self setBackFunctionName:@"joinTeamCallBack:"];
-    [dataProvider JoinTeam:[userDefault valueForKey:@"id"] andTeamId:teamId andName:teamName];
+    
+    if([btn.titleLabel.text  isEqualToString:@"加入"])
+    {
+        teamId = [NSString stringWithFormat:@"%@",teamArray[btn.tag][@"Id"] ];
+        NSString *teamName = teamArray[btn.tag][@"Name"];
+        dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"joinTeamCallBack:"];
+        [dataProvider JoinTeam:[userDefault valueForKey:@"id"] andTeamId:teamId andName:teamName];
+    }
+    else if ([btn.titleLabel.text isEqualToString:@"退出"])
+    {
+        dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"quitTeamCallBack:"];
+        [dataProvider quitTeam:[Toolkit getUserID] andTeamID:get_sp(@"TeamId")];
+    }
 }
 
 -(void)joinTeamCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showSuccessWithStatus:@"加入战队成功~"];
         [userDefault setValue:teamId forKey:@"TeamId"];
+        [mTableView.mj_header beginRefreshing];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"加入战队失败~"];
     }
+}
+
+-(void)quitTeamCallBack:(id)dict
+{
+    if ([dict[@"code"] intValue] == 200) {
+        
+        remove_sp(@"TeamId");
+        [mTableView.mj_header beginRefreshing];
+
+    }else{
+        
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
 }
 
 -(void)cancelSelect:(UIButton * )sender
@@ -336,87 +363,100 @@
 
 #pragma mark setting for cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
-        cell.backgroundColor = ItemsBaseColor;
-        searchTxt = [[UITextField alloc] initWithFrame:CGRectMake(14, 0, SCREEN_WIDTH - 28, cell.frame.size.height)];
-        searchTxt.delegate = self;
-        searchTxt.returnKeyType = UIReturnKeySearch;
-        searchTxt.textColor = [UIColor whiteColor];
-        searchTxt.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索战队昵称" attributes:@{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.44 green:0.43 blue:0.44 alpha:1]}];
-        UIImageView *searchIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 20)];
-        searchIv.contentMode = UIViewContentModeScaleAspectFit;
-        searchIv.image = [UIImage imageNamed:@"search"];
-        searchTxt.leftView = searchIv;
-        searchTxt.leftViewMode = UITextFieldViewModeAlways;
-        [cell addSubview:searchTxt];
-        return cell;
-    }else{
-        if (indexPath.row == 0) {
+    
+    @try {
+        if (indexPath.section == 0) {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = ItemsBaseColor;
-            //地区
-            UILabel *addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, 0, 50, cell.frame.size.height)];
-            addressLbl.textColor = [UIColor whiteColor];
-            addressLbl.text = @"地区:";
-            [cell addSubview:addressLbl];
-            //省
-            UIButton *btnProvince = [[UIButton alloc] initWithFrame:CGRectMake(addressLbl.frame.origin.x + addressLbl.frame.size.width, (cell.frame.size.height - 25) / 2, 60, 25)];
-            btnProvince.backgroundColor = [UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1];
-            [btnProvince setTitle:provinceTxt forState:UIControlStateNormal];
-            [cell addSubview:btnProvince];
-            UIImageView *provinceIv = [[UIImageView alloc] initWithFrame:CGRectMake(btnProvince.frame.origin.x + btnProvince.frame.size.width + 8, 0, 10, cell.frame.size.height)];
-            provinceIv.contentMode = UIViewContentModeScaleAspectFit;
-            provinceIv.image = [UIImage imageNamed:@"down_icon"];
-            [cell addSubview:provinceIv];
-            //市
-            UIButton *btnCity = [[UIButton alloc] initWithFrame:CGRectMake(btnProvince.frame.origin.x + btnProvince.frame.size.width + 25, (cell.frame.size.height - 25) / 2, 60, 25)];
-            btnCity.backgroundColor = [UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1];
-            [btnCity setTitle:cityTxt forState:UIControlStateNormal];
-            [cell addSubview:btnCity];
-            UIImageView *cityIv = [[UIImageView alloc] initWithFrame:CGRectMake(btnCity.frame.origin.x + btnCity.frame.size.width + 8, 0, 10, cell.frame.size.height)];
-            cityIv.contentMode = UIViewContentModeScaleAspectFit;
-            cityIv.image = [UIImage imageNamed:@"down_icon"];
-            [cell addSubview:cityIv];
-            //县
-            UIButton *btnCountry = [[UIButton alloc] initWithFrame:CGRectMake(btnCity.frame.origin.x + btnCity.frame.size.width + 25, (cell.frame.size.height - 25) / 2, 60, 25)];
-            btnCountry.backgroundColor = [UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1];
-            [btnCountry setTitle:countryTxt forState:UIControlStateNormal];
-            [cell addSubview:btnCountry];
-            UIImageView *countryIv = [[UIImageView alloc] initWithFrame:CGRectMake(btnCountry.frame.origin.x + btnCountry.frame.size.width + 8, 0, 10, cell.frame.size.height)];
-            countryIv.contentMode = UIViewContentModeScaleAspectFit;
-            countryIv.image = [UIImage imageNamed:@"down_icon"];
-            [cell addSubview:countryIv];
-
-            UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, cell.frame.size.height)];
-            [tempBtn addTarget:self action:@selector(tempBtnEvent) forControlEvents:UIControlEventTouchUpInside];
-            [cell addSubview:tempBtn];
-            
+            searchTxt = [[UITextField alloc] initWithFrame:CGRectMake(14, 0, SCREEN_WIDTH - 28, cell.frame.size.height)];
+            searchTxt.delegate = self;
+            searchTxt.returnKeyType = UIReturnKeySearch;
+            searchTxt.textColor = [UIColor whiteColor];
+            searchTxt.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索战队昵称" attributes:@{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.44 green:0.43 blue:0.44 alpha:1]}];
+            UIImageView *searchIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 20)];
+            searchIv.contentMode = UIViewContentModeScaleAspectFit;
+            searchIv.image = [UIImage imageNamed:@"search"];
+            searchTxt.leftView = searchIv;
+            searchTxt.leftViewMode = UITextFieldViewModeAlways;
+            [cell addSubview:searchTxt];
             return cell;
         }else{
-            NSString *CellIdentifier = @"JoinTeamCellIdentifier";
-            JoinTeamCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if (cell == nil) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"JoinTeamCell" owner:self options:nil] objectAtIndex:0];
-                cell.backgroundColor = ItemsBaseColor;
+            if (indexPath.row == 0) {
+                UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-            NSLog(@"%@",teamArray);
-            cell.mImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,teamArray[indexPath.row - 1][@"ImagePath"]]]]];//[UIImage imageNamed:@"jointeam"];
-            cell.mName.text = teamArray[indexPath.row - 1][@"Name"];//@"跆拳道战队(123456789)";
-            cell.mAddress.text = teamArray[indexPath.row - 1][@"Address"];
-            if ([[NSString stringWithFormat:@"%@",[userDefault valueForKey:@"TeamId"]] isEqual:@"0"]) {
-                [cell.mJoin setTitle:@"加入" forState:UIControlStateNormal];
-                [cell.mJoin setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+                cell.backgroundColor = ItemsBaseColor;
+                //地区
+                UILabel *addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, 0, 50, cell.frame.size.height)];
+                addressLbl.textColor = [UIColor whiteColor];
+                addressLbl.text = @"地区:";
+                [cell addSubview:addressLbl];
+                //省
+                UIButton *btnProvince = [[UIButton alloc] initWithFrame:CGRectMake(addressLbl.frame.origin.x + addressLbl.frame.size.width, (cell.frame.size.height - 25) / 2, 60, 25)];
+                btnProvince.backgroundColor = [UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1];
+                [btnProvince setTitle:provinceTxt forState:UIControlStateNormal];
+                [cell addSubview:btnProvince];
+                UIImageView *provinceIv = [[UIImageView alloc] initWithFrame:CGRectMake(btnProvince.frame.origin.x + btnProvince.frame.size.width + 8, 0, 10, cell.frame.size.height)];
+                provinceIv.contentMode = UIViewContentModeScaleAspectFit;
+                provinceIv.image = [UIImage imageNamed:@"down_icon"];
+                [cell addSubview:provinceIv];
+                //市
+                UIButton *btnCity = [[UIButton alloc] initWithFrame:CGRectMake(btnProvince.frame.origin.x + btnProvince.frame.size.width + 25, (cell.frame.size.height - 25) / 2, 60, 25)];
+                btnCity.backgroundColor = [UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1];
+                [btnCity setTitle:cityTxt forState:UIControlStateNormal];
+                [cell addSubview:btnCity];
+                UIImageView *cityIv = [[UIImageView alloc] initWithFrame:CGRectMake(btnCity.frame.origin.x + btnCity.frame.size.width + 8, 0, 10, cell.frame.size.height)];
+                cityIv.contentMode = UIViewContentModeScaleAspectFit;
+                cityIv.image = [UIImage imageNamed:@"down_icon"];
+                [cell addSubview:cityIv];
+                //县
+                UIButton *btnCountry = [[UIButton alloc] initWithFrame:CGRectMake(btnCity.frame.origin.x + btnCity.frame.size.width + 25, (cell.frame.size.height - 25) / 2, 60, 25)];
+                btnCountry.backgroundColor = [UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1];
+                [btnCountry setTitle:countryTxt forState:UIControlStateNormal];
+                [cell addSubview:btnCountry];
+                UIImageView *countryIv = [[UIImageView alloc] initWithFrame:CGRectMake(btnCountry.frame.origin.x + btnCountry.frame.size.width + 8, 0, 10, cell.frame.size.height)];
+                countryIv.contentMode = UIViewContentModeScaleAspectFit;
+                countryIv.image = [UIImage imageNamed:@"down_icon"];
+                [cell addSubview:countryIv];
+                
+                UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, cell.frame.size.height)];
+                [tempBtn addTarget:self action:@selector(tempBtnEvent) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:tempBtn];
+                
+                return cell;
             }else{
-                [cell.mJoin setTitle:@"已加入" forState:UIControlStateNormal];
+                NSString *CellIdentifier = @"JoinTeamCellIdentifier";
+                JoinTeamCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                if (cell == nil) {
+                    cell = [[[NSBundle mainBundle] loadNibNamed:@"JoinTeamCell" owner:self options:nil] objectAtIndex:0];
+                    cell.backgroundColor = ItemsBaseColor;
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+                NSLog(@"%@",teamArray);
+                cell.mImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,teamArray[indexPath.row - 1][@"ImagePath"]]]]];//[UIImage imageNamed:@"jointeam"];
+                cell.mName.text = teamArray[indexPath.row - 1][@"Name"];//@"跆拳道战队(123456789)";
+                cell.mAddress.text = teamArray[indexPath.row - 1][@"Address"];
+                DLog(@"%@",get_sp(@"TeamId"));
+                
+                if (![[NSString stringWithFormat:@"%@",teamArray[indexPath.row-1][@"Id"]] isEqualToString:get_sp(@"TeamId")]) {
+                    [cell.mJoin setTitle:@"加入" forState:UIControlStateNormal];
+                    [cell.mJoin setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+                }else
+                {
+                    [cell.mJoin setTitle:@"退出" forState:UIControlStateNormal];
+                }
+                cell.mJoin.tag = indexPath.row - 1;
+                [cell.mJoin addTarget:self action:@selector(joinTeamEvent:) forControlEvents:UIControlEventTouchUpInside];
+                return cell;
             }
-            cell.mJoin.tag = indexPath.row - 1;
-            [cell.mJoin addTarget:self action:@selector(joinTeamEvent:) forControlEvents:UIControlEventTouchUpInside];
-            return cell;
         }
     }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+   
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -433,6 +473,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    TeamNewsViewController *teamNewsViewCtl = [[TeamNewsViewController alloc] init];
+    
+//    unionNewsViewCtl.navtitle
+    [self.navigationController pushViewController:teamNewsViewCtl animated:YES];
 }
 
 #pragma mark UITextFieldDelegate

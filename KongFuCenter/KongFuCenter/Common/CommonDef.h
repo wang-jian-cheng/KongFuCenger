@@ -37,7 +37,8 @@
 #define img(a) [UIImage imageNamed:a]
 #define _app_ ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
-
+#define USER_ID @"id"
+#define TEAM_ID @"TeamId"
 
 #define navi_bar_bg_color   [UIColor colorWithRed:0x1e/255.0 green:0x1d/255.0 blue:0x22/255.0 alpha:1.0]
 #define BACKGROUND_COLOR [UIColor colorWithRed:0x3e/255.0 green:0x3e/255.0 blue:0x40/255.0 alpha:1.0]

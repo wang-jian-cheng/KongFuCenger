@@ -48,7 +48,7 @@
     
     [self setBarTitle:@"核动力"];
     
-    [self addRightButton:@"plus@2x.png"];
+    [self addRightButton:@"photo"];
     
     videoType=0;
     

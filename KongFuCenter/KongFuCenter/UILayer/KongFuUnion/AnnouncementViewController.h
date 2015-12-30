@@ -7,7 +7,13 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "DataProvider.h"
+#import "MJRefresh.h"
 @interface AnnouncementViewController : BaseNavigationController
-
+{
+    int pageNo;
+    int pageSize;
+    NSMutableArray *announceArr;
+    
+}
 @end

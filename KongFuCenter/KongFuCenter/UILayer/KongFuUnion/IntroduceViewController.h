@@ -7,7 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "DataProvider.h"
 @interface IntroduceViewController : BaseNavigationController
 
 @end

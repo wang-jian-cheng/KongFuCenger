@@ -7,7 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "TeamNewsViewController.h"
 @interface JoinTeamViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 
 @end

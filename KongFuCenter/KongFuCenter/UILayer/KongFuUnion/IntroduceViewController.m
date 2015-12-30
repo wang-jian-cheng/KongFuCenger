@@ -25,6 +25,8 @@
     [self p_navigation];
     
     [self p_scrollView];
+    
+    [self getTeamIntro];
 
 }
 
@@ -32,6 +34,45 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - self data source 
+-(void)getTeamIntro
+{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getTeamIntroCallBack:"];
+    [dataProvider getTeamIntro:get_sp(TEAM_ID)];
+    
+}
+
+-(void)getTeamIntroCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        @try {
+            NSString * str = dict[@"data"];
+            CGFloat H = [str boundingRectWithSize:CGSizeMake(self.scrollView.frame.size.width - 20, 2000) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:18]} context:nil].size.height;
+
+            CGRect tempRect = self.detail.frame;
+            tempRect.size.height = H;
+            self.detail.text = str;
+            self.detail.frame = tempRect;
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+
+}
+
 
 #pragma mark - 背景色和navigation
 - (void)p_navigation
@@ -55,7 +96,7 @@
     [self.scrollView addSubview:self.image];
     
     //需要先得到文字的内容判断frame
-    NSString * str = @"SD卡人家时间爱的,撒旦了撒旦离开,老是觉得可垃,圾收到垃圾了就觉得拉斯克奖阿迪力捡垃圾绿卡数据德里克撒娇的立刻,就死了肯德基阿斯利康简单绿卡数据的绿卡数据的绿卡数据大立科技奇偶ijlasjlkasj得利,卡数据离开家阿斯利,康点击绿卡数据的绿卡数,,据领导看见爱上领导看见爱上了都结束了简单了解了开始,觉得两款手机的两款手机登陆卡数据的两款手机登陆空间,,阿斯顿离开家阿斯利康就SD卡人家时间爱的撒旦了撒旦离开 老是觉,得可垃圾收到垃圾了就觉得拉斯克奖阿迪力捡垃圾绿卡数据德里克撒娇的立刻就死了肯德基阿斯,利康简单绿卡数据的绿卡数据的绿卡数据大立科技,,奇偶ijlasjlkasj得利卡数据离开家阿斯利康点击绿卡数据的绿卡数据领导看见爱上领导看见爱上了都结束了简单了解了开始觉得两款手机的两款手机登陆卡数";
+    NSString * str = @"";
     CGFloat H = [str boundingRectWithSize:CGSizeMake(self.scrollView.frame.size.width - 20, 2000) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:18]} context:nil].size.height;
     
     self.detail = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.image.frame) + 10, self.scrollView.frame.size.width - 20, H)];
