@@ -45,6 +45,8 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     
+    _lblTitle.text=@"视频详情";
+    
     OtherVideo=0;
     
     otherVideoArray=[[NSArray alloc] init];
@@ -74,8 +76,9 @@
 -(void)GetVideoDetial
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider getStudyOnlineVideoDetial:_videoID];
+    
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
+    [dataprovider getStudyOnlineVideoDetial:_videoID];
 }
 -(void)GetVideoDetialCallBack:(id)dict
 {
