@@ -31,11 +31,11 @@
     
     NSDictionary * VideoDict;//视频信息
     
-    NSArray * videoCommentArray;//评论列表
+    NSMutableArray * videoCommentArray;//评论列表
     
     int OtherVideo;
     
-    NSArray * otherVideoArray;
+    NSMutableArray  * otherVideoArray;
 }
 @end
 
@@ -49,13 +49,14 @@
     
     OtherVideo=0;
     
-    otherVideoArray=[[NSArray alloc] init];
+    otherVideoArray=[NSMutableArray array];
     
     VideoDict=[[NSDictionary alloc] init];
     
-    videoCommentArray=[[NSArray alloc] init];
+    videoCommentArray=[NSMutableArray array];
 
     [self getData];
+    [self initViews];
     
     // Do any additional setup after loading the view.
 }
@@ -70,7 +71,7 @@
 {
     [self GetVideoDetial];
     
-    [self GetVideoDetial1];
+    [self GetVideoCommentDetial];
 }
 
 -(void)GetVideoDetial
@@ -82,7 +83,7 @@
 }
 -(void)GetVideoDetialCallBack:(id)dict
 {
-    NSLog(@"%@",dict);
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
 //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
         VideoPath=[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"][@"VideoPath"] isEqual:[NSNull null]]?@"":dict[@"data"][@"VideoPath"]];
@@ -93,30 +94,37 @@
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
         
-        [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack2:"];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"GetOtherVideoDetialCallBack:"];
         
         [dataprovider getUserid:dict[@"data"][@"UserId"] andNum:@"4" andmessageID:dict[@"data"][@"Id"]];
         
-        [self initViews];
+        moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
+        
+        [_mainTableView reloadData];
+        [self.view addSubview:moviePlayerview];
     }
 }
 
--(void)GetVideoDetial1
+-(void)GetVideoCommentDetial
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
     
-    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack1:"];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoCommentDetialCallBack:"];
     
     [dataprovider getMessageIdInfo:_videoID];
 }
 
--(void)GetVideoDetialCallBack1:(id)dict
+-(void)GetVideoCommentDetialCallBack:(id)dict
 {
-    NSLog(@"%@",dict);
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try
         {
-
+            if(videoCommentArray !=nil && videoCommentArray.count>0)
+              [ videoCommentArray removeAllObjects];
+            
+            [videoCommentArray addObjectsFromArray:dict[@"data"]];
+            
         }
         @catch (NSException *exception) {
             
@@ -137,12 +145,16 @@
 }
 
 
--(void)GetVideoDetialCallBack2:(id)dict
+-(void)GetOtherVideoDetialCallBack:(id)dict
 {
-    NSLog(@"%@",dict);
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try
         {
+            if(otherVideoArray !=nil && otherVideoArray.count>0)
+              [ otherVideoArray removeAllObjects];
+            
+            [otherVideoArray addObjectsFromArray:dict[@"data"]];
             
         }
         @catch (NSException *exception) {
@@ -192,12 +204,12 @@
     [self.view addSubview:_mainTableView];
     
     
-    moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
+    
     
 //    moviePlayerview.
     
     //     MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:self.view.bounds URL:[NSURL URLWithString:@"http://baobab.cdn.wandoujia.com/14468618701471.mp4"]];
-    [self.view addSubview:moviePlayerview];
+    
     
     
     
@@ -467,93 +479,109 @@
             {
                 
                 CGFloat FontSize = 12;
-                
+                @try {
+                    
+                    if(VideoDict == nil)
+                        return cell;
+                    
+                    UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
+                                                                      andImgName:@"me" andNav:self.navigationController];
+                    
+                    NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,VideoDict[@"PhotoPath"]];
+                    [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
+                    
+                    headView.userId = VideoDict[@"UserId"];
+                    
+                    [headView makeSelfRound];
+                    [cell addSubview:headView];
+                    /*name*/
+                    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
+                                                                                 headView.frame.origin.y, 40, headView.frame.size.height/2)];
+                    nameLab.text = [VideoDict[@"UserNicName"] isEqual:[NSNull null]]?@"":VideoDict[@"UserNicName"];
+                    nameLab.textColor = TextColors;
+                    nameLab.font = [UIFont systemFontOfSize:FontSize];
+                    [cell addSubview:nameLab];
+                    
+                    
+                    /*举报*/
+                    UIButton *jubaoBtn = [[UIButton alloc] initWithFrame:CGRectMake((nameLab.frame.origin.x +nameLab.frame.size.width + 10),
+                                                                                    headView.frame.origin.y, 40, headView.frame.size.height/2)];
+                    [jubaoBtn setTitle:@"举报" forState:UIControlStateNormal];
+                    jubaoBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                    [cell addSubview:jubaoBtn];
+                    
+                    /*date*/
+                    UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLab.frame.origin.x,
+                                                                                 (nameLab.frame.origin.y + nameLab.frame.size.height + 2),
+                                                                                 100, headView.frame.size.height/2)];
+                    
+                    dateLab.text = [NSString stringWithFormat:@"发布于%@",[NSString stringWithFormat:@"%@",VideoDict[@"PublishTime"]].length<10?@"":[[NSString stringWithFormat:@"%@",VideoDict[@"PublishTime"]] substringToIndex:10]];
+                    dateLab.textColor = TextColors;
+                    dateLab.font = [UIFont systemFontOfSize:FontSize];
+                    [cell addSubview:dateLab];
+                    
+                    /* 四个点击图标 放到一个新的view上方便计算位置*/
+                    
+                    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/2 ), 0, SCREEN_WIDTH/2 , _cellHeight)];
+                    backView.backgroundColor = cell.backgroundColor;
+                    [cell addSubview:backView];
+                    CGFloat btnW = backView.frame.size.width/4 - 5;
+                    CGFloat btnGap = 5;
+                    CustomButton *SupportBtn = [[CustomButton alloc] initWithFrame:CGRectMake(0, 5, btnW, backView.frame.size.height-10)];
+                    [SupportBtn setTitle:@"点赞" forState:UIControlStateNormal];
+                    SupportBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                    [SupportBtn setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
+                    [SupportBtn setImage:[UIImage imageNamed:@"support_h"] forState:UIControlStateSelected];
+                    SupportBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                    
+                    SupportBtn.tag = 0;
+                    SupportBtn.imageView.contentMode = UIViewContentModeCenter;
+                    [SupportBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    //SupportBtn.backgroundColor = [UIColor redColor];
+                    [backView addSubview:SupportBtn];
+                    
+                    
+                    
+                    
+                    CustomButton *collectBtn = [[CustomButton alloc] initWithFrame:CGRectMake(btnW+btnGap, 5, btnW, backView.frame.size.height-10)];
+                    [collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
+                    collectBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                    [collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
+                    [collectBtn setImage:[UIImage imageNamed:@"collect_h"] forState:UIControlStateSelected];
+                    collectBtn.imageView.contentMode = UIViewContentModeCenter;
+                    collectBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                    collectBtn.tag = 1;
+                    [collectBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    [backView addSubview:collectBtn];
+                    
+                    CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 5, btnW, backView.frame.size.height-10)];
+                    [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
+                    shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                    [shareBtn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+                    shareBtn.imageView.contentMode = UIViewContentModeCenter;
+                    shareBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                    shareBtn.tag = 2;
+                    [shareBtn addTarget:self action:@selector(shareContentBuild) forControlEvents:UIControlEventTouchUpInside];
+                    [backView addSubview:shareBtn];
+                    
+                    CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 5, btnW, backView.frame.size.height-10)];
+                    [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
+                    relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                    relayBtn.imageView.contentMode = UIViewContentModeCenter;
+                    relayBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                    [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
+                    relayBtn.tag = 3;
+                    [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    [backView addSubview:relayBtn];
+                }
+                @catch (NSException *exception) {
+                    
+                }
+                @finally {
+                    
+                }
                 /*head */
-                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
-                                                                  andImgName:@"me"
-                                                                      andNav:self.navigationController];
-                [headView makeSelfRound];
-                [cell addSubview:headView];
-                
-                /*name*/
-                UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
-                                                                             headView.frame.origin.y, 40, headView.frame.size.height/2)];
-                nameLab.text = [VideoDict[@"UserNicName"] isEqual:[NSNull null]]?@"":VideoDict[@"UserNicName"];
-                nameLab.textColor = TextColors;
-                nameLab.font = [UIFont systemFontOfSize:FontSize];
-                [cell addSubview:nameLab];
-                
-                
-                /*举报*/
-                UIButton *jubaoBtn = [[UIButton alloc] initWithFrame:CGRectMake((nameLab.frame.origin.x +nameLab.frame.size.width + 10),
-                                                                                headView.frame.origin.y, 40, headView.frame.size.height/2)];
-                [jubaoBtn setTitle:@"举报" forState:UIControlStateNormal];
-                jubaoBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-                [cell addSubview:jubaoBtn];
-                
-                /*date*/
-                UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLab.frame.origin.x,
-                                                                            (nameLab.frame.origin.y + nameLab.frame.size.height + 2),
-                                                                             100, headView.frame.size.height/2)];
-                
-                dateLab.text = [NSString stringWithFormat:@"发布于%@",[NSString stringWithFormat:@"%@",VideoDict[@"PublishTime"]].length<10?@"":[[NSString stringWithFormat:@"%@",VideoDict[@"PublishTime"]] substringToIndex:10]];
-                dateLab.textColor = TextColors;
-                dateLab.font = [UIFont systemFontOfSize:FontSize];
-                [cell addSubview:dateLab];
-                
-                /* 四个点击图标 放到一个新的view上方便计算位置*/
-                
-                UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/2 ), 0, SCREEN_WIDTH/2 , _cellHeight)];
-                backView.backgroundColor = cell.backgroundColor;
-                [cell addSubview:backView];
-                CGFloat btnW = backView.frame.size.width/4 - 5;
-                CGFloat btnGap = 5;
-                CustomButton *SupportBtn = [[CustomButton alloc] initWithFrame:CGRectMake(0, 5, btnW, backView.frame.size.height-10)];
-                [SupportBtn setTitle:@"点赞" forState:UIControlStateNormal];
-                SupportBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-                [SupportBtn setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
-                [SupportBtn setImage:[UIImage imageNamed:@"support_h"] forState:UIControlStateSelected];
-                SupportBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    
-                SupportBtn.tag = 0;
-                SupportBtn.imageView.contentMode = UIViewContentModeCenter;
-                [SupportBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-            //SupportBtn.backgroundColor = [UIColor redColor];
-                [backView addSubview:SupportBtn];
-                
-                
-                
-                
-                CustomButton *collectBtn = [[CustomButton alloc] initWithFrame:CGRectMake(btnW+btnGap, 5, btnW, backView.frame.size.height-10)];
-                [collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
-                collectBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-                [collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
-                [collectBtn setImage:[UIImage imageNamed:@"collect_h"] forState:UIControlStateSelected];
-                collectBtn.imageView.contentMode = UIViewContentModeCenter;
-                collectBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-                collectBtn.tag = 1;
-                [collectBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-                [backView addSubview:collectBtn];
-                
-                CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 5, btnW, backView.frame.size.height-10)];
-                [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
-                shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-                [shareBtn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
-                shareBtn.imageView.contentMode = UIViewContentModeCenter;
-                shareBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-                shareBtn.tag = 2;
-                [shareBtn addTarget:self action:@selector(shareContentBuild) forControlEvents:UIControlEventTouchUpInside];
-                [backView addSubview:shareBtn];
-                
-                CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 5, btnW, backView.frame.size.height-10)];
-                [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
-                relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-                relayBtn.imageView.contentMode = UIViewContentModeCenter;
-                relayBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-                [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
-                relayBtn.tag = 3;
-                [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-                [backView addSubview:relayBtn];
+               
                 
             }
             
@@ -583,57 +611,81 @@
             break;
         case OtherVideoSection:
         {
-            if(indexPath.row == 0)
-            {
-                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 150, _cellHeight)];
-                titleLab.text = @"其他作品";
-                titleLab.font = [UIFont systemFontOfSize:14];
-                titleLab.textColor = TextColors;
-                [cell addSubview:titleLab];
+            
+            if(otherVideoArray==nil || otherVideoArray.count <=0 || otherVideoArray.count -1 < indexPath.row )
+                return cell;
+            @try {
                 
+                if(indexPath.row == 0)
+                {
+                    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 150, _cellHeight)];
+                    titleLab.text = @"其他作品";
+                    titleLab.font = [UIFont systemFontOfSize:14];
+                    titleLab.textColor = TextColors;
+                    [cell addSubview:titleLab];
+                    
+                    
+                    UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
+                    numLab.text = [NSString stringWithFormat:@"共%ld部",otherVideoArray.count];
+                    numLab.font = [UIFont systemFontOfSize:12];
+                    numLab.textColor = TextColors;
+                    [cell addSubview:numLab];
+                    
+                    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(numLab.frame.origin.x - 10, 5, 1, _cellHeight-10)];
+                    lineView.backgroundColor = Separator_Color;
+                    [cell addSubview:lineView];
+                    
+                }
                 
-                UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
-                numLab.text = @"共100部";
-                numLab.font = [UIFont systemFontOfSize:12];
-                numLab.textColor = TextColors;
-                [cell addSubview:numLab];
+                if(indexPath.row == 1)
+                {
+                    UIScrollView *showOtherVideoView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*2)];
+                    CGFloat gapWidth;
+                    gapWidth =(SCREEN_WIDTH - GapToLeft*2)/3 - (2*_cellHeight -30);
+//                    showOtherVideoView.backgroundColor = [UIColor redColor];
+                    showOtherVideoView.contentSize = CGSizeMake(SCREEN_WIDTH+((otherVideoArray.count-3)*gapWidth), 0);
+                    showOtherVideoView.scrollEnabled = YES;
+                    [cell addSubview:showOtherVideoView];
+                    
+                    for(int i = 0;i< otherVideoArray.count;i++)
+                    {
+                        NSDictionary *tempDict = otherVideoArray[i];
+                        
+                        
+                        UIImageView *tempView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"temp"]];
+                        
+                        tempView.frame = CGRectMake(GapToLeft+i*(2*_cellHeight -30 + gapWidth), 10, 2*_cellHeight -30,(2*_cellHeight -30) );
+                        NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"ImagePath"]];
+                        [tempView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
+                        
+                        [showOtherVideoView addSubview:tempView];
+                        UILabel *templab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft+i*(2*_cellHeight -30 + gapWidth),
+                                                                                     (tempView.frame.origin.y+tempView.frame.size.height+2),
+                                                                                     2*_cellHeight -30,
+                                                                                     2*_cellHeight - (tempView.frame.origin.y+tempView.frame.size.height+2) )];
+                        templab.text = tempDict[@"Title"];
+                        templab.textColor = TextColors;
+                        templab.font = [UIFont systemFontOfSize:14];
+                        templab.textAlignment = NSTextAlignmentCenter;
+                        [showOtherVideoView addSubview:templab];
+                        
+                    }
+                }
+            }
+            @catch (NSException *exception) {
                 
-                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(numLab.frame.origin.x - 10, 5, 1, _cellHeight-10)];
-                lineView.backgroundColor = Separator_Color;
-                [cell addSubview:lineView];
+            }
+            @finally {
                 
             }
             
-            if(indexPath.row == 1)
-            {
-                for(int i = 0;i< 3;i++)
-                {
-                    
-                    CGFloat gapWidth;
-                    gapWidth =(SCREEN_WIDTH - GapToLeft*2)/3 - (2*_cellHeight -30);
-                    
-                    UIImageView *tempView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"temp"]];
-                    
-                    tempView.frame = CGRectMake(GapToLeft+i*(2*_cellHeight -30 + gapWidth), 10, 2*_cellHeight -30,(2*_cellHeight -30) );
-                    
-                    [cell addSubview:tempView];
-                    UILabel *templab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft+i*(2*_cellHeight -30 + gapWidth),
-                                                                                 (tempView.frame.origin.y+tempView.frame.size.height+2),
-                                                                                 2*_cellHeight -30,
-                                                                                 2*_cellHeight - (tempView.frame.origin.y+tempView.frame.size.height+2) )];
-                    templab.text = @"咏春拳";
-                    templab.textColor = TextColors;
-                    templab.font = [UIFont systemFontOfSize:14];
-                    templab.textAlignment = NSTextAlignmentCenter;
-                    [cell addSubview:templab];
-                    
-                }
-            }
         }
             
             break;
         case CommentSection:
         {
+            
+            
             if(indexPath.row == 0)
             {
                 UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 150, _cellHeight)];
@@ -643,8 +695,9 @@
                 [cell addSubview:titleLab];
                 
                 
+                
                 UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
-                numLab.text = @"共100条";
+                numLab.text = [NSString stringWithFormat:@"共%ld条",videoCommentArray.count];
                 numLab.font = [UIFont systemFontOfSize:12];
                 numLab.textColor = TextColors;
                 [cell addSubview:numLab];
@@ -680,52 +733,72 @@
             }
             else
             {
-                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
-                                                                  andImgName:@"me"
-                                                                      andNav:self.navigationController];
-                headView.userId = @"1";
-                [headView makeSelfRound];
-                [cell addSubview:headView];
-                
-                /*name*/
-                UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
-                                                                             headView.frame.origin.y, 40, headView.frame.size.height/2)];
-                nameLab.text = @"鹿晗";
-                nameLab.textColor = TextColors;
-                nameLab.font = [UIFont systemFontOfSize:12];
-                [cell addSubview:nameLab];
                 
                 
-                UIButton *supportBtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 44),headView.frame.origin.y , 44, headView.frame.size.height/2)];
-                [supportBtn setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
-                [supportBtn setImage:[UIImage imageNamed:@"support_h"] forState:UIControlStateSelected];
-                [supportBtn setTitle:@"20" forState:UIControlStateNormal];
-                [supportBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-                supportBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-                [cell addSubview:supportBtn];
+                if(videoCommentArray == nil || videoCommentArray.count <= 0 || videoCommentArray.count < indexPath.row-1)
+                    return cell;
                 
-                
-                NSString *commentStr = @"666 很好 很好 很好，666 很好 很好 很好，666 很好 很好 很好，666 很好 很好 很好，666 很好 很好 很好";
-                CGFloat commentWidth = (SCREEN_WIDTH-(headView.frame.origin.x +headView.frame.size.width + 10) - 10);
-                CGFloat commentHeight = [Toolkit heightWithString:commentStr fontSize:12 width:commentWidth];
-                
-                UILabel *commentLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
-                                                                               headView.frame.size.height/2+2,
-                                                                               commentWidth,
-                                                                               commentHeight)];
-                commentLab.text = commentStr;
-                commentLab.font = [UIFont systemFontOfSize:12];
-                commentLab.numberOfLines = 0;
-                [cell addSubview:commentLab];
-                
-                UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100),
-                                                                            (commentLab.frame.size.height+commentLab.frame.origin.y),
-                                                                            100, 30)];
-                dateLab.text = @"2015年04月12日";
-                dateLab.font = [UIFont systemFontOfSize:12];
-                
-                [cell addSubview:dateLab];
-                
+                @try {
+                    NSDictionary *tempDict = videoCommentArray[indexPath.row - 2];
+                    
+                    
+                    UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
+                                                                      andImgName:@"me"
+                                                                          andNav:self.navigationController];
+                    
+                    NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"CommenterPhotoPath"]];
+                    [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]] ;
+                    headView.userId = tempDict[@"CommenterId"];
+                    [headView makeSelfRound];
+                    [cell addSubview:headView];
+                    
+                    /*name*/
+                    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
+                                                                                 headView.frame.origin.y, 200, headView.frame.size.height/2)];
+                    nameLab.text = tempDict[@"CommenterNicName"];
+                    nameLab.textColor = TextColors;
+                    nameLab.font = [UIFont systemFontOfSize:12];
+                    [cell addSubview:nameLab];
+                    
+                    
+                    UIButton *supportBtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 44),headView.frame.origin.y , 44, headView.frame.size.height/2)];
+                    [supportBtn setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
+                    [supportBtn setImage:[UIImage imageNamed:@"support_h"] forState:UIControlStateSelected];
+                    [supportBtn setTitle:@"20" forState:UIControlStateNormal];
+                    [supportBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    supportBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                    [cell addSubview:supportBtn];
+                    
+                    
+                    NSString *commentStr = tempDict[@"Content"];
+                    CGFloat commentWidth = (SCREEN_WIDTH-(headView.frame.origin.x +headView.frame.size.width + 10) - 10);
+                    CGFloat commentHeight = [Toolkit heightWithString:commentStr fontSize:12 width:commentWidth];
+                    
+                    UILabel *commentLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
+                                                                                    headView.frame.size.height/2+2,
+                                                                                    commentWidth,
+                                                                                    commentHeight)];
+                    commentLab.text = commentStr;
+                    commentLab.font = [UIFont systemFontOfSize:12];
+                    commentLab.numberOfLines = 0;
+                    [cell addSubview:commentLab];
+                    
+                    UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100),
+                                                                                 (commentLab.frame.size.height+commentLab.frame.origin.y),
+                                                                                 100, 30)];
+                    dateLab.text =[tempDict[@"PublishTime"] substringToIndex:10];
+                    dateLab.font = [UIFont systemFontOfSize:12];
+                    
+                    [cell addSubview:dateLab];
+                    
+
+                }
+                @catch (NSException *exception) {
+                    
+                }
+                @finally {
+                    
+                }
                 
             }
         }

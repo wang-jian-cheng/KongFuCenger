@@ -11,6 +11,7 @@
 #import "DataDefine.h"
 #import "UIView+XD.h"
 #import "RegisterViewController.h"
+#import <ShareSDK/ShareSDK.h>
 #pragma mark - define frame
 
 #define     ZY_UIPART_SCREEN_WIDTH      (self.view.frame.size.width/100)

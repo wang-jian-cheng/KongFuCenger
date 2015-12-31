@@ -780,11 +780,49 @@
 }
 -(void)QQLogin:(UIButton *)sender
 {
-
+    //例如QQ的登录
+    [ShareSDK getUserInfo:SSDKPlatformTypeQQ
+           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+     {
+         if (state == SSDKResponseStateSuccess)
+         {
+             
+             NSLog(@"uid=%@",user.uid);
+             NSLog(@"%@",user.credential);
+             NSLog(@"token=%@",user.credential.token);
+             NSLog(@"nickname=%@",user.nickname);
+             
+             
+         }
+         
+         else
+         {
+             NSLog(@"%@",error);
+         }
+         
+     }];
 }
 
 -(void)weChatLogin:(UIButton *)sender
 {
+    [ShareSDK getUserInfo:SSDKPlatformTypeWechat
+           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+     {
+         if (state == SSDKResponseStateSuccess)
+         {
+             
+             NSLog(@"uid=%@",user.uid);
+             NSLog(@"%@",user.credential);
+             NSLog(@"token=%@",user.credential.token);
+             NSLog(@"nickname=%@",user.nickname);
+         }
+         
+         else
+         {
+             NSLog(@"%@",error);
+         }
+         
+     }];
 
 }
 

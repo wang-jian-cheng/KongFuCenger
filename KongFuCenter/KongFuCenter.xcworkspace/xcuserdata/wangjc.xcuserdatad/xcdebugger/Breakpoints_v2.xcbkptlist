@@ -362,12 +362,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "471852928.705739"
+            timestampString = "473224530.204503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "-GetVideoDetialCallBack1:"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "-GetVideoDetialCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -378,12 +378,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "471852931.52979"
+            timestampString = "473243361.127653"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "-GetVideoDetialCallBack2:"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "-GetVideoCommentDetialCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -394,12 +394,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "471853019.853056"
+            timestampString = "473224615.416107"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "-GetVideoDetial2"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "-GetVideoCommentDetialCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -410,12 +410,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "471853020.646034"
+            timestampString = "473224615.416107"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "-GetVideoDetial2"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "-GetVideoCommentDetialCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -426,12 +426,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "471853023.629211"
+            timestampString = "473243361.127653"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "-GetVideoDetialCallBack2:"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "-GetVideoCommentDetialCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
