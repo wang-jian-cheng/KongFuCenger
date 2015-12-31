@@ -38,6 +38,13 @@
 		8026D0F71C1BC6BE00D9CD44 /* ErWeiMaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8026D0F51C1BC6BE00D9CD44 /* ErWeiMaViewController.xib */; };
 		8026D0FD1C1C0A1300D9CD44 /* SBXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8026D0FA1C1C0A1300D9CD44 /* SBXMLParser.m */; };
 		8026D0FE1C1C0A1300D9CD44 /* XMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */; };
+		803E36341C350E1D006DE3A9 /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 803E36331C350E1D006DE3A9 /* libPushSDK-1.8.8.a */; };
+		803E36361C350E50006DE3A9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803E36351C350E50006DE3A9 /* CoreFoundation.framework */; };
+		803E36381C350E5F006DE3A9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803E36371C350E5F006DE3A9 /* CoreTelephony.framework */; };
+		803E363A1C350E82006DE3A9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803E36391C350E82006DE3A9 /* CoreGraphics.framework */; };
+		803E363C1C350E96006DE3A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803E363B1C350E96006DE3A9 /* Foundation.framework */; };
+		803E363E1C350EB0006DE3A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803E363D1C350EB0006DE3A9 /* UIKit.framework */; };
+		803E36401C351033006DE3A9 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 803E363F1C351033006DE3A9 /* PushConfig.plist */; };
 		804951FD1C250B3800F5584A /* CIImageRendererUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951B41C250B3800F5584A /* CIImageRendererUtils.m */; };
 		804951FE1C250B3800F5584A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 804951B51C250B3800F5584A /* LICENSE */; };
 		804951FF1C250B3800F5584A /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 804951B61C250B3800F5584A /* README.md */; };
@@ -461,6 +468,14 @@
 		8026D0FA1C1C0A1300D9CD44 /* SBXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBXMLParser.m; sourceTree = "<group>"; };
 		8026D0FB1C1C0A1300D9CD44 /* XMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLElement.h; sourceTree = "<group>"; };
 		8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLElement.m; sourceTree = "<group>"; };
+		803E36321C350E1D006DE3A9 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
+		803E36331C350E1D006DE3A9 /* libPushSDK-1.8.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.8.a"; sourceTree = "<group>"; };
+		803E36351C350E50006DE3A9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		803E36371C350E5F006DE3A9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		803E36391C350E82006DE3A9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		803E363B1C350E96006DE3A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		803E363D1C350EB0006DE3A9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		803E363F1C351033006DE3A9 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
 		804951B21C250B3800F5584A /* CIImageRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIImageRenderer.h; sourceTree = "<group>"; };
 		804951B31C250B3800F5584A /* CIImageRendererUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIImageRendererUtils.h; sourceTree = "<group>"; };
 		804951B41C250B3800F5584A /* CIImageRendererUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIImageRendererUtils.m; sourceTree = "<group>"; };
@@ -1037,6 +1052,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				803E363E1C350EB0006DE3A9 /* UIKit.framework in Frameworks */,
+				803E363C1C350E96006DE3A9 /* Foundation.framework in Frameworks */,
+				803E363A1C350E82006DE3A9 /* CoreGraphics.framework in Frameworks */,
+				803E36381C350E5F006DE3A9 /* CoreTelephony.framework in Frameworks */,
+				803E36361C350E50006DE3A9 /* CoreFoundation.framework in Frameworks */,
 				807871621C33C03C007BCC53 /* MediaPlayer.framework in Frameworks */,
 				B5F2B37E1C210C6B003383AE /* libsqlite3.0.tbd in Frameworks */,
 				B529B7A51C2110BF003AC21C /* libpingpp+alipay.a in Frameworks */,
@@ -1070,6 +1090,7 @@
 				B5F13B261C1FBAAC00155038 /* MOBFoundation.framework in Frameworks */,
 				B569DB961C12888800325CFA /* QuartzCore.framework in Frameworks */,
 				00B391A3E16E2E9529C00832 /* Pods_KongFuCenter.framework in Frameworks */,
+				803E36341C350E1D006DE3A9 /* libPushSDK-1.8.8.a in Frameworks */,
 				B5F13B2A1C1FBAAC00155038 /* ShareSDKExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1094,6 +1115,11 @@
 		6530A98924EC80D772FCF134 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				803E363D1C350EB0006DE3A9 /* UIKit.framework */,
+				803E363B1C350E96006DE3A9 /* Foundation.framework */,
+				803E36391C350E82006DE3A9 /* CoreGraphics.framework */,
+				803E36371C350E5F006DE3A9 /* CoreTelephony.framework */,
+				803E36351C350E50006DE3A9 /* CoreFoundation.framework */,
 				807871611C33C03C007BCC53 /* MediaPlayer.framework */,
 				B5F2B37D1C210C6B003383AE /* libsqlite3.0.tbd */,
 				B5F2B37B1C210C12003383AE /* libc++.tbd */,
@@ -1282,6 +1308,15 @@
 				8026D0FC1C1C0A1300D9CD44 /* XMLElement.m */,
 			);
 			path = xml;
+			sourceTree = "<group>";
+		};
+		803E36311C350E1D006DE3A9 /* JPush */ = {
+			isa = PBXGroup;
+			children = (
+				803E36321C350E1D006DE3A9 /* APService.h */,
+				803E36331C350E1D006DE3A9 /* libPushSDK-1.8.8.a */,
+			);
+			path = JPush;
 			sourceTree = "<group>";
 		};
 		804951B01C250B3800F5584A /* PhoneVideo */ = {
@@ -1729,6 +1764,7 @@
 				B59408C81C0FC9E8003DC15D /* main.m */,
 				B594091A1C0FD96A003DC15D /* PrefixHeader.pch */,
 				8021E8F81C2799A0005C7539 /* LaunchScreen.xib */,
+				803E363F1C351033006DE3A9 /* PushConfig.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2056,6 +2092,7 @@
 		B5F13A901C1FA75100155038 /* ThirdFramework */ = {
 			isa = PBXGroup;
 			children = (
+				803E36311C350E1D006DE3A9 /* JPush */,
 				B5D3459A1C28E97D00D39891 /* ImagePicker */,
 				B5D345961C28E95900D39891 /* UpLoadImage */,
 				B5451CCB1C27970E001BB39F /* Location */,
@@ -2698,6 +2735,7 @@
 				B5905E111C1BC53F00ECA9BA /* yewenback@2x.png in Resources */,
 				B7617E541C1C299700CF96E7 /* fw_r2_c2@2x.png in Resources */,
 				B53E739C1C16E676009E7878 /* btnCorner@2x.png in Resources */,
+				803E36401C351033006DE3A9 /* PushConfig.plist in Resources */,
 				B5AF707C1C1830BA00C041AF /* moreNoword@2x.png in Resources */,
 				B5F13B271C1FBAAC00155038 /* ShareSDK.bundle in Resources */,
 				804951FE1C250B3800F5584A /* LICENSE in Resources */,
@@ -3237,7 +3275,7 @@
 			baseConfigurationReference = 917C8DDA7A56E94AAC386040 /* Pods-KongFuCenter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/SMSSDK1.2-2.0/SMS_SDK",
@@ -3268,6 +3306,7 @@
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Wx",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/One",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/JPush",
 				);
 				"OTHER_LDFLAGS[arch=*]" = (
 					"$(inherited)",
@@ -3279,6 +3318,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1265ee5c-7860-4adf-bc31-f357be8e16d7";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/KongFuCenter/ThirdFramework/JPush";
 			};
 			name = Debug;
 		};
@@ -3287,7 +3328,7 @@
 			baseConfigurationReference = 6EE0DD3D61F21623918CAE75 /* Pods-KongFuCenter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/SMSSDK1.2-2.0/SMS_SDK",
@@ -3318,6 +3359,7 @@
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Wx",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/One",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/JPush",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -3336,6 +3378,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1265ee5c-7860-4adf-bc31-f357be8e16d7";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/KongFuCenter/ThirdFramework/JPush";
 			};
 			name = Release;
 		};
