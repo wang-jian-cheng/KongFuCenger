@@ -18,6 +18,7 @@
 #import "WXApi.h"
 #import "WeiboSDK.h"
 #import "FirstScrollController.h"
+#import "APService.h"
 
 #define LogIn_UserID_key    @"mAccountID"
 #define LogIn_UserPass_key   @"password"
@@ -132,6 +133,25 @@
     [self ThirdFrameWorksInit];
     [self initUI];
     
+    /***************************************极光推送开始*********************************************/
+    // Required
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        //可以添加自定义categories
+        [APService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                                       UIUserNotificationTypeSound |
+                                                       UIUserNotificationTypeAlert)
+                                           categories:nil];
+    } else {
+        //categories 必须为nil
+        [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                       UIRemoteNotificationTypeSound |
+                                                       UIRemoteNotificationTypeAlert)
+                                           categories:nil];
+    }
+    
+    // Required
+    [APService setupWithOption:launchOptions];
+    /***************************************极光推送结束*********************************************/
     return YES;
 }
 
@@ -188,9 +208,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView1:) name:@"changeRootView1" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView:) name:@"changeRootView" object:nil];
     
+    
+    
     //集成融云App Key
     [[RCIM sharedRCIM] initWithAppKey:@"3argexb6r2qhe"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectServer) name:@"connectServer" object:nil];
+    
+    
+    
+    
+    
+    
+    
 }
 
 -(void)connectServer{
@@ -406,6 +435,31 @@
 {
     return _tabBarViewCol;
 }
+
+
+
+#pragma mark 极光推送开始
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    // Required
+    [APService registerDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    // Required
+    [APService handleRemoteNotification:userInfo];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    
+    // IOS 7 Support Required
+    [APService handleRemoteNotification:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+#pragma mark 极光推送结束
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
