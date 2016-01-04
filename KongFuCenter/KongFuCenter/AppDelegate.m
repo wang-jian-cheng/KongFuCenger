@@ -19,11 +19,12 @@
 #import "WeiboSDK.h"
 #import "FirstScrollController.h"
 #import "APService.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 #define LogIn_UserID_key    @"mAccountID"
 #define LogIn_UserPass_key   @"password"
 
-@interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource>
+@interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,RCIMReceiveMessageDelegate>
 {
     CustomTabBarViewController *_tabBarViewCol;
     LoginViewController *_loginViewCtl;
@@ -214,7 +215,7 @@
     [[RCIM sharedRCIM] initWithAppKey:@"3argexb6r2qhe"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectServer) name:@"connectServer" object:nil];
     
-    
+    [[RCIM sharedRCIM] setReceiveMessageDelegate:self];//监听接收消息的代理设置
     
     
     
@@ -223,7 +224,6 @@
 }
 
 -(void)connectServer{
-    [SVProgressHUD showWithStatus:@"数据加载中"];
     NSString *token = [mUserDefault valueForKey:@"token"];
     [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {
         NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
@@ -251,11 +251,6 @@
 }
 
 -(void)getFriendBackCall:(id)dict{
-    if (connectServerIFlag == 2) {
-        [SVProgressHUD dismiss];
-    }else{
-        connectServerIFlag++;
-    }
     if ([dict[@"code"] intValue] == 200) {
         friendArray = dict[@"data"];
         [mUserDefault setValue:friendArray forKey:@"friendData"];
@@ -264,11 +259,6 @@
 }
 
 -(void)getTeamBackCall:(id)dict{
-    if (connectServerIFlag == 2) {
-        [SVProgressHUD dismiss];
-    }else{
-        connectServerIFlag++;
-    }
     if ([dict[@"code"] intValue] == 200) {
         teamDict = dict[@"data"];
         [mUserDefault setValue:[teamDict valueForKey:@"ImagePath"] forKey:@"TeamImg"];
@@ -309,6 +299,14 @@
     group.portraitUri = [NSString stringWithFormat:@"http://192.168.1.136:8033/%@",[teamDict valueForKey:@"ImagePath"]];
     
     return completion(group);
+}
+
+-(void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left{
+    
+    NSString *shock = [mUserDefault valueForKey:@"shock"];
+    if (!shock || [shock isEqual:@"1"]) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    }
 }
 
 #pragma mark - 尝试登录之前保存的账号登录

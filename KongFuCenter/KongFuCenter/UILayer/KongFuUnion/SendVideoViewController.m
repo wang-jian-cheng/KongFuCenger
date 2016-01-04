@@ -88,11 +88,11 @@
 
 -(void)clickRightButton:(UIButton *)sender
 {
-//    if (txt_Content.text.length==0) {
-//        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请填写内容信息" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-//        [alert show];
-//        return;
-//    }
+    if (txt_Content.text.length==0) {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请填写内容信息" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
     
     DataProvider * dataprovider=[[DataProvider alloc] init];
     

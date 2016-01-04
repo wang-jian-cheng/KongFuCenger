@@ -18,6 +18,7 @@
 #import "WFActionSheet.h"
 #import "PlayVideoViewController.h"
 #import "MJRefresh.h"
+#import "UserHeadView.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -610,10 +611,12 @@
     [headView addSubview:headBackgroundIv];
     
     UIView *headImgView = [[UIView alloc] initWithFrame:CGRectMake(0, headView.frame.size.height - 50 - 10, SCREEN_WIDTH, 60)];
-    UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50)];
+//    UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50)];
     NSString *photoPath = [userDefault valueForKey:@"PhotoPath"];
     NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoPath];
-    headImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+//    headImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+    //UserHeadView *headImg = [[UserHeadView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50) andurl:url];
+    UserHeadView *headImg = [[UserHeadView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50) andUrl:url andNav:self.navigationController];
     [headImgView addSubview:headImg];
     UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - headImg.frame.size.width - 10 - 120 - 5, (headImg.frame.size.height - 21) / 2, 120, 21)];
     name_lbl.textColor = [UIColor whiteColor];

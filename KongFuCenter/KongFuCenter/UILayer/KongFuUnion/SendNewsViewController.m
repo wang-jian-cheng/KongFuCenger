@@ -90,7 +90,7 @@
     
     //    _cellTextViewHeight = _mainTableView.frame.size.height - 3*_cellHeight;
     //    [_mainTableView reloadData];
-    // [UIView commitAnimations];
+    [UIView commitAnimations];
     
 }
 
@@ -104,7 +104,7 @@
     [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height - Header_Height)];
     //   _cellTextViewHeight = _mainTableView.frame.size.height - 3*_cellHeight;
     //   [_mainTableView reloadData];
-    //  [UIView commitAnimations];
+    [UIView commitAnimations];
     
 }
 
@@ -265,6 +265,12 @@
 //        [alertView show];
 //        return;
 //    }
+    
+    if([_textView.text isEqual:@""]){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请填写动态内容" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alertView show];
+        return;
+    }
     
     [self BuildSliderData];
 }
