@@ -19,6 +19,7 @@
 #import "PlayVideoViewController.h"
 #import "MJRefresh.h"
 #import "UserHeadView.h"
+#import "CommentListViewController.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -856,6 +857,11 @@
         
     }
     _replyIndex = -1;
+}
+
+-(void)clickRightButton:(UIButton *)sender{
+    CommentListViewController *commentListVC = [[CommentListViewController alloc] init];
+    [self.navigationController pushViewController:commentListVC animated:YES];
 }
 
 - (void)dealloc{

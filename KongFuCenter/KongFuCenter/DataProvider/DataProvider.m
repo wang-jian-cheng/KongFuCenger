@@ -750,6 +750,17 @@
         [self PostRequest:url andpram:prm];
     }
 }
+
+-(void)GetMyDongtaiPage:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows{
+    if (userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetMyDongtaiPage",Url];
+        NSDictionary *prm = @{@"userid":userid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark - 联盟动态
 -(void)getUnionNewsCate
 {

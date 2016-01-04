@@ -376,6 +376,9 @@
 		B7D846531C22AB7500718E9E /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D8463E1C22AB7500718E9E /* UIScrollView+MJExtension.m */; };
 		B7D846541C22AB7500718E9E /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D846401C22AB7500718E9E /* UIScrollView+MJRefresh.m */; };
 		B7D846551C22AB7500718E9E /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D846421C22AB7500718E9E /* UIView+MJExtension.m */; };
+		B7E07B9B1C3A4B8C004FAC42 /* CommentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E07B9A1C3A4B8C004FAC42 /* CommentListViewController.m */; };
+		B7E07B9F1C3A4CD8004FAC42 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E07B9D1C3A4CD8004FAC42 /* CommentTableViewCell.m */; };
+		B7E07BA01C3A4CD8004FAC42 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7E07B9E1C3A4CD8004FAC42 /* CommentTableViewCell.xib */; };
 		B7E096D61C1E5F1000E0E73B /* head_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E096D51C1E5F1000E0E73B /* head_bg.png */; };
 		B7E0BF2E1C2A8C6A000DD4E1 /* wyzan.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E0BF2D1C2A8C6A000DD4E1 /* wyzan.png */; };
 		B7E0BF301C2A919A000DD4E1 /* wyhf.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E0BF2F1C2A9199000DD4E1 /* wyhf.png */; };
@@ -1022,6 +1025,11 @@
 		B7D846401C22AB7500718E9E /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		B7D846411C22AB7500718E9E /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		B7D846421C22AB7500718E9E /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		B7E07B991C3A4B8C004FAC42 /* CommentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentListViewController.h; sourceTree = "<group>"; };
+		B7E07B9A1C3A4B8C004FAC42 /* CommentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentListViewController.m; sourceTree = "<group>"; };
+		B7E07B9C1C3A4CD8004FAC42 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
+		B7E07B9D1C3A4CD8004FAC42 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
+		B7E07B9E1C3A4CD8004FAC42 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		B7E096D51C1E5F1000E0E73B /* head_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head_bg.png; sourceTree = "<group>"; };
 		B7E0BF2D1C2A8C6A000DD4E1 /* wyzan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wyzan.png; sourceTree = "<group>"; };
 		B7E0BF2F1C2A9199000DD4E1 /* wyhf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wyhf.png; sourceTree = "<group>"; };
@@ -2280,6 +2288,11 @@
 			children = (
 				B712CC931C2CCEFD00B1A2E8 /* MyNewsViewController.h */,
 				B712CC941C2CCEFD00B1A2E8 /* MyNewsViewController.m */,
+				B7E07B991C3A4B8C004FAC42 /* CommentListViewController.h */,
+				B7E07B9A1C3A4B8C004FAC42 /* CommentListViewController.m */,
+				B7E07B9C1C3A4CD8004FAC42 /* CommentTableViewCell.h */,
+				B7E07B9D1C3A4CD8004FAC42 /* CommentTableViewCell.m */,
+				B7E07B9E1C3A4CD8004FAC42 /* CommentTableViewCell.xib */,
 			);
 			name = MyNews;
 			sourceTree = "<group>";
@@ -2834,6 +2847,7 @@
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
 				8049521A1C250B3800F5584A /* WechatShortVideo_37x-Checkmark@2x.png in Resources */,
 				B7E4CCFE1C1FA1F200C2E69A /* zdcy.png in Resources */,
+				B7E07BA01C3A4CD8004FAC42 /* CommentTableViewCell.xib in Resources */,
 				B7E4CD1D1C1FE20000C2E69A /* zphz.png in Resources */,
 				B5905E081C1BC2CF00ECA9BA /* jointeam.png in Resources */,
 				B7617E561C1C299700CF96E7 /* personal_showBac@2x.png in Resources */,
@@ -2993,6 +3007,7 @@
 				B53791B01C156B8C00C45BA7 /* VideoListForStudyViewController.m in Sources */,
 				804952011C250B3800F5584A /* SCAudioConfiguration.m in Sources */,
 				B7617E3B1C1C298F00CF96E7 /* ILRegularExpressionManager.m in Sources */,
+				B7E07B9B1C3A4B8C004FAC42 /* CommentListViewController.m in Sources */,
 				B7CE7F3A1C16AF780035D8CA /* MushaMatch.m in Sources */,
 				B7617E721C1C29A500CF96E7 /* YMTableViewCell.m in Sources */,
 				B5F90ACD1C190CF900D7879D /* ChoosePlanTypeViewController.m in Sources */,
@@ -3100,6 +3115,7 @@
 				B5AF70611C17F69B00C041AF /* ZhiBoViewController.m in Sources */,
 				B577E2361C1AA7C2006695F1 /* DataProvider.m in Sources */,
 				B53E73901C168BDA009E7878 /* MyDreamViewController.m in Sources */,
+				B7E07B9F1C3A4CD8004FAC42 /* CommentTableViewCell.m in Sources */,
 				B5D345991C28E95900D39891 /* VPImageCropperViewController.m in Sources */,
 				B5D345CA1C28E97E00D39891 /* PhotoAlbumManager.m in Sources */,
 				B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */,
