@@ -661,7 +661,7 @@
     }
 }
 
--(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andAreaid:(NSString *)citycode{
+-(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andCitycode:(NSString *)citycode{
     if (startRowIndex && maximumRows) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamPage",Url];
         NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"name":name,@"citycode":citycode};
@@ -686,9 +686,9 @@
         [self PostRequest:url andpram:prm];
     }
 }
--(void)GetFriendBySearch:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andNicName:(NSString *)nicName andAreaId:(NSString *)areaId andAge:(NSString *)age andSexuality:(NSString *)sexuality andUserid:(NSString *)userid{
-    NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetFriendBySearch",Url];
-    NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"nicName":nicName,@"areaId":areaId,@"age":age,@"sexuality":sexuality,@"userid":userid};
+-(void)GetFriendBySearch:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andNicName:(NSString *)nicName andAreaCode:(NSString *)areaCode andAge:(NSString *)age andSexuality:(NSString *)sexuality andUserid:(NSString *)userid{
+    NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetFriendByAreaCodeAndSearch",Url];
+    NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"nicName":nicName,@"areaCode":areaCode,@"age":age,@"sexuality":sexuality,@"userid":userid};
     [self PostRequest:url andpram:prm];
 }
 
@@ -768,6 +768,16 @@
     if (userid) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetMyDongtaiPage",Url];
         NSDictionary *prm = @{@"userid":userid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)getGetLianmengDongtai:(NSString *)mid{
+    if(mid){
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetLianmengDongtai",Url];
+        NSDictionary *prm = @{@"id":mid};
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];

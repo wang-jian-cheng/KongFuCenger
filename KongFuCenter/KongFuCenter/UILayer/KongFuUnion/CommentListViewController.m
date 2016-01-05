@@ -9,6 +9,7 @@
 #import "CommentListViewController.h"
 #import "CommentTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "OneShuoshuoViewController.h"
 
 @interface CommentListViewController (){
     UITableView *mTableView;
@@ -119,7 +120,13 @@
         }else{
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.mDetail.frame.size.width, cell.mDetail.frame.size.height)];
             [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,ImagePath]] placeholderImage:[UIImage imageNamed:@"me"]];
+            
+            UIImageView *play = [[UIImageView alloc] initWithFrame:CGRectMake((imageView.frame.size.width - 15) / 2, (imageView.frame.size.height - 15) / 2, 15, 15)];
+            play.image = [UIImage imageNamed:@"play"];
+            [imageView addSubview:play];
+            
             [cell.mDetail addSubview:imageView];
+            
         }
     }
     @catch (NSException *exception) {
@@ -137,6 +144,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
+    OneShuoshuoViewController *oneShuoshuoVC = [[OneShuoshuoViewController alloc] init];
+    oneShuoshuoVC.shuoshuoID = [commentArray[indexPath.row] valueForKey:@"Id"];
+    //[self.navigationController pushViewController:oneShuoshuoVC animated:YES];
 }
 
 @end
