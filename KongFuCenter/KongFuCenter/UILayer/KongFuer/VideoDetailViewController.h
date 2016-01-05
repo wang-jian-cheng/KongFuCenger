@@ -19,10 +19,12 @@ typedef enum _DetailMode
 }VideoDetailMode;
 
 
-@interface VideoDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+@interface VideoDetailViewController : BaseNavigationController<UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
 {
     CGFloat _keyHeight;
     NSIndexPath *tempIndexPath;
+    UITextView *commentTextView;
+    CGFloat commentWidth;
 }
 
 @property(nonatomic,strong) NSString * videoID;

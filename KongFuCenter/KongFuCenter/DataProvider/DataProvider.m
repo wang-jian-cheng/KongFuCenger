@@ -25,6 +25,19 @@
 
 #pragma mark - 登陆注册用户信息部分
 
+-(void)frogetPassWord:(NSString *)phone andPassWord:(NSString *)password
+{
+    if(phone&&password)
+    {
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/ForgetPassword",Url];
+        NSDictionary * prm=@{@"phone":phone,
+                             @"password":password};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+
+}
+
 -(void)thridLogin:(NSString *)openid andUserName:(NSString *)nicname
 {
     if(openid)
@@ -251,26 +264,7 @@
     }
 }
 
-//获取评论的信息
--(NSInteger )getMessageIdInfo:(NSString *)messageId
-{
-    
-    if(messageId != nil)
-    {
-        
-        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectCommentByMessageId",Url];
-        NSDictionary * prm=@{@"messageId":messageId};
-        DLog(@"prm = %@",prm);
-        [self PostRequest:url andpram:prm];
-        
-        return OK;
-    }
-    else
-    {
-        DLog(@"Err:%d",Param_err);
-        return Param_err;
-    }
-}
+
 
 //获取其他作品
 -(NSInteger )getUserid:(NSString *)userId andNum:(NSString *)num andmessageID:(NSString *)messageID
@@ -375,7 +369,41 @@
         [self PostRequest:url andpram:prm];
     }
 }
+#pragma mark - 视频评论
 
+//获取评论的信息
+-(NSInteger )getMessageIdInfo:(NSString *)messageId
+{
+    
+    if(messageId != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectCommentByMessageId",Url];
+        NSDictionary * prm=@{@"messageId":messageId};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
+-(void)commentVideo:(NSString *)videoId andUserId:(NSString *)userid andComment:(NSString *)comment
+{
+    if (userid&&videoId&&comment) {
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/MessageComment",Url];
+        NSDictionary * prm=@{@"id":videoId,
+                             @"userid":userid,
+                             @"comment":comment
+                             };
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+}
 #pragma mark - 图片上传
 //-(NSInteger)uploadImgWithData:(NSData *)imgData andImgName:(NSString *)imgName
 //{
@@ -391,6 +419,8 @@
 //    }
 //
 //}
+
+
 -(void)UploadImgWithImgdata:(NSString *)imageData
 {
     if (imageData) {

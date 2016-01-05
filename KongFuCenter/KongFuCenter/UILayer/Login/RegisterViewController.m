@@ -412,9 +412,7 @@
                 @try {
                     DataProvider * dataprovider=[[DataProvider alloc] init];
                     [dataprovider setDelegateObject:self setBackFunctionName:@"ForgetCallback:"];
-                    NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:txt_phoneNum.text,@"mob",
-                                        txt_newPwd.text,@"pass", nil];
-//                    [dataprovider ForgetPassWord:prm];
+                    [dataprovider frogetPassWord:txt_phoneNum.text andPassWord:txt_newPwd.text];
                 }
                 @catch (NSException *exception) {
                     
@@ -448,22 +446,20 @@
 -(void)ForgetCallback:(id)dict
 {
     [SVProgressHUD dismiss];
-    NSLog(@"忘记密码返回数据%@",dict);
-//    if ([dict[@"code"] intValue]==200) {
-//        //[self dismissViewControllerAnimated:YES completion:nil];
-//        PersonSecondViewController *userInfoVC = [[PersonSecondViewController alloc] init];
-//        userInfoVC.mIFlag = @"1";
-//        
-//      
-//        [self dismissViewControllerAnimated:YES completion:^{}];
-//     
-//       
-//    }
-//    else
-//    {
-//        [SVProgressHUD showErrorWithStatus:dict[@"message"] maskType:SVProgressHUDMaskTypeBlack];
-//        
-//    }
+    DLog(@"忘记密码返回数据%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        
+        [SVProgressHUD showSuccessWithStatus:@"修改成功" maskType:SVProgressHUDMaskTypeBlack];
+      
+        [self dismissViewControllerAnimated:YES completion:^{}];
+     
+       
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:dict[@"data"] maskType:SVProgressHUDMaskTypeBlack];
+        
+    }
 }
 
 -(void)ChangePwdFunC:(UIButton *)sender{
