@@ -11,6 +11,7 @@
 
 @interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate>{
     UIView *topView;
+    NSUserDefaults *userDefault;
 }
 
 @end
@@ -19,6 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    userDefault = [NSUserDefaults standardUserDefaults];
     
     [self initView];
 }
@@ -78,6 +81,8 @@
     [self.navigationController popViewControllerAnimated:YES];
     
 }
+
+
 
 #pragma mark - 自定义方法
 -(void)clickLeftBtn{

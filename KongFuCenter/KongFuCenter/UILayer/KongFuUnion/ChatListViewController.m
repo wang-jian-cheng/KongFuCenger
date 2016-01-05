@@ -62,6 +62,19 @@
 #pragma mark - 自定义方法
 
 -(void)initView{
+    NSLog(@"%@",[userDefault valueForKey:@"sound"]);
+    if ([userDefault valueForKey:@"sound"]) {
+        [RCIM sharedRCIM].disableMessageAlertSound = [[userDefault valueForKey:@"sound"] isEqual:@"1"]?NO:YES;
+    }else{
+        [RCIM sharedRCIM].disableMessageAlertSound = NO;
+    }
+    
+    if ([userDefault valueForKey:@"chat"]) {
+        [RCIM sharedRCIM].disableMessageNotificaiton = [[userDefault valueForKey:@"chat"] isEqual:@"1"]?NO:YES;
+    }else{
+        [RCIM sharedRCIM].disableMessageNotificaiton = NO;
+    }
+    
     topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBar_HEIGHT + StatusBar_HEIGHT)];
     topView.backgroundColor = navi_bar_bg_color;
     [self.view addSubview:topView];
