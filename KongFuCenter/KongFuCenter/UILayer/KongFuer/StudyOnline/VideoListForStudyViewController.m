@@ -208,31 +208,47 @@
                                 bundle: [NSBundle mainBundle]];
     [collectionView registerNib:nib forCellWithReuseIdentifier:@"BaseVideoCell"];
     BaseVideoCollectionViewCell *cell = [[BaseVideoCollectionViewCell alloc]init];
-    
-    
-    
-    // Set up the reuse identifier
     cell = [collectionView dequeueReusableCellWithReuseIdentifier: @"BaseVideoCell"
                                                      forIndexPath:indexPath];
-    
-    [cell.img_logo sd_setImageWithURL:[NSURL URLWithString:[videoArray[indexPath.row][@"ImagePath"] isEqual:[NSNull null]]?@"":[NSString stringWithFormat:@"%@%@",Url,videoArray[indexPath.row][@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@""]];
-    [cell.btn_first setTitle:[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"LikeNum"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"LikeNum"]] forState:UIControlStateNormal];
-    [cell.btn_first setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
-    
-    [cell.btn_second setTitle:[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"FavoriteNum"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"FavoriteNum"]] forState:UIControlStateNormal];
-    [cell.btn_second setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
-    
-    cell.lbl_title.text=[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"Title"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"Title"]];
-    cell.lbl_content.text=[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"Content"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"Content"]];
-    cell.backgroundColor = ItemsBaseColor;
+
     
     
-    cell.select.hidden = YES;
-    cell.btn_thrid.hidden = YES;
+    @try {
+        
+        if(videoArray == nil || videoArray.count == 0 || videoArray.count - 1 < indexPath.row)
+            return cell;
+        
+        if([videoArray[indexPath.row][@"isPay"] intValue ]==1)
+            cell.free.hidden = YES;
+        
+        // Set up the reuse identifier
+        
+        [cell.img_logo sd_setImageWithURL:[NSURL URLWithString:[videoArray[indexPath.row][@"ImagePath"] isEqual:[NSNull null]]?@"":[NSString stringWithFormat:@"%@%@",Url,videoArray[indexPath.row][@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@""]];
+        [cell.btn_first setTitle:[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"LikeNum"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"LikeNum"]] forState:UIControlStateNormal];
+        [cell.btn_first setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+        
+        [cell.btn_second setTitle:[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"FavoriteNum"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"FavoriteNum"]] forState:UIControlStateNormal];
+        [cell.btn_second setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+        
+        cell.lbl_title.text=[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"Title"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"Title"]];
+        cell.lbl_content.text=[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"Content"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"Content"]];
+        cell.backgroundColor = ItemsBaseColor;
+        
+        
+        cell.select.hidden = YES;
+        cell.btn_thrid.hidden = YES;
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        return cell;
+  
+    }
+
     
     
-    
-    return cell;
     
     
 }
@@ -246,6 +262,16 @@
 -( void )collectionView:( UICollectionView *)collectionView didSelectItemAtIndexPath:( NSIndexPath *)indexPath
 {
     
+ 
+    if([videoArray[indexPath.row][@"isFree"] intValue] == 0)
+    {
+        if([Toolkit isVip] == NO)
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"会员才可观看" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alertView show];
+           return;
+        }
+    }
     VideoDetailViewController *viewDetailViewCtl = [[VideoDetailViewController alloc] init];
     viewDetailViewCtl.videoID=videoArray[indexPath.row][@"Id"];
 //    NSLog(@"%@",videoArray[indexPath.row][@"Id"]);

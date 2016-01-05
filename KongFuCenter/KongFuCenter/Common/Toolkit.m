@@ -92,6 +92,13 @@
 
 }
 
++(BOOL)isVip
+{
+    if([get_sp(@"IsPay") intValue] == 1)
+        return  YES;
+    else
+        return NO;
+}
 
 #pragma mark camera utility
 + (BOOL) isCameraAvailable{

@@ -24,7 +24,15 @@
 
 #pragma mark - login and reg
 /**
- *  登陆
+ *  修改密码
+ *
+ *  @param phone   电话
+ *  @param password  密码
+ */
+
+-(void)frogetPassWord:(NSString *)phone andPassWord:(NSString *)password;
+/**
+ *  第三方登录
  *
  *  @param openid   openin
  *  @param nicname  昵称
@@ -252,6 +260,11 @@
 -(void)GetMyDongtaiPage:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
 //根据动态ID获取动态信息
 -(void)getGetLianmengDongtai:(NSString *)mid;
+
+#pragma mark - 视频评论
+// 评论视频
+-(void)commentVideo:(NSString *)videoId andUserId:(NSString *)userid andComment:(NSString *)comment;
+
 
 #pragma mark － 战队动态
 -(void)getSelfTeamNews:(NSString *)userid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
