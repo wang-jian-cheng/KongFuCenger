@@ -27,7 +27,7 @@
     //初始化参数
     self.view.backgroundColor = BACKGROUND_COLOR;
     mCellHeight = 70;
-    [self setBarTitle:@"江湖故事"];
+    [self setBarTitle:@"朋友圈的评论提示"];
     [self addLeftButton:@"left"];
     
     userDefault = [NSUserDefaults standardUserDefaults];
