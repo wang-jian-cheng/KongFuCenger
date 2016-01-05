@@ -208,6 +208,9 @@
 		B5AF70851C183A9F00C041AF /* photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AF70811C183A9F00C041AF /* photo@2x.png */; };
 		B5AF70861C183A9F00C041AF /* picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AF70821C183A9F00C041AF /* picture@2x.png */; };
 		B5AF70871C183A9F00C041AF /* smilies@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AF70831C183A9F00C041AF /* smilies@2x.png */; };
+		B5B7374E1C3A640500DF7437 /* UUDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B7374B1C3A640500DF7437 /* UUDatePicker.m */; };
+		B5B7374F1C3A640500DF7437 /* UUDatePicker_DateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B7374D1C3A640500DF7437 /* UUDatePicker_DateModel.m */; };
+		B5B737511C3A921700DF7437 /* del@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5B737501C3A921700DF7437 /* del@2x.png */; };
 		B5D345991C28E95900D39891 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345981C28E95900D39891 /* VPImageCropperViewController.m */; };
 		B5D345BD1C28E97E00D39891 /* JKImagePickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459C1C28E97D00D39891 /* JKImagePickerController.strings */; };
 		B5D345BE1C28E97E00D39891 /* ImagesPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459E1C28E97D00D39891 /* ImagesPicker.xcassets */; };
@@ -747,6 +750,11 @@
 		B5AF70811C183A9F00C041AF /* photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo@2x.png"; sourceTree = "<group>"; };
 		B5AF70821C183A9F00C041AF /* picture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "picture@2x.png"; sourceTree = "<group>"; };
 		B5AF70831C183A9F00C041AF /* smilies@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smilies@2x.png"; sourceTree = "<group>"; };
+		B5B7374A1C3A640500DF7437 /* UUDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUDatePicker.h; sourceTree = "<group>"; };
+		B5B7374B1C3A640500DF7437 /* UUDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUDatePicker.m; sourceTree = "<group>"; };
+		B5B7374C1C3A640500DF7437 /* UUDatePicker_DateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUDatePicker_DateModel.h; sourceTree = "<group>"; };
+		B5B7374D1C3A640500DF7437 /* UUDatePicker_DateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUDatePicker_DateModel.m; sourceTree = "<group>"; };
+		B5B737501C3A921700DF7437 /* del@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "del@2x.png"; sourceTree = "<group>"; };
 		B5D345971C28E95900D39891 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
 		B5D345981C28E95900D39891 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
 		B5D3459D1C28E97D00D39891 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/JKImagePickerController.strings; sourceTree = "<group>"; };
@@ -1921,6 +1929,7 @@
 		B594091B1C0FDB6A003DC15D /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B5B737501C3A921700DF7437 /* del@2x.png */,
 				8021E8FA1C2799F8005C7539 /* Index_APP.png */,
 				8021E9011C279AE7005C7539 /* index_1.png */,
 				8021E9021C279AE7005C7539 /* index_2.png */,
@@ -1995,6 +2004,17 @@
 				B5D345DF1C2BC71800D39891 /* TrainsPlanDetailViewController.m */,
 			);
 			path = TrainsPlan;
+			sourceTree = "<group>";
+		};
+		B5B737491C3A640500DF7437 /* UUDatePicker_Block */ = {
+			isa = PBXGroup;
+			children = (
+				B5B7374A1C3A640500DF7437 /* UUDatePicker.h */,
+				B5B7374B1C3A640500DF7437 /* UUDatePicker.m */,
+				B5B7374C1C3A640500DF7437 /* UUDatePicker_DateModel.h */,
+				B5B7374D1C3A640500DF7437 /* UUDatePicker_DateModel.m */,
+			);
+			path = UUDatePicker_Block;
 			sourceTree = "<group>";
 		};
 		B5D345961C28E95900D39891 /* UpLoadImage */ = {
@@ -2100,6 +2120,7 @@
 		B5F13A901C1FA75100155038 /* ThirdFramework */ = {
 			isa = PBXGroup;
 			children = (
+				B5B737491C3A640500DF7437 /* UUDatePicker_Block */,
 				803E36311C350E1D006DE3A9 /* JPush */,
 				B5D3459A1C28E97D00D39891 /* ImagePicker */,
 				B5D345961C28E95900D39891 /* UpLoadImage */,
@@ -2770,6 +2791,7 @@
 				B5AF70621C17F69B00C041AF /* ZhiBoViewController.xib in Resources */,
 				B7D846511C22AB7500718E9E /* MJRefresh.bundle in Resources */,
 				8021E9051C279AE7005C7539 /* index_2.png in Resources */,
+				B5B737511C3A921700DF7437 /* del@2x.png in Resources */,
 				8021E9061C279AE7005C7539 /* index_3.png in Resources */,
 				B53E73921C16AB0C009E7878 /* wuguanimg@2x.png in Resources */,
 				B5451CBE1C2795C8001BB39F /* upsanjiao@2x.png in Resources */,
@@ -2944,6 +2966,7 @@
 				B7D846501C22AB7500718E9E /* MJRefreshStateHeader.m in Sources */,
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
 				B5D345DA1C2A792E00D39891 /* PictureShowView.m in Sources */,
+				B5B7374E1C3A640500DF7437 /* UUDatePicker.m in Sources */,
 				804952151C250B3800F5584A /* SCVideoConfiguration.m in Sources */,
 				B72E39F41C1AB4D0007356C4 /* MakeMushaViewController.m in Sources */,
 				80DB846C1C23D3A6008CA670 /* UIImage+MultiFormat.m in Sources */,
@@ -3140,6 +3163,7 @@
 				80DB84691C23D3A6008CA670 /* SDWebImagePrefetcher.m in Sources */,
 				802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */,
 				B7617E711C1C29A500CF96E7 /* YMShowImageView.m in Sources */,
+				B5B7374F1C3A640500DF7437 /* UUDatePicker_DateModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

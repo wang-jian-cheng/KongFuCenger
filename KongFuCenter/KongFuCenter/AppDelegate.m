@@ -323,13 +323,17 @@
         self.window.rootViewController = _loginViewCtl;
         return;
     }
-    [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
-    NSString *mRegistAcount = [mUserDefault valueForKey:LogIn_UserID_key];
-    NSString *mRegistPwd = [mUserDefault valueForKey:LogIn_UserPass_key];
-    
-    [dataprovider login:mRegistAcount andPassWord:mRegistPwd];
+    NSString *thirdLogin = get_sp(@"ThirdLogin");
+    if([thirdLogin isEqualToString:@"NO"])
+    {
+        [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
+        NSString *mRegistAcount = [mUserDefault valueForKey:LogIn_UserID_key];
+        NSString *mRegistPwd = [mUserDefault valueForKey:LogIn_UserPass_key];
+        
+        [dataprovider login:mRegistAcount andPassWord:mRegistPwd];
+    }
 }
 
 

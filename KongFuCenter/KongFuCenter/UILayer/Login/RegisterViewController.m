@@ -403,40 +403,40 @@
     if ([txt_newPwd.text isEqualToString:txt_againNewPwd.text]&&txt_newPwd.text.length>0&&txt_vrifyCode.text.length>0) {
         
         
-//        [SVProgressHUD showWithStatus:@"正在更改..." maskType:SVProgressHUDMaskTypeBlack];
-//        [SMSSDK commitVerificationCode:txt_vrifyCode.text phoneNumber:txt_phoneNum.text zone:@"86" result:^(NSError *error) {
-//            
-//            if (!error) {
-//                
-//                NSLog(@"验证成功");
-//                @try {
-//                    DataProvider * dataprovider=[[DataProvider alloc] init];
-//                    [dataprovider setDelegateObject:self setBackFunctionName:@"ForgetCallback:"];
-//                    NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:txt_phoneNum.text,@"mob",
-//                                        txt_newPwd.text,@"pass", nil];
+        [SVProgressHUD showWithStatus:@"正在更改..." maskType:SVProgressHUDMaskTypeBlack];
+        [SMSSDK commitVerificationCode:txt_vrifyCode.text phoneNumber:txt_phoneNum.text zone:@"86" result:^(NSError *error) {
+            
+            if (!error) {
+                
+                NSLog(@"验证成功");
+                @try {
+                    DataProvider * dataprovider=[[DataProvider alloc] init];
+                    [dataprovider setDelegateObject:self setBackFunctionName:@"ForgetCallback:"];
+                    NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:txt_phoneNum.text,@"mob",
+                                        txt_newPwd.text,@"pass", nil];
 //                    [dataprovider ForgetPassWord:prm];
-//                }
-//                @catch (NSException *exception) {
-//                    
-//                }
-//                @finally {
-//                    
-//                }
-//                
-//            }
-//            else
-//            {
-//                NSLog(@"验证失败");
-//                [SVProgressHUD dismiss];
-//                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示", nil)
-//                                                                message:[NSString stringWithFormat:@"%@",[error.userInfo objectForKey:@"commitVerificationCode"]]
-//                                                               delegate:self
-//                                                      cancelButtonTitle:NSLocalizedString(@"sure", nil)
-//                                                      otherButtonTitles:nil, nil];
-//                [alert show];
-//                
-//            }
-//        }];
+                }
+                @catch (NSException *exception) {
+                    
+                }
+                @finally {
+                    
+                }
+                
+            }
+            else
+            {
+                NSLog(@"验证失败");
+                [SVProgressHUD dismiss];
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示", nil)
+                                                                message:[NSString stringWithFormat:@"%@",[error.userInfo objectForKey:@"commitVerificationCode"]]
+                                                               delegate:self
+                                                      cancelButtonTitle:NSLocalizedString(@"sure", nil)
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+                
+            }
+        }];
     }
     else
     {
