@@ -32,6 +32,8 @@
     NSMutableArray *_AccountArrCache;
     
     
+    BOOL ThirdLogin;
+    
 }
 
 @end
@@ -51,7 +53,7 @@
     _cellHeight = 40;
     [self initDatas];
     [self initViews];
-  
+    ThirdLogin = NO;
     UIButton *loginBtn = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];//测试按钮
     loginBtn.backgroundColor = [UIColor blueColor];
     
@@ -649,6 +651,7 @@
 -(void)LoginFunc
 {
     if (_userData.phoneNum.length > 0) {
+        ThirdLogin = NO;
         [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
@@ -659,8 +662,7 @@
 -(void)loginBackcall:(id)dict
 {
     [SVProgressHUD dismiss];
-    printf("[%s] start \r\n",__FUNCTION__);
-    NSLog(@"%@",dict);
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200 ) {
 
         NSDictionary * itemdict=dict[@"data"];
@@ -687,19 +689,27 @@
             set_sp(@"OUTLOGIN",@"NO");
 
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"UserName"]] forKey:LogIn_UserID_key];//上次登录的账户
-            [mUserDefault setValue:passWordText.text forKey:LogIn_UserPass_key];//上次登录的账户
+            if(ThirdLogin== NO)
+                [mUserDefault setValue:passWordText.text forKey:LogIn_UserPass_key];//上次登录的账户
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"Id"]] forKey:@"id"];
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"Token"]] forKey:@"token"];
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"NicName"]] forKey:@"NicName"];
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"PhotoPath"]] forKey:@"PhotoPath"];
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"TeamId"]] forKey:@"TeamId"];
         
+            [mUserDefault setValue:[NSString stringWithFormat:@"%d",ThirdLogin] forKey:@"ThirdLogin"];//是否是第三方登录
             //连接融云服务器
             [[NSNotificationCenter defaultCenter] postNotificationName:@"connectServer" object:nil];
          //  [mUserDefault setValue:[dict valueForKey:@"avatar"] forKey:@"avatar"];
            
-           NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
-           
+            NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
+        
+            if(ThirdLogin == YES)
+                return;
+        
+        
+#pragma mark -  保存登录历史
+        
            [tempDict setObject:[dict valueForKey:@"UserName"] forKey:LogIn_UserID_key];
    //        [tempDict setObject:[dict valueForKey:@"PhotoPath"] forKey:@"avatar"];
            [tempDict setObject:passWordText.text forKey:LogIn_UserPass_key];
@@ -792,12 +802,19 @@
              NSLog(@"token=%@",user.credential.token);
              NSLog(@"nickname=%@",user.nickname);
              
+             NSLog(@"userdata = %@",user.rawData);
+             NSLog(@"icon = %@",user.icon);
+             ThirdLogin = YES;
              
+             DataProvider * dataprovider=[[DataProvider alloc] init];
+             [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
+             [dataprovider thridLogin:user.credential.rawData[@"openid"] andUserName:user.nickname];
          }
          
          else
          {
              NSLog(@"%@",error);
+             [SVProgressHUD showErrorWithStatus:@"授权失败" maskType:SVProgressHUDMaskTypeBlack];
          }
          
      }];
@@ -810,11 +827,14 @@
      {
          if (state == SSDKResponseStateSuccess)
          {
-             
+             ThirdLogin = YES;
              NSLog(@"uid=%@",user.uid);
              NSLog(@"%@",user.credential);
              NSLog(@"token=%@",user.credential.token);
              NSLog(@"nickname=%@",user.nickname);
+             DataProvider * dataprovider=[[DataProvider alloc] init];
+             [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
+             [dataprovider thridLogin:user.credential.rawData[@"openid"] andUserName:user.nickname];
          }
          
          else

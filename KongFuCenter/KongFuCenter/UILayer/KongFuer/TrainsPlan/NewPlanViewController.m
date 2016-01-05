@@ -86,7 +86,7 @@
 
 //    _cellTextViewHeight = _mainTableView.frame.size.height - 3*_cellHeight;
 //    [_mainTableView reloadData];
-   // [UIView commitAnimations];
+    [UIView commitAnimations];
     
 }
 
@@ -100,7 +100,7 @@
     [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height - Header_Height)];
  //   _cellTextViewHeight = _mainTableView.frame.size.height - 3*_cellHeight;
  //   [_mainTableView reloadData];
-  //  [UIView commitAnimations];
+    [UIView commitAnimations];
     
 }
 
@@ -138,19 +138,71 @@
     tapGesture.delegate = self;
     [self.view addGestureRecognizer:tapGesture];
     
-    
-    _titleField = [[UITextField alloc]init];
-    
-    _textView = [[UITextView alloc] init];
-    //   _textView.text = @"发帖内容";
-    
-    
+    if(_titleField ==nil)
+        _titleField = [[UITextField alloc]init];
+    if(_textView == nil)
+        _textView = [[UITextView alloc] init];
+    if(tipbtn==nil)
+        tipbtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150 ), 0, 150, _cellHeight)];
 
 
     [self.view addSubview:_mainTableView];
     
 }
 
+
+-(void)setDefaultDict:(NSDictionary *)DefaultDict
+{
+    _DefaultDict = DefaultDict;
+    if (_cellCount == 0) {
+        _cellHeight = self.view.frame.size.height/12;
+        
+    }
+    if(_titleField ==nil)
+        _titleField = [[UITextField alloc]init];
+    if(_textView == nil)
+        _textView = [[UITextView alloc] init];
+    if(tipbtn==nil)
+        tipbtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150 ), 0, 150, _cellHeight)];
+
+
+    
+    @try {
+        if (_DefaultDict == nil) {
+            return;
+        }
+        _titleField.text  =_DefaultDict[@"planTitle"];
+        cateId = _DefaultDict[@"planCateId"];
+        _textView.text = _DefaultDict[@"planContent"];
+        
+        switch ([cateId integerValue]) {
+            case WeekPlan:
+                [tipbtn setTitle:@"周计划" forState:UIControlStateNormal];
+                break;
+            case MonthPlan:
+                [tipbtn setTitle:@"月计划" forState:UIControlStateNormal];
+                break;
+            case SeasonPlan:
+                [tipbtn setTitle:@"季计划" forState:UIControlStateNormal];
+                break;
+            case YearPlan:
+                [tipbtn setTitle:@"年计划" forState:UIControlStateNormal];
+                break;
+
+            default:
+                break;
+        }
+        tipbtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+         [self getDateAndTime];
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -267,11 +319,36 @@
         return;
     }
     
-    [self BuildSliderData];
+    if(self.DefaultDict !=nil)
+    {
+        
+        [SVProgressHUD showInfoWithStatus:@"更新中..." maskType:SVProgressHUDMaskTypeBlack];
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"delPlanCallBack:"];
+        [dataprovider delePlan:self.DefaultDict[@"planId"]];
+    }
+    else
+    {
+        [self BuildSliderData];
+    }
 }
 
 #pragma mark - self datasource
 
+-(void)delPlanCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        [self BuildSliderData];
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:[dict[@"data"] substringToIndex:4] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
 -(void)BuildSliderData
 {
     [SVProgressHUD showWithStatus:@"正在保存数据" maskType:SVProgressHUDMaskTypeBlack];
@@ -332,7 +409,8 @@
     if ([dict[@"code"] intValue]==200) {
         @try {
             
-            
+            [SVProgressHUD showSuccessWithStatus:@"上传成功" maskType:SVProgressHUDMaskTypeBlack];
+            [self.navigationController popViewControllerAnimated:YES];
         }
         @catch (NSException *exception) {
             
@@ -402,7 +480,7 @@
         {
             cell.textLabel.text = @"发帖内容";
             
-            tipbtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150 ), 0, 150, _cellHeight)];
+            
             tipbtn.backgroundColor = BACKGROUND_COLOR;
             [tipbtn addTarget:self action:@selector(pushViewAction:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -437,7 +515,7 @@
             
             UIButton *photoBtns = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.height, 0, cell.frame.size.height, cell.frame.size.height)];
             [photoBtns setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
-            [photoBtns addTarget:self action:@selector(editPortrait) forControlEvents:UIControlEventTouchUpInside];
+            [photoBtns addTarget:self action:@selector(composePicAdd) forControlEvents:UIControlEventTouchUpInside];
             
             [cell addSubview:picBtns];
             [cell addSubview:photoBtns];
@@ -505,7 +583,7 @@
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
         controller.sourceType = UIImagePickerControllerSourceTypeCamera;
         if ([Toolkit isFrontCameraAvailable]) {
-            controller.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+            controller.cameraDevice = UIImagePickerControllerCameraDeviceRear;
         }
         NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
         [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
@@ -739,6 +817,7 @@ static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
     {
         if (sender.tag == 0) {
             PictureShowView *picShow = [[PictureShowView alloc] initWithTitle:nil showImg:photoImg];
+            picShow.mydelegate = self;
             [picShow show];
         }
         else
@@ -748,6 +827,7 @@ static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
             [lib assetForURL:_asset.assetPropertyURL resultBlock:^(ALAsset *asset) {
                 if (asset) {
                     PictureShowView *picShow = [[PictureShowView alloc] initWithTitle:nil showImg:[UIImage imageWithCGImage:[[asset  defaultRepresentation] fullScreenImage]]];
+                    picShow.mydelegate = self;
                     [picShow show];
                 }
                 
@@ -765,6 +845,7 @@ static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
         [lib assetForURL:_asset.assetPropertyURL resultBlock:^(ALAsset *asset) {
             if (asset) {
                 PictureShowView *picShow = [[PictureShowView alloc] initWithTitle:nil showImg:[UIImage imageWithCGImage:[[asset  defaultRepresentation] fullScreenImage]]];
+                picShow.mydelegate = self;
                 [picShow show];
             }
 
@@ -775,6 +856,16 @@ static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
 
     }
     
+}
+#pragma mark - pick show delegate
+
+-(void)longPressCallBack
+{
+    NSLog(@"long press delegate");
+}
+-(void)didClickDelPicBtn
+{
+    NSLog(@"click del btn");
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout

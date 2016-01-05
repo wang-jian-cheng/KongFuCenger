@@ -40,6 +40,7 @@
     NSString *cityID;
     NSString *imgPath;
     BOOL loadDataFlag;
+    NSString *birthday;
     
 #pragma mark - other Views
     
@@ -48,7 +49,8 @@
     UILabel *jiFenLab ;
     UITextField *nickName;
     UserHeadView  *headView ;
-    
+    UUDatePicker *birthDayPicker;
+
     BOOL clickAddBtn ;
 }
 @end
@@ -321,7 +323,49 @@
 
 
 #pragma mark - self data source
-
+-(NSString *)calculateAge:(NSString *)birthDay
+{
+    NSString *age;
+    NSString *now;
+    NSInteger numAge;
+    now = [NSString stringWithFormat:@"%@",[NSDate date]];
+    
+    NSInteger bYear = [[birthDay substringToIndex:4] integerValue];
+    NSInteger nYear = [[now substringToIndex:4] integerValue];
+    
+    NSRange tempRang;
+    tempRang.length = 2;
+    tempRang.location = 5;
+    NSInteger bMonth = [[birthDay substringWithRange:tempRang] integerValue];
+    NSInteger nMonth = [[now substringWithRange:tempRang] integerValue];
+    
+    tempRang.length = 2;
+    tempRang.location =8;
+    NSInteger bDay = [[birthDay substringWithRange:tempRang] integerValue];
+    NSInteger nDay = [[now substringWithRange:tempRang] integerValue];
+    
+    
+    if(bYear > nYear)
+        return @"0";
+    numAge = nYear - bYear;
+    
+    if(bMonth>nMonth)//不到生日减一岁
+    {
+        if(numAge >0)
+            numAge--;
+    }
+    else if(bMonth == nMonth)
+    {
+        if(bDay > nDay)
+        {
+            if(numAge >0)
+                numAge--;
+        }
+    }
+    
+    age = [NSString stringWithFormat:@"%ld",numAge];
+    return age;
+}
 -(void)getDatas
 {
     [self getUserInfo];
@@ -367,15 +411,16 @@
             
             [highBtn setTitle:[NSString stringWithFormat:@"%@cm",tempDict[@"Height"]] forState:UIControlStateNormal];
             [weightBtn setTitle:[NSString stringWithFormat:@"%@kg",tempDict[@"Weight"]] forState:UIControlStateNormal];
-            [ageBtn setTitle:[NSString stringWithFormat:@"%@岁",tempDict[@"Experience"]] forState:UIControlStateNormal];
-        
+           // [ageBtn setTitle:[NSString stringWithFormat:@"%@岁",tempDict[@"Birthday"]] forState:UIControlStateNormal];
+            birthday =tempDict[@"Birthday"];
+            [ageBtn setTitle:[self calculateAge:tempDict[@"Birthday"]] forState:UIControlStateNormal];
             [learnTimeBtn setTitle:[NSString stringWithFormat:@"%@年",tempDict[@"Experience"]] forState:UIControlStateNormal];
             nickName.text =tempDict[@"NicName"];
             [provinceBtn setTitle:tempDict[@"HomeAreaprovinceName"] forState:UIControlStateNormal];
             [cityBtn setTitle:tempDict[@"HomeAreaCityName"] forState:UIControlStateNormal];
             [areaBtn setTitle:tempDict[@"HomeAreaCountyName"] forState:UIControlStateNormal];
             introductionText.text = tempDict[@"Description"];
-
+            cityID = tempDict[@"HomeAreaId"];
             
             [self getProvince];
 //2015-09-09 09:09:09
@@ -429,7 +474,8 @@
                     andWeight:[weightBtn.titleLabel.text substringToIndex:(weightBtn.titleLabel.text.length - 2)]
                       andAddr:cityID
                       andExpe:[learnTimeBtn.titleLabel.text substringToIndex:(learnTimeBtn.titleLabel.text.length - 1)]
-               andDescription:introductionText.text];
+               andDescription:introductionText.text
+                  andBirthday:birthday];
 }
 
 
@@ -901,7 +947,11 @@
         [_pickerView removeFromSuperview];
         [self reLayoutTableViewHeight:0];
     }
-    
+    if(birthDayPicker.superview!=nil)
+    {
+        [birthDayPicker removeFromSuperview];
+        [self reLayoutTableViewHeight:0];
+    }
     
     [self.view endEditing:YES];
     
@@ -911,7 +961,45 @@
 {
     [self setuserInfo];
 }
-#pragma mark - userheadview delegate 
+
+-(void)ageBtnClick:(UIButton *)sender
+{
+    birthDayPicker
+    = [[UUDatePicker alloc]initWithframe:CGRectMake(0, SCREEN_HEIGHT - 200, SCREEN_WIDTH, 200)
+                             PickerStyle:UUDateStyle_YearMonthDay
+                             didSelected:^(NSString *year,
+                                           NSString *month,
+                                           NSString *day,
+                                           NSString *hour,
+                                           NSString *minute,
+                                           NSString *weekDay) {
+                                 
+                                 NSString *scrolDate = [NSString stringWithFormat:@"%@-%@-%@",year,month,day];
+                                 birthday = scrolDate;
+                                [sender setTitle:[self calculateAge:birthday] forState:UIControlStateNormal];
+                                
+                             }];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+
+    
+    birthDayPicker.minLimitDate = [formatter dateFromString:@"1900-01-01"];
+    birthDayPicker.maxLimitDate = [NSDate date];
+    if( birthday != nil && birthday > 0)
+    {
+        NSDate *date = [formatter dateFromString:birthday];
+        NSLog(@"date = %@",date);
+        birthDayPicker.ScrollToDate =date ;
+    }
+    else
+    {
+        birthDayPicker.ScrollToDate = [NSDate date];
+    }
+    
+    [self.view addSubview:birthDayPicker];
+}
+#pragma mark - userheadview delegate
 
 -(void)userHeadViewClick
 {
@@ -1354,7 +1442,7 @@
                     ageBtn.backgroundColor = BACKGROUND_COLOR;
                     [ageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                     
-                    [ageBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    [ageBtn addTarget:self action:@selector(ageBtnClick:) forControlEvents:UIControlEventTouchUpInside];
                     ageBtn.tag = AgeTAG;
                     [cell addSubview:ageBtn];
                     

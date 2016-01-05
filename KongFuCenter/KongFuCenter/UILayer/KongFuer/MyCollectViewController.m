@@ -20,6 +20,8 @@
     NSInteger _cellTableCount;
     CGFloat _cellTableHeight;
     UITableView *_mainTableView;
+    
+    NSMutableArray *ArticleArr;
 }
 
 @property (nonatomic, strong) NSMutableArray * arr_voiceData;
@@ -41,6 +43,9 @@
     [self addLeftButton:@"left"];
     [self addRightbuttontitle:@"删除"];
     self.view.backgroundColor = BACKGROUND_COLOR;
+    
+    ArticleArr = [NSMutableArray array];
+    
     [self initDatas];
     [self initViews];
     [self getDatas];
@@ -71,6 +76,7 @@
     if ([dict[@"code"] intValue]==200) {
         @try
         {
+   
             NSLog(@"%@",dict[@"data"]);
             NSArray * arr_ = dict[@"data"];
             
@@ -109,10 +115,19 @@
 
 -(void)getUserInfoCallBack1:(id)dict
 {
-    //    DLog(@"%@",dict);
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try
         {
+            
+            if(ArticleArr !=nil&&ArticleArr.count > 0)
+            {
+                [ArticleArr removeAllObjects];
+            }
+            
+            [ArticleArr addObjectsFromArray:dict[@"data"]];
+           
+            [_mainTableView reloadData];
             NSLog(@"%@",dict[@"data"]);
             NSArray * arr_ = dict[@"data"];
             model_collect * model = [[model_collect alloc] init];
@@ -600,7 +615,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return self.arr_TitleData.count;
+    return ArticleArr.count;
     
 }
 
@@ -620,40 +635,56 @@
     cell.frame=CGRectMake(cell.frame.origin.x, cell.frame.origin.y, SCREEN_WIDTH, cell.frame.size.height);
 //    cell.btn_1.backgroundColor = [UIColor orangeColor];
     
-    model_collect * model = self.arr_TitleData[indexPath.row];
-    NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,model.ImagePath];
-    [cell.image sd_setImageWithURL:[NSURL URLWithString:url]];
-    cell.name.text = model.Title;
-    cell.detail.text = model.Content;
-    NSRange x = NSMakeRange(5, 5);
-    //    [model.OperateTime substringWithRange:x];
-    cell.date.text = [model.OperateTime substringWithRange:x];
-
-
-
-    [cell.btn_1 setTitle:[NSString stringWithFormat:@"%@",model.LikeNum] forState:(UIControlStateNormal)];
-    [cell.btn_1 setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
-    [cell.btn_1 addTarget:self action:@selector(btn_1Action:) forControlEvents:(UIControlEventTouchUpInside)];
-    cell.btn_1.tag = indexPath.row * 100;
-    NSString * str_IsLike = [NSString stringWithFormat:@"%@",model.IsLike];
-    if([str_IsLike isEqualToString:@"1"])
-    {
-        [cell.btn_1 setSelected:YES];
-        [cell.btn_1 setImage:[UIImage imageNamed:@"support_h@2x"] forState:(UIControlStateNormal)];
-    }
-    else
-    {
-        [cell.btn_1 setSelected:NO];
+    
+    @try {
+        
+        
+        if(ArticleArr == nil || ArticleArr.count == 0 || ArticleArr.count - 1 < indexPath.row)
+        {
+            return cell;
+        }
+        model_collect * model = self.arr_TitleData[indexPath.row];
+        NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,model.ImagePath];
+        [cell.image sd_setImageWithURL:[NSURL URLWithString:url]];
+        cell.name.text = model.Title;
+        cell.detail.text = model.Content;
+        NSRange x = NSMakeRange(5, 5);
+        //    [model.OperateTime substringWithRange:x];
+        cell.date.text = [model.OperateTime substringWithRange:x];
+        
+        
+        
+        [cell.btn_1 setTitle:[NSString stringWithFormat:@"%@",model.LikeNum] forState:(UIControlStateNormal)];
         [cell.btn_1 setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+        [cell.btn_1 addTarget:self action:@selector(btn_1Action:) forControlEvents:(UIControlEventTouchUpInside)];
+        cell.btn_1.tag = indexPath.row * 100;
+        NSString * str_IsLike = [NSString stringWithFormat:@"%@",model.IsLike];
+        if([str_IsLike isEqualToString:@"1"])
+        {
+            [cell.btn_1 setSelected:YES];
+            [cell.btn_1 setImage:[UIImage imageNamed:@"support_h@2x"] forState:(UIControlStateNormal)];
+        }
+        else
+        {
+            [cell.btn_1 setSelected:NO];
+            [cell.btn_1 setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+        }
+        
+        [cell.btn_2 setTitle:[NSString stringWithFormat:@"%@",model.FavoriteNum] forState:(UIControlStateNormal)];
+        [cell.btn_2 setImage:[UIImage imageNamed:@"collect_h@2x"] forState:(UIControlStateNormal)];
+        [cell.btn_2 addTarget:self action:@selector(btn_2Action:) forControlEvents:(UIControlEventTouchUpInside)];
+        cell.btn_2.tag = indexPath.row * 100;
+        cell.btn_2.userInteractionEnabled = NO;
+        
+        
     }
-    
-    [cell.btn_2 setTitle:[NSString stringWithFormat:@"%@",model.FavoriteNum] forState:(UIControlStateNormal)];
-    [cell.btn_2 setImage:[UIImage imageNamed:@"collect_h@2x"] forState:(UIControlStateNormal)];
-    [cell.btn_2 addTarget:self action:@selector(btn_2Action:) forControlEvents:(UIControlEventTouchUpInside)];
-    cell.btn_2.tag = indexPath.row * 100;
-    cell.btn_2.userInteractionEnabled = NO;
-
-    
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+   
     return cell;
     
 }

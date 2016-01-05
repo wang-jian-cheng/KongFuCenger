@@ -9,12 +9,13 @@
 #import "BaseNavigationController.h"
 #import "UIImageView+WebCache.h"
 #import "PictureShowView.h"
+#import "NewPlanViewController.h"
 #ifndef _CELL
 #define _CELL @ "acell"
 #endif
 
 
-@interface TrainsPlanDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+@interface TrainsPlanDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,PictureShowViewDelegate,UIActionSheetDelegate>
 {
     NSMutableArray *picArr;
     
