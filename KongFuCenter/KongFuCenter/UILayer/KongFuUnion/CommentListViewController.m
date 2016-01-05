@@ -10,12 +10,14 @@
 #import "CommentTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "OneShuoshuoViewController.h"
+#import "MJRefresh.h"
 
 @interface CommentListViewController (){
     UITableView *mTableView;
     CGFloat mCellHeight;
     NSUserDefaults *userDefault;
     NSArray *commentArray;
+    int curpage;
 }
 
 @end
@@ -34,8 +36,7 @@
     userDefault = [NSUserDefaults standardUserDefaults];
     commentArray = [[NSArray alloc] init];
     
-    //初始化data
-    [self initData];
+    [self initViews];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -45,11 +46,20 @@
 
 #pragma mark 自定义方法
 
--(void)initData{
+-(void)TeamTopRefresh{
+    curpage = 0;
     [SVProgressHUD showWithStatus:@"正在加载中..."];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getCommentInfoCallBack:"];
     [dataProvider GetMyDongtaiPage:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
+}
+
+-(void)TeamFootRefresh
+{
+    curpage++;
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
+    [dataProvider GetMyDongtaiPage:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10"];
 }
 
 -(void)getCommentInfoCallBack:(id)dict{
@@ -57,7 +67,24 @@
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
         commentArray = dict[@"data"];
-        [self initViews];
+        [mTableView reloadData];
+    }
+}
+
+-(void)FootRefireshBackCall:(id)dict
+{
+    NSLog(@"上拉刷新");
+    // 结束刷新
+    [mTableView.mj_footer endRefreshing];
+    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:commentArray];
+    if ([dict[@"code"] intValue] == 200) {
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        commentArray=[[NSArray alloc] initWithArray:itemarray];
+        [mTableView reloadData];
     }
 }
 
@@ -69,6 +96,24 @@
     mTableView.separatorColor = Separator_Color;
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = mTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf TeamTopRefresh];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [mTableView.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    mTableView.mj_footer = footer;
 }
 
 #pragma mark tableview delegate
@@ -146,7 +191,7 @@
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     OneShuoshuoViewController *oneShuoshuoVC = [[OneShuoshuoViewController alloc] init];
     oneShuoshuoVC.shuoshuoID = [commentArray[indexPath.row] valueForKey:@"Id"];
-    //[self.navigationController pushViewController:oneShuoshuoVC animated:YES];
+    [self.navigationController pushViewController:oneShuoshuoVC animated:YES];
 }
 
 @end

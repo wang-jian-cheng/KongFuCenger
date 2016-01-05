@@ -98,7 +98,7 @@
     [dataProvider setDelegateObject:self setBackFunctionName:@"GetLianmengDongtaiCallBack:"];
     //[dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
     [dataProvider SelectDongtaiByFriendId:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"5"];
-    [dataProvider getGetLianmengDongtai:_shuoshuoID];
+    [dataProvider GetDongtaiById:[userDefault valueForKey:@"id"] andmessid:_shuoshuoID];
 }
 
 -(void)GetLianmengDongtaiCallBack:(id)dict{

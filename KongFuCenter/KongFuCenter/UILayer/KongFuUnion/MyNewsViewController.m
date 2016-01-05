@@ -324,6 +324,74 @@
     [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
 }
 
+-(void)FootRefireshBackCall:(id)dict
+{
+    if(_contentDataSource != nil || _contentDataSource.count>0){
+        [_contentDataSource removeAllObjects];
+    }
+    
+    //    if(_tableDataSource != nil || _tableDataSource.count>0){
+    //        [_tableDataSource removeAllObjects];
+    //    }
+    
+    NSLog(@"%@",dict);
+    // 结束刷新
+    [mainTable.mj_footer endRefreshing];
+    if ([dict[@"code"] intValue] == 200) {
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for(NSDictionary *itemDict in dict[@"data"]){
+            WFMessageBody *messBody = [[WFMessageBody alloc] init];
+            messBody.posterContent = [itemDict valueForKey:@"Content"];
+            NSArray *picArray =[itemDict valueForKey:@"PicList"];
+            NSMutableArray *imgArray = [[NSMutableArray alloc] init];
+            for (int i = 0; i < picArray.count; i++) {
+                [imgArray addObject:[NSString stringWithFormat:@"%@%@",Url,[picArray[i] valueForKey:@"ImagePath"]]];
+            }
+            messBody.posterPostImage = imgArray;
+            NSArray *ComArray =[itemDict valueForKey:@"ComList"];
+            if (ComArray.count == 0) {
+                WFReplyBody *body = [[WFReplyBody alloc] init];
+                body.replyUser = @"";
+                body.repliedUser = @"";
+                body.replyInfo = @"";
+                messBody.posterReplies = [[NSMutableArray alloc] init];
+            }else{
+                NSMutableArray *commentArray = [[NSMutableArray alloc] init];;
+                for (int i = 0; i < ComArray.count; i++) {
+                    WFReplyBody *body = [[WFReplyBody alloc] init];
+                    body.replyUser = [ComArray[i] valueForKey:@"NicName"];
+                    body.repliedUser = [[NSString stringWithFormat:@"%@",[ComArray[i] valueForKey:@"ParentId"]] isEqual:@"0"]?@"":[ComArray[i] valueForKey:@"CommentedNicName"];
+                    body.replyInfo = [ComArray[i] valueForKey:@"Content"];
+                    [commentArray addObject:body];
+                }
+                messBody.posterReplies = commentArray;
+            }
+            NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
+            NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+            messBody.posterImgstr = url;//@"mao.jpg";
+            messBody.posterName = [itemDict valueForKey:@"NicName"];
+            messBody.posterIntro = @"";
+            messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
+            messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
+            messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
+            
+            NSMutableArray *videoArray = [[NSMutableArray alloc] init];
+            [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[itemDict valueForKey:@"ImagePath"]]];
+            [videoArray addObject:[itemDict valueForKey:@"VideoPath"]];
+            [videoArray addObject:[itemDict valueForKey:@"VideoDuration"]];
+            messBody.posterPostVideo = videoArray;
+            
+            [_contentDataSource addObject:messBody];
+        }
+        
+        //[self initTableview];
+        
+        [self loadTextData];
+    }
+    [mainTable reloadData];
+}
+
 -(void)btnClick:(UIButton *)sender
 {
     if(sender.tag == sendNews)

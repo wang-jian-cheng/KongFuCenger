@@ -8,6 +8,7 @@
 
 #import "RecruitComment.h"
 #import "RecruitCommentCell.h"
+#import "MJRefresh.h"
 
 @interface RecruitComment (){
     
@@ -16,10 +17,16 @@
     CGFloat mCellHeight;
     
     //data
-    NSMutableArray *menuArray;
+    NSArray *menuArray;
+    NSArray *zhInfoArray;
+    int selectMenuIndex;
+    int curpage;
     
     //view
     UIImageView *menuImgView;
+    
+    //引用类
+    DataProvider *dataProvider;
 }
 
 @end
@@ -35,11 +42,11 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addLeftButton:@"left"];
     
-    //初始化数据
-    [self initDatas];
+    selectMenuIndex = 0;
     
-    //初始化View
-    [self initViews];
+    //初始化数据
+    [self initData];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -48,9 +55,34 @@
 }
 
 #pragma mark 自定义方法
--(void)initDatas{
-    menuArray = [[NSMutableArray alloc] init];
-    [menuArray addObjectsFromArray:@[@"招聘",@"合作"]];
+-(void)initData{
+    
+    [SVProgressHUD showWithStatus:@"加载中..."];
+    dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"GetCateForHezuoCallBack:"];
+    [dataProvider GetCateForHezuo];
+}
+
+-(void)GetCateForHezuoCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        menuArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        //初始化View
+        [self initViews];
+    }
+}
+
+-(void)TeamTopRefresh{
+    curpage++;
+    [dataProvider setDelegateObject:self setBackFunctionName:@"GetHezuoListByPageCallBack:"];
+    [dataProvider GetHezuoListByPage:@"0" andmaximumRows:@"10" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
+}
+
+-(void)GetHezuoListByPageCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        zhInfoArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        [mTableView reloadData];
+    }
 }
 
 -(void)initViews{
@@ -67,7 +99,7 @@
             [btnMenu addSubview:menuImgView];
         }
         
-        [btnMenu setTitle:menuArray[i] forState:UIControlStateNormal];
+        [btnMenu setTitle:[menuArray[i] valueForKey:@"Name"] forState:UIControlStateNormal];
         btnMenu.titleLabel.font = [UIFont systemFontOfSize:16];
         [btnMenu setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btnMenu setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
@@ -84,6 +116,50 @@
     mTableView.separatorColor = Separator_Color;
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = mTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf TeamTopRefresh];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [mTableView.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    mTableView.mj_footer = footer;
+}
+
+-(void)TeamFootRefresh
+{
+    curpage++;
+    dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
+    [dataProvider GetHezuoListByPage:[NSString stringWithFormat:@"%d",curpage] andmaximumRows:[NSString stringWithFormat:@"%d",curpage * 10] andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
+}
+
+-(void)FootRefireshBackCall:(id)dict
+{
+    
+    NSLog(@"上拉刷新");
+    // 结束刷新
+    [mTableView.mj_footer endRefreshing];
+    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:zhInfoArray];
+    if ([dict[@"code"] intValue] == 200) {
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        zhInfoArray=[[NSArray alloc] initWithArray:itemarray];
+    }
+    [mTableView reloadData];
 }
 
 -(void)clickBtnMenuEvent:(UIButton *)btnMenu{
@@ -95,6 +171,8 @@
     btnMenu.selected = YES;
     
     NSLog(@"%d",(int)btnMenu.tag);
+    selectMenuIndex = (int)btnMenu.tag;
+    [self TeamTopRefresh];
 }
 
 #pragma mark tableview delegate
@@ -103,7 +181,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 6;
+    return zhInfoArray.count;
 }
 
 #pragma mark setting for section

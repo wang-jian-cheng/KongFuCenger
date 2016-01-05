@@ -558,6 +558,8 @@
     }
     
     cell.delegate = self;
+    NSLog(@"%d------%d",(int)indexPath.section,(int)indexPath.row);
+    NSLog(@"%@",[_tableDataSource objectAtIndex:indexPath.row]);
     [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
     cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
     

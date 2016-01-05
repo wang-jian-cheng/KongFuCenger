@@ -804,13 +804,26 @@
     }
 }
 
--(void)getGetLianmengDongtai:(NSString *)mid{
-    if(mid){
-        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetLianmengDongtai",Url];
-        NSDictionary *prm = @{@"id":mid};
+-(void)GetDongtaiById:(NSString *)userid andmessid:(NSString *)messid{
+    if(userid){
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetDongtaiById",Url];
+        NSDictionary *prm = @{@"userid":userid,@"messid":messid};
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];
+    }
+}
+
+-(void)GetCateForHezuo{
+    NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetCateForHezuo",Url];
+    [self PostRequest:url andpram:nil];
+}
+
+-(void)GetHezuoListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid{
+    if (categoryid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetHezuoListByPage",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"categoryid":categoryid};
+        [self PostRequest:url andpram:prm];
     }
 }
 
@@ -1037,6 +1050,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error:%@",error);
         [SVProgressHUD showErrorWithStatus:@"请检查网络或防火墙" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD dismiss];
     }];
 }
 

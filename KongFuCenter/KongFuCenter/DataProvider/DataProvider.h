@@ -259,7 +259,13 @@
 //获取我的动态所有评论信息
 -(void)GetMyDongtaiPage:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
 //根据动态ID获取动态信息
--(void)getGetLianmengDongtai:(NSString *)mid;
+-(void)GetDongtaiById:(NSString *)userid andmessid:(NSString *)messid;
+
+//获取招聘合作横向分类
+-(void)GetCateForHezuo;
+
+//获取招聘合作信息
+-(void)GetHezuoListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid;
 
 #pragma mark - 视频评论
 // 评论视频
