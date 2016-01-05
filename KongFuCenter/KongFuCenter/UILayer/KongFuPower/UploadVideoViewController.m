@@ -145,6 +145,7 @@
     [dataprovider setDelegateObject:self setBackFunctionName:@"uploadVideoCallBack:"];
     
     [dataprovider uploadVideoWithPath:_VideoFilePath];
+    
     [SVProgressHUD showWithStatus:@"正在上传视频..." maskType:SVProgressHUDMaskTypeBlack];
 }
 
