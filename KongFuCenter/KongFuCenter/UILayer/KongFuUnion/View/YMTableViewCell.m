@@ -272,6 +272,7 @@
         _startImg.image = [UIImage imageNamed:@"play"];
     }else{
         _videoImg.image = nil;
+        _startImg.image = nil;
     }
     
     
@@ -379,6 +380,7 @@
 }
 
 -(BOOL)isExitVideo:(YMTextData *)ymData{
+    NSLog(@"%@",ymData);
     return ymData.showVideoArray !=nil&&![ymData.showVideoArray[1] isEqual:@""]&&ymData.showVideoArray.count>0;
 }
 

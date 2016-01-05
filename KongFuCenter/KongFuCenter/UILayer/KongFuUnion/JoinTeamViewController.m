@@ -31,8 +31,8 @@
     
     //数据
     NSArray *teamArray;
-    NSArray *provinceArray;
-    NSArray *cityArray;
+    NSMutableArray *provinceArray;
+    NSMutableArray *cityArray;
     NSMutableArray *countryArray;
     
     //通用
@@ -57,21 +57,18 @@
     
     teamArray = [[NSArray alloc] init];
     userDefault = [NSUserDefaults standardUserDefaults];
-    provinceArray = [[NSArray alloc] init];
-    cityArray = [[NSArray alloc] init];
-    NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"-1",@"Code",@"-全部-",@"Name", nil];
-    countryArray = [[NSMutableArray alloc] init];
-    [countryArray addObject:itemDict];
+    provinceArray = [[NSMutableArray alloc] init];
+    cityArray = [[NSMutableArray alloc] init];
     
     NSString *HomeCode = [userDefault valueForKey:@"HomeCode"];
     NSArray *HomeCodeArray = [HomeCode componentsSeparatedByString:@"&"];
     
     provinceCode = HomeCodeArray[0];//@"37";
-    provinceTxt = [userDefault valueForKey:@"HomeAreaprovinceName"];//@"山东省";
+    provinceTxt = [[userDefault valueForKey:@"HomeAreaprovinceName"] isEqual:@""]?@"-全部-":[userDefault valueForKey:@"HomeAreaprovinceName"];//@"山东省";
     cityCode = HomeCodeArray[1];//@"3713";
-    cityTxt = [userDefault valueForKey:@"HomeAreaCityName"];//@"临沂市";
+    cityTxt = [[userDefault valueForKey:@"HomeAreaCityName"] isEqual:@""]?@"-全部-":[userDefault valueForKey:@"HomeAreaCityName"];//@"临沂市";
     countryCode = HomeCodeArray[2];//@"371302";
-    countryTxt = [userDefault valueForKey:@"HomeAreaCountyName"];//@"兰山区";
+    countryTxt = [[userDefault valueForKey:@"HomeAreaCountyName"] isEqual:@""]?@"-全部-":[userDefault valueForKey:@"HomeAreaCountyName"];//@"兰山区";
     
     //初始化数据
     [self initAddressData];
@@ -100,7 +97,23 @@
 
 -(void)getInitProvinceCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
-        provinceArray = dict[@"data"];
+        NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"Id",@"0",@"Code",@"-全部-",@"Name", nil];
+        provinceArray = [[NSMutableArray alloc] init];
+        [provinceArray addObject:itemDict];
+        
+        NSArray *itemArray = dict[@"data"];
+        for (int i = 0; i < itemArray.count; i++) {
+            [provinceArray addObject:itemArray[i]];
+        }
+        if([provinceCode isEqual:@"0"]){
+            NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"Id",@"0",@"Code",@"-全部-",@"Name", nil];
+            cityArray = [[NSMutableArray alloc] init];
+            countryArray = [[NSMutableArray alloc] init];
+            [cityArray addObject:itemDict];
+            [countryArray addObject:itemDict];
+            return;
+        }
+        
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getInitCityCallBack:"];
         [dataProvider getCityByProvinceCode:[NSString stringWithFormat:@"%@",provinceCode]];
@@ -109,20 +122,22 @@
 
 -(void)getInitCityCallBack:(id)dict{
     NSLog(@"%@",dict);
-    cityArray = [[NSArray alloc] init];
-    NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"-1",@"Code",@"-全部-",@"Name", nil];
+    NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"Id",@"0",@"Code",@"-全部-",@"Name", nil];
+    cityArray = [[NSMutableArray alloc] init];
     countryArray = [[NSMutableArray alloc] init];
+    [cityArray addObject:itemDict];
     [countryArray addObject:itemDict];
     if ([dict[@"code"] intValue] == 200) {
-        cityArray = dict[@"data"];
+        NSArray *itemArray = dict[@"data"];
+        for (int i = 0; i < itemArray.count; i++) {
+            [cityArray addObject:itemArray[i]];
+        }
         if (cityArray.count > 0) {
             dataProvider = [[DataProvider alloc] init];
             [dataProvider setDelegateObject:self setBackFunctionName:@"getInitCountryCallBack:"];
             [dataProvider getCountryByCityCode:cityCode];
         }
     }
-    NSLog(@"%@",cityArray);
-    
 }
 
 -(void)getInitCountryCallBack:(id)dict{
@@ -143,19 +158,36 @@
 
 -(void)getCityCallBack:(id)dict{
     NSLog(@"%@",dict);
-    cityArray = [[NSArray alloc] init];
-    NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"-1",@"Code",@"-全部-",@"Name", nil];
+    NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"Id",@"0",@"Code",@"-全部-",@"Name", nil];
+    cityArray = [[NSMutableArray alloc] init];
     countryArray = [[NSMutableArray alloc] init];
+    [cityArray addObject:itemDict];
     [countryArray addObject:itemDict];
     if ([dict[@"code"] intValue] == 200) {
-        cityArray = dict[@"data"];
+        if ([provinceCode isEqual:@"0"]) {
+            NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"Id",@"0",@"Code",@"-全部-",@"Name", nil];
+            cityArray = [[NSMutableArray alloc] init];
+            [cityArray addObject:itemDict];
+            [addressPickView reloadAllComponents];
+            return;
+        }
+        NSArray *itemArray = dict[@"data"];
+        for (int i = 0; i < itemArray.count; i++) {
+            [cityArray addObject:itemArray[i]];
+        }
         if (cityArray.count > 0) {
-            NSString *cityCodeStr = cityArray[0][@"Code"];
-            cityCode = cityCodeStr;
-            dataProvider = [[DataProvider alloc] init];
-            [dataProvider setDelegateObject:self setBackFunctionName:@"getCountryCallBack:"];
-            [dataProvider getCountryByCityCode:cityCodeStr];
-
+            cityCode = cityArray[0][@"Code"];
+            if ([cityCode isEqual:@"0"]) {
+                NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"Id",@"0",@"Code",@"-全部-",@"Name", nil];
+                countryArray = [[NSMutableArray alloc] init];
+                [countryArray addObject:itemDict];
+                [addressPickView reloadAllComponents];
+            }else{
+                dataProvider = [[DataProvider alloc] init];
+                [dataProvider setDelegateObject:self setBackFunctionName:@"getCountryCallBack:"];
+                [dataProvider getCountryByCityCode:cityCode];
+            }
+            
             cityTxt = cityArray[0][@"Name"];
         }
         [addressPickView selectRow:0 inComponent:1 animated:YES];
@@ -165,9 +197,17 @@
 }
 
 -(void)getCountryCallBack:(id)dict{
-    NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"-1",@"Code",@"-全部-",@"Name", nil];
+    NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"Id",@"0",@"Code",@"-全部-",@"Name", nil];
     countryArray = [[NSMutableArray alloc] init];
     [countryArray addObject:itemDict];
+    
+    if ([cityCode isEqual:@"0"]) {
+        countryCode = countryArray[0][@"Code"];
+        countryTxt = countryArray[0][@"Name"];
+        [addressPickView selectRow:0 inComponent:2 animated:YES];
+        [addressPickView reloadComponent:2];
+        return;
+    }
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict[@"data"]);
         NSArray *itemArray = dict[@"data"];
@@ -233,17 +273,37 @@
 -(void)TeamTopRefresh
 {
     curpage=0;
+    NSString *arreaCode = @"";
+    if ([countryCode isEqual:@"0"]) {
+        if ([cityCode isEqual:@"0"]) {
+            arreaCode = provinceCode;
+        }else{
+            arreaCode = cityCode;
+        }
+    }else{
+        arreaCode = countryCode;
+    }
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"GetTeamListBackCall:"];
-    [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:searchTxt.text andAreaid:[countryCode isEqual:@"-1"]?cityCode:countryCode];
+    [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:searchTxt.text andCitycode:arreaCode];
 }
 
 -(void)TeamFootRefresh
 {
     curpage++;
+    NSString *arreaCode = @"";
+    if ([countryCode isEqual:@"0"]) {
+        if ([cityCode isEqual:@"0"]) {
+            arreaCode = provinceCode;
+        }else{
+            arreaCode = cityCode;
+        }
+    }else{
+        arreaCode = countryCode;
+    }
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
-    [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:searchTxt.text andAreaid:[countryCode isEqual:@"-1"]?cityCode:countryCode];
+    [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:searchTxt.text andCitycode:arreaCode];
 }
 
 -(void)GetTeamListBackCall:(id)dict
@@ -526,17 +586,17 @@
     NSLog(@"%ld---%ld",(long)component,(long)row);
     if (component == 0) {
         provinceTxt = provinceArray[row][@"Name"];
-        NSString *provinceCodeStr = provinceArray[row][@"Code"];
+        provinceCode = provinceArray[row][@"Code"];
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getCityCallBack:"];
-        [dataProvider getCityByProvinceCode:provinceCodeStr];
+        [dataProvider getCityByProvinceCode:provinceCode];
     }else if(component == 1){
         cityCode = cityArray[row][@"Code"];
         cityTxt = cityArray[row][@"Name"];
-        NSString *cityCodeStr = cityArray[row][@"Code"];
+        cityCode = cityArray[row][@"Code"];
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getCountryCallBack:"];
-        [dataProvider getCountryByCityCode:cityCodeStr];
+        [dataProvider getCountryByCityCode:cityCode];
     }else{
         countryCode = countryArray[row][@"Code"];
         countryTxt = countryArray[row][@"Name"];

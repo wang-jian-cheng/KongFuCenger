@@ -6,7 +6,7 @@
 //  Copyright © 2015年 zykj. All rights reserved.
 //
 
-#import "WYNewsViewController.h"
+#import "OneShuoshuoViewController.h"
 #import "YMTableViewCell.h"
 #import "ContantHead.h"
 #import "YMShowImageView.h"
@@ -16,13 +16,10 @@
 #import "WFMessageBody.h"
 #import "WFPopView.h"
 #import "WFActionSheet.h"
-#import "MyNewsViewController.h"
-#import "SendNewsViewController.h"
-#import "WechatShortVideoController.h"
-#import "SendVideoViewController.h"
 #import "PlayVideoViewController.h"
 #import "MJRefresh.h"
-#import "UIImageView+WebCache.h"
+#import "UserHeadView.h"
+#import "CommentListViewController.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -31,7 +28,7 @@
 #define sendNews  (2015+1)
 #define smallVideo  (2015+2)
 
-@interface WYNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate,WechatShortVideoDelegate>
+@interface OneShuoshuoViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate>
 {
     NSMutableArray *_imageDataSource;
     
@@ -70,16 +67,16 @@
 
 @end
 
-@implementation WYNewsViewController
+@implementation OneShuoshuoViewController
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     
-    [self setBarTitle:@"武友动态"];
+    [self setBarTitle:@"我的动态"];
     [self addLeftButton:@"left"];
-    [self addRightButton:@"moreNoword"];
+    [self addRightbuttontitle:@"评论回复"];
     
     userDefault = [NSUserDefaults standardUserDefaults];
     dataProvider = [[DataProvider alloc] init];
@@ -92,28 +89,27 @@
     [self initTableview];
     //[self loadTextData];
     
+    //[self initData];
 }
 
 -(void)TeamTopRefresh{
     curpage = 0;
     [SVProgressHUD showWithStatus:@"加载中"];
-    [dataProvider setDelegateObject:self setBackFunctionName:@"getWYNewsCallBack:"];
-    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"GetLianmengDongtaiCallBack:"];
+    //[dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
+    [dataProvider SelectDongtaiByFriendId:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"5"];
+    [dataProvider GetDongtaiById:[userDefault valueForKey:@"id"] andmessid:_shuoshuoID];
 }
 
--(void)TeamFootRefresh
-{
-    if ((curpage + 1) * 5 >= sumpage) {
-        [mainTable.mj_footer endRefreshing];
-        return;
+-(void)GetLianmengDongtaiCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        NSLog(@"%@",dict);
+    }else{
+        [SVProgressHUD dismiss];
     }
-    curpage++;
-    dataProvider = [[DataProvider alloc] init];
-    [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
-    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
 }
 
--(void)getWYNewsCallBack:(id)dict{
+-(void)GetLianmengDongtaiCallBack1111:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         if(_contentDataSource != nil || _contentDataSource.count>0){
             [_contentDataSource removeAllObjects];
@@ -186,103 +182,23 @@
     }
 }
 
--(void)FootRefireshBackCall:(id)dict
-{
-    if(_contentDataSource != nil || _contentDataSource.count>0){
-        [_contentDataSource removeAllObjects];
-    }
-    
-//    if(_tableDataSource != nil || _tableDataSource.count>0){
-//        [_tableDataSource removeAllObjects];
-//    }
-    
-    NSLog(@"%@",dict);
-    // 结束刷新
-    [mainTable.mj_footer endRefreshing];
-    if ([dict[@"code"] intValue] == 200) {
-        NSArray * arrayitem=[[NSArray alloc] init];
-        arrayitem=dict[@"data"];
-        for(NSDictionary *itemDict in dict[@"data"]){
-            WFMessageBody *messBody = [[WFMessageBody alloc] init];
-            messBody.posterContent = [itemDict valueForKey:@"Content"];
-            NSArray *picArray =[itemDict valueForKey:@"PicList"];
-            NSMutableArray *imgArray = [[NSMutableArray alloc] init];
-            for (int i = 0; i < picArray.count; i++) {
-                [imgArray addObject:[NSString stringWithFormat:@"%@%@",Url,[picArray[i] valueForKey:@"ImagePath"]]];
-            }
-            messBody.posterPostImage = imgArray;
-            NSArray *ComArray =[itemDict valueForKey:@"ComList"];
-            if (ComArray.count == 0) {
-                WFReplyBody *body = [[WFReplyBody alloc] init];
-                body.replyUser = @"";
-                body.repliedUser = @"";
-                body.replyInfo = @"";
-                messBody.posterReplies = [[NSMutableArray alloc] init];
-            }else{
-                NSMutableArray *commentArray = [[NSMutableArray alloc] init];;
-                for (int i = 0; i < ComArray.count; i++) {
-                    WFReplyBody *body = [[WFReplyBody alloc] init];
-                    body.replyUser = [ComArray[i] valueForKey:@"NicName"];
-                    body.repliedUser = [[NSString stringWithFormat:@"%@",[ComArray[i] valueForKey:@"ParentId"]] isEqual:@"0"]?@"":[ComArray[i] valueForKey:@"CommentedNicName"];
-                    body.replyInfo = [ComArray[i] valueForKey:@"Content"];
-                    [commentArray addObject:body];
-                }
-                messBody.posterReplies = commentArray;
-            }
-            NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
-            NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
-            messBody.posterImgstr = url;//@"mao.jpg";
-            messBody.posterName = [itemDict valueForKey:@"NicName"];
-            messBody.posterIntro = @"";
-            messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
-            messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
-            messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
-            
-            NSMutableArray *videoArray = [[NSMutableArray alloc] init];
-            [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[itemDict valueForKey:@"ImagePath"]]];
-            [videoArray addObject:[itemDict valueForKey:@"VideoPath"]];
-            [videoArray addObject:[itemDict valueForKey:@"VideoDuration"]];
-            messBody.posterPostVideo = videoArray;
-            
-            [_contentDataSource addObject:messBody];
-        }
-        
-        //[self initTableview];
-        
-        [self loadTextData];
-    }
-    [mainTable reloadData];
-}
-
-- (void)finishWechatShortVideoCapture:(NSURL *)filePath {
-    NSLog(@"filePath is %@", filePath);
-    SendVideoViewController *sendVideoVC = [[SendVideoViewController alloc] init];
-    sendVideoVC.VideoFilePath=filePath;
-    [self.navigationController pushViewController:sendVideoVC animated:YES];
-}
-
 -(void)viewWillAppear:(BOOL)animated{
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
-    
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [self TeamTopRefresh];
-}
-
--(void)clickRightButton:(UIButton *)sender
-{
-    if(moreSettingBackView.hidden == YES)
-    {
-        moreSettingBackView.hidden = NO;
-        [self positionShowView:moreSettingBackView];
-    }
-    else
-    {
-        
-        [self positionDismissView:moreSettingBackView];
-    }
-}
+//-(void)clickRightButton:(UIButton *)sender
+//{
+//    if(moreSettingBackView.hidden == YES)
+//    {
+//        moreSettingBackView.hidden = NO;
+//        [self positionShowView:moreSettingBackView];
+//    }
+//    else
+//    {
+//
+//        [self positionDismissView:moreSettingBackView];
+//    }
+//}
 
 #pragma mark -加载数据
 - (void)loadTextData{
@@ -351,40 +267,12 @@
 
 - (void) initTableview{
     
-    mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64 + 45)];
+    mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
     mainTable.backgroundColor = [UIColor clearColor];
     // mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     mainTable.delegate = self;
     mainTable.dataSource = self;
-    mainTable.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mainTable];
-    
-    [self initHeadView];
-    
-    moreSettingBackView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100 -10), Header_Height, 100, 88)];
-    moreSettingBackView.backgroundColor = ItemsBaseColor;
-    UIButton *newBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
-    [newBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [newBtn setTitle:@"发动态" forState:UIControlStateNormal];
-    newBtn.tag = sendNews;
-    [newBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *lineView2 =[[UIView alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width - 2, 1)];
-    lineView2.backgroundColor = Separator_Color;
-    UIButton *delBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
-    [delBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [delBtn setTitle:@"小视频" forState:UIControlStateNormal];
-    [delBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    delBtn.tag = smallVideo;
-    
-    
-    
-    [moreSettingBackView addSubview:newBtn];
-    [moreSettingBackView addSubview:delBtn];
-    [moreSettingBackView addSubview:lineView2];
-    
-    [self.view addSubview:moreSettingBackView];
-    moreSettingBackView.hidden = YES;
     
     __unsafe_unretained __typeof(self) weakSelf = self;
     __weak typeof(UITableView *) weakTv = mainTable;
@@ -406,20 +294,27 @@
     
 }
 
+-(void)TeamFootRefresh
+{
+    curpage++;
+    if (curpage >= sumpage) {
+        [mainTable.mj_footer endRefreshing];
+        return;
+    }
+    dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
+    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
+}
+
 -(void)btnClick:(UIButton *)sender
 {
     if(sender.tag == sendNews)
     {
-        SendNewsViewController *sendNewsVC = [[SendNewsViewController alloc] init];
-        [self.navigationController pushViewController:sendNewsVC animated:YES];
+        
     }
     else  if(sender.tag == smallVideo)
     {
-        WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
         
-        wechatShortVideoController.delegate = self;
-        
-        [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
     }
 }
 
@@ -495,11 +390,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     YMTextData *ym = [_tableDataSource objectAtIndex:indexPath.row];
     BOOL unfold = ym.foldOrNot;
-    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance) + (![self isExitVideo:ym]?30:127);
-}
-
--(BOOL)isExitVideo:(YMTextData *)ymData{
-    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[1] isEqual:@""]&&ymData.showVideoArray.count>0;
+    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance) + ([ym.showVideoArray[0] isEqual:@""]?0:80);
 }
 
 
@@ -558,8 +449,6 @@
     }
     
     cell.delegate = self;
-    NSLog(@"%d------%d",(int)indexPath.section,(int)indexPath.row);
-    NSLog(@"%@",[_tableDataSource objectAtIndex:indexPath.row]);
     [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
     cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
     
@@ -574,11 +463,6 @@
     PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
     playVideoVC.videoPath = ymData.showVideoArray[1];
     [self.navigationController pushViewController:playVideoVC animated:YES];
-}
-
--(void)tapPhotoImg{
-    MyNewsViewController *myNewsVC = [[MyNewsViewController alloc] init];
-    [self.navigationController pushViewController:myNewsVC animated:YES];
 }
 
 -(NSString *)compareDate:(NSDate *)date{
@@ -677,8 +561,7 @@
 -(void)mainCommentCallBack:(id)dict{
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateComment" object:nil];//ios7 多次调用会导致崩溃
-    [replyView updateComment];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateComment" object:nil];
     }
 }
 
@@ -698,41 +581,6 @@
     _selectedIndexPath = sender.appendIndexPath;
     YMTextData *ym = [_tableDataSource objectAtIndex:_selectedIndexPath.row];
     [self.operationView showAtView:mainTable rect:targetRect isFavour:ym.hasFavour];
-}
-
-#pragma mark - initHeadView
--(void)initHeadView{
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 160)];
-    headView.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
-    mainTable.tableHeaderView = headView;
-    
-    UIImageView *headBackgroundIv = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH,headView.frame.size.height)];
-    headBackgroundIv.image = [UIImage imageNamed:@"head_bg"];
-    [headView addSubview:headBackgroundIv];
-    
-    UIView *headImgView = [[UIView alloc] initWithFrame:CGRectMake(0, headView.frame.size.height - 50 - 10, SCREEN_WIDTH, 60)];
-    UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50)];
-    NSString *photoPath = [userDefault valueForKey:@"PhotoPath"];
-    NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoPath];
-    [headImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPhotoImg)];
-    [headImg setUserInteractionEnabled:YES];
-    [headImg addGestureRecognizer:tapGesture];
-    
-    [headImgView addSubview:headImg];
-    UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - headImg.frame.size.width - 10 - 120 - 5, (headImg.frame.size.height - 21) / 2, 120, 21)];
-    name_lbl.textColor = [UIColor whiteColor];
-    name_lbl.textAlignment = NSTextAlignmentRight;
-    name_lbl.text = [[NSString stringWithFormat:@"%@",[userDefault valueForKey:@"NicName"]] isEqual:@""]?@"匿名":[userDefault valueForKey:@"NicName"];//@"成龙";
-    name_lbl.font = [UIFont systemFontOfSize:15];
-    [headImgView addSubview:name_lbl];
-//    UILabel *id_lbl = [[UILabel alloc] initWithFrame:CGRectMake(headImg.frame.origin.x + headImg.frame.size.width+ 2, name_lbl.frame.origin.y + name_lbl.frame.size.height / 2 +10, 100, 21)];
-//    id_lbl.textColor = [UIColor whiteColor];
-//    id_lbl.text = @"ID:123456789";
-//    id_lbl.font = [UIFont systemFontOfSize:13];
-//    [headImgView addSubview:id_lbl];
-    [headView addSubview:headImgView];
-    
 }
 
 - (WFPopView *)operationView {
@@ -958,6 +806,11 @@
         
     }
     _replyIndex = -1;
+}
+
+-(void)clickRightButton:(UIButton *)sender{
+    CommentListViewController *commentListVC = [[CommentListViewController alloc] init];
+    [self.navigationController pushViewController:commentListVC animated:YES];
 }
 
 - (void)dealloc{

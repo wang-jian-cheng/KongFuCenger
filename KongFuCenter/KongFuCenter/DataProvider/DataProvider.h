@@ -182,7 +182,7 @@
 -(void)SelectTeam:(NSString *)teamId;
 
 //获取战队列表
--(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andAreaid:(NSString *)citycode;
+-(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andCitycode:(NSString *)citycode;
 
 //加入战队
 -(void)JoinTeam:(NSString *)userid andTeamId:(NSString *)teamid andName:(NSString *)name;
@@ -204,7 +204,7 @@
 //上传视频
 -(void)uploadVideoWithPath:(NSURL *)videoPath;
 //根据条件获取用户
--(void)GetFriendBySearch:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andNicName:(NSString *)nicName andAreaId:(NSString *)areaId andAge:(NSString *)age andSexuality:(NSString *)sexuality andUserid:(NSString *)userid;
+-(void)GetFriendBySearch:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andNicName:(NSString *)nicName andAreaCode:(NSString *)areaCode andAge:(NSString *)age andSexuality:(NSString *)sexuality andUserid:(NSString *)userid;
 
 //添加武友
 -(void)SaveFriend:(NSString *)userid andFriendid:(NSString *)friendid;
@@ -258,10 +258,21 @@
 
 //获取我的动态
 -(void)SelectDongtaiByFriendId:(NSString *)friendid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+//获取我的动态所有评论信息
 -(void)GetMyDongtaiPage:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+//根据动态ID获取动态信息
+-(void)GetDongtaiById:(NSString *)userid andmessid:(NSString *)messid;
+
+//获取招聘合作横向分类
+-(void)GetCateForHezuo;
+
+//获取招聘合作信息
+-(void)GetHezuoListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid;
+
 #pragma mark - 视频评论
 // 评论视频
 -(void)commentVideo:(NSString *)videoId andUserId:(NSString *)userid andComment:(NSString *)comment;
+
 
 #pragma mark － 战队动态
 -(void)getSelfTeamNews:(NSString *)userid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;

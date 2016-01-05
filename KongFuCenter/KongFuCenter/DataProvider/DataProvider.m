@@ -708,7 +708,7 @@
     }
 }
 
--(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andAreaid:(NSString *)citycode{
+-(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andCitycode:(NSString *)citycode{
     if (startRowIndex && maximumRows) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamPage",Url];
         NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"name":name,@"citycode":citycode};
@@ -733,9 +733,9 @@
         [self PostRequest:url andpram:prm];
     }
 }
--(void)GetFriendBySearch:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andNicName:(NSString *)nicName andAreaId:(NSString *)areaId andAge:(NSString *)age andSexuality:(NSString *)sexuality andUserid:(NSString *)userid{
-    NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetFriendBySearch",Url];
-    NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"nicName":nicName,@"areaId":areaId,@"age":age,@"sexuality":sexuality,@"userid":userid};
+-(void)GetFriendBySearch:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andNicName:(NSString *)nicName andAreaCode:(NSString *)areaCode andAge:(NSString *)age andSexuality:(NSString *)sexuality andUserid:(NSString *)userid{
+    NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetFriendByAreaCodeAndSearch",Url];
+    NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"nicName":nicName,@"areaCode":areaCode,@"age":age,@"sexuality":sexuality,@"userid":userid};
     [self PostRequest:url andpram:prm];
 }
 
@@ -818,6 +818,29 @@
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];
+    }
+}
+
+-(void)GetDongtaiById:(NSString *)userid andmessid:(NSString *)messid{
+    if(userid){
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetDongtaiById",Url];
+        NSDictionary *prm = @{@"userid":userid,@"messid":messid};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)GetCateForHezuo{
+    NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetCateForHezuo",Url];
+    [self PostRequest:url andpram:nil];
+}
+
+-(void)GetHezuoListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid{
+    if (categoryid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetHezuoListByPage",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"categoryid":categoryid};
+        [self PostRequest:url andpram:prm];
     }
 }
 
@@ -1044,6 +1067,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error:%@",error);
         [SVProgressHUD showErrorWithStatus:@"请检查网络或防火墙" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD dismiss];
     }];
 }
 

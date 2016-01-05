@@ -353,6 +353,7 @@
 		B7617E731C1C29A500CF96E7 /* YMTapGestureRecongnizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E6A1C1C29A500CF96E7 /* YMTapGestureRecongnizer.m */; };
 		B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */; };
 		B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C428021C1524F3003F504F /* JHStoryViewController.m */; };
+		B7CB2A711C3B4C5C009E62ED /* OneShuoshuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CB2A701C3B4C5C009E62ED /* OneShuoshuoViewController.m */; };
 		B7CCA2D41C21036400B7AC8C /* ChatLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CCA2D31C21036400B7AC8C /* ChatLocationViewController.m */; };
 		B7CCA2DF1C2118C000B7AC8C /* ChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CCA2DE1C2118C000B7AC8C /* ChatListViewController.m */; };
 		B7CCA2E41C211F5F00B7AC8C /* ChatContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CCA2E21C211F5F00B7AC8C /* ChatContentViewController.m */; };
@@ -983,6 +984,8 @@
 		B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryTableViewCell.m; sourceTree = "<group>"; };
 		B7C428011C1524F3003F504F /* JHStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryViewController.h; sourceTree = "<group>"; };
 		B7C428021C1524F3003F504F /* JHStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryViewController.m; sourceTree = "<group>"; };
+		B7CB2A6F1C3B4C5C009E62ED /* OneShuoshuoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneShuoshuoViewController.h; sourceTree = "<group>"; };
+		B7CB2A701C3B4C5C009E62ED /* OneShuoshuoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneShuoshuoViewController.m; sourceTree = "<group>"; };
 		B7CCA2D21C21036300B7AC8C /* ChatLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatLocationViewController.h; sourceTree = "<group>"; };
 		B7CCA2D31C21036400B7AC8C /* ChatLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatLocationViewController.m; sourceTree = "<group>"; };
 		B7CCA2DD1C2118C000B7AC8C /* ChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatListViewController.h; sourceTree = "<group>"; };
@@ -2322,6 +2325,8 @@
 				B7E07B9C1C3A4CD8004FAC42 /* CommentTableViewCell.h */,
 				B7E07B9D1C3A4CD8004FAC42 /* CommentTableViewCell.m */,
 				B7E07B9E1C3A4CD8004FAC42 /* CommentTableViewCell.xib */,
+				B7CB2A6F1C3B4C5C009E62ED /* OneShuoshuoViewController.h */,
+				B7CB2A701C3B4C5C009E62ED /* OneShuoshuoViewController.m */,
 			);
 			name = MyNews;
 			sourceTree = "<group>";
@@ -3100,6 +3105,7 @@
 				8026D0FD1C1C0A1300D9CD44 /* SBXMLParser.m in Sources */,
 				B7D846471C22AB7500718E9E /* MJRefreshHeader.m in Sources */,
 				804952171C250B3800F5584A /* SCWeakSelectorTarget.m in Sources */,
+				B7CB2A711C3B4C5C009E62ED /* OneShuoshuoViewController.m in Sources */,
 				B7CCA2D41C21036400B7AC8C /* ChatLocationViewController.m in Sources */,
 				7BA3A3161C2289070028C8A3 /* ShieldViewController.m in Sources */,
 				B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */,
