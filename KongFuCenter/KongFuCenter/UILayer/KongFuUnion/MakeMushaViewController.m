@@ -311,13 +311,13 @@
 }
 
 -(void)selectAgeEvent{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择年龄段" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"--不限--",@"18岁以下",@"18-22岁",@"23-26岁",@"27-35岁",@"35岁以上", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择年龄段" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"--全部--",@"18岁以下",@"18-22岁",@"23-26岁",@"27-35岁",@"35岁以上", nil];
     actionSheet.tag = 1;
     [actionSheet showInView:self.view];
 }
 
 -(void)selectSexEvent{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择性别" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"--不限--",@"男",@"女", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择性别" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"--全部--",@"男",@"女", nil];
     actionSheet.tag = 2;
     [actionSheet showInView:self.view];
 }
@@ -558,7 +558,7 @@
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (actionSheet.tag == 1) {
         if(buttonIndex == 0){
-            selectAgeTxt = @"--不限--";
+            selectAgeTxt = @"--全部--";
             selectAge = 0;
             [self TeamTopRefresh];
         }else if (buttonIndex == 1) {
@@ -584,7 +584,7 @@
         }
     }else{
         if(buttonIndex == 0){
-            selectSexTxt = @"--不限--";
+            selectSexTxt = @"--全部--";
             selectSex = 0;
             [self TeamTopRefresh];
         }else if (buttonIndex == 1) {

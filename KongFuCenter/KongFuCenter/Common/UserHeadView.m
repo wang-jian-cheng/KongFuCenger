@@ -48,6 +48,25 @@
     return self;
 }
 
+-(id)initWithFrame:(CGRect)frame andUrl:(NSString *)url andNav:(UINavigationController *)navCtl
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        UIButton *headBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        //[headBtn setImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
+        [headBtn addTarget:self action:@selector(UserHeadBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        [_headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+        [headBtn addSubview:_headImgView];
+        _enableRespondClick = YES;
+        tempNav = navCtl;
+        [self addSubview:headBtn];
+        
+    }
+    return self;
+}
+
 -(id)initWithFrame:(CGRect)frame andImgName:(NSString *)name
 {
     self = [super initWithFrame:frame];

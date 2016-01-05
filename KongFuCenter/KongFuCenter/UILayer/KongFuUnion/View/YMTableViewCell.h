@@ -39,6 +39,7 @@
 @property (nonatomic,strong) UILabel *commentDate;
 @property (nonatomic,strong) UIImageView *favourImage;//点赞的图
 @property (nonatomic,strong) UIImageView *videoImg;
+@property (nonatomic,strong) UIImageView *startImg;
 
 /**
  *  用户头像imageview

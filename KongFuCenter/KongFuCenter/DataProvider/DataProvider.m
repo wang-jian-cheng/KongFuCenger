@@ -25,6 +25,18 @@
 
 #pragma mark - 登陆注册用户信息部分
 
+-(void)thridLogin:(NSString *)openid andUserName:(NSString *)nicname
+{
+    if(openid)
+    {
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/LoginByOther",Url];
+        NSDictionary * prm=@{@"openid":openid,
+                             @"nicname":nicname};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 -(NSInteger)login:(NSString*)account andPassWord:(NSString *)password
 {
     if(account != nil &&password !=nil )
@@ -324,11 +336,11 @@
 //int experience 习武经历 单位/年
 
 
--(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience andDescription:(NSString *)description
+-(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience andDescription:(NSString *)description andBirthday:(NSString *)birthday
 {
    
     
-    if(userId != nil&&nicname != nil&&sexuality != nil&&height != nil&&weight != nil&&homeAreaId != nil&&experience != nil&&description)
+    if(userId != nil&&nicname != nil&&sexuality != nil&&height != nil&&weight != nil&&homeAreaId != nil&&experience != nil&&description&&birthday)
     {
         
         NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/ChangeInfor",Url];
@@ -339,7 +351,8 @@
                              @"weight":weight,
                              @"homeAreaId":homeAreaId,
                              @"experience":experience,
-                             @"description":description};
+                             @"description":description,
+                             @"birthday":birthday};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         
@@ -750,6 +763,17 @@
         [self PostRequest:url andpram:prm];
     }
 }
+
+-(void)GetMyDongtaiPage:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows{
+    if (userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetMyDongtaiPage",Url];
+        NSDictionary *prm = @{@"userid":userid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark - 联盟动态
 -(void)getUnionNewsCate
 {

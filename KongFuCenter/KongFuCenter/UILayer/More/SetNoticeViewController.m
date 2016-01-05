@@ -9,6 +9,8 @@
 #import "SetNoticeViewController.h"
 #import "ShieldViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import <RongIMKit/RongIMKit.h>
+
 @interface SetNoticeViewController ()
 {
 #pragma mark - pram for tableView
@@ -84,12 +86,14 @@
                 NSLog(@"关闭接受新的聊天");
                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
                 [userDefaults setObject:@"0" forKey:@"chat"];
+                [RCIM sharedRCIM].disableMessageNotificaiton = YES;
             }
             else
             {
                 NSLog(@"打开接受新的聊天");
                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
                 [userDefaults setObject:@"1" forKey:@"chat"];
+                [RCIM sharedRCIM].disableMessageNotificaiton = NO;
             }
         }
             break;
@@ -100,12 +104,14 @@
                 NSLog(@"关闭声音");
                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
                 [userDefaults setObject:@"0" forKey:@"sound"];
+                [RCIM sharedRCIM].disableMessageAlertSound = YES;
             }
             else
             {
                 NSLog(@"打开声音");
                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
                 [userDefaults setObject:@"1" forKey:@"sound"];
+                [RCIM sharedRCIM].disableMessageAlertSound = NO;
             }
         }
             break;

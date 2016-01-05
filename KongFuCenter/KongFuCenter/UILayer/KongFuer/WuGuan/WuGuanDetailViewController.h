@@ -13,6 +13,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import <ShareSDKInterfaceAdapter/ISSContainer.h>
+#import "PictureShowView.h"
 #define _CELL @ "acell"
 
 @interface WuGuanDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>

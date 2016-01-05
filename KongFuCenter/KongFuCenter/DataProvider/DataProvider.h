@@ -26,6 +26,13 @@
 /**
  *  登陆
  *
+ *  @param openid   openin
+ *  @param nicname  昵称
+ */
+-(void)thridLogin:(NSString *)openid andUserName:(NSString *)nicname;
+/**
+ *  登陆
+ *
  *  @param account   账户
  *  @param password  密码
  */
@@ -64,9 +71,10 @@
  * @param homeAreaId 地址
  * @param experience 习武经历 单位/年
  * @param description 个人简历
+ * @param birthday 生日
  *
  */
--(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience andDescription:(NSString *)description;
+-(NSInteger)setUserInfo:(NSString *)userId andNickName:(NSString *)nicname andSex:(NSString *)sexuality andHeight:(NSString *)height andWeight:(NSString *)weight andAddr:(NSString *)homeAreaId andExpe:(NSString *)experience andDescription:(NSString *)description andBirthday:(NSString *)birthday;
 /**
  *  上传用户头像
  *
@@ -240,6 +248,8 @@
 
 //获取我的动态
 -(void)SelectDongtaiByFriendId:(NSString *)friendid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+-(void)GetMyDongtaiPage:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+
 #pragma mark － 战队动态
 -(void)getSelfTeamNews:(NSString *)userid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 //获取其他战队状态

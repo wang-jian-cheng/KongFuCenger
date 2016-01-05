@@ -24,6 +24,8 @@
     UITableView *_mainTableView;
         
     NSIndexPath *tempIndexPath;
+    
+    NSString *telStr;
 }
 
 @end
@@ -169,7 +171,7 @@
     [self.view addSubview:phoneCallWebView];
     
 #endif
-    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"10086"];
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",telStr];
     //            NSLog(@"str======%@",str);
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     
@@ -232,6 +234,10 @@
             }
             
             [showPicArr addObjectsFromArray:dict[@"data"]];
+            if (_collectionView) {
+                [_collectionView reloadData];
+  
+            }
             
             }
         @catch (NSException *exception) {
@@ -269,6 +275,7 @@
     if ([dict[@"code"] intValue]==200) {
         @try {
             wuGuanDetailDict = dict[@"data"];
+            telStr = wuGuanDetailDict[@"TelePhone"];
             [_mainTableView reloadData];
         }
         @catch (NSException *exception) {
@@ -353,11 +360,11 @@
                     UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/3 *2), 0, SCREEN_WIDTH/3 , _cellHeight)];
                     backView.backgroundColor = cell.backgroundColor;
                     [cell addSubview:backView];
-                    CGFloat btnW = backView.frame.size.width/4 - 5;
+                    CGFloat btnW = backView.frame.size.width/3 - 5;
                     CGFloat btnGap = 5;
                     
                     
-                    CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 5, btnW, backView.frame.size.height-10)];
+                    CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*1, 5, btnW, backView.frame.size.height-10)];
                     [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
                     shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
                     
@@ -369,7 +376,7 @@
                     
                     [backView addSubview:shareBtn];
                     
-                    CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 5, btnW, backView.frame.size.height-10)];
+                    CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 5, btnW, backView.frame.size.height-10)];
                     [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
                     relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
                     [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
@@ -668,7 +675,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = (UICollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:_CELL forIndexPath:indexPath];
-    
+    cell.backgroundColor = [UIColor greenColor];
     if( showPicArr!= nil&&showPicArr.count > 0&&indexPath.row < showPicArr.count)
     {
         UIImageView *showImg =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
@@ -691,7 +698,9 @@
 
 -(void)imgBtnClick:(UIButton *)sender
 {
-    
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,showPicArr[sender.tag][@"ImagePath"]];
+    PictureShowView *picShow = [[PictureShowView alloc] initWithUrl:url andHolderImg:[UIImage imageNamed:@"headImg"]];
+    [picShow show];
     NSLog(@"sender .tag = %ld",sender.tag);
 }
 

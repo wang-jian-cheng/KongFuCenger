@@ -208,6 +208,9 @@
 		B5AF70851C183A9F00C041AF /* photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AF70811C183A9F00C041AF /* photo@2x.png */; };
 		B5AF70861C183A9F00C041AF /* picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AF70821C183A9F00C041AF /* picture@2x.png */; };
 		B5AF70871C183A9F00C041AF /* smilies@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AF70831C183A9F00C041AF /* smilies@2x.png */; };
+		B5B7374E1C3A640500DF7437 /* UUDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B7374B1C3A640500DF7437 /* UUDatePicker.m */; };
+		B5B7374F1C3A640500DF7437 /* UUDatePicker_DateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B7374D1C3A640500DF7437 /* UUDatePicker_DateModel.m */; };
+		B5B737511C3A921700DF7437 /* del@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5B737501C3A921700DF7437 /* del@2x.png */; };
 		B5D345991C28E95900D39891 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345981C28E95900D39891 /* VPImageCropperViewController.m */; };
 		B5D345BD1C28E97E00D39891 /* JKImagePickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459C1C28E97D00D39891 /* JKImagePickerController.strings */; };
 		B5D345BE1C28E97E00D39891 /* ImagesPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459E1C28E97D00D39891 /* ImagesPicker.xcassets */; };
@@ -376,6 +379,9 @@
 		B7D846531C22AB7500718E9E /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D8463E1C22AB7500718E9E /* UIScrollView+MJExtension.m */; };
 		B7D846541C22AB7500718E9E /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D846401C22AB7500718E9E /* UIScrollView+MJRefresh.m */; };
 		B7D846551C22AB7500718E9E /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D846421C22AB7500718E9E /* UIView+MJExtension.m */; };
+		B7E07B9B1C3A4B8C004FAC42 /* CommentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E07B9A1C3A4B8C004FAC42 /* CommentListViewController.m */; };
+		B7E07B9F1C3A4CD8004FAC42 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E07B9D1C3A4CD8004FAC42 /* CommentTableViewCell.m */; };
+		B7E07BA01C3A4CD8004FAC42 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7E07B9E1C3A4CD8004FAC42 /* CommentTableViewCell.xib */; };
 		B7E096D61C1E5F1000E0E73B /* head_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E096D51C1E5F1000E0E73B /* head_bg.png */; };
 		B7E0BF2E1C2A8C6A000DD4E1 /* wyzan.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E0BF2D1C2A8C6A000DD4E1 /* wyzan.png */; };
 		B7E0BF301C2A919A000DD4E1 /* wyhf.png in Resources */ = {isa = PBXBuildFile; fileRef = B7E0BF2F1C2A9199000DD4E1 /* wyhf.png */; };
@@ -744,6 +750,11 @@
 		B5AF70811C183A9F00C041AF /* photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo@2x.png"; sourceTree = "<group>"; };
 		B5AF70821C183A9F00C041AF /* picture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "picture@2x.png"; sourceTree = "<group>"; };
 		B5AF70831C183A9F00C041AF /* smilies@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smilies@2x.png"; sourceTree = "<group>"; };
+		B5B7374A1C3A640500DF7437 /* UUDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUDatePicker.h; sourceTree = "<group>"; };
+		B5B7374B1C3A640500DF7437 /* UUDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUDatePicker.m; sourceTree = "<group>"; };
+		B5B7374C1C3A640500DF7437 /* UUDatePicker_DateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUDatePicker_DateModel.h; sourceTree = "<group>"; };
+		B5B7374D1C3A640500DF7437 /* UUDatePicker_DateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUDatePicker_DateModel.m; sourceTree = "<group>"; };
+		B5B737501C3A921700DF7437 /* del@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "del@2x.png"; sourceTree = "<group>"; };
 		B5D345971C28E95900D39891 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
 		B5D345981C28E95900D39891 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
 		B5D3459D1C28E97D00D39891 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/JKImagePickerController.strings; sourceTree = "<group>"; };
@@ -1022,6 +1033,11 @@
 		B7D846401C22AB7500718E9E /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		B7D846411C22AB7500718E9E /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		B7D846421C22AB7500718E9E /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		B7E07B991C3A4B8C004FAC42 /* CommentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentListViewController.h; sourceTree = "<group>"; };
+		B7E07B9A1C3A4B8C004FAC42 /* CommentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentListViewController.m; sourceTree = "<group>"; };
+		B7E07B9C1C3A4CD8004FAC42 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
+		B7E07B9D1C3A4CD8004FAC42 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
+		B7E07B9E1C3A4CD8004FAC42 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		B7E096D51C1E5F1000E0E73B /* head_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head_bg.png; sourceTree = "<group>"; };
 		B7E0BF2D1C2A8C6A000DD4E1 /* wyzan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wyzan.png; sourceTree = "<group>"; };
 		B7E0BF2F1C2A9199000DD4E1 /* wyhf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wyhf.png; sourceTree = "<group>"; };
@@ -1913,6 +1929,7 @@
 		B594091B1C0FDB6A003DC15D /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B5B737501C3A921700DF7437 /* del@2x.png */,
 				8021E8FA1C2799F8005C7539 /* Index_APP.png */,
 				8021E9011C279AE7005C7539 /* index_1.png */,
 				8021E9021C279AE7005C7539 /* index_2.png */,
@@ -1987,6 +2004,17 @@
 				B5D345DF1C2BC71800D39891 /* TrainsPlanDetailViewController.m */,
 			);
 			path = TrainsPlan;
+			sourceTree = "<group>";
+		};
+		B5B737491C3A640500DF7437 /* UUDatePicker_Block */ = {
+			isa = PBXGroup;
+			children = (
+				B5B7374A1C3A640500DF7437 /* UUDatePicker.h */,
+				B5B7374B1C3A640500DF7437 /* UUDatePicker.m */,
+				B5B7374C1C3A640500DF7437 /* UUDatePicker_DateModel.h */,
+				B5B7374D1C3A640500DF7437 /* UUDatePicker_DateModel.m */,
+			);
+			path = UUDatePicker_Block;
 			sourceTree = "<group>";
 		};
 		B5D345961C28E95900D39891 /* UpLoadImage */ = {
@@ -2092,6 +2120,7 @@
 		B5F13A901C1FA75100155038 /* ThirdFramework */ = {
 			isa = PBXGroup;
 			children = (
+				B5B737491C3A640500DF7437 /* UUDatePicker_Block */,
 				803E36311C350E1D006DE3A9 /* JPush */,
 				B5D3459A1C28E97D00D39891 /* ImagePicker */,
 				B5D345961C28E95900D39891 /* UpLoadImage */,
@@ -2280,6 +2309,11 @@
 			children = (
 				B712CC931C2CCEFD00B1A2E8 /* MyNewsViewController.h */,
 				B712CC941C2CCEFD00B1A2E8 /* MyNewsViewController.m */,
+				B7E07B991C3A4B8C004FAC42 /* CommentListViewController.h */,
+				B7E07B9A1C3A4B8C004FAC42 /* CommentListViewController.m */,
+				B7E07B9C1C3A4CD8004FAC42 /* CommentTableViewCell.h */,
+				B7E07B9D1C3A4CD8004FAC42 /* CommentTableViewCell.m */,
+				B7E07B9E1C3A4CD8004FAC42 /* CommentTableViewCell.xib */,
 			);
 			name = MyNews;
 			sourceTree = "<group>";
@@ -2757,6 +2791,7 @@
 				B5AF70621C17F69B00C041AF /* ZhiBoViewController.xib in Resources */,
 				B7D846511C22AB7500718E9E /* MJRefresh.bundle in Resources */,
 				8021E9051C279AE7005C7539 /* index_2.png in Resources */,
+				B5B737511C3A921700DF7437 /* del@2x.png in Resources */,
 				8021E9061C279AE7005C7539 /* index_3.png in Resources */,
 				B53E73921C16AB0C009E7878 /* wuguanimg@2x.png in Resources */,
 				B5451CBE1C2795C8001BB39F /* upsanjiao@2x.png in Resources */,
@@ -2834,6 +2869,7 @@
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
 				8049521A1C250B3800F5584A /* WechatShortVideo_37x-Checkmark@2x.png in Resources */,
 				B7E4CCFE1C1FA1F200C2E69A /* zdcy.png in Resources */,
+				B7E07BA01C3A4CD8004FAC42 /* CommentTableViewCell.xib in Resources */,
 				B7E4CD1D1C1FE20000C2E69A /* zphz.png in Resources */,
 				B5905E081C1BC2CF00ECA9BA /* jointeam.png in Resources */,
 				B7617E561C1C299700CF96E7 /* personal_showBac@2x.png in Resources */,
@@ -2930,6 +2966,7 @@
 				B7D846501C22AB7500718E9E /* MJRefreshStateHeader.m in Sources */,
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
 				B5D345DA1C2A792E00D39891 /* PictureShowView.m in Sources */,
+				B5B7374E1C3A640500DF7437 /* UUDatePicker.m in Sources */,
 				804952151C250B3800F5584A /* SCVideoConfiguration.m in Sources */,
 				B72E39F41C1AB4D0007356C4 /* MakeMushaViewController.m in Sources */,
 				80DB846C1C23D3A6008CA670 /* UIImage+MultiFormat.m in Sources */,
@@ -2993,6 +3030,7 @@
 				B53791B01C156B8C00C45BA7 /* VideoListForStudyViewController.m in Sources */,
 				804952011C250B3800F5584A /* SCAudioConfiguration.m in Sources */,
 				B7617E3B1C1C298F00CF96E7 /* ILRegularExpressionManager.m in Sources */,
+				B7E07B9B1C3A4B8C004FAC42 /* CommentListViewController.m in Sources */,
 				B7CE7F3A1C16AF780035D8CA /* MushaMatch.m in Sources */,
 				B7617E721C1C29A500CF96E7 /* YMTableViewCell.m in Sources */,
 				B5F90ACD1C190CF900D7879D /* ChoosePlanTypeViewController.m in Sources */,
@@ -3100,6 +3138,7 @@
 				B5AF70611C17F69B00C041AF /* ZhiBoViewController.m in Sources */,
 				B577E2361C1AA7C2006695F1 /* DataProvider.m in Sources */,
 				B53E73901C168BDA009E7878 /* MyDreamViewController.m in Sources */,
+				B7E07B9F1C3A4CD8004FAC42 /* CommentTableViewCell.m in Sources */,
 				B5D345991C28E95900D39891 /* VPImageCropperViewController.m in Sources */,
 				B5D345CA1C28E97E00D39891 /* PhotoAlbumManager.m in Sources */,
 				B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */,
@@ -3124,6 +3163,7 @@
 				80DB84691C23D3A6008CA670 /* SDWebImagePrefetcher.m in Sources */,
 				802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */,
 				B7617E711C1C29A500CF96E7 /* YMShowImageView.m in Sources */,
+				B5B7374F1C3A640500DF7437 /* UUDatePicker_DateModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3275,7 +3315,8 @@
 			baseConfigurationReference = 917C8DDA7A56E94AAC386040 /* Pods-KongFuCenter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/SMSSDK1.2-2.0/SMS_SDK",
@@ -3318,7 +3359,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1265ee5c-7860-4adf-bc31-f357be8e16d7";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/KongFuCenter/ThirdFramework/JPush";
 			};
 			name = Debug;
@@ -3328,7 +3369,8 @@
 			baseConfigurationReference = 6EE0DD3D61F21623918CAE75 /* Pods-KongFuCenter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/SMSSDK1.2-2.0/SMS_SDK",
@@ -3378,7 +3420,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1265ee5c-7860-4adf-bc31-f357be8e16d7";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/KongFuCenter/ThirdFramework/JPush";
 			};
 			name = Release;

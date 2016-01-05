@@ -13,9 +13,10 @@
 #import "UIImageView+WebCache.h"
 #endif
 @protocol PictureShowViewDelegate <NSObject>
-
--(void)didClickDelPicBtn:(NSInteger)index;
-
+//点击删除键回调
+-(void)didClickDelPicBtn;
+//长按手势回调
+-(void)longPressCallBack;
 @end
 
 @interface PictureShowView : UIScrollView<UIGestureRecognizerDelegate>
@@ -25,7 +26,7 @@
 }
 @property(assign,nonatomic)NSString *ImgUrl;
 @property(assign,nonatomic)NSInteger picIndex;
-//@property(nonatomic) id<PictureShowViewDelegate> delegate;
+@property(nonatomic) id<PictureShowViewDelegate> mydelegate;
 
 
     //移植于VIPhoto

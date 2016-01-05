@@ -18,7 +18,7 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     _cellHeight = self.view.frame.size.height/12;
-//    [self addRightbuttontitle:@"确定"];
+    [self addRightbuttontitle:@"编辑"];
     
     [self initViews];
     
@@ -77,6 +77,50 @@
     [_mainTableView reloadData];
 }
 
+
+#pragma mark - click action
+
+-(void)clickRightButton:(UIButton *)sender
+{
+    NewPlanViewController *newPlanViewCtl = [[NewPlanViewController alloc] init];
+    newPlanViewCtl.navtitle = @"编辑计划";
+    @try {
+        NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
+        [tempDict setObject:self.planInfo[@"Title"] forKey:@"planTitle"];
+        [tempDict setObject:self.planInfo[@"Content"] forKey:@"planContent"];
+        [tempDict setObject:self.planInfo[@"Id"] forKey:@"planId"];
+        [tempDict setObject:self.planInfo[@"ImageList"] forKey:@"planImgList"];
+        
+        
+        if([self.navtitle isEqualToString:@"周计划"])
+        {
+            [tempDict setObject:[NSString stringWithFormat:@"%d",WeekPlan] forKey:@"planCateId"];
+        }
+        else if([self.navtitle isEqualToString:@"月计划"])
+        {
+            [tempDict setObject:[NSString stringWithFormat:@"%d",MonthPlan] forKey:@"planCateId"];
+        }
+        else if([self.navtitle isEqualToString:@"季计划"])
+        {
+            [tempDict setObject:[NSString stringWithFormat:@"%d",SeasonPlan] forKey:@"planCateId"];
+        }
+        else if([self.navtitle isEqualToString:@"年计划"])
+        {
+            [tempDict setObject:[NSString stringWithFormat:@"%d",YearPlan] forKey:@"planCateId"];
+        }
+
+        newPlanViewCtl.DefaultDict = tempDict;
+        [self.navigationController pushViewController:newPlanViewCtl animated:YES];
+
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+  
+}
 
 #pragma mark - tableView
 
@@ -275,9 +319,43 @@
     
     NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,picArr[sender.tag][@"ImagePath"]];
     PictureShowView *picShow = [[PictureShowView alloc] initWithUrl:url andHolderImg:[UIImage imageNamed:@"me"]];
+    picShow.mydelegate = self;
     [picShow show];
 }
 
+#pragma mark - pick show delegate
+
+-(void)longPressCallBack
+{
+ //   NSLog(@"long press delegate");
+    
+    
+    UIActionSheet *choiceSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"取消"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"删除",/* @"保存到本地",*/ nil];
+    [choiceSheet showInView:self.view];
+}
+
+
+#pragma mark UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"删除" message:@"是否删除图片？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView show];
+    }
+}
+#pragma mark - alert view delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 1)
+    {
+        NSLog(@"删除图片");
+    }
+
+}
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -173,7 +173,7 @@
     delBtn =[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 44 -20, 20, 44, 44)];
     [delBtn setImage:[UIImage imageNamed:@"del"] forState:UIControlStateNormal];
     [delBtn addTarget:self action:@selector(btnClickAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:delBtn];
+ //   [self addSubview:delBtn];
 
     
     [self setupGestureRecognizer];//手势
@@ -190,21 +190,48 @@
     [self addGestureRecognizer:tapGesture];
     
     
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
-    tapGestureRecognizer.numberOfTapsRequired = 2;
+    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
+    doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+    [tapGesture requireGestureRecognizerToFail:doubleTapGestureRecognizer];//等待多次点击失败再执行单机
+    [self addGestureRecognizer:doubleTapGestureRecognizer];
     
-   [tapGesture requireGestureRecognizerToFail:tapGestureRecognizer];//
     
-    [self addGestureRecognizer:tapGestureRecognizer];
+    UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    longPressRecognizer.minimumPressDuration = 0.5; //设置最小长按时间；默认为0.5秒
+    
+    [tapGesture requireGestureRecognizerToFail:longPressRecognizer];
+    [self addGestureRecognizer:longPressRecognizer];
+    
+    
 }
 
 
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)sender
+{
+    
+    if(sender.state == UIGestureRecognizerStateBegan)
+    {
+        
+        NSLog(@"Long press");
+        
+        if([self.mydelegate respondsToSelector:@selector(longPressCallBack)])
+        {
+            [self.mydelegate longPressCallBack];
+        }
+        //add your code here   
+        
+        
+    }   
+    
+    
+}
 -(void)btnClickAction:(UIButton *)sender
 {
-//    if([self.delegate respondsToSelector:@selector(didClickDelPicBtn:)])
-//    {
-//        [self.delegate didClickDelPicBtn:self.picIndex];
-//    }
+    if([self.mydelegate respondsToSelector:@selector(didClickDelPicBtn)])
+    {
+        [self.mydelegate didClickDelPicBtn];
+    }
 
 }
 
