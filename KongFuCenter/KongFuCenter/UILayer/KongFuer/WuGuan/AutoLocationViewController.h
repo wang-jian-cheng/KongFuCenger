@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNavigationController.h"
-
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 
 @protocol AutoLocationDelegate  <NSObject>

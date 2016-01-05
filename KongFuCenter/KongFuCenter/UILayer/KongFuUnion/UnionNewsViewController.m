@@ -39,7 +39,7 @@
     [self addLeftButton:@"left"];
 
     
-    [self GetVideoDetial1];
+    [self getUnionCates];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -47,89 +47,10 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
-#pragma mark - 解析数据
--(void)GetVideoDetialCallBack:(id)dict
-{
-    NSLog(@"%@",dict);
-    if ([dict[@"code"] intValue]==200) {
-        @try
-        {
-            
-        }
-        @catch (NSException *exception) {
-            
-        }
-        @finally {
-            
-            [mTableView reloadData];
-            [SVProgressHUD dismiss];
-            NSLog(@"完成");
-        }
-    }
-    else
-    {
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
-        [alert show];
-    }
-
-}
-
-//2--------2
--(void)GetVideoDetial1
-{
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider getlianmengdongtai];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack1:"];
-}
--(void)GetVideoDetialCallBack1:(id)dict
-{
-    NSLog(@"%@",dict);
-    if ([dict[@"code"] intValue]==200) {
-        @try
-        {
-            NSArray * arr_1 = dict[@"data"];
-            for (NSDictionary * dict in arr_1) {
-                
-                model_UnionNew * model = [[model_UnionNew alloc] init];
-                
-                [model setValuesForKeysWithDictionary:dict];
-                
-                [self.arr_title addObject:model];
-            }
-        }
-        @catch (NSException *exception) {
-            
-        }
-        @finally {
-            
-            [mTableView reloadData];
-            //初始化数据
-            [self initDatas];
-            //初始化View
-            [self initViews];
-            
-            model_UnionNew * model = self.arr_title.firstObject;
-            
-            DataProvider * dataprovider=[[DataProvider alloc] init];
-            [dataprovider growCateid:model.Id andStartRowIndex:@"0" andMaximumRows:@"66"];
-            [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
-            
-            [SVProgressHUD dismiss];
-            NSLog(@"完成");
-        }
-    }
-    else
-    {
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
-        [alert show];
-    }
-    
-}
-
 #pragma mark 自定义方法
 -(void)initDatas{
     
-    [self getUnionCates];
+   // [self getUnionCates];
     
     menuArray = [[NSMutableArray alloc] init];
     NSMutableArray * title = [[NSMutableArray alloc] init];
@@ -138,7 +59,10 @@
         [title addObject:model.Name];
         
     }
+    model_UnionNew *model = self.arr_title[0];
     [menuArray addObjectsFromArray:title];
+  //  DLog(@"%@",self.arr_title);
+     _cateId =[NSString stringWithFormat:@"%@",model.Id] ;
 //    [menuArray addObjectsFromArray:@[@"公益慈善",@"交流活动",@"技术培训",@"全国巡演"]];
 }
 
@@ -155,9 +79,9 @@
             menuImgView.frame = CGRectMake((btnMenu.frame.size.width - 15) / 2, btnMenu.frame.size.height - 14, 15, 10);
             [btnMenu addSubview:menuImgView];
         }
-        
+        btnMenu.titleLabel.font = [UIFont systemFontOfSize:14];
         [btnMenu setTitle:menuArray[i] forState:UIControlStateNormal];
-        btnMenu.titleLabel.font = [UIFont systemFontOfSize:16];
+    //    btnMenu.titleLabel.font = [UIFont systemFontOfSize:16];
         [btnMenu setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btnMenu setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
         btnMenu.tag = i;
@@ -172,8 +96,30 @@
     mTableView.backgroundColor = BACKGROUND_COLOR;
     mTableView.separatorColor = Separator_Color;
     mTableView.tableFooterView = [[UIView alloc] init];
+    
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    mTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        pageNo=0;
+        [weakSelf getUnionNewsDetail:_cateId];
+        // 结束刷新
+        [mTableView.mj_header endRefreshing];
+    }];
+    [mTableView.mj_header beginRefreshing];
+    
+    // 上拉刷新
+    mTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        [weakSelf FooterRefresh];
+        [mTableView.mj_footer endRefreshing];
+    }];
+    
+    
     [self.view addSubview:mTableView];
 }
+
+
 
 -(void)clickBtnMenuEvent:(UIButton *)btnMenu{
     for (UIView *view in btnMenu.superview.subviews) {
@@ -184,12 +130,51 @@
     btnMenu.selected = YES;
     
     model_UnionNew * model = self.arr_title[btnMenu.tag];
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider growCateid:model.Id andStartRowIndex:@"0" andMaximumRows:@"66"];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
+    _cateId = model.Id;
+    pageNo = 0;
+    [mTableView.mj_header beginRefreshing];
     
 }
 #pragma mark - self data source
+
+
+-(void)FooterRefresh
+{
+    [self getUnionNewsDetail:_cateId];
+}
+-(void)getUnionNewsDetail:(NSString *)cateId
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider growCateid:cateId andStartRowIndex:[NSString stringWithFormat:@"%d",pageSize*pageNo] andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetUnionNewDetailCallBack:"];
+}
+
+-(void)GetUnionNewDetailCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+            pageNo ++;
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+            [mTableView reloadData];
+            [SVProgressHUD dismiss];
+            NSLog(@"完成");
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+    
+}
+
 
 -(void)getUnionCates
 {
@@ -204,12 +189,35 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
+            
+            NSArray * arr_1 = dict[@"data"];
+            for (NSDictionary * dict in arr_1) {
+                
+                model_UnionNew * model = [[model_UnionNew alloc] init];
+                
+                [model setValuesForKeysWithDictionary:dict];
+                
+                [self.arr_title addObject:model];
+            }
         }
         @catch (NSException *exception) {
-            
+           
+    
         }
         @finally {
+            [mTableView reloadData];
+            //初始化数据
+            [self initDatas];
+            //初始化View
+            [self initViews];
             
+//            model_UnionNew * model = self.arr_title.firstObject;
+//            
+//            DataProvider * dataprovider=[[DataProvider alloc] init];
+//            [dataprovider setDelegateObject:self setBackFunctionName:@"GetUnionNewDetailCallBack:"];
+//            [dataprovider growCateid:model.Id andStartRowIndex:@"0" andMaximumRows:@"66"];
+//            
+            [SVProgressHUD dismiss];
         }
     }
     else

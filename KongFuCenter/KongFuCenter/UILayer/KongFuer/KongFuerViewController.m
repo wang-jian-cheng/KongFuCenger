@@ -407,6 +407,7 @@
             return cell;
         
         UILabel *gategoryNameLab = [[UILabel alloc ] initWithFrame:CGRectMake(10, 0, 100, _cellHeight)];
+        gategoryNameLab.center = CGPointMake(SCREEN_WIDTH/2, _cellHeight/2);
         gategoryNameLab.text =cateGoryV[indexPath.section-2][indexPath.row];
         gategoryNameLab.textColor  = [UIColor whiteColor];
         

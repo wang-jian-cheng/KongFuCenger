@@ -12,6 +12,13 @@
 #import "DataProvider.h"
 #import "UIImageView+WebCache.h"
 #import "MJRefresh.h"
-@interface WuGuanViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,AutoLocationDelegate>
+#import "CCLocationManager.h"
 
+@interface WuGuanViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,AutoLocationDelegate>
+{
+    NSString *lng;
+    NSString *lat;
+    NSString *cityName;
+
+}
 @end

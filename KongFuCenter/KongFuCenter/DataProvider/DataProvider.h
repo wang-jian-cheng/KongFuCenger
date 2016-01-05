@@ -138,11 +138,13 @@
  *  获取在线学习视频详情
  *
  *  @param videoid    视频id
- *
+ *  @param userid     用户id
  */
--(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid;
+-(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid andUserId:(NSString *)userid;
 
 #pragma mark - 武馆
+//根据城市名和经纬度获取武馆
+-(void)getWuguanList:(NSString*)areaname andLat:(NSString *)lat andLng:(NSString *)lng andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 
 //根据城市获取武馆
 -(NSInteger)getWuGuanList:(NSString *)cityid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;

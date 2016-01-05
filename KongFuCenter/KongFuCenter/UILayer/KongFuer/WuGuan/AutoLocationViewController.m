@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    _lblTitle.text=@"当前位置－临沂";
+    _lblTitle.text=@"当前位置";
     _lblTitle.textColor=[UIColor whiteColor];
     itemarray=[[NSArray alloc] init];
    // [SVProgressHUD showWithStatus:@"正在加载数据。。" maskType:SVProgressHUDMaskTypeBlack];
@@ -56,10 +56,20 @@
     btn_autolocation.backgroundColor=[UIColor whiteColor];
     btn_autolocation.tag=0;
     [btn_autolocation addTarget:self action:@selector(btn_click:) forControlEvents:UIControlEventTouchUpInside];
-    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+//    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+//        
 //        DataProvider * dataprovider=[[DataProvider alloc] init];
 //        [dataprovider setDelegateObject:self setBackFunctionName:@"GetCityInfoBackCall:"];
-//        [dataprovider GetcityInfoWithlng:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] andlat:[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude]];
+////        [dataprovider GetcityInfoWithlng:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] andlat:[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude]];
+//        
+//    
+//    }];
+    
+    [[CCLocationManager shareLocation] getCity:^(NSString *addressString) {
+        NSLog(@"City : %@",addressString);
+        NSString *cityName = [self getRealCityName:addressString];
+        NSLog(@"cityname = %@",cityName);
+        [btn_autolocation setTitle:cityName forState:UIControlStateNormal];
     }];
     [myHeaderVeiw addSubview:btn_autolocation];
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
@@ -127,6 +137,38 @@
     }
     return myHeaderVeiw;
 }
+
+
+#pragma mark - 定位相关
+
+-(NSString *)getCityIdbyName:(NSString *)cityName
+{
+    if(cityName ==nil || itemarray==nil || itemarray.count == 0)
+        return nil;
+    
+    for (NSDictionary *tempDict in itemarray) {
+        if([tempDict[@"Name"] isEqualToString:cityName])
+            return tempDict[@"Id"];
+    }
+    
+    return nil;
+}
+-(NSString *)getRealCityName:(NSString *)address
+{
+    if(address==nil)
+        return nil;
+    NSRange tempRang;
+    tempRang.location = 0;
+    tempRang.length= 0;
+    tempRang = [address rangeOfString:@"省"];
+    if (tempRang.length == 0) {
+        tempRang = [address rangeOfString:@"区" ];
+    }
+    
+    return [address substringFromIndex:(tempRang.location+1)];
+}
+
+
 -(void)GetCityInfoBackCall:(id)dict
 {
 //    if ([dict[@"status"][@"succeed"] intValue]==1) {
@@ -153,6 +195,38 @@
 
 -(void)btn_click:(UIButton *)sender
 {
+    if(sender.tag == 0)
+    {
+        NSString *cityId = [self getCityIdbyName:sender.titleLabel.text];
+        
+        if(cityId == nil)
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市id获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alertView show];
+            return;
+        }
+        BOOL isexist=NO;
+        NSMutableArray *array=[[NSMutableArray alloc] initWithArray:cityinfoWithFile[@"history"]];
+        if (array) {
+            for (NSDictionary *item in array) {
+                if ([item[@"Name"] isEqualToString:sender.currentTitle]) {
+                    isexist=YES;
+                    break;
+                }
+            }
+            if (!isexist) {
+                NSDictionary * dict=[[ NSDictionary alloc] initWithObjectsAndKeys:sender.currentTitle,@"Name",
+                                     [NSString stringWithFormat:@"%ld",(long)sender.tag],@"Id", nil];
+                [array addObject:dict];
+            }
+            
+            NSDictionary * areaData=@{@"Id":cityId,
+                                      @"Name":sender.titleLabel.text,
+                                      @"history":array};
+            [self SaveCityInfo:areaData];
+        }
+        
+    }
     if (sender.tag!=0) {
         BOOL isexist=NO;
         NSMutableArray *array=[[NSMutableArray alloc] initWithArray:cityinfoWithFile[@"history"]];

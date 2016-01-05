@@ -12,6 +12,7 @@
 @interface Member_ViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
     NSMutableArray *teamMemberArr;
+    NSString *clickId;
 }
 @property (nonatomic, strong) UIView * searchView;
 
@@ -170,6 +171,37 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    clickId = teamMemberArr[indexPath.row][@"Id"];
+    
+    [self CheckIsFriend:clickId];
+}
+
+-(void)CheckIsFriend:(NSString *)userId
+{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"isFriendCallBack:"];
+    [dataProvider IsWuyou:[Toolkit getUserID] andfriendid:userId];
+}
+
+-(void)isFriendCallBack:(id)dict{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        if([dict[@"data"] intValue] == 1)//好友
+        {
+            FriendInfoViewController *friendInfoViewCtl = [[FriendInfoViewController alloc] init];
+            friendInfoViewCtl.navtitle = @"好友资料";
+            friendInfoViewCtl.userID = clickId;
+            [self.navigationController pushViewController:friendInfoViewCtl animated:YES];
+        }
+        else//陌生人
+        {
+            
+            StrangerInfoViewController *strangerInfoViewCtl = [[StrangerInfoViewController alloc] init];
+            strangerInfoViewCtl.navtitle = @"好友资料";
+            strangerInfoViewCtl.userID = clickId;
+            [self.navigationController pushViewController:strangerInfoViewCtl animated:YES];
+        }
+    }
 }
 #pragma mark - textfiled代理
 //这个根据需求写

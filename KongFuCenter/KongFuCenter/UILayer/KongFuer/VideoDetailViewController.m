@@ -52,9 +52,12 @@
     otherVideoArray=[NSMutableArray array];
     
     VideoDict=[[NSDictionary alloc] init];
-    
+    _cellHeight = SCREEN_HEIGHT/12;
+    if(_cellHeight < 50)
+        _cellHeight = 50;
+
     videoCommentArray=[NSMutableArray array];
-    commentWidth = SCREEN_WIDTH - _cellHeight -GapToLeft - 30;
+    commentWidth = SCREEN_WIDTH - _cellHeight -GapToLeft - 40;
     [self getData];
     [self initViews];
     
@@ -68,7 +71,6 @@
 
 -(void)initViews
 {
-    _cellHeight = SCREEN_HEIGHT/12;
     
     _sectionNum = 4;
     
@@ -103,6 +105,11 @@
     
     commentTextView = [[UITextView alloc] init];
     commentTextView.delegate = self;
+    commentTextView.textColor = [UIColor whiteColor];
+    commentTextView.backgroundColor = [UIColor grayColor];
+    
+    SupportBtn = [[CustomButton alloc] init];
+    collectBtn = [[CustomButton alloc] init];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
     [self.view addGestureRecognizer:tapGesture];
@@ -131,24 +138,48 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
-    [dataprovider getStudyOnlineVideoDetial:_videoID];
+    [dataprovider getStudyOnlineVideoDetial:_videoID andUserId:[Toolkit getUserID]];
 }
 -(void)GetVideoDetialCallBack:(id)dict
 {
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
 //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
+        
         VideoPath=[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"][@"VideoPath"] isEqual:[NSNull null]]?@"":dict[@"data"][@"VideoPath"]];
         
         VideoPath=[VideoPath stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
         
         VideoDict=dict[@"data"];
+        //赞
+        if ([VideoDict[@"Islike"] integerValue] == 1) {
+            SupportBtn.selected = YES;
+        }
+        else
+        {
+            SupportBtn.selected = NO;
+        }
+        //收藏
+        if ([VideoDict[@"IsFavorite"] integerValue] == 1) {
+            collectBtn.selected = YES;
+        }
+        else
+        {
+            collectBtn.selected = NO;
+        }
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
         
         [dataprovider setDelegateObject:self setBackFunctionName:@"GetOtherVideoDetialCallBack:"];
         
         [dataprovider getUserid:dict[@"data"][@"UserId"] andNum:@"4" andmessageID:dict[@"data"][@"Id"]];
+        
+        if([dict[@"data"][@"IsFree"] intValue] == 0)
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"会员才可观看" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alertView show];
+     //       return;
+        }
         
         moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
         
@@ -285,7 +316,12 @@
 
 #pragma mark - click actions
 
-
+-(void)otherVideoBtnClick:(UIButton *)sender
+{
+    self.videoID = otherVideoArray[sender.tag][@"Id"];
+    
+    [self getData];
+}
 
 -(void)shareContentBuild
 {
@@ -353,7 +389,8 @@
 
 -(void)clickLeftButton:(UIButton *)sender
 {
-    moviePlayerview=[[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:@""]];
+ //   moviePlayerview=[[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:@""]];
+    [moviePlayerview stopPlayer];
     
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -611,7 +648,7 @@
                     [cell addSubview:backView];
                     CGFloat btnW = backView.frame.size.width/4 - 5;
                     CGFloat btnGap = 5;
-                    CustomButton *SupportBtn = [[CustomButton alloc] initWithFrame:CGRectMake(0, 5, btnW, backView.frame.size.height-10)];
+                    SupportBtn.frame = CGRectMake(0, 5, btnW, backView.frame.size.height-10);
                     [SupportBtn setTitle:@"点赞" forState:UIControlStateNormal];
                     SupportBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
                     [SupportBtn setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
@@ -627,7 +664,7 @@
                     
                     
                     
-                    CustomButton *collectBtn = [[CustomButton alloc] initWithFrame:CGRectMake(btnW+btnGap, 5, btnW, backView.frame.size.height-10)];
+                     collectBtn.frame = CGRectMake(btnW+btnGap, 5, btnW, backView.frame.size.height-10);
                     [collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
                     collectBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
                     [collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
@@ -727,7 +764,7 @@
                     CGFloat gapWidth;
                     gapWidth =(SCREEN_WIDTH - GapToLeft*2)/3 - (2*_cellHeight -30);
 //                    showOtherVideoView.backgroundColor = [UIColor redColor];
-                    showOtherVideoView.contentSize = CGSizeMake(SCREEN_WIDTH+((otherVideoArray.count-3)*gapWidth), 0);
+                    showOtherVideoView.contentSize = CGSizeMake(SCREEN_WIDTH+((otherVideoArray.count-3)*gapWidth)+100, 0);
                     showOtherVideoView.scrollEnabled = YES;
                     [cell addSubview:showOtherVideoView];
                     
@@ -752,6 +789,12 @@
                         templab.font = [UIFont systemFontOfSize:14];
                         templab.textAlignment = NSTextAlignmentCenter;
                         [showOtherVideoView addSubview:templab];
+                        
+                        UIButton *videoBtn = [[UIButton alloc] initWithFrame:CGRectMake(tempView.frame.origin.x, 0, 2*_cellHeight -30, _cellHeight*2)];
+                        
+                        videoBtn.tag = i;
+                        [videoBtn addTarget:self action:@selector(otherVideoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                        [showOtherVideoView addSubview:videoBtn];
                         
                     }
                 }
@@ -804,8 +847,8 @@
                 [cell addSubview:headView];
                 
                  commentTextView.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width+5),
-                                                                                      5,
-                                                                                       (SCREEN_WIDTH -(headView.frame.origin.x + headView.frame.size.width+5) - 80),(_cellHeight - 5*2) );
+                                                                                      (_cellHeight -44)/2,
+                                                                                       (SCREEN_WIDTH -(headView.frame.origin.x + headView.frame.size.width+5) - 80),44 );
                 
                 tempIndexPath = indexPath;
                 if(commentTextView.subviews !=nil)
@@ -858,7 +901,7 @@
                     [supportBtn setTitle:@"20" forState:UIControlStateNormal];
                     [supportBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                     supportBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-                    [cell addSubview:supportBtn];
+                   // [cell addSubview:supportBtn];
                     
                     
                     NSString *commentStr = tempDict[@"Content"];
@@ -880,6 +923,7 @@
                                                                                  100, 30)];
                     dateLab.text =[tempDict[@"PublishTime"] substringToIndex:10];
                     dateLab.font = [UIFont systemFontOfSize:12];
+                    dateLab.textColor = [UIColor grayColor];
                     
                     [cell addSubview:dateLab];
                     
@@ -966,12 +1010,9 @@
             [commentTextView becomeFirstResponder];
             
             NSRange range;
-        
             range.location = 0;
-        
             range.length = 0;
-            
-            commentTextView.selectedRange = range;
+            commentTextView.selectedRange = range;//光标设置到开始位置
         }
         @catch (NSException *exception) {
             

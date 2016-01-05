@@ -25,6 +25,9 @@ typedef enum _DetailMode
     NSIndexPath *tempIndexPath;
     UITextView *commentTextView;
     CGFloat commentWidth;
+    
+    CustomButton *SupportBtn;
+    CustomButton *collectBtn ;
 }
 
 @property(nonatomic,strong) NSString * videoID;

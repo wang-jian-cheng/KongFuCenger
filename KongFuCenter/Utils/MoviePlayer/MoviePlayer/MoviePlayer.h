@@ -24,5 +24,7 @@ typedef NS_ENUM(NSInteger, PanDirection){
 @property (nonatomic, strong) NSTimer *timer; // 定时器
 // 初始化方法
 - (instancetype)initWithFrame:(CGRect)frame URL:(NSURL *)url;
+//关闭播放
+-(void)stopPlayer;
 
 @end

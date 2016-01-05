@@ -211,6 +211,8 @@
 		B5B7374E1C3A640500DF7437 /* UUDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B7374B1C3A640500DF7437 /* UUDatePicker.m */; };
 		B5B7374F1C3A640500DF7437 /* UUDatePicker_DateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B7374D1C3A640500DF7437 /* UUDatePicker_DateModel.m */; };
 		B5B737511C3A921700DF7437 /* del@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5B737501C3A921700DF7437 /* del@2x.png */; };
+		B5B737531C3BA61500DF7437 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B737521C3BA61500DF7437 /* MapKit.framework */; };
+		B5B737551C3BA61D00DF7437 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B737541C3BA61D00DF7437 /* CoreLocation.framework */; };
 		B5D345991C28E95900D39891 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345981C28E95900D39891 /* VPImageCropperViewController.m */; };
 		B5D345BD1C28E97E00D39891 /* JKImagePickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459C1C28E97D00D39891 /* JKImagePickerController.strings */; };
 		B5D345BE1C28E97E00D39891 /* ImagesPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459E1C28E97D00D39891 /* ImagesPicker.xcassets */; };
@@ -755,6 +757,8 @@
 		B5B7374C1C3A640500DF7437 /* UUDatePicker_DateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUDatePicker_DateModel.h; sourceTree = "<group>"; };
 		B5B7374D1C3A640500DF7437 /* UUDatePicker_DateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUDatePicker_DateModel.m; sourceTree = "<group>"; };
 		B5B737501C3A921700DF7437 /* del@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "del@2x.png"; sourceTree = "<group>"; };
+		B5B737521C3BA61500DF7437 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		B5B737541C3BA61D00DF7437 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B5D345971C28E95900D39891 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
 		B5D345981C28E95900D39891 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
 		B5D3459D1C28E97D00D39891 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/JKImagePickerController.strings; sourceTree = "<group>"; };
@@ -1068,6 +1072,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5B737551C3BA61D00DF7437 /* CoreLocation.framework in Frameworks */,
+				B5B737531C3BA61500DF7437 /* MapKit.framework in Frameworks */,
 				803E363E1C350EB0006DE3A9 /* UIKit.framework in Frameworks */,
 				803E363C1C350E96006DE3A9 /* Foundation.framework in Frameworks */,
 				803E363A1C350E82006DE3A9 /* CoreGraphics.framework in Frameworks */,
@@ -1131,6 +1137,8 @@
 		6530A98924EC80D772FCF134 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B5B737541C3BA61D00DF7437 /* CoreLocation.framework */,
+				B5B737521C3BA61500DF7437 /* MapKit.framework */,
 				803E363D1C350EB0006DE3A9 /* UIKit.framework */,
 				803E363B1C350E96006DE3A9 /* Foundation.framework */,
 				803E36391C350E82006DE3A9 /* CoreGraphics.framework */,

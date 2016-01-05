@@ -280,6 +280,16 @@
 }
 
 
+-(void)stopPlayer
+{
+    // 关闭定时器
+    [self.timer invalidate];
+    // 移除通知
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMovieDurationAvailableNotification object:nil];
+    // 暂停视屏播放
+    [self.moviePlayer stop];
+}
+
 #pragma mark - 视频加载好之后执行的通知
 - (void)durationAvailable
 {

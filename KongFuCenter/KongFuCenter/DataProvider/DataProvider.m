@@ -526,13 +526,14 @@
         return Param_err;
     }
 }
--(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid
+-(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid andUserId:(NSString *)userid
 {
-    if(videoid != nil)
+    if(videoid != nil &&userid != nil)
     {
         
         NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetOnlineStudy",Url];
-        NSDictionary * prm=@{@"id":videoid};
+        NSDictionary * prm=@{@"id":videoid,
+                             @"userid":userid};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         
@@ -548,6 +549,22 @@
 
 
 #pragma mark - 武馆
+-(void)getWuguanList:(NSString*)areaname andLat:(NSString *)lat andLng:(NSString *)lng andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
+{
+
+    if(areaname&&lat&&lng&&startRowIndex&&maximumRows)
+    {
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectWuGuanPageByCityName",Url];
+        NSDictionary * prm=@{@"areaname":areaname,
+                             @"lat":lat,
+                             @"lng":lng,
+                             @"startRowIndex":startRowIndex,
+                             @"maximumRows":maximumRows};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 
 //Hewuzhe.asmx/SelectWuGuanPageByCityId
 -(NSInteger)getWuGuanList:(NSString *)cityid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows

@@ -34,13 +34,15 @@
     [self addLeftButton:@"left"];
     pageNo=0;
     pageSize=6;
-    cityID = @"20642";
+    cityID =nil;
     WuGuanListArr = [NSMutableArray array];
     [self initViews];
     
     
     // Do any additional setup after loading the view.
 }
+
+
 
 -(void)initViews
 {
@@ -81,7 +83,7 @@
     
 
     placeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, StatusBar_HEIGHT, 100, NavigationBar_HEIGHT)];
-    [placeBtn setTitle:@"临沂" forState:UIControlStateNormal];
+    [placeBtn setTitle:@"定位中。。。" forState:UIControlStateNormal];
     [placeBtn addTarget:self action:@selector(LocationBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     placeBtn.center = CGPointMake(SCREEN_WIDTH/2, NavigationBar_HEIGHT/2+StatusBar_HEIGHT);
     [_topView addSubview:placeBtn];
@@ -104,10 +106,55 @@
 #pragma mark - self data source
 -(void)loadWuguanList:(NSString*)cityId
 {
+    
+    if(cityId ==nil)
+    {
+        
+        
+            [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+        
+
+                lng = [NSString stringWithFormat:@"%.02f",locationCorrrdinate.longitude];
+                lat = [NSString stringWithFormat:@"%.02f",locationCorrrdinate.latitude];
+                //[dataprovider GetcityInfoWithlng:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] andlat:[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude]];
+        
+                [[CCLocationManager shareLocation] getCity:^(NSString *addressString) {
+                   // NSLog(@"City : %@",addressString);
+                    cityName = [self getRealCityName:addressString];
+                    [placeBtn setTitle:cityName forState:UIControlStateNormal];
+                    DataProvider * dataprovider=[[DataProvider alloc] init];
+                    [dataprovider setDelegateObject:self setBackFunctionName:@"getWuguanListCallBack:"];
+                    [dataprovider getWuguanList:cityName
+                                         andLat:lat
+                                         andLng:lng
+                               andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize]
+                                 andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+                    
+                }];
+
+            }];
+    
+    }
+    
     [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getWuguanListCallBack:"];
     [dataprovider getWuGuanList:cityId andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+}
+
+-(NSString *)getRealCityName:(NSString *)address
+{
+    if(address==nil)
+        return nil;
+    NSRange tempRang;
+    tempRang.location = 0;
+    tempRang.length= 0;
+    tempRang = [address rangeOfString:@"省"];
+    if (tempRang.length == 0) {
+        tempRang = [address rangeOfString:@"区" ];
+    }
+    
+    return [address substringFromIndex:(tempRang.location+1)];
 }
 
 
@@ -193,6 +240,7 @@
 {
     [placeBtn setTitle:City forState:UIControlStateNormal];
     cityID = cityId;
+    [_mainTableView.mj_header beginRefreshing];
 }
 
 #pragma mark - click actions
