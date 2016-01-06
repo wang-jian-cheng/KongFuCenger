@@ -153,7 +153,22 @@
     }
 
 }
-
+#pragma mark - 支付
+-(void)getPingppCharge:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description
+{
+    if(userid != nil  && channel !=nil && amount != nil & description != nil)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/GetCharge",Url];
+        NSDictionary * prm=@{@"userid":userid,
+                             @"channel":channel,
+                             @"amount":amount,
+                             @"description":description};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+}
 #pragma mark - 我的收藏
 - (NSInteger )collectData:(NSString *)userId andIsVideo:(NSString *)isVideo  andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
 {

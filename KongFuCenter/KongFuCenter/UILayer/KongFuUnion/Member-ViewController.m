@@ -13,6 +13,9 @@
 {
     NSMutableArray *teamMemberArr;
     NSString *clickId;
+    
+    
+    NSMutableArray *searchArr;
 }
 @property (nonatomic, strong) UIView * searchView;
 
@@ -27,7 +30,10 @@
     [super viewDidLoad];
     
     teamMemberArr = [NSMutableArray array];
-    
+    if(searchArr ==nil)
+    {
+        searchArr = [NSMutableArray array];
+    }
     [self p_navigation];
 
     [self p_searchView];
@@ -35,6 +41,9 @@
     [self p_tableView];
     
     [self getTeamMembers];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
+    [self.view addGestureRecognizer:tapGesture];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,6 +51,110 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark - click action
+
+
+-(void)tapViewAction:(id)sender
+{
+    
+    [self.view endEditing:YES];
+    
+}
+
+-(void)infoBtnClick:(UIButton *)sender
+{
+    clickId = searchArr[sender.tag][@"Id"];
+    
+    [self CheckIsFriend:clickId];
+}
+
+-(void)startSearchBtnClick:(UIButton *)sender
+{
+    
+    if(searchArr ==nil)
+    {
+        searchArr = [NSMutableArray array];
+    }
+    else if(searchArr.count > 0)
+    {
+        [searchArr removeAllObjects];
+    }
+    if(self.textField.text.length == 0)
+    {
+        [searchArr addObjectsFromArray:teamMemberArr];
+        [self.tableView reloadData];
+        return;
+    }
+    
+    if (self.textField.text.length>0&&![ChineseInclude isIncludeChineseInString:self.textField.text]) /*无汉字*/{
+        @try {
+            for (int i=0; i<teamMemberArr.count; i++) {
+                
+                NSString *nickStr;
+                NSDictionary *tempDict = teamMemberArr[i];
+                
+                nickStr = [tempDict objectForKey:@"NicName"];
+                /*先搜索昵称*/
+                if ([ChineseInclude isIncludeChineseInString:nickStr]) {
+                    NSString *tempPinYinStr = [PinYinForObjc chineseConvertToPinYin:nickStr];
+                    NSRange titleResult=[tempPinYinStr rangeOfString:self.textField.text options:NSCaseInsensitiveSearch];
+                    if (titleResult.length>0) {
+                        [searchArr addObject:teamMemberArr[i]];
+                        continue;
+                    }
+                    NSString *tempPinYinHeadStr = [PinYinForObjc chineseConvertToPinYinHead:nickStr];
+                    NSRange titleHeadResult=[tempPinYinHeadStr rangeOfString:self.textField.text options:NSCaseInsensitiveSearch];
+                    if (titleHeadResult.length>0) {
+                        [searchArr addObject:teamMemberArr[i]];
+                        continue;
+                    }
+                }
+                else {
+                    NSRange titleResult=[nickStr rangeOfString:self.textField.text options:NSCaseInsensitiveSearch];
+                    if (titleResult.length>0) {
+                        [searchArr addObject:teamMemberArr[i]];
+                        continue;
+                    }
+                }
+                
+                /*若昵称未搜索到则搜索ID*/
+                /*判断是否全是数字,是则开始搜索id*/
+                if([ChineseInclude isAllNumber:self.textField.text])
+                {
+                    NSString *phone;
+                    NSDictionary *tempDict = teamMemberArr[i];
+                    phone = [tempDict objectForKey:@"Phone"];
+                    
+                    
+                    NSRange titleResult=[phone rangeOfString:self.textField.text options:NSCaseInsensitiveSearch];
+                    if (titleResult.length>0) {
+                        [searchArr addObject:teamMemberArr[i]];
+                        
+                    }
+                }
+            }
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+        
+    } else if (self.textField.text.length>0&&[ChineseInclude isIncludeChineseInString:self.textField.text]) {
+        for (NSDictionary *tempDict in teamMemberArr) {
+            NSString *nickStr;
+            nickStr = [tempDict objectForKey:@"NicName"];
+            NSRange titleResult=[nickStr rangeOfString:self.textField.text options:NSCaseInsensitiveSearch];
+            if (titleResult.length>0) {
+                [searchArr addObject:tempDict];
+            }
+        }
+    }
+    
+    [self.tableView reloadData];
+}
 
 #pragma mark - self data source
 -(void)getTeamMembers
@@ -63,6 +176,7 @@
                 [teamMemberArr removeAllObjects];
             }
             [teamMemberArr addObjectsFromArray:dict[@"data"]];
+            [searchArr addObjectsFromArray:teamMemberArr];
             [self.tableView reloadData];
         }
         @catch (NSException *exception) {
@@ -93,12 +207,17 @@
     self.searchView.backgroundColor = ItemsBaseColor;
     [self.view addSubview:self.searchView];
 
-    UIImageView * image = [[UIImageView alloc] initWithFrame:CGRectMake(25, 20, 25, 25)];
-    image.image = [UIImage imageNamed:@"search"];
-    [self.searchView addSubview:image];
+    UIButton * searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(25, 20, 25, 25)];
+    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
+    [searchBtn addTarget:self action:@selector(startSearchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.searchView addSubview:searchBtn];
+    
     
     //搜索框
-    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(image.frame) + 20, 15, 150, 35)];
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(searchBtn.frame) + 20,
+                                                                   15,
+                                                                   SCREEN_WIDTH  - (searchBtn.frame.origin.x+searchBtn.frame.size.width),
+                                                                   35)];
     self.textField.placeholder = @"搜索战队昵称、id号";
     [self.textField setValue:Separator_Color forKeyPath:@"_placeholderLabel.textColor"];
     self.textField.textColor = [UIColor whiteColor];
@@ -134,7 +253,7 @@
 
 - (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return teamMemberArr.count;
+    return searchArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -142,15 +261,20 @@
     MemberTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell_member" forIndexPath:indexPath];
     
     cell.backgroundColor = ItemsBaseColor;
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     @try {
-        if(indexPath.row > teamMemberArr.count - 1||teamMemberArr == nil || teamMemberArr.count == 0)
+        if(indexPath.row > searchArr.count - 1||searchArr == nil || searchArr.count == 0)
             return cell;
         
-        NSDictionary *tempDict = teamMemberArr[indexPath.row];
+        NSDictionary *tempDict = searchArr[indexPath.row];
         cell.name.text = tempDict[@"NicName"];
         cell.number.text = tempDict[@"Phone"];
         NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
+        
+        UIButton *btn = [[UIButton alloc] initWithFrame:cell.image.frame];
+        btn.tag = indexPath.row;
+        [btn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.image addSubview:btn];
         [cell.image sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
     }
     @catch (NSException *exception) {
@@ -171,9 +295,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    clickId = teamMemberArr[indexPath.row][@"Id"];
     
-    [self CheckIsFriend:clickId];
 }
 
 -(void)CheckIsFriend:(NSString *)userId

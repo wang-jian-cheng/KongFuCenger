@@ -10,6 +10,7 @@
 #import "DataProvider.h"
 #import "MJRefresh.h"
 #import "ChatContentViewController.h"
+#import "PlayVideoViewController.h"
 @interface TeamNewsViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
 {
     int pageNo;

@@ -8,6 +8,7 @@
 
 #import "BaseNavigationController.h"
 #import "DataProvider.h"
+#import "UIImageView+WebCache.h"
 @interface IntroduceViewController : BaseNavigationController
 
 @end

@@ -10,7 +10,9 @@
 #import "MoviePlayer.h"
 
 @interface PlayVideoViewController ()
-
+{
+    MoviePlayer *player;
+}
 @end
 
 @implementation PlayVideoViewController
@@ -22,10 +24,17 @@
     NSLog(@"%@",_videoPath);
     NSString *url = [NSString stringWithFormat:@"%@%@",Url,_videoPath];
     url = [url stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
-    MoviePlayer *view = [[MoviePlayer alloc] initWithFrame:CGRectMake(0,64,SCREEN_WIDTH, SCREEN_HEIGHT - 64) URL:[NSURL URLWithString:url]];
-    [self.view addSubview:view];
+    player = [[MoviePlayer alloc] initWithFrame:CGRectMake(0,64,SCREEN_WIDTH, SCREEN_HEIGHT - 64) URL:[NSURL URLWithString:url]];
+    [self.view addSubview:player];
 }
 
+
+-(void)clickLeftButton:(UIButton *)sender
+{
+    [player stopPlayer];
+    
+    [self.navigationController popViewControllerAnimated:NO];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -50,13 +50,19 @@
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         @try {
-            NSString * str = dict[@"data"];
+            NSString * str = dict[@"data"][@"TeamIntroduce"];
             CGFloat H = [str boundingRectWithSize:CGSizeMake(self.scrollView.frame.size.width - 20, 2000) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:18]} context:nil].size.height;
 
             CGRect tempRect = self.detail.frame;
             tempRect.size.height = H;
             self.detail.text = str;
             self.detail.frame = tempRect;
+            NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,dict[@"data"][@"ImagePath"]];
+            [self.image sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"yewenback"]];
+            
+            
+            self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, H+SCREEN_HEIGHT);
+            
         }
         @catch (NSException *exception) {
             

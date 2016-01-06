@@ -38,7 +38,7 @@
     self.name = [[UILabel alloc] init];
     [self.contentView addSubview:self.name];
     self.name.textColor = [UIColor whiteColor];
-    self.name.text = @"测试数据";
+    self.name.text = @"";
 //    self.name.backgroundColor = [UIColor orangeColor];
     
     self.label = [[UILabel alloc] init];
