@@ -74,9 +74,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     
-    [self setBarTitle:@"我的动态"];
+    [self setBarTitle:@"动态详情"];
     [self addLeftButton:@"left"];
-    [self addRightbuttontitle:@"评论回复"];
     
     userDefault = [NSUserDefaults standardUserDefaults];
     dataProvider = [[DataProvider alloc] init];
@@ -90,6 +89,7 @@
     //[self loadTextData];
     
     //[self initData];
+    [self TeamTopRefresh];
 }
 
 -(void)TeamTopRefresh{
@@ -97,19 +97,11 @@
     [SVProgressHUD showWithStatus:@"加载中"];
     [dataProvider setDelegateObject:self setBackFunctionName:@"GetLianmengDongtaiCallBack:"];
     //[dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
-    [dataProvider SelectDongtaiByFriendId:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"5"];
+    //[dataProvider SelectDongtaiByFriendId:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"5"];
     [dataProvider GetDongtaiById:[userDefault valueForKey:@"id"] andmessid:_shuoshuoID];
 }
 
 -(void)GetLianmengDongtaiCallBack:(id)dict{
-    if ([dict[@"code"] intValue] == 200) {
-        NSLog(@"%@",dict);
-    }else{
-        [SVProgressHUD dismiss];
-    }
-}
-
--(void)GetLianmengDongtaiCallBack1111:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         if(_contentDataSource != nil || _contentDataSource.count>0){
             [_contentDataSource removeAllObjects];
@@ -120,54 +112,53 @@
         }
         DLog(@"%@",dict);
         sumpage = [dict[@"recordcount"] intValue];
-        for(NSDictionary *itemDict in dict[@"data"]){
-            WFMessageBody *messBody = [[WFMessageBody alloc] init];
-            messBody.posterContent = [itemDict valueForKey:@"Content"];
-            NSArray *picArray =[itemDict valueForKey:@"PicList"];
-            NSMutableArray *imgArray = [[NSMutableArray alloc] init];
-            for (int i = 0; i < picArray.count; i++) {
-                [imgArray addObject:[NSString stringWithFormat:@"%@%@",Url,[picArray[i] valueForKey:@"ImagePath"]]];
-            }
-            messBody.posterPostImage = imgArray;
-            NSArray *ComArray =[itemDict valueForKey:@"ComList"];
-            if (ComArray.count == 0) {
-                WFReplyBody *body = [[WFReplyBody alloc] init];
-                body.replyUser = @"";
-                body.repliedUser = @"";
-                body.replyInfo = @"";
-                messBody.posterReplies = [[NSMutableArray alloc] init];
-            }else{
-                NSMutableArray *commentArray = [[NSMutableArray alloc] init];;
-                for (int i = 0; i < ComArray.count; i++) {
-                    WFReplyBody *body = [[WFReplyBody alloc] init];
-                    body.cID = [ComArray[i] valueForKey:@"Id"];
-                    body.replyUser = [ComArray[i] valueForKey:@"NicName"];
-                    body.repliedUser = [[NSString stringWithFormat:@"%@",[ComArray[i] valueForKey:@"ParentId"]] isEqual:@"0"]?@"":[ComArray[i] valueForKey:@"CommentedNicName"];
-                    body.replyInfo = [ComArray[i] valueForKey:@"Content"];
-                    [commentArray addObject:body];
-                }
-                messBody.posterReplies = commentArray;
-            }
-            NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
-            NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
-            messBody.mID = [itemDict valueForKey:@"Id"];
-            messBody.posterImgstr = url;//@"mao.jpg";
-            messBody.posterName = [itemDict valueForKey:@"NicName"];
-            messBody.posterIntro = @"";
-            messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
-            messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
-            messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
-            
-            messBody.sendTime = [NSString stringWithFormat:@"%@",[itemDict valueForKey:@"PublishTime"]];
-            
-            NSMutableArray *videoArray = [[NSMutableArray alloc] init];
-            [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[itemDict valueForKey:@"ImagePath"]]];
-            [videoArray addObject:[itemDict valueForKey:@"VideoPath"]];
-            [videoArray addObject:[itemDict valueForKey:@"VideoDuration"]];
-            messBody.posterPostVideo = videoArray;
-            
-            [_contentDataSource addObject:messBody];
+        NSDictionary *itemDict = dict[@"data"];
+        WFMessageBody *messBody = [[WFMessageBody alloc] init];
+        messBody.posterContent = [itemDict valueForKey:@"Content"];
+        NSArray *picArray =[itemDict valueForKey:@"PicList"];
+        NSMutableArray *imgArray = [[NSMutableArray alloc] init];
+        for (int i = 0; i < picArray.count; i++) {
+            [imgArray addObject:[NSString stringWithFormat:@"%@%@",Url,[picArray[i] valueForKey:@"ImagePath"]]];
         }
+        messBody.posterPostImage = imgArray;
+        NSArray *ComArray =[itemDict valueForKey:@"ComList"];
+        if (ComArray.count == 0) {
+            WFReplyBody *body = [[WFReplyBody alloc] init];
+            body.replyUser = @"";
+            body.repliedUser = @"";
+            body.replyInfo = @"";
+            messBody.posterReplies = [[NSMutableArray alloc] init];
+        }else{
+            NSMutableArray *commentArray = [[NSMutableArray alloc] init];;
+            for (int i = 0; i < ComArray.count; i++) {
+                WFReplyBody *body = [[WFReplyBody alloc] init];
+                body.cID = [ComArray[i] valueForKey:@"Id"];
+                body.replyUser = [ComArray[i] valueForKey:@"NicName"];
+                body.repliedUser = [[NSString stringWithFormat:@"%@",[ComArray[i] valueForKey:@"ParentId"]] isEqual:@"0"]?@"":[ComArray[i] valueForKey:@"CommentedNicName"];
+                body.replyInfo = [ComArray[i] valueForKey:@"Content"];
+                [commentArray addObject:body];
+            }
+            messBody.posterReplies = commentArray;
+        }
+        NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+        messBody.mID = [itemDict valueForKey:@"Id"];
+        messBody.posterImgstr = url;//@"mao.jpg";
+        messBody.posterName = [itemDict valueForKey:@"NicName"];
+        messBody.posterIntro = @"";
+        messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
+        messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
+        messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
+        
+        messBody.sendTime = [NSString stringWithFormat:@"%@",[itemDict valueForKey:@"PublishTime"]];
+        
+        NSMutableArray *videoArray = [[NSMutableArray alloc] init];
+        [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[itemDict valueForKey:@"ImagePath"]]];
+        [videoArray addObject:[itemDict valueForKey:@"VideoPath"]];
+        [videoArray addObject:[itemDict valueForKey:@"VideoDuration"]];
+        messBody.posterPostVideo = videoArray;
+        
+        [_contentDataSource addObject:messBody];
         
         //[self initTableview];
         
@@ -273,24 +264,6 @@
     mainTable.delegate = self;
     mainTable.dataSource = self;
     [self.view addSubview:mainTable];
-    
-    __unsafe_unretained __typeof(self) weakSelf = self;
-    __weak typeof(UITableView *) weakTv = mainTable;
-    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
-    
-    mainTable.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf TeamTopRefresh];
-        [weakTv.mj_header endRefreshing];
-    }];
-    
-    // 马上进入刷新状态
-    [mainTable.mj_header beginRefreshing];
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
-    // 禁止自动加载
-    footer.automaticallyRefresh = NO;
-    // 设置footer
-    mainTable.mj_footer = footer;
     
 }
 
@@ -806,11 +779,6 @@
         
     }
     _replyIndex = -1;
-}
-
--(void)clickRightButton:(UIButton *)sender{
-    CommentListViewController *commentListVC = [[CommentListViewController alloc] init];
-    [self.navigationController pushViewController:commentListVC animated:YES];
 }
 
 - (void)dealloc{

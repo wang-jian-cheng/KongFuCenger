@@ -8,6 +8,7 @@
 
 #import "ChatContentViewController.h"
 #import "ChatLocationViewController.h"
+#import "FriendInfoViewController.h"
 
 @interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate>{
     UIView *topView;
@@ -82,7 +83,19 @@
     
 }
 
-
+- (void)didTapCellPortrait:(NSString *)userId{
+    if ([userId isEqual:[userDefault valueForKey:@"id"]]) {
+        PersonInfoViewController *personInfoViewCtl = [[PersonInfoViewController alloc] init];
+        personInfoViewCtl.navtitle = @"个人资料";
+        [self.navigationController pushViewController:personInfoViewCtl animated:YES];
+            
+    }else{
+        FriendInfoViewController *friendInfoViewCtl = [[FriendInfoViewController alloc] init];
+        friendInfoViewCtl.navtitle = @"好友资料";
+        friendInfoViewCtl.userID = userId;
+        [self.navigationController pushViewController:friendInfoViewCtl animated:YES];
+    }
+}
 
 #pragma mark - 自定义方法
 -(void)clickLeftBtn{

@@ -23,6 +23,7 @@
 #import "PlayVideoViewController.h"
 #import "MJRefresh.h"
 #import "UIImageView+WebCache.h"
+#import "OneShuoshuoViewController.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -564,6 +565,14 @@
     cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    OneShuoshuoViewController *oneShuoshuoVC = [[OneShuoshuoViewController alloc] init];
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:indexPath.row];
+    WFMessageBody *m = ymData.messageBody;
+    oneShuoshuoVC.shuoshuoID = m.mID;
+    [self.navigationController pushViewController:oneShuoshuoVC animated:YES];
 }
 
 -(void)clickVideoImgEvent:(id)sender{

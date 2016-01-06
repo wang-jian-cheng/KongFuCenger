@@ -8,7 +8,7 @@
 
 #import "BaseNavigationController.h"
 
-@interface ApplyForMatchViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
+@interface ApplyForMatchViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     CGFloat _keyHeight;
     NSIndexPath *tempIndexPath;

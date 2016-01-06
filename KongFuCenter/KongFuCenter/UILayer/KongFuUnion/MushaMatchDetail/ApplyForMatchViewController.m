@@ -7,6 +7,8 @@
 //
 
 #import "ApplyForMatchViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import "SCRecorder.h"
 
 @interface ApplyForMatchViewController ()
 {
@@ -16,6 +18,7 @@
     UITableView *_mainTableView;
     
     UILabel *textHolderView;
+    SCPlayer *_player;
 }
 @end
 
@@ -115,6 +118,70 @@
     [self.view endEditing:YES];
 }
 
+-(void)uploadVideoEvent{
+    UIImagePickerController * pick = [[UIImagePickerController alloc] init];
+    pick.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    pick.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+    //是否允许编辑
+    pick.allowsEditing = YES;
+    //代理
+    pick.delegate = self;
+    [self presentViewController:pick animated:YES completion:^{
+        
+    }];
+}
+
+#pragma mark -- UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker   didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+    
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    
+    if([mediaType isEqualToString:@"public.movie"])
+    {
+        NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
+        //        NSLog(@"found a video");
+        //        NSLog(@"%@",videoURL);
+        
+        // 创建视频播放器
+        _player = [SCPlayer player];
+        SCVideoPlayerView *playerView = [[SCVideoPlayerView alloc] initWithPlayer:_player];
+        playerView.tag = 400;
+        playerView.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        playerView.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3);
+        [self.view addSubview:playerView];
+        _player.loopEnabled = YES;
+        [_player setItemByUrl:videoURL];
+        [_player play];
+        
+        UIButton *uploadVideo = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150)/2, (3*_cellHeight - 50)/2 + 64, 150, 50)];
+        uploadVideo.backgroundColor = YellowBlock;
+        uploadVideo.center = CGPointMake(SCREEN_WIDTH/2, 3*_cellHeight /2 + 64);
+        [uploadVideo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [uploadVideo setTitle:@"重新上传视频" forState:UIControlStateNormal];
+        [uploadVideo addTarget:self action:@selector(uploadVideoEvent) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:uploadVideo];
+    }
+    else
+    {
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请您选择视频文件" preferredStyle:(UIAlertControllerStyleAlert)];
+        
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
+        
+        UIAlertAction * action = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alert addAction:action];
+    }
+    
+}
+
 #pragma mark - textView delegate
 //将要开始编辑
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
@@ -157,7 +224,7 @@
             uploadVideo.center = CGPointMake(SCREEN_WIDTH/2, 3*_cellHeight /2);
             [uploadVideo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [uploadVideo setTitle:@"点击上传视频" forState:UIControlStateNormal];
-            
+            [uploadVideo addTarget:self action:@selector(uploadVideoEvent) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:uploadVideo];
             
         }
@@ -165,13 +232,13 @@
         case 1:
         {
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _cellHeight*1.5, _cellHeight*1.5)];
-            imgView.image = [UIImage imageNamed:@"yewenback"];
+            //imgView.image = [UIImage imageNamed:@"yewenback"];
             imgView.backgroundColor = ItemsBaseColor;
             [cell addSubview:imgView];
             
             UILabel *tiplab = [[UILabel alloc] initWithFrame:CGRectMake(0, (_cellHeight*1.5 - 30-10), _cellHeight*1.5, 30)];
             [imgView addSubview:tiplab];
-            tiplab.text = @"点击上传图片";
+            tiplab.text = @"点击上传主图";
             tiplab.textColor = [UIColor whiteColor];
             tiplab.font = [UIFont systemFontOfSize:14];
             tiplab.textAlignment = NSTextAlignmentCenter;

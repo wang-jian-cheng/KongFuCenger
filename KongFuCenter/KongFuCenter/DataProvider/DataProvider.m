@@ -844,6 +844,41 @@
     }
 }
 
+-(void)GetCateForJianghu{
+    NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetCateForJianghu",Url];
+    [self PostRequest:url andpram:nil];
+}
+
+-(void)GetJianghuListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid{
+    if (categoryid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetJianghuListByPage",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"categoryid":categoryid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)SelectMatchPageByPerson:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows{
+    NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchPageByPerson",Url];
+    NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+    [self PostRequest:url andpram:prm];
+}
+
+-(void)SelectMatchPageByTeam:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows{
+    NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchPageByTeam",Url];
+    NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+    [self PostRequest:url andpram:prm];
+}
+
+-(void)SelectMatchDetail:(NSString *)matchId{
+    if (matchId) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchDetail",Url];
+        NSDictionary *prm = @{@"matchId":matchId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark - 联盟动态
 -(void)getUnionNewsCate
 {

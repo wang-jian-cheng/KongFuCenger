@@ -146,7 +146,7 @@
         {
             
             StrangerInfoViewController *strangerInfoViewCtl = [[StrangerInfoViewController alloc] init];
-            strangerInfoViewCtl.navtitle = @"好友资料";
+            strangerInfoViewCtl.navtitle = @"陌生人资料";
             strangerInfoViewCtl.userID = self.userId;
             if(tempNav!=nil)
                 [tempNav pushViewController:strangerInfoViewCtl animated:YES];

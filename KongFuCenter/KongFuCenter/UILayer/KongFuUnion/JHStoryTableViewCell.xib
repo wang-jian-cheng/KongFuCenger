@@ -22,11 +22,11 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkJ-DK-LYv">
-                        <rect key="frame" x="99" y="8" width="152" height="20"/>
+                        <rect key="frame" x="99" y="8" width="161" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="152" id="oLq-jr-S13"/>
+                            <constraint firstAttribute="width" constant="161" id="oLq-jr-S13"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -43,10 +43,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pBl-f7-onj">
-                        <rect key="frame" x="259" y="10" width="53" height="19"/>
+                        <rect key="frame" x="259" y="10" width="61" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="63J-nQ-Ake"/>
-                            <constraint firstAttribute="width" constant="53" id="RIV-RH-pmV"/>
+                            <constraint firstAttribute="width" constant="61" id="RIV-RH-pmV"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.43137254899999999" green="0.43137254899999999" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -79,7 +79,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="leadingMargin" secondItem="d4p-Fx-04F" secondAttribute="leading" id="3Nd-KJ-ptH"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="pBl-f7-onj" secondAttribute="trailing" id="3fP-Tk-ZDb"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="pBl-f7-onj" secondAttribute="trailing" constant="-8" id="3fP-Tk-ZDb"/>
                     <constraint firstItem="tkJ-DK-LYv" firstAttribute="leading" secondItem="hWb-8B-F4S" secondAttribute="leadingMargin" constant="91" id="Eeb-ZS-hY9"/>
                     <constraint firstAttribute="topMargin" secondItem="tkJ-DK-LYv" secondAttribute="top" id="PGa-Ht-kdB"/>
                     <constraint firstAttribute="trailingMargin" secondItem="KCD-hm-BeT" secondAttribute="trailing" constant="2" id="Tla-nz-kI5"/>

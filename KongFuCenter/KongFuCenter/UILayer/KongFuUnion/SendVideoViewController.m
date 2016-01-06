@@ -64,6 +64,7 @@
     txt_Content=[[UITextView alloc] initWithFrame:CGRectMake(10,playerView.frame.size.height+playerView.frame.origin.y+10 , SCREEN_WIDTH-20, SCREEN_HEIGHT-playerView.frame.size.height-playerView.frame.origin.y-20)];
     
     txt_Content.backgroundColor=ItemsBaseColor;
+    txt_Content.textColor = [UIColor whiteColor];
     
     [self.view addSubview:txt_Content];
     

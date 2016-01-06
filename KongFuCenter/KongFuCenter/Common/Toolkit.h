@@ -30,6 +30,7 @@
 //获取userId
 +(NSString *)getUserID;
 +(BOOL)isVip;
++(NSString *)judgeIsNull:(NSString *)str;
 
 #pragma mark - camera
 
