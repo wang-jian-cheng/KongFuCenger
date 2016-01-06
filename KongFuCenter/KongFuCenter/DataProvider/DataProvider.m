@@ -844,6 +844,19 @@
     }
 }
 
+-(void)GetCateForJianghu{
+    NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetCateForJianghu",Url];
+    [self PostRequest:url andpram:nil];
+}
+
+-(void)GetJianghuListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid{
+    if (categoryid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetJianghuListByPage",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"categoryid":categoryid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 #pragma mark - 联盟动态
 -(void)getUnionNewsCate
 {

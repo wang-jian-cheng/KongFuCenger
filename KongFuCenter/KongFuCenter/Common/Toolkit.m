@@ -92,6 +92,14 @@
 
 }
 
++(NSString *)judgeIsNull:(NSString *)str{
+    str = [NSString stringWithFormat:@"%@",str];
+    if([str isEqual:@""] || [str isEqual:[NSNull null]]){
+        return @"";
+    }
+    return str;
+}
+
 +(BOOL)isVip
 {
     if([get_sp(@"IsPay") intValue] == 1)

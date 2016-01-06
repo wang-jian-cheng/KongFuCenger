@@ -190,7 +190,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     OneShuoshuoViewController *oneShuoshuoVC = [[OneShuoshuoViewController alloc] init];
-    oneShuoshuoVC.shuoshuoID = [commentArray[indexPath.row] valueForKey:@"Id"];
+    oneShuoshuoVC.shuoshuoID = [commentArray[indexPath.row] valueForKey:@"MessageId"];
     [self.navigationController pushViewController:oneShuoshuoVC animated:YES];
 }
 

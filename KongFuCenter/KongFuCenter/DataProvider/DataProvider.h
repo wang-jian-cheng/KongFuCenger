@@ -269,6 +269,12 @@
 //获取招聘合作信息
 -(void)GetHezuoListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid;
 
+//获取江湖故事分类
+-(void)GetCateForJianghu;
+
+//获取江湖故事列表
+-(void)GetJianghuListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid;
+
 #pragma mark - 视频评论
 // 评论视频
 -(void)commentVideo:(NSString *)videoId andUserId:(NSString *)userid andComment:(NSString *)comment;

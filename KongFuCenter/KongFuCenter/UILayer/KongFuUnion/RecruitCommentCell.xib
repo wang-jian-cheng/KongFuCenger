@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -22,11 +22,11 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQH-7E-3b2">
-                        <rect key="frame" x="99" y="8" width="152" height="20"/>
+                        <rect key="frame" x="99" y="8" width="161" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="152" id="L7u-pd-X5z"/>
+                            <constraint firstAttribute="width" constant="161" id="L7u-pd-X5z"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -43,10 +43,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcU-HS-NCS">
-                        <rect key="frame" x="259" y="10" width="53" height="19"/>
+                        <rect key="frame" x="259" y="10" width="61" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="Fan-iw-lkQ"/>
-                            <constraint firstAttribute="width" constant="53" id="SDb-YX-6Vd"/>
+                            <constraint firstAttribute="width" constant="61" id="SDb-YX-6Vd"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.43137254899999999" green="0.43137254899999999" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -90,7 +90,7 @@
                     <constraint firstAttribute="bottomMargin" secondItem="Z41-6w-Zkk" secondAttribute="bottom" constant="-4" id="d4w-8r-LPM"/>
                     <constraint firstAttribute="bottomMargin" secondItem="4NB-CB-xn0" secondAttribute="bottom" constant="-2" id="dWL-0q-wob"/>
                     <constraint firstItem="aQH-7E-3b2" firstAttribute="leading" secondItem="16F-eU-zrU" secondAttribute="leadingMargin" constant="91" id="gPX-Yw-C6F"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="pcU-HS-NCS" secondAttribute="trailing" id="n1b-22-UGn"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="pcU-HS-NCS" secondAttribute="trailing" constant="-8" id="n1b-22-UGn"/>
                     <constraint firstAttribute="trailingMargin" secondItem="BN1-ub-ZJH" secondAttribute="trailing" constant="2" id="rNv-cT-ai7"/>
                     <constraint firstAttribute="topMargin" secondItem="pcU-HS-NCS" secondAttribute="top" constant="-2" id="xtE-Xj-g4Z"/>
                     <constraint firstAttribute="trailingMargin" secondItem="yRn-L6-ymI" secondAttribute="trailing" id="zCz-0Y-JAw"/>

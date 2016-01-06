@@ -9,6 +9,7 @@
 #import "RecruitComment.h"
 #import "RecruitCommentCell.h"
 #import "MJRefresh.h"
+#import "UIImageView+WebCache.h"
 
 @interface RecruitComment (){
     
@@ -73,9 +74,9 @@
 }
 
 -(void)TeamTopRefresh{
-    curpage++;
+    curpage = 0;
     [dataProvider setDelegateObject:self setBackFunctionName:@"GetHezuoListByPageCallBack:"];
-    [dataProvider GetHezuoListByPage:@"0" andmaximumRows:@"10" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
+    [dataProvider GetHezuoListByPage:@"0" andmaximumRows:@"1" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
 }
 
 -(void)GetHezuoListByPageCallBack:(id)dict{
@@ -109,7 +110,7 @@
     }
     [self.view addSubview:menuView];
     
-    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height + 46, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - 46)];
+    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height + 45, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - 45)];
     mTableView.delegate = self;
     mTableView.dataSource = self;
     mTableView.backgroundColor = BACKGROUND_COLOR;
@@ -141,7 +142,7 @@
     curpage++;
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
-    [dataProvider GetHezuoListByPage:[NSString stringWithFormat:@"%d",curpage] andmaximumRows:[NSString stringWithFormat:@"%d",curpage * 10] andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
+    [dataProvider GetHezuoListByPage:[NSString stringWithFormat:@"%d",curpage * 1] andmaximumRows:@"1" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
 }
 
 -(void)FootRefireshBackCall:(id)dict
@@ -194,13 +195,18 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"RecruitCommentCell" owner:self options:nil] objectAtIndex:0];
         cell.backgroundColor = ItemsBaseColor;
     }
-    
-    cell.mImageView.image = [UIImage imageNamed:@"jhstory.png"];
-    cell.mName.text = @"咏春拳公益巡回演出";
-    cell.mDetail.text = @"咏春拳是最快的制敌拳法,公益巡回演出,让大家更好的理解咏春拳";
-    cell.mDate.text = @"4月20日";
-    cell.mReadNum.text = @"200";
-    cell.mCollectionNum.text = @"100";
+    NSLog(@"%@",zhInfoArray);
+    NSString *ImagePath = [Toolkit judgeIsNull:[zhInfoArray[indexPath.row] valueForKey:@"ImagePath"]];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,ImagePath];
+    [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"jhstory.png"]];
+    cell.mName.text = [Toolkit judgeIsNull:[zhInfoArray[indexPath.row] valueForKey:@"Title"]];//@"咏春拳公益巡回演出";
+    cell.mDetail.text = [Toolkit judgeIsNull:[zhInfoArray[indexPath.row] valueForKey:@"Content"]];//@"咏春拳是最快的制敌拳法,公益巡回演出,让大家更好的理解咏春拳";
+    NSString *PublishTime = [Toolkit judgeIsNull:[zhInfoArray[indexPath.row] valueForKey:@"PublishTime"]];
+    NSString *month = [PublishTime substringWithRange:NSMakeRange(5, 2)];
+    NSString *day = [PublishTime substringWithRange:NSMakeRange(8, 2)];
+    cell.mDate.text = [NSString stringWithFormat:@"%@月%@日",month,day];
+    cell.mReadNum.text = [Toolkit judgeIsNull:[zhInfoArray[indexPath.row] valueForKey:@"LikeNum"]];
+    cell.mCollectionNum.text = [Toolkit judgeIsNull:[zhInfoArray[indexPath.row] valueForKey:@"FavoriteNum"]];
     
     return cell;
 }
