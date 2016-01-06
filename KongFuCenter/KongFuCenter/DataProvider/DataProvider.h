@@ -277,6 +277,15 @@
 //获取江湖故事列表
 -(void)GetJianghuListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid;
 
+//分页查询个人赛事
+-(void)SelectMatchPageByPerson:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+
+//分页查询战队赛事
+-(void)SelectMatchPageByTeam:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+
+//获取赛事详情
+-(void)SelectMatchDetail:(NSString *)matchId;
+
 #pragma mark - 视频评论
 // 评论视频
 -(void)commentVideo:(NSString *)videoId andUserId:(NSString *)userid andComment:(NSString *)comment;

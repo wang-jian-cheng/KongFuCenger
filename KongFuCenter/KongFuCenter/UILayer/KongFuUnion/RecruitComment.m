@@ -75,6 +75,7 @@
 
 -(void)TeamTopRefresh{
     curpage = 0;
+    zhInfoArray = [[NSArray alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"GetHezuoListByPageCallBack:"];
     [dataProvider GetHezuoListByPage:@"0" andmaximumRows:@"1" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
 }

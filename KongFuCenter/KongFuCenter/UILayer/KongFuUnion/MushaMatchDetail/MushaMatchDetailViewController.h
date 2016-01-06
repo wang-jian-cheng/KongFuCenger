@@ -11,4 +11,6 @@
 #import "PlayerForMatchViewController.h"
 @interface MushaMatchDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
+@property(nonatomic,strong) NSString *matchId;
+
 @end

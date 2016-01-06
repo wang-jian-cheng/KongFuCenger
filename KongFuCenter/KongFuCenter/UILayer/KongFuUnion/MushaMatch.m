@@ -8,6 +8,7 @@
 
 #import "MushaMatch.h"
 #import "MushaMatchCell.h"
+#import "MJRefresh.h"
 
 typedef enum _MatchMode
 {
@@ -24,6 +25,8 @@ typedef enum _MatchMode
     
     //data
     NSMutableArray *menuArray;
+    int curpage;
+    NSArray *matchArray;
     
     //view
     UIImageView *menuImgView;
@@ -94,6 +97,73 @@ typedef enum _MatchMode
     mTableView.separatorColor = Separator_Color;
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = mTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf TeamTopRefresh];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [mTableView.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    mTableView.mj_footer = footer;
+}
+
+-(void)TeamTopRefresh{
+    curpage = 0;
+    matchArray = [[NSArray alloc] init];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"TopRefireshCallBack:"];
+    if (matchMode == WuZheMode) {
+        [dataProvider SelectMatchPageByPerson:@"0" andmaximumRows:@"10"];
+    }else{
+        [dataProvider SelectMatchPageByTeam:@"0" andmaximumRows:@"10"];
+    }
+}
+
+-(void)TopRefireshCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        matchArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        [mTableView reloadData];
+    }
+}
+
+-(void)TeamFootRefresh{
+    curpage++;
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
+    if (matchMode == WuZheMode) {
+        [dataProvider SelectMatchPageByPerson:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10"];
+    }else{
+        [dataProvider SelectMatchPageByTeam:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10"];
+    }
+}
+
+-(void)FootRefireshBackCall:(id)dict
+{
+    
+    NSLog(@"上拉刷新");
+    // 结束刷新
+    [mTableView.mj_footer endRefreshing];
+    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:matchArray];
+    if ([dict[@"code"] intValue] == 200) {
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        matchArray=[[NSArray alloc] initWithArray:itemarray];
+    }
+    [mTableView reloadData];
 }
 
 -(void)clickBtnMenuEvent:(UIButton *)btnMenu{
@@ -116,6 +186,24 @@ typedef enum _MatchMode
         matchMode = WuZheMode;
     }
     NSLog(@"%d",(int)btnMenu.tag);
+    [self TeamTopRefresh];
+}
+
+-(NSString *)matchState:(NSString *)startDate andEndDate:(NSString *)endDate{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *now = [dateFormatter stringFromDate:[NSDate date]];
+    NSComparisonResult result = [now compare:startDate];
+    if (result == -1) {
+        return @"未开始";
+    }else{
+        result = [now compare:endDate];
+        if (result == -1) {
+            return @"进行中";
+        }else{
+            return @"已结束";
+        }
+    }
 }
 
 #pragma mark tableview delegate
@@ -124,7 +212,7 @@ typedef enum _MatchMode
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 6;
+    return matchArray.count;
 }
 
 #pragma mark setting for section
@@ -137,24 +225,35 @@ typedef enum _MatchMode
         cell = [[[NSBundle mainBundle] loadNibNamed:@"MushaMatchCell" owner:self options:nil] objectAtIndex:0];
         cell.backgroundColor = ItemsBaseColor;
     }
-    cell.mImageView.image = [UIImage imageNamed:@"jhstory"];
-    cell.mName.text = @"永春拳公益巡回演出";
-    cell.mDetail.text = @"咏春拳是最快的制敌拳法,公益巡回演出,让大家更好的理解咏春拳";
-    cell.mDate.text = @"4月20日";
-    cell.mEndDate.text = @"结束时间:2015年10月30日";
+    NSLog(@"%@",matchArray);
+    NSString *ImagePath = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"MatchImage"]];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,ImagePath];
+    [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"jhstory"]];
+    cell.mName.text = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Name"]];//@"永春拳公益巡回演出";
+    cell.mDetail.text = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Introduction"]];//@"咏春拳是最快的制敌拳法,公益巡回演出,让大家更好的理解咏春拳";
+    NSString *startDate = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"MatchTimeStart"]];
+    NSString *year = [startDate substringToIndex:4];
+    NSString *month = [startDate substringWithRange:NSMakeRange(5, 2)];
+    NSString *day = [startDate substringWithRange:NSMakeRange(8, 2)];
+    cell.mDate.text = [NSString stringWithFormat:@"%@月%@日",month,day];
+    NSString *endDate = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"MatchTimeEnd"]];
+    NSString *yearend = [endDate substringToIndex:4];
+    NSString *monthend = [endDate substringWithRange:NSMakeRange(5, 2)];
+    NSString *dayend = [endDate substringWithRange:NSMakeRange(8, 2)];
+    NSString *resultState = [self matchState:startDate andEndDate:endDate];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.mState.frame.size.width, cell.mState.frame.size.height)];
-    
-    if(indexPath.row == 1)
-    {
-        imageView.image = [UIImage imageNamed:@"jinxingzhong"];
-    }
-    else if(indexPath.row== 2)
-    {
-        imageView.image = [UIImage imageNamed:@"yijieshu"];
-    }
-    else
-    {
+    if ([resultState isEqual:@"未开始"]) {
+        cell.mEndDate.text = [NSString stringWithFormat:@"开始时间:%@年%@月%@日",year,month,day];
         imageView.image = [UIImage imageNamed:@"weikaishi"];
+        cell.tag = 0;
+    }else if([resultState isEqual:@"进行中"]){
+        cell.mEndDate.text = [NSString stringWithFormat:@"结束时间:%@年%@月%@日",yearend,monthend,dayend];
+        imageView.image = [UIImage imageNamed:@"jinxingzhong"];
+        cell.tag = 1;
+    }else{
+        cell.mEndDate.text = [NSString stringWithFormat:@"结束时间:%@年%@月%@日",yearend,monthend,dayend];
+        imageView.image = [UIImage imageNamed:@"yijieshu"];
+        cell.tag = 2;
     }
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     [cell.mState addSubview:imageView];
@@ -176,27 +275,39 @@ typedef enum _MatchMode
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    int matchState = (int)cell.tag;
     if(matchMode == WuZheMode)
     {
-    
-        if(indexPath.row == 1)
-        {
-            MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
-            mushaMatchOngoingViewCtl.navtitle = @"大赛名字";
-            [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
-        }
-        else if(indexPath.row == 2)
-        {
-            MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
-            mushaMatchOngoingViewCtl.navtitle = @"大赛名字";
-            [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
-        }
-        else
-        {
+        if (matchState == 0) {//未开始
             MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
-            mushaMatchDetailViewCtl.navtitle  = @"武者大赛";
+            mushaMatchDetailViewCtl.navtitle  = @"武者大赛详情";
+            mushaMatchDetailViewCtl.matchId = [matchArray[indexPath.row] valueForKey:@"Id"];
             [self.navigationController pushViewController:mushaMatchDetailViewCtl animated:YES];
+        }else if(matchState == 1){//进行中
+            
+        }else{//已结束
+            
         }
+    
+//        if(indexPath.row == 1)
+//        {
+//            MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
+//            mushaMatchOngoingViewCtl.navtitle = @"大赛名字";
+//            [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
+//        }
+//        else if(indexPath.row == 2)
+//        {
+//            MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
+//            mushaMatchOngoingViewCtl.navtitle = @"大赛名字";
+//            [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
+//        }
+//        else
+//        {
+//            MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
+//            mushaMatchDetailViewCtl.navtitle  = @"武者大赛";
+//            [self.navigationController pushViewController:mushaMatchDetailViewCtl animated:YES];
+//        }
     }
     else if(matchMode == ZhanDuiMode)
     {
