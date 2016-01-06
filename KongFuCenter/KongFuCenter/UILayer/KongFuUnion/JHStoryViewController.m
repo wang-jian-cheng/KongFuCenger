@@ -126,6 +126,7 @@
 
 -(void)TeamTopRefresh{
     curpage = 0;
+    jhStoryArray = [[NSArray alloc] init];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"TopRefireshCallBack:"];
     [dataProvider GetJianghuListByPage:@"0" andmaximumRows:@"10" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
@@ -204,7 +205,6 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"JHStoryTableViewCell" owner:self options:nil] objectAtIndex:0];
         cell.backgroundColor = ItemsBaseColor;
     }
-    NSLog(@"%@",jhStoryArray);
     NSString *ImagePath = [self judgeIsNull:[jhStoryArray[indexPath.row] valueForKey:@"ImagePath"]];
     NSString *url = [NSString stringWithFormat:@"%@%@",Url,ImagePath];
     [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"jhstory"]];

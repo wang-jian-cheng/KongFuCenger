@@ -285,7 +285,6 @@
 		B5F2B37A1C20F765003383AE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B3791C20F765003383AE /* Security.framework */; };
 		B5F2B37C1C210C12003383AE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B37B1C210C12003383AE /* libc++.tbd */; };
 		B5F2B37E1C210C6B003383AE /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2B37D1C210C6B003383AE /* libsqlite3.0.tbd */; };
-		B5F4E39D1C1E6BD6001F81F0 /* JiangHuStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */; };
 		B5F4E3A01C1E9212001F81F0 /* UnionNewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E39F1C1E9212001F81F0 /* UnionNewsDetailViewController.m */; };
 		B5F4E3A31C1EA45C001F81F0 /* FriendInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E3A21C1EA45C001F81F0 /* FriendInfoViewController.m */; };
 		B5F4E3A61C1EBBB6001F81F0 /* StrangerInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F4E3A51C1EBBB6001F81F0 /* StrangerInfoViewController.m */; };
@@ -873,8 +872,6 @@
 		B5F2B3791C20F765003383AE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B5F2B37B1C210C12003383AE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B5F2B37D1C210C6B003383AE /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		B5F4E39B1C1E6BD6001F81F0 /* JiangHuStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JiangHuStoryViewController.h; sourceTree = "<group>"; };
-		B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JiangHuStoryViewController.m; sourceTree = "<group>"; };
 		B5F4E39E1C1E9212001F81F0 /* UnionNewsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnionNewsDetailViewController.h; path = UnionNews/UnionNewsDetailViewController.h; sourceTree = "<group>"; };
 		B5F4E39F1C1E9212001F81F0 /* UnionNewsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnionNewsDetailViewController.m; path = UnionNews/UnionNewsDetailViewController.m; sourceTree = "<group>"; };
 		B5F4E3A11C1EA45C001F81F0 /* FriendInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendInfoViewController.h; sourceTree = "<group>"; };
@@ -2251,15 +2248,6 @@
 			path = Pingpp;
 			sourceTree = "<group>";
 		};
-		B5F4E39A1C1E6BB1001F81F0 /* JiangHu */ = {
-			isa = PBXGroup;
-			children = (
-				B5F4E39B1C1E6BD6001F81F0 /* JiangHuStoryViewController.h */,
-				B5F4E39C1C1E6BD6001F81F0 /* JiangHuStoryViewController.m */,
-			);
-			path = JiangHu;
-			sourceTree = "<group>";
-		};
 		B5F90ACE1C1928C200D7879D /* HeDongLi */ = {
 			isa = PBXGroup;
 			children = (
@@ -2478,7 +2466,6 @@
 		B7CE7F371C16AF1C0035D8CA /* MushaMatch */ = {
 			isa = PBXGroup;
 			children = (
-				B5F4E39A1C1E6BB1001F81F0 /* JiangHu */,
 				B5905DF51C1BA8A100ECA9BA /* MushaMatchDetail */,
 				B7CE7F381C16AF780035D8CA /* MushaMatch.h */,
 				B7CE7F391C16AF780035D8CA /* MushaMatch.m */,
@@ -3018,7 +3005,6 @@
 				B7D846431C22AB7500718E9E /* MJRefreshAutoFooter.m in Sources */,
 				804952271C2523FA00F5584A /* UploadVideoViewController.m in Sources */,
 				B7617E701C1C29A500CF96E7 /* YMReplyInputView.m in Sources */,
-				B5F4E39D1C1E6BD6001F81F0 /* JiangHuStoryViewController.m in Sources */,
 				B5F90ADE1C196AB800D7879D /* ChannelViewController.m in Sources */,
 				B59409101C0FCF05003DC15D /* KongFuPowerViewController.m in Sources */,
 				B569DB941C12822900325CFA /* GrowHistoryViewController.m in Sources */,

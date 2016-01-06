@@ -14,6 +14,7 @@
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    NSDictionary *personMatchDetalDict;
 }
 @end
 #define GapToLeft   20
@@ -24,9 +25,25 @@
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addLeftButton:@"left"];
-    [self initViews];
+    [self initData];
     // Do any additional setup after loading the view.
 }
+
+-(void)initData{
+    [SVProgressHUD showWithStatus:@"加载中..."];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getPersonMatchDetailCallBack:"];
+    [dataProvider SelectMatchDetail:_matchId];
+}
+
+-(void)getPersonMatchDetailCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        personMatchDetalDict = [[NSDictionary alloc] initWithDictionary:dict[@"data"]];
+        [self initViews];
+    }
+}
+
 -(void)initViews
 {
     _cellHeight = SCREEN_HEIGHT/12;
@@ -92,14 +109,15 @@
     switch (indexPath.section) {
         case 0:
         {
-//            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*5)];
-//            cell.backgroundColor = ItemsBaseColor;
+            NSLog(@"%@",personMatchDetalDict);
+            NSString *MatchPath = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"MatchImage"]];
+            NSString *url = [NSString stringWithFormat:@"%@%@",Url,MatchPath];
             UIImageView *mainImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, _cellHeight*4)];
-            mainImgView.image = [UIImage imageNamed:@"yewenback"];
+            [mainImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"yewenback"]]; //[UIImage imageNamed:@"yewenback"];
             [cell addSubview:mainImgView];
             
             UILabel *titlelab = [[UILabel alloc ]initWithFrame:CGRectMake(GapToLeft, mainImgView.frame.size.height+5, SCREEN_WIDTH-GapToLeft, _cellHeight/2-5)];
-            titlelab.text = @"临沂第一届国际武术大赛";
+            titlelab.text = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Name"]];//@"临沂第一届国际武术大赛";
             titlelab.textColor = [UIColor whiteColor];
             titlelab.font = [UIFont systemFontOfSize:14];
             [cell addSubview:titlelab];
@@ -111,7 +129,7 @@
             UITextField *placeLab = [[UITextField alloc] initWithFrame:CGRectMake(GapToLeft,(titlelab.frame.size.height+titlelab.frame.origin.y) , SCREEN_WIDTH-GapToLeft, _cellHeight/2-5)];
             placeLab.leftView =backView;
             placeLab.leftViewMode = UITextFieldViewModeAlways;
-            placeLab.text = @"临沂市兰山区沂蒙路和上海路交汇处朗润大厦18楼";
+            placeLab.text = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"MatchAddress"]];//@"临沂市兰山区沂蒙路和上海路交汇处朗润大厦18楼";
             placeLab.textColor = [UIColor whiteColor];
             placeLab.font = [UIFont systemFontOfSize:14];
             
@@ -130,7 +148,7 @@
             titlelab.font = [UIFont systemFontOfSize:16];
             [cell addSubview:titlelab];
             
-            NSString *str = @"武林大会是蜗牛以旗下广受好评的真武侠游戏《九阴真经》为平台举办的网游竞赛活动，";
+            NSString *str = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Introduction"]];
             
             CGFloat height = [Toolkit heightWithString:str fontSize:14 width:(SCREEN_WIDTH-GapToLeft)]+10;
             height = height > (_cellHeight*3 -  (titlelab.frame.size.height+titlelab.frame.origin.y))?(_cellHeight*3 -  (titlelab.frame.size.height+titlelab.frame.origin.y)):height;
@@ -152,7 +170,7 @@
             [cell addSubview:sendTimetip];
             
             UILabel *sendTime = [[UILabel alloc] initWithFrame:CGRectMake(30, _cellHeight/2, (SCREEN_WIDTH-60)/2-20, _cellHeight/2)];
-            sendTime.text = @"2016.2.10";
+            sendTime.text = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Introduction"]];
             sendTime.textColor = YellowBlock;
             sendTime.font = [UIFont systemFontOfSize:14];
             [cell addSubview:sendTime];
@@ -210,8 +228,7 @@
             titlelab.font = [UIFont systemFontOfSize:16];
             [cell addSubview:titlelab];
             
-            
-            NSString *str = @"让全球玩家通过形神兼备的武功招式、手脑并用的立体激斗，领略到一个融视、听、感为一体的武侠江湖，让所有参与者在精彩的世界电竞盛会中感受武侠和武术文化的独特魅力，最终将武侠这一独特的东方文化发扬、传播至全球";
+            NSString *str = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"MatchRule"]];//@"让全球玩家通过形神兼备的武功招式、手脑并用的立体激斗，领略到一个融视、听、感为一体的武侠江湖，让所有参与者在精彩的世界电竞盛会中感受武侠和武术文化的独特魅力，最终将武侠这一独特的东方文化发扬、传播至全球";
             
             CGFloat height = [Toolkit heightWithString:str fontSize:14 width:SCREEN_WIDTH-GapToLeft]+10;
             height = height > (_cellHeight*3 -  (titlelab.frame.size.height+titlelab.frame.origin.y - _cellHeight))?(_cellHeight*3 -  (titlelab.frame.size.height+titlelab.frame.origin.y)- _cellHeight):height;
