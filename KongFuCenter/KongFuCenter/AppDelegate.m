@@ -132,8 +132,6 @@
     
     
     [self ThirdFrameWorksInit];
-    [self initUI];
-    
     /***************************************极光推送开始*********************************************/
     // Required
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
@@ -153,6 +151,9 @@
     // Required
     [APService setupWithOption:launchOptions];
     /***************************************极光推送结束*********************************************/
+    [self initUI];
+    
+    [APService setTags:[NSSet setWithObject:[NSString stringWithFormat:@"Tags_%@",get_sp(@"TeamId")]] alias:[NSString stringWithFormat:@"alias_%@",[Toolkit getUserID]] callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:nil];
     return YES;
 }
 
@@ -191,9 +192,8 @@
             self.window.rootViewController = _tabBarViewCol;
             
             [self TryLoginFun];
+            
         }
-        
-        
         
     }
     else
@@ -222,6 +222,13 @@
     
     
 }
+-(void)tagsAliasCallback:(int)iResCode
+                    tags:(NSSet*)tags
+                   alias:(NSString*)alias
+{
+    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
+}
+
 
 -(void)connectServer{
     NSString *token = [mUserDefault valueForKey:@"token"];
@@ -445,6 +452,7 @@
     
     // Required
     [APService registerDeviceToken:deviceToken];
+    
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
