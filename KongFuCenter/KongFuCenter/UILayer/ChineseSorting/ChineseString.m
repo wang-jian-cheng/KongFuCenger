@@ -42,7 +42,9 @@
     NSString *tempString ;
     //拼音分组
     for (NSString* object in tempArray) {
-        
+        if ([((ChineseString*)object).pinYin isEqual:@""]) {
+            continue;
+        }
         NSString *pinyin = [((ChineseString*)object).pinYin substringToIndex:1];
         NSString *string = ((ChineseString*)object).string;
         //不同
@@ -72,6 +74,9 @@
     
     for (NSString* object in tempArray)
     {
+        if ([((ChineseString*)object).pinYin isEqual:@""]) {
+            continue;
+        }
         NSString *pinyin = [((ChineseString*)object).pinYin substringToIndex:1];
         //不同
         if(![tempString isEqualToString:pinyin])
@@ -93,7 +98,9 @@
     NSString *tempString ;
     //拼音分组
     for (NSString* object in tempArray) {
-        
+        if ([((ChineseString*)object).pinYin isEqual:@""]) {
+            continue;
+        }
         NSString *pinyin = [((ChineseString*)object).pinYin substringToIndex:1];
         //不同
         if(![tempString isEqualToString:pinyin])

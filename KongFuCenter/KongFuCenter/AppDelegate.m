@@ -324,7 +324,7 @@
         return;
     }
     NSString *thirdLogin = get_sp(@"ThirdLogin");
-    if([thirdLogin isEqualToString:@"NO"])
+    if([thirdLogin isEqualToString:@"0"])
     {
         [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
         DataProvider * dataprovider=[[DataProvider alloc] init];
@@ -333,6 +333,8 @@
         NSString *mRegistPwd = [mUserDefault valueForKey:LogIn_UserPass_key];
         
         [dataprovider login:mRegistAcount andPassWord:mRegistPwd];
+    }else{
+        self.window.rootViewController = _loginViewCtl;
     }
 }
 

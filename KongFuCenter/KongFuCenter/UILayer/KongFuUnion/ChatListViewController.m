@@ -47,6 +47,7 @@
     conversationVC.conversationType = model.conversationType;
     conversationVC.targetId = model.targetId;
     conversationVC.userName = model.conversationTitle;
+    conversationVC.mTitle = model.conversationTitle;
     if (conversationVC.conversationType == ConversationType_PRIVATE) {
         conversationVC.displayUserNameInCell = NO;
     }else{
