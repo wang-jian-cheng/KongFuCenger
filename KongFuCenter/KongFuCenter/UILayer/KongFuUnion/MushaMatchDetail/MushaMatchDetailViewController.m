@@ -73,12 +73,14 @@
     {
         ApplyForMatchViewController *applyForMatchViewCtl = [[ApplyForMatchViewController alloc] init];
         applyForMatchViewCtl.navtitle = @"武者大赛报名";
+        applyForMatchViewCtl.matchId = _matchId;
         [self.navigationController pushViewController:applyForMatchViewCtl animated:YES];
     }
     else if([sender.titleLabel.text isEqualToString:@"查看报名选手"])
     {
         PlayerForMatchViewController *playForMatchViewCtl = [[PlayerForMatchViewController alloc] init];
         playForMatchViewCtl.navtitle = @"参赛成员";
+        playForMatchViewCtl.matchId = _matchId;
         [self.navigationController pushViewController:playForMatchViewCtl animated:YES];
     }
 }
@@ -170,7 +172,7 @@
             [cell addSubview:sendTimetip];
             
             UILabel *sendTime = [[UILabel alloc] initWithFrame:CGRectMake(30, _cellHeight/2, (SCREEN_WIDTH-60)/2-20, _cellHeight/2)];
-            sendTime.text = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Introduction"]];
+            sendTime.text = [[Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"EnrollTimeStart"]] substringToIndex:10];
             sendTime.textColor = YellowBlock;
             sendTime.font = [UIFont systemFontOfSize:14];
             [cell addSubview:sendTime];
@@ -184,7 +186,7 @@
             [cell addSubview:startTimetip];
             
             UILabel *startTime = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 +23, _cellHeight/2, (SCREEN_WIDTH-60)/2, _cellHeight/2)];
-            startTime.text = @"2016.2.10 12:00:00";
+            startTime.text = [[Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"MatchTimeStart"]] substringToIndex:10];;
             startTime.textColor = YellowBlock;
             startTime.font = [UIFont systemFontOfSize:14];
             [cell addSubview:startTime];
@@ -200,7 +202,7 @@
             [cell addSubview:endTimetip];
             
             UILabel *endTime = [[UILabel alloc] initWithFrame:CGRectMake(30, _cellHeight/2, (SCREEN_WIDTH-60)/2-20, _cellHeight/2)];
-            endTime.text = @"2016.2.10";
+            endTime.text = [[Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"MatchTimeEnd"]] substringToIndex:10];
             endTime.textColor = YellowBlock;
             endTime.font = [UIFont systemFontOfSize:14];
             [cell addSubview:endTime];
@@ -214,7 +216,7 @@
             [cell addSubview:deadlineTimetip];
             
             UILabel *deadlineTime = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 +20+3, _cellHeight/2, (SCREEN_WIDTH-60)/2, _cellHeight/2)];
-            deadlineTime.text = @"2016.2.10 12:00:00";
+            deadlineTime.text = [[Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"EnrollTimeEnd"]] substringToIndex:10];
             deadlineTime.textColor = YellowBlock;
             deadlineTime.font = [UIFont systemFontOfSize:14];
             [cell addSubview:deadlineTime];
@@ -273,8 +275,12 @@
         case 0:
             return _cellHeight*5;
             break;
-        case 1:
-            return _cellHeight*3;
+        case 1:{
+            NSString *str = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Introduction"]];//@"让全球玩家通过形神兼备的武功招式、手脑并用的立体激斗，领略到一个融视、听、感为一体的武侠江湖，让所有参与者在精彩的世界电竞盛会中感受武侠和武术文化的独特魅力，最终将武侠这一独特的东方文化发扬、传播至全球";
+            
+            CGFloat height = [Toolkit heightWithString:str fontSize:14 width:SCREEN_WIDTH-GapToLeft]+10;
+            return height + _cellHeight/2 + 10;
+        }
             break;
         case 2:
             return _cellHeight;
@@ -282,8 +288,12 @@
         case 3:
             return _cellHeight;
             break;
-        case 4:
-            return _cellHeight*4;
+        case 4:{
+            NSString *str = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"MatchRule"]];//@"让全球玩家通过形神兼备的武功招式、手脑并用的立体激斗，领略到一个融视、听、感为一体的武侠江湖，让所有参与者在精彩的世界电竞盛会中感受武侠和武术文化的独特魅力，最终将武侠这一独特的东方文化发扬、传播至全球";
+            
+            CGFloat height = [Toolkit heightWithString:str fontSize:14 width:SCREEN_WIDTH-GapToLeft]+10;
+            return height + _cellHeight/2 + 10 + _cellHeight + 10;
+        }
             break;
         default:
             break;

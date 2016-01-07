@@ -8,9 +8,10 @@
 
 #import "BaseNavigationController.h"
 
-@interface ApplyForMatchViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface ApplyForMatchViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 {
     CGFloat _keyHeight;
     NSIndexPath *tempIndexPath;
 }
+@property(nonatomic,strong) NSString *matchId;
 @end

@@ -286,6 +286,12 @@
 //获取赛事详情
 -(void)SelectMatchDetail:(NSString *)matchId;
 
+//个人比赛报名
+-(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription;
+
+//查询比赛参赛人员
+-(void)SelectMatchMemberByPerson:(NSString *)matchId;
+
 #pragma mark - 视频评论
 // 评论视频
 -(void)commentVideo:(NSString *)videoId andUserId:(NSString *)userid andComment:(NSString *)comment;

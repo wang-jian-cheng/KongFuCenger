@@ -8,12 +8,14 @@
 
 #import "PlayerForMatchViewController.h"
 
-@interface PlayerForMatchViewController ()<UISearchBarDelegate,UISearchDisplayDelegate>
+@interface PlayerForMatchViewController ()<UISearchBarDelegate,UISearchDisplayDelegate,UITextFieldDelegate>
 {
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    UITextField *searchTxt;
+    NSArray *PlayerArray;
     
 }
 @end
@@ -27,17 +29,30 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
  
     [self addLeftButton:@"left"];
-    [self addRightbuttontitle:@"确定"];
-    [self initViews];
+    [self initData];
     // Do any additional setup after loading the view.
+}
+-(void)initData{
+    [SVProgressHUD showWithStatus:@"加载中..."];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"SelectMatchMemberByPersonCallBack:"];
+    [dataProvider SelectMatchMemberByPerson:_matchId];
+}
+-(void)SelectMatchMemberByPersonCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        NSLog(@"%@",dict);
+        PlayerArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        [self initViews];
+    }
 }
 -(void)initViews
 {
-    _cellHeight = SCREEN_HEIGHT/12;
-    _sectionNum = 1;
+    _cellHeight = SCREEN_HEIGHT/10;
+    _sectionNum = 2;
     
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+10, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+5, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -52,19 +67,19 @@
     
     
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH
-                                                               , _cellHeight)];
-    _searchBar.delegate = self;
-    _searchBar.placeholder = @"搜索战队昵称、id号";
-    _mainTableView.tableHeaderView = _searchBar;
-    _searchBar.backgroundColor = ItemsBaseColor;
-    
-    
-    _searchDisplayController = [[UISearchDisplayController alloc]initWithSearchBar:_searchBar contentsController:self];
-    _searchDisplayController.active = NO;
-    _searchDisplayController.searchResultsDataSource = self;
-    _searchDisplayController.searchResultsDelegate = self;
-    _searchDisplayController.delegate = self;
+    //_searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH
+//                                                               , _cellHeight)];
+//    _searchBar.delegate = self;
+//    _searchBar.placeholder = @"搜索战队昵称、id号";
+//    _mainTableView.tableHeaderView = _searchBar;
+//    _searchBar.backgroundColor = ItemsBaseColor;
+//    
+//    
+//    _searchDisplayController = [[UISearchDisplayController alloc]initWithSearchBar:_searchBar contentsController:self];
+//    _searchDisplayController.active = NO;
+//    _searchDisplayController.searchResultsDataSource = self;
+//    _searchDisplayController.searchResultsDelegate = self;
+//    _searchDisplayController.delegate = self;
     
     
     
@@ -133,76 +148,71 @@
 #pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     return _sectionNum;
-    
 }
 
 //指定每个分区中有多少行，默认为1
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    
+    if (section == 0) {
+        return 1;
+    }else{
         return 6;
-
+    }
 }
 
 #pragma mark - setting for cell
 //设置每行调用的cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
     cell.backgroundColor = ItemsBaseColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    switch (indexPath.section) {
-     
-        case 0:
-        {
-            UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-5*2, _cellHeight-5*2) andImgName:@"me" andNav:self.navigationController];
-            [headView makeSelfRound];
-            [cell addSubview:headView];
-            
-            
-            UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.size.width + headView.frame.origin.x + 10),
-                                                                         5,
-                                                                         SCREEN_WIDTH -(headView.frame.size.width + headView.frame.origin.x + 10),
-                                                                         _cellHeight/2-5)];
-            titleLab.textColor = [UIColor whiteColor];
-            titleLab.text = @"李小龙";
-            titleLab.font = [UIFont systemFontOfSize:14];
-            [cell addSubview:titleLab];
-            
-            UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.size.width + headView.frame.origin.x + 10),
-                                                                          _cellHeight/2,
-                                                                          SCREEN_WIDTH -(headView.frame.size.width + headView.frame.origin.x + 10)-100,
-                                                                          _cellHeight/2)];
-            timeLab.textColor = [UIColor whiteColor];
-            timeLab.text = @"报名时间：2015年10月20日";
-            timeLab.font = [UIFont systemFontOfSize:14];
-            [cell addSubview:timeLab];
-            
-            
-            UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100),
-                                                                         _cellHeight/2,
-                                                                         100,
-                                                                         _cellHeight/2)];
-            numLab.textColor = [UIColor whiteColor];
-            numLab.text = @"编号：005";
-            numLab.font = [UIFont systemFontOfSize:14];
-            [cell addSubview:numLab];
-            
-        }
-            break;
-        case 2:
-        {
-
-            
-        }
-            break;
-            
-        default:
-            break;
+    if (indexPath.section == 0) {
+        searchTxt = [[UITextField alloc] initWithFrame:CGRectMake(14, 0, SCREEN_WIDTH - 28, cell.frame.size.height)];
+        searchTxt.returnKeyType = UIReturnKeySearch;
+        searchTxt.delegate = self;
+        searchTxt.textColor = [UIColor whiteColor];
+        searchTxt.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索用户昵称" attributes:@{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.44 green:0.43 blue:0.44 alpha:1]}];
+        UIImageView *searchIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 20)];
+        searchIv.contentMode = UIViewContentModeScaleAspectFit;
+        searchIv.image = [UIImage imageNamed:@"search"];
+        searchTxt.leftView = searchIv;
+        searchTxt.leftViewMode = UITextFieldViewModeAlways;
+        [cell addSubview:searchTxt];
+        return cell;
+    }else{
+        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-5*2, _cellHeight-5*2) andImgName:@"me" andNav:self.navigationController];
+        [headView makeSelfRound];
+        [cell addSubview:headView];
+        
+        
+        UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.size.width + headView.frame.origin.x + 10),
+                                                                      5,
+                                                                      SCREEN_WIDTH -(headView.frame.size.width + headView.frame.origin.x + 10),
+                                                                      _cellHeight/2-5)];
+        titleLab.textColor = [UIColor whiteColor];
+        titleLab.text = @"李小龙";
+        titleLab.font = [UIFont systemFontOfSize:14];
+        [cell addSubview:titleLab];
+        
+        UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.size.width + headView.frame.origin.x + 10),
+                                                                     _cellHeight/2,
+                                                                     SCREEN_WIDTH -(headView.frame.size.width + headView.frame.origin.x + 10)-70,
+                                                                     _cellHeight/2)];
+        timeLab.textColor = [UIColor whiteColor];
+        timeLab.text = @"报名时间:2015年10月20日";
+        timeLab.font = [UIFont systemFontOfSize:14];
+        [cell addSubview:timeLab];
+        
+        
+        UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 70),
+                                                                    _cellHeight/2,
+                                                                    100,
+                                                                    _cellHeight/2)];
+        numLab.textColor = [UIColor whiteColor];
+        numLab.text = @"编号:005";
+        numLab.font = [UIFont systemFontOfSize:14];
+        [cell addSubview:numLab];
     }
     return cell;
     
@@ -210,9 +220,11 @@
 
 //设置cell每行间隔的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-
-    return _cellHeight;
+    if (indexPath.section == 0) {
+        return 45;
+    }else{
+        return _cellHeight;
+    }
 }
 
 

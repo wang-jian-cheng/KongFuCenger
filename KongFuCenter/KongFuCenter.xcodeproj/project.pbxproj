@@ -346,6 +346,7 @@
 		B72E39F81C1AB5AD007356C4 /* MakeMushaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */; };
 		B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */; };
 		B739FB391C279991004100C2 /* MyFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B739FB381C279991004100C2 /* MyFriendViewController.m */; };
+		B760C4941C3E15F200613721 /* MushaMatchDetailGoingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B760C4931C3E15F200613721 /* MushaMatchDetailGoingViewController.m */; };
 		B7617E1F1C1C27D500CF96E7 /* JHStoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */; };
 		B7617E271C1C289E00CF96E7 /* UnionNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */; };
 		B7617E281C1C289E00CF96E7 /* UnionNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E241C1C289E00CF96E7 /* UnionNewsCell.xib */; };
@@ -1002,6 +1003,8 @@
 		B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeMushaCell.xib; sourceTree = "<group>"; };
 		B739FB371C279991004100C2 /* MyFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFriendViewController.h; sourceTree = "<group>"; };
 		B739FB381C279991004100C2 /* MyFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFriendViewController.m; sourceTree = "<group>"; };
+		B760C4921C3E15F200613721 /* MushaMatchDetailGoingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MushaMatchDetailGoingViewController.h; sourceTree = "<group>"; };
+		B760C4931C3E15F200613721 /* MushaMatchDetailGoingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MushaMatchDetailGoingViewController.m; sourceTree = "<group>"; };
 		B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHStoryTableViewCell.xib; sourceTree = "<group>"; };
 		B7617E221C1C289E00CF96E7 /* UnionNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnionNewsCell.h; sourceTree = "<group>"; };
 		B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnionNewsCell.m; sourceTree = "<group>"; };
@@ -1831,6 +1834,8 @@
 				B5905E1B1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m */,
 				B5F4E3A71C1EC3B9001F81F0 /* VideoDetailForMatchViewController.h */,
 				B5F4E3A81C1EC3B9001F81F0 /* VideoDetailForMatchViewController.m */,
+				B760C4921C3E15F200613721 /* MushaMatchDetailGoingViewController.h */,
+				B760C4931C3E15F200613721 /* MushaMatchDetailGoingViewController.m */,
 			);
 			path = MushaMatchDetail;
 			sourceTree = "<group>";
@@ -3344,6 +3349,7 @@
 				B5F90AED1C197D3D00D7879D /* InputText.m in Sources */,
 				804952001C250B3800F5584A /* SCAssetExportSession.m in Sources */,
 				B712CC951C2CCEFE00B1A2E8 /* MyNewsViewController.m in Sources */,
+				B760C4941C3E15F200613721 /* MushaMatchDetailGoingViewController.m in Sources */,
 				80DB84691C23D3A6008CA670 /* SDWebImagePrefetcher.m in Sources */,
 				802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */,
 				B7617E711C1C29A500CF96E7 /* YMShowImageView.m in Sources */,

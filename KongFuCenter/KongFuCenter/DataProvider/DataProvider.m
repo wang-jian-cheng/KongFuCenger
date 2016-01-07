@@ -894,6 +894,26 @@
     }
 }
 
+-(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription{
+    if (matchId && userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/JoinMatch",Url];
+        NSDictionary *prm = @{@"matchId":matchId,@"userid":userid,@"matchVideo":matchVideo,@"matchImage":matchImage,@"matchDescription":matchDescription};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)SelectMatchMemberByPerson:(NSString *)matchId{
+    if (matchId) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchMemberByPerson",Url];
+        NSDictionary *prm = @{@"matchId":matchId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark - 联盟动态
 -(void)getUnionNewsCate
 {

@@ -9,6 +9,16 @@
 #import "BaseNavigationController.h"
 #import "UserHeadView.h"
 #import "VideoDetailForMatchViewController.h"
+
+typedef enum _mushaMatchOngoingMode
+{
+    Mode_OnGoing,
+    Mode_Ranking
+}MushaMatchOngoingMode;
+
 @interface MushaMatchOngoingViewController : BaseNavigationController<UICollectionViewDataSource,UICollectionViewDelegate,UISearchBarDelegate>
+
+@property(nonatomic,strong) NSString *matchId;
+@property(nonatomic) MushaMatchOngoingMode mushaMatchOngoingMode;
 
 @end
