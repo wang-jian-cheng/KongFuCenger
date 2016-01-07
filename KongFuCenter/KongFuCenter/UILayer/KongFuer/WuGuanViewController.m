@@ -67,6 +67,10 @@
     // 下拉刷新
     _mainTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         pageNo=0;
+        if(WuGuanListArr != nil && WuGuanListArr.count>0)
+        {
+            [WuGuanListArr removeAllObjects];
+        }
         [weakSelf loadWuguanList:cityID];
         // 结束刷新
         [_mainTableView.mj_header endRefreshing];
@@ -166,10 +170,7 @@
     if ([dict[@"code"] intValue]==200) {
         @try {
             ++pageNo;
-            if(WuGuanListArr != nil && WuGuanListArr.count>0)
-            {
-                [WuGuanListArr removeAllObjects];
-            }
+            
             
             [WuGuanListArr addObjectsFromArray:dict[@"data"]];
             
@@ -193,12 +194,12 @@
 
 -(void)FooterRefresh
 {
-    [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"FooterRefreshCallBack:"];
-    [dataprovider getWuGuanList:cityID andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+//    [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
+//    DataProvider * dataprovider=[[DataProvider alloc] init];
+//    [dataprovider setDelegateObject:self setBackFunctionName:@"FooterRefreshCallBack:"];
+//    [dataprovider getWuGuanList:cityID andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
     
-
+    [self loadWuguanList:cityID];
 }
 
 -(void)FooterRefreshCallBack:(id)dict

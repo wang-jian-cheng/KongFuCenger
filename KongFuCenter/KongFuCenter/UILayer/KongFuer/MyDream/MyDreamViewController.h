@@ -7,7 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "UIImageView+WebCache.h"
 @interface MyDreamViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
 {
     CGFloat _keyHeight;

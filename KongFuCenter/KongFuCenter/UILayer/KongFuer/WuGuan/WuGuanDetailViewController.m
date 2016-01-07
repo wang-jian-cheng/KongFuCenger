@@ -86,6 +86,13 @@
 #pragma mark - click actions
 
 
+-(void)addresssBtnClick:(id)dict
+{
+    MapViewController *addressViewCtl = [[MapViewController alloc]init];
+    addressViewCtl.navtitle = @"武馆位置";
+    [self.navigationController pushViewController:addressViewCtl animated:YES];
+}
+
 
 -(void)shareContentBuild
 {
@@ -405,9 +412,15 @@
                 address.font = [UIFont systemFontOfSize:15];
                 [cell addSubview:address];
                 
+               
+                
                 UIView * line = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(address.frame) + 5, 3, 1, cell.frame.size.height - 6)];
                 line.backgroundColor = Separator_Color;
                 [cell addSubview:line];
+                
+                UIButton *coverBtn = [[UIButton alloc ] initWithFrame:CGRectMake(0, 0, line.frame.origin.x, _cellHeight)];
+                [coverBtn addTarget:self action:@selector(addresssBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:coverBtn];
                 
                 UIButton * btn_call = [UIButton buttonWithType:(UIButtonTypeSystem)];
                 btn_call.frame = CGRectMake(CGRectGetMaxX(line.frame) + 15, 10, 25 ,25);

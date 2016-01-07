@@ -4,6 +4,7 @@ use_frameworks!
 target 'KongFuCenter' do
 pod "AFNetworking", "~> 2.0"
 pod 'SVProgressHUD'
+pod 'AMap2DMap'
 pod 'RongCloudIMKit', '2.4.0'
 end
 

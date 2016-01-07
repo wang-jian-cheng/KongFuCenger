@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00B391A3E16E2E9529C00832 /* Pods_KongFuCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CB30C136C8571924D6B829 /* Pods_KongFuCenter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		00B391A3E16E2E9529C00832 /* Pods_KongFuCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CB30C136C8571924D6B829 /* Pods_KongFuCenter.framework */; };
 		7B580B0C1C2A298F00BFF83D /* model_collect.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B580B0B1C2A298F00BFF83D /* model_collect.m */; };
 		7BA38E8D1C213930000996EE /* Member-ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E8C1C213930000996EE /* Member-ViewController.m */; };
 		7BA38E901C214305000996EE /* MemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E8F1C214305000996EE /* MemberTableViewCell.m */; };
@@ -237,6 +237,8 @@
 		B5B7377B1C3CAAF100DF7437 /* PushView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5B7376A1C3CAAF100DF7437 /* PushView.xib */; };
 		B5B7377C1C3CAAF100DF7437 /* Search-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5B7376B1C3CAAF100DF7437 /* Search-Info.plist */; };
 		B5B737821C3D0B8800DF7437 /* AnnounceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737811C3D0B8800DF7437 /* AnnounceDetailViewController.m */; };
+		B5B737C41C3E3D0100DF7437 /* AddressMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */; };
+		B5B737CD1C3E45E600DF7437 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737CC1C3E45E600DF7437 /* MapViewController.m */; };
 		B5D345991C28E95900D39891 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345981C28E95900D39891 /* VPImageCropperViewController.m */; };
 		B5D345BD1C28E97E00D39891 /* JKImagePickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459C1C28E97D00D39891 /* JKImagePickerController.strings */; };
 		B5D345BE1C28E97E00D39891 /* ImagesPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459E1C28E97D00D39891 /* ImagesPicker.xcassets */; };
@@ -773,8 +775,8 @@
 		B59409181C0FD720003DC15D /* Toolkit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Toolkit.m; sourceTree = "<group>"; };
 		B594091A1C0FD96A003DC15D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		B594091E1C102719003DC15D /* StudyOnLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudyOnLineViewController.h; sourceTree = "<group>"; };
-		B594091F1C102719003DC15D /* StudyOnLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudyOnLineViewController.m; sourceTree = "<group>"; };
+		B594091E1C102719003DC15D /* StudyOnLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StudyOnLineViewController.h; path = ../StudyOnLineViewController.h; sourceTree = "<group>"; };
+		B594091F1C102719003DC15D /* StudyOnLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StudyOnLineViewController.m; path = ../StudyOnLineViewController.m; sourceTree = "<group>"; };
 		B5AF70511C17C21400C041AF /* Dialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dialog.h; sourceTree = "<group>"; };
 		B5AF70521C17C21400C041AF /* Dialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dialog.m; sourceTree = "<group>"; };
 		B5AF70531C17C21400C041AF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -831,6 +833,10 @@
 		B5B7376C1C3CAAF100DF7437 /* Search-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Search-Prefix.pch"; sourceTree = "<group>"; };
 		B5B737801C3D0B8800DF7437 /* AnnounceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnounceDetailViewController.h; sourceTree = "<group>"; };
 		B5B737811C3D0B8800DF7437 /* AnnounceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnounceDetailViewController.m; sourceTree = "<group>"; };
+		B5B737C21C3E3D0100DF7437 /* AddressMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressMapViewController.h; sourceTree = "<group>"; };
+		B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressMapViewController.m; sourceTree = "<group>"; };
+		B5B737CB1C3E45E600DF7437 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		B5B737CC1C3E45E600DF7437 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		B5D345971C28E95900D39891 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
 		B5D345981C28E95900D39891 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
 		B5D3459D1C28E97D00D39891 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/JKImagePickerController.strings; sourceTree = "<group>"; };
@@ -1667,6 +1673,8 @@
 				80CE42E11C3CE1E900B027CC /* VImVideoViewController.h */,
 				80CE42E21C3CE1E900B027CC /* VImVideoViewController.m */,
 				80CE42E31C3CE1E900B027CC /* VImVideoViewController.xib */,
+				B5B737CB1C3E45E600DF7437 /* MapViewController.h */,
+				B5B737CC1C3E45E600DF7437 /* MapViewController.m */,
 			);
 			name = CommonUI;
 			sourceTree = "<group>";
@@ -1674,6 +1682,8 @@
 		B53791AD1C156AF100C45BA7 /* StudyOnline */ = {
 			isa = PBXGroup;
 			children = (
+				B594091E1C102719003DC15D /* StudyOnLineViewController.h */,
+				B594091F1C102719003DC15D /* StudyOnLineViewController.m */,
 				B53791AE1C156B8C00C45BA7 /* VideoListForStudyViewController.h */,
 				B53791AF1C156B8C00C45BA7 /* VideoListForStudyViewController.m */,
 			);
@@ -2045,8 +2055,6 @@
 				B53791AD1C156AF100C45BA7 /* StudyOnline */,
 				B59409081C0FCEE4003DC15D /* KongFuerViewController.h */,
 				B59409091C0FCEE4003DC15D /* KongFuerViewController.m */,
-				B594091E1C102719003DC15D /* StudyOnLineViewController.h */,
-				B594091F1C102719003DC15D /* StudyOnLineViewController.m */,
 				B5D89A081C117A4000F55BFA /* MyCollectViewController.h */,
 				B5D89A091C117A4100F55BFA /* MyCollectViewController.m */,
 				B5D89A0B1C118BB800F55BFA /* MyCollectTableViewCell.h */,
@@ -2254,6 +2262,8 @@
 		B5D345D41C2A77EB00D39891 /* PictureShow */ = {
 			isa = PBXGroup;
 			children = (
+				B5B737C21C3E3D0100DF7437 /* AddressMapViewController.h */,
+				B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */,
 				B5D345D81C2A792E00D39891 /* PictureShowView.h */,
 				B5D345D91C2A792E00D39891 /* PictureShowView.m */,
 			);
@@ -3217,6 +3227,7 @@
 				B5B737751C3CAAF100DF7437 /* NSString+PinYin4Cocoa.m in Sources */,
 				B59409191C0FD720003DC15D /* Toolkit.m in Sources */,
 				B7617E401C1C298F00CF96E7 /* YMTextData.m in Sources */,
+				B5B737CD1C3E45E600DF7437 /* MapViewController.m in Sources */,
 				B53791C51C157CFF00C45BA7 /* KongFuStoreViewController.m in Sources */,
 				804952021C250B3800F5584A /* SCAudioTools.m in Sources */,
 				B7E4CD071C1FB22000C2E69A /* WYNewsViewController.m in Sources */,
@@ -3294,6 +3305,7 @@
 				B5D345C11C28E97E00D39891 /* JKAssetsGroupCell.m in Sources */,
 				804952161C250B3800F5584A /* SCVideoPlayerView.m in Sources */,
 				B5D345C71C28E97E00D39891 /* JKPhotoBrowserCell.m in Sources */,
+				B5B737C41C3E3D0100DF7437 /* AddressMapViewController.m in Sources */,
 				B5D345C51C28E97E00D39891 /* JKImagePickerController.m in Sources */,
 				B53E73891C167080009E7878 /* JiFenTableViewCell.m in Sources */,
 				B7617E6C1C1C29A500CF96E7 /* WFHudView.m in Sources */,
