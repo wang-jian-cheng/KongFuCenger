@@ -10,10 +10,11 @@
 
 #define GapToLeft   20
 #define kUrlScheme      @"com.zykj.KongFuCenter" // 这个是你定义的 URL Scheme，支付宝、微信支付和测试模式需要。
-#define kUrl            @"http://218.244.151.190/demo/charge" // 你的服务端创建并返回 charge 的 URL 地址，此地址仅供测试用。
-
-
-
+#if 1
+#define kUrl            @"http://115.28.67.86:8033/LoginAndRegister.asmx/GetCharge"
+#else
+#define kUrl            @"http://218.244.151.190/demo/charge"// 你的服务端创建并返回 charge 的 URL 地址，此地址仅供测试用。
+#endif
 @interface PayForVipViewController ()
 {
     NSArray *taocanArr;
@@ -42,7 +43,7 @@
                   @" 一年1200元"];
     selectBtnArr = [NSMutableArray array];
     roundBtnArr = [NSMutableArray array];
-
+    PayFlag = 1000;
     [self addLeftButton:@"left"];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self initViews];
@@ -104,6 +105,73 @@
 }
 
 #pragma mark - pay
+
+- (void)realPay:(NSString *)channel
+{
+    
+    if(!([channel isEqualToString:@"wx"] || [channel isEqualToString:@"alipay"]))
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"支付方式错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alert show];
+        return;
+        return;
+    }
+    
+    if(realpaymoney ==0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择套餐" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
+    
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"realPayCallBack:"];
+    [dataProvider getPingppCharge:[Toolkit getUserID]
+                       andChannel:channel
+                        andAmount:[NSString stringWithFormat:@"%d",(int)realpaymoney*100]
+                   andDescription:@"1"];
+    
+}
+
+-(void)realPayCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+//    if ([dict[@"code"] intValue]==200) {
+        @try {
+            
+            NSData* jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+            NSString* charge = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            NSLog(@"str_data:%@",charge);
+            
+//            NSString* charge = [[NSString alloc] initWithData:    data encoding:NSUTF8StringEncoding];
+//            NSLog(@"charge = %@", charge);
+            dispatch_async(dispatch_get_main_queue(),
+                           ^{
+                [Pingpp createPayment:charge viewController:self appURLScheme:kUrlScheme withCompletion:^(NSString *result, PingppError *error) {
+                    NSLog(@"completion block: %@", result);
+                    if (error == nil) {
+                        NSLog(@"PingppError is nil");
+                    } else {
+                        NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+                    }
+                    [self showAlertMessage:result];
+                }];
+            });
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+//    }
+//    else
+//    {
+//        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+//        [alert show];
+//        
+//    }
+}
 - (void)normalPayAction:(NSString *)channel
 {
     
@@ -134,8 +202,11 @@
     
     NSDictionary* dict = @{
                            @"channel" : self.channel,
-                           @"amount"  : amountStr
+                           @"amount"  : amountStr,
+                           @"userid":[Toolkit getUserID],
+                           @"description" :@"1"
                            };
+    NSLog(@"dict = %@",dict);
     NSData* data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *bodyData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
@@ -161,7 +232,7 @@
         NSString* charge = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSLog(@"charge = %@", charge);
         dispatch_async(dispatch_get_main_queue(), ^{
-            [Pingpp createPayment:charge viewController:self appURLScheme:kUrlScheme withCompletion:^(NSString *result, PingppError *error) {
+            [Pingpp createPayment:data viewController:self appURLScheme:kUrlScheme withCompletion:^(NSString *result, PingppError *error) {
                 NSLog(@"completion block: %@", result);
                 if (error == nil) {
                     NSLog(@"PingppError is nil");
@@ -212,11 +283,13 @@
 
     if(PayFlag == 1000)
     {
-        [self normalPayAction:@"alipay"];
+//        [self normalPayAction:@"alipay"];
+        [self realPay:@"alipay"];
     }
     else if(PayFlag == 1001)
     {
-        [self normalPayAction:@"wx"];
+//        [self normalPayAction:@"wx"];
+        [self realPay:@"wx"];
     }
     else
     {
@@ -235,13 +308,16 @@
     
     switch (sender.tag) {
         case 2015+0:
-            realpaymoney = 20;
+            realpaymoney = 300;
             break;
         case 2015+1:
-            realpaymoney = 40;
+            realpaymoney = 600;
             break;
         case 2015+2:
-            realpaymoney = 60;
+            realpaymoney = 900;
+            break;
+        case 2015+3:
+            realpaymoney = 1200;
             break;
         default:
             break;

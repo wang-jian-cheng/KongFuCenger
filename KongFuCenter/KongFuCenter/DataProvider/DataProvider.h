@@ -95,8 +95,12 @@
 
 //修改密码
 -(void)ChangePassWord:(NSString *)userid andoldpwd:(NSString *)oldpwd andpassword:(NSString *)password;
+#pragma mark - 成长记录
+-(void)getGrowHistory:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
 
 #pragma mark - 放飞梦想
+//
+-(void)getTheirDream;
 /**
  *  获取用户梦想
  *
@@ -141,6 +145,8 @@
  *  @param userid     用户id
  */
 -(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid andUserId:(NSString *)userid;
+#pragma mark - 支付
+-(void)getPingppCharge:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description;
 
 #pragma mark - 武馆
 //根据城市名和经纬度获取武馆

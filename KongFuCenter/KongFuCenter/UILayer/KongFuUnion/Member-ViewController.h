@@ -10,6 +10,11 @@
 #import "UIImageView+WebCache.h"
 #import "FriendInfoViewController.h"
 #import "StrangerInfoViewController.h"
+
+
+#import "ChineseInclude.h"
+#import "PinYinForObjc.h"
+#import "PushView.h"
 @interface Member_ViewController : BaseNavigationController
 
 @end

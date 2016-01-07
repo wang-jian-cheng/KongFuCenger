@@ -98,6 +98,9 @@
                 [comlistFromShow addObject:body1];
                 [comListFroDel addObject:tempDict[@"Id"]];
                 
+                
+               
+                
 //                NSDictionary *tempCommentDict = @{@"CommenterId":tempDict[@"CommenterId"],/*评论人id*/
 //                                                  @"MessageId":tempDict[@"MessageId"],/*动态id*/
 //                                                  @"commentId":tempDict[@"Id"]/*评论id*/};
@@ -138,7 +141,7 @@
             [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[tempDict valueForKey:@"ImagePath"]]];
             [videoArray addObject:[tempDict valueForKey:@"VideoPath"]];
             [videoArray addObject:[tempDict valueForKey:@"VideoDuration"]];
-//            messBody1.posterPostVideo = videoArray;
+            messBody1.posterPostVideo = videoArray;
             
             [_contentDataSource addObject:messBody1];
             
@@ -481,9 +484,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     YMTextData *ym = [_tableDataSource objectAtIndex:indexPath.row];
     BOOL unfold = ym.foldOrNot;
-    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance);
+    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance) + (![self isExitVideo:ym]?30:127);
 }
 
+
+-(BOOL)isExitVideo:(YMTextData *)ymData{
+    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[1] isEqual:@""]&&ymData.showVideoArray.count>0;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -495,33 +502,62 @@
         cell.backgroundColor = ItemsBaseColor;
     }
     
-    cell.CommentBtn.tag = indexPath.row;
-    [cell.CommentBtn addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
-    cell.CommentBtnHF.tag = indexPath.row;
-    [cell.CommentBtnHF addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
-    
-    cell.zanBtn.tag = indexPath.row;
-    [cell.zanBtn addTarget:self action:@selector(zanEvent:) forControlEvents:UIControlEventTouchUpInside];
-    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:indexPath.row];
-    WFMessageBody *m = ymData.messageBody;
-    if (m.isFavour == YES) {//此时该取消赞
-        [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan"] forState:UIControlStateNormal];
-    }else{
-        [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan_no"] forState:UIControlStateNormal];
+    @try {
+        
+        cell.CommentBtn.tag = indexPath.row;
+        [cell.CommentBtn addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
+        cell.CommentBtnHF.tag = indexPath.row;
+        [cell.CommentBtnHF addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.zanBtn.tag = indexPath.row;
+        [cell.zanBtn addTarget:self action:@selector(zanEvent:) forControlEvents:UIControlEventTouchUpInside];
+        YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:indexPath.row];
+        WFMessageBody *m = ymData.messageBody;
+        if (m.isFavour == YES) {//此时该取消赞
+            [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan"] forState:UIControlStateNormal];
+        }else{
+            [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan_no"] forState:UIControlStateNormal];
+        }
+        cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey
+        
+        
+        cell.stamp = indexPath.row;
+        //cell.replyBtn.appendIndexPath = indexPath;
+        //[cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
+        cell.delegate = self;
+        cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
+        [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
+        
+        
+        if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0){
+            UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoImgEvent:)];
+            cell.videoImg.userInteractionEnabled = YES;
+            NSLog(@"%d",(int)indexPath.row);
+            [cell.videoImg addGestureRecognizer:clickVideoImg];
+            clickVideoImg.view.tag = indexPath.row;
+        }
+
     }
-    cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+         return cell;
+    }
     
-    
-    cell.stamp = indexPath.row;
-    //cell.replyBtn.appendIndexPath = indexPath;
-    //[cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
-    cell.delegate = self;
-    cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
-    [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
-    
-    return cell;
+   
 }
 
+//播放视频
+-(void)clickVideoImgEvent:(id)sender{
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer*)sender;
+    UIView *views = (UIView*) tap.view;
+    NSLog(@"%d",(int)views.tag);
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:views.tag];
+    PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
+    playVideoVC.videoPath = ymData.showVideoArray[1];
+    [self.navigationController pushViewController:playVideoVC animated:YES];
+}
 ////////////////////////////////////////////////////////////////////
 
 #pragma mark - 按钮动画
@@ -713,6 +749,7 @@
     chat.targetId = [NSString stringWithFormat:@"%@",get_sp(@"TeamId")];
     //设置聊天会话界面要显示的标题
     chat.title = @"想显示的会话标题";
+    chat.mTitle = get_sp(@"TeamName");
     //显示聊天会话界面
     [self.navigationController pushViewController:chat animated:YES];
 }

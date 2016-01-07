@@ -53,6 +53,7 @@
     if ([dict[@"code"] intValue] == 200) {
         @try {
             pageNo ++;
+            [announceArr addObjectsFromArray:dict[@"data"]];
             [self.tableView reloadData];
         }
         @catch (NSException *exception) {
@@ -90,7 +91,7 @@
     
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 30, 0, 0);
     self.tableView.separatorColor = Separator_Color;
-    
+    self.tableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.tableView];
     
     
@@ -125,7 +126,7 @@
 
 - (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 11;
+    return announceArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -134,7 +135,28 @@
     
     cell.backgroundColor = ItemsBaseColor;
     
-    return cell;
+    @try {
+        if(announceArr==nil || announceArr.count == 0|| announceArr.count - 1 < indexPath.row)
+            return cell;
+        
+        cell.name.text = announceArr[indexPath.row][@"Title"];
+        cell.date.text = [announceArr[indexPath.row][@"PublishTime"] substringToIndex:10];
+        NSRange tempRange;
+        tempRange.length = 5;
+        tempRange.location = 11;
+        cell.time.text = [announceArr[indexPath.row][@"PublishTime"] substringWithRange:tempRange];
+        cell.detail.text = announceArr[indexPath.row][@"Content"];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+        return cell;
+    }
+    
+    
+   
 }
 
 - (CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -145,6 +167,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    AnnounceDetailViewController *announceDetailViewCtl = [[AnnounceDetailViewController alloc] init];
+    announceDetailViewCtl.navtitle = announceArr[indexPath.row][@"Title"];
+    announceDetailViewCtl.announceDetailDict = announceArr[indexPath.row];
+    [self.navigationController pushViewController:announceDetailViewCtl animated:NO];
 }
 
 @end

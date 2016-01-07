@@ -269,7 +269,7 @@
         {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"会员才可观看" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
             [alertView show];
-//           return;
+           return;
         }
     }
     VideoDetailViewController *viewDetailViewCtl = [[VideoDetailViewController alloc] init];

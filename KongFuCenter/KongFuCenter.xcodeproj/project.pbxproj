@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00B391A3E16E2E9529C00832 /* Pods_KongFuCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CB30C136C8571924D6B829 /* Pods_KongFuCenter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		00B391A3E16E2E9529C00832 /* Pods_KongFuCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CB30C136C8571924D6B829 /* Pods_KongFuCenter.framework */; };
 		7B580B0C1C2A298F00BFF83D /* model_collect.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B580B0B1C2A298F00BFF83D /* model_collect.m */; };
 		7BA38E8D1C213930000996EE /* Member-ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E8C1C213930000996EE /* Member-ViewController.m */; };
 		7BA38E901C214305000996EE /* MemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA38E8F1C214305000996EE /* MemberTableViewCell.m */; };
@@ -227,6 +227,21 @@
 		B5B737511C3A921700DF7437 /* del@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5B737501C3A921700DF7437 /* del@2x.png */; };
 		B5B737531C3BA61500DF7437 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B737521C3BA61500DF7437 /* MapKit.framework */; };
 		B5B737551C3BA61D00DF7437 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B737541C3BA61D00DF7437 /* CoreLocation.framework */; };
+		B5B737711C3CAAF100DF7437 /* ChineseInclude.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737581C3CAAF100DF7437 /* ChineseInclude.m */; };
+		B5B737721C3CAAF100DF7437 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5B737591C3CAAF100DF7437 /* InfoPlist.strings */; };
+		B5B737731C3CAAF100DF7437 /* ChineseToPinyinResource.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B7375C1C3CAAF100DF7437 /* ChineseToPinyinResource.m */; };
+		B5B737741C3CAAF100DF7437 /* HanyuPinyinOutputFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B7375E1C3CAAF100DF7437 /* HanyuPinyinOutputFormat.m */; };
+		B5B737751C3CAAF100DF7437 /* NSString+PinYin4Cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737601C3CAAF100DF7437 /* NSString+PinYin4Cocoa.m */; };
+		B5B737761C3CAAF100DF7437 /* PinyinFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737621C3CAAF100DF7437 /* PinyinFormatter.m */; };
+		B5B737771C3CAAF100DF7437 /* PinYinForObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737641C3CAAF100DF7437 /* PinYinForObjc.m */; };
+		B5B737781C3CAAF100DF7437 /* PinyinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737661C3CAAF100DF7437 /* PinyinHelper.m */; };
+		B5B737791C3CAAF100DF7437 /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5B737671C3CAAF100DF7437 /* unicode_to_hanyu_pinyin.txt */; };
+		B5B7377A1C3CAAF100DF7437 /* PushView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737691C3CAAF100DF7437 /* PushView.m */; };
+		B5B7377B1C3CAAF100DF7437 /* PushView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5B7376A1C3CAAF100DF7437 /* PushView.xib */; };
+		B5B7377C1C3CAAF100DF7437 /* Search-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5B7376B1C3CAAF100DF7437 /* Search-Info.plist */; };
+		B5B737821C3D0B8800DF7437 /* AnnounceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737811C3D0B8800DF7437 /* AnnounceDetailViewController.m */; };
+		B5B737C41C3E3D0100DF7437 /* AddressMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */; };
+		B5B737CD1C3E45E600DF7437 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737CC1C3E45E600DF7437 /* MapViewController.m */; };
 		B5D345991C28E95900D39891 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345981C28E95900D39891 /* VPImageCropperViewController.m */; };
 		B5D345BD1C28E97E00D39891 /* JKImagePickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459C1C28E97D00D39891 /* JKImagePickerController.strings */; };
 		B5D345BE1C28E97E00D39891 /* ImagesPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459E1C28E97D00D39891 /* ImagesPicker.xcassets */; };
@@ -781,8 +796,8 @@
 		B59409181C0FD720003DC15D /* Toolkit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Toolkit.m; sourceTree = "<group>"; };
 		B594091A1C0FD96A003DC15D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		B594091E1C102719003DC15D /* StudyOnLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudyOnLineViewController.h; sourceTree = "<group>"; };
-		B594091F1C102719003DC15D /* StudyOnLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudyOnLineViewController.m; sourceTree = "<group>"; };
+		B594091E1C102719003DC15D /* StudyOnLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StudyOnLineViewController.h; path = ../StudyOnLineViewController.h; sourceTree = "<group>"; };
+		B594091F1C102719003DC15D /* StudyOnLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StudyOnLineViewController.m; path = ../StudyOnLineViewController.m; sourceTree = "<group>"; };
 		B5AF70511C17C21400C041AF /* Dialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dialog.h; sourceTree = "<group>"; };
 		B5AF70521C17C21400C041AF /* Dialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dialog.m; sourceTree = "<group>"; };
 		B5AF70531C17C21400C041AF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -816,6 +831,33 @@
 		B5B737501C3A921700DF7437 /* del@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "del@2x.png"; sourceTree = "<group>"; };
 		B5B737521C3BA61500DF7437 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B5B737541C3BA61D00DF7437 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B5B737571C3CAAF100DF7437 /* ChineseInclude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseInclude.h; sourceTree = "<group>"; };
+		B5B737581C3CAAF100DF7437 /* ChineseInclude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseInclude.m; sourceTree = "<group>"; };
+		B5B737591C3CAAF100DF7437 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		B5B7375B1C3CAAF100DF7437 /* ChineseToPinyinResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseToPinyinResource.h; sourceTree = "<group>"; };
+		B5B7375C1C3CAAF100DF7437 /* ChineseToPinyinResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseToPinyinResource.m; sourceTree = "<group>"; };
+		B5B7375D1C3CAAF100DF7437 /* HanyuPinyinOutputFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HanyuPinyinOutputFormat.h; sourceTree = "<group>"; };
+		B5B7375E1C3CAAF100DF7437 /* HanyuPinyinOutputFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HanyuPinyinOutputFormat.m; sourceTree = "<group>"; };
+		B5B7375F1C3CAAF100DF7437 /* NSString+PinYin4Cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PinYin4Cocoa.h"; sourceTree = "<group>"; };
+		B5B737601C3CAAF100DF7437 /* NSString+PinYin4Cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PinYin4Cocoa.m"; sourceTree = "<group>"; };
+		B5B737611C3CAAF100DF7437 /* PinyinFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinyinFormatter.h; sourceTree = "<group>"; };
+		B5B737621C3CAAF100DF7437 /* PinyinFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinyinFormatter.m; sourceTree = "<group>"; };
+		B5B737631C3CAAF100DF7437 /* PinYinForObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinYinForObjc.h; sourceTree = "<group>"; };
+		B5B737641C3CAAF100DF7437 /* PinYinForObjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinYinForObjc.m; sourceTree = "<group>"; };
+		B5B737651C3CAAF100DF7437 /* PinyinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinyinHelper.h; sourceTree = "<group>"; };
+		B5B737661C3CAAF100DF7437 /* PinyinHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinyinHelper.m; sourceTree = "<group>"; };
+		B5B737671C3CAAF100DF7437 /* unicode_to_hanyu_pinyin.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = unicode_to_hanyu_pinyin.txt; sourceTree = "<group>"; };
+		B5B737681C3CAAF100DF7437 /* PushView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushView.h; sourceTree = "<group>"; };
+		B5B737691C3CAAF100DF7437 /* PushView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushView.m; sourceTree = "<group>"; };
+		B5B7376A1C3CAAF100DF7437 /* PushView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushView.xib; sourceTree = "<group>"; };
+		B5B7376B1C3CAAF100DF7437 /* Search-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Search-Info.plist"; sourceTree = "<group>"; };
+		B5B7376C1C3CAAF100DF7437 /* Search-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Search-Prefix.pch"; sourceTree = "<group>"; };
+		B5B737801C3D0B8800DF7437 /* AnnounceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnounceDetailViewController.h; sourceTree = "<group>"; };
+		B5B737811C3D0B8800DF7437 /* AnnounceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnounceDetailViewController.m; sourceTree = "<group>"; };
+		B5B737C21C3E3D0100DF7437 /* AddressMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressMapViewController.h; sourceTree = "<group>"; };
+		B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressMapViewController.m; sourceTree = "<group>"; };
+		B5B737CB1C3E45E600DF7437 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		B5B737CC1C3E45E600DF7437 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		B5D345971C28E95900D39891 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
 		B5D345981C28E95900D39891 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
 		B5D3459D1C28E97D00D39891 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/JKImagePickerController.strings; sourceTree = "<group>"; };
@@ -1279,6 +1321,8 @@
 				7BA38E981C215E62000996EE /* AnnouncementViewController.m */,
 				7BA38E9A1C2162E8000996EE /* AnnouncementTableViewCell.h */,
 				7BA38E9B1C2162E8000996EE /* AnnouncementTableViewCell.m */,
+				B5B737801C3D0B8800DF7437 /* AnnounceDetailViewController.h */,
+				B5B737811C3D0B8800DF7437 /* AnnounceDetailViewController.m */,
 			);
 			name = "Team-Announcement";
 			sourceTree = "<group>";
@@ -1685,6 +1729,8 @@
 				80CE42E11C3CE1E900B027CC /* VImVideoViewController.h */,
 				80CE42E21C3CE1E900B027CC /* VImVideoViewController.m */,
 				80CE42E31C3CE1E900B027CC /* VImVideoViewController.xib */,
+				B5B737CB1C3E45E600DF7437 /* MapViewController.h */,
+				B5B737CC1C3E45E600DF7437 /* MapViewController.m */,
 			);
 			name = CommonUI;
 			sourceTree = "<group>";
@@ -1692,6 +1738,8 @@
 		B53791AD1C156AF100C45BA7 /* StudyOnline */ = {
 			isa = PBXGroup;
 			children = (
+				B594091E1C102719003DC15D /* StudyOnLineViewController.h */,
+				B594091F1C102719003DC15D /* StudyOnLineViewController.m */,
 				B53791AE1C156B8C00C45BA7 /* VideoListForStudyViewController.h */,
 				B53791AF1C156B8C00C45BA7 /* VideoListForStudyViewController.m */,
 			);
@@ -2063,8 +2111,6 @@
 				B53791AD1C156AF100C45BA7 /* StudyOnline */,
 				B59409081C0FCEE4003DC15D /* KongFuerViewController.h */,
 				B59409091C0FCEE4003DC15D /* KongFuerViewController.m */,
-				B594091E1C102719003DC15D /* StudyOnLineViewController.h */,
-				B594091F1C102719003DC15D /* StudyOnLineViewController.m */,
 				B5D89A081C117A4000F55BFA /* MyCollectViewController.h */,
 				B5D89A091C117A4100F55BFA /* MyCollectViewController.m */,
 				B5D89A0B1C118BB800F55BFA /* MyCollectTableViewCell.h */,
@@ -2172,6 +2218,42 @@
 			path = UUDatePicker_Block;
 			sourceTree = "<group>";
 		};
+		B5B737561C3CAAF100DF7437 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				B5B737571C3CAAF100DF7437 /* ChineseInclude.h */,
+				B5B737581C3CAAF100DF7437 /* ChineseInclude.m */,
+				B5B737591C3CAAF100DF7437 /* InfoPlist.strings */,
+				B5B7375A1C3CAAF100DF7437 /* PinYin */,
+				B5B737681C3CAAF100DF7437 /* PushView.h */,
+				B5B737691C3CAAF100DF7437 /* PushView.m */,
+				B5B7376A1C3CAAF100DF7437 /* PushView.xib */,
+				B5B7376B1C3CAAF100DF7437 /* Search-Info.plist */,
+				B5B7376C1C3CAAF100DF7437 /* Search-Prefix.pch */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		B5B7375A1C3CAAF100DF7437 /* PinYin */ = {
+			isa = PBXGroup;
+			children = (
+				B5B7375B1C3CAAF100DF7437 /* ChineseToPinyinResource.h */,
+				B5B7375C1C3CAAF100DF7437 /* ChineseToPinyinResource.m */,
+				B5B7375D1C3CAAF100DF7437 /* HanyuPinyinOutputFormat.h */,
+				B5B7375E1C3CAAF100DF7437 /* HanyuPinyinOutputFormat.m */,
+				B5B7375F1C3CAAF100DF7437 /* NSString+PinYin4Cocoa.h */,
+				B5B737601C3CAAF100DF7437 /* NSString+PinYin4Cocoa.m */,
+				B5B737611C3CAAF100DF7437 /* PinyinFormatter.h */,
+				B5B737621C3CAAF100DF7437 /* PinyinFormatter.m */,
+				B5B737631C3CAAF100DF7437 /* PinYinForObjc.h */,
+				B5B737641C3CAAF100DF7437 /* PinYinForObjc.m */,
+				B5B737651C3CAAF100DF7437 /* PinyinHelper.h */,
+				B5B737661C3CAAF100DF7437 /* PinyinHelper.m */,
+				B5B737671C3CAAF100DF7437 /* unicode_to_hanyu_pinyin.txt */,
+			);
+			path = PinYin;
+			sourceTree = "<group>";
+		};
 		B5D345961C28E95900D39891 /* UpLoadImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2237,6 +2319,8 @@
 		B5D345D41C2A77EB00D39891 /* PictureShow */ = {
 			isa = PBXGroup;
 			children = (
+				B5B737C21C3E3D0100DF7437 /* AddressMapViewController.h */,
+				B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */,
 				B5D345D81C2A792E00D39891 /* PictureShowView.h */,
 				B5D345D91C2A792E00D39891 /* PictureShowView.m */,
 			);
@@ -2275,6 +2359,7 @@
 		B5F13A901C1FA75100155038 /* ThirdFramework */ = {
 			isa = PBXGroup;
 			children = (
+				B5B737561C3CAAF100DF7437 /* Search */,
 				B5B737491C3A640500DF7437 /* UUDatePicker_Block */,
 				803E36311C350E1D006DE3A9 /* JPush */,
 				B5D3459A1C28E97D00D39891 /* ImagePicker */,
@@ -2904,6 +2989,7 @@
 				B5AF70701C181FAD00C041AF /* weixin@2x.png in Resources */,
 				804952191C250B3800F5584A /* WechatShortVideo_37x-Checkmark.png in Resources */,
 				B7617E4F1C1C299700CF96E7 /* 03@2x.png in Resources */,
+				B5B737791C3CAAF100DF7437 /* unicode_to_hanyu_pinyin.txt in Resources */,
 				B7E4CD221C1FE28500C2E69A /* wdwy.png in Resources */,
 				B7E4CD151C1FE1AE00C2E69A /* jjwz.png in Resources */,
 				B5F13B3E1C1FE6E600155038 /* 120@2x.png in Resources */,
@@ -2952,6 +3038,7 @@
 				B529B7A91C2110BF003AC21C /* Pingpp.bundle in Resources */,
 				B53E73991C16E1EF009E7878 /* point@2x.png in Resources */,
 				B7E4CD171C1FE1BA00C2E69A /* jrzd.png in Resources */,
+				B5B737721C3CAAF100DF7437 /* InfoPlist.strings in Resources */,
 				B7617E1F1C1C27D500CF96E7 /* JHStoryTableViewCell.xib in Resources */,
 				B5F13B401C1FE6E600155038 /* 512@2x.png in Resources */,
 				B5F90AFD1C1985A100D7879D /* LoginPassword@2x.png in Resources */,
@@ -2975,6 +3062,7 @@
 				B53E737F1C166389009E7878 /* support@2x.png in Resources */,
 				802118EA1C1AFAE100DCEE73 /* nil.png in Resources */,
 				8049521E1C250B3800F5584A /* WechatShortVideo_scan_focus.png in Resources */,
+				B5B7377C1C3CAAF100DF7437 /* Search-Info.plist in Resources */,
 				B7E4CD131C1FE19C00C2E69A /* lmdt.png in Resources */,
 				B5451CC31C279656001BB39F /* AutoLocationViewController.xib in Resources */,
 				B5F13B3C1C1FE6E600155038 /* 1024@2x.png in Resources */,
@@ -3035,6 +3123,7 @@
 				B7CE7F3F1C16B0B00035D8CA /* MushaMatchCell.xib in Resources */,
 				8049521F1C250B3800F5584A /* WechatShortVideo_scan_focus@2x.png in Resources */,
 				B7E4CD011C1FA1F200C2E69A /* zdlt.png in Resources */,
+				B5B7377B1C3CAAF100DF7437 /* PushView.xib in Resources */,
 				B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3113,6 +3202,7 @@
 				B7CCA2DF1C2118C000B7AC8C /* ChatListViewController.m in Sources */,
 				B7D8464E1C22AB7500718E9E /* MJRefreshGifHeader.m in Sources */,
 				B7D846501C22AB7500718E9E /* MJRefreshStateHeader.m in Sources */,
+				B5B737731C3CAAF100DF7437 /* ChineseToPinyinResource.m in Sources */,
 				B59409011C0FCB0F003DC15D /* CustomTabBarViewController.m in Sources */,
 				B5D345DA1C2A792E00D39891 /* PictureShowView.m in Sources */,
 				B5B7374E1C3A640500DF7437 /* UUDatePicker.m in Sources */,
@@ -3176,6 +3266,7 @@
 				B7D846531C22AB7500718E9E /* UIScrollView+MJExtension.m in Sources */,
 				B7D846481C22AB7500718E9E /* MJRefreshAutoGifFooter.m in Sources */,
 				80DB846F1C23D3A6008CA670 /* UIImageView+WebCache.m in Sources */,
+				B5B737821C3D0B8800DF7437 /* AnnounceDetailViewController.m in Sources */,
 				B5D345DD1C2A8B5A00D39891 /* UploadDataToServer.m in Sources */,
 				B53791B01C156B8C00C45BA7 /* VideoListForStudyViewController.m in Sources */,
 				804952011C250B3800F5584A /* SCAudioConfiguration.m in Sources */,
@@ -3190,8 +3281,10 @@
 				B7CE7F471C16C6F30035D8CA /* JoinTeamCell.m in Sources */,
 				80CE42E41C3CE1E900B027CC /* VImVideoViewController.m in Sources */,
 				804952081C250B3800F5584A /* SCIOPixelBuffers.m in Sources */,
+				B5B737751C3CAAF100DF7437 /* NSString+PinYin4Cocoa.m in Sources */,
 				B59409191C0FD720003DC15D /* Toolkit.m in Sources */,
 				B7617E401C1C298F00CF96E7 /* YMTextData.m in Sources */,
+				B5B737CD1C3E45E600DF7437 /* MapViewController.m in Sources */,
 				B53791C51C157CFF00C45BA7 /* KongFuStoreViewController.m in Sources */,
 				804952021C250B3800F5584A /* SCAudioTools.m in Sources */,
 				B7E4CD071C1FB22000C2E69A /* WYNewsViewController.m in Sources */,
@@ -3204,6 +3297,7 @@
 				B7D846551C22AB7500718E9E /* UIView+MJExtension.m in Sources */,
 				802118EB1C1AFAE100DCEE73 /* Slider.m in Sources */,
 				B7617E6F1C1C29A500CF96E7 /* YMButton.m in Sources */,
+				B5B7377A1C3CAAF100DF7437 /* PushView.m in Sources */,
 				804952211C250B3800F5584A /* SCRecordSessionManager.m in Sources */,
 				B5F90AF01C197D3D00D7879D /* RegisterViewController.m in Sources */,
 				B72C3CBE1C1558F000D3250A /* KongFuUnionViewController.m in Sources */,
@@ -3225,9 +3319,11 @@
 				B5F4E3A61C1EBBB6001F81F0 /* StrangerInfoViewController.m in Sources */,
 				804952071C250B3800F5584A /* SCImageView.m in Sources */,
 				8049520D1C250B3800F5584A /* SCRecorder.m in Sources */,
+				B5B737741C3CAAF100DF7437 /* HanyuPinyinOutputFormat.m in Sources */,
 				B7D8464B1C22AB7500718E9E /* MJRefreshBackGifFooter.m in Sources */,
 				B7D846541C22AB7500718E9E /* UIScrollView+MJRefresh.m in Sources */,
 				B7D8464F1C22AB7500718E9E /* MJRefreshNormalHeader.m in Sources */,
+				B5B737761C3CAAF100DF7437 /* PinyinFormatter.m in Sources */,
 				B5F90AE11C19702400D7879D /* ChannelVideosViewController.m in Sources */,
 				B5905E191C1BF21100ECA9BA /* PlayerForMatchViewController.m in Sources */,
 				804952101C250B3800F5584A /* SCRecorderToolsView.m in Sources */,
@@ -3251,11 +3347,13 @@
 				B5D345C61C28E97E00D39891 /* JKPhotoBrowser.m in Sources */,
 				B5F4E3A01C1E9212001F81F0 /* UnionNewsDetailViewController.m in Sources */,
 				B7D846521C22AB7500718E9E /* MJRefreshConst.m in Sources */,
+				B5B737711C3CAAF100DF7437 /* ChineseInclude.m in Sources */,
 				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
 				B7617E731C1C29A500CF96E7 /* YMTapGestureRecongnizer.m in Sources */,
 				B7617E3F1C1C298F00CF96E7 /* WFReplyBody.m in Sources */,
 				80CE42D71C3CB26C00B027CC /* VSegmentSlider.m in Sources */,
 				804952141C250B3800F5584A /* SCSwipeableFilterView.m in Sources */,
+				B5B737781C3CAAF100DF7437 /* PinyinHelper.m in Sources */,
 				B5905DF81C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m in Sources */,
 				7BAA22C01C2D34FE001E7EBB /* model_UnionNew.m in Sources */,
 				B5AF707F1C1837F600C041AF /* NewPlanViewController.m in Sources */,
@@ -3264,6 +3362,7 @@
 				B5D345C11C28E97E00D39891 /* JKAssetsGroupCell.m in Sources */,
 				804952161C250B3800F5584A /* SCVideoPlayerView.m in Sources */,
 				B5D345C71C28E97E00D39891 /* JKPhotoBrowserCell.m in Sources */,
+				B5B737C41C3E3D0100DF7437 /* AddressMapViewController.m in Sources */,
 				B5D345C51C28E97E00D39891 /* JKImagePickerController.m in Sources */,
 				B53E73891C167080009E7878 /* JiFenTableViewCell.m in Sources */,
 				B7617E6C1C1C29A500CF96E7 /* WFHudView.m in Sources */,
@@ -3276,6 +3375,7 @@
 				B5D345C91C28E97E00D39891 /* JKUtil.m in Sources */,
 				B5AF705A1C17C21400C041AF /* MBProgressHUD.m in Sources */,
 				7BA38E961C215CFB000996EE /* IntroduceViewController.m in Sources */,
+				B5B737771C3CAAF100DF7437 /* PinYinForObjc.m in Sources */,
 				B5451CC21C279656001BB39F /* AutoLocationViewController.m in Sources */,
 				80DB84641C23D3A6008CA670 /* SDWebImageCompat.m in Sources */,
 				80DB84671C23D3A6008CA670 /* SDWebImageDownloaderOperation.m in Sources */,

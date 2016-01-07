@@ -21,6 +21,9 @@
     
     BOOL EnditMode;
     NSMutableArray *cellBtnArr;
+    
+    NSMutableArray *growArr;
+    NSMutableArray *rebuildGrowArr;
 }
 @end
 
@@ -31,7 +34,8 @@
     
     [self addLeftButton:@"left"];
     [self addRightbuttontitle:@"编辑"];
-    
+    growArr = [NSMutableArray array];
+    rebuildGrowArr = [NSMutableArray array];
     [self initViews];
     
     [self getDatas];
@@ -42,7 +46,7 @@
 -(void)initViews
 {
     _cellHeight = 200;
-    _sectionNum = 3;
+    _sectionNum = 1;
     
     
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
@@ -52,8 +56,40 @@
     _mainTableView.dataSource = self;
     _mainTableView.separatorColor =  Separator_Color;
     _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _mainTableView.tableFooterView = [[UIView alloc] init];
+    _mainTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
     //_mainTableView.scrollEnabled = NO;
+    pageSize = 10;
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    _mainTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        pageNo=0;
+        
+        if(growArr != nil&&growArr.count>0)
+        {
+            [growArr removeAllObjects];
+        }
+        if(rebuildGrowArr != nil&&rebuildGrowArr.count>0)
+        {
+            [rebuildGrowArr removeAllObjects];
+        }
+        [weakSelf getGrowHistory];
+        // 结束刷新
+        [_mainTableView.mj_header endRefreshing];
+    }];
+    [_mainTableView.mj_header beginRefreshing];
+    
+    // 上拉刷新
+    _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        if(growArr != nil&&growArr.count>0)
+        {
+            [growArr removeAllObjects];
+        }
+        [weakSelf FooterRefresh];
+        [_mainTableView.mj_footer endRefreshing];
+    }];
+
+    
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight));
     
@@ -68,7 +104,86 @@
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
+#pragma mark - self data source
 
+-(void)FooterRefresh
+{
+    [self getGrowHistory];
+}
+
+-(void)getGrowHistory
+{
+    [SVProgressHUD showWithStatus:@"刷新" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getGrowHistoryCallBack:"];
+    [dataprovider getGrowHistory:[Toolkit getUserID]
+                andstartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize]
+                  andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+}
+
+-(void)getGrowHistoryCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            // NSDictionary *tempDict = dict[@"data"];
+            pageNo++;
+            
+            [growArr addObjectsFromArray:dict[@"data"]];
+            
+            
+            BOOL ishave = NO;
+            for (int i = 0; i < growArr.count; i++) {
+                ishave = NO;
+                NSDictionary *tempGrowDict = growArr[i];
+                for (int j = 0; j<rebuildGrowArr.count; j++) {
+                    NSDictionary *tempDict = rebuildGrowArr[j];
+                    if([[tempGrowDict[@"PublishTime"] substringToIndex:10] isEqualToString:tempDict[@"date"]])//存在该日期则插入
+                    {
+                        ishave = YES;
+                        NSMutableArray *tempArr = [NSMutableArray array];
+                        [tempArr addObjectsFromArray:tempDict[@"growHistory"]];
+                        [tempArr addObject:tempGrowDict];
+                        [tempDict setValue:tempArr forKey:@"growHistory"];
+                        [rebuildGrowArr/*使用arr是为了保证时间顺序*/ replaceObjectAtIndex:j withObject:tempDict];
+                        break;
+                        
+                    }
+                }
+                
+                if(ishave == NO)//不存在则新建
+                {
+                    NSMutableDictionary *tempMutDict = [NSMutableDictionary dictionary];
+                    [tempMutDict setValue:[tempGrowDict[@"PublishTime"] substringToIndex:10] forKey:@"date"];
+                    NSMutableArray *tempArr = [NSMutableArray array];
+                    [tempArr addObject:tempGrowDict];//先将dict加入到数组 然后再将临时数组加入到rebuildarr
+                    [tempMutDict setObject:tempArr forKey:@"growHistory"];
+                    [rebuildGrowArr addObject:tempMutDict];
+                    
+                }
+  
+            }
+            
+            NSLog(@"rebuildGrowArr = %@",rebuildGrowArr);
+            NSLog(@"rebuildGrowArr count = %ld",rebuildGrowArr.count);
+            [_mainTableView reloadData];
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
 #pragma mark - Btn click 
 -(void)clickRightButton:(UIButton *)sender
 {
@@ -86,7 +201,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return _sectionNum;
+    return rebuildGrowArr.count;
     
 }
 
@@ -94,7 +209,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return section+1;
+    NSInteger count = [rebuildGrowArr[section][@"growHistory"] count];
+    
+    return count;
     
 }
 
@@ -106,66 +223,82 @@
     
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
-    
+    cell.backgroundColor = BACKGROUND_COLOR;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.backgroundColor = BACKGROUND_COLOR;
-   // cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    UIView *roundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    roundView.center = CGPointMake(LineGap, 20);
-    roundView.backgroundColor = ItemsBaseColor;
-    [cell addSubview:roundView];
-    
-    
-    UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(LineGap+ ViewsGaptoLine, 0, 100, 30)];
-    timeLab.textAlignment = NSTextAlignmentLeft;
-    timeLab.text = @"刚刚发布";
-    timeLab.textColor = [UIColor grayColor];
-    timeLab.font = [UIFont boldSystemFontOfSize:16];
-    
-//用backgroundColor设置背景色
-//  UIColor *color = [UIColor colorWithPatternImage:[UIImage imageNamed:@"temp2"]];
-//    historyContentLab.backgroundColor = color;
-    UIImageView *backImg = [[UIImageView alloc] initWithImage:img(@"temp2")];
-    backImg.frame = CGRectMake(LineGap+ ViewsGaptoLine, timeLab.frame.size.height, SCREEN_WIDTH - LineGap - 30, _cellHeight-timeLab.frame.size.height -10);
-    backImg.layer.cornerRadius = 5;
-    backImg.layer.masksToBounds  = YES;
-    
-    
-    UILabel *historyTitleLab=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, backImg.frame.size.width -20, 30)];
-    historyTitleLab.text = @"我最新学习咏春拳的招式";
-    historyTitleLab.textAlignment = NSTextAlignmentLeft;
-    historyTitleLab.textColor = [UIColor whiteColor];
-    historyTitleLab.font = [UIFont boldSystemFontOfSize:16];
-    
-    UILabel *historyContentLab = [[UILabel alloc] initWithFrame:
-                                  CGRectMake(10,
-                                            (historyTitleLab.frame.size.height+historyTitleLab.frame.origin.y),
-                                            backImg.frame.size.width -20,
-                                            (backImg.frame.size.height - (historyTitleLab.frame.size.height+historyTitleLab.frame.origin.y)/*顶部*/ - 50/*底部*/))
-                                  ];
-    historyContentLab.text = @"咏春拳是中国的传统武术，是一门禁止侵袭的技术，是一个积极精简的防卫系统,是：撒旦活塞队你撒第三名那肯定马上看到美食卡牡丹卡少年夫妇被腹背受敌发布的是腹背受敌积分榜上大部分还是";
-    historyContentLab.numberOfLines = 0;
-    historyContentLab.textAlignment = NSTextAlignmentLeft;
-    historyContentLab.textColor = [UIColor whiteColor];
-    historyContentLab.font = [UIFont systemFontOfSize:16];
-    
-    UILabel *timeLabInImg = [[UILabel alloc] initWithFrame:CGRectMake((backImg.frame.size.width - 10 -60), (backImg.frame.size.height - 40), 60, 30)];
-    timeLabInImg.text = @"5:00";
-    timeLabInImg.textColor = [UIColor whiteColor];
-    timeLabInImg.textAlignment = NSTextAlignmentCenter;
-    timeLabInImg.backgroundColor = BACKGROUND_COLOR;
-    timeLabInImg.alpha = 0.8;
-    timeLabInImg.font = [UIFont boldSystemFontOfSize:14];
-    timeLabInImg.layer.cornerRadius = 5;
-    timeLabInImg.layer.masksToBounds = YES;
-    
-    [cell.contentView addSubview:timeLab];
-    [cell.contentView addSubview:backImg];
-    [backImg addSubview:historyContentLab];
-    [backImg addSubview:historyTitleLab];
-    [backImg addSubview:timeLabInImg];
-    
+    @try {
+        
+        if(rebuildGrowArr == nil || rebuildGrowArr.count ==0 ||rebuildGrowArr.count- 1< indexPath.row)
+            return cell;
+        
+        NSDictionary *tempDict = rebuildGrowArr[indexPath.section][@"growHistory"][indexPath.row];
+        
+        // cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        UIView *roundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+        roundView.center = CGPointMake(LineGap, 20);
+        roundView.backgroundColor = ItemsBaseColor;
+        [cell addSubview:roundView];
+        
+        
+        UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(LineGap+ ViewsGaptoLine, 0, 100, 30)];
+        timeLab.textAlignment = NSTextAlignmentLeft;
+        timeLab.text = [tempDict[@"PublishTime"] substringFromIndex:11];//@"刚刚发布";
+        timeLab.textColor = [UIColor grayColor];
+        timeLab.font = [UIFont boldSystemFontOfSize:16];
+        
+        //用backgroundColor设置背景色
+        //  UIColor *color = [UIColor colorWithPatternImage:[UIImage imageNamed:@"temp2"]];
+        //    historyContentLab.backgroundColor = color;
+        UIImageView *backImg = [[UIImageView alloc] initWithImage:img(@"temp2")];
+        backImg.frame = CGRectMake(LineGap+ ViewsGaptoLine, timeLab.frame.size.height, SCREEN_WIDTH - LineGap - 30, _cellHeight-timeLab.frame.size.height -10);
+        backImg.layer.cornerRadius = 5;
+        backImg.layer.masksToBounds  = YES;
+        NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"ImagePath"]];
+        [backImg  sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"temp2"]];
+        
+        
+        UILabel *historyTitleLab=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, backImg.frame.size.width -20, 30)];
+        historyTitleLab.text = tempDict[@"Title"];
+        historyTitleLab.textAlignment = NSTextAlignmentLeft;
+        historyTitleLab.textColor = [UIColor whiteColor];
+        historyTitleLab.font = [UIFont boldSystemFontOfSize:16];
+        
+        UILabel *historyContentLab = [[UILabel alloc] initWithFrame:
+                                      CGRectMake(10,
+                                                 (historyTitleLab.frame.size.height+historyTitleLab.frame.origin.y),
+                                                 backImg.frame.size.width -20,
+                                                 (backImg.frame.size.height - (historyTitleLab.frame.size.height+historyTitleLab.frame.origin.y)/*顶部*/ - 50/*底部*/))
+                                      ];
+        historyContentLab.text = tempDict[@"Content"];
+        historyContentLab.numberOfLines = 0;
+        historyContentLab.textAlignment = NSTextAlignmentLeft;
+        historyContentLab.textColor = [UIColor whiteColor];
+        historyContentLab.font = [UIFont systemFontOfSize:16];
+        
+        UILabel *timeLabInImg = [[UILabel alloc] initWithFrame:CGRectMake((backImg.frame.size.width - 10 -60), (backImg.frame.size.height - 40), 60, 30)];
+        timeLabInImg.text = tempDict[@"VideoDuration"];
+        timeLabInImg.textColor = [UIColor whiteColor];
+        timeLabInImg.textAlignment = NSTextAlignmentCenter;
+        timeLabInImg.backgroundColor = BACKGROUND_COLOR;
+        timeLabInImg.alpha = 0.8;
+        timeLabInImg.font = [UIFont boldSystemFontOfSize:14];
+        timeLabInImg.layer.cornerRadius = 5;
+        timeLabInImg.layer.masksToBounds = YES;
+        
+        [cell.contentView addSubview:timeLab];
+        [cell.contentView addSubview:backImg];
+        [backImg addSubview:historyContentLab];
+        [backImg addSubview:historyTitleLab];
+        [backImg addSubview:timeLabInImg];
+        
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
     
     //[cell setEditing:YES];
     
@@ -215,6 +348,23 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
+    @try {
+        if(rebuildGrowArr == nil || rebuildGrowArr.count ==0 ||rebuildGrowArr.count- 1< indexPath.row)
+            return;
+        
+        NSDictionary *tempDict = rebuildGrowArr[indexPath.section][@"growHistory"][indexPath.row];
+        VideoDetailViewController *videoDetailViewCtl = [[VideoDetailViewController alloc] init];
+        videoDetailViewCtl.videoID = tempDict[@"Id"];
+        [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+    
 }
 
 
@@ -262,7 +412,7 @@
 {
     UIView *tempView = [[UIView alloc] init];
     
-    UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, SectionHeight)];
+    UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, SectionHeight)];
     dateLab.center = CGPointMake(LineGap+(SCREEN_WIDTH - LineGap)/2 , SectionHeight/2);
     dateLab.textAlignment = NSTextAlignmentCenter;
     dateLab.textColor = [UIColor grayColor];
@@ -278,24 +428,17 @@
     [tempView addSubview:lineView1];
     [tempView addSubview:dateLab];
     [tempView addSubview:lineView2];
-    switch (section) {
-        case 0:
-        {
-            dateLab.text = @"今天";
-        }
-            break;
-        case 1:
-        {
-            dateLab.text = @"昨天";
-        }
-            break;
-        case 2:
-        {
-            dateLab.text = @"前天";
-        }
-            break;
-        default:
-            break;
+    
+    
+    NSDate *now = [NSDate date];
+    NSString *nowStr = [NSString stringWithFormat:@"%@",now];
+    if([[nowStr substringToIndex:10] isEqualToString:[rebuildGrowArr[section][@"date"] substringToIndex:10]])
+    {
+        dateLab.text = @"今天";
+    }
+    else
+    {
+        dateLab.text = [rebuildGrowArr[section][@"date"] substringToIndex:10];
     }
     return tempView;
 }

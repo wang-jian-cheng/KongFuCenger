@@ -9,6 +9,7 @@
 #import "BaseNavigationController.h"
 #import "DataProvider.h"
 #import "MJRefresh.h"
+#import "AnnounceDetailViewController.h"
 @interface AnnouncementViewController : BaseNavigationController
 {
     int pageNo;
