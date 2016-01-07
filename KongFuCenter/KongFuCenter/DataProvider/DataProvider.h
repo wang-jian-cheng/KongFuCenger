@@ -207,6 +207,9 @@
 //删除好友
 -(void)DeleteFriend:(NSString *)userid andfriendid:(NSString *)friendid;
 
+//删除视频
+-(void)delVideo:(NSString *)VideoId;
+
 //上传视频
 -(void)uploadVideoWithPath:(NSURL *)videoPath;
 //根据条件获取用户
@@ -289,6 +292,12 @@
 
 //获取赛事详情
 -(void)SelectMatchDetail:(NSString *)matchId;
+
+//个人比赛报名
+-(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription;
+
+//查询比赛参赛人员
+-(void)SelectMatchMemberByPerson:(NSString *)matchId;
 
 #pragma mark - 视频评论
 // 评论视频

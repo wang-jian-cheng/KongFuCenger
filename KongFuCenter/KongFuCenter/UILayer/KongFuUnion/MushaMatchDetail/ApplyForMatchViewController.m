@@ -19,6 +19,13 @@
     
     UILabel *textHolderView;
     SCPlayer *_player;
+    UIButton *uploadImgBtn;
+    NSString *imagebase64;
+    NSURL *videoURL;
+    NSString *videoName;
+    UITextView  *titleView;
+    UITextView  *contentView;
+    NSUserDefaults *userDefault;
 }
 @end
 
@@ -29,6 +36,8 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addLeftButton:@"left"];
     [self addRightbuttontitle:@"确定"];
+    imagebase64 = @"";
+    userDefault = [NSUserDefaults standardUserDefaults];
     [self initViews];
     // Do any additional setup after loading the view.
 }
@@ -131,53 +140,148 @@
     }];
 }
 
-#pragma mark -- UIImagePickerControllerDelegate
+-(void)uploadImgEvent{
+    UIActionSheet *choiceSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"取消"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"拍照", @"从相册中选取", nil];
+    [choiceSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        // 拍照
+        UIImagePickerController *mImagePick = [[UIImagePickerController alloc] init];
+        mImagePick.sourceType = UIImagePickerControllerSourceTypeCamera;
+        mImagePick.delegate = self;
+        mImagePick.allowsEditing = YES;
+        [self presentViewController:mImagePick animated:YES completion:nil];
+        
+    } else if (buttonIndex == 1) {
+        // 从相册中选取
+        UIImagePickerController *mImagePick = [[UIImagePickerController alloc] init];
+        mImagePick.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        mImagePick.delegate = self;
+        mImagePick.allowsEditing = YES;
+        [self presentViewController:mImagePick animated:YES completion:nil];
+    }
+}
+
+-(UIImage *)scaleFromImage:(UIImage *)image andSize:(CGSize)size{
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+-(void)clickRightButton:(UIButton *)sender{
+    if (!videoURL || [videoURL isEqual:@""]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请上传视频" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
+        [alertView show];
+        return;
+    }
+    if (!titleView || [titleView isEqual:@""]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请填写标题" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
+        [alertView show];
+        return;
+    }
+    if (!contentView || [contentView isEqual:@""]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请填写内容" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
+        [alertView show];
+        return;
+    }
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getVideoCallBack:"];
+    [dataProvider uploadVideoWithPath:videoURL];
+}
+
+-(void)getVideoCallBack:(id)dict{
+    if([dict[@"code"] intValue] == 200){
+        NSLog(@"%@",dict);
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        if ([imagebase64 isEqual:@""]) {
+            [dataProvider setDelegateObject:self setBackFunctionName:@"saveMushaMatchCallBack:"];
+            [dataProvider JoinMatch:_matchId anduserid:[userDefault valueForKey:@"id"] andmatchVideo:[dict[@"data"] valueForKey:@"VideoName"] andmatchImage:[dict[@"data"] valueForKey:@"ImageName"] andmatchDescription:contentView.text];
+        }else{
+            videoName = [dict[@"data"] valueForKey:@"VideoName"];
+            [dataProvider setDelegateObject:self setBackFunctionName:@"getImgCallBack:"];
+            [dataProvider UploadImgWithImgdata:imagebase64];
+        }
+    }
+}
+
+-(void)getImgCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        NSLog(@"%@",dict);
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"saveMushaMatchCallBack:"];
+        [dataProvider JoinMatch:_matchId anduserid:[userDefault valueForKey:@"id"] andmatchVideo:[dict[@"data"] valueForKey:@"VideoName"] andmatchImage:[dict[@"data"] valueForKey:@"ImageName"] andmatchDescription:contentView.text];
+    }
+}
+
+-(void)saveMushaMatchCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        
+    }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker   didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
     
-    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-    
-    if([mediaType isEqualToString:@"public.movie"])
-    {
-        NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
-        //        NSLog(@"found a video");
-        //        NSLog(@"%@",videoURL);
+    if (picker.sourceType == UIImagePickerControllerSourceTypeSavedPhotosAlbum) {
+        NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
         
-        // 创建视频播放器
-        _player = [SCPlayer player];
-        SCVideoPlayerView *playerView = [[SCVideoPlayerView alloc] initWithPlayer:_player];
-        playerView.tag = 400;
-        playerView.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-        playerView.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3);
-        [self.view addSubview:playerView];
-        _player.loopEnabled = YES;
-        [_player setItemByUrl:videoURL];
-        [_player play];
-        
-        UIButton *uploadVideo = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150)/2, (3*_cellHeight - 50)/2 + 64, 150, 50)];
-        uploadVideo.backgroundColor = YellowBlock;
-        uploadVideo.center = CGPointMake(SCREEN_WIDTH/2, 3*_cellHeight /2 + 64);
-        [uploadVideo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [uploadVideo setTitle:@"重新上传视频" forState:UIControlStateNormal];
-        [uploadVideo addTarget:self action:@selector(uploadVideoEvent) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:uploadVideo];
-    }
-    else
-    {
-        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请您选择视频文件" preferredStyle:(UIAlertControllerStyleAlert)];
-        
-        [self presentViewController:alert animated:YES completion:^{
+        if([mediaType isEqualToString:@"public.movie"])
+        {
+            videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
+            //        NSLog(@"found a video");
+            //        NSLog(@"%@",videoURL);
             
-        }];
-        
-        UIAlertAction * action = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            // 创建视频播放器
+            _player = [SCPlayer player];
+            SCVideoPlayerView *playerView = [[SCVideoPlayerView alloc] initWithPlayer:_player];
+            playerView.tag = 400;
+            playerView.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+            playerView.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3);
+            [self.view addSubview:playerView];
+            _player.loopEnabled = YES;
+            [_player setItemByUrl:videoURL];
+            [_player play];
             
-        }];
-        
-        [alert addAction:action];
+            UIButton *uploadVideo = [[UIButton alloc] initWithFrame:playerView.frame];
+            [uploadVideo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            //[uploadVideo setTitle:@"重新上传视频" forState:UIControlStateNormal];
+            [uploadVideo addTarget:self action:@selector(uploadVideoEvent) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:uploadVideo];
+        }
+        else
+        {
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请您选择视频文件" preferredStyle:(UIAlertControllerStyleAlert)];
+            
+            [self presentViewController:alert animated:YES completion:^{
+                
+            }];
+            
+            UIAlertAction * action = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            
+            [alert addAction:action];
+        }
+    }else{
+        UIImage *image = info[UIImagePickerControllerOriginalImage];
+        UIImage *smallImage = [self scaleFromImage:image andSize:CGSizeMake(800, 800)];
+        [uploadImgBtn setImage:smallImage forState:UIControlStateNormal];
+        NSData *imageData = UIImagePNGRepresentation(smallImage);
+        imagebase64= [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        //[self changeHeadImage:imageData];
+        [picker dismissViewControllerAnimated:YES completion:nil];
     }
     
 }
@@ -244,16 +348,19 @@
             tiplab.textAlignment = NSTextAlignmentCenter;
             [imgView addSubview:tiplab];
             
-            UIButton *uploadImgBtn = [[UIButton alloc] initWithFrame:imgView.frame];
+            uploadImgBtn = [[UIButton alloc] initWithFrame:imgView.frame];
             [uploadImgBtn setImage:[UIImage imageNamed:@"dajiahao"] forState:UIControlStateNormal];
-            [imgView addSubview:uploadImgBtn];
+            [uploadImgBtn addTarget:self action:@selector(uploadImgEvent) forControlEvents:UIControlEventTouchUpInside];
+            uploadImgBtn.userInteractionEnabled = YES;
+            [cell addSubview:uploadImgBtn];
             
             
-            UITextView  *titleView = [[UITextView alloc] initWithFrame:CGRectMake((imgView.frame.size.width + imgView.frame.origin.x+10),
+            titleView = [[UITextView alloc] initWithFrame:CGRectMake((imgView.frame.size.width + imgView.frame.origin.x+10),
                                                                                  0,
                                                                                  SCREEN_WIDTH - (imgView.frame.size.width + imgView.frame.origin.x+10),
                                                                                  _cellHeight*1.5)];
             titleView.backgroundColor = ItemsBaseColor;
+            titleView.text = @"视频标题";
             titleView.tag = indexPath.section;
             titleView.textAlignment = NSTextAlignmentLeft;
             titleView.font = [UIFont systemFontOfSize:14];
@@ -265,11 +372,12 @@
             break;
         case 2:
         {
-            UITextView  *contentView = [[UITextView alloc] initWithFrame:CGRectMake(0,
+            contentView = [[UITextView alloc] initWithFrame:CGRectMake(0,
                                                                                   0,
                                                                                   SCREEN_WIDTH,
                                                                                   _cellHeight*3)];
             contentView.backgroundColor = ItemsBaseColor;
+            contentView.text = @"视频简介";
             contentView.textAlignment = NSTextAlignmentLeft;
             contentView.tag = indexPath.section;
             contentView.font = [UIFont systemFontOfSize:14];

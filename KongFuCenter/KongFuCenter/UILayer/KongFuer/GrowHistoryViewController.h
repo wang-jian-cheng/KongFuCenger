@@ -16,5 +16,7 @@
 {
     int pageNo;
     int pageSize;
+    NSMutableArray *delArr;
+    NSInteger deleCount;
 }
 @end

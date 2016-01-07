@@ -10,7 +10,8 @@
 #import "UserHeadView.h"
 @interface PlayerForMatchViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
-    UISearchBar *_searchBar;
+    //UISearchBar *_searchBar;
     UISearchDisplayController *_searchDisplayController;
 }
+@property(nonatomic,strong) NSString *matchId;
 @end

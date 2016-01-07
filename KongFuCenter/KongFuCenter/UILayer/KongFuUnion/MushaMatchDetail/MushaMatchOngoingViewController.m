@@ -7,6 +7,7 @@
 //
 
 #import "MushaMatchOngoingViewController.h"
+#import "MushaMatchDetailGoingViewController.h"
 #define _CELL @ "acell"
 
 @interface MushaMatchOngoingViewController ()
@@ -27,7 +28,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    [self addRightbuttontitle:@"赛事介绍"];
+    if (_mushaMatchOngoingMode == Mode_OnGoing) {
+        [self addRightbuttontitle:@"赛事介绍"];
+    }
     [self initViews];
     // Do any additional setup after loading the view.
 }
@@ -51,6 +54,14 @@
     [self initCollectionView];
 }
 
+-(void)clickRightButton:(UIButton *)sender{
+    if (_mushaMatchOngoingMode == Mode_OnGoing) {
+        MushaMatchDetailGoingViewController *mushaMatchDetailGoingVC = [[MushaMatchDetailGoingViewController alloc] init];
+        [mushaMatchDetailGoingVC setMushaMatchDetailGoingMode:Mode_Going];
+        mushaMatchDetailGoingVC.matchId = _matchId;
+        [self.navigationController pushViewController:mushaMatchDetailGoingVC animated:YES];
+    }
+}
 
 -(void)initCollectionView
 {
@@ -183,7 +194,7 @@
 -( void )collectionView:( UICollectionView *)collectionView didSelectItemAtIndexPath:( NSIndexPath *)indexPath
 {
     VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
-    videoViewCtl.navtitle = @"大赛战队详情";
+    videoViewCtl.navtitle = @"大赛个人详情";
     [self.navigationController pushViewController:videoViewCtl animated:YES];
 }
 

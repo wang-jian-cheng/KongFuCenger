@@ -915,6 +915,26 @@
     }
 }
 
+-(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription{
+    if (matchId && userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/JoinMatch",Url];
+        NSDictionary *prm = @{@"matchId":matchId,@"userid":userid,@"matchVideo":matchVideo,@"matchImage":matchImage,@"matchDescription":matchDescription};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)SelectMatchMemberByPerson:(NSString *)matchId{
+    if (matchId) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchMemberByPerson",Url];
+        NSDictionary *prm = @{@"matchId":matchId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark - 联盟动态
 -(void)getUnionNewsCate
 {
@@ -1001,6 +1021,19 @@
 }
 
 #pragma mark 核动力
+
+-(void)delVideo:(NSString *)VideoId
+{
+    if(VideoId)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Hewuzhe.asmx/DeleteVideo",Url];
+        NSDictionary *prm = @{@"id":VideoId};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+}
+
 -(void)uploadVideoWithPath:(NSURL *)videoPath
 {
     if (videoPath) {

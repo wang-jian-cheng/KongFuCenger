@@ -9,6 +9,7 @@
 #import "MushaMatch.h"
 #import "MushaMatchCell.h"
 #import "MJRefresh.h"
+#import "MushaMatchDetailGoingViewController.h"
 
 typedef enum _MatchMode
 {
@@ -282,12 +283,19 @@ typedef enum _MatchMode
         if (matchState == 0) {//未开始
             MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
             mushaMatchDetailViewCtl.navtitle  = @"武者大赛详情";
-            mushaMatchDetailViewCtl.matchId = [matchArray[indexPath.row] valueForKey:@"Id"];
+            mushaMatchDetailViewCtl.matchId = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Id"]];
             [self.navigationController pushViewController:mushaMatchDetailViewCtl animated:YES];
         }else if(matchState == 1){//进行中
-            
+            MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
+            [mushaMatchOngoingViewCtl setMushaMatchOngoingMode:Mode_OnGoing];
+            mushaMatchOngoingViewCtl.navtitle = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Name"]];
+            mushaMatchOngoingViewCtl.matchId = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Id"]];
+            [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
         }else{//已结束
-            
+            MushaMatchDetailGoingViewController *mushaMatchDetailGoingVC = [[MushaMatchDetailGoingViewController alloc] init];
+            [mushaMatchDetailGoingVC setMushaMatchDetailGoingMode:Mode_End];
+            mushaMatchDetailGoingVC.matchId = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Id"]];;
+            [self.navigationController pushViewController:mushaMatchDetailGoingVC animated:YES];
         }
     
 //        if(indexPath.row == 1)
