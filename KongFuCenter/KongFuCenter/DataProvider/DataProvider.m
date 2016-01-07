@@ -1001,6 +1001,19 @@
 }
 
 #pragma mark 核动力
+
+-(void)delVideo:(NSString *)VideoId
+{
+    if(VideoId)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Hewuzhe.asmx/DeleteVideo",Url];
+        NSDictionary *prm = @{@"id":VideoId};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+}
+
 -(void)uploadVideoWithPath:(NSURL *)videoPath
 {
     if (videoPath) {

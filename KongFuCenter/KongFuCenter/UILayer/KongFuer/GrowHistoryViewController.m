@@ -36,6 +36,8 @@
     [self addRightbuttontitle:@"编辑"];
     growArr = [NSMutableArray array];
     rebuildGrowArr = [NSMutableArray array];
+    cellBtnArr = [NSMutableArray array];
+    delArr = [NSMutableArray array];
     [self initViews];
     
     [self getDatas];
@@ -63,8 +65,10 @@
     __unsafe_unretained __typeof(self) weakSelf = self;
     
     _mainTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+       
+//        if(EnditMode ==YES)
+//            return ;
         pageNo=0;
-        
         if(growArr != nil&&growArr.count>0)
         {
             [growArr removeAllObjects];
@@ -73,7 +77,8 @@
         {
             [rebuildGrowArr removeAllObjects];
         }
-        [weakSelf getGrowHistory];
+        
+            [weakSelf getGrowHistory];
         // 结束刷新
         [_mainTableView.mj_header endRefreshing];
     }];
@@ -81,10 +86,13 @@
     
     // 上拉刷新
     _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//       if(EnditMode ==YES)
+//           return;
         if(growArr != nil&&growArr.count>0)
         {
             [growArr removeAllObjects];
         }
+        
         [weakSelf FooterRefresh];
         [_mainTableView.mj_footer endRefreshing];
     }];
@@ -105,6 +113,55 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 #pragma mark - self data source
+
+
+
+-(void)delVideos
+{
+    if (delArr.count == 0) {
+        return;
+    }
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"deleVideosCallBack:"];
+    [dataprovider delVideo:delArr[deleCount]];
+}
+
+-(void)deleVideosCallBack:(id)dict
+{
+    // [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            deleCount ++;
+            if(deleCount >= delArr.count)
+            {
+                [SVProgressHUD dismiss];
+                //[_mainTableView reloadData];
+                [_mainTableView.mj_header beginRefreshing];
+                [delArr removeAllObjects];
+                deleCount = 0;
+                
+            }
+            else
+            {
+                [self delVideos];
+            }
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:[dict[@"data"] substringToIndex:4] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+    
+}
 
 -(void)FooterRefresh
 {
@@ -187,13 +244,36 @@
 #pragma mark - Btn click 
 -(void)clickRightButton:(UIButton *)sender
 {
-    EnditMode = !EnditMode;
+    if(EnditMode == NO)
+    {
+        [self addRightbuttontitle:@"删除"];
+        EnditMode = YES;
+    }
+    else{
+        [self delVideos];
+        [self addRightbuttontitle:@"编辑"];
+        EnditMode = NO;
+    }
     [_mainTableView reloadData];
 }
 
 -(void)roundBtnClick:(UIButton *)sender
 {
     sender.selected = ! sender.selected;
+    NSDictionary *tempDict;
+    tempDict =rebuildGrowArr[(sender.tag & 0xf0)>>4][@"growHistory"][sender.tag&0x0f];
+    if(sender.selected == YES)
+        [delArr addObject:tempDict[@"Id"]];
+    else
+    {
+        for (int i = 0; i <delArr.count; i++) {
+            if([tempDict[@"Id"] isEqual:delArr[i]])
+            {
+                [delArr removeObjectAtIndex:i];
+            }
+        }
+    }
+    
 }
 
 
@@ -292,6 +372,45 @@
         [backImg addSubview:timeLabInImg];
         
         
+        
+        if(EnditMode)
+        {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            if(indexPath.section ==0 && indexPath.row == 0)
+            {
+                if(cellBtnArr == nil)
+                {
+                    cellBtnArr = [NSMutableArray array];
+                }
+                if(cellBtnArr != nil&&cellBtnArr.count >0)
+                {
+                    [cellBtnArr removeAllObjects];
+                }
+            }
+            
+            SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake(15, _cellHeight/2)];
+            roundBtn.backgroundColor = Separator_Color;
+            [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            roundBtn.tag = indexPath.row | (indexPath.section << 4);
+            NSLog(@"0x%lx",roundBtn.tag);
+            [cell addSubview:roundBtn];
+            
+            for (int i=0 ; i<delArr.count; i++) {
+            
+                if ([tempDict[@"Id"] isEqual:delArr[i]]) {
+                    roundBtn.selected = YES;
+                }
+            }
+            
+            [cellBtnArr addObject:roundBtn];
+            
+            //        [cell setCellEditMode:YES andBtnCenter:CGPointMake(15, _cellHeight/2)];
+        }
+        else
+        {
+            //  cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        }
+        
     }
     @catch (NSException *exception) {
         
@@ -301,34 +420,6 @@
     }
     
     //[cell setEditing:YES];
-    
-    if(EnditMode)
-    {
-        if(indexPath.section ==0 && indexPath.row == 0)
-        {
-            if(cellBtnArr == nil)
-            {
-                cellBtnArr = [NSMutableArray array];
-            }
-            if(cellBtnArr != nil&&cellBtnArr.count >0)
-            {
-                [cellBtnArr removeAllObjects];
-            }
-        }
-        
-        SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake(15, _cellHeight/2)];
-        roundBtn.backgroundColor = Separator_Color;
-        [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        roundBtn.tag = indexPath.row;
-        [cell addSubview:roundBtn];
-        
-        [cellBtnArr addObject:roundBtn];
-        
-    }
-    else
-    {
-
-    }
     
     
     
@@ -345,8 +436,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+ 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
+    if(EnditMode)
+    {
+//        UIButton *tempBtn = cellBtnArr[indexPath.row];
+//  //      tempBtn.selected = !tempBtn.selected;
+//        [self roundBtnClick:tempBtn];
+        return;
+    }
     
     @try {
         if(rebuildGrowArr == nil || rebuildGrowArr.count ==0 ||rebuildGrowArr.count- 1< indexPath.row)

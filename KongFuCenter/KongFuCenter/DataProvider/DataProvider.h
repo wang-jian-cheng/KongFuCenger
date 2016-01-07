@@ -207,6 +207,9 @@
 //删除好友
 -(void)DeleteFriend:(NSString *)userid andfriendid:(NSString *)friendid;
 
+//删除视频
+-(void)delVideo:(NSString *)VideoId;
+
 //上传视频
 -(void)uploadVideoWithPath:(NSURL *)videoPath;
 //根据条件获取用户
