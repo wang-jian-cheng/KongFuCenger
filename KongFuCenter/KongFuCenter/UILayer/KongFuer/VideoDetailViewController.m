@@ -27,6 +27,7 @@
     UITableView *_mainTableView;
     MoviePlayer *moviePlayerview;
     
+    
     NSString * VideoPath;
     
     NSDictionary * VideoDict;//视频信息

@@ -45,6 +45,9 @@
 		803E363C1C350E96006DE3A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803E363B1C350E96006DE3A9 /* Foundation.framework */; };
 		803E363E1C350EB0006DE3A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803E363D1C350EB0006DE3A9 /* UIKit.framework */; };
 		803E36401C351033006DE3A9 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 803E363F1C351033006DE3A9 /* PushConfig.plist */; };
+		804558411C3E4A0000166DAC /* libpolyvSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8045583F1C3E4A0000166DAC /* libpolyvSDK.a */; };
+		804558421C3E4A0000166DAC /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 804558401C3E4A0000166DAC /* README.md */; };
+		804558441C3E4A3A00166DAC /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 804558431C3E4A3A00166DAC /* MobileCoreServices.framework */; };
 		804951FD1C250B3800F5584A /* CIImageRendererUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 804951B41C250B3800F5584A /* CIImageRendererUtils.m */; };
 		804951FE1C250B3800F5584A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 804951B51C250B3800F5584A /* LICENSE */; };
 		804951FF1C250B3800F5584A /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 804951B61C250B3800F5584A /* README.md */; };
@@ -348,6 +351,7 @@
 		B72E39F81C1AB5AD007356C4 /* MakeMushaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72E39F61C1AB5AD007356C4 /* MakeMushaCell.m */; };
 		B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */; };
 		B739FB391C279991004100C2 /* MyFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B739FB381C279991004100C2 /* MyFriendViewController.m */; };
+		B760C4941C3E15F200613721 /* MushaMatchDetailGoingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B760C4931C3E15F200613721 /* MushaMatchDetailGoingViewController.m */; };
 		B7617E1F1C1C27D500CF96E7 /* JHStoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */; };
 		B7617E271C1C289E00CF96E7 /* UnionNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */; };
 		B7617E281C1C289E00CF96E7 /* UnionNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7617E241C1C289E00CF96E7 /* UnionNewsCell.xib */; };
@@ -510,6 +514,24 @@
 		803E363B1C350E96006DE3A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		803E363D1C350EB0006DE3A9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		803E363F1C351033006DE3A9 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
+		804558301C3E4A0000166DAC /* DownloadDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadDelegate.h; sourceTree = "<group>"; };
+		804558311C3E4A0000166DAC /* PLVAssetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVAssetData.h; sourceTree = "<group>"; };
+		804558321C3E4A0000166DAC /* PLVData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVData.h; sourceTree = "<group>"; };
+		804558331C3E4A0000166DAC /* PLVKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVKit.h; sourceTree = "<group>"; };
+		804558341C3E4A0000166DAC /* PLVMoviePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVMoviePlayerController.h; sourceTree = "<group>"; };
+		804558351C3E4A0000166DAC /* PLVResumableUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVResumableUpload.h; sourceTree = "<group>"; };
+		804558361C3E4A0000166DAC /* PolyvSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyvSettings.h; sourceTree = "<group>"; };
+		804558371C3E4A0000166DAC /* PolyvUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyvUtil.h; sourceTree = "<group>"; };
+		804558381C3E4A0000166DAC /* PVDanmuManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVDanmuManager.h; sourceTree = "<group>"; };
+		804558391C3E4A0000166DAC /* PvDanmuOperateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvDanmuOperateView.h; sourceTree = "<group>"; };
+		8045583A1C3E4A0000166DAC /* PvDanmuSendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvDanmuSendView.h; sourceTree = "<group>"; };
+		8045583B1C3E4A0000166DAC /* PvReportManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvReportManager.h; sourceTree = "<group>"; };
+		8045583C1C3E4A0000166DAC /* PvUrlSessionDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvUrlSessionDownload.h; sourceTree = "<group>"; };
+		8045583D1C3E4A0000166DAC /* PvUrlSessionDownloadDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvUrlSessionDownloadDelegate.h; sourceTree = "<group>"; };
+		8045583E1C3E4A0000166DAC /* VideoDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDownloader.h; sourceTree = "<group>"; };
+		8045583F1C3E4A0000166DAC /* libpolyvSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpolyvSDK.a; sourceTree = "<group>"; };
+		804558401C3E4A0000166DAC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		804558431C3E4A3A00166DAC /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		804951B21C250B3800F5584A /* CIImageRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIImageRenderer.h; sourceTree = "<group>"; };
 		804951B31C250B3800F5584A /* CIImageRendererUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIImageRendererUtils.h; sourceTree = "<group>"; };
 		804951B41C250B3800F5584A /* CIImageRendererUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIImageRendererUtils.m; sourceTree = "<group>"; };
@@ -1008,6 +1030,8 @@
 		B72E39F71C1AB5AD007356C4 /* MakeMushaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeMushaCell.xib; sourceTree = "<group>"; };
 		B739FB371C279991004100C2 /* MyFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFriendViewController.h; sourceTree = "<group>"; };
 		B739FB381C279991004100C2 /* MyFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFriendViewController.m; sourceTree = "<group>"; };
+		B760C4921C3E15F200613721 /* MushaMatchDetailGoingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MushaMatchDetailGoingViewController.h; sourceTree = "<group>"; };
+		B760C4931C3E15F200613721 /* MushaMatchDetailGoingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MushaMatchDetailGoingViewController.m; sourceTree = "<group>"; };
 		B7617E1E1C1C27D500CF96E7 /* JHStoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHStoryTableViewCell.xib; sourceTree = "<group>"; };
 		B7617E221C1C289E00CF96E7 /* UnionNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnionNewsCell.h; sourceTree = "<group>"; };
 		B7617E231C1C289E00CF96E7 /* UnionNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnionNewsCell.m; sourceTree = "<group>"; };
@@ -1150,6 +1174,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				804558441C3E4A3A00166DAC /* MobileCoreServices.framework in Frameworks */,
 				80CE42AF1C3CB1A300B027CC /* OpenGLES.framework in Frameworks */,
 				80CE42AD1C3CB18900B027CC /* CoreVideo.framework in Frameworks */,
 				80CE42A91C3CB16500B027CC /* CoreMedia.framework in Frameworks */,
@@ -1197,6 +1222,7 @@
 				00B391A3E16E2E9529C00832 /* Pods_KongFuCenter.framework in Frameworks */,
 				803E36341C350E1D006DE3A9 /* libPushSDK-1.8.8.a in Frameworks */,
 				B5F13B2A1C1FBAAC00155038 /* ShareSDKExtension.framework in Frameworks */,
+				804558411C3E4A0000166DAC /* libpolyvSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1220,6 +1246,7 @@
 		6530A98924EC80D772FCF134 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				804558431C3E4A3A00166DAC /* MobileCoreServices.framework */,
 				80CE42AE1C3CB1A300B027CC /* OpenGLES.framework */,
 				80CE42AC1C3CB18900B027CC /* CoreVideo.framework */,
 				80CE42AA1C3CB16F00B027CC /* CoreAudio.framework */,
@@ -1432,6 +1459,38 @@
 				803E36331C350E1D006DE3A9 /* libPushSDK-1.8.8.a */,
 			);
 			path = JPush;
+			sourceTree = "<group>";
+		};
+		8045582E1C3E4A0000166DAC /* libpolyvSDK */ = {
+			isa = PBXGroup;
+			children = (
+				8045582F1C3E4A0000166DAC /* libpolyvSDK */,
+				8045583F1C3E4A0000166DAC /* libpolyvSDK.a */,
+				804558401C3E4A0000166DAC /* README.md */,
+			);
+			path = libpolyvSDK;
+			sourceTree = "<group>";
+		};
+		8045582F1C3E4A0000166DAC /* libpolyvSDK */ = {
+			isa = PBXGroup;
+			children = (
+				804558301C3E4A0000166DAC /* DownloadDelegate.h */,
+				804558311C3E4A0000166DAC /* PLVAssetData.h */,
+				804558321C3E4A0000166DAC /* PLVData.h */,
+				804558331C3E4A0000166DAC /* PLVKit.h */,
+				804558341C3E4A0000166DAC /* PLVMoviePlayerController.h */,
+				804558351C3E4A0000166DAC /* PLVResumableUpload.h */,
+				804558361C3E4A0000166DAC /* PolyvSettings.h */,
+				804558371C3E4A0000166DAC /* PolyvUtil.h */,
+				804558381C3E4A0000166DAC /* PVDanmuManager.h */,
+				804558391C3E4A0000166DAC /* PvDanmuOperateView.h */,
+				8045583A1C3E4A0000166DAC /* PvDanmuSendView.h */,
+				8045583B1C3E4A0000166DAC /* PvReportManager.h */,
+				8045583C1C3E4A0000166DAC /* PvUrlSessionDownload.h */,
+				8045583D1C3E4A0000166DAC /* PvUrlSessionDownloadDelegate.h */,
+				8045583E1C3E4A0000166DAC /* VideoDownloader.h */,
+			);
+			path = libpolyvSDK;
 			sourceTree = "<group>";
 		};
 		804951B01C250B3800F5584A /* PhoneVideo */ = {
@@ -1841,6 +1900,8 @@
 				B5905E1B1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m */,
 				B5F4E3A71C1EC3B9001F81F0 /* VideoDetailForMatchViewController.h */,
 				B5F4E3A81C1EC3B9001F81F0 /* VideoDetailForMatchViewController.m */,
+				B760C4921C3E15F200613721 /* MushaMatchDetailGoingViewController.h */,
+				B760C4931C3E15F200613721 /* MushaMatchDetailGoingViewController.m */,
 			);
 			path = MushaMatchDetail;
 			sourceTree = "<group>";
@@ -2091,6 +2152,7 @@
 		B5AF704F1C17C20600C041AF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				8045582E1C3E4A0000166DAC /* libpolyvSDK */,
 				80CE42BA1C3CB23100B027CC /* Vitamio-online */,
 				804951B01C250B3800F5584A /* PhoneVideo */,
 				80DB843F1C23D3A6008CA670 /* SDWebImage */,
@@ -3343,6 +3405,7 @@
 				B5D345D01C28EA7500D39891 /* MyFriendTableViewCell.m in Sources */,
 				B7617E3C1C1C298F00CF96E7 /* NSArray+NSArray_ILExtension.m in Sources */,
 				8026D0F61C1BC6BE00D9CD44 /* ErWeiMaViewController.m in Sources */,
+				804558421C3E4A0000166DAC /* README.md in Sources */,
 				B59408C91C0FC9E8003DC15D /* main.m in Sources */,
 				B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */,
 				804952091C250B3800F5584A /* SCMediaTypeConfiguration.m in Sources */,
@@ -3356,6 +3419,7 @@
 				B5F90AED1C197D3D00D7879D /* InputText.m in Sources */,
 				804952001C250B3800F5584A /* SCAssetExportSession.m in Sources */,
 				B712CC951C2CCEFE00B1A2E8 /* MyNewsViewController.m in Sources */,
+				B760C4941C3E15F200613721 /* MushaMatchDetailGoingViewController.m in Sources */,
 				80DB84691C23D3A6008CA670 /* SDWebImagePrefetcher.m in Sources */,
 				802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */,
 				B7617E711C1C29A500CF96E7 /* YMShowImageView.m in Sources */,
@@ -3546,6 +3610,7 @@
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/JPush",
 					"$(PROJECT_DIR)/Utils/Vitamio",
 					"$(PROJECT_DIR)/Utils/Vitamio-online",
+					"$(PROJECT_DIR)/Utils/libpolyvSDK",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				"OTHER_LDFLAGS[arch=*]" = (
@@ -3604,6 +3669,7 @@
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/JPush",
 					"$(PROJECT_DIR)/Utils/Vitamio",
 					"$(PROJECT_DIR)/Utils/Vitamio-online",
+					"$(PROJECT_DIR)/Utils/libpolyvSDK",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
