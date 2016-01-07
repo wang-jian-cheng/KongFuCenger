@@ -2427,7 +2427,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "522"
             endingLineNumber = "522"
-            landmarkName = "-getStudyOnlineSecundCategory:"
+            landmarkName = "-getStudyOnlineMainCategory"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2539,7 +2539,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "530"
             endingLineNumber = "530"
-            landmarkName = "-getStudyOnlineVideoList:andstartRowIndex:andmaximumRows:"
+            landmarkName = "-getStudyOnlineSecundCategory:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2811,7 +2811,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "654"
             endingLineNumber = "654"
-            landmarkName = "-updatePlan:andCateId:andTitle:andContent:andPicList:andStartDate:andEndDate:"
+            landmarkName = "-getAllCitys"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2827,7 +2827,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "609"
             endingLineNumber = "609"
-            landmarkName = "-getWuguanDetail:"
+            landmarkName = "-getWuGuanList:andStartRowIndex:andMaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2843,7 +2843,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "608"
             endingLineNumber = "608"
-            landmarkName = "-getWuguanDetail:"
+            landmarkName = "-getWuGuanList:andStartRowIndex:andMaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2907,7 +2907,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "644"
             endingLineNumber = "644"
-            landmarkName = "-updatePlan:andCateId:andTitle:andContent:andPicList:andStartDate:andEndDate:"
+            landmarkName = "-getWuguanPic:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3099,7 +3099,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "729"
             endingLineNumber = "729"
-            landmarkName = "-SelectTeamPage:andMaximumRows:andName:andCitycode:"
+            landmarkName = "-getFriendForKeyValue:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3259,7 +3259,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "630"
             endingLineNumber = "630"
-            landmarkName = "-getWuguanPic:"
+            landmarkName = "-getWuguanDetail:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3691,7 +3691,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "631"
             endingLineNumber = "631"
-            landmarkName = "-getWuguanPic:"
+            landmarkName = "-getWuguanDetail:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4107,7 +4107,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "973"
             endingLineNumber = "973"
-            landmarkName = "-getTeamIntro:"
+            landmarkName = "-getTeamMember:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4219,7 +4219,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "808"
             endingLineNumber = "808"
-            landmarkName = "-CommentComment:anduserid:andcomment:"
+            landmarkName = "-IsWuyou:andfriendid:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
