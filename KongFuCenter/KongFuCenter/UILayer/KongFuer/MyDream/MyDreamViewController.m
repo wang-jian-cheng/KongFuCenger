@@ -17,6 +17,8 @@
     
     UITextView *myPlan;
     UITextView *myDream;
+    
+    NSDictionary *theirDream;
 }
 @end
 
@@ -27,8 +29,9 @@
     [self addLeftButton:@"left"];
     [self addRightbuttontitle:@"编辑"];
     [self initViews];
-    
+    [self getTheirDream];
     [self getMyDream];
+    
     
     // Do any additional setup after loading the view.
 }
@@ -80,7 +83,40 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+
 #pragma mark - self data source
+-(void)getTheirDream
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getTheirDreamCallBack:"];
+    [dataprovider getTheirDream];
+}
+
+-(void)getTheirDreamCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+        
+            theirDream = dict[@"data"];
+            [_mainTableView reloadData];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
 -(void)getMyDream
 {
     [SVProgressHUD showWithStatus:@"刷新" maskType:SVProgressHUDMaskTypeBlack];
@@ -275,7 +311,23 @@
         dreamImgView.image = [UIImage imageNamed:@"temp2"];
         [cell addSubview:dreamImgView];
         
-        NSString *dreamStr = @"咏春拳的创始者是福建福清南少林的少林庵五枚师太，她姓朱名红梅，生于明朝天启三年（公元1623年）正月初五，那时候正是红梅盛开的日子。朱红梅，三岁读四书五经、六岁跟府中的将军们学武功，九岁跟御医学中医理论并修炼禅功";
+        NSString *dreamStr /*= @"咏春拳的创始者是福建福清南少林的少林庵五枚师太，她姓朱名红梅，生于明朝天启三年（公元1623年）正月初五，那时候正是红梅盛开的日子。朱红梅，三岁读四书五经、六岁跟府中的将军们学武功，九岁跟御医学中医理论并修炼禅功"*/;
+        
+        @try {
+            
+            if(theirDream !=nil)
+            {
+                dreamStr = theirDream[@"DreamDescription"];
+                NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,theirDream[@"DreamImage"]];
+                [dreamImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"temp2"]];
+            }
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
         CGFloat labWidth = SCREEN_WIDTH-GapToLeft -10;
         CGFloat labHeight = [Toolkit heightWithString:dreamStr fontSize:14 width:labWidth] ;
         
@@ -339,7 +391,8 @@
     
     if(indexPath.section == 0)
     {
-        NSString *dreamStr = @"咏春拳的创始者是福建福清南少林的少林庵五枚师太，她姓朱名红梅，生于明朝天启三年（公元1623年）正月初五，那时候正是红梅盛开的日子。朱红梅，三岁读四书五经、六岁跟府中的将军们学武功，九岁跟御医学中医理论并修炼禅功";
+        NSString *dreamStr = theirDream[@"DreamDescription"];
+        
         CGFloat labHeight = [Toolkit heightWithString:dreamStr fontSize:14 width:self.view.frame.size.width - 30];
         return labHeight + _cellHeight*1.5 + 30;
 //        return 3*_cellHeight;

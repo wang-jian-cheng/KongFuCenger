@@ -95,8 +95,12 @@
 
 //修改密码
 -(void)ChangePassWord:(NSString *)userid andoldpwd:(NSString *)oldpwd andpassword:(NSString *)password;
+#pragma mark - 成长记录
+-(void)getGrowHistory:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
 
 #pragma mark - 放飞梦想
+//
+-(void)getTheirDream;
 /**
  *  获取用户梦想
  *

@@ -447,9 +447,30 @@
     }
     
 }
+#pragma mark - 成长记录
 
+-(void)getGrowHistory:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows
+{
+    if(userid != nil&&startRowIndex&&maximumRows)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetUpRecord",Url];
+        NSDictionary * prm=@{@"userid":userid,
+                             @"startRowIndex":startRowIndex,
+                             @"maximumRows":maximumRows};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+}
 
 #pragma mark - 放飞梦想
+
+-(void)getTheirDream
+{
+    NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/GetDreamHeader",Url];
+    [self PostRequest:url andpram:nil];
+    
+}
 
 -(NSInteger)getMyDream:(NSString *)userid
 {
