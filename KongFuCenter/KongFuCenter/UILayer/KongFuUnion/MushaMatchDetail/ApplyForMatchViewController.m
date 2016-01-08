@@ -9,6 +9,7 @@
 #import "ApplyForMatchViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "SCRecorder.h"
+#import "MushaMatch.h"
 
 @interface ApplyForMatchViewController ()
 {
@@ -113,7 +114,7 @@
     [UIView beginAnimations:nil context:nil];
     
     //定义动画时间
-    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDuration:0.2];
     //               CGRectMake(0, self.view.frame.size.height-keyboardRect.size.height-kViewHeight, 320, kViewHeight)]
     //设置view的frame，往上平移
     [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,SCREEN_HEIGHT -Header_Height -keyboardRect.size.height)];
@@ -140,7 +141,7 @@
 {
     //定义动画
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDuration:0.2];
     //设置view的frame，往下平移
     [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,SCREEN_HEIGHT - Header_Height)];
     playerView.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3);
@@ -260,6 +261,18 @@
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict);
+        if(_applyForMatchMode == Mode_Add){
+            [SVProgressHUD showSuccessWithStatus:@"报名成功~"];
+        }else{
+            [SVProgressHUD showSuccessWithStatus:@"修改成功~"];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        if(_applyForMatchMode == Mode_Add){
+            [SVProgressHUD showSuccessWithStatus:@"报名失败~"];
+        }else{
+            [SVProgressHUD showSuccessWithStatus:@"修改失败~"];
+        }
     }
 }
 
