@@ -29,6 +29,7 @@
     SCVideoPlayerView *playerView;
     UIButton *uploadVideoBtn;
     UITextView *currentTv;
+    NSArray *personMatchArray;
 }
 @end
 
@@ -44,19 +45,20 @@
     if (_applyForMatchMode == Mode_Add) {
         [self initViews];
     }else{
-        
+        [self initData];
     }
 }
 
 -(void)initData{
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getWorksInfoCallBack:"];
-    
+    [dataProvider SelectMatchMemberDetail:_matchId anduserid:[userDefault valueForKey:@"id"]];
 }
 
 -(void)getWorksInfoCallBack:(id)dict{
     if([dict[@"code"] intValue] == 200){
         NSLog(@"%@",dict);
+        personMatchArray = [[NSArray alloc] initWithArray:dict[@"data"]];
     }
 }
 
@@ -357,15 +359,26 @@
     switch (indexPath.section) {
         case 0:
         {
-            //            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*5)];
             UIButton *uploadVideo = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150)/2, (3*_cellHeight - 50)/2, 150, 50)];
             uploadVideo.backgroundColor = YellowBlock;
             uploadVideo.center = CGPointMake(SCREEN_WIDTH/2, 3*_cellHeight /2);
-            [uploadVideo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [uploadVideo setTitle:@"点击上传视频" forState:UIControlStateNormal];
-            [uploadVideo addTarget:self action:@selector(uploadVideoEvent) forControlEvents:UIControlEventTouchUpInside];
-            [cell addSubview:uploadVideo];
-            
+            if (_applyForMatchMode == Mode_Add) {
+                [uploadVideo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [uploadVideo setTitle:@"点击上传视频" forState:UIControlStateNormal];
+                [uploadVideo addTarget:self action:@selector(uploadVideoEvent) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:uploadVideo];
+            }else{
+                // 创建视频播放器
+                _player = [SCPlayer player];
+                playerView = [[SCVideoPlayerView alloc] initWithPlayer:_player];
+                playerView.tag = 400;
+                playerView.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+                playerView.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3);
+                [cell addSubview:playerView];
+                _player.loopEnabled = YES;
+                [_player setItemByUrl:videoURL];
+                [_player play];
+            }
         }
             break;
         case 1:
@@ -384,7 +397,11 @@
             [imgView addSubview:tiplab];
             
             uploadImgBtn = [[UIButton alloc] initWithFrame:imgView.frame];
-            [uploadImgBtn setImage:[UIImage imageNamed:@"dajiahao"] forState:UIControlStateNormal];
+            if (_applyForMatchMode == Mode_Add) {
+                [uploadImgBtn setImage:[UIImage imageNamed:@"dajiahao"] forState:UIControlStateNormal];
+            }else{
+                [uploadImgBtn setImage:nil forState:UIControlStateNormal];
+            }
             [uploadImgBtn addTarget:self action:@selector(uploadImgEvent) forControlEvents:UIControlEventTouchUpInside];
             uploadImgBtn.userInteractionEnabled = YES;
             [cell addSubview:uploadImgBtn];
@@ -395,7 +412,11 @@
                                                                                  SCREEN_WIDTH - (imgView.frame.size.width + imgView.frame.origin.x+10),
                                                                                  _cellHeight*1.5)];
             titleView.backgroundColor = ItemsBaseColor;
-            titleView.text = @"视频标题";
+            if (_applyForMatchMode == Mode_Add) {
+                titleView.text = @"视频标题";
+            }else{
+                titleView.text = @"修改标题";
+            }
             titleView.tag = indexPath.section;
             titleView.textAlignment = NSTextAlignmentLeft;
             titleView.font = [UIFont systemFontOfSize:14];
@@ -412,7 +433,11 @@
                                                                                   SCREEN_WIDTH,
                                                                                   _cellHeight*3)];
             contentView.backgroundColor = ItemsBaseColor;
-            contentView.text = @"视频简介";
+            if (_applyForMatchMode == Mode_Add) {
+                contentView.text = @"视频简介";
+            }else{
+                contentView.text = @"修改简介";
+            }
             contentView.textAlignment = NSTextAlignmentLeft;
             contentView.tag = indexPath.section;
             contentView.font = [UIFont systemFontOfSize:14];

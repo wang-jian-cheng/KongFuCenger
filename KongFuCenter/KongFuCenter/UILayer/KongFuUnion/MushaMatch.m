@@ -187,7 +187,7 @@ typedef enum _MatchMode
         matchMode = WuZheMode;
     }
     NSLog(@"%d",(int)btnMenu.tag);
-    [self TeamTopRefresh];
+    [mTableView.mj_header beginRefreshing];
 }
 
 -(NSString *)matchState:(NSString *)startDate andEndDate:(NSString *)endDate{
@@ -283,7 +283,7 @@ typedef enum _MatchMode
         if (matchState == 0) {//未开始
             MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
             [mushaMatchDetailViewCtl setMushaMatchDetailMode:Mode_Musha];
-            mushaMatchDetailViewCtl.navtitle  = @"武者大赛详情";
+            mushaMatchDetailViewCtl.navtitle  = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Name"]];
             mushaMatchDetailViewCtl.matchId = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Id"]];
             [self.navigationController pushViewController:mushaMatchDetailViewCtl animated:YES];
         }else if(matchState == 1){//进行中
@@ -295,7 +295,8 @@ typedef enum _MatchMode
         }else{//已结束
             MushaMatchDetailGoingViewController *mushaMatchDetailGoingVC = [[MushaMatchDetailGoingViewController alloc] init];
             [mushaMatchDetailGoingVC setMushaMatchDetailGoingMode:Mode_MushaEnd];
-            mushaMatchDetailGoingVC.matchId = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Id"]];;
+            mushaMatchDetailGoingVC.matchId = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Id"]];
+            mushaMatchDetailGoingVC.navtitle = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Name"]];
             [self.navigationController pushViewController:mushaMatchDetailGoingVC animated:YES];
         }
     }

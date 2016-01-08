@@ -335,9 +335,14 @@
 }
 
 -(void)joinTeamEvent:(UIButton *)btn{
-    NSLog(@"%@",teamArray);
+    NSLog(@"%@",get_sp(@"TeamId"));
     if([btn.titleLabel.text  isEqualToString:@"加入"])
     {
+        if(!get_sp(@"TeamId") || [get_sp(@"TeamId") isEqual:@"0"]){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您已经有战队,请先退出~" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+            [alertView show];
+            return;
+        }
         teamId = [NSString stringWithFormat:@"%@",teamArray[btn.tag][@"Id"] ];
         teamImg = [NSString stringWithFormat:@"%@",teamArray[btn.tag][@"ImagePath"] ];
         teamName = [NSString stringWithFormat:@"%@",teamArray[btn.tag][@"Name"] ];
