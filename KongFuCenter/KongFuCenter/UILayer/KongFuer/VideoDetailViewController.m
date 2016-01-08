@@ -58,8 +58,11 @@
         _cellHeight = 50;
 
     videoCommentArray=[NSMutableArray array];
+    
     commentWidth = SCREEN_WIDTH - _cellHeight -GapToLeft - 40;
+    
     [self getData];
+    
     [self initViews];
     
     // Do any additional setup after loading the view.

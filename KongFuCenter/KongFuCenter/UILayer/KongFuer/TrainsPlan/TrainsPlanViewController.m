@@ -114,6 +114,8 @@
     __unsafe_unretained __typeof(self) weakSelf = self;
 
     _mainTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        if(EnditMode == YES)
+//            return ;
         pageNo=0;
         [weakSelf getPlans];
         // 结束刷新
@@ -123,7 +125,8 @@
     
     // 上拉刷新
     _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
+//        if(EnditMode == YES)
+//            return;
         [weakSelf FooterRefresh];
         [_mainTableView.mj_footer endRefreshing];
     }];
@@ -331,7 +334,18 @@
 {
     sender.selected = ! sender.selected;
     
-    [delArr addObject:planArr[sender.tag][@"Id"]];
+    
+    if(sender.selected == YES)
+        [delArr addObject:planArr[sender.tag][@"Id"]];
+    else
+    {
+        for (int i = 0; i <delArr.count; i++) {
+            if([planArr[sender.tag][@"Id"] isEqual:delArr[i]])
+            {
+                [delArr removeObjectAtIndex:i];
+            }
+        }
+    }
 }
 
 -(void)btnClick:(UIButton *)sender
@@ -600,6 +614,12 @@
             [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             roundBtn.tag = indexPath.row;
             [cell addSubview:roundBtn];
+            for (int i=0 ; i<delArr.count; i++) {
+                
+                if ([tempDict[@"Id"] isEqual:delArr[i]]) {
+                    roundBtn.selected = YES;
+                }
+            }
             
             [cellBtnArr addObject:roundBtn];
             
@@ -637,8 +657,16 @@
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     if(EnditMode)
     {
-        UIButton *tempBtn = cellBtnArr[indexPath.row];
-        tempBtn.selected = !tempBtn.selected;
+        
+      //  tempBtn.selected = !tempBtn.selected;
+        
+//        for(int i =0;i < cellBtnArr.count;i++)
+//        {
+//            UIButton *tempBtn = cellBtnArr[indexPath.row];
+//            
+//            if(tempBtn.tag == indexPath.row)
+//              [ self roundBtnClick:tempBtn];
+//        }
         return;
     }
     TrainsPlanDetailViewController *trainPlanDetailViewCtl = [[TrainsPlanDetailViewController alloc] init];

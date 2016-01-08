@@ -745,7 +745,7 @@
 }
 
 -(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andCitycode:(NSString *)citycode{
-    if (startRowIndex && maximumRows) {
+    if (startRowIndex && maximumRows && name && citycode) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamPage",Url];
         NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"name":name,@"citycode":citycode};
         [self PostRequest:url andpram:prm];
@@ -1041,6 +1041,19 @@
 }
 
 #pragma mark 核动力
+
+-(void)delVideo:(NSString *)VideoId
+{
+    if(VideoId)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Hewuzhe.asmx/DeleteVideo",Url];
+        NSDictionary *prm = @{@"id":VideoId};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+}
+
 -(void)uploadVideoWithPath:(NSURL *)videoPath
 {
     if (videoPath) {
