@@ -20,6 +20,7 @@
     UITableView *_mainTableView;
     NSDictionary *personMatchDetalDict;
     UIView *moreSettingBackView;
+    ApplyForMatchViewController *applyForMatchViewCtl;
 }
 @end
 #define GapToLeft   20
@@ -185,12 +186,18 @@
     moreSettingBackView.hidden = YES;
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    if (applyForMatchViewCtl) {
+        [self initData];
+    }
+}
+
 #pragma mark - Click actions
 -(void)actionBtnClick:(UIButton*)sender
 {
     if([sender.titleLabel.text isEqualToString:@"我要报名"])
     {
-        ApplyForMatchViewController *applyForMatchViewCtl = [[ApplyForMatchViewController alloc] init];
+        applyForMatchViewCtl = [[ApplyForMatchViewController alloc] init];
         [applyForMatchViewCtl setApplyForMatchMode:Mode_Add];
         applyForMatchViewCtl.navtitle = @"武者大赛报名";
         applyForMatchViewCtl.matchId = _matchId;

@@ -35,6 +35,16 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)initData{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getMatchPersonInfoCallBack:"];
+}
+
+-(void)getMatchPersonInfoCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        NSLog(@"%@",dict);
+    }
+}
 
 -(void)initViews
 {
