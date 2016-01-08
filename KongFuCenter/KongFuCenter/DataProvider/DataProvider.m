@@ -745,7 +745,7 @@
 }
 
 -(void)SelectTeamPage:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows andName:(NSString *)name andCitycode:(NSString *)citycode{
-    if (startRowIndex && maximumRows) {
+    if (startRowIndex && maximumRows && name && citycode) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamPage",Url];
         NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"name":name,@"citycode":citycode};
         [self PostRequest:url andpram:prm];
