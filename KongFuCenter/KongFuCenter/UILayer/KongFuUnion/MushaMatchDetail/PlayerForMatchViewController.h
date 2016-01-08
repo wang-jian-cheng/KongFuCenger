@@ -8,10 +8,19 @@
 
 #import "BaseNavigationController.h"
 #import "UserHeadView.h"
+
+typedef enum _playerForMatchMode
+{
+    Mode_MushaPlayer,
+    Mode_TeamPlayer,
+}PlayerForMatchMode;
+
+
 @interface PlayerForMatchViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
     //UISearchBar *_searchBar;
     UISearchDisplayController *_searchDisplayController;
 }
 @property(nonatomic,strong) NSString *matchId;
+@property(nonatomic) PlayerForMatchMode playerForMatchMode;
 @end

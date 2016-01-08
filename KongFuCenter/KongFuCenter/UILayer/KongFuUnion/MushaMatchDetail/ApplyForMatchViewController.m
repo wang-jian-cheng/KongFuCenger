@@ -26,6 +26,9 @@
     UITextView  *titleView;
     UITextView  *contentView;
     NSUserDefaults *userDefault;
+    SCVideoPlayerView *playerView;
+    UIButton *uploadVideoBtn;
+    UITextView *currentTv;
 }
 @end
 
@@ -38,9 +41,25 @@
     [self addRightbuttontitle:@"确定"];
     imagebase64 = @"";
     userDefault = [NSUserDefaults standardUserDefaults];
-    [self initViews];
-    // Do any additional setup after loading the view.
+    if (_applyForMatchMode == Mode_Add) {
+        [self initViews];
+    }else{
+        
+    }
 }
+
+-(void)initData{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getWorksInfoCallBack:"];
+    
+}
+
+-(void)getWorksInfoCallBack:(id)dict{
+    if([dict[@"code"] intValue] == 200){
+        NSLog(@"%@",dict);
+    }
+}
+
 -(void)initViews
 {
     _cellHeight = SCREEN_HEIGHT/8;
@@ -95,12 +114,19 @@
     [UIView setAnimationDuration:0.5];
     //               CGRectMake(0, self.view.frame.size.height-keyboardRect.size.height-kViewHeight, 320, kViewHeight)]
     //设置view的frame，往上平移
-    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height -Header_Height -keyboardRect.size.height)];
+    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,SCREEN_HEIGHT -Header_Height -keyboardRect.size.height)];
     
     NSLog(@"tempIndexPath.section = %ld tempIndexPath.row = %ld",(long)tempIndexPath.section,tempIndexPath.row);
     
     [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     
+    if (currentTv == titleView) {
+        playerView.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3 - 80);
+        uploadVideoBtn.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3 - 80);
+    }else{
+        playerView.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3 - 120);
+        uploadVideoBtn.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3 - 120);
+    }
     
     //[_mainTableView reloadData];
     [UIView commitAnimations];
@@ -115,7 +141,8 @@
     [UIView setAnimationDuration:0.5];
     //设置view的frame，往下平移
     [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,SCREEN_HEIGHT - Header_Height)];
-    
+    playerView.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3);
+    uploadVideoBtn.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3);
     //[_mainTableView reloadData];
     [UIView commitAnimations];
     
@@ -192,19 +219,23 @@
         [alertView show];
         return;
     }
+    [SVProgressHUD showWithStatus:@"正在解析视频..."];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getVideoCallBack:"];
     [dataProvider uploadVideoWithPath:videoURL];
 }
 
 -(void)getVideoCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     if([dict[@"code"] intValue] == 200){
         NSLog(@"%@",dict);
         DataProvider *dataProvider = [[DataProvider alloc] init];
         if ([imagebase64 isEqual:@""]) {
+            [SVProgressHUD showWithStatus:@"正在保存..."];
             [dataProvider setDelegateObject:self setBackFunctionName:@"saveMushaMatchCallBack:"];
-            [dataProvider JoinMatch:_matchId anduserid:[userDefault valueForKey:@"id"] andmatchVideo:[dict[@"data"] valueForKey:@"VideoName"] andmatchImage:[dict[@"data"] valueForKey:@"ImageName"] andmatchDescription:contentView.text];
+            [dataProvider JoinMatch:_matchId anduserid:[userDefault valueForKey:@"id"] andmatchVideo:[dict[@"data"] valueForKey:@"VideoName"] andmatchImage:[dict[@"data"] valueForKey:@"ImageName"] andmatchDescription:contentView.text andtitle:titleView.text];
         }else{
+            [SVProgressHUD showWithStatus:@"正在解析图片..."];
             videoName = [dict[@"data"] valueForKey:@"VideoName"];
             [dataProvider setDelegateObject:self setBackFunctionName:@"getImgCallBack:"];
             [dataProvider UploadImgWithImgdata:imagebase64];
@@ -213,17 +244,20 @@
 }
 
 -(void)getImgCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict);
+        [SVProgressHUD showWithStatus:@"正在保存..."];
         DataProvider *dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"saveMushaMatchCallBack:"];
-        [dataProvider JoinMatch:_matchId anduserid:[userDefault valueForKey:@"id"] andmatchVideo:[dict[@"data"] valueForKey:@"VideoName"] andmatchImage:[dict[@"data"] valueForKey:@"ImageName"] andmatchDescription:contentView.text];
+        [dataProvider JoinMatch:_matchId anduserid:[userDefault valueForKey:@"id"] andmatchVideo:videoName andmatchImage:[dict[@"data"] valueForKey:@"ImagePath"] andmatchDescription:contentView.text andtitle:titleView.text];
     }
 }
 
 -(void)saveMushaMatchCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
-        
+        NSLog(@"%@",dict);
     }
 }
 
@@ -245,7 +279,7 @@
             
             // 创建视频播放器
             _player = [SCPlayer player];
-            SCVideoPlayerView *playerView = [[SCVideoPlayerView alloc] initWithPlayer:_player];
+            playerView = [[SCVideoPlayerView alloc] initWithPlayer:_player];
             playerView.tag = 400;
             playerView.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
             playerView.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3);
@@ -254,11 +288,11 @@
             [_player setItemByUrl:videoURL];
             [_player play];
             
-            UIButton *uploadVideo = [[UIButton alloc] initWithFrame:playerView.frame];
-            [uploadVideo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            uploadVideoBtn = [[UIButton alloc] initWithFrame:playerView.frame];
+            [uploadVideoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             //[uploadVideo setTitle:@"重新上传视频" forState:UIControlStateNormal];
-            [uploadVideo addTarget:self action:@selector(uploadVideoEvent) forControlEvents:UIControlEventTouchUpInside];
-            [self.view addSubview:uploadVideo];
+            [uploadVideoBtn addTarget:self action:@selector(uploadVideoEvent) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:uploadVideoBtn];
         }
         else
         {
@@ -291,6 +325,7 @@
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
     tempIndexPath = [NSIndexPath indexPathForRow:0 inSection:textView.tag];
+    currentTv = textView;
     return YES;
 }
 

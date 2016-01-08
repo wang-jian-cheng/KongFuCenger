@@ -8,10 +8,17 @@
 
 #import "BaseNavigationController.h"
 
+typedef enum _applyForMatchMode
+{
+    Mode_Add,
+    Mode_Update
+}ApplyForMatchMode;
+
 @interface ApplyForMatchViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 {
     CGFloat _keyHeight;
     NSIndexPath *tempIndexPath;
 }
 @property(nonatomic,strong) NSString *matchId;
+@property(nonatomic) ApplyForMatchMode applyForMatchMode;
 @end

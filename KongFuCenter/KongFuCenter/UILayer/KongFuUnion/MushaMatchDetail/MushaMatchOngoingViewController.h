@@ -12,11 +12,13 @@
 
 typedef enum _mushaMatchOngoingMode
 {
-    Mode_OnGoing,
-    Mode_Ranking
+    Mode_MushaOnGoing,
+    Mode_MushaRanking,
+    Mode_TeamOnGoing,
+    Mode_TeamRanking
 }MushaMatchOngoingMode;
 
-@interface MushaMatchOngoingViewController : BaseNavigationController<UICollectionViewDataSource,UICollectionViewDelegate,UISearchBarDelegate>
+@interface MushaMatchOngoingViewController : BaseNavigationController<UICollectionViewDataSource,UICollectionViewDelegate,UITextFieldDelegate>
 
 @property(nonatomic,strong) NSString *matchId;
 @property(nonatomic) MushaMatchOngoingMode mushaMatchOngoingMode;

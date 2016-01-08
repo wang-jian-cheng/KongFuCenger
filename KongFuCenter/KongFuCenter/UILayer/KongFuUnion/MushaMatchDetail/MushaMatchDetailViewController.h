@@ -9,8 +9,17 @@
 #import "BaseNavigationController.h"
 #import "ApplyForMatchViewController.h"
 #import "PlayerForMatchViewController.h"
-@interface MushaMatchDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+
+typedef enum _mushaMatchDetailMode
+{
+    Mode_Musha,
+    Mode_Team
+}MushaMatchDetailMode;
+
+@interface MushaMatchDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
 @property(nonatomic,strong) NSString *matchId;
+@property(nonatomic) BOOL isApply;
+@property(nonatomic) MushaMatchDetailMode mushaMatchDetailMode;
 
 @end

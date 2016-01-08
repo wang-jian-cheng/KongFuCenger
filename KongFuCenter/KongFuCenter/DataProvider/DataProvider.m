@@ -915,10 +915,10 @@
     }
 }
 
--(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription{
+-(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription andtitle:(NSString *)title{
     if (matchId && userid) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/JoinMatch",Url];
-        NSDictionary *prm = @{@"matchId":matchId,@"userid":userid,@"matchVideo":matchVideo,@"matchImage":matchImage,@"matchDescription":matchDescription};
+        NSDictionary *prm =@{@"matchId":matchId,@"userid":userid,@"matchVideo":matchVideo,@"matchImage":matchImage,@"matchDescription":matchDescription,@"title":title};
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];
@@ -929,6 +929,26 @@
     if (matchId) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchMemberByPerson",Url];
         NSDictionary *prm = @{@"matchId":matchId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)SelectMatchMemberByTeam:(NSString *)matchId{
+    if (matchId) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchMemberByTeam",Url];
+        NSDictionary *prm = @{@"matchId":matchId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)SelectMatchMemberDetail:(NSString *)matchId anduserid:(NSString *)userid{
+    if (matchId && userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchMemberByTeam",Url];
+        NSDictionary *prm = @{@"matchId":matchId,@"userid":userid};
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];

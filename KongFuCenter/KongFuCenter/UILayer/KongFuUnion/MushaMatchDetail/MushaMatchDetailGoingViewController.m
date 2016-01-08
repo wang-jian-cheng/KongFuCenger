@@ -26,7 +26,6 @@
     
     //初始化参数
     self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"武者大赛详情"];
     [self addLeftButton:@"left"];
     
     //初始化View
@@ -77,6 +76,12 @@
     [self.navigationController pushViewController:videoViewCtl animated:YES];
 }
 
+-(void)myVideoTeamEvent{
+    VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
+    videoViewCtl.navtitle = @"战队详情";
+    [self.navigationController pushViewController:videoViewCtl animated:YES];
+}
+
 -(void)playerDetail{
     PlayerForMatchViewController *playForMatchViewCtl = [[PlayerForMatchViewController alloc] init];
     playForMatchViewCtl.navtitle = @"参赛成员";
@@ -84,9 +89,24 @@
     [self.navigationController pushViewController:playForMatchViewCtl animated:YES];
 }
 
+-(void)playerTeamDetail{
+    PlayerForMatchViewController *playForMatchViewCtl = [[PlayerForMatchViewController alloc] init];
+    playForMatchViewCtl.navtitle = @"参赛战队";
+    playForMatchViewCtl.matchId = _matchId;
+    [self.navigationController pushViewController:playForMatchViewCtl animated:YES];
+}
+
 -(void)voteEvent{
     MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
-    [mushaMatchOngoingViewCtl setMushaMatchOngoingMode:Mode_Ranking];
+    [mushaMatchOngoingViewCtl setMushaMatchOngoingMode:Mode_MushaRanking];
+    mushaMatchOngoingViewCtl.navtitle = @"投票排名";
+    mushaMatchOngoingViewCtl.matchId = _matchId;
+    [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
+}
+
+-(void)voteTeamEvent{
+    MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
+    [mushaMatchOngoingViewCtl setMushaMatchOngoingMode:Mode_TeamRanking];
     mushaMatchOngoingViewCtl.navtitle = @"投票排名";
     mushaMatchOngoingViewCtl.matchId = _matchId;
     [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
@@ -200,7 +220,7 @@
             playerDetail.layer.cornerRadius = 8;
             playerDetail.layer.masksToBounds = YES;
             
-            if (_mushaMatchDetailGoingMode == Mode_Going) {
+            if (_mushaMatchDetailGoingMode == Mode_MushaGoing) {
                 [myVideoBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 myVideoBtn.backgroundColor = [UIColor whiteColor];
                 [myVideoBtn setTitle:@"我的视频" forState:UIControlStateNormal];
@@ -208,7 +228,7 @@
                 
                 [playerDetail setTitle:@"已报名选手详情" forState:UIControlStateNormal];
                 [playerDetail addTarget:self action:@selector(playerDetail) forControlEvents:UIControlEventTouchUpInside];
-            }else{
+            }else if(_mushaMatchDetailGoingMode == Mode_MushaEnd){
                 [myVideoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 myVideoBtn.backgroundColor = [UIColor grayColor];
                 [myVideoBtn setTitle:@"活动结束" forState:UIControlStateNormal];
@@ -216,6 +236,22 @@
                 
                 [playerDetail setTitle:@"投票结果" forState:UIControlStateNormal];
                 [playerDetail addTarget:self action:@selector(voteEvent) forControlEvents:UIControlEventTouchUpInside];
+            }else if(_mushaMatchDetailGoingMode == Mode_TeamOnGoing){
+                [myVideoBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                myVideoBtn.backgroundColor = [UIColor whiteColor];
+                [myVideoBtn setTitle:@"战队视频" forState:UIControlStateNormal];
+                [myVideoBtn addTarget:self action:@selector(myVideoTeamEvent) forControlEvents:UIControlEventTouchUpInside];
+                
+                [playerDetail setTitle:@"已报名战队详情" forState:UIControlStateNormal];
+                [playerDetail addTarget:self action:@selector(playerTeamDetail) forControlEvents:UIControlEventTouchUpInside];
+            }else if(_mushaMatchDetailGoingMode == Mode_TeamEnd){
+                [myVideoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                myVideoBtn.backgroundColor = [UIColor grayColor];
+                [myVideoBtn setTitle:@"活动结束" forState:UIControlStateNormal];
+                //[myVideoBtn addTarget:self action:@selector(activityEvent) forControlEvents:UIControlEventTouchUpInside];
+                
+                [playerDetail setTitle:@"投票结果" forState:UIControlStateNormal];
+                [playerDetail addTarget:self action:@selector(voteTeamEvent) forControlEvents:UIControlEventTouchUpInside];
             }
             
             [cell addSubview:playerDetail];

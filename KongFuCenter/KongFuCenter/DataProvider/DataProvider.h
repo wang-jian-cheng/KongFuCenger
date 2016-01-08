@@ -291,10 +291,16 @@
 -(void)SelectMatchDetail:(NSString *)matchId;
 
 //个人比赛报名
--(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription;
+-(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription andtitle:(NSString *)title;
 
 //查询比赛参赛人员
 -(void)SelectMatchMemberByPerson:(NSString *)matchId;
+
+//查询比赛参赛战队
+-(void)SelectMatchMemberByTeam:(NSString *)matchId;
+
+//查看参赛人员明细
+-(void)SelectMatchMemberDetail:(NSString *)matchId anduserid:(NSString *)userid;
 
 #pragma mark - 视频评论
 // 评论视频

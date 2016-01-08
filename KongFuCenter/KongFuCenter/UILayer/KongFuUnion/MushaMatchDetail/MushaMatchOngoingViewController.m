@@ -17,8 +17,7 @@
     //For views
     NSInteger _cellCollectionCount;
     UICollectionView *mainCollectionView;
-    
-    UISearchBar *_searchBar;
+    UITextField *searchTxt;
     
 }
 @end
@@ -28,7 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    if (_mushaMatchOngoingMode == Mode_OnGoing) {
+    self.view.backgroundColor = BACKGROUND_COLOR;
+    if (_mushaMatchOngoingMode == Mode_MushaOnGoing || _mushaMatchOngoingMode == Mode_TeamOnGoing) {
         [self addRightbuttontitle:@"赛事介绍"];
     }
     [self initViews];
@@ -41,26 +41,50 @@
 //    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, Header_Height + 10, SCREEN_WIDTH, 60)];
 //    backView.backgroundColor = ItemsBaseColor;
 //    [self.view addSubview:backView];
+//    
+//    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, Header_Height + 10, SCREEN_WIDTH
+//                                                               , 60)];
+//    _searchBar.delegate = self;
+//    _searchBar.placeholder = @"参赛者编号";
+//    _searchBar.backgroundColor = ItemsBaseColor;
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, Header_Height + 10, SCREEN_WIDTH
-                                                               , 60)];
-    _searchBar.delegate = self;
-    _searchBar.placeholder = @"参赛者编号";
-    _searchBar.backgroundColor = ItemsBaseColor;
     
-    [self.view addSubview:_searchBar];
+    searchTxt = [[UITextField alloc] initWithFrame:CGRectMake(0, Header_Height + 5, SCREEN_WIDTH, 45)];
+    searchTxt.backgroundColor = ItemsBaseColor;
+    searchTxt.returnKeyType = UIReturnKeySearch;
+    searchTxt.delegate = self;
+    searchTxt.textColor = [UIColor whiteColor];
+    searchTxt.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"参赛者编号" attributes:@{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.44 green:0.43 blue:0.44 alpha:1]}];
+    UIImageView *searchIv = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 35, 20)];
+    searchIv.contentMode = UIViewContentModeScaleAspectFit;
+    searchIv.image = [UIImage imageNamed:@"search"];
+    searchTxt.leftView = searchIv;
+    searchTxt.leftViewMode = UITextFieldViewModeAlways;
+    
+    [self.view addSubview:searchTxt];
     
     _cellCollectionCount = 6;
     [self initCollectionView];
 }
 
 -(void)clickRightButton:(UIButton *)sender{
-    if (_mushaMatchOngoingMode == Mode_OnGoing) {
+    if (_mushaMatchOngoingMode == Mode_MushaOnGoing) {
         MushaMatchDetailGoingViewController *mushaMatchDetailGoingVC = [[MushaMatchDetailGoingViewController alloc] init];
-        [mushaMatchDetailGoingVC setMushaMatchDetailGoingMode:Mode_Going];
+        [mushaMatchDetailGoingVC setMushaMatchDetailGoingMode:Mode_MushaGoing];
+        mushaMatchDetailGoingVC.navtitle = @"武者大赛介绍";
+        mushaMatchDetailGoingVC.matchId = _matchId;
+        [self.navigationController pushViewController:mushaMatchDetailGoingVC animated:YES];
+    }else if (_mushaMatchOngoingMode == Mode_TeamOnGoing){
+        MushaMatchDetailGoingViewController *mushaMatchDetailGoingVC = [[MushaMatchDetailGoingViewController alloc] init];
+        [mushaMatchDetailGoingVC setMushaMatchDetailGoingMode:Mode_TeamGoing];
+        mushaMatchDetailGoingVC.navtitle = @"战队大赛介绍";
         mushaMatchDetailGoingVC.matchId = _matchId;
         [self.navigationController pushViewController:mushaMatchDetailGoingVC animated:YES];
     }
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [searchTxt resignFirstResponder];
 }
 
 -(void)initCollectionView
@@ -80,7 +104,7 @@
     
     
     
-    mainCollectionView = [[UICollectionView alloc]  initWithFrame:CGRectMake(0, Header_Height + 10 +60+10, SCREEN_WIDTH , SCREEN_HEIGHT-( Header_Height + 10 +60+10)) collectionViewLayout:layout];
+    mainCollectionView = [[UICollectionView alloc]  initWithFrame:CGRectMake(0, Header_Height + 5 +45+10, SCREEN_WIDTH , SCREEN_HEIGHT-( Header_Height + 5 +45+10)) collectionViewLayout:layout];
     
     [layout setHeaderReferenceSize:CGSizeMake(mainCollectionView.frame.size.width, 0)];//暂不现实时间
     
@@ -226,20 +250,14 @@
     
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark UITextFieldDelegate
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    //[self TeamTopRefresh];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [searchTxt resignFirstResponder];
+    return YES;
 }
-*/
 
 @end

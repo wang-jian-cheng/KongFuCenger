@@ -7,6 +7,10 @@
 //
 
 #import "MushaMatchDetailViewController.h"
+#import "ApplyForMatchViewController.h"
+
+#define cancelApply  (2015+1)
+#define changeWorks  (2015+2)
 
 @interface MushaMatchDetailViewController ()
 {
@@ -15,6 +19,7 @@
     CGFloat _cellHeight;
     UITableView *_mainTableView;
     NSDictionary *personMatchDetalDict;
+    UIView *moreSettingBackView;
 }
 @end
 #define GapToLeft   20
@@ -25,8 +30,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addLeftButton:@"left"];
+    if (_isApply) {
+        [self addRightButton:@"plus"];
+    }
     [self initData];
-    // Do any additional setup after loading the view.
 }
 
 -(void)initData{
@@ -62,8 +69,120 @@
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
     
-
+    moreSettingBackView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100 -10), Header_Height, 100, 88)];
+    moreSettingBackView.backgroundColor = ItemsBaseColor;
+    UIButton *newBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
+    [newBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [newBtn setTitle:@"取消报名" forState:UIControlStateNormal];
+    newBtn.tag = cancelApply;
+    [newBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
+    UIView *lineView2 =[[UIView alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width - 2, 1)];
+    lineView2.backgroundColor = Separator_Color;
+    UIButton *delBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, moreSettingBackView.frame.size.height/2, moreSettingBackView.frame.size.width,  moreSettingBackView.frame.size.height/2)];
+    [delBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [delBtn setTitle:@"更改作品" forState:UIControlStateNormal];
+    [delBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    delBtn.tag = changeWorks;
+    
+    
+    [moreSettingBackView addSubview:newBtn];
+    [moreSettingBackView addSubview:delBtn];
+    [moreSettingBackView addSubview:lineView2];
+    
+    [self.view addSubview:moreSettingBackView];
+    moreSettingBackView.hidden = YES;
+}
+
+-(void)btnClick:(UIButton *)sender
+{
+    if(sender.tag == cancelApply)
+    {
+        
+    }
+    else  if(sender.tag == changeWorks)
+    {
+        ApplyForMatchViewController *applyForMatchVC = [[ApplyForMatchViewController alloc] init];
+        [applyForMatchVC setApplyForMatchMode:Mode_Update];
+        applyForMatchVC.matchId = _matchId;
+        applyForMatchVC.navtitle = @"修改作品";
+        [self.navigationController pushViewController:applyForMatchVC animated:YES];
+    }
+}
+
+-(void)clickRightButton:(UIButton *)sender{
+    if (_isApply) {
+        if(moreSettingBackView.hidden == YES)
+        {
+            moreSettingBackView.hidden = NO;
+            [self positionShowView:moreSettingBackView];
+        }
+        else
+        {
+            [self positionDismissView:moreSettingBackView];
+        }
+    }
+}
+#define SHOW_ANIM_KEY   @"showSettingView"
+#define DISMISS_ANIM_KEY   @"dismissSettingView"
+-(void)positionShowView:(UIView *)tempView
+{
+    CABasicAnimation *scale=[CABasicAnimation animationWithKeyPath:@"transform"];
+    [scale setFromValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 0, 1.0)]];
+    [scale setToValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    
+    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2), Header_Height)];
+    animation.toValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2),
+                                                              (moreSettingBackView.frame.size.height/2 + moreSettingBackView.frame.origin.y))];
+    //动画执行后保持显示状态 但是属性值不会改变 只会保持显示状态
+    animation.fillMode = kCAFillModeForwards;
+    animation.removedOnCompletion = NO;
+    
+    //    animation.autoreverses = YES;//动画返回
+    
+    CAAnimationGroup *group=[CAAnimationGroup animation];
+    [group setAnimations:[NSArray arrayWithObjects:scale,animation, nil]];
+    [group setDuration:0.5];
+    //    animation.repeatCount = MAXFLOAT;//重复
+    //tempView.layer.delegate = self;
+    group.delegate= self;
+    [moreSettingBackView.layer addAnimation:group forKey:SHOW_ANIM_KEY];
+}
+
+-(void)positionDismissView:(UIView *)tempView
+{
+    
+    
+    CABasicAnimation *scale=[CABasicAnimation animationWithKeyPath:@"transform"];
+    [scale setFromValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1, 1.0)]];
+    [scale setToValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 0.0, 1.0)]];
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    
+    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2),
+                                                                (moreSettingBackView.frame.size.height/2 + moreSettingBackView.frame.origin.y))];
+    animation.toValue = [NSValue valueWithCGPoint:CGPointMake((moreSettingBackView.frame.origin.x+moreSettingBackView.frame.size.width/2),
+                                                              Header_Height)];
+    //动画执行后保持显示状态 但是属性值不会改变 只会保持显示状态
+    animation.fillMode = kCAFillModeForwards;
+    animation.removedOnCompletion = NO;
+    
+    //    animation.autoreverses = YES;//动画返回
+    
+    CAAnimationGroup *group=[CAAnimationGroup animation];
+    [group setAnimations:[NSArray arrayWithObjects:scale,animation, nil]];
+    [group setDuration:0.5];
+    //    animation.repeatCount = MAXFLOAT;//重复
+    group.delegate= self;
+    [tempView.layer addAnimation:group forKey:DISMISS_ANIM_KEY];
+    
+    [self performSelector:@selector(viewSetHidden:) withObject:[NSNumber numberWithBool:YES] afterDelay:0.5 - 0.1];
+}
+-(void)viewSetHidden:(id)info
+{
+    moreSettingBackView.hidden = YES;
 }
 
 #pragma mark - Click actions
@@ -72,6 +191,7 @@
     if([sender.titleLabel.text isEqualToString:@"我要报名"])
     {
         ApplyForMatchViewController *applyForMatchViewCtl = [[ApplyForMatchViewController alloc] init];
+        [applyForMatchViewCtl setApplyForMatchMode:Mode_Add];
         applyForMatchViewCtl.navtitle = @"武者大赛报名";
         applyForMatchViewCtl.matchId = _matchId;
         [self.navigationController pushViewController:applyForMatchViewCtl animated:YES];
@@ -79,9 +199,24 @@
     else if([sender.titleLabel.text isEqualToString:@"查看报名选手"])
     {
         PlayerForMatchViewController *playForMatchViewCtl = [[PlayerForMatchViewController alloc] init];
+        [playForMatchViewCtl setPlayerForMatchMode:Mode_MushaPlayer];
         playForMatchViewCtl.navtitle = @"参赛成员";
         playForMatchViewCtl.matchId = _matchId;
         [self.navigationController pushViewController:playForMatchViewCtl animated:YES];
+    }
+}
+
+-(void)connectPhoneClick:(UIButton *)btn{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认拨打电话?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertView.delegate = self;
+    alertView.tag = 100;
+    [alertView show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSString *phoneStr = [NSString stringWithFormat:@"tel://%@",@""];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneStr]];
     }
 }
 
@@ -241,24 +376,32 @@
             contentView.text = str;
             contentView.backgroundColor = ItemsBaseColor;
             [cell addSubview:contentView];
-            
-            UIButton *actionBtn =[[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight )];
-            actionBtn.backgroundColor = BACKGROUND_COLOR;
-            [actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [actionBtn setTitle:@"我要报名" forState:UIControlStateNormal];
-            actionBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-            [actionBtn addTarget:self action:@selector(actionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            [cell addSubview:actionBtn];
-            
-            
-            UIButton *checkBtn =[[UIButton alloc] initWithFrame:CGRectMake((actionBtn.frame.size.width+actionBtn.frame.origin.x +50), (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight)];
-            checkBtn.backgroundColor = BACKGROUND_COLOR;
-            [checkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [checkBtn setTitle:@"查看报名选手" forState:UIControlStateNormal];
-            checkBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-            [checkBtn addTarget:self action:@selector(actionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            [cell addSubview:checkBtn];
-            
+            if (_mushaMatchDetailMode == Mode_Musha) {
+                UIButton *actionBtn =[[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight )];
+                actionBtn.backgroundColor = BACKGROUND_COLOR;
+                [actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [actionBtn setTitle:@"我要报名" forState:UIControlStateNormal];
+                actionBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [actionBtn addTarget:self action:@selector(actionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:actionBtn];
+                
+                
+                UIButton *checkBtn =[[UIButton alloc] initWithFrame:CGRectMake((actionBtn.frame.size.width+actionBtn.frame.origin.x +50), (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight)];
+                checkBtn.backgroundColor = BACKGROUND_COLOR;
+                [checkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [checkBtn setTitle:@"查看报名选手" forState:UIControlStateNormal];
+                checkBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [checkBtn addTarget:self action:@selector(actionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:checkBtn];
+            }else{
+                UIButton *connectPhone = [[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, (contentView.frame.size.height + contentView.frame.origin.y + 10), SCREEN_WIDTH -GapToLeft*2, _cellHeight)];
+                connectPhone.backgroundColor = BACKGROUND_COLOR;
+                [connectPhone setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [connectPhone setTitle:@"联系电话" forState:UIControlStateNormal];
+                connectPhone.titleLabel.font = [UIFont systemFontOfSize:14];
+                [connectPhone addTarget:self action:@selector(connectPhoneClick:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:connectPhone];
+            }
         }
             break;
         default:

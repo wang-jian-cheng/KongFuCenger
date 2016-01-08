@@ -10,8 +10,10 @@
 
 typedef enum _mushaMatchDetailGoingMode
 {
-    Mode_Going,
-    Mode_End
+    Mode_MushaGoing,
+    Mode_MushaEnd,
+    Mode_TeamGoing,
+    Mode_TeamEnd
 }MushaMatchDetailGoingMode;
 
 @interface MushaMatchDetailGoingViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>

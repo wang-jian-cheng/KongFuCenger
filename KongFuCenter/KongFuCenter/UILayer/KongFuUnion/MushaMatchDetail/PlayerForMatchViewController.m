@@ -33,10 +33,15 @@
     // Do any additional setup after loading the view.
 }
 -(void)initData{
+    PlayerArray = [[NSArray alloc] init];
     [SVProgressHUD showWithStatus:@"加载中..."];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"SelectMatchMemberByPersonCallBack:"];
-    [dataProvider SelectMatchMemberByPerson:_matchId];
+    if (_playerForMatchMode == Mode_MushaPlayer) {
+        [dataProvider SelectMatchMemberByPerson:_matchId];
+    }else{
+        [dataProvider SelectMatchMemberByTeam:_matchId];
+    }
 }
 -(void)SelectMatchMemberByPersonCallBack:(id)dict{
     [SVProgressHUD dismiss];
@@ -157,7 +162,7 @@
     if (section == 0) {
         return 1;
     }else{
-        return 6;
+        return PlayerArray.count;
     }
 }
 
@@ -306,14 +311,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark UITextFieldDelegate
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    //[self TeamTopRefresh];
 }
-*/
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [searchTxt resignFirstResponder];
+    return YES;
+}
 
 @end
