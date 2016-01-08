@@ -12,6 +12,17 @@
 
 
 #pragma mark - add by wangjc
+
++(UIApplication*)showJuHua
+{
+    
+    UIApplication *application = [UIApplication sharedApplication];
+    application.networkActivityIndicatorVisible = YES;
+    
+    
+    return application;
+}
+
 +(CGFloat)heightWithString:(NSString*)string fontSize:(CGFloat)fontSize width:(CGFloat)width
 {
     NSDictionary *attrs = @{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]};

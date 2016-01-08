@@ -7,6 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
+#import "UnionNews/UnionNewsDetailViewController.h"
 
 @interface JHStoryViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 

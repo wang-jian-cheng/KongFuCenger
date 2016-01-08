@@ -15,12 +15,16 @@
 #define GapToLeft           20
 #define TextColors          [UIColor whiteColor]
 
+#define  WebViewHeight  (9*_cellHeight)
+
 @interface UnionNewsDetailViewController ()
 {
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    
+    NSMutableArray * videoCommentArray;//评论列表
 }
 @end
 
@@ -29,7 +33,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
+    videoCommentArray = [NSMutableArray array];
     [self initViews];
+    [self GetVideoCommentDetial];
     // Do any additional setup after loading the view.
 }
 
@@ -37,7 +43,7 @@
 {
     _cellHeight = SCREEN_HEIGHT/12;
     _sectionNum = 2;
-    
+    commentWidth = SCREEN_WIDTH - _cellHeight -GapToLeft - 40;
     
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
@@ -54,6 +60,16 @@
     
     
     
+    webView = [[UIWebView alloc] init];
+ //   webView.scalespageToFit = YES;
+    
+    collectBtn = [[UIButton alloc] init];
+    
+    commentTextView = [[UITextView alloc] init];
+    commentTextView.delegate = self;
+    commentTextView.textColor = [UIColor whiteColor];
+    commentTextView.backgroundColor = [UIColor grayColor];
+    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
     [self.view addGestureRecognizer:tapGesture];
     
@@ -67,6 +83,95 @@
     
     
 }
+
+#pragma mark - self data source
+
+-(void)GetVideoCommentDetial
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoCommentDetialCallBack:"];
+    
+    [dataprovider getMessageIdInfo:self.webId];
+}
+
+-(void)GetVideoCommentDetialCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+            if(videoCommentArray !=nil && videoCommentArray.count>0)
+                [ videoCommentArray removeAllObjects];
+            
+            [videoCommentArray addObjectsFromArray:dict[@"data"]];
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+            [_mainTableView reloadData];
+            [SVProgressHUD dismiss];
+            NSLog(@"完成");
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+    
+}
+
+-(void)commentCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+            [SVProgressHUD showSuccessWithStatus:@"评论成功" maskType:SVProgressHUDMaskTypeBlack];
+            commentTextView.text = @"";
+            [self GetVideoCommentDetial];
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+            [_mainTableView reloadData];
+            [SVProgressHUD dismiss];
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+-(void)MakeActionCallBack:(id)dict
+{
+    if ([dict[@"code"] intValue]==200) {
+        [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];
+        
+        
+        NSInteger num =  [collectBtn.titleLabel.text integerValue];
+        if(zan == YES)
+            num++;
+        else if(num > 0)
+        {
+            num--;
+        }
+        [collectBtn setTitle:[NSString stringWithFormat:@"%ld",num] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"操作失败" maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
 #pragma mark - click actions
 -(void)tapViewAction:(id)sender
 {
@@ -76,7 +181,43 @@
 
 -(void)btnClick:(UIButton *)sender
 {
-    sender.selected = !sender.selected;
+    
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
+  
+    if(sender.selected == NO)
+    {
+        sender.selected = YES;
+        NSLog(@"点赞");
+        zan = YES;
+        [dataprovider voiceAction:self.webId andUserId:[Toolkit getUserID] andFlg:@"2"];
+    }
+    else
+    {
+        sender.selected = NO;
+        zan = NO;
+        NSLog(@"取消点赞");
+        
+        //                DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider voicedelete:self.webId andUserId:[Toolkit getUserID] andFlg:@"2"];
+    }
+    
+
+}
+
+-(void)sendCommentBtnClick:(id)sender
+{
+    if(commentTextView.text.length == 0)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入评论内容" delegate:self cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alertView show];
+        return;
+        
+    }
+    
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"commentCallBack:"];
+    [dataprovider commentVideo:self.webId andUserId:[Toolkit getUserID] andComment:commentTextView.text];
 }
 
 
@@ -128,6 +269,8 @@
 }
 
 
+
+
 #pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -145,7 +288,7 @@
             return 2;
             break;
         case CommentSection:
-            return 3;
+            return 2+videoCommentArray.count;
             break;
         default:
             break;
@@ -165,10 +308,32 @@
     switch (indexPath.section) {
         case DetailSection:
         {
+            if(indexPath.row==0)
+            {
+                webView.scalesPageToFit = YES;
+                
+                webView.frame = CGRectMake(0, 0, SCREEN_WIDTH, WebViewHeight);
+                NSURL* url;
+                if(self.webId == nil)
+                {
+                    url = [NSURL URLWithString:@"http://115.28.67.86:8033/MessageAndImageNews.aspx?id=260"];//创建URL
+                }
+                else
+                {
+                    url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Web_path,self.webId]];
+                }
+                NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
+                [webView loadRequest:request];
+                [cell addSubview:webView];
+            }
+            
             if(indexPath.row == 1)
             {
-                UIButton *collectBtn = [[UIButton alloc] initWithFrame:CGRectMake(GapToLeft,5 ,60 , _cellHeight - 5*2)];
-                [collectBtn setTitle:@"100" forState:UIControlStateNormal];
+                collectBtn.frame = CGRectMake(GapToLeft,5 ,60 , _cellHeight - 5*2);
+                if(self.collectNum !=nil)
+                    [collectBtn setTitle:self.collectNum forState:UIControlStateNormal];
+                else
+                    [collectBtn setTitle:@"0" forState:UIControlStateNormal];
                 [collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
                 [collectBtn setImage:[UIImage imageNamed:@"collect_h"] forState:UIControlStateSelected];
                 [collectBtn setTitleColor:TextColors forState:UIControlStateNormal];
@@ -178,7 +343,7 @@
                 
                 
                 UILabel *commentLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -60), 5, 60, (_cellHeight - 5*2))];
-                commentLab.text = @"阅读 100";
+                commentLab.text = [NSString stringWithFormat:@"评论%ld",videoCommentArray.count];
                 commentLab.textColor = TextColors;
                 commentLab.font = [UIFont systemFontOfSize:14];
                 
@@ -186,7 +351,11 @@
                 
                 UILabel *readNumLab = [[UILabel alloc] initWithFrame:CGRectMake((commentLab.frame.origin.x - 5 -60), 5, 60,
                                                                                 (_cellHeight - 5*2))];
-                readNumLab.text = @"阅读 100";
+                
+                if(self.readNum!=nil)
+                    readNumLab.text = [NSString stringWithFormat:@"阅读%@",self.readNum];
+                else
+                    readNumLab.text = [NSString stringWithFormat:@"阅读%@",@"0"];
                 readNumLab.textColor = TextColors;
                 readNumLab.font = [UIFont systemFontOfSize:14];
                 
@@ -199,6 +368,8 @@
        
         case CommentSection:
         {
+            
+            
             if(indexPath.row == 0)
             {
                 UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 150, _cellHeight)];
@@ -208,8 +379,9 @@
                 [cell addSubview:titleLab];
                 
                 
+                
                 UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
-                numLab.text = @"共100条";
+                numLab.text = [NSString stringWithFormat:@"共%ld条",videoCommentArray.count];
                 numLab.font = [UIFont systemFontOfSize:12];
                 numLab.textColor = TextColors;
                 [cell addSubview:numLab];
@@ -223,65 +395,103 @@
             {
                 /*head */
                 UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
-                                                                  andImgName:@"me"
+                                                                  andImgName:@"headImg"
                                                                       andNav:self.navigationController];
+                
+                NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,get_sp(@"PhotoPath")];
+                [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed: @"headImg"]];
                 [headView makeSelfRound];
                 [cell addSubview:headView];
                 
-                UITextView *commentTextView = [[UITextView alloc] initWithFrame:CGRectMake((headView.frame.origin.x + headView.frame.size.width+5),
-                                                                                           5,
-                                                                                           (SCREEN_WIDTH -(headView.frame.origin.x + headView.frame.size.width+5) - 10),(_cellHeight - 5*2) )];
+                commentTextView.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width+5),
+                                                   (_cellHeight -44)/2,
+                                                   (SCREEN_WIDTH -(headView.frame.origin.x + headView.frame.size.width+5) - 80),44 );
                 
                 tempIndexPath = indexPath;
-                [cell addSubview:commentTextView];
+                if(commentTextView.subviews !=nil)
+                {
+                    [commentTextView removeFromSuperview];
+                }
+                [cell.contentView addSubview:commentTextView];
+                
+                UIButton * btn_SendComment=[[UIButton alloc] initWithFrame:CGRectMake(commentTextView.frame.size.width+commentTextView.frame.origin.x+10, commentTextView.frame.origin.y, 60, commentTextView.frame.size.height)];
+                
+                [btn_SendComment setTitle:@"发布" forState:UIControlStateNormal];
+                [btn_SendComment setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [btn_SendComment addTarget:self action:@selector(sendCommentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                btn_SendComment.backgroundColor=ItemsBaseColor;
+                [cell addSubview:btn_SendComment];
             }
             else
             {
-                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
-                                                                  andImgName:@"me"
-                                                                      andNav:self.navigationController];
-                headView.userId = @"1";
-                [headView makeSelfRound];
-                [cell addSubview:headView];
-                
-                /*name*/
-                UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
-                                                                             headView.frame.origin.y, 40, headView.frame.size.height/2)];
-                nameLab.text = @"鹿晗";
-                nameLab.textColor = TextColors;
-                nameLab.font = [UIFont systemFontOfSize:12];
-                [cell addSubview:nameLab];
-                
-                UIButton *supportBtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 44),headView.frame.origin.y , 44, headView.frame.size.height/2)];
-                [supportBtn setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
-                [supportBtn setImage:[UIImage imageNamed:@"support_h"] forState:UIControlStateSelected];
-                [supportBtn setTitle:@"20" forState:UIControlStateNormal];
-                [supportBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-                supportBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-                [cell addSubview:supportBtn];
                 
                 
-                NSString *commentStr = @"666 很好 很好 很好，666 很好 很好 很好，666 很好 很好 很好，666 很好 很好 很好，666 很好 很好 很好";
-                CGFloat commentWidth = (SCREEN_WIDTH-(headView.frame.origin.x +headView.frame.size.width + 10) - 10);
-                CGFloat commentHeight = [Toolkit heightWithString:commentStr fontSize:12 width:commentWidth];
+                if(videoCommentArray == nil || videoCommentArray.count <= 0 || videoCommentArray.count < indexPath.row-1)
+                    return cell;
                 
-                UILabel *commentLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
-                                                                                headView.frame.size.height/2,
-                                                                                commentWidth,
-                                                                                commentHeight)];
-                commentLab.text = commentStr;
-                commentLab.font = [UIFont systemFontOfSize:12];
-                commentLab.numberOfLines = 0;
-                [cell addSubview:commentLab];
-                
-                UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100),
-                                                                             (commentLab.frame.size.height+commentLab.frame.origin.y),
-                                                                             100, 30)];
-                dateLab.text = @"2015年04月12日";
-                dateLab.font = [UIFont systemFontOfSize:12];
-                
-                [cell addSubview:dateLab];
-                
+                @try {
+                    NSDictionary *tempDict = videoCommentArray[indexPath.row - 2];
+                    
+                    
+                    UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
+                                                                      andImgName:@"me"
+                                                                          andNav:self.navigationController];
+                    
+                    NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"CommenterPhotoPath"]];
+                    [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]] ;
+                    headView.userId = tempDict[@"CommenterId"];
+                    [headView makeSelfRound];
+                    [cell addSubview:headView];
+                    
+                    /*name*/
+                    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
+                                                                                 headView.frame.origin.y, 200, headView.frame.size.height/2)];
+                    nameLab.text = tempDict[@"CommenterNicName"];
+                    nameLab.textColor = TextColors;
+                    nameLab.font = [UIFont systemFontOfSize:12];
+                    [cell addSubview:nameLab];
+                    
+                    
+                    UIButton *supportBtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 44),headView.frame.origin.y , 44, headView.frame.size.height/2)];
+                    [supportBtn setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
+                    [supportBtn setImage:[UIImage imageNamed:@"support_h"] forState:UIControlStateSelected];
+                    [supportBtn setTitle:@"20" forState:UIControlStateNormal];
+                    [supportBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    supportBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                    // [cell addSubview:supportBtn];
+                    
+                    
+                    NSString *commentStr = tempDict[@"Content"];
+                    // commentWidth = (SCREEN_WIDTH-(headView.frame.origin.x +headView.frame.size.width + 10) - 10);
+                    CGFloat commentHeight = [Toolkit heightWithString:commentStr fontSize:12 width:commentWidth];
+                    
+                    UILabel *commentLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
+                                                                                    headView.frame.size.height/2+5,
+                                                                                    commentWidth,
+                                                                                    commentHeight)];
+                    commentLab.text = commentStr;
+                    commentLab.font = [UIFont systemFontOfSize:12];
+                    commentLab.numberOfLines = 0;
+                    commentLab.textColor = [UIColor whiteColor];
+                    [cell addSubview:commentLab];
+                    
+                    UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100),
+                                                                                 (commentLab.frame.size.height+commentLab.frame.origin.y),
+                                                                                 100, 30)];
+                    dateLab.text =[tempDict[@"PublishTime"] substringToIndex:10];
+                    dateLab.font = [UIFont systemFontOfSize:12];
+                    dateLab.textColor = [UIColor grayColor];
+                    
+                    [cell addSubview:dateLab];
+                    
+                    
+                }
+                @catch (NSException *exception) {
+                    
+                }
+                @finally {
+                    
+                }
                 
             }
         }
@@ -313,18 +523,19 @@
             if (indexPath.row == 1) {
                 return _cellHeight;
             }
-            return 4*_cellHeight;
+            return WebViewHeight;
             
             break;
-
-        case 1:
+        case CommentSection:
+        {
             if(indexPath.row == 1)
-            {
-                return  _cellHeight;
-            }
-            return 2*_cellHeight;
-            break;
+                return _cellHeight;
             
+            NSString *commentStr = videoCommentArray[indexPath.row - 2][@"Content"];
+            //commentWidth = (SCREEN_WIDTH-(headView.frame.origin.x +headView.frame.size.width + 10) - 10);
+            CGFloat commentHeight = [Toolkit heightWithString:commentStr fontSize:12 width:commentWidth];
+            return commentHeight + 30+(_cellHeight-10)/2+10;
+        }
         default:
             break;
     }
@@ -337,7 +548,33 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
-    
+    if(indexPath.section == CommentSection)
+    {
+        if(indexPath.row < 2)
+            return;
+        
+        if(videoCommentArray == nil || videoCommentArray.count <= 0 || videoCommentArray.count < indexPath.row-1)
+            return;
+        @try {
+            NSDictionary *tempDict = videoCommentArray[indexPath.row -2];
+            
+            commentTextView.text = [NSString stringWithFormat:@"//%@:%@",tempDict[@"CommenterNicName"],tempDict[@"Content"]];
+            [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            [commentTextView becomeFirstResponder];
+            
+            NSRange range;
+            range.location = 0;
+            range.length = 0;
+            commentTextView.selectedRange = range;//光标设置到开始位置
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+        
+    }
 }
 
 

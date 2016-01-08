@@ -15,5 +15,8 @@
     int pageSize;
     
     NSString *_cateId;
+    
+    
+    
 }
 @end

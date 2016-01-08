@@ -218,6 +218,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
+    UnionNewsDetailViewController *unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
+    unionNewsViewCtl.webId =[ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"Id"]];
+    unionNewsViewCtl.navtitle = zhInfoArray[indexPath.row][@"Title"];
+    unionNewsViewCtl.collectNum = zhInfoArray[indexPath.row][@"FavoriteNum"];
+    [self.navigationController pushViewController:unionNewsViewCtl animated:YES];
 }
 
 @end

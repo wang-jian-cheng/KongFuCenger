@@ -9,6 +9,8 @@
 #import "UnionNewsViewController.h"
 #import "UnionNewsCell.h"
 #import "model_UnionNew.h"
+
+
 @interface UnionNewsViewController (){
     
     //datatable
@@ -20,6 +22,8 @@
     
     //view
     UIImageView *menuImgView;
+    
+    NSMutableArray *newArr;
 }
 
 @property (nonatomic, strong) NSMutableArray * arr_title;
@@ -35,6 +39,7 @@
     //初始化参数
     //self.view.backgroundColor = BACKGROUND_COLOR;
     mCellHeight = SCREEN_HEIGHT / 6;
+    newArr = [NSMutableArray array];
     [self setBarTitle:@"联盟动态"];
     [self addLeftButton:@"left"];
 
@@ -69,6 +74,7 @@
 -(void)initViews{
     UIView *menuView = [[UIView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, 44)];
     menuImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btnFlag"]];
+    pageSize = 10;
     menuImgView.contentMode = UIViewContentModeScaleAspectFit;
     menuView.backgroundColor = ItemsBaseColor;
     CGFloat everyMenuWidth = SCREEN_WIDTH / menuArray.count;
@@ -102,6 +108,11 @@
     
     mTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         pageNo=0;
+        
+        if(newArr != nil && newArr.count)
+        {
+            [newArr removeAllObjects];
+        }
         [weakSelf getUnionNewsDetail:_cateId];
         // 结束刷新
         [mTableView.mj_header endRefreshing];
@@ -117,6 +128,9 @@
     
     
     [self.view addSubview:mTableView];
+
+
+
 }
 
 
@@ -156,6 +170,8 @@
         @try
         {
             pageNo ++;
+            [newArr addObjectsFromArray:dict[@"data"]];
+            
         }
         @catch (NSException *exception) {
             
@@ -235,7 +251,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return newArr.count;
 }
 
 #pragma mark setting for section
@@ -257,12 +273,34 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"UnionNewsCell" owner:self options:nil] objectAtIndex:0];
         cell.backgroundColor = ItemsBaseColor;
     }
-    cell.mImageView.image = [UIImage imageNamed:@"jhstory"];
-    cell.mName.text = @"咏春拳公益巡回演出";
-    cell.mDetail.text = @"咏春拳是最快的制敌拳法,公益巡回演出,让大家更好的理解咏春拳";
-    cell.mDate.text = @"4月20日";
-    cell.mReadNum.text = @"200";
-    cell.mCollectionNum.text = @"100";
+    
+    
+    @try {
+        
+        if(newArr == nil || newArr.count == 0 || newArr.count - 1 < indexPath.row)
+        {
+            return cell;
+        }
+        NSDictionary *tempDict = newArr[indexPath.row];
+        
+        cell.mImageView.image = [UIImage imageNamed:@"jhstory"];
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"ImagePath"]];
+        [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"jhstory"]];
+        
+        cell.mName.text = tempDict[@"Title"];
+        cell.mDetail.text = tempDict[@"Content"];
+        cell.mDate.text = [tempDict[@"PublishTime"] substringToIndex:10];
+        cell.mReadNum.text = [NSString stringWithFormat:@"%@",tempDict[@"LikeNum"]];
+        cell.mCollectionNum.text = [NSString stringWithFormat:@"%@",tempDict[@"FavoriteNum"]];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+    
     
     return cell;
 }
@@ -275,6 +313,8 @@
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     UnionNewsDetailViewController  *unionNew = [[UnionNewsDetailViewController alloc] init];
     unionNew.navtitle = @"联盟详情";
+    unionNew.webId =[ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"Id"]];
+    unionNew.collectNum =[ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"FavoriteNum"]];
     [self.navigationController pushViewController:unionNew animated:YES];
     
     

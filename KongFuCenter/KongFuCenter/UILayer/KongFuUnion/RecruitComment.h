@@ -7,7 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "UnionNews/UnionNewsDetailViewController.h"
 @interface RecruitComment : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end

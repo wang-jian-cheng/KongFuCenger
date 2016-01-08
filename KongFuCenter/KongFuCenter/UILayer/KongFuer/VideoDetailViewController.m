@@ -737,8 +737,7 @@
         case OtherVideoSection:
         {
             
-            if(otherVideoArray==nil || otherVideoArray.count <=0 || otherVideoArray.count -1 < indexPath.row )
-                return cell;
+            
             @try {
                 
                 if(indexPath.row == 0)
@@ -751,7 +750,12 @@
                     
                     
                     UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
-                    numLab.text = [NSString stringWithFormat:@"共%ld部",otherVideoArray.count];
+                    if(otherVideoArray == nil)
+                    {
+                        numLab.text = [NSString stringWithFormat:@"共%d部",0];
+                    }
+                    else
+                        numLab.text = [NSString stringWithFormat:@"共%ld部",otherVideoArray.count];
                     numLab.font = [UIFont systemFontOfSize:12];
                     numLab.textColor = TextColors;
                     [cell addSubview:numLab];
@@ -764,6 +768,9 @@
                 
                 if(indexPath.row == 1)
                 {
+                    if(otherVideoArray==nil || otherVideoArray.count <=0 || otherVideoArray.count -1 < indexPath.row )
+                        return cell;
+                    
                     UIScrollView *showOtherVideoView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*2)];
                     CGFloat gapWidth;
                     gapWidth =(SCREEN_WIDTH - GapToLeft*2)/3 - (2*_cellHeight -30);

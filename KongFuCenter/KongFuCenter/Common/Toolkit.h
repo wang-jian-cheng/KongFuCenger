@@ -31,6 +31,8 @@
 +(NSString *)getUserID;
 +(BOOL)isVip;
 +(NSString *)judgeIsNull:(NSString *)str;
+//显示顶部菊花
++(UIActivityIndicatorView*)showJuHua;
 
 #pragma mark - camera
 

@@ -134,6 +134,7 @@
 
 -(void)TopRefireshCallBack:(id)dict{
     [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
         jhStoryArray = [[NSArray alloc] initWithArray:dict[@"data"]];
         [mTableView reloadData];
@@ -149,7 +150,7 @@
 
 -(void)FootRefireshBackCall:(id)dict
 {
-    
+    DLog(@"%@",dict);
     NSLog(@"上拉刷新");
     // 结束刷新
     [mTableView.mj_footer endRefreshing];
@@ -226,6 +227,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    UnionNewsDetailViewController *unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
+    unionNewsViewCtl.webId =[ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"Id"]];
+    unionNewsViewCtl.navtitle = jhStoryArray[indexPath.row][@"Title"];
+    unionNewsViewCtl.collectNum = jhStoryArray[indexPath.row][@"FavoriteNum"];
+    [self.navigationController pushViewController:unionNewsViewCtl animated:YES];
 }
 
 @end
