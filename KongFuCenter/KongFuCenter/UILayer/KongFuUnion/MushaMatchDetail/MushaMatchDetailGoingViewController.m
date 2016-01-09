@@ -42,7 +42,7 @@
     [SVProgressHUD showWithStatus:@"加载中..."];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getPersonMatchDetailCallBack:"];
-    [dataProvider SelectMatchDetail:_matchId];
+    [dataProvider SelectMatchDetail:_matchId anduserId:get_sp(@"id")];
 }
 
 -(void)getPersonMatchDetailCallBack:(id)dict{
@@ -91,6 +91,7 @@
 
 -(void)playerTeamDetail{
     PlayerForMatchViewController *playForMatchViewCtl = [[PlayerForMatchViewController alloc] init];
+    [playForMatchViewCtl setPlayerForMatchMode:Mode_TeamPlayer];
     playForMatchViewCtl.navtitle = @"参赛战队";
     playForMatchViewCtl.matchId = _matchId;
     [self.navigationController pushViewController:playForMatchViewCtl animated:YES];
@@ -226,7 +227,7 @@
                 [myVideoBtn setTitle:@"我的视频" forState:UIControlStateNormal];
                 [myVideoBtn addTarget:self action:@selector(myVideoEvent) forControlEvents:UIControlEventTouchUpInside];
                 
-                [playerDetail setTitle:@"已报名选手详情" forState:UIControlStateNormal];
+                [playerDetail setTitle:@"查看已报名选手" forState:UIControlStateNormal];
                 [playerDetail addTarget:self action:@selector(playerDetail) forControlEvents:UIControlEventTouchUpInside];
             }else if(_mushaMatchDetailGoingMode == Mode_MushaEnd){
                 [myVideoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -242,7 +243,7 @@
                 [myVideoBtn setTitle:@"战队视频" forState:UIControlStateNormal];
                 [myVideoBtn addTarget:self action:@selector(myVideoTeamEvent) forControlEvents:UIControlEventTouchUpInside];
                 
-                [playerDetail setTitle:@"已报名战队详情" forState:UIControlStateNormal];
+                [playerDetail setTitle:@"查看已报名战队" forState:UIControlStateNormal];
                 [playerDetail addTarget:self action:@selector(playerTeamDetail) forControlEvents:UIControlEventTouchUpInside];
             }else if(_mushaMatchDetailGoingMode == Mode_TeamEnd){
                 [myVideoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

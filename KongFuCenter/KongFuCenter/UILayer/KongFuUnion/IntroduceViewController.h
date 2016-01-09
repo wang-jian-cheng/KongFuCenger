@@ -11,4 +11,6 @@
 #import "UIImageView+WebCache.h"
 @interface IntroduceViewController : BaseNavigationController
 
+@property(nonatomic,strong) NSString *teamId;
+
 @end

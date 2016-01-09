@@ -8,17 +8,17 @@
 
 #import "MushaMatchOngoingViewController.h"
 #import "MushaMatchDetailGoingViewController.h"
+#import "MJRefresh.h"
+
 #define _CELL @ "acell"
 
 @interface MushaMatchOngoingViewController ()
 {
-    NSArray *cateArr;
-    NSMutableArray *btnArr;
+    NSArray *PlayerArray;
     //For views
-    NSInteger _cellCollectionCount;
     UICollectionView *mainCollectionView;
     UITextField *searchTxt;
-    
+    int curpage;
 }
 @end
 
@@ -34,16 +34,48 @@
     [self initViews];
 }
 
--(void)initData{
+-(void)TeamTopRefresh{
+    curpage = 0;
+    PlayerArray = [[NSArray alloc] init];
+    [SVProgressHUD showWithStatus:@"加载中..."];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getMatchPersonInfoCallBack:"];
+    if(![searchTxt.text isEqual:@""] && [self isPureInt:searchTxt.text]){
+        if (_mushaMatchOngoingMode == Mode_MushaOnGoing) {
+            [dataProvider SelectAllMatchMemberBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:searchTxt.text andnicname:@"" andflg:@"0"];
+        }else if(_mushaMatchOngoingMode == Mode_MushaRanking){
+            [dataProvider SelectAllMatchMemberBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:searchTxt.text andnicname:@"" andflg:@"1"];
+        }else if(_mushaMatchOngoingMode == Mode_TeamOnGoing){
+            [dataProvider SelectAllMatchTeamBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:searchTxt.text andnicname:@"" andflg:@"0"];
+        }else{
+            [dataProvider SelectAllMatchTeamBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:searchTxt.text andnicname:@"" andflg:@"1"];
+        }
+    }else{
+        if (_mushaMatchOngoingMode == Mode_MushaOnGoing) {
+            [dataProvider SelectAllMatchMemberBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:@"0" andnicname:searchTxt.text andflg:@"0"];
+        }else if (_mushaMatchOngoingMode == Mode_MushaRanking){
+            [dataProvider SelectAllMatchMemberBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:@"0" andnicname:searchTxt.text andflg:@"1"];
+        }else if (_mushaMatchOngoingMode == Mode_TeamOnGoing){
+            [dataProvider SelectAllMatchTeamBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:@"0" andnicname:searchTxt.text andflg:@"0"];
+        }else{
+            [dataProvider SelectAllMatchTeamBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:@"0" andnicname:searchTxt.text andflg:@"1"];
+        }
+    }
 }
 
 -(void)getMatchPersonInfoCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict);
-        
+        PlayerArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        [mainCollectionView reloadData];
     }
+}
+
+- (BOOL)isPureInt:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    return[scan scanInt:&val] && [scan isAtEnd];
 }
 
 -(void)initViews
@@ -62,8 +94,70 @@
     
     [self.view addSubview:searchTxt];
     
-    _cellCollectionCount = 6;
     [self initCollectionView];
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UICollectionView *) weakTv = mainCollectionView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mainCollectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf TeamTopRefresh];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [mainCollectionView.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    mainCollectionView.mj_footer = footer;
+}
+
+-(void)TeamFootRefresh
+{
+    curpage++;
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshCallBack:"];
+    if(![searchTxt.text isEqual:@""] && [self isPureInt:searchTxt.text]){
+        if (_mushaMatchOngoingMode == Mode_MushaOnGoing) {
+            [dataProvider SelectAllMatchMemberBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andmatchId:_matchId andmembercode:searchTxt.text andnicname:@"" andflg:@"0"];
+        }else if (_mushaMatchOngoingMode == Mode_MushaRanking){
+            [dataProvider SelectAllMatchMemberBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andmatchId:_matchId andmembercode:searchTxt.text andnicname:@"" andflg:@"1"];
+        }else if (_mushaMatchOngoingMode == Mode_TeamOnGoing){
+            [dataProvider SelectAllMatchTeamBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andmatchId:_matchId andmembercode:searchTxt.text andnicname:@"" andflg:@"0"];
+        }else{
+            [dataProvider SelectAllMatchTeamBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andmatchId:_matchId andmembercode:searchTxt.text andnicname:@"" andflg:@"1"];
+        }
+    }else{
+        if (_mushaMatchOngoingMode == Mode_MushaOnGoing) {
+            [dataProvider SelectAllMatchMemberBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andmatchId:_matchId andmembercode:@"0" andnicname:searchTxt.text andflg:@"0"];
+        }else if (_mushaMatchOngoingMode == Mode_MushaRanking){
+            [dataProvider SelectAllMatchMemberBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andmatchId:_matchId andmembercode:@"0" andnicname:searchTxt.text andflg:@"1"];
+        }else if(_mushaMatchOngoingMode == Mode_TeamOnGoing){
+            [dataProvider SelectAllMatchTeamBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andmatchId:_matchId andmembercode:@"0" andnicname:searchTxt.text andflg:@"0"];
+        }else{
+            [dataProvider SelectAllMatchTeamBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andmatchId:_matchId andmembercode:@"0" andnicname:searchTxt.text andflg:@"1"];
+        }
+    }
+}
+
+-(void)FootRefireshCallBack:(id)dict
+{
+    NSLog(@"上拉刷新");
+    // 结束刷新
+    [mainCollectionView.mj_footer endRefreshing];
+    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:PlayerArray];
+    if ([dict[@"code"] intValue] == 200) {
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        PlayerArray=[[NSArray alloc] initWithArray:itemarray];
+    }
+    [mainCollectionView reloadData];
 }
 
 -(void)clickRightButton:(UIButton *)sender{
@@ -123,7 +217,7 @@
 
 -( NSInteger )collectionView:( UICollectionView *)collectionView numberOfItemsInSection:( NSInteger )section
 {
-    return _cellCollectionCount;
+    return PlayerArray.count;
     
 }
 
@@ -140,8 +234,6 @@
 
 -( UICollectionViewCell *)collectionView:( UICollectionView *)collectionView cellForItemAtIndexPath:( NSIndexPath *)indexPath
 {
-    
-    
     UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:_CELL forIndexPath:indexPath];
     cell.backgroundColor = ItemsBaseColor;
     
@@ -154,11 +246,13 @@
     }
     
     UIImageView *baseImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, (cell.frame.size.height/3*2))];
-    baseImg.image = [UIImage imageNamed:@"temp2"];
+    NSString *MemberMatchImage = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"MemberMatchImage"]];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,MemberMatchImage];
+    [baseImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"temp2"]];//[UIImage imageNamed:@"temp2"];
     [cell addSubview:baseImg];
     
     UILabel *timeLabInImg = [[UILabel alloc] initWithFrame:CGRectMake((baseImg.frame.size.width - 10 -40), (baseImg.frame.size.height - 40), 40, 25)];
-    timeLabInImg.text = @"5:00";
+    timeLabInImg.text = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"MemberVideoDuration"]];//@"5:00";
     timeLabInImg.textColor = [UIColor whiteColor];
     timeLabInImg.textAlignment = NSTextAlignmentCenter;
     timeLabInImg.backgroundColor = BACKGROUND_COLOR;
@@ -171,7 +265,7 @@
     UILabel *idLab = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, 40, 25)];
     idLab.backgroundColor = YellowBlock;
     idLab.textColor = [UIColor whiteColor];
-    idLab.text = [NSString stringWithFormat:@"%03ld",(long)indexPath.row];
+    idLab.text = [NSString stringWithFormat:@"%04d",[[Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"MatchCode"]] intValue]];
     idLab.textAlignment = NSTextAlignmentCenter;
     idLab.font = [UIFont systemFontOfSize:14];
     [baseImg addSubview:idLab];
@@ -179,43 +273,43 @@
     if(_mushaMatchOngoingMode == Mode_MushaRanking){
         UILabel *rankLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, cell.frame.size.width - 5, 21)];
         rankLbl.textAlignment = NSTextAlignmentRight;
-        rankLbl.textColor = [UIColor whiteColor];
+        rankLbl.textColor = [UIColor redColor];
         rankLbl.font = [UIFont systemFontOfSize:14];
         rankLbl.text = [NSString stringWithFormat:@"第%d名",(int)indexPath.row + 1];
         [baseImg addSubview:rankLbl];
     }else if(_mushaMatchOngoingMode == Mode_TeamOnGoing){
         UILabel *addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, cell.frame.size.width - 5, 21)];
         addressLbl.textAlignment = NSTextAlignmentRight;
-        addressLbl.textColor = [UIColor whiteColor];
+        addressLbl.textColor = [UIColor redColor];
         addressLbl.font = [UIFont systemFontOfSize:14];
-        addressLbl.text = @"山东临沂";
+        addressLbl.text = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"Address"]];//@"山东临沂";
         [baseImg addSubview:addressLbl];
     }else if (_mushaMatchOngoingMode == Mode_TeamRanking){
         UILabel *rankLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, cell.frame.size.width - 5, 21)];
         rankLbl.textAlignment = NSTextAlignmentRight;
-        rankLbl.textColor = [UIColor whiteColor];
+        rankLbl.textColor = [UIColor redColor];
         rankLbl.font = [UIFont systemFontOfSize:14];
         rankLbl.text = [NSString stringWithFormat:@"第%d名",(int)indexPath.row + 1];
         [baseImg addSubview:rankLbl];
         
         UILabel *addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 5 + rankLbl.frame.size.height + 5, cell.frame.size.width - 5, 21)];
         addressLbl.textAlignment = NSTextAlignmentRight;
-        addressLbl.textColor = [UIColor whiteColor];
+        addressLbl.textColor = [UIColor redColor];
         addressLbl.font = [UIFont systemFontOfSize:14];
-        addressLbl.text = @"山东临沂";
+        addressLbl.text = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"Address"]];
         [baseImg addSubview:addressLbl];
     }
     
-    UserHeadView *headView = [[UserHeadView alloc]  initWithFrame:CGRectMake(10, baseImg.frame.size.height + 5, (cell.frame.size.height/3 -5*2), (cell.frame.size.height/3 -5*2)) andImgName:@"me" andNav:self.navigationController];
+    NSString *PhotoPath = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"PhotoPath"]];
+    url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+    UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(10, baseImg.frame.size.height + 5, (cell.frame.size.height/3 -5*2), (cell.frame.size.height/3 -5*2)) andUrl:url andNav:self.navigationController];
     [headView makeSelfRound];
-    
     [cell addSubview:headView];
-    
     UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.size.width+headView.frame.origin.x+10),
                                                                 headView.frame.origin.y,
                                                                 (cell.frame.size.width -(headView.frame.size.width+headView.frame.origin.x+10)),
                                                                  (headView.frame.size.height/2))];
-    nameLab.text = @"成龙徒弟";
+    nameLab.text = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"NicName"]];//@"成龙徒弟";
     nameLab.textColor = [UIColor whiteColor];
     nameLab.font = [UIFont systemFontOfSize:14];
     
@@ -225,7 +319,7 @@
                                                                  (nameLab.frame.size.height+nameLab.frame.origin.y),
                                                                  (cell.frame.size.width -(headView.frame.size.width+headView.frame.origin.x+10)),
                                                                  (headView.frame.size.height/2))];
-    numLab.text = @"得票数：1000";
+    numLab.text = [NSString stringWithFormat:@"得票数:%@",[Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"VoteNum"]]];//@"得票数：1000";
     numLab.textColor = [UIColor whiteColor];
     numLab.font = [UIFont systemFontOfSize:14];
     
@@ -279,7 +373,7 @@
 
 #pragma mark UITextFieldDelegate
 -(void)textFieldDidEndEditing:(UITextField *)textField{
-    //[self TeamTopRefresh];
+    [mainCollectionView.mj_header beginRefreshing];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

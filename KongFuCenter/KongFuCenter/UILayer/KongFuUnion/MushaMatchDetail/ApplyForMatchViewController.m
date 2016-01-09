@@ -10,6 +10,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "SCRecorder.h"
 #import "MushaMatch.h"
+#import "UIImageView+WebCache.h"
 
 @interface ApplyForMatchViewController ()
 {
@@ -30,7 +31,7 @@
     SCVideoPlayerView *playerView;
     UIButton *uploadVideoBtn;
     UITextView *currentTv;
-    NSArray *personMatchArray;
+    NSDictionary *personMatchArray;
 }
 @end
 
@@ -51,15 +52,18 @@
 }
 
 -(void)initData{
+    [SVProgressHUD showWithStatus:@"加载中..."];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getWorksInfoCallBack:"];
-    [dataProvider SelectMatchMemberDetail:_matchId anduserid:[userDefault valueForKey:@"id"]];
+    [dataProvider SelectMatchMemberDetail:_matchId anduserid:get_sp(@"id")];
 }
 
 -(void)getWorksInfoCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     if([dict[@"code"] intValue] == 200){
         NSLog(@"%@",dict);
-        personMatchArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        personMatchArray = [[NSDictionary alloc] initWithDictionary:dict[@"data"]];
+        [self initViews];
     }
 }
 
@@ -372,13 +376,13 @@
     switch (indexPath.section) {
         case 0:
         {
-            UIButton *uploadVideo = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150)/2, (3*_cellHeight - 50)/2, 150, 50)];
-            uploadVideo.backgroundColor = YellowBlock;
-            uploadVideo.center = CGPointMake(SCREEN_WIDTH/2, 3*_cellHeight /2);
             if (_applyForMatchMode == Mode_Add) {
+                UIButton *uploadVideo = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150)/2, (3*_cellHeight - 50)/2, 150, 50)];
+                uploadVideo.center = CGPointMake(SCREEN_WIDTH/2, 3*_cellHeight /2);
                 [uploadVideo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                [uploadVideo setTitle:@"点击上传视频" forState:UIControlStateNormal];
                 [uploadVideo addTarget:self action:@selector(uploadVideoEvent) forControlEvents:UIControlEventTouchUpInside];
+                uploadVideo.backgroundColor = YellowBlock;
+                [uploadVideo setTitle:@"点击上传视频" forState:UIControlStateNormal];
                 [cell addSubview:uploadVideo];
             }else{
                 // 创建视频播放器
@@ -386,11 +390,17 @@
                 playerView = [[SCVideoPlayerView alloc] initWithPlayer:_player];
                 playerView.tag = 400;
                 playerView.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-                playerView.frame = CGRectMake(0, 64, SCREEN_WIDTH, _cellHeight*3);
+                playerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3);
                 [cell addSubview:playerView];
                 _player.loopEnabled = YES;
-                [_player setItemByUrl:videoURL];
+                [_player setItemByUrl:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[personMatchArray valueForKey:@"MatchVideo"]]]]];
                 [_player play];
+                
+                UIButton *uploadVideo = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150)/2, (3*_cellHeight - 50)/2, 150, 50)];
+                uploadVideo.center = CGPointMake(SCREEN_WIDTH/2, 3*_cellHeight /2);
+                [uploadVideo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [uploadVideo addTarget:self action:@selector(uploadVideoEvent) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:uploadVideo];
             }
         }
             break;
@@ -399,6 +409,13 @@
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _cellHeight*1.5, _cellHeight*1.5)];
             //imgView.image = [UIImage imageNamed:@"yewenback"];
             imgView.backgroundColor = ItemsBaseColor;
+            if (_applyForMatchMode == Mode_Add) {
+                
+            }else{
+                NSString *MatchImage = [Toolkit judgeIsNull:[personMatchArray valueForKey:@"MatchImage"]];
+                NSString *url = [NSString stringWithFormat:@"%@%@",Url,MatchImage];
+                [imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+            }
             [cell addSubview:imgView];
             
             UILabel *tiplab = [[UILabel alloc] initWithFrame:CGRectMake(0, (_cellHeight*1.5 - 30-10), _cellHeight*1.5, 30)];
@@ -413,7 +430,6 @@
             if (_applyForMatchMode == Mode_Add) {
                 [uploadImgBtn setImage:[UIImage imageNamed:@"dajiahao"] forState:UIControlStateNormal];
             }else{
-                [uploadImgBtn setImage:nil forState:UIControlStateNormal];
             }
             [uploadImgBtn addTarget:self action:@selector(uploadImgEvent) forControlEvents:UIControlEventTouchUpInside];
             uploadImgBtn.userInteractionEnabled = YES;
@@ -428,7 +444,7 @@
             if (_applyForMatchMode == Mode_Add) {
                 titleView.text = @"视频标题";
             }else{
-                titleView.text = @"修改标题";
+                titleView.text = @"";//[Toolkit judgeIsNull:[personMatchArray valueForKey:@"MatchImage"]];//@"修改标题";
             }
             titleView.tag = indexPath.section;
             titleView.textAlignment = NSTextAlignmentLeft;
@@ -449,7 +465,7 @@
             if (_applyForMatchMode == Mode_Add) {
                 contentView.text = @"视频简介";
             }else{
-                contentView.text = @"修改简介";
+                contentView.text = [Toolkit judgeIsNull:[personMatchArray valueForKey:@"MatchDescription"]];
             }
             contentView.textAlignment = NSTextAlignmentLeft;
             contentView.tag = indexPath.section;

@@ -19,7 +19,7 @@ typedef enum _mushaMatchDetailMode
 @interface MushaMatchDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
 @property(nonatomic,strong) NSString *matchId;
-@property(nonatomic) BOOL isApply;
+@property(nonatomic,strong) NSString *isApply;
 @property(nonatomic) MushaMatchDetailMode mushaMatchDetailMode;
 
 @end

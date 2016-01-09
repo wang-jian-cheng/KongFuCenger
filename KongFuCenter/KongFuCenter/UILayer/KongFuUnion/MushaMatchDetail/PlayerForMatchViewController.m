@@ -8,6 +8,7 @@
 
 #import "PlayerForMatchViewController.h"
 #import "MJRefresh.h"
+#import "IntroduceViewController.h"
 
 @interface PlayerForMatchViewController ()<UISearchBarDelegate,UISearchDisplayDelegate,UITextFieldDelegate>
 {
@@ -74,15 +75,30 @@
 }
 
 -(void)TeamTopRefresh{
+    curpage = 0;
     PlayerArray = [[NSArray alloc] init];
     [SVProgressHUD showWithStatus:@"加载中..."];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"SelectMatchMemberByPersonCallBack:"];
-    if (_playerForMatchMode == Mode_MushaPlayer) {
-        [dataProvider SelectMatchMemberByPerson:_matchId];
+    //_matchId = @"3";
+    if(![searchTxt.text isEqual:@""] && [self isPureInt:searchTxt.text]){
+        if (_playerForMatchMode == Mode_MushaPlayer) {
+            [dataProvider SelectAllMatchMemberBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:searchTxt.text andnicname:@"" andflg:@"0"];
+        }else{
+            [dataProvider SelectAllMatchTeamBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:searchTxt.text andnicname:@"" andflg:@"0"];
+        }
     }else{
-        [dataProvider SelectMatchMemberByTeam:_matchId];
+        if (_playerForMatchMode == Mode_MushaPlayer) {
+            [dataProvider SelectAllMatchMemberBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:@"0" andnicname:searchTxt.text andflg:@"0"];
+        }else{
+            [dataProvider SelectAllMatchTeamBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:@"0" andnicname:searchTxt.text andflg:@"0"];
+        }
     }
+}
+- (BOOL)isPureInt:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    return[scan scanInt:&val] && [scan isAtEnd];
 }
 -(void)SelectMatchMemberByPersonCallBack:(id)dict{
     [SVProgressHUD dismiss];
@@ -96,19 +112,25 @@
 -(void)TeamFootRefresh
 {
     curpage++;
-    [SVProgressHUD showWithStatus:@"加载中..."];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshCallBack:"];
-    if (_playerForMatchMode == Mode_MushaPlayer) {
-        [dataProvider SelectMatchMemberByPerson:_matchId];
+    if(![searchTxt.text isEqual:@""] && [self isPureInt:searchTxt.text]){
+        if (_playerForMatchMode == Mode_MushaPlayer) {
+            [dataProvider SelectAllMatchMemberBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:searchTxt.text andnicname:@"" andflg:@"0"];
+        }else{
+            [dataProvider SelectAllMatchTeamBySearch:@"0" andmaximumRows:@"10" andmatchId:_matchId andmembercode:searchTxt.text andnicname:@"" andflg:@"0"];
+        }
     }else{
-        [dataProvider SelectMatchMemberByTeam:_matchId];
+        if (_playerForMatchMode == Mode_MushaPlayer) {
+            [dataProvider SelectAllMatchMemberBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andmatchId:_matchId andmembercode:@"0" andnicname:searchTxt.text andflg:@"0"];
+        }else{
+            [dataProvider SelectAllMatchTeamBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andmatchId:_matchId andmembercode:@"0" andnicname:searchTxt.text andflg:@"0"];
+        }
     }
 }
 
 -(void)FootRefireshCallBack:(id)dict
 {
-    
     NSLog(@"上拉刷新");
     // 结束刷新
     [_mainTableView.mj_footer endRefreshing];
@@ -122,6 +144,12 @@
         PlayerArray=[[NSArray alloc] initWithArray:itemarray];
     }
     [_mainTableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+-(void)clickTeamPhotoEvent{
+    IntroduceViewController * introduceViewController = [[IntroduceViewController alloc] init];
+    introduceViewController.teamId = get_sp(@"TeamId");
+    [self.navigationController pushViewController:introduceViewController animated:YES];
 }
 
 #pragma click actions
@@ -204,7 +232,7 @@
         searchTxt.returnKeyType = UIReturnKeySearch;
         searchTxt.delegate = self;
         searchTxt.textColor = [UIColor whiteColor];
-        searchTxt.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索用户昵称" attributes:@{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.44 green:0.43 blue:0.44 alpha:1]}];
+        searchTxt.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索用户昵称、编号" attributes:@{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.44 green:0.43 blue:0.44 alpha:1]}];
         UIImageView *searchIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 20)];
         searchIv.contentMode = UIViewContentModeScaleAspectFit;
         searchIv.image = [UIImage imageNamed:@"search"];
@@ -213,7 +241,19 @@
         [cell addSubview:searchTxt];
         return cell;
     }else{
-        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-5*2, _cellHeight-5*2) andImgName:@"me" andNav:self.navigationController];
+        NSString *PhotoPath = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"PhotoPath"]];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+        UserHeadView *headView = nil;
+        if (_playerForMatchMode == Mode_MushaPlayer) {
+            headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-5*2, _cellHeight-5*2) andUrl:url andNav:self.navigationController];
+            headView.userId = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"UserId"]];
+        }else{
+            headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-5*2, _cellHeight-5*2) andurl:url];
+            UIButton *tempBtn = [[UIButton alloc] initWithFrame:headView.frame];
+            [tempBtn addTarget:self action:@selector(clickTeamPhotoEvent) forControlEvents:UIControlEventTouchUpInside];
+            [headView addSubview:tempBtn];
+            headView.userId = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"TeamId"]];
+        }
         [headView makeSelfRound];
         [cell addSubview:headView];
         
@@ -223,7 +263,7 @@
                                                                       SCREEN_WIDTH -(headView.frame.size.width + headView.frame.origin.x + 10),
                                                                       _cellHeight/2-5)];
         titleLab.textColor = [UIColor whiteColor];
-        titleLab.text = @"李小龙";
+        titleLab.text = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"NicName"]];
         titleLab.font = [UIFont systemFontOfSize:14];
         [cell addSubview:titleLab];
         
@@ -232,7 +272,16 @@
                                                                      SCREEN_WIDTH -(headView.frame.size.width + headView.frame.origin.x + 10)-70,
                                                                      _cellHeight/2)];
         timeLab.textColor = [UIColor whiteColor];
-        timeLab.text = @"报名时间:2015年10月20日";
+        NSString *joinTime = [[Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"JoinTime"]] substringToIndex:10];
+        NSString *mYear = @"";
+        NSString *mMonth = @"";
+        NSString *mDay = @"";
+        if (![joinTime isEqual:@""]) {
+            mYear = [joinTime substringToIndex:4];
+            mMonth = [joinTime substringWithRange:NSMakeRange(5, 2)];
+            mDay = [joinTime substringWithRange:NSMakeRange(8, 2)];
+        }
+        timeLab.text = [NSString stringWithFormat:@"报名时间:%@年%@月%@日",mYear,mMonth,mDay];//@"报名时间:2015年10月20日";
         timeLab.font = [UIFont systemFontOfSize:14];
         [cell addSubview:timeLab];
         
@@ -242,7 +291,7 @@
                                                                     100,
                                                                     _cellHeight/2)];
         numLab.textColor = [UIColor whiteColor];
-        numLab.text = @"编号:005";
+        numLab.text = [NSString stringWithFormat:@"编号:%04d",[[Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"MatchCode"]] intValue]];
         numLab.font = [UIFont systemFontOfSize:14];
         [cell addSubview:numLab];
     }
@@ -340,7 +389,7 @@
 
 #pragma mark UITextFieldDelegate
 -(void)textFieldDidEndEditing:(UITextField *)textField{
-    //[self TeamTopRefresh];
+    [_mainTableView.mj_header beginRefreshing];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

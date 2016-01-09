@@ -291,19 +291,22 @@
 -(void)SelectMatchPageByTeam:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
 
 //获取赛事详情
--(void)SelectMatchDetail:(NSString *)matchId;
+-(void)SelectMatchDetail:(NSString *)matchId anduserId:(NSString *)userId;
 
 //个人比赛报名
 -(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription andtitle:(NSString *)title;
 
 //查询比赛参赛人员
--(void)SelectMatchMemberByPerson:(NSString *)matchId;
+-(void)SelectAllMatchMemberBySearch:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andmatchId:(NSString *)matchId andmembercode:(NSString *)membercode andnicname:(NSString *)nicname andflg:(NSString *)flg;
 
 //查询比赛参赛战队
--(void)SelectMatchMemberByTeam:(NSString *)matchId;
+-(void)SelectAllMatchTeamBySearch:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andmatchId:(NSString *)matchId andmembercode:(NSString *)membercode andnicname:(NSString *)nicname andflg:(NSString *)flg;
 
 //查看参赛人员明细
 -(void)SelectMatchMemberDetail:(NSString *)matchId anduserid:(NSString *)userid;
+
+//个人比赛取消报名
+-(void)CancleJoinMatch:(NSString *)matchId anduserid:(NSString *)userid;
 
 #pragma mark - 视频评论
 // 评论视频

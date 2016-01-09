@@ -52,6 +52,11 @@
     
     UIView *moreSettingBackView;
     
+    NSInteger actionIndex;
+    
+    SendNewsViewController *sendNewsVC;
+    WechatShortVideoController *wechatShortVideoController;
+    
     
     //通用
     NSUserDefaults *userDefault;
@@ -268,7 +273,9 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [self TeamTopRefresh];
+    if (sendNewsVC || wechatShortVideoController) {
+        [self TeamTopRefresh];
+    }
 }
 
 -(void)clickRightButton:(UIButton *)sender
@@ -411,12 +418,12 @@
 {
     if(sender.tag == sendNews)
     {
-        SendNewsViewController *sendNewsVC = [[SendNewsViewController alloc] init];
+        sendNewsVC = [[SendNewsViewController alloc] init];
         [self.navigationController pushViewController:sendNewsVC animated:YES];
     }
     else  if(sender.tag == smallVideo)
     {
-        WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
+        wechatShortVideoController = [[WechatShortVideoController alloc] init];
         
         wechatShortVideoController.delegate = self;
         
@@ -873,6 +880,7 @@
     if ([b.replyUser isEqualToString:kAdmin]) {
         WFActionSheet *actionSheet = [[WFActionSheet alloc] initWithTitle:@"删除评论？" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil, nil];
         actionSheet.actionIndex = index;
+        actionSheet.tag = replyIndex;
         [actionSheet showInView:self.view];
         
         
@@ -949,24 +957,43 @@
 
 - (void)actionSheet:(WFActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
-        //delete
-        YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:actionSheet.actionIndex];
+        YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
         WFMessageBody *m = ymData.messageBody;
-        [m.posterReplies removeObjectAtIndex:_replyIndex];
-        ymData.messageBody = m;
-        [ymData.completionReplySource removeAllObjects];
-        [ymData.attributedDataReply removeAllObjects];
+        NSMutableArray *commArray = m.posterReplies;
+        WFReplyBody *wfbody = commArray[_replyIndex];
         
-        
-        ymData.replyHeight = [ymData calculateReplyHeightWithWidth:self.view.frame.size.width];
-        [_tableDataSource replaceObjectAtIndex:actionSheet.actionIndex withObject:ymData];
-        
-        [mainTable reloadData];
-        
+        [SVProgressHUD showWithStatus:@"删除中" maskType:SVProgressHUDMaskTypeBlack];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"delCommentCallBack:"];
+        [dataProvider delComment:wfbody.cID];
     }else{
         
     }
-    _replyIndex = -1;
+}
+
+-(void)delCommentCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        @try {
+            YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
+            WFMessageBody *m = ymData.messageBody;
+            [m.posterReplies removeObjectAtIndex:_replyIndex];
+            ymData.messageBody = m;
+            [ymData.completionReplySource removeAllObjects];
+            [ymData.attributedDataReply removeAllObjects];
+            
+            ymData.replyHeight = [ymData calculateReplyHeightWithWidth:self.view.frame.size.width];
+            [_tableDataSource replaceObjectAtIndex:selectRow withObject:ymData];
+            [mainTable reloadData];
+            
+            [SVProgressHUD showSuccessWithStatus:@"删除成功~"];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            _replyIndex = -1;
+        }
+    }
 }
 
 - (void)dealloc{

@@ -727,6 +727,7 @@
 {
 //    NSLog(@"跳转到战队介绍");
     IntroduceViewController * introduceViewController = [[IntroduceViewController alloc] init];
+    introduceViewController.teamId = get_sp(@"TeamId");
     [self.navigationController pushViewController:introduceViewController animated:YES];
     //[self showViewController:introduceViewController sender:nil];
 }

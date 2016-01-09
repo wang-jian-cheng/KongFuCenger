@@ -40,7 +40,7 @@
 {
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getTeamIntroCallBack:"];
-    [dataProvider getTeamIntro:get_sp(TEAM_ID)];
+    [dataProvider getTeamIntro:_teamId];
     
 }
 
