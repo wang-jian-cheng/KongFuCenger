@@ -7,6 +7,7 @@
 //
 
 #import "PlayerForMatchViewController.h"
+#import "MJRefresh.h"
 
 @interface PlayerForMatchViewController ()<UISearchBarDelegate,UISearchDisplayDelegate,UITextFieldDelegate>
 {
@@ -16,7 +17,7 @@
     UITableView *_mainTableView;
     UITextField *searchTxt;
     NSArray *PlayerArray;
-    
+    int curpage;
 }
 @end
 
@@ -29,28 +30,9 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
  
     [self addLeftButton:@"left"];
-    [self initData];
-    // Do any additional setup after loading the view.
+    [self initViews];
 }
--(void)initData{
-    PlayerArray = [[NSArray alloc] init];
-    [SVProgressHUD showWithStatus:@"加载中..."];
-    DataProvider *dataProvider = [[DataProvider alloc] init];
-    [dataProvider setDelegateObject:self setBackFunctionName:@"SelectMatchMemberByPersonCallBack:"];
-    if (_playerForMatchMode == Mode_MushaPlayer) {
-        [dataProvider SelectMatchMemberByPerson:_matchId];
-    }else{
-        [dataProvider SelectMatchMemberByTeam:_matchId];
-    }
-}
--(void)SelectMatchMemberByPersonCallBack:(id)dict{
-    [SVProgressHUD dismiss];
-    if ([dict[@"code"] intValue] == 200) {
-        NSLog(@"%@",dict);
-        PlayerArray = [[NSArray alloc] initWithArray:dict[@"data"]];
-        [self initViews];
-    }
-}
+
 -(void)initViews
 {
     _cellHeight = SCREEN_HEIGHT/10;
@@ -69,33 +51,78 @@
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
     
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = _mainTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
     
+    _mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf TeamTopRefresh];
+        [weakTv.mj_header endRefreshing];
+    }];
     
-    
-    //_searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH
-//                                                               , _cellHeight)];
-//    _searchBar.delegate = self;
-//    _searchBar.placeholder = @"搜索战队昵称、id号";
-//    _mainTableView.tableHeaderView = _searchBar;
-//    _searchBar.backgroundColor = ItemsBaseColor;
-//    
-//    
-//    _searchDisplayController = [[UISearchDisplayController alloc]initWithSearchBar:_searchBar contentsController:self];
-//    _searchDisplayController.active = NO;
-//    _searchDisplayController.searchResultsDataSource = self;
-//    _searchDisplayController.searchResultsDelegate = self;
-//    _searchDisplayController.delegate = self;
-    
-    
+    // 马上进入刷新状态
+    [_mainTableView.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    _mainTableView.mj_footer = footer;
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
     [self.view addGestureRecognizer:tapGesture];
-
-    
 }
 
+-(void)TeamTopRefresh{
+    PlayerArray = [[NSArray alloc] init];
+    [SVProgressHUD showWithStatus:@"加载中..."];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"SelectMatchMemberByPersonCallBack:"];
+    if (_playerForMatchMode == Mode_MushaPlayer) {
+        [dataProvider SelectMatchMemberByPerson:_matchId];
+    }else{
+        [dataProvider SelectMatchMemberByTeam:_matchId];
+    }
+}
+-(void)SelectMatchMemberByPersonCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        NSLog(@"%@",dict);
+        PlayerArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        [_mainTableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
 
+-(void)TeamFootRefresh
+{
+    curpage++;
+    [SVProgressHUD showWithStatus:@"加载中..."];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshCallBack:"];
+    if (_playerForMatchMode == Mode_MushaPlayer) {
+        [dataProvider SelectMatchMemberByPerson:_matchId];
+    }else{
+        [dataProvider SelectMatchMemberByTeam:_matchId];
+    }
+}
 
+-(void)FootRefireshCallBack:(id)dict
+{
+    
+    NSLog(@"上拉刷新");
+    // 结束刷新
+    [_mainTableView.mj_footer endRefreshing];
+    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:PlayerArray];
+    if ([dict[@"code"] intValue] == 200) {
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        PlayerArray=[[NSArray alloc] initWithArray:itemarray];
+    }
+    [_mainTableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
 
 #pragma click actions
 -(void)tapViewAction:(id)sender
