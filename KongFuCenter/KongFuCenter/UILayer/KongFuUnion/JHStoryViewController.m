@@ -231,7 +231,7 @@
     UnionNewsDetailViewController *unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
     unionNewsViewCtl.webId =[ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"Id"]];
     unionNewsViewCtl.navtitle = jhStoryArray[indexPath.row][@"Title"];
-    unionNewsViewCtl.collectNum = jhStoryArray[indexPath.row][@"FavoriteNum"];
+    unionNewsViewCtl.collectNum = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"FavoriteNum"]];
     [self.navigationController pushViewController:unionNewsViewCtl animated:YES];
 }
 
