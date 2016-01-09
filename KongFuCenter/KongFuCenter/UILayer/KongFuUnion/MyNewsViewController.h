@@ -9,5 +9,5 @@
 #import "BaseNavigationController.h"
 
 @interface MyNewsViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
-
+@property(nonatomic)NSString *UserID;
 @end

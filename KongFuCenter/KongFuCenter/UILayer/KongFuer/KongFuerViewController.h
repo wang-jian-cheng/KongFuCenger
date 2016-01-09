@@ -19,6 +19,18 @@
 #import "TrainsPlanViewController.h"
 
 #import "DataProvider.h"
-@interface KongFuerViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
-
+@interface KongFuerViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>
+{
+    UIImageView *weatherImg;
+    UILabel *locationLab;
+    UILabel *temp;
+    UILabel *lhTempt;
+    UILabel *outNote;
+    UILabel *airNUm;
+    UILabel *airQuality;
+    
+    CLLocationManager *locationManager;
+    NSArray *mHomeInfo;
+    
+}
 @end

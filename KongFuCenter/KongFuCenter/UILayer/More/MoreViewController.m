@@ -228,7 +228,8 @@
         if(indexPath.row == 0)
         {
             MessagefankuiViewController * messagefankuiViewController = [[MessagefankuiViewController alloc] init];
-            [self showViewController:messagefankuiViewController sender:nil];
+            [self.navigationController pushViewController:messagefankuiViewController animated:YES];
+//            [self showViewController:messagefankuiViewController sender:nil];
         }
     }
     

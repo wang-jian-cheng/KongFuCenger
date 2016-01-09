@@ -72,11 +72,16 @@
 }
 
 -(void)getFriendCallBack:(id)dict{
+    
+    DLog(@"%@",dict);
+    
     oFriendArray = dict[@"data"];
     friendArray = [[NSMutableArray alloc] initWithArray:oFriendArray];
     NSMutableArray * itemmutablearray=[[NSMutableArray alloc] init];
     for (int i=0; i<friendArray.count; i++) {
-        [itemmutablearray addObject:friendArray[i][@"Value"]];
+        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:friendArray[i][@"Value"]];
+        [tempDict setObject:friendArray[i][@"Key"] forKey:@"Key"];
+        [itemmutablearray addObject:tempDict];
     }
     indexArray = [ChineseString mIndexArray:[itemmutablearray valueForKey:@"NicName"]];
     LetterResultArr = [ChineseString mLetterSortArray:itemmutablearray];

@@ -33,6 +33,7 @@
     
     UserHeadView *headView;
 
+    NSUserDefaults *mUserDefault;
 }
 @end
 
@@ -45,7 +46,7 @@
     _sectionNum = 5;
     _cellHeight = SCREEN_HEIGHT / 12;
     [self setBarTitle:@"核武者"];
-    
+    mUserDefault = [NSUserDefaults standardUserDefaults];
     [self initDatas];
     [self initViews];
     
@@ -121,22 +122,109 @@
     jiFenNumLab.font = [UIFont systemFontOfSize:10];
     jiFenNumLab.textAlignment = NSTextAlignmentCenter;
     
+    locationLab = [[UILabel alloc] init];
+    locationLab.textAlignment = NSTextAlignmentRight;
+    locationLab.textColor =[UIColor whiteColor];
+    locationLab.font = [UIFont systemFontOfSize:14];
+    
+    airNUm = [[UILabel alloc] init];
+    airNUm.textAlignment = NSTextAlignmentLeft;
+    airNUm.textColor =[UIColor whiteColor];
+    airNUm.font = [UIFont systemFontOfSize:14];
+    
+    airQuality = [[UILabel alloc] init];
+    airQuality.textAlignment = NSTextAlignmentLeft;
+    airQuality.textColor =[UIColor whiteColor];
+    airQuality.font = [UIFont systemFontOfSize:14];
     
     headView = [[UserHeadView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -80)/2 ,_cellHeight/2, 80, 80)
                                                       andImgName:@"headImg"
                                                           andNav:self.navigationController];
+    
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
+        [locationManager requestAlwaysAuthorization];
+    }
+ //   [locationManager startUpdatingLocation];
 
 }
-
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    
+        //获取当前所在地的城市
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        //根据经纬度反向地理编译出地址信息
+        [geocoder reverseGeocodeLocation:locations[0] completionHandler:^(NSArray *array, NSError *error) {
+            if (array.count > 0) {
+                CLPlacemark *placemark = [array objectAtIndex:0];
+                //获取城市
+                NSString *city = placemark.locality;
+                if(!city){
+                    city = placemark.administrativeArea;
+                }
+                DLog(@"%@",city);
+                DLog(@"placemark = %@",placemark.name);
+                locationLab.text = city;
+                
+                 //[self getWeatherInfo:[city substringToIndex:[city length]-1]];
+               [self getWeatherInfo:@"北京"];
+            }
+        }];
+    
+    [locationManager stopUpdatingLocation];
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
     [self getUserInfo];
+    [locationManager startUpdatingLocation];
+    
 }
 #pragma mark - self data source
 
+- (void)getWeatherInfo:(NSString *) city{
+    NSString *httpUrl = @"http://apis.baidu.com/heweather/weather/free";
+    NSString *httpArg = [NSString stringWithFormat:@"city=%@",city];
+    DataProvider * dataProvider = [[DataProvider alloc] init];
+    
+    [dataProvider setDelegateObject:self setBackFunctionName:@"WeatherBackcall:"];
+    [dataProvider getWeatherInfo:httpUrl withHttpArg:httpArg];
+}
 
+- (void)WeatherBackcall:(id)dic{
+    DLog(@"%@",dic);
+    
+    
+    NSDictionary *baseDic = [dic valueForKey:@"HeWeather data service 3.0"][0];
+    @try {
+        if([[baseDic allKeys] containsObject:@"aqi"])
+        {
+            airNUm.text =[NSString stringWithFormat:@"PM:%@ug/m³" ,baseDic[@"aqi"][@"city"][@"pm25"]];
+            airQuality.text = [NSString stringWithFormat:@"空气质量:%@",baseDic[@"aqi"][@"city"][@"qlty"]];
+        }
+        else{
+            airNUm.text =[NSString stringWithFormat:@"PM:%@" ,@"无数据"];
+            airQuality.text = [NSString stringWithFormat:@"空气质量:%@",@"无数据"];
+        }
+        //天气图标
+        weatherImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://files.heweather.com/cond_icon/%@.png",[[[baseDic valueForKey:@"now"] valueForKey:@"cond"] valueForKey:@"code"]]]]];
+        
+        //实时温度
+        temp.text = [NSString  stringWithFormat:@"%@℃",[[baseDic valueForKey:@"now"] valueForKey:@"tmp"]];
+        
+
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+    
+}
 
 -(void)getDatas
 {
@@ -298,6 +386,9 @@
     
     if(indexPath.section == 0)
     {
+        
+        
+        
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         if(indexPath.row == 1)
         {
@@ -321,7 +412,25 @@
         if(indexPath.row == 0)
         {
             {//天气
-            
+//                weatherImg = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 80, 80)];
+//                [cell addSubview:weatherImg];
+                
+                airQuality.frame = CGRectMake(10, 0, SCREEN_WIDTH/2, 20);
+                airNUm.frame = CGRectMake(10, airQuality.frame.size.height, SCREEN_WIDTH/2, 20);
+                
+                [cell addSubview:airNUm];
+                [cell addSubview:airQuality];
+                
+                locationLab.frame = CGRectMake(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/2-10, 20);
+                [cell addSubview:locationLab];
+                temp = [[UILabel alloc] initWithFrame:CGRectMake(locationLab.frame.origin.x, locationLab.frame.size.height, SCREEN_WIDTH/2 -10, 20)];
+                temp.textAlignment = NSTextAlignmentRight;
+                temp.font = [UIFont systemFontOfSize:14];
+                temp.textColor = [UIColor whiteColor];
+                [cell addSubview:temp];
+
+
+                
             }
             
             {//账号

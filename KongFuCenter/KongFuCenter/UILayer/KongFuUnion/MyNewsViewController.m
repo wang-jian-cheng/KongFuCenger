@@ -97,8 +97,8 @@
     curpage = 0;
     [SVProgressHUD showWithStatus:@"加载中"];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getMyNewsCallBack:"];
-    //[dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"10"];
-    [dataProvider SelectDongtaiByFriendId:[userDefault valueForKey:@"id"] andstartRowIndex:@"0" andmaximumRows:@"5"];
+    //[dataProvider GetDongtaiPageByFriends:self.UserID andstartRowIndex:@"0" andmaximumRows:@"10"];
+    [dataProvider SelectDongtaiByFriendId:self.UserID andstartRowIndex:@"0" andmaximumRows:@"5"];
 }
 
 -(void)getMyNewsCallBack:(id)dict{
@@ -322,7 +322,7 @@
     }
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
-    [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
+    [dataProvider GetDongtaiPageByFriends:self.UserID andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
 }
 
 -(void)FootRefireshBackCall:(id)dict
@@ -601,11 +601,11 @@
     if (m.isFavour == YES) {//此时该取消赞
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
-        [dataProvider voicedelete:m.mID andUserId:[userDefault valueForKey:@"id"] andFlg:@"2"];
+        [dataProvider voicedelete:m.mID andUserId:[Toolkit getUserID] andFlg:@"2"];
     }else{
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
-        [dataProvider voiceAction:m.mID andUserId:[userDefault valueForKey:@"id"] andFlg:@"2"];
+        [dataProvider voiceAction:m.mID andUserId:[Toolkit getUserID] andFlg:@"2"];
     }
 }
 
@@ -644,12 +644,12 @@
     if (isComment) {
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"mainCommentCallBack:"];
-        [dataProvider MessageComment:m.mID anduserid:[userDefault valueForKey:@"id"] andcomment:((UITextView *)sender).text];
+        [dataProvider MessageComment:m.mID anduserid:[Toolkit getUserID] andcomment:((UITextView *)sender).text];
     }else{
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"mainCommentCallBack:"];
         WFReplyBody *b = [m.posterReplies objectAtIndex:_replyIndex];
-        [dataProvider CommentComment:b.cID anduserid:[userDefault valueForKey:@"id"] andcomment:((UITextView *)sender).text];
+        [dataProvider CommentComment:b.cID anduserid:[Toolkit getUserID] andcomment:((UITextView *)sender).text];
     }
 }
 

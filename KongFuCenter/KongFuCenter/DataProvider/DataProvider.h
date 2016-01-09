@@ -95,6 +95,8 @@
 
 //修改密码
 -(void)ChangePassWord:(NSString *)userid andoldpwd:(NSString *)oldpwd andpassword:(NSString *)password;
+#pragma mark － 天气
+-(void)getWeatherInfo: (NSString*)httpUrl withHttpArg: (NSString*)HttpArg;
 #pragma mark - 成长记录
 -(void)getGrowHistory:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
 
@@ -309,6 +311,15 @@
 // 评论视频
 -(void)commentVideo:(NSString *)videoId andUserId:(NSString *)userid andComment:(NSString *)comment;
 
+#pragma mark － 武友相关
+//屏蔽武友动态
+-(void)ShieldFriendNew:(NSString *)userid andFriendid:(NSString *)friendid;
+//取消屏蔽
+-(void)UnShieldFriend:(NSString *)userid andFriendId:(NSString *)friendid;
+//屏蔽武友消息
+-(void)ShieldFriendMessage:(NSString *)userid andFriendId:(NSString *)friendid;
+//取消屏蔽武友消息
+-(void)UnShieldFriendMessage:(NSString *)userid andFriendId:(NSString *)friendid;
 
 #pragma mark － 战队动态
 -(void)getSelfTeamNews:(NSString *)userid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;

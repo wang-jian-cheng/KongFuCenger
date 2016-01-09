@@ -242,6 +242,7 @@
 		B5B737821C3D0B8800DF7437 /* AnnounceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737811C3D0B8800DF7437 /* AnnounceDetailViewController.m */; };
 		B5B737C41C3E3D0100DF7437 /* AddressMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */; };
 		B5B737CD1C3E45E600DF7437 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737CC1C3E45E600DF7437 /* MapViewController.m */; };
+		B5B738121C40B1EC00DF7437 /* ChatSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B738111C40B1EC00DF7437 /* ChatSetViewController.m */; };
 		B5D345991C28E95900D39891 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345981C28E95900D39891 /* VPImageCropperViewController.m */; };
 		B5D345BD1C28E97E00D39891 /* JKImagePickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459C1C28E97D00D39891 /* JKImagePickerController.strings */; };
 		B5D345BE1C28E97E00D39891 /* ImagesPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459E1C28E97D00D39891 /* ImagesPicker.xcassets */; };
@@ -859,6 +860,8 @@
 		B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressMapViewController.m; sourceTree = "<group>"; };
 		B5B737CB1C3E45E600DF7437 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		B5B737CC1C3E45E600DF7437 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		B5B738101C40B1EC00DF7437 /* ChatSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSetViewController.h; sourceTree = "<group>"; };
+		B5B738111C40B1EC00DF7437 /* ChatSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSetViewController.m; sourceTree = "<group>"; };
 		B5D345971C28E95900D39891 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
 		B5D345981C28E95900D39891 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
 		B5D3459D1C28E97D00D39891 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/JKImagePickerController.strings; sourceTree = "<group>"; };
@@ -1844,6 +1847,8 @@
 				B5F4E3A21C1EA45C001F81F0 /* FriendInfoViewController.m */,
 				B5F4E3A41C1EBBB5001F81F0 /* StrangerInfoViewController.h */,
 				B5F4E3A51C1EBBB6001F81F0 /* StrangerInfoViewController.m */,
+				B5B738101C40B1EC00DF7437 /* ChatSetViewController.h */,
+				B5B738111C40B1EC00DF7437 /* ChatSetViewController.m */,
 			);
 			path = PersonInfo;
 			sourceTree = "<group>";
@@ -3259,6 +3264,7 @@
 				804951FD1C250B3800F5584A /* CIImageRendererUtils.m in Sources */,
 				B5451CCE1C27970E001BB39F /* CCLocationManager.m in Sources */,
 				B5F90AF21C197D3D00D7879D /* UIView+XD.m in Sources */,
+				B5B738121C40B1EC00DF7437 /* ChatSetViewController.m in Sources */,
 				804952041C250B3800F5584A /* SCFilter.m in Sources */,
 				B59408CC1C0FC9E8003DC15D /* AppDelegate.m in Sources */,
 				804952181C250B3800F5584A /* CALayer+AddUIColor.m in Sources */,

@@ -464,7 +464,11 @@
             }
         }
             break;
+        case 4:
+        {
             
+            [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3"];
+        }
         default:
             break;
     }
@@ -472,8 +476,10 @@
 }
 
 
+
 -(void)MakeActionCallBack:(id)dict
 {
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];
     }
@@ -633,6 +639,8 @@
                                                                                     headView.frame.origin.y, 40, headView.frame.size.height/2)];
                     [jubaoBtn setTitle:@"举报" forState:UIControlStateNormal];
                     jubaoBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                    jubaoBtn.tag = 4;
+                    [jubaoBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                     [cell addSubview:jubaoBtn];
                     
                     /*date*/

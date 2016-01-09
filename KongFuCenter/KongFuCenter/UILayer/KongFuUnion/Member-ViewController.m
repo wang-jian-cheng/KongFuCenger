@@ -43,6 +43,7 @@
     [self getTeamMembers];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
+    tapGesture.delegate = self;
     [self.view addGestureRecognizer:tapGesture];
 }
 
@@ -51,6 +52,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
+//设置点在某个view时部触发事件
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    // 输出点击的view的类名
+    NSLog(@"-%@", NSStringFromClass([touch.view class]));
+    
+
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"])
+    {
+        return NO;
+    }
+    //  NSLog(@"return YES");
+    return  YES;
+}
 
 #pragma mark - click action
 
@@ -64,9 +81,9 @@
 
 -(void)infoBtnClick:(UIButton *)sender
 {
-    clickId = searchArr[sender.tag][@"Id"];
-    
-    [self CheckIsFriend:clickId];
+//    clickId = searchArr[sender.tag][@"Id"];
+//    
+//    [self CheckIsFriend:clickId];
 }
 
 -(void)startSearchBtnClick:(UIButton *)sender
@@ -271,11 +288,12 @@
         cell.number.text = tempDict[@"Phone"];
         NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
         
+        
+        [cell.image sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
         UIButton *btn = [[UIButton alloc] initWithFrame:cell.image.frame];
         btn.tag = indexPath.row;
         [btn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.image addSubview:btn];
-        [cell.image sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+        [cell addSubview:btn];
     }
     @catch (NSException *exception) {
         
@@ -296,6 +314,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    clickId = searchArr[indexPath.row][@"MemnerId"];
+    
+    [self CheckIsFriend:clickId];
+    
 }
 
 -(void)CheckIsFriend:(NSString *)userId
@@ -306,7 +328,7 @@
 }
 
 -(void)isFriendCallBack:(id)dict{
-    NSLog(@"%@",dict);
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
         if([dict[@"data"] intValue] == 1)//好友
         {
