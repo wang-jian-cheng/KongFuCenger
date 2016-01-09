@@ -32,7 +32,6 @@
         [self addRightbuttontitle:@"赛事介绍"];
     }
     [self initViews];
-    // Do any additional setup after loading the view.
 }
 
 -(void)initData{
@@ -43,22 +42,12 @@
 -(void)getMatchPersonInfoCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict);
+        
     }
 }
 
 -(void)initViews
 {
-//    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, Header_Height + 10, SCREEN_WIDTH, 60)];
-//    backView.backgroundColor = ItemsBaseColor;
-//    [self.view addSubview:backView];
-//    
-//    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, Header_Height + 10, SCREEN_WIDTH
-//                                                               , 60)];
-//    _searchBar.delegate = self;
-//    _searchBar.placeholder = @"参赛者编号";
-//    _searchBar.backgroundColor = ItemsBaseColor;
-    
-    
     searchTxt = [[UITextField alloc] initWithFrame:CGRectMake(0, Header_Height + 5, SCREEN_WIDTH, 45)];
     searchTxt.backgroundColor = ItemsBaseColor;
     searchTxt.returnKeyType = UIReturnKeySearch;
@@ -99,8 +88,6 @@
 
 -(void)initCollectionView
 {
-    
-    
     UICollectionViewFlowLayout *layout=[[ UICollectionViewFlowLayout alloc ] init ];
     layout.minimumLineSpacing = 5.0;
     layout.minimumInteritemSpacing = 5.0;
@@ -188,6 +175,36 @@
     idLab.textAlignment = NSTextAlignmentCenter;
     idLab.font = [UIFont systemFontOfSize:14];
     [baseImg addSubview:idLab];
+    
+    if(_mushaMatchOngoingMode == Mode_MushaRanking){
+        UILabel *rankLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, cell.frame.size.width - 5, 21)];
+        rankLbl.textAlignment = NSTextAlignmentRight;
+        rankLbl.textColor = [UIColor whiteColor];
+        rankLbl.font = [UIFont systemFontOfSize:14];
+        rankLbl.text = [NSString stringWithFormat:@"第%d名",(int)indexPath.row + 1];
+        [baseImg addSubview:rankLbl];
+    }else if(_mushaMatchOngoingMode == Mode_TeamOnGoing){
+        UILabel *addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, cell.frame.size.width - 5, 21)];
+        addressLbl.textAlignment = NSTextAlignmentRight;
+        addressLbl.textColor = [UIColor whiteColor];
+        addressLbl.font = [UIFont systemFontOfSize:14];
+        addressLbl.text = @"山东临沂";
+        [baseImg addSubview:addressLbl];
+    }else if (_mushaMatchOngoingMode == Mode_TeamRanking){
+        UILabel *rankLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, cell.frame.size.width - 5, 21)];
+        rankLbl.textAlignment = NSTextAlignmentRight;
+        rankLbl.textColor = [UIColor whiteColor];
+        rankLbl.font = [UIFont systemFontOfSize:14];
+        rankLbl.text = [NSString stringWithFormat:@"第%d名",(int)indexPath.row + 1];
+        [baseImg addSubview:rankLbl];
+        
+        UILabel *addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 5 + rankLbl.frame.size.height + 5, cell.frame.size.width - 5, 21)];
+        addressLbl.textAlignment = NSTextAlignmentRight;
+        addressLbl.textColor = [UIColor whiteColor];
+        addressLbl.font = [UIFont systemFontOfSize:14];
+        addressLbl.text = @"山东临沂";
+        [baseImg addSubview:addressLbl];
+    }
     
     UserHeadView *headView = [[UserHeadView alloc]  initWithFrame:CGRectMake(10, baseImg.frame.size.height + 5, (cell.frame.size.height/3 -5*2), (cell.frame.size.height/3 -5*2)) andImgName:@"me" andNav:self.navigationController];
     [headView makeSelfRound];

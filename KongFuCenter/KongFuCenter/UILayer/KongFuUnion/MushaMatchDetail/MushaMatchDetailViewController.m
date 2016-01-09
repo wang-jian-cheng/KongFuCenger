@@ -298,6 +298,7 @@
             height = height > (_cellHeight*3 -  (titlelab.frame.size.height+titlelab.frame.origin.y))?(_cellHeight*3 -  (titlelab.frame.size.height+titlelab.frame.origin.y)):height;
             UITextView *contentView = [[UITextView alloc] initWithFrame:CGRectMake(GapToLeft, (titlelab.frame.size.height+titlelab.frame.origin.y), SCREEN_WIDTH-GapToLeft, height)];
             contentView.editable = NO;
+            contentView.scrollEnabled = NO;
             contentView.textColor = [UIColor whiteColor];
             contentView.font = [UIFont systemFontOfSize:14];
             contentView.text = str;
@@ -378,6 +379,7 @@
             height = height > (_cellHeight*3 -  (titlelab.frame.size.height+titlelab.frame.origin.y - _cellHeight))?(_cellHeight*3 -  (titlelab.frame.size.height+titlelab.frame.origin.y)- _cellHeight):height;
             UITextView *contentView = [[UITextView alloc] initWithFrame:CGRectMake(GapToLeft, (titlelab.frame.size.height+titlelab.frame.origin.y), SCREEN_WIDTH-GapToLeft, height)];
             contentView.editable = NO;
+            contentView.scrollEnabled = NO;
             contentView.textColor = [UIColor whiteColor];
             contentView.font = [UIFont systemFontOfSize:14];
             contentView.text = str;
