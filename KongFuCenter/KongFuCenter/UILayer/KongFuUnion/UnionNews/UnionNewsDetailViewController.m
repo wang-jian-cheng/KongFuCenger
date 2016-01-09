@@ -188,18 +188,18 @@
     if(sender.selected == NO)
     {
         sender.selected = YES;
-        NSLog(@"点赞");
+        NSLog(@"收藏");
         zan = YES;
-        [dataprovider voiceAction:self.webId andUserId:[Toolkit getUserID] andFlg:@"2"];
+        [dataprovider voiceAction:self.webId andUserId:[Toolkit getUserID] andFlg:@"1"];
     }
     else
     {
         sender.selected = NO;
         zan = NO;
-        NSLog(@"取消点赞");
+        NSLog(@"取消收藏");
         
         //                DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider voicedelete:self.webId andUserId:[Toolkit getUserID] andFlg:@"2"];
+        [dataprovider voicedelete:self.webId andUserId:[Toolkit getUserID] andFlg:@"1"];
     }
     
 
@@ -329,11 +329,11 @@
             
             if(indexPath.row == 1)
             {
-                collectBtn.frame = CGRectMake(GapToLeft,5 ,60 , _cellHeight - 5*2);
+                collectBtn.frame = CGRectMake(20,5 ,40 , _cellHeight - 5*2);
                 if(self.collectNum !=nil)
-                    [collectBtn setTitle:self.collectNum forState:UIControlStateNormal];
+                    [collectBtn setTitle:[NSString stringWithFormat:@"  %@",self.collectNum] forState:UIControlStateNormal];
                 else
-                    [collectBtn setTitle:@"0" forState:UIControlStateNormal];
+                    [collectBtn setTitle:@" 0" forState:UIControlStateNormal];
                 [collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
                 [collectBtn setImage:[UIImage imageNamed:@"collect_h"] forState:UIControlStateSelected];
                 [collectBtn setTitleColor:TextColors forState:UIControlStateNormal];
@@ -343,7 +343,7 @@
                 
                 
                 UILabel *commentLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -60), 5, 60, (_cellHeight - 5*2))];
-                commentLab.text = [NSString stringWithFormat:@"评论%ld",videoCommentArray.count];
+                commentLab.text = [NSString stringWithFormat:@"评论 %ld",videoCommentArray.count];
                 commentLab.textColor = TextColors;
                 commentLab.font = [UIFont systemFontOfSize:14];
                 
@@ -353,9 +353,9 @@
                                                                                 (_cellHeight - 5*2))];
                 
                 if(self.readNum!=nil)
-                    readNumLab.text = [NSString stringWithFormat:@"阅读%@",self.readNum];
+                    readNumLab.text = [NSString stringWithFormat:@"阅读 %@",self.readNum];
                 else
-                    readNumLab.text = [NSString stringWithFormat:@"阅读%@",@"0"];
+                    readNumLab.text = [NSString stringWithFormat:@"阅读 %@",@"0"];
                 readNumLab.textColor = TextColors;
                 readNumLab.font = [UIFont systemFontOfSize:14];
                 

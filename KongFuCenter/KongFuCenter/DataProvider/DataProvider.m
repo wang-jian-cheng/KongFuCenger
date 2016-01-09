@@ -965,7 +965,66 @@
     }
 }
 
+#pragma mark -  武友动态
+
+-(void)ShieldFriendNew:(NSString *)userid andFriendid:(NSString *)friendid
+{
+    if(userid&&friendid)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/ShieldFriend",Url];
+        NSDictionary *prm = @{@"userid":userid,
+                              @"friendid":friendid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else
+    {
+       [SVProgressHUD dismiss];
+    }
+}
+
+-(void)UnShieldFriend:(NSString *)userid andFriendId:(NSString *)friendid
+{
+    if(userid&&friendid)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/UnShieldFriend",Url];
+        NSDictionary *prm = @{@"userid":userid,
+                              @"friendid":friendid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
+}
+
+
+-(void)ShieldFriendMessage:(NSString *)userid andFriendId:(NSString *)friendid
+{
+    if(userid && friendid)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/ShieldFriendNews",Url];
+        NSDictionary *prm = @{@"userid":userid,
+                              @"friendid":friendid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)UnShieldFriendMessage:(NSString *)userid andFriendId:(NSString *)friendid
+{
+    if(userid && friendid)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/UnShieldFriendNews",Url];
+        NSDictionary *prm = @{@"userid":userid,
+                              @"friendid":friendid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+}
 #pragma mark - 联盟动态
+
+
 -(void)getUnionNewsCate
 {
     NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetLianmengCate",Url];
@@ -1137,6 +1196,35 @@
 }
 
 
+
+#pragma mark -  天气
+//获取天气信息
+-(void)getWeatherInfo: (NSString*)httpUrl withHttpArg: (NSString*)HttpArg {
+    NSString *urlStr = [[NSString alloc]initWithFormat: @"%@?%@", httpUrl, [HttpArg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURL *url = [NSURL URLWithString: urlStr];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url cachePolicy: NSURLRequestUseProtocolCachePolicy timeoutInterval: 10];
+    [request setHTTPMethod: @"POST"];
+    [request addValue: @"4e01ff24cadf672086df1d5f654f4785" forHTTPHeaderField: @"apikey"];
+    
+    [NSURLConnection sendAsynchronousRequest: request
+                                       queue: [NSOperationQueue mainQueue]
+                           completionHandler: ^(NSURLResponse *response, NSData *data, NSError *error){
+                               if (error) {
+                                   NSLog(@"error:%@",error);
+                                   [SVProgressHUD dismiss];
+                               } else {
+                                   id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                                   SEL func_selector = NSSelectorFromString(callBackFunctionName);
+                                   if ([CallBackObject respondsToSelector:func_selector]) {
+                                       NSLog(@"回调成功...");
+                                       [CallBackObject performSelector:func_selector withObject:dict];
+                                   }else{
+                                       NSLog(@"回调失败...");
+                                       [SVProgressHUD dismiss];
+                                   }
+                               }
+                           }];
+}
 
 
 

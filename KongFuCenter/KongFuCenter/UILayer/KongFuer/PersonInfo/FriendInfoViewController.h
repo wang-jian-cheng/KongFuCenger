@@ -8,6 +8,7 @@
 
 #import "BaseNavigationController.h"
 #import "UserHeadView.h"
+#import "ChatSetViewController.h"
 @interface FriendInfoViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @property(strong,nonatomic) NSString *userID;

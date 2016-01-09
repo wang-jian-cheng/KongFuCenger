@@ -15,6 +15,6 @@
 #import "ChineseInclude.h"
 #import "PinYinForObjc.h"
 #import "PushView.h"
-@interface Member_ViewController : BaseNavigationController
+@interface Member_ViewController : BaseNavigationController<UIGestureRecognizerDelegate>
 
 @end

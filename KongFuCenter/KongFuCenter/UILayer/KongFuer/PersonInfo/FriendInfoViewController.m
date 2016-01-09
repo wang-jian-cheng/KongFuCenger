@@ -27,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
+    [self addRightbuttontitle:@"聊天设置"];
     self.view.backgroundColor = BACKGROUND_COLOR;
     userDefault = [NSUserDefaults standardUserDefaults];
     userInfoArray = [[NSDictionary alloc] init];
@@ -97,6 +98,15 @@
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
+
+-(void)clickRightButton:(UIButton *)sender
+{
+    ChatSetViewController *chatSetViewCtl = [[ChatSetViewController alloc] init];
+    chatSetViewCtl.navtitle =@"聊天设置";
+    chatSetViewCtl.userID = self.userID;
+    [self.navigationController pushViewController:chatSetViewCtl animated:YES];
+}
+
 
 
 #pragma mark -  tableview  Delegate
