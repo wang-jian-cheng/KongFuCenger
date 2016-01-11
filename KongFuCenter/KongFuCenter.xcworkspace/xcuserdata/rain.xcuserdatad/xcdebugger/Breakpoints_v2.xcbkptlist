@@ -4107,7 +4107,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "993"
             endingLineNumber = "993"
-            landmarkName = "-getOtherTeamNews:andStartRowIndex:andMaximumRows:"
+            landmarkName = "-UnShieldFriend:andFriendId:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4662,11 +4662,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4678,11 +4678,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "-uploadImgEvent"
             landmarkType = "5">
          </BreakpointContent>
@@ -4694,11 +4694,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "292"
-            endingLineNumber = "292"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4710,11 +4710,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "291"
-            endingLineNumber = "291"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
             landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4726,11 +4726,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "-clickRightButton:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4742,11 +4742,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "-getVideoCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4758,11 +4758,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "-clickRightButton:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4774,11 +4774,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "-getImgCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4790,27 +4790,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
-            landmarkName = "-getImgCallBack:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "255"
             endingLineNumber = "255"
+            landmarkName = "-getImgCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
+            timestampString = "474196389.926017"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
             landmarkName = "-getImgCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4852,11 +4852,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
             landmarkName = "-saveMushaMatchCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4873,7 +4873,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "919"
             endingLineNumber = "919"
-            landmarkName = "-JoinMatch:anduserid:andmatchVideo:andmatchImage:andmatchDescription:andtitle:"
+            landmarkName = "-JoinMatch:anduserid:andmatchVideo:andmatchImage:andmatchDescription:andtitle:andvideoDuration:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4884,11 +4884,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
             landmarkName = "-getImgCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4900,11 +4900,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "-keyboardDidShow:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4916,11 +4916,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474031331.55582"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4980,11 +4980,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "-initData"
             landmarkType = "5">
          </BreakpointContent>
@@ -5236,7 +5236,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/MushaMatchOngoingViewController.m"
-            timestampString = "474031456.492926"
+            timestampString = "474199139.98941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "304"
@@ -5252,7 +5252,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/MushaMatchOngoingViewController.m"
-            timestampString = "474031456.492926"
+            timestampString = "474199139.98941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "269"
@@ -5268,7 +5268,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/MushaMatchOngoingViewController.m"
-            timestampString = "474031456.492926"
+            timestampString = "474199139.98941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "305"
@@ -5300,7 +5300,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/MushaMatchOngoingViewController.m"
-            timestampString = "474031456.492926"
+            timestampString = "474199139.98941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "282"
@@ -5316,11 +5316,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474031331.55582"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5332,11 +5332,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474030788.536379"
+            timestampString = "474196389.926017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "-initData"
             landmarkType = "5">
          </BreakpointContent>
@@ -5380,11 +5380,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474031331.55582"
+            timestampString = "474196640.91495"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "430"
-            endingLineNumber = "430"
+            startingLineNumber = "433"
+            endingLineNumber = "433"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5396,12 +5396,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
-            timestampString = "474031331.55582"
+            timestampString = "474196640.91495"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "412"
-            endingLineNumber = "412"
+            startingLineNumber = "415"
+            endingLineNumber = "415"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatch.m"
+            timestampString = "474194367.952894"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
+            timestampString = "474196365.286427"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
+            landmarkName = "-getVideoCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MushaMatchDetail/ApplyForMatchViewController.m"
+            timestampString = "474196706.957493"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "-getVideoCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

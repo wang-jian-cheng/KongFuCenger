@@ -228,6 +228,7 @@
     }else if([sender.titleLabel.text isEqualToString:@"我的视频"])
     {
         VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
+        videoViewCtl.videoID = _matchId;
         videoViewCtl.navtitle = @"大赛个人详情";
         [self.navigationController pushViewController:videoViewCtl animated:YES];
     }

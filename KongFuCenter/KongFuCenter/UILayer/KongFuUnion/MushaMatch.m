@@ -302,7 +302,7 @@ typedef enum _MatchMode
     }
     else if(matchMode == ZhanDuiMode)
     {
-        if(indexPath.row == 0)
+        if(matchState == 0)
         {
             MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
             [mushaMatchDetailViewCtl setMushaMatchDetailMode:Mode_Team];
@@ -310,7 +310,7 @@ typedef enum _MatchMode
             mushaMatchDetailViewCtl.matchId = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Id"]];
             [self.navigationController pushViewController:mushaMatchDetailViewCtl animated:YES];
         }
-        else if(indexPath.row == 1)
+        else if(matchState == 1)
         {
             MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
             [mushaMatchOngoingViewCtl setMushaMatchOngoingMode:Mode_TeamOnGoing];

@@ -251,7 +251,7 @@
     [baseImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"temp2"]];//[UIImage imageNamed:@"temp2"];
     [cell addSubview:baseImg];
     
-    UILabel *timeLabInImg = [[UILabel alloc] initWithFrame:CGRectMake((baseImg.frame.size.width - 10 -40), (baseImg.frame.size.height - 40), 40, 25)];
+    UILabel *timeLabInImg = [[UILabel alloc] initWithFrame:CGRectMake((baseImg.frame.size.width - 5 -90), (baseImg.frame.size.height - 40), 90, 25)];
     timeLabInImg.text = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"MemberVideoDuration"]];//@"5:00";
     timeLabInImg.textColor = [UIColor whiteColor];
     timeLabInImg.textAlignment = NSTextAlignmentCenter;
@@ -339,6 +339,7 @@
 -( void )collectionView:( UICollectionView *)collectionView didSelectItemAtIndexPath:( NSIndexPath *)indexPath
 {
     VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
+    videoViewCtl.videoID = _matchId;
     videoViewCtl.navtitle = @"大赛个人详情";
     [self.navigationController pushViewController:videoViewCtl animated:YES];
 }

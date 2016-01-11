@@ -25,6 +25,7 @@
     NSString *imagebase64;
     NSURL *videoURL;
     NSString *videoName;
+    NSString *videoDuration;
     UITextView  *titleView;
     UITextView  *contentView;
     NSUserDefaults *userDefault;
@@ -240,10 +241,11 @@
         if ([imagebase64 isEqual:@""]) {
             [SVProgressHUD showWithStatus:@"正在保存..."];
             [dataProvider setDelegateObject:self setBackFunctionName:@"saveMushaMatchCallBack:"];
-            [dataProvider JoinMatch:_matchId anduserid:[userDefault valueForKey:@"id"] andmatchVideo:[dict[@"data"] valueForKey:@"VideoName"] andmatchImage:[dict[@"data"] valueForKey:@"ImageName"] andmatchDescription:contentView.text andtitle:titleView.text];
+            [dataProvider JoinMatch:_matchId anduserid:[userDefault valueForKey:@"id"] andmatchVideo:[dict[@"data"] valueForKey:@"VideoName"] andmatchImage:[dict[@"data"] valueForKey:@"ImageName"] andmatchDescription:contentView.text andtitle:titleView.text andvideoDuration:[dict[@"data"] valueForKey:@"VideoDuration"]];
         }else{
             [SVProgressHUD showWithStatus:@"正在解析图片..."];
             videoName = [dict[@"data"] valueForKey:@"VideoName"];
+            videoDuration = [dict[@"data"] valueForKey:@"VideoDuration"];
             [dataProvider setDelegateObject:self setBackFunctionName:@"getImgCallBack:"];
             [dataProvider UploadImgWithImgdata:imagebase64];
         }
@@ -257,7 +259,7 @@
         [SVProgressHUD showWithStatus:@"正在保存..."];
         DataProvider *dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"saveMushaMatchCallBack:"];
-        [dataProvider JoinMatch:_matchId anduserid:[userDefault valueForKey:@"id"] andmatchVideo:videoName andmatchImage:[dict[@"data"] valueForKey:@"ImagePath"] andmatchDescription:contentView.text andtitle:titleView.text];
+        [dataProvider JoinMatch:_matchId anduserid:[userDefault valueForKey:@"id"] andmatchVideo:videoName andmatchImage:[dict[@"data"] valueForKey:@"ImagePath"] andmatchDescription:contentView.text andtitle:titleView.text andvideoDuration:videoDuration];
     }
 }
 
@@ -395,6 +397,7 @@
                 _player.loopEnabled = YES;
                 [_player setItemByUrl:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[personMatchArray valueForKey:@"MatchVideo"]]]]];
                 [_player play];
+                videoURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[personMatchArray valueForKey:@"MatchVideo"]]]];
                 
                 UIButton *uploadVideo = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150)/2, (3*_cellHeight - 50)/2, 150, 50)];
                 uploadVideo.center = CGPointMake(SCREEN_WIDTH/2, 3*_cellHeight /2);
@@ -444,7 +447,7 @@
             if (_applyForMatchMode == Mode_Add) {
                 titleView.text = @"视频标题";
             }else{
-                titleView.text = @"";//[Toolkit judgeIsNull:[personMatchArray valueForKey:@"MatchImage"]];//@"修改标题";
+                titleView.text = [Toolkit judgeIsNull:[personMatchArray valueForKey:@"Title"]];//@"修改标题";
             }
             titleView.tag = indexPath.section;
             titleView.textAlignment = NSTextAlignmentLeft;
@@ -452,7 +455,6 @@
             titleView.textColor = [UIColor whiteColor];
             titleView.delegate = self;
             [cell addSubview:titleView];
-
         }
             break;
         case 2:

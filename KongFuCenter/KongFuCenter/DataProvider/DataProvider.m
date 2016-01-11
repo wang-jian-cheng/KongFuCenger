@@ -941,10 +941,10 @@
     }
 }
 
--(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription andtitle:(NSString *)title{
+-(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription andtitle:(NSString *)title andvideoDuration:(NSString *)videoDuration{
     if (matchId && userid) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/JoinMatch",Url];
-        NSDictionary *prm =@{@"matchId":matchId,@"userid":userid,@"matchVideo":matchVideo,@"matchImage":matchImage,@"matchDescription":matchDescription,@"title":title};
+        NSDictionary *prm =@{@"matchId":matchId,@"userid":userid,@"matchVideo":matchVideo,@"matchImage":matchImage,@"matchDescription":matchDescription,@"title":title,@"videoDuration":videoDuration};
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];

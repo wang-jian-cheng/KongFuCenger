@@ -72,12 +72,14 @@
 
 -(void)myVideoEvent{
     VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
+    videoViewCtl.videoID = _matchId;
     videoViewCtl.navtitle = @"大赛个人详情";
     [self.navigationController pushViewController:videoViewCtl animated:YES];
 }
 
 -(void)myVideoTeamEvent{
     VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
+    videoViewCtl.videoID = _matchId;
     videoViewCtl.navtitle = @"战队详情";
     [self.navigationController pushViewController:videoViewCtl animated:YES];
 }

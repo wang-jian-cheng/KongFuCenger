@@ -38,7 +38,7 @@
     [self addLeftButton:@"left"];
     videoCommentArray = [NSMutableArray array];
     [self initViews];
-    _videoID = @"254";
+    //_videoID = @"254";
     
     [self getData];
     // Do any additional setup after loading the view.
