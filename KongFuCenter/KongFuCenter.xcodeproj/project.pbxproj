@@ -89,6 +89,13 @@
 		804952231C250B3800F5584A /* WechatShortVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804951FC1C250B3800F5584A /* WechatShortVideoController.xib */; };
 		804952271C2523FA00F5584A /* UploadVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 804952251C2523FA00F5584A /* UploadVideoViewController.m */; };
 		804952281C2523FA00F5584A /* UploadVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804952261C2523FA00F5584A /* UploadVideoViewController.xib */; };
+		8074B0991C4376D60029C8B1 /* PlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8074B0971C4376D60029C8B1 /* PlayerController.m */; };
+		8074B09A1C4376D60029C8B1 /* PlayerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8074B0981C4376D60029C8B1 /* PlayerController.xib */; };
+		8074B09E1C437FEF0029C8B1 /* libffmpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8074B09B1C437FEF0029C8B1 /* libffmpeg.a */; };
+		8074B09F1C437FEF0029C8B1 /* libopenssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8074B09C1C437FEF0029C8B1 /* libopenssl.a */; };
+		8074B0A01C437FEF0029C8B1 /* libVitamio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8074B09D1C437FEF0029C8B1 /* libVitamio.a */; };
+		8074B0A21C4380BB0029C8B1 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8074B0A11C4380BB0029C8B1 /* libiconv.tbd */; };
+		8074B0A41C4380E30029C8B1 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8074B0A31C4380E30029C8B1 /* libbz2.tbd */; };
 		807871621C33C03C007BCC53 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807871611C33C03C007BCC53 /* MediaPlayer.framework */; };
 		80CE42A51C3CB0F500B027CC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80CE42A41C3CB0F500B027CC /* AVFoundation.framework */; };
 		80CE42A71C3CB12800B027CC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80CE42A61C3CB12800B027CC /* AudioToolbox.framework */; };
@@ -609,6 +616,14 @@
 		804952241C2523FA00F5584A /* UploadVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadVideoViewController.h; sourceTree = "<group>"; };
 		804952251C2523FA00F5584A /* UploadVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadVideoViewController.m; sourceTree = "<group>"; };
 		804952261C2523FA00F5584A /* UploadVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadVideoViewController.xib; sourceTree = "<group>"; };
+		8074B0961C4376D60029C8B1 /* PlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerController.h; sourceTree = "<group>"; };
+		8074B0971C4376D60029C8B1 /* PlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerController.m; sourceTree = "<group>"; };
+		8074B0981C4376D60029C8B1 /* PlayerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerController.xib; sourceTree = "<group>"; };
+		8074B09B1C437FEF0029C8B1 /* libffmpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffmpeg.a; sourceTree = "<group>"; };
+		8074B09C1C437FEF0029C8B1 /* libopenssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopenssl.a; sourceTree = "<group>"; };
+		8074B09D1C437FEF0029C8B1 /* libVitamio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVitamio.a; sourceTree = "<group>"; };
+		8074B0A11C4380BB0029C8B1 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		8074B0A31C4380E30029C8B1 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		807871611C33C03C007BCC53 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		80CE42A41C3CB0F500B027CC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		80CE42A61C3CB12800B027CC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -1177,12 +1192,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8074B0A41C4380E30029C8B1 /* libbz2.tbd in Frameworks */,
+				8074B0A21C4380BB0029C8B1 /* libiconv.tbd in Frameworks */,
+				8074B09E1C437FEF0029C8B1 /* libffmpeg.a in Frameworks */,
+				80CE42A51C3CB0F500B027CC /* AVFoundation.framework in Frameworks */,
 				804558441C3E4A3A00166DAC /* MobileCoreServices.framework in Frameworks */,
+				8074B0A01C437FEF0029C8B1 /* libVitamio.a in Frameworks */,
 				80CE42AF1C3CB1A300B027CC /* OpenGLES.framework in Frameworks */,
 				80CE42AD1C3CB18900B027CC /* CoreVideo.framework in Frameworks */,
 				80CE42A91C3CB16500B027CC /* CoreMedia.framework in Frameworks */,
 				80CE42A71C3CB12800B027CC /* AudioToolbox.framework in Frameworks */,
-				80CE42A51C3CB0F500B027CC /* AVFoundation.framework in Frameworks */,
 				B5B737551C3BA61D00DF7437 /* CoreLocation.framework in Frameworks */,
 				B5B737531C3BA61500DF7437 /* MapKit.framework in Frameworks */,
 				803E363E1C350EB0006DE3A9 /* UIKit.framework in Frameworks */,
@@ -1194,6 +1213,7 @@
 				B5F2B37E1C210C6B003383AE /* libsqlite3.0.tbd in Frameworks */,
 				B529B7A51C2110BF003AC21C /* libpingpp+alipay.a in Frameworks */,
 				B5F2B37C1C210C12003383AE /* libc++.tbd in Frameworks */,
+				8074B09F1C437FEF0029C8B1 /* libopenssl.a in Frameworks */,
 				B5F2B37A1C20F765003383AE /* Security.framework in Frameworks */,
 				B5F2B3781C20F753003383AE /* SystemConfiguration.framework in Frameworks */,
 				B5F2B3761C20F6ED003383AE /* CFNetwork.framework in Frameworks */,
@@ -1249,6 +1269,8 @@
 		6530A98924EC80D772FCF134 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8074B0A31C4380E30029C8B1 /* libbz2.tbd */,
+				8074B0A11C4380BB0029C8B1 /* libiconv.tbd */,
 				804558431C3E4A3A00166DAC /* MobileCoreServices.framework */,
 				80CE42AE1C3CB1A300B027CC /* OpenGLES.framework */,
 				80CE42AC1C3CB18900B027CC /* CoreVideo.framework */,
@@ -1609,6 +1631,9 @@
 				80CE42D21C3CB26C00B027CC /* VAppInfo.m */,
 				80CE42D31C3CB26C00B027CC /* VSegmentSlider.h */,
 				80CE42D41C3CB26C00B027CC /* VSegmentSlider.m */,
+				8074B09B1C437FEF0029C8B1 /* libffmpeg.a */,
+				8074B09C1C437FEF0029C8B1 /* libopenssl.a */,
+				8074B09D1C437FEF0029C8B1 /* libVitamio.a */,
 				80CE42BC1C3CB23100B027CC /* include */,
 				80CE42C91C3CB23100B027CC /* LICENSE */,
 			);
@@ -1722,6 +1747,9 @@
 		B53791A91C1525CD00C45BA7 /* CommonUI */ = {
 			isa = PBXGroup;
 			children = (
+				8074B0961C4376D60029C8B1 /* PlayerController.h */,
+				8074B0971C4376D60029C8B1 /* PlayerController.m */,
+				8074B0981C4376D60029C8B1 /* PlayerController.xib */,
 				80CE42E61C3CE2CA00B027CC /* PlayerControllerDelegate.h */,
 				B5D345D41C2A77EB00D39891 /* PictureShow */,
 				B53791A21C151AED00C45BA7 /* VideoDetailViewController.h */,
@@ -3040,6 +3068,7 @@
 				B53E73921C16AB0C009E7878 /* wuguanimg@2x.png in Resources */,
 				B5451CBE1C2795C8001BB39F /* upsanjiao@2x.png in Resources */,
 				B7E0BF301C2A919A000DD4E1 /* wyhf.png in Resources */,
+				8074B09A1C4376D60029C8B1 /* PlayerController.xib in Resources */,
 				804952231C250B3800F5584A /* WechatShortVideoController.xib in Resources */,
 				B53E737B1C166389009E7878 /* collect@2x.png in Resources */,
 				B5AF70641C17FA7300C041AF /* zhibo@2x.png in Resources */,
@@ -3365,6 +3394,7 @@
 				80CE42D71C3CB26C00B027CC /* VSegmentSlider.m in Sources */,
 				804952141C250B3800F5584A /* SCSwipeableFilterView.m in Sources */,
 				B5B737781C3CAAF100DF7437 /* PinyinHelper.m in Sources */,
+				8074B0991C4376D60029C8B1 /* PlayerController.m in Sources */,
 				B5905DF81C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m in Sources */,
 				7BAA22C01C2D34FE001E7EBB /* model_UnionNew.m in Sources */,
 				B5AF707F1C1837F600C041AF /* NewPlanViewController.m in Sources */,
@@ -3580,6 +3610,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 917C8DDA7A56E94AAC386040 /* Pods-KongFuCenter.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					arm64,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3618,7 +3652,7 @@
 					"$(PROJECT_DIR)/Utils/Vitamio-online",
 					"$(PROJECT_DIR)/Utils/libpolyvSDK",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				"OTHER_LDFLAGS[arch=*]" = (
 					"$(inherited)",
 					"-framework",
@@ -3631,7 +3665,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/KongFuCenter/ThirdFramework/JPush";
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -3677,7 +3711,7 @@
 					"$(PROJECT_DIR)/Utils/Vitamio-online",
 					"$(PROJECT_DIR)/Utils/libpolyvSDK",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -3697,7 +3731,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/KongFuCenter/ThirdFramework/JPush";
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};

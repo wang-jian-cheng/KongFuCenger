@@ -8,8 +8,12 @@
 
 #import "VideoDetailViewController.h"
 #import "UserHeadView.h"
-#import "MoviePlayer.h"
+//#import "MoviePlayer.h"
 #import "DataProvider.h"
+#import "PlayerControllerDelegate.h"
+#import "PlayerController.h"
+
+
 
 #define VideoPlaySection    0
 #define VideoDetailSection  1
@@ -19,13 +23,13 @@
 #define GapToLeft           20
 #define TextColors          [UIColor whiteColor]
 
-@interface VideoDetailViewController ()
+@interface VideoDetailViewController ()<PlayerControllerDelegate>
 {
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
-    MoviePlayer *moviePlayerview;
+//    MoviePlayer *moviePlayerview;
     
     
     NSString * VideoPath;
@@ -37,6 +41,10 @@
     int OtherVideo;
     
     NSMutableArray  * otherVideoArray;
+    
+    PlayerController *playerCtrl;
+    
+    CGRect _VideoViewFrame;
 }
 @end
 
@@ -178,17 +186,64 @@
         
         [dataprovider getUserid:dict[@"data"][@"UserId"] andNum:@"4" andmessageID:dict[@"data"][@"Id"]];
         
-        if([dict[@"data"][@"IsFree"] intValue] == 0)
-        {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"会员才可观看" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-            [alertView show];
-            return;
-        }
+//        if([dict[@"data"][@"IsFree"] intValue] == 0)
+//        {
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"会员才可观看" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//            [alertView show];
+//            return;
+//        }
         
-        moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
+//        moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
+//        
+//        [_mainTableView reloadData];
+//        [self.view addSubview:moviePlayerview];
         
-        [_mainTableView reloadData];
-        [self.view addSubview:moviePlayerview];
+        
+        playerCtrl = [[PlayerController alloc] initWithNibName:nil bundle:nil] ;
+        playerCtrl.delegate = self;
+        playerCtrl.view.frame=CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight);
+        
+        _VideoViewFrame=CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight);
+        
+        
+        [playerCtrl.modeBtn addTarget:self action:@selector(changeModle:) forControlEvents:UIControlEventTouchUpInside];
+        
+        //[self presentModalViewController:playerCtrl animated:YES];
+        [self.view addSubview:playerCtrl.view];
+//        playerCtrl.backView
+        
+    }
+}
+
+-(void)changeModle:(UIButton *)sender
+{
+    if (sender.tag!=1) {
+        
+        [sender setImage:[UIImage imageNamed:@"small"] forState:UIControlStateHighlighted];
+        
+        sender.tag=1;
+        
+        playerCtrl.backView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
+        
+        playerCtrl.backView.center=CGPointMake(SCREEN_WIDTH/2,SCREEN_HEIGHT/2-64 );
+        
+        CGAffineTransform transform = CGAffineTransformMakeRotation(90 * M_PI/180.0);
+        
+        [playerCtrl.backView setTransform:transform];
+        
+    }
+    else
+    {
+        
+        [sender setImage:[UIImage imageNamed:@"big"] forState:UIControlStateHighlighted];
+        
+        sender.tag=0;
+        
+        playerCtrl.view.frame=_VideoViewFrame;
+        
+        CGAffineTransform transform = CGAffineTransformMakeRotation(-90 * M_PI/180.0);
+        
+        [playerCtrl.view setTransform:transform];
     }
 }
 
@@ -394,8 +449,8 @@
 -(void)clickLeftButton:(UIButton *)sender
 {
  //   moviePlayerview=[[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:@""]];
-    [moviePlayerview stopPlayer];
-    
+//    [moviePlayerview stopPlayer];
+    [playerCtrl goBackButtonAction];
     [self.navigationController popViewControllerAnimated:YES];
     
     
@@ -1132,14 +1187,23 @@
 
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark 播放器代理
+- (NSURL *)playCtrlGetCurrMediaTitle:(NSString **)title lastPlayPos:(long *)lastPlayPos
+{
+    return [NSURL URLWithString:VideoPath];
 }
-*/
+- (NSURL *)playCtrlGetNextMediaTitle:(NSString **)title lastPlayPos:(long *)lastPlayPos
+{
+    return [NSURL URLWithString:VideoPath];
+}
+
+- (NSURL *)playCtrlGetPrevMediaTitle:(NSString **)title lastPlayPos:(long *)lastPlayPos
+{
+    return [NSURL URLWithString:VideoPath];
+}
+
+
+
+
 
 @end

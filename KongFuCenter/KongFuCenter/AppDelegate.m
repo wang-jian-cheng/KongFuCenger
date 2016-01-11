@@ -153,7 +153,7 @@
     /***************************************极光推送结束*********************************************/
     [self initUI];
     
-    [APService setTags:[NSSet setWithObject:[NSString stringWithFormat:@"Tags_%@",get_sp(@"TeamId")]] alias:[NSString stringWithFormat:@"alias_%@",[Toolkit getUserID]] callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:nil];
+    [APService setTags:[NSSet setWithObject:[NSString stringWithFormat:@"TeamId_%@",get_sp(@"TeamId")]] alias:[NSString stringWithFormat:@"alias_%@",[Toolkit getUserID]] callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:nil];
     return YES;
 }
 
@@ -461,6 +461,7 @@
     
     // Required
     [APService handleRemoteNotification:userInfo];
+    NSLog(@"接收的通知内容1%@",userInfo);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
@@ -469,6 +470,7 @@
     // IOS 7 Support Required
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
+    NSLog(@"接收的通知内容2%@",userInfo);
 }
 #pragma mark 极光推送结束
 
