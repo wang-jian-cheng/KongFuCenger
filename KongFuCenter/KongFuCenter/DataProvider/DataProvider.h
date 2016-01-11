@@ -149,6 +149,8 @@
 -(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid andUserId:(NSString *)userid;
 #pragma mark - 支付
 -(void)getPingppCharge:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description;
+//成为会员
+-(void)becomeVip:(NSString *)userid andMonth:(NSString *)month;
 
 #pragma mark - 武馆
 //根据城市名和经纬度获取武馆
@@ -243,8 +245,6 @@
 //获取其他作品
 -(NSInteger )getUserid:(NSString *)userId andNum:(NSString *)num andmessageID:(NSString *)messageID;
 
-//分页获取联盟动态
-- (NSInteger )growCateid:(NSString *)cateid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 
 //获取联盟动态横向分类
 -(NSInteger )getlianmengdongtai;
@@ -278,14 +278,12 @@
 -(void)GetCateForHezuo;
 
 //获取招聘合作信息
--(void)GetHezuoListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid;
-
+-(void)GetHezuoListByPage:(NSString *)startRowIndex andUserId:(NSString *)userid andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid;
 //获取江湖故事分类
 -(void)GetCateForJianghu;
 
 //获取江湖故事列表
--(void)GetJianghuListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid;
-
+-(void)GetJianghuListByPage:(NSString *)startRowIndex andUserId:(NSString *)userid andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid;
 //分页查询个人赛事
 -(void)SelectMatchPageByPerson:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
 
@@ -296,7 +294,7 @@
 -(void)SelectMatchDetail:(NSString *)matchId anduserId:(NSString *)userId;
 
 //个人比赛报名
--(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription andtitle:(NSString *)title;
+-(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription andtitle:(NSString *)title andvideoDuration:(NSString *)videoDuration;
 
 //查询比赛参赛人员
 -(void)SelectAllMatchMemberBySearch:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andmatchId:(NSString *)matchId andmembercode:(NSString *)membercode andnicname:(NSString *)nicname andflg:(NSString *)flg;
@@ -340,7 +338,8 @@
 
 #pragma mark - 联盟动态
 -(void)getUnionNewsCate;
-
+//分页获取联盟动态
+- (NSInteger )growCateid:(NSString *)cateid andUserId:(NSString *)userid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 #pragma mark 核动力
 //获取最新视频列表
 -(void)GetNewVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;

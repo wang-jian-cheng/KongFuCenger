@@ -18,6 +18,9 @@ typedef enum _pageMode
 }PageMode;
 
 @interface RegisterViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+{
+    UIButton * btn_GetvrifyCode;
+}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(nonatomic) PageMode pageMode;
 @end

@@ -159,7 +159,7 @@
 -(void)getUnionNewsDetail:(NSString *)cateId
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider growCateid:cateId andStartRowIndex:[NSString stringWithFormat:@"%d",pageSize*pageNo] andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+    [dataprovider growCateid:cateId andUserId:[Toolkit getUserID] andStartRowIndex:[NSString stringWithFormat:@"%d",pageSize*pageNo] andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetUnionNewDetailCallBack:"];
 }
 
@@ -315,6 +315,7 @@
     unionNew.navtitle = @"联盟详情";
     unionNew.webId =[ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"Id"]];
     unionNew.collectNum =[ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"FavoriteNum"]];
+    unionNew.isFavorite = [ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"IsFavorite"]];
     [self.navigationController pushViewController:unionNew animated:YES];
     
     

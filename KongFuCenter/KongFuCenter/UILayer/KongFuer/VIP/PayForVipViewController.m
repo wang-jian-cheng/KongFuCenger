@@ -29,6 +29,7 @@
     NSInteger PayFlag;
     float realpaymoney;
     UIAlertView* mAlert;
+    NSString *month;
 }
 @end
 
@@ -47,6 +48,7 @@
     [self addLeftButton:@"left"];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self initViews];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(JumpToPaySuccess) name:@"OrderPay_success" object:nil];
     // Do any additional setup after loading the view.
 }
 
@@ -104,6 +106,43 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+
+-(void)JumpToPaySuccess
+{
+    if(month != nil)
+    {
+        set_sp(@"IsPay",@"1");
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"becomeVipCallBack:"];
+        [dataProvider becomeVip:[Toolkit getUserID] andMonth:month];
+    }
+   /// [self popoverPresentationController];
+}
+
+-(void)becomeVipCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
 #pragma mark - pay
 
 - (void)realPay:(NSString *)channel
@@ -132,6 +171,8 @@
                    andDescription:@"1"];
     
 }
+
+
 
 -(void)realPayCallBack:(id)dict
 {
@@ -309,15 +350,19 @@
     switch (sender.tag) {
         case 2015+0:
             realpaymoney = 300;
+            month = @"1";
             break;
         case 2015+1:
             realpaymoney = 600;
+            month = @"3";
             break;
         case 2015+2:
             realpaymoney = 900;
+            month = @"6";
             break;
         case 2015+3:
             realpaymoney = 1200;
+            month = @"12";
             break;
         default:
             break;

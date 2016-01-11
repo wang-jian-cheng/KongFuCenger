@@ -77,7 +77,7 @@
     curpage = 0;
     zhInfoArray = [[NSArray alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"GetHezuoListByPageCallBack:"];
-    [dataProvider GetHezuoListByPage:@"0" andmaximumRows:@"1" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
+    [dataProvider GetHezuoListByPage:@"0" andUserId:[Toolkit getUserID] andmaximumRows:@"1" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
 }
 
 -(void)GetHezuoListByPageCallBack:(id)dict{
@@ -143,7 +143,7 @@
     curpage++;
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
-    [dataProvider GetHezuoListByPage:[NSString stringWithFormat:@"%d",curpage * 1] andmaximumRows:@"1" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
+    [dataProvider GetHezuoListByPage:[NSString stringWithFormat:@"%d",curpage * 1] andUserId:[Toolkit getUserID] andmaximumRows:@"1" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
 }
 
 -(void)FootRefireshBackCall:(id)dict
@@ -222,6 +222,7 @@
     unionNewsViewCtl.webId =[ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"Id"]];
     unionNewsViewCtl.navtitle = zhInfoArray[indexPath.row][@"Title"];
     unionNewsViewCtl.collectNum = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"FavoriteNum"]];
+    unionNewsViewCtl.isFavorite = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"IsFavorite"]];
     [self.navigationController pushViewController:unionNewsViewCtl animated:YES];
 }
 

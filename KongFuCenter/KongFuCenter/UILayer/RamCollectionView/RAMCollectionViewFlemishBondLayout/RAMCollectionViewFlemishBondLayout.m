@@ -125,7 +125,8 @@ NSString *const RAMCollectionViewFlemishBondFooterKind = @"RAMCollectionViewFlem
 {
     // Default values
     self.numberOfElements = 3;
-    self.highlightedCellHeight = 200.0f;
+    self.highlightedCellHeight = 300.0f;
+//    self.highlightedCellHeight = SCREEN_HEIGHT/3;
     self.highlightedCellWidth = 0.0f;
 }
 
@@ -241,6 +242,31 @@ NSString *const RAMCollectionViewFlemishBondFooterKind = @"RAMCollectionViewFlem
 - (CGRect)frameForCellAtIndexPath:(NSIndexPath *)indexPath
 {
     CGRect frame = CGRectZero;
+    NSInteger cellCount = [self itemCountAtSection:indexPath.section];;
+    NSInteger tempNum = indexPath.row;
+    if(tempNum)
+    {}
+    if (cellCount %3 ==2) {
+        if(indexPath.row == cellCount -2)
+        {
+            frame = CGRectMake(0, [self getYAtIndexPath:indexPath],(SCREEN_WIDTH -CollectionCellWGAP)/2, self.highlightedCellWidth/2);
+            return frame;
+        }
+        else if(indexPath.row == cellCount-1)
+        {
+            frame = CGRectMake((SCREEN_WIDTH +CollectionCellWGAP )/2 , [self getYAtIndexPath:indexPath],(SCREEN_WIDTH)/2-CollectionCellWGAP , self.highlightedCellWidth/2);
+            return frame;
+        }
+    }
+    else if(cellCount %3 ==1)
+    {
+        if(indexPath.row == cellCount-1)
+        {
+            frame = CGRectMake(0, [self getYAtIndexPath:indexPath],SCREEN_WIDTH, self.highlightedCellWidth/2);
+            return frame;
+        }
+    }
+    
     
     if ([self isHighLightedElementAtIndexPath:indexPath]) {
         if ([self.delegate conformsToProtocol:@protocol(RAMCollectionViewFlemishBondLayoutDelegate)] && [self.delegate respondsToSelector:@selector(collectionView:layout:highlightedCellDirectionForGroup:atIndexPath:)]) {

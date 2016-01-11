@@ -21,7 +21,8 @@
     
     NSMutableArray *cateGoryV;
     NSInteger categoryVIndex;
-    
+    BOOL getWeatherFinish;
+    NSString *oldCity;
 #pragma mark  - labs
     
     UILabel *lvLab;
@@ -32,7 +33,7 @@
     UILabel *IdLab;
     
     UserHeadView *headView;
-
+    
     NSUserDefaults *mUserDefault;
 }
 @end
@@ -49,7 +50,7 @@
     mUserDefault = [NSUserDefaults standardUserDefaults];
     [self initDatas];
     [self initViews];
-    
+    getWeatherFinish = NO;
     [self getDatas];
     // Do any additional setup after loading the view.
 }
@@ -58,7 +59,7 @@
 {
     
     categoryVIndex = 0;
-    
+    application = [UIApplication sharedApplication];
     cateGoryH = [NSMutableArray array];
     [cateGoryH addObjectsFromArray:@[@"放飞梦想",@"在线学习",@"武馆推荐",@"我的收藏"]];
     
@@ -151,6 +152,8 @@
  //   [locationManager startUpdatingLocation];
 
 }
+
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
     
         //获取当前所在地的城市
@@ -167,13 +170,25 @@
                 DLog(@"%@",city);
                 DLog(@"placemark = %@",placemark.name);
                 locationLab.text = city;
-                
-                 //[self getWeatherInfo:[city substringToIndex:[city length]-1]];
-               [self getWeatherInfo:@"北京"];
+               
+                if(oldCity == nil)
+                {
+                    [self getWeatherInfo:[city substringToIndex:[city length]-1]];
+                    oldCity = city;
+                }
+                else if(![oldCity isEqualToString:city])
+                {
+                    [self getWeatherInfo:[city substringToIndex:[city length]-1]];
+                    oldCity = city;
+                }
+                else//定位的城市和之前一样则不再获取天气
+                {}
+                [locationManager stopUpdatingLocation];
+               //[self getWeatherInfo:@"北京"];
             }
         }];
     
-    [locationManager stopUpdatingLocation];
+   
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -181,7 +196,11 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
     [self getUserInfo];
     [locationManager startUpdatingLocation];
-    
+    getWeatherFinish = NO;
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    oldCity = nil;
 }
 #pragma mark - self data source
 
@@ -195,11 +214,12 @@
 }
 
 - (void)WeatherBackcall:(id)dic{
-    DLog(@"%@",dic);
+   // DLog(@"%@",dic);
     
     
     NSDictionary *baseDic = [dic valueForKey:@"HeWeather data service 3.0"][0];
     @try {
+        getWeatherFinish = YES;
         if([[baseDic allKeys] containsObject:@"aqi"])
         {
             airNUm.text =[NSString stringWithFormat:@"PM:%@ug/m³" ,baseDic[@"aqi"][@"city"][@"pm25"]];
@@ -210,7 +230,7 @@
             airQuality.text = [NSString stringWithFormat:@"空气质量:%@",@"无数据"];
         }
         //天气图标
-        weatherImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://files.heweather.com/cond_icon/%@.png",[[[baseDic valueForKey:@"now"] valueForKey:@"cond"] valueForKey:@"code"]]]]];
+//        weatherImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://files.heweather.com/cond_icon/%@.png",[[[baseDic valueForKey:@"now"] valueForKey:@"cond"] valueForKey:@"code"]]]]];
         
         //实时温度
         temp.text = [NSString  stringWithFormat:@"%@℃",[[baseDic valueForKey:@"now"] valueForKey:@"tmp"]];
@@ -233,7 +253,10 @@
 
 -(void)getUserInfo
 {
-    [SVProgressHUD showWithStatus:@"" maskType:SVProgressHUDMaskTypeBlack];
+//    [SVProgressHUD showWithStatus:@"" maskType:SVProgressHUDMaskTypeBlack];
+    
+    application.networkActivityIndicatorVisible = YES;
+
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
     [dataprovider getUserInfo:[Toolkit getUserID]];
@@ -243,6 +266,7 @@
 -(void)getUserInfoCallBack:(id)dict
 {
     [SVProgressHUD dismiss];
+    application.networkActivityIndicatorVisible = NO;
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
@@ -255,13 +279,13 @@
             }
             else
             {
-                isPayLab.text = @"付费会员";
+                isPayLab.text = @"会员";
             }
             
             jiFenNumLab.text = [NSString stringWithFormat:@"%@分",tempDict[@"Credit"]];
 //            jiFenNumLab.text = @"1000分";
             nickLab.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
-            IdLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"Phone"]];
+            IdLab.text = [NSString stringWithFormat:@"ID:%08d",[[Toolkit getUserID] intValue]];
             NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
             [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
             
@@ -295,6 +319,7 @@
 
 -(void)vipClickBtn:(UIButton *)sender
 {
+
     VipViewController *vipViewCtl = [[VipViewController alloc] init];
     vipViewCtl.navtitle = @"会员详情";
     [self.navigationController pushViewController:vipViewCtl animated:YES];

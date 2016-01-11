@@ -397,7 +397,7 @@
             
             jiFenLab.text = [NSString stringWithFormat:@"积分：%@",tempDict[@"Credit"]];
             userName.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
-            idLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"Phone"]];
+            idLab.text = [NSString stringWithFormat:@"ID:%08d",[[Toolkit getUserID] intValue]];
             if([tempDict[@"Sexuality"] integerValue] == 1)
             {
                 boyBtn.selected = YES;

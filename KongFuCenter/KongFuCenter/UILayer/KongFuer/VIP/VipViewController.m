@@ -30,11 +30,20 @@
     
     _vipExplainLab.backgroundColor = ItemsBaseColor;
     _vipExplainLab.textColor = [UIColor whiteColor];
+    if([get_sp(@"IsPay") intValue] == 1)
+    {
+        _payBtn.hidden = YES;
+    }
+    
     
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+    if([get_sp(@"IsPay") intValue] == 1)
+    {
+        _payBtn.hidden = YES;
+    }
 }
 - (IBAction)goPayPageClick:(id)sender {
     

@@ -34,7 +34,7 @@
     [self initViews];
     [self addLeftButton:@"left"];
     pageNo=0;
-    pageSize=6;
+    pageSize=12;
     
     // Do any additional setup after loading the view.
 }
