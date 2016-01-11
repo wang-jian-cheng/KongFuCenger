@@ -11,9 +11,15 @@
 #import "BaseVideoCollectionViewCell.h"
 #import "UITableViewCell+EditMode.h"
 #import "VideoDetailViewController.h"
-
+#import "UnionNewsDetailViewController.h"
+#import "MJRefresh.h"
 @interface MyCollectViewController : BaseNavigationController<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     BOOL EditMode;
+    int pageNo;
+    int pageSize;
+    
+    int pageVideoNo;
+    int pageVideoSize;
 }
 @end

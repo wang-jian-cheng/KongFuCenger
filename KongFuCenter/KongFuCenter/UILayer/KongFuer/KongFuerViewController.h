@@ -32,5 +32,7 @@
     CLLocationManager *locationManager;
     NSArray *mHomeInfo;
     
+    UIApplication *application;
+    
 }
 @end

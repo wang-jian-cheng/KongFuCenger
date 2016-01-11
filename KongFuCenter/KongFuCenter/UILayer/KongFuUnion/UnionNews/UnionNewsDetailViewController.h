@@ -23,4 +23,5 @@
 @property(nonatomic) NSString *webId;
 @property(nonatomic) NSString *readNum;
 @property(nonatomic) NSString *collectNum;
+@property(nonatomic) NSString *isFavorite;
 @end

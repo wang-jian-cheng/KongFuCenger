@@ -339,6 +339,11 @@
                 [collectBtn setTitleColor:TextColors forState:UIControlStateNormal];
                 [collectBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                 collectBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                if(self.isFavorite !=nil && [self.isFavorite isEqualToString:@"1"])
+                {
+                    collectBtn.selected = YES;
+                }
+                
                 [cell addSubview:collectBtn];
                 
                 

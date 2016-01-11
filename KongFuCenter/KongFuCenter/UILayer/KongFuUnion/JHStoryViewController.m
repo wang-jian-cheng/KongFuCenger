@@ -129,7 +129,7 @@
     jhStoryArray = [[NSArray alloc] init];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"TopRefireshCallBack:"];
-    [dataProvider GetJianghuListByPage:@"0" andmaximumRows:@"10" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
+    [dataProvider GetJianghuListByPage:@"0" andUserId:[Toolkit getUserID] andmaximumRows:@"10" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
 }
 
 -(void)TopRefireshCallBack:(id)dict{
@@ -145,7 +145,7 @@
     curpage++;
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
-    [dataProvider GetJianghuListByPage:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
+    [dataProvider GetJianghuListByPage:[NSString stringWithFormat:@"%d",curpage * 10] andUserId:[Toolkit getUserID]  andmaximumRows:@"10" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
 }
 
 -(void)FootRefireshBackCall:(id)dict
@@ -232,6 +232,7 @@
     unionNewsViewCtl.webId =[ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"Id"]];
     unionNewsViewCtl.navtitle = jhStoryArray[indexPath.row][@"Title"];
     unionNewsViewCtl.collectNum = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"FavoriteNum"]];
+    unionNewsViewCtl.isFavorite = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"IsFavorite"]];
     [self.navigationController pushViewController:unionNewsViewCtl animated:YES];
 }
 
