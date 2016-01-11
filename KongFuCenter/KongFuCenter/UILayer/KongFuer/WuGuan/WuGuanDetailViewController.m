@@ -178,6 +178,11 @@
     [self.view addSubview:phoneCallWebView];
     
 #endif
+    if(telStr ==nil)
+    {
+        [SVProgressHUD showErrorWithStatus:@"该武馆没有提供号码呦～" maskType:SVProgressHUDMaskTypeBlack];
+        return;
+    }
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",telStr];
     //            NSLog(@"str======%@",str);
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];

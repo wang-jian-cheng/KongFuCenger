@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DataProvider.h"
 #import "SVProgressHUD.h"
+#import "Pingpp.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

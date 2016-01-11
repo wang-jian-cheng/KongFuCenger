@@ -157,6 +157,38 @@
     return YES;
 }
 
+
+
+#pragma mark - 支付返回
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+   // BOOL result = [UMSocialSnsService handleOpenURL:url];
+ //   if (result == FALSE) {
+        //
+        [Pingpp handleOpenURL:url
+               withCompletion:^(NSString *result, PingppError *error) {
+                   if ([result isEqualToString:@"success"]) {
+                       // 支付成功
+                       NSLog(@"支付成功，准备跳转");
+                       UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"支付成功，请重新登录" delegate:self cancelButtonTitle:@"确认" otherButtonTitles: nil];
+                       [alertView show];
+                       [[NSNotificationCenter defaultCenter] postNotificationName:@"OrderPay_success" object:nil];
+                   } else {
+                       // 支付失败或取消
+                       UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"支付失败" delegate:self cancelButtonTitle:@"确认" otherButtonTitles: nil];
+                       [alertView show];
+                      // NSLog(@"Error: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
+                   }
+               }];
+        return  YES;
+//    }
+//    return YES;
+    
+}
+
 -(void) initUI
 {
 

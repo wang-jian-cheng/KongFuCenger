@@ -169,6 +169,25 @@
         
     }
 }
+
+-(void)becomeVip:(NSString *)userid andMonth:(NSString *)month
+{
+    
+    if(userid&& month)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/OpenHuiyuan",Url];
+        NSDictionary * prm=@{@"userid":userid,
+                             @"month":month};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
+}
 #pragma mark - 我的收藏
 - (NSInteger )collectData:(NSString *)userId andIsVideo:(NSString *)isVideo  andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
 {
@@ -306,15 +325,16 @@
 
 
 //分页获取联盟动态
-- (NSInteger )growCateid:(NSString *)cateid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
+- (NSInteger )growCateid:(NSString *)cateid andUserId:(NSString *)userid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
 {
-    if(startRowIndex != nil && cateid != nil && maximumRows != nil)
+    if(startRowIndex != nil && cateid != nil && maximumRows != nil &&userid)
     {
         
         NSString * url=[NSString stringWithFormat:@"%@Helianmeng.asmx/GetDongtaiPageByLianmeng",Url];
         NSDictionary * prm=@{@"cateid":cateid,
                              @"startRowIndex":startRowIndex,
-                             @"maximumRows":maximumRows};
+                             @"maximumRows":maximumRows,
+                             @"userid":userid};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         
@@ -872,10 +892,13 @@
     [self PostRequest:url andpram:nil];
 }
 
--(void)GetHezuoListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid{
+-(void)GetHezuoListByPage:(NSString *)startRowIndex andUserId:(NSString *)userid andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid{
     if (categoryid) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetHezuoListByPage",Url];
-        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"categoryid":categoryid};
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,
+                              @"userid":userid,
+                              @"maximumRows":maximumRows,
+                              @"categoryid":categoryid};
         [self PostRequest:url andpram:prm];
     }
 }
@@ -885,10 +908,13 @@
     [self PostRequest:url andpram:nil];
 }
 
--(void)GetJianghuListByPage:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid{
+-(void)GetJianghuListByPage:(NSString *)startRowIndex andUserId:(NSString *)userid andmaximumRows:(NSString *)maximumRows andcategoryid:(NSString *)categoryid{
     if (categoryid) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetJianghuListByPage",Url];
-        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"categoryid":categoryid};
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,
+                              @"userid":userid,
+                              @"maximumRows":maximumRows,
+                              @"categoryid":categoryid};
         [self PostRequest:url andpram:prm];
     }
 }

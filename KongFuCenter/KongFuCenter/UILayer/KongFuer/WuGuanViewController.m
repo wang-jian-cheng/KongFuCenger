@@ -24,6 +24,7 @@
     
     NSMutableArray *WuGuanListArr;
     NSString *cityID;
+    NSString *oldCity;
 }
 @end
 
@@ -50,7 +51,8 @@
     _sectionNum = 10;
     
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT-Header_Height+10  )];
+//    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT-Header_Height+10  )];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT-Header_Height+10  ) style:UITableViewStyleGrouped];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -87,7 +89,7 @@
     
 
     placeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, StatusBar_HEIGHT, 100, NavigationBar_HEIGHT)];
-    [placeBtn setTitle:@"定位中。。。" forState:UIControlStateNormal];
+    [placeBtn setTitle:@"定位中" forState:UIControlStateNormal];
     [placeBtn addTarget:self action:@selector(LocationBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     placeBtn.center = CGPointMake(SCREEN_WIDTH/2, NavigationBar_HEIGHT/2+StatusBar_HEIGHT);
     [_topView addSubview:placeBtn];
@@ -140,10 +142,13 @@
     
     }
     
-    [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"请稍后。。。" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getWuguanListCallBack:"];
-    [dataprovider getWuGuanList:cityId andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+    if([dataprovider getWuGuanList:cityId andStartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andMaximumRows:[NSString stringWithFormat:@"%d",pageSize]]!=OK)
+    {
+        [SVProgressHUD dismiss];
+    }
 }
 
 -(NSString *)getRealCityName:(NSString *)address

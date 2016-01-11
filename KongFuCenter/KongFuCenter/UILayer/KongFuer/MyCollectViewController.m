@@ -43,7 +43,8 @@
     [self addLeftButton:@"left"];
     [self addRightbuttontitle:@"删除"];
     self.view.backgroundColor = BACKGROUND_COLOR;
-    
+    pageSize = 10;
+    pageVideoSize  = 10;
     ArticleArr = [NSMutableArray array];
     
     [self initDatas];
@@ -56,9 +57,9 @@
 #pragma mark - 解析数据
 -(void)getDatas
 {
-    [self getUserInfo];
+    //[self getUserInfo];
     
-    [self getUserInfo1];
+//    [self getUserInfo1];
 }
 
 -(void)getUserInfo
@@ -67,7 +68,8 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
 //    [dataprovider collectData:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"1" andMaximumRows:@"6"];
-    [dataprovider setCollect:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"0" andMaximumRowst:@"10"];
+    [dataprovider setCollect:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:[NSString stringWithFormat:@"%d",pageVideoNo*pageVideoSize] andMaximumRowst:[NSString stringWithFormat:@"%d",pageVideoSize]];
+    
 }
 
 -(void)getUserInfoCallBack:(id)dict
@@ -76,7 +78,7 @@
     if ([dict[@"code"] intValue]==200) {
         @try
         {
-   
+            pageVideoNo ++;
             NSLog(@"%@",dict[@"data"]);
             NSArray * arr_ = dict[@"data"];
             
@@ -85,6 +87,8 @@
                 [model setValuesForKeysWithDictionary:dic];
                 [self.arr_voiceData addObject:model];
             }
+            
+            
         }
         @catch (NSException *exception) {
             
@@ -110,7 +114,7 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack1:"];
     //    [dataprovider collectData:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"1" andMaximumRows:@"6"];
-    [dataprovider setCollect:[Toolkit getUserID] andIsVideo:@"false" andStartRowIndex:@"0" andMaximumRowst:@"10"];
+    [dataprovider setCollect:[Toolkit getUserID] andIsVideo:@"false" andStartRowIndex:[NSString stringWithFormat:@"%d",pageSize*pageNo] andMaximumRowst:[NSString stringWithFormat:@"%d",pageSize]];
 }
 
 -(void)getUserInfoCallBack1:(id)dict
@@ -119,21 +123,13 @@
     if ([dict[@"code"] intValue]==200) {
         @try
         {
-            
-            if(ArticleArr !=nil&&ArticleArr.count > 0)
-            {
-                [ArticleArr removeAllObjects];
-            }
+            pageNo++;
+      
             
             [ArticleArr addObjectsFromArray:dict[@"data"]];
            
             [_mainTableView reloadData];
-            NSLog(@"%@",dict[@"data"]);
-            NSArray * arr_ = dict[@"data"];
-            model_collect * model = [[model_collect alloc] init];
-            [model setValuesForKeysWithDictionary:arr_.firstObject];
-            
-            [self.arr_TitleData addObject:model];
+       
         }
         @catch (NSException *exception) {
             
@@ -226,6 +222,34 @@
     mainCollectionView.showsVerticalScrollIndicator = NO;
     mainCollectionView.backgroundColor = BACKGROUND_COLOR;
     
+    
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    // 下拉刷新
+    mainCollectionView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        pageVideoNo=0;
+        if(self.arr_voiceData !=nil)
+            [self.arr_voiceData removeAllObjects];
+        [weakSelf getUserInfo];
+        // 结束刷新
+        [mainCollectionView.mj_header endRefreshing];
+    }];
+    [mainCollectionView.mj_header beginRefreshing];
+    
+    // 上拉刷新
+    mainCollectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        [weakSelf getUserInfo];
+        [mainCollectionView.mj_footer endRefreshing];
+    }];
+    
+    
+    
+    // 默认先隐藏footer
+    mainCollectionView.mj_footer.hidden = YES;
+    
+    
     [self.view addSubview:mainCollectionView];
 }
 
@@ -246,6 +270,32 @@
     //_mainTableView.scrollEnabled = NO;
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _cellTableCount*(_cellTableHeight)+60);
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    _mainTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //        if(EnditMode == YES)
+        //            return ;
+        pageNo=0;
+        
+        if(ArticleArr !=nil&&ArticleArr.count > 0)
+        {
+            [ArticleArr removeAllObjects];
+        }
+        
+        [weakSelf getUserInfo1];
+        // 结束刷新
+        [_mainTableView.mj_header endRefreshing];
+    }];
+    [_mainTableView.mj_header beginRefreshing];
+    
+    // 上拉刷新
+    _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        //        if(EnditMode == YES)
+        //            return;
+        [weakSelf getUserInfo1];
+        [_mainTableView.mj_footer endRefreshing];
+    }];
     //[self.view addSubview:_mainTableView];
 }
 
@@ -311,6 +361,7 @@
 
 - (void)getUserInfoCallBack3:(id)dict
 {
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try
         {
@@ -412,57 +463,58 @@
 #pragma mark - btn_1 btn_2
 - (void)btn_1Action:(UIButton *)sender
 {
-    model_collect * model = self.arr_TitleData[sender.tag / 100];
+//    model_collect * model = self.arr_TitleData[sender.tag / 100];
+    NSDictionary *tempDict = ArticleArr[sender.tag/100];
     
     if (sender.selected == 0)
     {
         sender.selected = 1;
-        [sender setImage:[UIImage imageNamed:@"support_h@2x"] forState:(UIControlStateNormal)];
+        [sender setImage:[UIImage imageNamed:@"support_h"] forState:(UIControlStateNormal)];
         
-        int x = [model.LikeNum intValue] + 1;
-        model.LikeNum = [NSString stringWithFormat:@"%d",x];
-        [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
+        int x = [tempDict[@"LikeNum"] intValue] + 1;
+        //model.LikeNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:[NSString stringWithFormat:@"%d",x]forState:(UIControlStateNormal)];
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider voiceAction:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"2"];
+        [dataprovider voiceAction:tempDict[@"MessageId"] andUserId:[Toolkit getUserID] andFlg:@"2"];
         
     }
     else
     {
         sender.selected = 0;
-        [sender setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+        [sender setImage:[UIImage imageNamed:@"support"] forState:(UIControlStateNormal)];
         
-        int x = [model.LikeNum intValue] - 1;
-        model.LikeNum = [NSString stringWithFormat:@"%d",x];
-        [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
+        int x = [tempDict[@"LikeNum"] intValue] - 1;
+//        model.LikeNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:[NSString stringWithFormat:@"%d",x] forState:(UIControlStateNormal)];
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider voicedelete:model.MessageId andUserId:model.UserId andFlg:@"2"];
+        [dataprovider voicedelete:tempDict[@"MessageId"] andUserId:[Toolkit getUserID] andFlg:@"2"];
     }
 }
 
 - (void)btn_2Action:(UIButton *)sender
 {
-    model_collect * model = self.arr_TitleData[sender.tag / 100];
+    NSDictionary *tempDict = ArticleArr[sender.tag/100];
     
     if (sender.selected == 0)
     {
         sender.selected = 1;
-        [sender setImage:[UIImage imageNamed:@"collect_h@2x"] forState:(UIControlStateNormal)];
+        [sender setImage:[UIImage imageNamed:@"collect_h"] forState:(UIControlStateNormal)];
         
-        int x = [model.FavoriteNum intValue] + 1;
-        model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
-        [sender setTitle:model.FavoriteNum forState:(UIControlStateNormal)];
+        int x = [tempDict[@"FavoriteNum"] intValue] + 1;
+//        model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:[NSString stringWithFormat:@"%d",x] forState:(UIControlStateNormal)];
         
     }
     else
     {
         sender.selected = 0;
-        [sender setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+        [sender setImage:[UIImage imageNamed:@"collect"] forState:(UIControlStateNormal)];
         
-        int x = [model.FavoriteNum intValue] - 1;
-        model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
-        [sender setTitle:model.FavoriteNum forState:(UIControlStateNormal)];
+        int x = [tempDict[@"FavoriteNum"] intValue] - 1;
+//        model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
+        [sender setTitle:[NSString stringWithFormat:@"%d",x] forState:(UIControlStateNormal)];
     }
 }
 
@@ -474,7 +526,7 @@
     if (sender.selected == 0)
     {
         sender.selected = 1;
-        [sender setImage:[UIImage imageNamed:@"support_h@2x"] forState:(UIControlStateNormal)];
+        [sender setImage:[UIImage imageNamed:@"support_h"] forState:(UIControlStateNormal)];
         
         int x = [model.LikeNum intValue] + 1;
         model.LikeNum = [NSString stringWithFormat:@"%d",x];
@@ -483,23 +535,59 @@
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"2"];
-//        [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack12:"];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"actionCallBack:"];
 
     }
     else
     {
         sender.selected = 0;
-        [sender setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+        [sender setImage:[UIImage imageNamed:@"support"] forState:(UIControlStateNormal)];
         int x = [model.LikeNum intValue] - 1;
         model.LikeNum = [NSString stringWithFormat:@"%d",x];
         [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider voicedelete:model.MessageId andUserId:model.UserId andFlg:@"2"];
-//        [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack12:"];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack12:"];
     }
     
 //    [mainCollectionView reloadData];
 }
+
+-(void)actionCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+            pageNo++;
+            if(ArticleArr !=nil&&ArticleArr.count > 0)
+            {
+                [ArticleArr removeAllObjects];
+            }
+            
+            [ArticleArr addObjectsFromArray:dict[@"data"]];
+            
+            [_mainTableView reloadData];
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+            [_mainTableView reloadData];
+            [SVProgressHUD dismiss];
+            NSLog(@"完成");
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
 
 - (void)btn_secondAction:(UIButton *)sender
 {
@@ -509,7 +597,7 @@
     if (sender.selected == 0)
     {
         sender.selected = 1;
-        [sender setImage:[UIImage imageNamed:@"collect_h@2x"] forState:(UIControlStateNormal)];
+        [sender setImage:[UIImage imageNamed:@"collect_h"] forState:(UIControlStateNormal)];
         
         int x = [model.FavoriteNum intValue] + 1;
         model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
@@ -521,7 +609,7 @@
     else
     {
         sender.selected = 0;
-        [sender setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+        [sender setImage:[UIImage imageNamed:@"collect"] forState:(UIControlStateNormal)];
         
         int x = [model.FavoriteNum intValue] - 1;
         model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
@@ -569,7 +657,7 @@
     if (sender.selected == 0)
     {
         sender.selected = 1;
-        [sender setImage:[UIImage imageNamed:@"selectRound@2x"] forState:(UIControlStateNormal)];
+        [sender setImage:[UIImage imageNamed:@"selectRound"] forState:(UIControlStateNormal)];
         
         long x = sender.tag / 1000 - 1;
         
@@ -584,7 +672,7 @@
     else
     {
         sender.selected = 0;
-        [sender setImage:[UIImage imageNamed:@"point@2x"] forState:(UIControlStateNormal)];
+        [sender setImage:[UIImage imageNamed:@"point"] forState:(UIControlStateNormal)];
         
         long x = sender.tag / 1000 - 1;
 
@@ -639,43 +727,42 @@
     @try {
         
         
-        if(ArticleArr == nil || ArticleArr.count == 0 || ArticleArr.count - 1 < indexPath.row)
+        if(ArticleArr == nil || ArticleArr.count == 0 || ArticleArr.count  - 1 < indexPath.row)
         {
             return cell;
         }
-        model_collect * model = self.arr_TitleData[indexPath.row];
-        NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,model.ImagePath];
+        NSDictionary * tempDict = ArticleArr[indexPath.row];
+        NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"ImagePath"]];
         [cell.image sd_setImageWithURL:[NSURL URLWithString:url]];
-        cell.name.text = model.Title;
-        cell.detail.text = model.Content;
+        cell.name.text = tempDict[@"Title"];
+        cell.detail.text = tempDict[@"Content"];
         NSRange x = NSMakeRange(5, 5);
         //    [model.OperateTime substringWithRange:x];
-        cell.date.text = [model.OperateTime substringWithRange:x];
+        cell.date.text = [tempDict[@"OperateTime"] substringWithRange:x];
         
         
         
-        [cell.btn_1 setTitle:[NSString stringWithFormat:@"%@",model.LikeNum] forState:(UIControlStateNormal)];
-        [cell.btn_1 setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+        [cell.btn_1 setTitle:[NSString stringWithFormat:@"%@",tempDict[@"LikeNum"]] forState:(UIControlStateNormal)];
+        [cell.btn_1 setImage:[UIImage imageNamed:@"support"] forState:(UIControlStateNormal)];
         [cell.btn_1 addTarget:self action:@selector(btn_1Action:) forControlEvents:(UIControlEventTouchUpInside)];
         cell.btn_1.tag = indexPath.row * 100;
-        NSString * str_IsLike = [NSString stringWithFormat:@"%@",model.IsLike];
+        NSString * str_IsLike = [NSString stringWithFormat:@"%@",tempDict[@"IsLike"]];
         if([str_IsLike isEqualToString:@"1"])
         {
             [cell.btn_1 setSelected:YES];
-            [cell.btn_1 setImage:[UIImage imageNamed:@"support_h@2x"] forState:(UIControlStateNormal)];
+            [cell.btn_1 setImage:[UIImage imageNamed:@"support_h"] forState:(UIControlStateNormal)];
         }
         else
         {
             [cell.btn_1 setSelected:NO];
-            [cell.btn_1 setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+            [cell.btn_1 setImage:[UIImage imageNamed:@"support"] forState:(UIControlStateNormal)];
         }
         
-        [cell.btn_2 setTitle:[NSString stringWithFormat:@"%@",model.FavoriteNum] forState:(UIControlStateNormal)];
-        [cell.btn_2 setImage:[UIImage imageNamed:@"collect_h@2x"] forState:(UIControlStateNormal)];
+        [cell.btn_2 setTitle:[NSString stringWithFormat:@"%@",tempDict[@"FavoriteNum"]] forState:(UIControlStateNormal)];
+        [cell.btn_2 setImage:[UIImage imageNamed:@"collect_h"] forState:(UIControlStateNormal)];
         [cell.btn_2 addTarget:self action:@selector(btn_2Action:) forControlEvents:(UIControlEventTouchUpInside)];
         cell.btn_2.tag = indexPath.row * 100;
         cell.btn_2.userInteractionEnabled = NO;
-        
         
     }
     @catch (NSException *exception) {
@@ -700,6 +787,15 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
+    
+    UnionNewsDetailViewController *unionNewsDetailViewCtl = [[UnionNewsDetailViewController alloc] init];
+    unionNewsDetailViewCtl.navtitle = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"Title"]];
+    unionNewsDetailViewCtl.webId = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"MessageId"]];
+    unionNewsDetailViewCtl.collectNum =[NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"FavoriteNum"]];
+    unionNewsDetailViewCtl.isFavorite = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"IsFavorite"]];
+    [self.navigationController pushViewController:unionNewsDetailViewCtl animated:YES];
+
+    
 }
 
 
@@ -850,7 +946,7 @@
     [cell.select addTarget:self action:@selector(cell_selectAction:) forControlEvents:(UIControlEventTouchUpInside)];
 
     [cell.btn_first setTitle:[NSString stringWithFormat:@"%@",model.LikeNum] forState:(UIControlStateNormal)];
-    [cell.btn_first setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+    [cell.btn_first setImage:[UIImage imageNamed:@"support"] forState:(UIControlStateNormal)];
     [cell.btn_first addTarget:self action:@selector(btn_firstAction:) forControlEvents:(UIControlEventTouchUpInside)];
     cell.btn_first.tag = indexPath.item * 10;
     
@@ -858,25 +954,25 @@
     if([str_IsLike isEqualToString:@"1"])
     {
         [cell.btn_first setSelected:YES];
-        [cell.btn_first setImage:[UIImage imageNamed:@"support_h@2x"] forState:(UIControlStateNormal)];
+        [cell.btn_first setImage:[UIImage imageNamed:@"support_h"] forState:(UIControlStateNormal)];
     }
     else
     {
         [cell.btn_first setSelected:NO];
-        [cell.btn_first setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+        [cell.btn_first setImage:[UIImage imageNamed:@"support"] forState:(UIControlStateNormal)];
     }
     
     
     
     
     [cell.btn_second setTitle:[NSString stringWithFormat:@"%@",model.FavoriteNum] forState:(UIControlStateNormal)];
-    [cell.btn_second setImage:[UIImage imageNamed:@"collect_h@2x"] forState:(UIControlStateNormal)];
+    [cell.btn_second setImage:[UIImage imageNamed:@"collect_h"] forState:(UIControlStateNormal)];
     [cell.btn_second addTarget:self action:@selector(btn_secondAction:) forControlEvents:(UIControlEventTouchUpInside)];
     cell.btn_second.tag = indexPath.item * 10;
     cell.btn_second.userInteractionEnabled = NO;
     
     [cell.btn_thrid setTitle:[NSString stringWithFormat:@"%@",model.RepeatNum] forState:(UIControlStateNormal)];
-    [cell.btn_thrid setImage:[UIImage imageNamed:@"relay@2x"] forState:(UIControlStateNormal)];
+    [cell.btn_thrid setImage:[UIImage imageNamed:@"relay"] forState:(UIControlStateNormal)];
     [cell.btn_thrid addTarget:self action:@selector(btn_thridAction:) forControlEvents:(UIControlEventTouchUpInside)];
     cell.btn_thrid.tag = indexPath.item * 10;
 //    cell.btn_thrid.enabled = NO;

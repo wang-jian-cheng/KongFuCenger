@@ -24,7 +24,7 @@
     mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
     mapView.userTrackingMode = MKUserTrackingModeFollow;
     mapView.mapType = MKMapTypeStandard;
-
+    [self addLeftButton:@"left"];
     
     [self.view addSubview:mapView];
     locationManager = [[CLLocationManager alloc] init];

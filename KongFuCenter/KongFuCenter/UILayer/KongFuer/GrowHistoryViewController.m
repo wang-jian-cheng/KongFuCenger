@@ -531,14 +531,23 @@
     
     NSDate *now = [NSDate date];
     NSString *nowStr = [NSString stringWithFormat:@"%@",now];
-    if([[nowStr substringToIndex:10] isEqualToString:[rebuildGrowArr[section][@"date"] substringToIndex:10]])
-    {
-        dateLab.text = @"今天";
+    @try {
+        if([[nowStr substringToIndex:10] isEqualToString:[rebuildGrowArr[section][@"date"] substringToIndex:10]])
+        {
+            dateLab.text = @"今天";
+        }
+        else
+        {
+            dateLab.text = [rebuildGrowArr[section][@"date"] substringToIndex:10];
+        }
     }
-    else
-    {
-        dateLab.text = [rebuildGrowArr[section][@"date"] substringToIndex:10];
+    @catch (NSException *exception) {
+        
     }
+    @finally {
+        
+    }
+    
     return tempView;
 }
 
