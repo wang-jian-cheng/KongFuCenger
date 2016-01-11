@@ -20,13 +20,18 @@
     UITextField * txt_againNewPwd;
     NSUserDefaults *mUserDefault;
     
+    unsigned int resendTime;
     //修改密码
     UITextField *txt_oldPwd;
+    NSTimer *timer;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    resendTime = 60;
+    timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(function) userInfo:nil repeats:YES];
+    [timer setFireDate:[NSDate distantFuture]];
+     btn_GetvrifyCode=[[UIButton alloc] init];
     if(_pageMode == MODE_forget){
         _lblTitle.text=@"忘记密码";
     }
@@ -47,6 +52,21 @@
 }
 #if 1
 
+-(void)function
+{
+    [btn_GetvrifyCode setTitle:[NSString stringWithFormat:@"(%ds)后重发",resendTime] forState:UIControlStateNormal];
+    btn_GetvrifyCode.enabled= NO;
+    if(resendTime > 0)
+    {
+        resendTime --;
+    }
+    else
+    {
+        [timer setFireDate:[NSDate distantFuture]];
+        [btn_GetvrifyCode setTitle:@"发送验证码" forState:UIControlStateNormal];
+        btn_GetvrifyCode.enabled= YES;
+    }
+}
 
 -(void)tapViewAction:(id)sender
 {
@@ -100,20 +120,20 @@
     cell.backgroundColor = ItemsBaseColor;
     if (_pageMode == MODE_change) {
         if (indexPath.row == 0) {
-            txt_oldPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-140, 30)];
+            txt_oldPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH, 30)];
             txt_oldPwd.placeholder=@"请输入您的原密码";
             txt_oldPwd.textColor = [UIColor whiteColor];
             [txt_oldPwd setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
             [cell addSubview:txt_oldPwd];
         }else if (indexPath.row == 1){
-            txt_newPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-40, 30)];
+            txt_newPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH, 30)];
             txt_newPwd.secureTextEntry = YES;
             txt_newPwd.placeholder=@"请输入您的新密码";
             txt_newPwd.textColor = [UIColor whiteColor];
             [txt_newPwd setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
             [cell addSubview:txt_newPwd];
         }else if (indexPath.row == 2){
-            txt_againNewPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-40, 30)];
+            txt_againNewPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH, 30)];
             txt_againNewPwd.secureTextEntry = YES;
             txt_againNewPwd.placeholder=@"请再次输入您的密码";
             txt_againNewPwd.textColor = [UIColor whiteColor];
@@ -137,7 +157,7 @@
         switch (indexPath.row) {
             case 0:
             {
-                txt_phoneNum=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-140, 30)];
+                txt_phoneNum=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH, 30)];
                 txt_phoneNum.keyboardType = UIKeyboardTypeNumberPad;
                 txt_phoneNum.placeholder=@"请输入您的手机号";
                 txt_phoneNum.textColor = [UIColor whiteColor];
@@ -155,7 +175,7 @@
                 [txt_vrifyCode setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
                 [cell addSubview:txt_vrifyCode];
                 
-                UIButton * btn_GetvrifyCode=[[UIButton alloc] initWithFrame:CGRectMake(txt_vrifyCode.frame.size.width+txt_vrifyCode.frame.origin.x, 10, 100, 30)];
+                btn_GetvrifyCode.frame = CGRectMake(txt_vrifyCode.frame.size.width+txt_vrifyCode.frame.origin.x, 10, 100, 30);
                 [btn_GetvrifyCode setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [btn_GetvrifyCode setTitle:@"获取验证码" forState:UIControlStateNormal];
                 btn_GetvrifyCode.layer.masksToBounds=YES;
@@ -168,7 +188,7 @@
             }
                 break;
             case 2:
-                txt_newPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-40, 30)];
+                txt_newPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH, 30)];
                 txt_newPwd.secureTextEntry = YES;
                 txt_newPwd.placeholder=@"请输入您的新密码";
                 txt_newPwd.textColor = [UIColor whiteColor];
@@ -176,7 +196,7 @@
                 [cell addSubview:txt_newPwd];
                 break;
             case 3:
-                txt_againNewPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-40, 30)];
+                txt_againNewPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH, 30)];
                 txt_againNewPwd.secureTextEntry = YES;
                 txt_againNewPwd.placeholder=@"请再次输入您的密码";
                 txt_againNewPwd.textColor = [UIColor whiteColor];
@@ -278,6 +298,9 @@
                 [SVProgressHUD dismiss];
                  sender.enabled=NO;
                  sender.titleLabel.text=@"已发送";
+                 resendTime = 60;
+                 [timer setFireDate:[NSDate distantPast]];
+                 
              }
              else
              {
@@ -381,8 +404,9 @@
     DLog(@"注册返回数据%@",dict);
     if ([dict[@"code"] intValue]==200) {
         UIAlertView *tipAlert = [[UIAlertView alloc] initWithTitle:@"成功" message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-
+        tipAlert.tag = 101;
         [tipAlert show];
+        
     }
     else
     {
@@ -391,7 +415,20 @@
     }
 }
 
-
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 101)
+    {
+        if(self.pageMode == MODE_change)
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else
+        {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+}
 
 -(void)ForgetFunC:(UIButton * )sender
 {

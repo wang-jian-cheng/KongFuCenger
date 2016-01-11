@@ -214,7 +214,7 @@
 }
 
 - (void)WeatherBackcall:(id)dic{
-    DLog(@"%@",dic);
+   // DLog(@"%@",dic);
     
     
     NSDictionary *baseDic = [dic valueForKey:@"HeWeather data service 3.0"][0];
@@ -230,7 +230,7 @@
             airQuality.text = [NSString stringWithFormat:@"空气质量:%@",@"无数据"];
         }
         //天气图标
-        weatherImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://files.heweather.com/cond_icon/%@.png",[[[baseDic valueForKey:@"now"] valueForKey:@"cond"] valueForKey:@"code"]]]]];
+//        weatherImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://files.heweather.com/cond_icon/%@.png",[[[baseDic valueForKey:@"now"] valueForKey:@"cond"] valueForKey:@"code"]]]]];
         
         //实时温度
         temp.text = [NSString  stringWithFormat:@"%@℃",[[baseDic valueForKey:@"now"] valueForKey:@"tmp"]];
@@ -279,13 +279,13 @@
             }
             else
             {
-                isPayLab.text = @"付费会员";
+                isPayLab.text = @"会员";
             }
             
             jiFenNumLab.text = [NSString stringWithFormat:@"%@分",tempDict[@"Credit"]];
 //            jiFenNumLab.text = @"1000分";
             nickLab.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
-            IdLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"Phone"]];
+            IdLab.text = [NSString stringWithFormat:@"ID:%08d",[[Toolkit getUserID] intValue]];
             NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
             [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
             
