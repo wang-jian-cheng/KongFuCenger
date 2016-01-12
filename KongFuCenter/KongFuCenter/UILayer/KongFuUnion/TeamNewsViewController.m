@@ -796,7 +796,7 @@
     }else{
         DataProvider *dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
-        [dataProvider voiceAction:[wyArray[sender.tag] valueForKey:@"Id"] andUserId:[Toolkit getUserID] andFlg:@"2"];
+        [dataProvider voiceAction:[wyArray[sender.tag] valueForKey:@"Id"] andUserId:[Toolkit getUserID] andFlg:@"2" andDescription:nil];
     }
 }
 -(void)zanCallBack:(id)dict{

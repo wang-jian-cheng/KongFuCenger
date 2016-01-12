@@ -36,11 +36,12 @@
 @property (nonatomic) BOOL rotating;
 @property (nonatomic) CGSize minSize;
 @property (nonatomic) UIImageView *imgShowView;
-
+@property (nonatomic) NSArray *imgArr;
 #if SHOW_URLIMG
 - (instancetype)initWithUrl:(NSString *)url andHolderImg:(UIImage *)showImg;
 #endif
 - (instancetype)initWithTitle:(NSString *)title showImg:(UIImage *)showImg;
 - (void)show;
 - (void)dismiss;
+
 @end

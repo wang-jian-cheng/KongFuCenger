@@ -11,15 +11,17 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import <ShareSDKInterfaceAdapter/ISSContainer.h>
-
+#import "VipViewController.h"
+#import "JvbaoView.h"
 typedef enum _DetailMode
 {
     StudyOnline = 0,
     NormalVideo
+
 }VideoDetailMode;
 
 
-@interface VideoDetailViewController : BaseNavigationController<UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
+@interface VideoDetailViewController : BaseNavigationController<UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,JvbaoDelegate>
 {
     CGFloat _keyHeight;
     NSIndexPath *tempIndexPath;
@@ -28,6 +30,8 @@ typedef enum _DetailMode
     
     CustomButton *SupportBtn;
     CustomButton *collectBtn ;
+    
+    BOOL shouldPay;
 }
 
 @property(nonatomic,strong) NSString * videoID;

@@ -197,7 +197,7 @@
     [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"wuguanRelayCallBack:"];
-    [dataprovider voiceAction:self.wuGuanId andUserId:[Toolkit getUserID] andFlg:@"0"];
+    [dataprovider voiceAction:self.wuGuanId andUserId:[Toolkit getUserID] andFlg:@"0" andDescription:nil];
 }
 
 -(void)wuguanRelayCallBack:(id)dict

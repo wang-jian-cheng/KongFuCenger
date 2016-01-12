@@ -234,15 +234,18 @@
     }
 }
 
-- (NSInteger )voiceAction:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg
+- (NSInteger )voiceAction:(NSString *)Id andUserId:(NSString *)userId andFlg:(NSString *)flg andDescription:(NSString *)description
 {
-    if(Id != nil && userId != nil && flg != nil)
+    if(description == nil)
+        description = @"";
+    if(Id != nil && userId != nil && flg != nil )
     {
         
         NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/MessageRepeatAndFavorite",Url];
         NSDictionary * prm=@{@"userid":userId,
                              @"flg":flg,
-                             @"id":Id};
+                             @"id":Id,
+                             @"description":description};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         

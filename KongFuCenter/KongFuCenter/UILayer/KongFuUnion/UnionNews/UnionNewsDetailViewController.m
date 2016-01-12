@@ -190,7 +190,7 @@
         sender.selected = YES;
         NSLog(@"收藏");
         zan = YES;
-        [dataprovider voiceAction:self.webId andUserId:[Toolkit getUserID] andFlg:@"1"];
+        [dataprovider voiceAction:self.webId andUserId:[Toolkit getUserID] andFlg:@"1" andDescription:nil];
     }
     else
     {
@@ -313,6 +313,9 @@
                 webView.scalesPageToFit = YES;
                 
                 webView.frame = CGRectMake(0, 0, SCREEN_WIDTH, WebViewHeight);
+                webView.backgroundColor = BACKGROUND_COLOR;
+                
+                
                 NSURL* url;
                 if(self.webId == nil)
                 {

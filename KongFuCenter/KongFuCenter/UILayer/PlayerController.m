@@ -492,6 +492,16 @@
 	}
 }
 
+-(void)nextVideo:(NSURL *)url andTitle:(NSString *)title
+{
+    long lastPos = 0;
+    if (url) {
+        [self quicklyReplayMovie:url title:title seekToPos:lastPos];
+    }
+
+}
+
+
 -(IBAction)switchVideoViewModeButtonAction:(UIButton *)sender
 {
     if (sender.tag==1) {

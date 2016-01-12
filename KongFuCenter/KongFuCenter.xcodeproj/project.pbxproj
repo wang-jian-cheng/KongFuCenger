@@ -250,6 +250,7 @@
 		B5B737C41C3E3D0100DF7437 /* AddressMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */; };
 		B5B737CD1C3E45E600DF7437 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B737CC1C3E45E600DF7437 /* MapViewController.m */; };
 		B5B738121C40B1EC00DF7437 /* ChatSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B738111C40B1EC00DF7437 /* ChatSetViewController.m */; };
+		B5B738171C451AB300DF7437 /* JvbaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B738161C451AB200DF7437 /* JvbaoView.m */; };
 		B5D345991C28E95900D39891 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345981C28E95900D39891 /* VPImageCropperViewController.m */; };
 		B5D345BD1C28E97E00D39891 /* JKImagePickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459C1C28E97D00D39891 /* JKImagePickerController.strings */; };
 		B5D345BE1C28E97E00D39891 /* ImagesPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5D3459E1C28E97D00D39891 /* ImagesPicker.xcassets */; };
@@ -877,6 +878,8 @@
 		B5B737CC1C3E45E600DF7437 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		B5B738101C40B1EC00DF7437 /* ChatSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSetViewController.h; sourceTree = "<group>"; };
 		B5B738111C40B1EC00DF7437 /* ChatSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSetViewController.m; sourceTree = "<group>"; };
+		B5B738151C451AB200DF7437 /* JvbaoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JvbaoView.h; path = CommonUI/JvbaoView.h; sourceTree = "<group>"; };
+		B5B738161C451AB200DF7437 /* JvbaoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JvbaoView.m; path = CommonUI/JvbaoView.m; sourceTree = "<group>"; };
 		B5D345971C28E95900D39891 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
 		B5D345981C28E95900D39891 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
 		B5D3459D1C28E97D00D39891 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/JKImagePickerController.strings; sourceTree = "<group>"; };
@@ -1765,6 +1768,8 @@
 				80CE42E31C3CE1E900B027CC /* VImVideoViewController.xib */,
 				B5B737CB1C3E45E600DF7437 /* MapViewController.h */,
 				B5B737CC1C3E45E600DF7437 /* MapViewController.m */,
+				B5B738151C451AB200DF7437 /* JvbaoView.h */,
+				B5B738161C451AB200DF7437 /* JvbaoView.m */,
 			);
 			name = CommonUI;
 			sourceTree = "<group>";
@@ -3415,6 +3420,7 @@
 				B5D89A001C11439E00F55BFA /* WuGuanViewController.m in Sources */,
 				B5D345C91C28E97E00D39891 /* JKUtil.m in Sources */,
 				B5AF705A1C17C21400C041AF /* MBProgressHUD.m in Sources */,
+				B5B738171C451AB300DF7437 /* JvbaoView.m in Sources */,
 				7BA38E961C215CFB000996EE /* IntroduceViewController.m in Sources */,
 				B5B737771C3CAAF100DF7437 /* PinYinForObjc.m in Sources */,
 				B5451CC21C279656001BB39F /* AutoLocationViewController.m in Sources */,

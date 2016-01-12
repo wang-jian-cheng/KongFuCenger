@@ -642,7 +642,7 @@
     }else{
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
-        [dataProvider voiceAction:m.mID andUserId:[userDefault valueForKey:@"id"] andFlg:@"2"];
+        [dataProvider voiceAction:m.mID andUserId:[userDefault valueForKey:@"id"] andFlg:@"2" andDescription:nil];
     }
 }
 

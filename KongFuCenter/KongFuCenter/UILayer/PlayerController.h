@@ -23,4 +23,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *playandpuase;
 
 @property (nonatomic, assign) IBOutlet UIButton *modeBtn;
+-(void)nextVideo:(NSURL *)url andTitle:(NSString *)title;
 @end

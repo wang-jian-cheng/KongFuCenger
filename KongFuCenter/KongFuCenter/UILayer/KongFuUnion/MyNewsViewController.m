@@ -605,7 +605,7 @@
     }else{
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
-        [dataProvider voiceAction:m.mID andUserId:[Toolkit getUserID] andFlg:@"2"];
+        [dataProvider voiceAction:m.mID andUserId:[Toolkit getUserID] andFlg:@"2" andDescription:nil];
     }
 }
 

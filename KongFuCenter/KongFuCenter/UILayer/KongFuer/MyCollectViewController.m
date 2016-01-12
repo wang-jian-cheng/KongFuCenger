@@ -340,6 +340,11 @@
             }
         }
         
+        for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
+            UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
+            btn_select.hidden = YES;
+        }
+        
         for (NSString * str in self.arr_deleteVoice) {
             
             model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
@@ -355,6 +360,8 @@
 //        [mainCollectionView reloadData];
         
 //        self.arr_deleteVoice = nil;
+     
+       
         
     }
 }
@@ -476,7 +483,7 @@
         [sender setTitle:[NSString stringWithFormat:@"%d",x]forState:(UIControlStateNormal)];
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider voiceAction:tempDict[@"MessageId"] andUserId:[Toolkit getUserID] andFlg:@"2"];
+        [dataprovider voiceAction:tempDict[@"MessageId"] andUserId:[Toolkit getUserID] andFlg:@"2" andDescription:nil];
         
     }
     else
@@ -534,7 +541,7 @@
         
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"2"];
+        [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"2" andDescription:nil];
         [dataprovider setDelegateObject:self setBackFunctionName:@"actionCallBack:"];
 
     }
@@ -604,7 +611,7 @@
         [sender setTitle:model.FavoriteNum forState:(UIControlStateNormal)];
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"1"];
+        [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"1" andDescription:nil];
     }
     else
     {
@@ -637,7 +644,7 @@
         [sender setTitle:model.RepeatNum forState:(UIControlStateNormal)];
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"0"];
+        [dataprovider voiceAction:model.MessageId andUserId:model.UserId andFlg:@"0" andDescription:nil];
     }
     else
     {
@@ -989,11 +996,14 @@
 
 -( void )collectionView:( UICollectionView *)collectionView didSelectItemAtIndexPath:( NSIndexPath *)indexPath
 {
+    if(self.isDelete ==1)
+        return;
+    
     model_collect * model = self.arr_voiceData[indexPath.item];
 //    NSLog(@"%@",model.MessageId);
     
     VideoDetailViewController *viewDetailViewCtl = [[VideoDetailViewController alloc] init];
-    viewDetailViewCtl.videoID = model.MessageId;
+    viewDetailViewCtl.videoID = [NSString stringWithFormat:@"%@", model.MessageId];
     [self.navigationController pushViewController:viewDetailViewCtl animated:YES];
     
 

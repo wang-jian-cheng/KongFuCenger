@@ -72,10 +72,37 @@
     UIImageView *headImg;
     UIButton *delBtn ;
     NSString *_url;
+    
+    NSUInteger showIndex;
+    
+    BOOL showPicNormalMode;
 }
 @end
 
 @implementation PictureShowView
+
+- (instancetype)initWithTitle:(NSString *)title
+                      andImgs:(NSArray <UIImageView *>*)showImg andShowIndex:(NSUInteger)index{
+    self = [super init];
+    if (self) {
+        _title = title;
+        self.delegate = self;
+        
+        
+        showIndex  = index;
+        self.imgArr = showImg;
+        if(showImg == nil || showImg.count ==0)
+            return self;
+        if(showIndex>self.imgArr.count)
+            showIndex = 0;
+        _showImg = self.imgArr[showIndex];
+        
+        
+        showPicNormalMode = YES;
+        [self buildViews];
+    }
+    return self;
+}
 
 
 - (instancetype)initWithTitle:(NSString *)title
@@ -303,6 +330,7 @@
 #pragma mark - 图片拖动 可以添加拖动时代理方法
 - (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
     // Retrieve the touch point
+
     beginPoint = [[touches anyObject] locationInView:_imgShowView]; //记录第一个点，以便计算移动距离
     
 //    if ([self._delegate respondsToSelector: @selector(animalViewTouchesBegan)]) //设置代理类，
@@ -312,6 +340,12 @@
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
     // Move relative to the original touch point
     // 计算移动距离，并更新图像的frame
+    if(showPicNormalMode == YES)
+    {
+//        图片原始比例禁止拖动
+        return;
+    }
+    
     CGPoint pt = [[touches anyObject] locationInView:_imgShowView];
     CGRect frame = [_imgShowView frame];
     frame.origin.x += pt.x - beginPoint.x;
@@ -479,11 +513,13 @@
 {
     if (self.zoomScale > self.minimumZoomScale) {
         [self setZoomScale:self.minimumZoomScale animated:YES];
+        showPicNormalMode = YES;
     } else if (self.zoomScale < self.maximumZoomScale) {
         CGPoint location = [recognizer locationInView:recognizer.view];
         CGRect zoomToRect = CGRectMake(0, 0, 50, 50);
         zoomToRect.origin = CGPointMake(location.x - CGRectGetWidth(zoomToRect)/2, location.y - CGRectGetHeight(zoomToRect)/2);
         [self zoomToRect:zoomToRect animated:YES];
+        showPicNormalMode = NO;
     }
 }
 
@@ -507,6 +543,8 @@
 
 - (void)centerContent
 {
+    
+    showPicNormalMode = NO;
     CGRect frame = _imgShowView.frame;
     
     CGFloat top = 0, left = 0;

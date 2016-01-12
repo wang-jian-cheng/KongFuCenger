@@ -20,7 +20,7 @@
 #define OtherVideoSection   2
 #define CommentSection      3
 
-#define GapToLeft           10
+#define GapToLeft           13
 #define TextColors          [UIColor whiteColor]
 
 @interface VideoDetailViewController ()<PlayerControllerDelegate>
@@ -139,7 +139,13 @@
     //    //注册通知,监听键盘消失事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHidden) name:UIKeyboardDidHideNotification object:nil];
     
+    /***************init for video******************/
     
+ 
+    
+    
+    playerCtrl = [[PlayerController alloc] initWithNibName:nil bundle:nil] ;
+ 
     
 }
 
@@ -185,40 +191,44 @@
             collectBtn.selected = NO;
         }
         
+        if([VideoDict[@"IsFree"] intValue] == 0&&[Toolkit isVip] == NO)
+        {
+            
+                shouldPay = YES;
+                if(playerCtrl.view.superview !=nil)
+                {
+                    [playerCtrl.view removeFromSuperview];
+                    [playerCtrl goBackButtonAction];
+                }
+            
+        }
+        else
+        {
+            shouldPay = NO;
+            playerCtrl.delegate = self;
+            playerCtrl.view.frame=CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight);
+            
+            _VideoViewFrame=CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight);
+            
+            _backViewFrame=playerCtrl.backView.frame;
+            
+            _modleBtnFrame=playerCtrl.modeBtn.frame;
+            
+            [playerCtrl.modeBtn addTarget:self action:@selector(changeModle:) forControlEvents:UIControlEventTouchUpInside];
+            
+            //[self presentModalViewController:playerCtrl animated:YES];
+            [self.view addSubview:playerCtrl.view];
+            [playerCtrl nextVideo:[NSURL URLWithString:VideoPath] andTitle:dict[@"data"][@"Title"]];
+        }
+        
+        
         DataProvider * dataprovider=[[DataProvider alloc] init];
         
         [dataprovider setDelegateObject:self setBackFunctionName:@"GetOtherVideoDetialCallBack:"];
         
         [dataprovider getUserid:dict[@"data"][@"UserId"] andNum:@"4" andmessageID:dict[@"data"][@"Id"]];
         
-//        if([dict[@"data"][@"IsFree"] intValue] == 0)
-//        {
-//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"会员才可观看" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-//            [alertView show];
-//            return;
-//        }
         
-//        moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
-//        
-//        [_mainTableView reloadData];
-//        [self.view addSubview:moviePlayerview];
-        
-        
-        playerCtrl = [[PlayerController alloc] initWithNibName:nil bundle:nil] ;
-        playerCtrl.delegate = self;
-        playerCtrl.view.frame=CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight);
-        
-        _VideoViewFrame=CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight);
-        
-        _backViewFrame=playerCtrl.backView.frame;
-        
-        _modleBtnFrame=playerCtrl.modeBtn.frame;
-        
-        [playerCtrl.modeBtn addTarget:self action:@selector(changeModle:) forControlEvents:UIControlEventTouchUpInside];
-        
-        //[self presentModalViewController:playerCtrl animated:YES];
-        [self.view addSubview:playerCtrl.view];
-//        playerCtrl.backView
         
     }
 }
@@ -398,7 +408,7 @@
 -(void)otherVideoBtnClick:(UIButton *)sender
 {
     self.videoID = otherVideoArray[sender.tag][@"Id"];
-    
+//    [playerCtrl goBackButtonAction];
     [self getData];
 }
 
@@ -463,7 +473,7 @@
 -(void)tapViewAction:(id)sender
 {
     [self.view endEditing:YES];
-
+//    [commentTextView resignFirstResponder];
 }
 
 -(void)clickLeftButton:(UIButton *)sender
@@ -476,12 +486,31 @@
     
 }
 
+-(void)goPayBtnClick:(UIButton *)sender
+{
+    VipViewController *vipViewCtl = [[VipViewController alloc] init];
+    vipViewCtl.navtitle = @"会员详情";
+    [self.navigationController pushViewController:vipViewCtl animated:YES];
+}
+
 -(void)clickRightButton:(UIButton *)sender
+{
+    JvbaoView *jvbaoView = [[JvbaoView alloc] init];
+    jvbaoView.delegate = self;
+    [jvbaoView show];
+    
+//    DataProvider * dataprovider=[[DataProvider alloc] init];
+//    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
+//    //举报
+//    [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3" andDescription:nil];
+}
+
+-(void)JvbaoSureBtnClick:(NSString *)content
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
     //举报
-    [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3"];
+    [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3" andDescription:content];
 }
 
 -(void)btnClick:(UIButton *)sender
@@ -498,7 +527,7 @@
                 sender.selected = YES;
                 NSLog(@"点赞");
                 
-                [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"2"];
+                [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"2" andDescription:nil];
             }
             else
             {
@@ -518,7 +547,7 @@
                 NSLog(@"收藏");
                 
 //                DataProvider * dataprovider=[[DataProvider alloc] init];
-                [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"1"];
+                [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"1" andDescription:nil];
             }
             else
             {
@@ -539,7 +568,7 @@
                 NSLog(@"转发");
                 
 //                DataProvider * dataprovider=[[DataProvider alloc] init];
-                [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"0"];
+                [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"0" andDescription:nil];
             }
             else
             {
@@ -688,6 +717,26 @@
     
     
     switch (indexPath.section) {
+        case VideoPlaySection:
+        {
+            if(shouldPay == YES)
+            {
+                UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, _cellHeight, SCREEN_WIDTH, 50)];
+                tipLab.textAlignment  = NSTextAlignmentCenter;
+                tipLab.text = @"此视频是付费视频，只有会员才可观看";
+                tipLab.textColor = [UIColor whiteColor];
+                [cell addSubview:tipLab];
+                
+                
+                UIButton *payBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3, 2*_cellHeight, SCREEN_WIDTH/3, 50)];
+                [payBtn setTitle:@"点击付费" forState:UIControlStateNormal];
+                payBtn.backgroundColor = YellowBlock;
+                payBtn.titleLabel.textColor = [UIColor whiteColor];
+                [payBtn addTarget:self action:@selector(goPayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:payBtn];
+            }
+        }
+        break;
         case VideoDetailSection:
         {
             if(indexPath.row == 0)
@@ -871,7 +920,7 @@
                     if(otherVideoArray==nil || otherVideoArray.count <=0  )
                         return cell;
                     
-                    UIScrollView *showOtherVideoView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*2)];
+                    UIScrollView *showOtherVideoView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*2+20)];
                     CGFloat gapWidth;
                     gapWidth =(SCREEN_WIDTH - GapToLeft*2)/3 - (2*_cellHeight -30);
 //                    showOtherVideoView.backgroundColor = [UIColor redColor];
@@ -900,11 +949,12 @@
                         UILabel *templab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft+i*(2*_cellHeight -30 + gapWidth),
                                                                                      (tempView.frame.origin.y+tempView.frame.size.height+2),
                                                                                      2*_cellHeight -30,
-                                                                                     2*_cellHeight - (tempView.frame.origin.y+tempView.frame.size.height+2) )];
+                                                                                     2*_cellHeight+ 20 - (tempView.frame.origin.y+tempView.frame.size.height+2 ) )];
                         templab.text = tempDict[@"Title"];
                         templab.textColor = TextColors;
-                        templab.font = [UIFont systemFontOfSize:14];
+                        templab.font = [UIFont systemFontOfSize:12];
                         templab.textAlignment = NSTextAlignmentCenter;
+                        templab.numberOfLines = 2;
                         [showOtherVideoView addSubview:templab];
                         
                         UIButton *videoBtn = [[UIButton alloc] initWithFrame:CGRectMake(tempView.frame.origin.x, 0, 2*_cellHeight -30, _cellHeight*2)];
@@ -970,11 +1020,11 @@
                                                                                        (SCREEN_WIDTH -(headView.frame.origin.x + headView.frame.size.width+5) - 80),44 );
                 
                 tempIndexPath = indexPath;
-                if(commentTextView.subviews !=nil)
-                {
-                    [commentTextView removeFromSuperview];
-                }
-                [cell.contentView addSubview:commentTextView];
+//                if(commentTextView.superview !=nil)
+//                {
+//                    [commentTextView removeFromSuperview];
+//                }
+                [cell addSubview:commentTextView];
                 
                 UIButton * btn_SendComment=[[UIButton alloc] initWithFrame:CGRectMake(commentTextView.frame.size.width+commentTextView.frame.origin.x+10, commentTextView.frame.origin.y, 60, commentTextView.frame.size.height)];
                 
@@ -1099,7 +1149,7 @@
         }
             break;
         case 2:
-            return 2*_cellHeight;
+            return 2*_cellHeight+20;
             break;
         case CommentSection:
         {

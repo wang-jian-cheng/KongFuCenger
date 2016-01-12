@@ -524,7 +524,7 @@
     
     VideoDetailViewController *videoDetailViewCtl = [[VideoDetailViewController alloc] init];
     videoDetailViewCtl.navtitle =@"视频";
-    videoDetailViewCtl.videoID=dataArr[indexPath.section][@"Id"];
+    videoDetailViewCtl.videoID=[NSString stringWithFormat:@"%@" ,dataArr[indexPath.section][@"Id"]];
     [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
     
 }
