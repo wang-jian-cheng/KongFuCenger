@@ -355,7 +355,7 @@
         historyContentLab.textColor = [UIColor whiteColor];
         historyContentLab.font = [UIFont systemFontOfSize:16];
         
-        UILabel *timeLabInImg = [[UILabel alloc] initWithFrame:CGRectMake((backImg.frame.size.width - 10 -60), (backImg.frame.size.height - 40), 60, 30)];
+        UILabel *timeLabInImg = [[UILabel alloc] initWithFrame:CGRectMake((backImg.frame.size.width - 10 -60), (backImg.frame.size.height - 40), 70, 30)];
         timeLabInImg.text = tempDict[@"VideoDuration"];
         timeLabInImg.textColor = [UIColor whiteColor];
         timeLabInImg.textAlignment = NSTextAlignmentCenter;

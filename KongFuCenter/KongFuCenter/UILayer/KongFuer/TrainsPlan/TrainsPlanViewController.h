@@ -17,7 +17,7 @@
 #define SeasonPlan  49
 #define YearPlan    48
 
-@interface TrainsPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
+@interface TrainsPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 {
     UIView *moreSettingBackView;
     
