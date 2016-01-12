@@ -219,7 +219,8 @@
         }
         NSString *photoImage = ((ChineseString *)LetterResultArr[indexPath.section - 2][indexPath.row]).photoImg;
         NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoImage];
-        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:cell.mImageView.frame andImg:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] andNav:self.navigationController];
+        //UserHeadView *headView = [[UserHeadView alloc] initWithFrame:cell.mImageView.frame andImg:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] andNav:self.navigationController];
+        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:cell.mImageView.frame andUrl:url andNav:self.navigationController];
         headView.userId = ((ChineseString *)LetterResultArr[indexPath.section - 2][indexPath.row]).friendID;
         [headView makeSelfRound];
         

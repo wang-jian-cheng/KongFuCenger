@@ -89,6 +89,7 @@
     chat.userName = @"nihao";
     //设置聊天会话界面要显示的标题
     chat.title = @"想显示的会话标题";
+    chat.mTitle = [Toolkit judgeIsNull:[userInfoArray valueForKey:@"NicName"]];
     //显示聊天会话界面
     [self.navigationController pushViewController:chat animated:YES];
 }

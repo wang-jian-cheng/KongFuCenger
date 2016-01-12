@@ -335,7 +335,7 @@
     group.groupId = groupId;
     NSLog(@"%@",teamDict);
     group.groupName =[teamDict valueForKey:@"Name"];
-    group.portraitUri = [NSString stringWithFormat:@"http://192.168.1.136:8033/%@",[teamDict valueForKey:@"ImagePath"]];
+    group.portraitUri = [NSString stringWithFormat:@"%@%@",Url,[teamDict valueForKey:@"ImagePath"]];
     
     return completion(group);
 }
