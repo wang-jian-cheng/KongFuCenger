@@ -283,11 +283,11 @@
 
 - (void)mediaPlayer:(VMediaPlayer *)player downloadRate:(id)arg
 {
-	if (![Utilities isLocalMedia:self.videoURL]) {
-		self.downloadRate.text = [NSString stringWithFormat:@"%dKB/s", [arg intValue]];
-	} else {
-		self.downloadRate.text = nil;
-	}
+//	if (![Utilities isLocalMedia:self.videoURL]) {
+//		self.downloadRate.text = [NSString stringWithFormat:@"%dKB/s", [arg intValue]];
+//	} else {
+//		self.downloadRate.text = nil;
+//	}
 }
 
 - (void)mediaPlayer:(VMediaPlayer *)player videoTrackLagging:(id)arg
@@ -439,10 +439,10 @@
 	BOOL isPlaying = [mMPayer isPlaying];
 	if (isPlaying) {
 		[mMPayer pause];
-		[self.startPause setTitle:@"Start" forState:UIControlStateNormal];
+		[self.playandpuase setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
 	} else {
 		[mMPayer start];
-		[self.startPause setTitle:@"Pause" forState:UIControlStateNormal];
+		[self.playandpuase setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateNormal];
 	}
 }
 
