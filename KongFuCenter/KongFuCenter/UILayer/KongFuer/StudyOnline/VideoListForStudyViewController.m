@@ -68,7 +68,7 @@
     
     
     
-    mainCollectionView = [[UICollectionView alloc]  initWithFrame:CGRectMake(0, Header_Height + 10, SCREEN_WIDTH , SCREEN_HEIGHT-( Header_Height + 10+10)+50) collectionViewLayout:layout];
+    mainCollectionView = [[UICollectionView alloc]  initWithFrame:CGRectMake(0, Header_Height + 10, SCREEN_WIDTH , SCREEN_HEIGHT-( Header_Height + 10+10)) collectionViewLayout:layout];
     
     [layout setHeaderReferenceSize:CGSizeMake(mainCollectionView.frame.size.width, 0)];//暂不现实时间
     
@@ -225,10 +225,10 @@
         
         [cell.img_logo sd_setImageWithURL:[NSURL URLWithString:[videoArray[indexPath.row][@"ImagePath"] isEqual:[NSNull null]]?@"":[NSString stringWithFormat:@"%@%@",Url,videoArray[indexPath.row][@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@""]];
         [cell.btn_first setTitle:[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"LikeNum"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"LikeNum"]] forState:UIControlStateNormal];
-        [cell.btn_first setImage:[UIImage imageNamed:@"support@2x"] forState:(UIControlStateNormal)];
+        [cell.btn_first setImage:[UIImage imageNamed:@"support"] forState:(UIControlStateNormal)];
         
         [cell.btn_second setTitle:[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"FavoriteNum"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"FavoriteNum"]] forState:UIControlStateNormal];
-        [cell.btn_second setImage:[UIImage imageNamed:@"collect@2x"] forState:(UIControlStateNormal)];
+        [cell.btn_second setImage:[UIImage imageNamed:@"collect"] forState:(UIControlStateNormal)];
         
         cell.lbl_title.text=[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"Title"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"Title"]];
         cell.lbl_content.text=[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"Content"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"Content"]];
@@ -316,15 +316,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(NSString *)GettitleForDate:(NSString *)dateStr
+{
+    NSString * resultStr=@"";
+    
+    return resultStr;
 }
-*/
 
 @end
