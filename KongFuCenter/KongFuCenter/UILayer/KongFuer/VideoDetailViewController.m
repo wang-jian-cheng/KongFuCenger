@@ -45,6 +45,11 @@
     PlayerController *playerCtrl;
     
     CGRect _VideoViewFrame;
+    
+    CGRect _modleBtnFrame;
+    
+    CGRect _backViewFrame;
+    
 }
 @end
 
@@ -205,6 +210,9 @@
         
         _VideoViewFrame=CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight);
         
+        _backViewFrame=playerCtrl.backView.frame;
+        
+        _modleBtnFrame=playerCtrl.modeBtn.frame;
         
         [playerCtrl.modeBtn addTarget:self action:@selector(changeModle:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -219,31 +227,43 @@
 {
     if (sender.tag!=1) {
         
-        [sender setImage:[UIImage imageNamed:@"small"] forState:UIControlStateHighlighted];
+        [playerCtrl.modeBtn setImage:[UIImage imageNamed:@"small"] forState:UIControlStateNormal];
         
         sender.tag=1;
         
+        playerCtrl.view.frame=CGRectMake(0, 0,SCREEN_WIDTH, SCREEN_HEIGHT);
+        
         playerCtrl.backView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
         
-        playerCtrl.backView.center=CGPointMake(SCREEN_WIDTH/2,SCREEN_HEIGHT/2-64 );
+        playerCtrl.modeBtn.frame=CGRectMake(SCREEN_HEIGHT-40,playerCtrl.modeBtn.frame.origin.y , playerCtrl.modeBtn.frame.size.width , playerCtrl.modeBtn.frame.size.height);
+        
+        playerCtrl.backView.center=CGPointMake(SCREEN_WIDTH/2,SCREEN_HEIGHT/2 );
         
         CGAffineTransform transform = CGAffineTransformMakeRotation(90 * M_PI/180.0);
         
         [playerCtrl.backView setTransform:transform];
         
+        [self.view bringSubviewToFront:playerCtrl.view];
+        
     }
     else
     {
         
-        [sender setImage:[UIImage imageNamed:@"big"] forState:UIControlStateHighlighted];
+        [sender setImage:[UIImage imageNamed:@"big"] forState:UIControlStateNormal];
         
         sender.tag=0;
         
+        
+        
+        CGAffineTransform transform = CGAffineTransformMakeRotation(0 * M_PI/180.0);
+        
+        [playerCtrl.backView setTransform:transform];
+        
+        playerCtrl.modeBtn.frame=_modleBtnFrame;
+        
+        playerCtrl.backView.frame=_backViewFrame;
+        
         playerCtrl.view.frame=_VideoViewFrame;
-        
-        CGAffineTransform transform = CGAffineTransformMakeRotation(-90 * M_PI/180.0);
-        
-        [playerCtrl.view setTransform:transform];
     }
 }
 

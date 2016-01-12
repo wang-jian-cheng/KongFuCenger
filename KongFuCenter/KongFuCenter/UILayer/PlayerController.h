@@ -20,6 +20,7 @@
 @property (nonatomic, assign) id<PlayerControllerDelegate> delegate;
 -(void)goBackButtonAction;
 @property (nonatomic, assign) IBOutlet UIView  	*backView;
+@property (weak, nonatomic) IBOutlet UIButton *playandpuase;
 
 @property (nonatomic, assign) IBOutlet UIButton *modeBtn;
 @end

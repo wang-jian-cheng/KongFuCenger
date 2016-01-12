@@ -15,6 +15,7 @@
                 <outlet property="downloadRate" destination="44" id="45"/>
                 <outlet property="durationLbl" destination="27" id="29"/>
                 <outlet property="modeBtn" destination="S0l-ak-s5g" id="Ks8-de-PrG"/>
+                <outlet property="playandpuase" destination="8Ao-Mh-tCv" id="yig-X5-EeA"/>
                 <outlet property="progressSld" destination="9" id="10"/>
                 <outlet property="view" destination="1" id="7"/>
             </connections>
@@ -33,7 +34,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <subviews>
                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="9" customClass="VSegmentSlider">
-                                    <rect key="frame" x="50" y="42" width="151" height="29"/>
+                                    <rect key="frame" x="98" y="42" width="114" height="29"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <connections>
                                         <action selector="dragProgressSliderAction:" destination="-1" eventType="valueChanged" id="59"/>
@@ -43,24 +44,32 @@
                                     </connections>
                                 </slider>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="25">
-                                    <rect key="frame" x="4" y="48" width="50" height="21"/>
+                                    <rect key="frame" x="49" y="46" width="50" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="27">
-                                    <rect key="frame" x="208" y="48" width="50" height="21"/>
+                                    <rect key="frame" x="218" y="46" width="50" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="right" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" id="S0l-ak-s5g">
-                                    <rect key="frame" x="276" y="41" width="36" height="28"/>
+                                    <rect key="frame" x="277" y="41" width="36" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="0.92156862750000001" green="0.0" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="big"/>
+                                </button>
+                                <button opaque="NO" contentMode="left" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8Ao-Mh-tCv">
+                                    <rect key="frame" x="15" y="42" width="32" height="28"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="stop"/>
+                                    <connections>
+                                        <action selector="startPauseButtonAction:" destination="-1" eventType="touchUpInside" id="Qgm-yj-zlm"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -83,19 +92,19 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="30">
+                                    <rect key="frame" x="31" y="75" width="242" height="92"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                    <color key="textColor" red="1" green="0.44595696410000002" blue="0.14455912800000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.82828443880000002" green="0.76394234579999998" blue="0.1152077848" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="30">
-                    <rect key="frame" x="39" y="125" width="242" height="92"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                    <color key="textColor" red="1" green="0.44595696410000002" blue="0.14455912800000001" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <view contentMode="scaleToFill" id="32">
                     <rect key="frame" x="140" y="132" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -109,5 +118,6 @@
     </objects>
     <resources>
         <image name="big" width="72" height="72"/>
+        <image name="stop" width="72" height="72"/>
     </resources>
 </document>
