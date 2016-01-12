@@ -167,10 +167,33 @@
     [self.view addSubview:moreSettingBackView];
     moreSettingBackView.hidden = YES;
     
+    
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
+    tapGesture.delegate = self;
+    [self.view addGestureRecognizer:tapGesture];
 }
 
+#pragma mark - 手势
+-(void)tapViewAction:(id)sender
+{
+    [self positionDismissView:moreSettingBackView];
+}
 
-
+//设置点在某个view时部触发事件
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    // 输出点击的view的类名
+    NSLog(@"-%@", NSStringFromClass([touch.view class]));
+    
+    
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"])
+    {
+        return NO;
+    }
+    //  NSLog(@"return YES");
+    return  YES;
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -327,7 +350,7 @@
     [newBtn setTitle:@"发布" forState:UIControlStateNormal];
     [_mainTableView reloadData];
 
-
+    [self positionDismissView:moreSettingBackView];
 }
 
 -(void)roundBtnClick:(UIButton *)sender

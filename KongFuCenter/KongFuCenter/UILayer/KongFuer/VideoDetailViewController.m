@@ -20,7 +20,7 @@
 #define OtherVideoSection   2
 #define CommentSection      3
 
-#define GapToLeft           20
+#define GapToLeft           10
 #define TextColors          [UIColor whiteColor]
 
 @interface VideoDetailViewController ()<PlayerControllerDelegate>
@@ -53,7 +53,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    
+    [self addRightbuttontitle:@"举报"];
     _lblTitle.text=@"视频详情";
     
     OtherVideo=0;
@@ -456,6 +456,14 @@
     
 }
 
+-(void)clickRightButton:(UIButton *)sender
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
+    //举报
+    [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3"];
+}
+
 -(void)btnClick:(UIButton *)sender
 {
 //    sender.selected = !sender.selected;
@@ -522,7 +530,6 @@
         case 4:
         {
             
-            [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3"];
         }
         default:
             break;
@@ -649,6 +656,8 @@
     
 }
 
+#define ShortHight  10
+
 #pragma mark - setting for cell
 //设置每行调用的cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -682,22 +691,28 @@
                     [cell addSubview:headView];
                     /*name*/
                     UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
-                                                                                 headView.frame.origin.y, 40, headView.frame.size.height/2)];
+                                                                                 headView.frame.origin.y, 140, headView.frame.size.height/2)];
                     nameLab.text = [VideoDict[@"UserNicName"] isEqual:[NSNull null]]?@"":VideoDict[@"UserNicName"];
                     nameLab.textColor = TextColors;
                     nameLab.font = [UIFont systemFontOfSize:FontSize];
+                    
+                    if(VideoDict[@"UserNicName"]==nil || [VideoDict[@"UserNicName"] length] == 0)
+                    {
+                        nameLab.text = @"佚名";
+                    }
+                    
                     [cell addSubview:nameLab];
                     
                     
-                    /*举报*/
-                    UIButton *jubaoBtn = [[UIButton alloc] initWithFrame:CGRectMake((nameLab.frame.origin.x +nameLab.frame.size.width + 10),
-                                                                                    headView.frame.origin.y, 40, headView.frame.size.height/2)];
-                    [jubaoBtn setTitle:@"举报" forState:UIControlStateNormal];
-                    jubaoBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-                    jubaoBtn.tag = 4;
-                    [jubaoBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-                    [cell addSubview:jubaoBtn];
-                    
+//                    /*举报*/
+//                    UIButton *jubaoBtn = [[UIButton alloc] initWithFrame:CGRectMake((nameLab.frame.origin.x +nameLab.frame.size.width + 10),
+//                                                                                    headView.frame.origin.y, 40, headView.frame.size.height/2)];
+//                    [jubaoBtn setTitle:@"举报" forState:UIControlStateNormal];
+//                    jubaoBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+//                    jubaoBtn.tag = 4;
+//                    [jubaoBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+//                    [cell addSubview:jubaoBtn];
+//                    
                     /*date*/
                     UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLab.frame.origin.x,
                                                                                  (nameLab.frame.origin.y + nameLab.frame.size.height + 2),
@@ -805,25 +820,27 @@
                 
                 if(indexPath.row == 0)
                 {
-                    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 150, _cellHeight)];
+                    cell.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight-ShortHight);
+                    
+                    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 150, _cellHeight-ShortHight)];
                     titleLab.text = @"其他作品";
                     titleLab.font = [UIFont systemFontOfSize:14];
                     titleLab.textColor = TextColors;
                     [cell addSubview:titleLab];
                     
                     
-                    UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
+                    UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight-ShortHight)];
                     if(otherVideoArray == nil)
                     {
                         numLab.text = [NSString stringWithFormat:@"共%d部",0];
                     }
                     else
-                        numLab.text = [NSString stringWithFormat:@"共%ld部",otherVideoArray.count];
+                        numLab.text = [NSString stringWithFormat:@"共%ld部",(unsigned long)otherVideoArray.count];
                     numLab.font = [UIFont systemFontOfSize:12];
                     numLab.textColor = TextColors;
                     [cell addSubview:numLab];
                     
-                    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(numLab.frame.origin.x - 10, 5, 1, _cellHeight-10)];
+                    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(numLab.frame.origin.x - 10, 5, 1, _cellHeight-10-ShortHight)];
                     lineView.backgroundColor = Separator_Color;
                     [cell addSubview:lineView];
                     
@@ -831,14 +848,20 @@
                 
                 if(indexPath.row == 1)
                 {
-                    if(otherVideoArray==nil || otherVideoArray.count <=0 || otherVideoArray.count -1 < indexPath.row )
+                    if(otherVideoArray==nil || otherVideoArray.count <=0  )
                         return cell;
                     
                     UIScrollView *showOtherVideoView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*2)];
                     CGFloat gapWidth;
                     gapWidth =(SCREEN_WIDTH - GapToLeft*2)/3 - (2*_cellHeight -30);
 //                    showOtherVideoView.backgroundColor = [UIColor redColor];
-                    showOtherVideoView.contentSize = CGSizeMake(SCREEN_WIDTH+((otherVideoArray.count-3)*gapWidth)+100, 0);
+                    if (otherVideoArray.count < 4) {
+                        showOtherVideoView.contentSize = CGSizeMake(SCREEN_WIDTH, 0);
+                    }
+                    else
+                    {
+                        showOtherVideoView.contentSize = CGSizeMake(SCREEN_WIDTH+((otherVideoArray.count-3)*gapWidth)+100, 0);
+                    }
                     showOtherVideoView.scrollEnabled = YES;
                     [cell addSubview:showOtherVideoView];
                     
@@ -889,7 +912,9 @@
             
             if(indexPath.row == 0)
             {
-                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 150, _cellHeight)];
+                cell.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight-ShortHight);
+                
+                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 150, _cellHeight-ShortHight)];
                 titleLab.text = @"用户评论";
                 titleLab.font = [UIFont systemFontOfSize:14];
                 titleLab.textColor = TextColors;
@@ -897,13 +922,13 @@
                 
                 
                 
-                UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
-                numLab.text = [NSString stringWithFormat:@"共%ld条",videoCommentArray.count];
+                UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight-ShortHight)];
+                numLab.text = [NSString stringWithFormat:@"共%ld条",(unsigned long)videoCommentArray.count];
                 numLab.font = [UIFont systemFontOfSize:12];
                 numLab.textColor = TextColors;
                 [cell addSubview:numLab];
                 
-                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(numLab.frame.origin.x - 10, 5, 1, _cellHeight-10)];
+                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(numLab.frame.origin.x - 10, 5, 1, _cellHeight-10-ShortHight)];
                 lineView.backgroundColor = Separator_Color;
                 [cell addSubview:lineView];
                 
@@ -1027,6 +1052,13 @@
     
     if(indexPath.section != 0)
     {
+       
+        
+        if(indexPath.section == OtherVideoSection || indexPath.section == CommentSection)
+        {
+            if(indexPath.row == 0)
+                return _cellHeight -ShortHight;
+        }
         if(indexPath.row == 0)
         {
             return _cellHeight;
@@ -1038,8 +1070,13 @@
             return 4*_cellHeight;
             break;
         case 1:
-        
-            return 3*_cellHeight;
+        {
+            NSString *detailStr = [VideoDict[@"Content"] isEqual:[NSNull null]]?@"":VideoDict[@"Content"];
+            CGFloat detailWidth = SCREEN_WIDTH-GapToLeft*2;
+            CGFloat detailHeight = [Toolkit heightWithString:detailStr fontSize:12 width:detailWidth];
+            
+            return detailHeight + 10+_cellHeight;
+        }
             break;
         case 2:
             return 2*_cellHeight;
@@ -1079,7 +1116,7 @@
         @try {
             NSDictionary *tempDict = videoCommentArray[indexPath.row -2];
             
-            commentTextView.text = [NSString stringWithFormat:@"//%@:%@",tempDict[@"CommenterNicName"],tempDict[@"Content"]];
+            commentTextView.text = [NSString stringWithFormat:@"回复://%@:%@",tempDict[@"CommenterNicName"],tempDict[@"Content"]];
             [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
             [commentTextView becomeFirstResponder];
             

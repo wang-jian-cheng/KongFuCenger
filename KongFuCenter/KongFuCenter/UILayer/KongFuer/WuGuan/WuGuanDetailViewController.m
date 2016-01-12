@@ -26,6 +26,7 @@
     NSIndexPath *tempIndexPath;
     
     NSString *telStr;
+    UIImageView *mainImg;
 }
 
 @end
@@ -57,7 +58,7 @@
     //_mainTableView.scrollEnabled = NO;
     
     
-    UIImageView *mainImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,3*_cellHeight )];
+    mainImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,3*_cellHeight )];
     
     NSString *url = [NSString stringWithFormat:@"%@%@",Url,wuGuanDetailDict[@"ImagePath"]];
     [mainImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
@@ -289,6 +290,8 @@
             wuGuanDetailDict = dict[@"data"];
             telStr = wuGuanDetailDict[@"TelePhone"];
             [_mainTableView reloadData];
+            NSString *url = [NSString stringWithFormat:@"%@%@",Url,wuGuanDetailDict[@"ImagePath"]];
+            [mainImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
         }
         @catch (NSException *exception) {
             
@@ -725,7 +728,7 @@
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(40, 40);
+    return CGSizeMake(2*_cellHeight -20, 2*_cellHeight -20);
 }
 
 #pragma mark - UICollectionViewDelegate
