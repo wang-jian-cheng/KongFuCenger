@@ -23,12 +23,12 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12月31日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJh-qQ-8Rh">
-                        <rect key="frame" x="2" y="5" width="54" height="16"/>
+                        <rect key="frame" x="2" y="5" width="70" height="16"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="54" id="28e-24-TJt"/>
+                            <constraint firstAttribute="width" constant="70" id="28e-24-TJt"/>
                             <constraint firstAttribute="height" constant="16" id="BNu-1T-7tK"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>

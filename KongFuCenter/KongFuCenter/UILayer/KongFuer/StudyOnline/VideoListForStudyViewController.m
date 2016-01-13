@@ -232,6 +232,8 @@
         
         cell.lbl_title.text=[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"Title"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"Title"]];
         cell.lbl_content.text=[NSString stringWithFormat:@"%@",[videoArray[indexPath.row][@"Content"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"Content"]];
+        
+        cell.date.text=[self GettitleForDate:[videoArray[indexPath.row][@"PublishTime"] isEqual:[NSNull null]]?@"":videoArray[indexPath.row][@"PublishTime"]];
         cell.backgroundColor = ItemsBaseColor;
         
         
@@ -318,9 +320,81 @@
 }
 -(NSString *)GettitleForDate:(NSString *)dateStr
 {
-    NSString * resultStr=@"";
-    
-    return resultStr;
+    @try {
+        NSString * resultStr=@"";
+        
+        if (dateStr.length>0) {
+            
+            NSDate * nowDate=[NSDate date];
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            
+            NSDate *date = [dateFormatter dateFromString:dateStr];
+            
+            NSTimeInterval a_hour = 60*60;
+            
+            NSDate *other = [date addTimeInterval: a_hour];
+            
+            
+            
+            if ([nowDate compare:other]==NSOrderedDescending) {
+                
+                NSTimeInterval a_day = 24*60*60;
+                
+                NSDate *othersecond = [[self extractDate:date] addTimeInterval: a_day];
+                if ([nowDate compare:othersecond]==NSOrderedDescending) {
+                    if ([nowDate compare:[othersecond addTimeInterval:a_day]]==NSOrderedDescending) {
+                        if ([nowDate compare:[[othersecond addTimeInterval:a_day] addTimeInterval:a_day] ]==NSOrderedDescending) {
+                            [dateFormatter setDateFormat:@"MM月dd日"];
+                            NSString *strHour = [dateFormatter stringFromDate:date];
+                            return [NSString stringWithFormat:@"%@发布",strHour];
+                        }
+                        else
+                        {
+                            return @"前天发布";
+                        }
+                    }
+                    else
+                    {
+                        return @"昨天发布";
+                    }
+                }
+                else
+                {
+                    [dateFormatter setDateFormat:@"HH:mm"];
+                    NSString *strHour = [dateFormatter stringFromDate:date];
+                    return [NSString stringWithFormat:@"%@发布",strHour];
+                }
+            }
+            else
+            {
+                return @"刚刚发布";
+            }
+        }
+        
+        return resultStr;
+    }
+    @catch (NSException *exception) {
+        return @"";
+    }
+    @finally {
+        
+    }
+}
+
+- (NSDate *)extractDate:(NSDate *)date {
+    if (!date) {
+        date=[NSDate date];
+    }
+    //get seconds since 1970
+    NSTimeInterval interval = [date timeIntervalSince1970];
+    int daySeconds = 24 * 60 * 60;
+    //calculate integer type of days
+    NSInteger allDays = interval / daySeconds;
+
+    return [NSDate dateWithTimeIntervalSince1970:allDays * daySeconds];
 }
 
 @end
