@@ -994,6 +994,16 @@
     }
 }
 
+-(void)SelectFriended:(NSString *)userid{
+    if (userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectFriended",Url];
+        NSDictionary *prm = @{@"userid":userid};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark -  武友动态
 
 -(void)ShieldFriendNew:(NSString *)userid andFriendid:(NSString *)friendid
