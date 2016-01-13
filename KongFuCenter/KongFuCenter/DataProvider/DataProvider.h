@@ -358,4 +358,8 @@
 -(void)SendVideoInfo:(NSDictionary *)prm;
 //根据视频频道获取视频列表
 -(void)GetVideoByCategory:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andcateid:(NSString *)cateid;
+
+#pragma mark - 更多
+-(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;
+-(void)ShieldNewsFriend:(NSString *)userid;
 @end
