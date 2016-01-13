@@ -9,7 +9,9 @@
 #import "TrainsPlanDetailViewController.h"
 
 @interface TrainsPlanDetailViewController ()
-
+{
+    NSMutableArray *imgPaths;
+}
 @end
 
 @implementation TrainsPlanDetailViewController
@@ -18,6 +20,7 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     _cellHeight = self.view.frame.size.height/12;
+   
     [self addRightbuttontitle:@"编辑"];
     
     [self initViews];
@@ -73,7 +76,21 @@
         else
             [picArr removeAllObjects];
         [picArr addObjectsFromArray:_planInfo[@"ImageList"]];
+        
+        if(imgPaths == nil)
+            imgPaths = [NSMutableArray array];
+        else
+            [imgPaths removeAllObjects];
+        
+        for (int i = 0; i< picArr.count; i++) {
+            NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,picArr[i][@"ImagePath"]];
+            
+            [imgPaths addObject:url ];
+        }
     }
+    
+    
+    
     [_mainTableView reloadData];
 }
 
@@ -317,8 +334,12 @@
 -(void)imgBtnClick:(UIButton *)sender
 {
     
-    NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,picArr[sender.tag][@"ImagePath"]];
-    PictureShowView *picShow = [[PictureShowView alloc] initWithUrl:url andHolderImg:[UIImage imageNamed:@"me"]];
+    
+//    PictureShowView *picShow = [[PictureShowView alloc] initWithUrl:url andHolderImg:[UIImage imageNamed:@"me"]];
+//    picShow.mydelegate = self;
+//    [picShow show];
+    
+    PictureShowView *picShow  = [[PictureShowView alloc] initWithTitle:@"" andImgUrls:imgPaths andShowIndex:sender.tag andHolderImg:[UIImage imageNamed:@"me"]];
     picShow.mydelegate = self;
     [picShow show];
 }

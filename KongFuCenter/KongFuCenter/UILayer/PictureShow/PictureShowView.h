@@ -36,11 +36,18 @@
 @property (nonatomic) BOOL rotating;
 @property (nonatomic) CGSize minSize;
 @property (nonatomic) UIImageView *imgShowView;
+@property (nonatomic) NSUInteger showIndex;
 @property (nonatomic) NSArray *imgArr;
+@property (nonatomic) NSArray *imgUrls;
 #if SHOW_URLIMG
 - (instancetype)initWithUrl:(NSString *)url andHolderImg:(UIImage *)showImg;
 #endif
 - (instancetype)initWithTitle:(NSString *)title showImg:(UIImage *)showImg;
+//显示多张图片
+- (instancetype)initWithTitle:(NSString *)title
+                   andImgUrls:(NSArray *)showImgUrls andShowIndex:(NSUInteger)index andHolderImg:(UIImage *)holderImg;
+- (instancetype)initWithTitle:(NSString *)title
+                      andImgs:(NSArray <UIImageView *>*)showImg andShowIndex:(NSUInteger)index;
 - (void)show;
 - (void)dismiss;
 

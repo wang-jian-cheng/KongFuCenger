@@ -699,6 +699,10 @@
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
     }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
 }
 
 -(void)getPlanInfo:(NSString *)userid andCateId:(NSString *)cateid andStartRow:(NSString *)startRowIndex andMaxNumRows:(NSString *)maximumRows

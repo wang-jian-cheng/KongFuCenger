@@ -69,11 +69,13 @@
     UIView *_coverView;
     UIView *_alertView;
     
+    UILabel *indexLab;
+    
     UIImageView *headImg;
     UIButton *delBtn ;
     NSString *_url;
     
-    NSUInteger showIndex;
+    volatile NSUInteger showIndex;
     
     BOOL showPicNormalMode;
 }
@@ -87,7 +89,8 @@
     if (self) {
         _title = title;
         self.delegate = self;
-        
+        if(showImg==nil)
+            return self;
         
         showIndex  = index;
         self.imgArr = showImg;
@@ -106,6 +109,29 @@
 
 
 - (instancetype)initWithTitle:(NSString *)title
+                   andImgUrls:(NSArray *)showImgUrls andShowIndex:(NSUInteger)index andHolderImg:(UIImage *)holderImg{
+    self = [super init];
+    if (self) {
+        _title = title;
+        self.delegate = self;
+        
+        
+        showIndex  = index;
+        if(showImgUrls == nil || showImgUrls.count ==0)
+            return self;
+        self.imgUrls = showImgUrls;
+        if(showIndex>self.imgUrls.count)
+            showIndex = 0;
+        _showImg = holderImg;
+        _url = showImgUrls[showIndex];
+        showPicNormalMode = YES;
+        [self buildViews];
+    }
+    return self;
+}
+
+
+- (instancetype)initWithTitle:(NSString *)title
                       showImg:(UIImage *)showImg{
     self = [super init];
     if (self) {
@@ -113,9 +139,7 @@
         _showImg = showImg;
     
         self.delegate = self;
-        //  _alertType = AlertType_Hint;
         [self buildViews];
-     //   [self initViews];
     }
     return self;
 }
@@ -156,7 +180,7 @@
 
 -(void)buildViews{
     self.frame = [self screenBounds];
-    
+
     _coverView = [[UIView alloc]initWithFrame:[self topView].bounds];
     _coverView.backgroundColor = [UIColor blackColor];
     _coverView.alpha = 0;
@@ -192,6 +216,24 @@
         _imgShowView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , AlertHeight)];
         
     }
+    
+    if(self.imgUrls!=nil&&self.imgUrls.count>0)
+    {
+        indexLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+        indexLab.textColor = [UIColor whiteColor];
+        indexLab.textAlignment = NSTextAlignmentCenter;
+        indexLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)(showIndex+1),(unsigned long)self.imgUrls.count];
+        [self addSubview:indexLab];
+    }
+    else if(self.imgArr!=nil&&self.imgArr.count>0)
+    {
+        indexLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+        indexLab.textColor = [UIColor whiteColor];
+        indexLab.textAlignment = NSTextAlignmentCenter;
+        indexLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)(showIndex+1),(unsigned long)self.imgArr.count];
+        [self addSubview:indexLab];
+    }
+    
     _imgShowView.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     _imgShowView.backgroundColor = [UIColor blackColor];
     [self addSubview:_imgShowView];
@@ -207,6 +249,15 @@
     [self setMaxMinZoomScale];//设置缩放比例
     [self setupRotationNotification];
 }
+
+//-(void)setShowIndex:(NSUInteger)showIndex
+//{
+//    _showIndex = showIndex;
+//    
+//    if () {
+//
+//    }
+//}
 
 
 - (void)setupGestureRecognizer
@@ -229,11 +280,69 @@
     [tapGesture requireGestureRecognizerToFail:longPressRecognizer];
     [self addGestureRecognizer:longPressRecognizer];
     
-    
+    if((self.imgUrls !=nil && self.imgUrls.count>0 )|| (self.imgArr !=nil && self.imgArr.count>0 ))
+    {
+        UISwipeGestureRecognizer *SwipRight = [[UISwipeGestureRecognizer alloc] init];
+        SwipRight.direction = UISwipeGestureRecognizerDirectionRight;
+        [SwipRight addTarget:self action:@selector(swipRight)];
+        [self addGestureRecognizer:SwipRight];
+       // [pan requireGestureRecognizerToFail:tempSwipRight];
+        SwipRight.delegate = self;
+        
+        
+        UISwipeGestureRecognizer *SwipLeft = [[UISwipeGestureRecognizer alloc] init];
+        SwipLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+        [SwipLeft addTarget:self action:@selector(swipLeft)];
+        [self addGestureRecognizer:SwipLeft];
+    //    [pan requireGestureRecognizerToFail:tempSwipLeft];
+        SwipLeft.delegate = self;
+    }
 }
 
-
-
+-(void)swipRight
+{
+    if(showIndex == 0||showPicNormalMode == NO)
+        return;
+    
+    showIndex -- ;
+    if(self.imgUrls !=nil && self.imgUrls.count > 0)
+    {
+        
+        _url = self.imgUrls[showIndex];
+        [_imgShowView sd_setImageWithURL:[NSURL URLWithString:_url] placeholderImage:_showImg];
+        indexLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)(showIndex+1),(unsigned long)self.imgUrls.count];
+    }
+    if(self.imgArr!=nil && self.imgArr.count > 0)
+    {
+        _showImg = self.imgArr[showIndex];
+        _imgShowView.image = _showImg;
+        indexLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)(showIndex+1),(unsigned long)self.imgArr.count];
+    }
+    
+    
+}
+-(void)swipLeft
+{
+    if(showIndex == self.imgUrls.count -1||showPicNormalMode == NO)
+        return;
+    if(showIndex == self.imgArr.count -1||showPicNormalMode == NO)
+        return;
+    
+    showIndex ++ ;
+    if(self.imgUrls !=nil && self.imgUrls.count > 0)
+    {
+        
+        _url = self.imgUrls[showIndex];
+        [_imgShowView sd_setImageWithURL:[NSURL URLWithString:_url] placeholderImage:_showImg];
+        indexLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)(showIndex+1),(unsigned long)self.imgUrls.count];
+    }
+    if(self.imgArr!=nil && self.imgArr.count > 0)
+    {
+        _showImg = self.imgArr[showIndex];
+        _imgShowView.image = _showImg;
+        indexLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)(showIndex+1),(unsigned long)self.imgArr.count];
+    }
+}
 -(void)handleLongPress:(UILongPressGestureRecognizer *)sender
 {
     

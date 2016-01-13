@@ -59,11 +59,12 @@
         if([dict[@"code"] integerValue] == 200)
         {
             [imgPath addObject:dict[@"data"][@"ImagePath"]];
+            uploadImgCount ++;
             if([self.delegate respondsToSelector:@selector(uploadImgsOneFinishDelegate:andImgIndex:)])
             {
-                [self.delegate uploadImgsOneFinishDelegate:dict andImgIndex:uploadImgCount];
+                [self.delegate uploadImgsOneFinishDelegate:dict andImgIndex:(uploadImgCount+1)];
             }
-            uploadImgCount ++;
+            
             if(uploadImgCount >= allImgCount)
             {
                 [SVProgressHUD dismiss];
