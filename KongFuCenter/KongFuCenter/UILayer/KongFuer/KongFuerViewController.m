@@ -702,6 +702,7 @@
 //设置section footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
+    
     return 10;
     
 }
