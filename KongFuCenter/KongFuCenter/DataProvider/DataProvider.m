@@ -1257,7 +1257,26 @@
     }
 }
 
+#pragma mark - 更多
+-(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong{
+    if (userid && istuisong) {
+        NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/SelectVideoByCategory",Url];
+        NSDictionary *prm = @{@"userid":userid,@"istuisong":istuisong};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
 
+-(void)ShieldNewsFriend:(NSString *)userid{
+    if (userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/ShieldNewsFriend",Url];
+        NSDictionary *prm = @{@"userid":userid};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
 
 #pragma mark -  天气
 //获取天气信息

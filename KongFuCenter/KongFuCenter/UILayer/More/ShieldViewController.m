@@ -7,8 +7,11 @@
 //
 
 #import "ShieldViewController.h"
+#import "UIImageView+WebCache.h"
 
-@interface ShieldViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ShieldViewController () <UITableViewDataSource, UITableViewDelegate>{
+    NSArray *ShieldNewsFriendArray;
+}
 
 @property (nonatomic, strong) UITableView * tableView;
 
@@ -21,8 +24,24 @@
     // Do any additional setup after loading the view.
     
     [self p_navigation];
+    [self initData];
     
-    [self p_tableView];
+    
+}
+
+-(void)initData{
+    [SVProgressHUD showWithStatus:@"加载中..."];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getShieldNewsFriendCallBack:"];
+    [dataProvider ShieldNewsFriend:get_sp(@"id")];
+}
+
+-(void)getShieldNewsFriendCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        ShieldNewsFriendArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        [self p_tableView];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,7 +81,7 @@
 
 - (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 23;
+    return ShieldNewsFriendArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -72,9 +91,12 @@
     cell.backgroundColor = ItemsBaseColor;
     cell.textLabel.textColor = [UIColor whiteColor];
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
+    NSLog(@"%@",ShieldNewsFriendArray);
+    NSString *PhotoPath = [Toolkit judgeIsNull:[ShieldNewsFriendArray[indexPath.row] valueForKey:@"PhotoPath"]];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
     cell.imageView.image = [UIImage imageNamed:@"headImg@2x"];
-    cell.textLabel.text = @"测试数据";
+    cell.textLabel.text = [Toolkit judgeIsNull:[ShieldNewsFriendArray[indexPath.row] valueForKey:@"NicName"]];
     
     
     

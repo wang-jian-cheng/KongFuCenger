@@ -70,12 +70,18 @@
                 NSLog(@"关闭朋友圈的评论提示");
                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
                 [userDefaults setObject:@"0" forKey:@"comment"];
+                DataProvider *dataProvider = [[DataProvider alloc] init];
+                [dataProvider setDelegateObject:self setBackFunctionName:@"commentNoticeCallBack:"];
+                [dataProvider ChangeTuiSong:get_sp(@"id") andistuisong:@"FALSE"];
             }
             else
             {
                 NSLog(@"打开朋友圈的评论提示");
                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
                 [userDefaults setObject:@"1" forKey:@"comment"];
+                DataProvider *dataProvider = [[DataProvider alloc] init];
+                [dataProvider setDelegateObject:self setBackFunctionName:@"commentNoticeCallBack:"];
+                [dataProvider ChangeTuiSong:get_sp(@"id") andistuisong:@"TRUE"];
             }
         }
             break;
@@ -140,6 +146,15 @@
             break;
         default:
             break;
+    }
+}
+
+-(void)commentNoticeCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"操作成功~"];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:@"操作失败~"];
     }
 }
 
