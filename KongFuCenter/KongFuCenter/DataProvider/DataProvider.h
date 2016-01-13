@@ -151,7 +151,7 @@
 -(void)getPingppCharge:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description;
 //成为会员
 -(void)becomeVip:(NSString *)userid andMonth:(NSString *)month;
-
+-(void)getVipTime:(NSString *)userid;
 #pragma mark - 武馆
 //根据城市名和经纬度获取武馆
 -(void)getWuguanList:(NSString*)areaname andLat:(NSString *)lat andLng:(NSString *)lng andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;

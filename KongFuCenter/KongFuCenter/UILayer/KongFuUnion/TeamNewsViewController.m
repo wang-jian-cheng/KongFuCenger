@@ -124,11 +124,24 @@
             
             messBody1.posterPostImage = picPath;
             messBody1.posterReplies = comlistFromShow;
-            
-            NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path ,get_sp(@"TeamImg")];
+            NSString *url;
+            if(self.teamImg!=nil)
+            {
+                url = self.teamImg;
+            }
+            else
+            {
+                url = [NSString stringWithFormat:@"%@%@",Kimg_path ,get_sp(@"TeamImg")];
+            }
             messBody1.posterImgstr = url;
-            messBody1.posterName = get_sp(@"TeamName");
-            
+            if(self.teamName)
+            {
+                messBody1.posterName = self.teamName;
+            }
+            else
+            {
+                messBody1.posterName = get_sp(@"TeamName");
+            }
             messBody1.posterIntro = @"";
             messBody1.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
             
@@ -166,7 +179,7 @@
     NSString *str = kAdmin;
     
     NSLog(@"%@",str);
-    
+    userDefault = [NSUserDefaults standardUserDefaults];
     [self setBarTitle:@"战队动态"];
     [self addLeftButton:@"left"];
 //    [self addRightButton:@"moreNoword"];
@@ -188,6 +201,8 @@
     // mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     mainTable.delegate = self;
     mainTable.dataSource = self;
+    mainTable.tableFooterView = [[UIView alloc] init];
+    
     
     __unsafe_unretained __typeof(self) weakSelf = self;
     
@@ -249,6 +264,8 @@
     moreSettingBackView.hidden = YES;
     
 }
+
+
 
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -476,6 +493,10 @@
 
 //**
 // *  ///////////////////////////////////////////////////
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return  _tableDataSource.count;
@@ -503,6 +524,8 @@
     }
     
     @try {
+        
+        
         
         cell.CommentBtn.tag = indexPath.row;
         [cell.CommentBtn addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -548,6 +571,84 @@
    
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    
+    if(self.teamId!=nil)
+    {
+        if(get_sp(@"TeamId")==nil || ![self.teamId isEqualToString:get_sp(@"TeamId")])
+        {
+            return 120;
+        }
+    }
+    return 0;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 120)];
+    headView.backgroundColor = BACKGROUND_COLOR;
+    
+    if(self.teamId!=nil)
+    {
+        if(get_sp(@"TeamId")==nil || ![self.teamId isEqualToString:get_sp(@"TeamId")])
+        {
+            
+            UIButton *joinBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 20, SCREEN_WIDTH - 30*2, 50)];
+            [joinBtn setTitle:@"加入战队" forState:UIControlStateNormal];
+            joinBtn.backgroundColor = YellowBlock;
+            [joinBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [joinBtn addTarget:self action:@selector(joinTeamBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            [headView addSubview:joinBtn];
+            
+            UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                        (joinBtn.frame.origin.y+joinBtn.frame.size.height)+5,
+                                                                        SCREEN_WIDTH, 30)];
+            tipLab.text = @"每人仅限加入一个战队";
+            tipLab.textAlignment = NSTextAlignmentCenter;
+            tipLab.textColor = [UIColor whiteColor];
+            [headView addSubview:tipLab];
+            
+         //   mainTable.tableHeaderView = headView;
+        }
+    }
+    
+    return headView;
+}
+
+-(void)joinTeamBtnClick:(UIButton *)sender
+{
+    
+    if(!get_sp(@"TeamId") || ![get_sp(@"TeamId") isEqual:@"0"]){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您已经有战队,请先退出~" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        [alertView show];
+        return;
+    }
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"joinTeamCallBack:"];
+    [dataProvider JoinTeam:[Toolkit getUserID] andTeamId:self.teamId andName:self.teamName];
+}
+
+
+-(void)joinTeamCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    
+    if ([dict[@"code"] intValue] == 200) {
+
+        [SVProgressHUD showSuccessWithStatus:@"加入战队成功~"];
+        [userDefault setValue:self.teamId forKey:@"TeamId"];
+        [userDefault setValue:self.teamImg forKey:@"TeamImg"];
+        [userDefault setValue:self.teamName forKey:@"TeamName"];
+        [mainTable.mj_header beginRefreshing];
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+}
 //播放视频
 -(void)clickVideoImgEvent:(id)sender{
     UITapGestureRecognizer *tap = (UITapGestureRecognizer*)sender;
@@ -588,8 +689,13 @@
     
     UIView *headImgView = [[UIView alloc] initWithFrame:CGRectMake(0, (headView.frame.size.height - 85) / 2, SCREEN_WIDTH, headView.frame.size.height / 2)];
     UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 40) / 2 , 0, 40, 40)];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,get_sp(@"TeamImg")];
+    NSString *url ;
+    if (self.teamImg !=nil) {
+        url = self.teamImg;
+    }
+    else{
+        url = [NSString stringWithFormat:@"%@%@",Kimg_path,get_sp(@"TeamImg")];
+    }
     [headImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
     
     headImg.layer.cornerRadius = headImg.frame.size.width * 0.5;
@@ -600,7 +706,14 @@
     UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100) / 2, headImg.frame.origin.y + headImg.frame.size.height, 100, 21)];
     name_lbl.textColor = [UIColor whiteColor];
     name_lbl.textAlignment = NSTextAlignmentCenter;
-    name_lbl.text = get_sp(@"TeamName");
+    if(self.teamName != nil)
+    {
+        name_lbl.text = self.teamName;
+    }
+    else
+    {
+        name_lbl.text = get_sp(@"TeamName");
+    }
     name_lbl.font = [UIFont systemFontOfSize:13];
     [headImgView addSubview:name_lbl];
     UILabel *address_lbl = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100) / 2, name_lbl.frame.origin.y + name_lbl.frame.size.height - 5, 100, 21)];
@@ -727,7 +840,14 @@
 {
 //    NSLog(@"跳转到战队介绍");
     IntroduceViewController * introduceViewController = [[IntroduceViewController alloc] init];
-    introduceViewController.teamId = get_sp(@"TeamId");
+    if(self.teamId==nil)
+    {
+        introduceViewController.teamId = get_sp(@"TeamId");
+    }
+    else
+    {
+        introduceViewController.teamId = self.teamId;
+    }
     [self.navigationController pushViewController:introduceViewController animated:YES];
     //[self showViewController:introduceViewController sender:nil];
 }
@@ -747,10 +867,24 @@
     //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
     chat.conversationType = ConversationType_GROUP;
     //设置会话的目标会话ID。（单聊、客服、公众账号服务为对方的ID，讨论组、群聊、聊天室为会话的ID）
-    chat.targetId = [NSString stringWithFormat:@"%@",get_sp(@"TeamId")];
+    if(self.teamId==nil)
+    {
+        chat.targetId = [NSString stringWithFormat:@"%@",get_sp(@"TeamId")];
+    }
+    else{
+        chat.targetId = self.teamId;
+    }
     //设置聊天会话界面要显示的标题
     chat.title = @"想显示的会话标题";
-    chat.mTitle = get_sp(@"TeamName");
+    
+    if(self.teamName != nil)
+    {
+        chat.mTitle = self.teamName;
+    }
+    else
+    {
+        chat.mTitle = get_sp(@"TeamName");
+    }
     //显示聊天会话界面
     [self.navigationController pushViewController:chat animated:YES];
 }

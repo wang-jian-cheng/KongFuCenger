@@ -9,7 +9,9 @@
 #import "VipViewController.h"
 
 @interface VipViewController ()
-
+{
+    UILabel *tipLab;
+}
 @end
 
 @implementation VipViewController
@@ -17,6 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
+    tipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    tipLab.center = CGPointMake(SCREEN_WIDTH/2, (self.payBtn.frame.size.height+self.payBtn.frame.origin.y+10+22));
+    [self.view addSubview:tipLab];
+    
     self.view.backgroundColor = BACKGROUND_COLOR;
     
     [self initViews];
@@ -32,7 +38,12 @@
     _vipExplainLab.textColor = [UIColor whiteColor];
     if([get_sp(@"IsPay") intValue] == 1)
     {
-        _payBtn.hidden = YES;
+        [_payBtn setTitle:@"点击续费" forState:UIControlStateNormal];
+        
+        
+//        DataProvider *dataProvider = [[DataProvider alloc] init];
+//        [dataProvider setDelegateObject:self setBackFunctionName:@"getVipTimeCallBack:"];
+//        [dataProvider getVipTime:[Toolkit getUserID]];
     }
     
     
@@ -42,9 +53,40 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
     if([get_sp(@"IsPay") intValue] == 1)
     {
-        _payBtn.hidden = YES;
+        [_payBtn setTitle:@"点击续费" forState:UIControlStateNormal];
+        
+        
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"getVipTimeCallBack:"];
+        [dataProvider getVipTime:[Toolkit getUserID]];
+        
     }
 }
+
+
+-(void)getVipTimeCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+
+}
+
 - (IBAction)goPayPageClick:(id)sender {
     
     PayForVipViewController *payPage = [[PayForVipViewController alloc] init];

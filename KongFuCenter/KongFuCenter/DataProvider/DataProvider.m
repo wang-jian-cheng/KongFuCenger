@@ -188,6 +188,25 @@
         [SVProgressHUD dismiss];
     }
 }
+
+-(void)getVipTime:(NSString *)userid
+{
+//
+    if(userid)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/GetPayOverTime",Url];
+        NSDictionary * prm=@{@"userid":userid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
+    
+}
 #pragma mark - 我的收藏
 - (NSInteger )collectData:(NSString *)userId andIsVideo:(NSString *)isVideo  andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
 {
