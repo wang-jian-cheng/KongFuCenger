@@ -158,7 +158,7 @@
     
     
     UIImageView * img_BackGround=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
-    [img_BackGround sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,secondCateArr[indexPath.row][@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@""]];
+    [img_BackGround sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,secondCateArr[indexPath.row][@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@"temp2"]];
     [cell addSubview:img_BackGround];
     
     UILabel *cateNameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
