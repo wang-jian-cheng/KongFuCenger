@@ -182,6 +182,9 @@
                 countryArray = [[NSMutableArray alloc] init];
                 [countryArray addObject:itemDict];
                 [addressPickView reloadAllComponents];
+                
+                countryCode = @"0";
+                countryTxt = @"--全部--";
             }else{
                 dataProvider = [[DataProvider alloc] init];
                 [dataProvider setDelegateObject:self setBackFunctionName:@"getCountryCallBack:"];
