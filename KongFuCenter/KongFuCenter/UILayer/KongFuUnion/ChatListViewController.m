@@ -33,6 +33,9 @@
     //设置要显示的会话类型
     [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_GROUP)]];
     
+    //设置cell的背景颜色
+    self.cellBackgroundColor = [UIColor colorWithRed:0.16 green:0.16 blue:0.18 alpha:1];
+    
     //聚合会话类型
     //[self setCollectionConversationType:@[@(ConversationType_GROUP)]];
     
@@ -54,6 +57,11 @@
         conversationVC.displayUserNameInCell = YES;
     }
     [self.navigationController pushViewController:conversationVC animated:YES];
+}
+
+- (void)willDisplayConversationTableCell:(RCConversationBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    RCConversationCell *messageCell = (RCConversationCell*)cell;
+    messageCell.conversationTitle.textColor = [UIColor whiteColor];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -91,8 +99,8 @@
     [leftTitle addTarget:self action:@selector(clickLeftBtn) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:leftTitle];
     
-    UIButton *rightTitle = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, StatusBar_HEIGHT + (NavigationBar_HEIGHT - 20) / 2, 40, 20)];
-    [rightTitle setTitle:@"单聊" forState:UIControlStateNormal];
+    UIButton *rightTitle = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 30, StatusBar_HEIGHT + (NavigationBar_HEIGHT - 20) / 2, 20, 20)];
+    [rightTitle setImage:[UIImage imageNamed:@"wdwy"] forState:UIControlStateNormal];
     rightTitle.tag = 0;
     [rightTitle addTarget:self action:@selector(clickRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:rightTitle];
@@ -106,7 +114,7 @@
     UITableView *listTableView = self.conversationListTableView;
     listTableView.frame = CGRectMake(0, NavigationBar_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT);
     listTableView.tableFooterView = [[UIView alloc] init];
-    //listTableView.backgroundColor = [UIColor grayColor];
+    listTableView.backgroundColor = BACKGROUND_COLOR;
     
     [self.emptyConversationView removeFromSuperview];
 }

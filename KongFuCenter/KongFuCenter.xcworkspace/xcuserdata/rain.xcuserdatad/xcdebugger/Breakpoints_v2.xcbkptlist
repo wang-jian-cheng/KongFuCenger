@@ -438,11 +438,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "473168984.847279"
+            timestampString = "474339746.505845"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "-onSelectedTableRow:conversationModel:atIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -699,7 +699,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "270"
             endingLineNumber = "270"
-            landmarkName = "-growUserId:andStartRowIndex:andMaximumRows:"
+            landmarkName = "-voicedelete:andUserId:andFlg:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -843,7 +843,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "286"
             endingLineNumber = "286"
-            landmarkName = "-getUserid:andNum:andmessageID:"
+            landmarkName = "-growUserId:andStartRowIndex:andMaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -923,7 +923,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "278"
             endingLineNumber = "278"
-            landmarkName = "-growUserId:andStartRowIndex:andMaximumRows:"
+            landmarkName = "-voicedelete:andUserId:andFlg:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1387,7 +1387,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "320"
             endingLineNumber = "320"
-            landmarkName = "-growCateid:andStartRowIndex:andMaximumRows:"
+            landmarkName = "-getUserid:andNum:andmessageID:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1483,7 +1483,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "326"
             endingLineNumber = "326"
-            landmarkName = "-growCateid:andStartRowIndex:andMaximumRows:"
+            landmarkName = "-getUserid:andNum:andmessageID:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1558,11 +1558,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
+            timestampString = "474350297.327935"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "@implementation MyFriendViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1574,11 +1574,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
+            timestampString = "474346835.770621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "-getFriendCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1590,11 +1590,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
+            timestampString = "474346835.770621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "-initData"
             landmarkType = "5">
          </BreakpointContent>
@@ -1611,8 +1611,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "306"
             endingLineNumber = "306"
-            landmarkName = "@implementation DataProvider"
-            landmarkType = "3">
+            landmarkName = "-getUserid:andNum:andmessageID:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1622,11 +1622,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
+            timestampString = "474346835.770621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "-getFriendCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1638,11 +1638,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
+            timestampString = "474346835.770621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
             landmarkName = "-getFriendCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1670,11 +1670,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
+            timestampString = "474346835.770621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "-mReloadData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1702,11 +1702,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "473171051.727148"
+            timestampString = "474350297.327935"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "-sectionIndexTitlesForTableView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1718,11 +1718,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
+            timestampString = "474346835.770621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "-getFriendCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1734,71 +1734,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "-getFriendCallBack:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "473171334.954216"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "473171334.954216"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "473171334.954216"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
+            timestampString = "474346835.770621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "82"
@@ -1814,11 +1750,75 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
+            timestampString = "474350297.327935"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
+            timestampString = "474350297.327935"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
+            timestampString = "474350297.327935"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
+            timestampString = "474346835.770621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "83"
             endingLineNumber = "83"
+            landmarkName = "-getFriendCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
+            timestampString = "474346835.770621"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "-getFriendCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1926,39 +1926,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "-initViews"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "-mReloadData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
+            timestampString = "474346835.770621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "103"
@@ -1974,11 +1942,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "472462590.047701"
+            timestampString = "474346835.770621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "-mReloadData:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
+            timestampString = "474346835.770621"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "-initViews"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
+            timestampString = "474346835.770621"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "-mReloadData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2427,7 +2427,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "522"
             endingLineNumber = "522"
-            landmarkName = "-getStudyOnlineMainCategory"
+            landmarkName = "-setMyDream:andMyDream:andHow:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2539,7 +2539,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "530"
             endingLineNumber = "530"
-            landmarkName = "-getStudyOnlineSecundCategory:"
+            landmarkName = "-setMyDream:andMyDream:andHow:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2667,7 +2667,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "184"
             endingLineNumber = "184"
-            landmarkName = "-collectData:andIsVideo:andStartRowIndex:andMaximumRows:"
+            landmarkName = "-becomeVip:andMonth:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2811,7 +2811,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "654"
             endingLineNumber = "654"
-            landmarkName = "-getAllCitys"
+            landmarkName = "-getWuguanDetail:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2827,8 +2827,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "609"
             endingLineNumber = "609"
-            landmarkName = "-getWuGuanList:andStartRowIndex:andMaximumRows:"
-            landmarkType = "5">
+            landmarkName = "@implementation DataProvider"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2843,8 +2843,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "608"
             endingLineNumber = "608"
-            landmarkName = "-getWuGuanList:andStartRowIndex:andMaximumRows:"
-            landmarkType = "5">
+            landmarkName = "@implementation DataProvider"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2907,7 +2907,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "644"
             endingLineNumber = "644"
-            landmarkName = "-getWuguanPic:"
+            landmarkName = "-getWuGuanList:andStartRowIndex:andMaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3099,8 +3099,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "729"
             endingLineNumber = "729"
-            landmarkName = "-getFriendForKeyValue:"
-            landmarkType = "5">
+            landmarkName = "@implementation DataProvider"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3259,7 +3259,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "630"
             endingLineNumber = "630"
-            landmarkName = "-getWuguanDetail:"
+            landmarkName = "-getWuGuanList:andStartRowIndex:andMaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3654,11 +3654,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "473743748.371451"
+            timestampString = "474367587.357728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "-clickRightBtn:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3670,11 +3670,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "473743748.371451"
+            timestampString = "474367587.357728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "-getFriendBackCall:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3691,7 +3691,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "631"
             endingLineNumber = "631"
-            landmarkName = "-getWuguanDetail:"
+            landmarkName = "-getWuGuanList:andStartRowIndex:andMaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3718,11 +3718,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "473171051.727148"
+            timestampString = "474350297.327935"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "-tableView:heightForHeaderInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3734,11 +3734,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "474279301.59642"
+            timestampString = "474364438.070562"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
             landmarkName = "-tableView:heightForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3750,11 +3750,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
-            timestampString = "473171055.304647"
+            timestampString = "474350297.327935"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "-tableView:heightForHeaderInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3782,11 +3782,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "473743748.371451"
+            timestampString = "474367587.357728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "-initView"
             landmarkType = "5">
          </BreakpointContent>
@@ -3798,11 +3798,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "473743748.371451"
+            timestampString = "474367587.357728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "-initView"
             landmarkType = "5">
          </BreakpointContent>
@@ -3814,11 +3814,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "473743748.371451"
+            timestampString = "474367587.357728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "-initView"
             landmarkType = "5">
          </BreakpointContent>
@@ -4107,7 +4107,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "993"
             endingLineNumber = "993"
-            landmarkName = "-UnShieldFriend:andFriendId:"
+            landmarkName = "-CancleJoinMatch:anduserid:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4219,7 +4219,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "808"
             endingLineNumber = "808"
-            landmarkName = "-IsWuyou:andfriendid:"
+            landmarkName = "-DeleteFriend:andfriendid:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4326,11 +4326,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "473743748.371451"
+            timestampString = "474339746.505845"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "-onSelectedTableRow:conversationModel:atIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4873,7 +4873,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "919"
             endingLineNumber = "919"
-            landmarkName = "-JoinMatch:anduserid:andmatchVideo:andmatchImage:andmatchDescription:andtitle:andvideoDuration:"
+            landmarkName = "-GetJianghuListByPage:andUserId:andmaximumRows:andcategoryid:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5081,7 +5081,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "909"
             endingLineNumber = "909"
-            landmarkName = "-SelectMatchDetail:anduserId:"
+            landmarkName = "-GetCateForJianghu"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5113,7 +5113,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "959"
             endingLineNumber = "959"
-            landmarkName = "-CancleJoinMatch:anduserid:"
+            landmarkName = "-SelectAllMatchMemberBySearch:andmaximumRows:andmatchId:andmembercode:andnicname:andflg:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5129,7 +5129,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "928"
             endingLineNumber = "928"
-            landmarkName = "-SelectAllMatchMemberBySearch:andmaximumRows:andmatchId:andmembercode:andnicname:andflg:"
+            landmarkName = "-SelectMatchPageByPerson:andmaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5353,7 +5353,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "956"
             endingLineNumber = "956"
-            landmarkName = "-SelectMatchMemberDetail:anduserid:"
+            landmarkName = "-SelectAllMatchMemberBySearch:andmaximumRows:andmatchId:andmembercode:andnicname:andflg:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5369,7 +5369,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "949"
             endingLineNumber = "949"
-            landmarkName = "-SelectMatchMemberDetail:anduserid:"
+            landmarkName = "-JoinMatch:anduserid:andmatchVideo:andmatchImage:andmatchDescription:andtitle:andvideoDuration:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5514,6 +5514,134 @@
             startingLineNumber = "302"
             endingLineNumber = "302"
             landmarkName = "-getTeamBackCall:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
+            timestampString = "474367273.757653"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "-willDisplayConversationTableCell:atIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
+            timestampString = "474350297.327935"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MyFriendViewController.m"
+            timestampString = "474350297.327935"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/NewConcernFriendViewController.m"
+            timestampString = "474350448.322605"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "-getNewConcernFriendCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/NewConcernFriendViewController.m"
+            timestampString = "474350448.322605"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/NewConcernFriendViewController.m"
+            timestampString = "474350448.322605"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "-concernEvent:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/DataProvider/DataProvider.m"
+            timestampString = "474350174.306649"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "802"
+            endingLineNumber = "802"
+            landmarkName = "-SaveFriend:andFriendid:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/ChatContentViewController.m"
+            timestampString = "474366882.935332"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "-locationPicker:didSelectLocation:locationName:mapScreenShot:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

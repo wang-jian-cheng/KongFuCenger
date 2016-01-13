@@ -45,7 +45,7 @@
     
     UICollectionView *messageCollectionView = self.conversationMessageCollectionView;
     messageCollectionView.frame = CGRectMake(0, NavigationBar_HEIGHT + StatusBar_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - StatusBar_HEIGHT - TabBar_HEIGHT);
-    //messageCollectionView.backgroundColor = [UIColor grayColor];
+    messageCollectionView.backgroundColor = BACKGROUND_COLOR;
     [self scrollToBottomAnimated:YES];
 }
 

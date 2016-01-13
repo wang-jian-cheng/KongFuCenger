@@ -165,7 +165,7 @@
     
 #pragma mark - // /////////添加说说view
     
-    WFTextView *textView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X, 15 + TableHeader, screenWidth - 2 * offSet_X, 0)];
+    WFTextView *textView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X + 15, 15 + TableHeader, screenWidth - 2 * offSet_X, 0)];
     textView.delegate = self;
     textView.attributedData = ymData.attributedDataShuoshuo;
     textView.isFold = ymData.foldOrNot;
@@ -176,7 +176,7 @@
     BOOL foldOrnot = ymData.foldOrNot;
     float hhhh = foldOrnot?ymData.shuoshuoHeight:ymData.unFoldShuoHeight;
     
-    textView.frame = CGRectMake(offSet_X, 15 + TableHeader, screenWidth - 2 * offSet_X, hhhh);
+    textView.frame = CGRectMake(offSet_X + 15, 15 + TableHeader, screenWidth - 2 * offSet_X, hhhh);
     
     [_ymShuoshuoArray addObject:textView];
     

@@ -58,13 +58,13 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="right" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" id="S0l-ak-s5g">
-                                    <rect key="frame" x="277" y="41" width="36" height="28"/>
+                                    <rect key="frame" x="285" y="41" width="28" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="big"/>
                                 </button>
                                 <button opaque="NO" contentMode="left" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8Ao-Mh-tCv">
-                                    <rect key="frame" x="15" y="42" width="32" height="28"/>
+                                    <rect key="frame" x="15" y="42" width="28" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" image="stop"/>
                                     <connections>

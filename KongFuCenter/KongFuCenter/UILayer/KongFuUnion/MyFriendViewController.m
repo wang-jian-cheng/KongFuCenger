@@ -11,6 +11,7 @@
 #import "MyFriendTableViewCell.h"
 #import "UserHeadView.h"
 #import "ChatContentViewController.h"
+#import "NewConcernFriendViewController.h"
 
 @interface MyFriendViewController (){
     
@@ -126,16 +127,21 @@
     [mTableView reloadData];
 }
 
+-(void)newConcernEvent{
+    NewConcernFriendViewController *newConcernFriendVC = [[NewConcernFriendViewController alloc] init];
+    [self.navigationController pushViewController:newConcernFriendVC animated:YES];
+}
+
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return indexArray.count + 2;
+    return indexArray.count + 3;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section == 0 || section == 1) {
+    if (section == 0 || section == 1 || section == 2) {
         return 1;
     }else{
-        return [[LetterResultArr objectAtIndex:section - 2] count];
+        return [[LetterResultArr objectAtIndex:section - 3] count];
     }
 }
 
@@ -144,7 +150,8 @@
     if (section == 0) {
         return 10;
     }else if(section == 1){
-        NSLog(@"%@",[userDefault valueForKey:@"TeamId"]);
+        return 12;
+    }else if (section == 2){
         if ([userDefault valueForKey:@"TeamId"] && ![[userDefault valueForKey:@"TeamId"] isEqual:@"0"]) {
             return 25;
         }else{
@@ -164,12 +171,12 @@
     UIView *mView = [[UIView alloc] init];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 22)];
     titleLabel.textColor=[UIColor whiteColor];
-    if (section == 0) {
+    if (section == 0 || section == 1) {
         
-    }else if (section == 1){
+    }else if (section == 2){
         titleLabel.text = @"我的战队";
     }else{
-        titleLabel.text = [indexArray objectAtIndex:section - 2];
+        titleLabel.text = [indexArray objectAtIndex:section - 3];
     }
     [mView addSubview:titleLabel];
     return mView;
@@ -192,7 +199,21 @@
         searchTxt.leftViewMode = UITextFieldViewModeAlways;
         [cell addSubview:searchTxt];
         return cell;
-    }else if(indexPath.section == 1){
+    }else if (indexPath.section == 1){
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
+        cell.backgroundColor = ItemsBaseColor;
+        UIImageView *mImageV = [[UIImageView alloc] initWithFrame:CGRectMake(14, (50 - 20) / 2, 20, 20)];
+        mImageV.image = [UIImage imageNamed:@"newconcernfriend"];
+        [cell addSubview:mImageV];
+        
+        UIButton *mBtn = [[UIButton alloc] initWithFrame:CGRectMake(mImageV.frame.origin.x + mImageV.frame.size.width + 5, (50 - 21) / 2, 100, 21)];
+        mBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [mBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [mBtn setTitle:@"新关注武友" forState:UIControlStateNormal];
+        [mBtn addTarget:self action:@selector(newConcernEvent) forControlEvents:UIControlEventTouchUpInside];
+        [cell addSubview:mBtn];
+        return cell;
+    }else if(indexPath.section == 2){
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
         cell.backgroundColor = ItemsBaseColor;
         if ([userDefault valueForKey:@"TeamId"] && ![[userDefault valueForKey:@"TeamId"] isEqual:@"0"]) {
@@ -217,16 +238,15 @@
             cell.backgroundColor = ItemsBaseColor;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        NSString *photoImage = ((ChineseString *)LetterResultArr[indexPath.section - 2][indexPath.row]).photoImg;
+        NSString *photoImage = ((ChineseString *)LetterResultArr[indexPath.section - 3][indexPath.row]).photoImg;
         NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoImage];
         //UserHeadView *headView = [[UserHeadView alloc] initWithFrame:cell.mImageView.frame andImg:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] andNav:self.navigationController];
         UserHeadView *headView = [[UserHeadView alloc] initWithFrame:cell.mImageView.frame andUrl:url andNav:self.navigationController];
-        headView.userId = ((ChineseString *)LetterResultArr[indexPath.section - 2][indexPath.row]).friendID;
+        headView.userId = ((ChineseString *)LetterResultArr[indexPath.section - 3][indexPath.row]).friendID;
         [headView makeSelfRound];
         
         [cell addSubview:headView];
-        cell.mName.text = ((ChineseString *)LetterResultArr[indexPath.section - 2][indexPath.row]).string;
-        cell.mLevel.text = [NSString stringWithFormat:@"等级:lv%@",((ChineseString *)LetterResultArr[indexPath.section - 2][indexPath.row]).level];
+        cell.mName.text = ((ChineseString *)LetterResultArr[indexPath.section - 3][indexPath.row]).string;
         
         return cell;
     }
@@ -236,6 +256,8 @@
     if (indexPath.section == 0) {
         return 45;
     }else if(indexPath.section == 1){
+        return 50;
+    }else if (indexPath.section == 2){
         if ([userDefault valueForKey:@"TeamId"] && ![[userDefault valueForKey:@"TeamId"] isEqual:@"0"]) {
             return mCellHeight;
         }else{
@@ -248,7 +270,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 1) {
+    if(indexPath.section == 1){
+        NewConcernFriendViewController *newConcernFriendVC = [[NewConcernFriendViewController alloc] init];
+        [self.navigationController pushViewController:newConcernFriendVC animated:YES];
+    }else if (indexPath.section == 2) {
         //新建一个聊天会话View Controller对象
         ChatContentViewController *chat = [[ChatContentViewController alloc]init];
         //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
@@ -259,6 +284,19 @@
         chat.mTitle = nameLbl.text;
         //显示聊天会话界面
         [self.navigationController pushViewController:chat animated:YES];
+    }else{
+        //新建一个聊天会话View Controller对象
+        ChatContentViewController *chat = [[ChatContentViewController alloc]init];
+        //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
+        chat.conversationType = ConversationType_PRIVATE;
+        //设置会话的目标会话ID。（单聊、客服、公众账号服务为对方的ID，讨论组、群聊、聊天室为会话的ID）
+        chat.targetId = [NSString stringWithFormat:@"%@",((ChineseString *)LetterResultArr[indexPath.section - 3][indexPath.row]).friendID];
+        chat.userName = @"nihao";
+        //设置聊天会话界面要显示的标题
+        chat.title = @"想显示的会话标题";
+        chat.mTitle = [Toolkit judgeIsNull:((ChineseString *)LetterResultArr[indexPath.section - 3][indexPath.row]).string];
+        //显示聊天会话界面
+        [self.navigationController pushViewController:chat animated:YES];
     }
 }
 
@@ -267,7 +305,7 @@
     return @"删除";
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 || indexPath.section == 1) {
+    if (indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 2) {
         return NO;
     }else{
         return YES;
@@ -275,11 +313,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%@",((ChineseString *)LetterResultArr[indexPath.section - 2][indexPath.row]).string);
+    NSLog(@"%@",((ChineseString *)LetterResultArr[indexPath.section - 3][indexPath.row]).string);
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [SVProgressHUD showWithStatus:@"正在删除"];
         [dataProvider setDelegateObject:self setBackFunctionName:@"DelBackCall:"];
-        NSString *friendID = ((ChineseString *)LetterResultArr[indexPath.section - 2][indexPath.row]).friendID;
+        NSString *friendID = ((ChineseString *)LetterResultArr[indexPath.section - 3][indexPath.row]).friendID;
         [dataProvider DeleteFriend:[userDefault valueForKey:@"id"] andfriendid:friendID];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {

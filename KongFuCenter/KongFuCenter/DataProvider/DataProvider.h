@@ -308,6 +308,9 @@
 //个人比赛取消报名
 -(void)CancleJoinMatch:(NSString *)matchId anduserid:(NSString *)userid;
 
+//获取被关注列表
+-(void)SelectFriended:(NSString *)userid;
+
 #pragma mark - 视频评论
 // 评论视频
 -(void)commentVideo:(NSString *)videoId andUserId:(NSString *)userid andComment:(NSString *)comment;
