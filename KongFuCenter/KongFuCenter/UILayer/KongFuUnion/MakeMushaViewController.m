@@ -543,7 +543,7 @@
         int isFriend = [mushaArray[indexPath.row][@"IsFriend"] intValue];
         if (isFriend == 0) {
             [cell.mConcern setTitle:@"关注" forState:UIControlStateNormal];
-            [cell.mConcern setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+            [cell.mConcern setTitleColor:YellowBlock forState:UIControlStateNormal];
             cell.mConcern.tag = [mushaArray[indexPath.row][@"Id"] intValue];
             [cell.mConcern addTarget:self action:@selector(addFriendEvent:) forControlEvents:UIControlEventTouchUpInside];
         }else{

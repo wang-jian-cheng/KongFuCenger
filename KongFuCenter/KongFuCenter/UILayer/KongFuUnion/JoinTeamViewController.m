@@ -169,6 +169,10 @@
             cityArray = [[NSMutableArray alloc] init];
             [cityArray addObject:itemDict];
             [addressPickView reloadAllComponents];
+            cityCode = @"0";
+            cityTxt = @"-全部-";
+            countryCode = @"0";
+            countryTxt = @"-全部-";
             return;
         }
         NSArray *itemArray = dict[@"data"];
@@ -514,7 +518,7 @@
                 
                 if (![[NSString stringWithFormat:@"%@",teamArray[indexPath.row-1][@"Id"]] isEqualToString:get_sp(@"TeamId")]) {
                     [cell.mJoin setTitle:@"加入" forState:UIControlStateNormal];
-                    [cell.mJoin setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+                    [cell.mJoin setTitleColor:YellowBlock forState:UIControlStateNormal];
                 }else
                 {
                     [cell.mJoin setTitle:@"退出" forState:UIControlStateNormal];
