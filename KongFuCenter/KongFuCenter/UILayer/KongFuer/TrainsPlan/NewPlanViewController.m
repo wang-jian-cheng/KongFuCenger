@@ -25,6 +25,8 @@
     NSString *endDateStr;
     NSString *updataTimeStr;
     NSString *cateId;
+    
+    UILabel *textViewHolderLab;
 }
 @property (nonatomic, strong) UIImageView *portraitImageView;
 @property (nonatomic, retain) UICollectionView *collectionView;
@@ -42,6 +44,10 @@
     
     img_uploaded = [NSMutableArray array];
     img_prm = [NSMutableArray array];
+    allImgsPicked = [NSMutableDictionary dictionary];
+    
+    [allImgsPicked setObject:[NSMutableArray array] forKey:PICPICKER_IMGS_KEY];
+    [allImgsPicked setObject:[NSMutableArray array] forKey:PHOTO_IMGS_KEY];
     [self initViews];
     
     //添加键盘的监听事件
@@ -108,7 +114,7 @@
 -(void) initViews
 {
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height - Header_Height )];
-    _mainTableView.backgroundColor =BACKGROUND_COLOR;
+    _mainTableView.backgroundColor =ItemsBaseColor;
     [_mainTableView setDelegate:self];
     [_mainTableView setDataSource:self];
     _mainTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;//UITableViewCellSeparatorStyleSingleLine;
@@ -143,11 +149,22 @@
     if(_textView == nil)
         _textView = [[UITextView alloc] init];
     if(tipbtn==nil)
+    {
         tipbtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150 ), 0, 150, _cellHeight)];
-
-
+        if(self.planMode !=nil)
+        {
+            [tipbtn setTitle:self.planMode forState:UIControlStateNormal];
+            tipbtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+        }
+    }
     [self.view addSubview:_mainTableView];
+    textViewHolderLab = [[UILabel alloc] init];
+    textViewHolderLab.text = @"发帖内容";
+    textViewHolderLab.textColor = [UIColor grayColor];
     
+    
+    picShowView = [[UIView alloc] init];
+    picShowView.hidden = YES;
 }
 
 
@@ -158,13 +175,21 @@
         _cellHeight = self.view.frame.size.height/12;
         
     }
+    
     if(_titleField ==nil)
         _titleField = [[UITextField alloc]init];
     if(_textView == nil)
         _textView = [[UITextView alloc] init];
     if(tipbtn==nil)
+    {
         tipbtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150 ), 0, 150, _cellHeight)];
+        if(self.planMode !=nil)
+        {
+            [tipbtn setTitle:self.planMode forState:UIControlStateNormal];
+            tipbtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+        }
 
+    }
 
     
     @try {
@@ -174,7 +199,7 @@
         _titleField.text  =_DefaultDict[@"planTitle"];
         cateId = _DefaultDict[@"planCateId"];
         _textView.text = _DefaultDict[@"planContent"];
-        
+        textViewHolderLab.hidden = YES;
         switch ([cateId integerValue]) {
             case WeekPlan:
                 [tipbtn setTitle:@"周计划" forState:UIControlStateNormal];
@@ -261,6 +286,35 @@
     
     [self getDateAndTime];
 }
+-(void)setPlanMode:(NSString *)planMode
+{
+    
+    _planMode = planMode;
+    if(tipbtn!=nil)
+    {
+        [tipbtn setTitle:planMode forState:UIControlStateNormal];
+        tipbtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+    }
+    if([_planMode isEqualToString:@"周计划"])
+    {
+        cateId = [NSString stringWithFormat:@"%d",WeekPlan];
+    }
+    else if ([_planMode isEqualToString:@"月计划"])
+    {
+        cateId = [NSString stringWithFormat:@"%d",MonthPlan];
+    }
+    else if([_planMode isEqualToString:@"季计划"])
+    {
+        cateId = [NSString stringWithFormat:@"%d",SeasonPlan];
+    }
+    else if ([_planMode isEqualToString:@"年计划"])
+    {
+        cateId = [NSString stringWithFormat:@"%d",YearPlan];
+    }
+    
+    [self getDateAndTime];
+}
+
 #pragma mark - 时间获取
 -(void)getDateAndTime
 {
@@ -351,11 +405,18 @@
 }
 -(void)BuildSliderData
 {
-    [SVProgressHUD showWithStatus:@"正在保存数据" maskType:SVProgressHUDMaskTypeBlack];
+    
     @try {
-        NSUserDefaults * userdefaults=[NSUserDefaults standardUserDefaults];
-        for (int i=0; i<self.assetsArray.count; i++) {
-            NSData *imgData = [userdefaults objectForKey:[NSString stringWithFormat:@"%d",i]];
+//        NSUserDefaults * userdefaults=[NSUserDefaults standardUserDefaults];
+        
+        NSMutableArray *tempArr = [NSMutableArray array];
+        
+        [tempArr addObjectsFromArray:allImgsPicked[PICPICKER_IMGS_KEY]];
+        [tempArr addObjectsFromArray:allImgsPicked[PHOTO_IMGS_KEY]];
+        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"正在保存图片(1/%ld)",tempArr.count] maskType:SVProgressHUDMaskTypeBlack];
+        for (int i=0; i<tempArr.count; i++) {
+            UIImage *tempImg = tempArr[i];
+            NSData *imgData = UIImagePNGRepresentation(tempImg);// [userdefaults objectForKey:[NSString stringWithFormat:@"%d",i]];
             NSString *imagebase64= [imgData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
             [img_uploaded addObject:imagebase64];
         }
@@ -382,6 +443,15 @@
 }
 
 #pragma mark - upload img delegate
+-(void)uploadImgsOneFinishDelegate:(NSDictionary *)dict andImgIndex:(NSInteger)ImgIndex
+{
+    NSMutableArray *tempArr = [NSMutableArray array];
+    
+    [tempArr addObjectsFromArray:allImgsPicked[PICPICKER_IMGS_KEY]];
+    [tempArr addObjectsFromArray:allImgsPicked[PHOTO_IMGS_KEY]];
+    [SVProgressHUD dismiss];
+    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"正在保存图片(%ld/%ld)",ImgIndex,tempArr.count] maskType:SVProgressHUDMaskTypeBlack];
+}
 
 -(void)uploadImgsAllFinishDelegate:(NSArray *)imgPath
 {
@@ -395,7 +465,7 @@
             
         }
     }
-    
+    [SVProgressHUD showWithStatus:@"正在保存数据" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"uploadPlansCallBack:"];
     [dataprovider updatePlan:[Toolkit getUserID] andCateId:cateId andTitle:_titleField.text andContent:_textView.text andPicList:allImgPath andStartDate:startDateStr andEndDate:endDateStr ];
@@ -463,25 +533,28 @@
     {
         cell.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cellHeight);
     }
-    cell.backgroundColor = BACKGROUND_COLOR;
+    cell.backgroundColor = ItemsBaseColor;
     
     switch (indexPath.row) {
         case 0:
         {
             _titleField.frame = CGRectMake(10, 0, cell.frame.size.width, _cellHeight);
             _titleField.placeholder = @"标题";
-            _titleField.backgroundColor  = BACKGROUND_COLOR;
+            _titleField.backgroundColor  = ItemsBaseColor;
             _titleField.delegate = self;
+            _titleField.textColor = [UIColor whiteColor];
+            _titleField.textAlignment = NSTextAlignmentCenter;
+            _titleField.font = [UIFont boldSystemFontOfSize:16];
             [cell addSubview:_titleField];
             
         }
             break;
         case  1:
         {
-            cell.textLabel.text = @"发帖内容";
+            cell.textLabel.text = @"选择周期";
+            cell.textLabel.textColor = [UIColor whiteColor];
             
-            
-            tipbtn.backgroundColor = BACKGROUND_COLOR;
+            tipbtn.backgroundColor = ItemsBaseColor;
             [tipbtn addTarget:self action:@selector(pushViewAction:) forControlEvents:UIControlEventTouchUpInside];
             
             UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
@@ -492,14 +565,71 @@
             
             [cell addSubview:tipbtn];
         }
+            break;
         case 2:
         {
-            _textView.frame = CGRectMake(10, 0, cell.frame.size.width,_cellTextViewHeight);
-            _textView.backgroundColor  = BACKGROUND_COLOR;
+            if(picShowView.hidden == YES)
+            {
+                _textView.frame = CGRectMake(0, 0, cell.frame.size.width,_cellTextViewHeight);
+            }
+            else{
+            
+                _textView.frame = CGRectMake(0, 0, cell.frame.size.width,_cellTextViewHeight -150);
+            }
+            _textView.textColor = [UIColor whiteColor];
+            _textView.backgroundColor  = ItemsBaseColor;
             _textView.font = [UIFont systemFontOfSize:15];
             _textView.delegate = self;
+            
+            [_textView addSubview:textViewHolderLab];
+            textViewHolderLab.text = @"发帖内容";
+            textViewHolderLab.frame = CGRectMake(0, 0, _textView.frame.size.width, 30);
 //            _textView.returnKeyType = UIReturnKeyDefault;
 //            _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            
+            
+            picShowView.frame = CGRectMake(0, _cellTextViewHeight - 150, SCREEN_WIDTH, 150);
+            picShowView.backgroundColor = BACKGROUND_COLOR;
+            [cell addSubview:picShowView];
+            
+            
+            if (!_collectionView) {
+                CGFloat titleH = 30;
+                
+                UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+                layout.minimumLineSpacing = 5.0;
+                layout.minimumInteritemSpacing = 5.0;
+                layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+                layout.sectionInset =  UIEdgeInsetsMake(0,20,0,20);
+                layout.itemSize = CGSizeMake(picShowView.frame.size.height - 20 - titleH, picShowView.frame.size.height - 20 - titleH);
+//                layout.minimumLineSpacing = 10;//cell 的左右间距
+                
+                _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-2*_cellHeight, _cellHeight) collectionViewLayout:layout];
+                _collectionView.backgroundColor = ItemsBaseColor;
+                [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kPhotoCellIdentifier];
+                _collectionView.delegate = self;
+                _collectionView.dataSource = self;
+                _collectionView.showsHorizontalScrollIndicator = NO;
+                _collectionView.showsVerticalScrollIndicator = NO;
+                
+                
+                _collectionView.frame = CGRectMake(0, 10+titleH, SCREEN_WIDTH, picShowView.frame.size.height - 20-titleH);
+                
+                [picShowView addSubview:_collectionView];
+                
+                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 10,SCREEN_WIDTH , titleH)];
+                titleLab.backgroundColor = ItemsBaseColor;
+                titleLab.textColor = [UIColor whiteColor];
+                titleLab.text = @"  文章图片";
+                [picShowView addSubview:titleLab];
+                
+                
+            }
+            else
+            {
+                [picShowView addSubview:_collectionView];
+            }
+
             
             [cell addSubview:_textView];
         }
@@ -515,41 +645,13 @@
             
             UIButton *photoBtns = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.height, 0, cell.frame.size.height, cell.frame.size.height)];
             [photoBtns setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
-            [photoBtns addTarget:self action:@selector(composePicAdd) forControlEvents:UIControlEventTouchUpInside];
+            [photoBtns addTarget:self action:@selector(editPortrait) forControlEvents:UIControlEventTouchUpInside];
             
             [cell addSubview:picBtns];
             [cell addSubview:photoBtns];
             
             
-            if (!_collectionView) {
-                
-                UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-                layout.minimumLineSpacing = 5.0;
-                layout.minimumInteritemSpacing = 5.0;
-                layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-                
-                
-                _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-2*_cellHeight, _cellHeight) collectionViewLayout:layout];
-                _collectionView.backgroundColor = [UIColor clearColor];
-                [_collectionView registerClass:[PhotoCell class] forCellWithReuseIdentifier:kPhotoCellIdentifier];
-                _collectionView.delegate = self;
-                _collectionView.dataSource = self;
-                _collectionView.showsHorizontalScrollIndicator = NO;
-                _collectionView.showsVerticalScrollIndicator = NO;
-                
-
-                _collectionView.frame = CGRectMake(picBtns.frame.size.width+photoBtns.frame.origin.x+5, 0, SCREEN_WIDTH-(2*cell.frame.size.height), cell.frame.size.height);
-                
-                [cell addSubview:_collectionView];
-
-                
-                
-            }
-            else
-            {
-                [cell addSubview:_collectionView];
-            }
-
+           
         }
             break;
         default:
@@ -576,6 +678,11 @@
 }
 
 
+#pragma mark - textview delegate
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    textViewHolderLab.hidden = YES;
+}
 #pragma mark - 图片截取
 
 - (void)editPortrait {
@@ -666,8 +773,18 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:^() {
         photoImg = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        if(photoImgs == nil)
+        {
+            photoImgs = [NSMutableArray array];
+        }
         
-        [self.collectionView reloadData];
+        [photoImgs addObject:photoImg];
+        
+        [allImgsPicked setObject:photoImgs forKey:PHOTO_IMGS_KEY];
+        _textView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellTextViewHeight-picShowView.frame.size.height);
+        picShowView.hidden = NO;
+        [_mainTableView reloadData];
+        [_collectionView reloadData];
         //photoImg = portraitImg;
 //        portraitImg = [self imageByScalingToMaxSize:portraitImg];
 //        // 裁剪
@@ -727,7 +844,7 @@
     imagePickerController.showsCancelButton = YES;
     imagePickerController.allowsMultipleSelection = YES;
     imagePickerController.minimumNumberOfSelection = 1;
-    imagePickerController.maximumNumberOfSelection = 3;
+    imagePickerController.maximumNumberOfSelection = 5;
     imagePickerController.selectedAssetArray = self.assetsArray;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:imagePickerController];
     [self presentViewController:navigationController animated:YES completion:NULL];
@@ -745,7 +862,29 @@
 - (void)imagePickerController:(JKImagePickerController *)imagePicker didSelectAssets:(NSArray *)assets isSource:(BOOL)source
 {
     self.assetsArray = [NSMutableArray arrayWithArray:assets];
+    imgPickerImgs = [NSMutableArray array];
     
+    for (int i = 0; i < self.assetsArray.count; i++) {
+        
+        JKAssets *_asset = self.assetsArray[i];
+        ALAssetsLibrary   *lib = [[ALAssetsLibrary alloc] init];
+        [lib assetForURL:_asset.assetPropertyURL resultBlock:^(ALAsset *asset) {
+            NSUserDefaults * userdef=[NSUserDefaults standardUserDefaults];
+            if (asset) {
+                [imgPickerImgs addObject:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]]];
+                [userdef setObject:UIImageJPEGRepresentation
+                 ([UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]], 1.0) forKey:[NSString stringWithFormat:@"%ld",(long)i]];
+            }
+            NSLog(@"%ld",(long)i);
+        } failureBlock:^(NSError *error) {
+            
+        }];
+
+    }
+    _textView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellTextViewHeight-picShowView.frame.size.height);
+    picShowView.hidden = NO;
+    [_mainTableView reloadData];
+    [allImgsPicked setObject:imgPickerImgs forKey:PICPICKER_IMGS_KEY];
     [imagePicker dismissViewControllerAnimated:YES completion:^{
         [self.collectionView reloadData];
     }];
@@ -763,99 +902,135 @@ static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if(photoImg != nil)
-    {
     
-        return 1+[self.assetsArray count];
+    NSInteger picNum;
+    NSInteger photoNum;
+    if(photoImgs == nil)
+    {
+       photoNum = 0;
     }
-    return [self.assetsArray count];
+    else
+    {
+        photoNum = photoImgs.count;
+    }
+    
+    if(imgPickerImgs == nil)
+    {
+        picNum = 0;
+    }
+    else
+    {
+        picNum = imgPickerImgs.count;
+    }
+    return picNum + photoNum;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PhotoCell *cell = (PhotoCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:indexPath];
-    
-    if(photoImg != nil)
-    {
-        if(indexPath.row == 0)
+    UICollectionViewCell *cell = (UICollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:indexPath];
+    @try {
+        UIImageView *showImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, cell.frame.size.width-20,  cell.frame.size.height-20)];
+        if(imgPickerImgs!=nil && imgPickerImgs.count -1 >= indexPath.row && imgPickerImgs.count !=0)
         {
-            UIImageView *imgView = [[UIImageView alloc] initWithImage:photoImg];
-            imgView.frame = cell.frame;
-            
-            [cell addSubview:imgView];
+            showImgView.image = imgPickerImgs[indexPath.row];
         }
-        
-        if(indexPath.row > 0)
+        else
         {
-            cell.tag=indexPath.row;
-            cell.asset = [self.assetsArray objectAtIndex:([indexPath row]-1)];
+            NSInteger imgpickerCount;
+            if(imgPickerImgs == nil)
+            {
+                imgpickerCount = 0;
+            }
+            else
+            {
+                imgpickerCount = imgPickerImgs.count;
+            }
+            if(photoImgs !=nil)
+            {
+                showImgView.image = photoImgs[indexPath.row - imgpickerCount ];
+            }
         }
-    }
-    else
-    {
+        [cell addSubview:showImgView];
+////        
+        UIButton *imgBtn = [[UIButton alloc] initWithFrame:showImgView.frame];
+        [imgBtn addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        imgBtn.tag = indexPath.row;
+        // imgBtn.backgroundColor = [UIColor redColor];
+        [cell bringSubviewToFront:imgBtn];
+        [cell addSubview:imgBtn];
         
-        cell.tag=indexPath.row;
-        cell.asset = [self.assetsArray objectAtIndex:[indexPath row]];
+        UIButton *imgDelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0,  30,  30)];
+        [imgDelBtn addTarget:self action:@selector(imgDelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        imgDelBtn.tag = indexPath.row;
+        [imgDelBtn setImage:[UIImage imageNamed:@"del"] forState:UIControlStateNormal];
+       // imgDelBtn.backgroundColor = [UIColor blackColor];
+       // imgDelBtn.alpha = 0.5;
+        imgDelBtn.center = CGPointMake(10, 10);
+        // imgBtn.backgroundColor = [UIColor redColor];
+        [cell bringSubviewToFront:imgDelBtn];
+        [cell addSubview:imgDelBtn];
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
     }
     
-    UIButton *imgBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0,  cell.frame.size.width,  cell.frame.size.height)];
-    [imgBtn addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    imgBtn.tag = indexPath.row;
-   // imgBtn.backgroundColor = [UIColor redColor];
-    [cell bringSubviewToFront:imgBtn];
-    [cell addSubview:imgBtn];
     
     return cell;
     
 }
 
--(void)imgBtnClick:(UIButton *)sender
+-(void)imgDelBtnClick:(UIButton *)sender
 {
-    
-    NSLog(@"sender .tag = %ld",sender.tag);
-    if(photoImg !=nil)
+    if(imgPickerImgs!=nil && imgPickerImgs.count -1 >= sender.tag &&imgPickerImgs.count !=0)
     {
-        if (sender.tag == 0) {
-            PictureShowView *picShow = [[PictureShowView alloc] initWithTitle:nil showImg:photoImg];
-            picShow.mydelegate = self;
-            [picShow show];
-        }
-        else
-        {
-            JKAssets *_asset = self.assetsArray[sender.tag-1];
-            ALAssetsLibrary   *lib = [[ALAssetsLibrary alloc] init];
-            [lib assetForURL:_asset.assetPropertyURL resultBlock:^(ALAsset *asset) {
-                if (asset) {
-                    PictureShowView *picShow = [[PictureShowView alloc] initWithTitle:nil showImg:[UIImage imageWithCGImage:[[asset  defaultRepresentation] fullScreenImage]]];
-                    picShow.mydelegate = self;
-                    [picShow show];
-                }
-                
-            } failureBlock:^(NSError *error) {
-                
-            }];
-
-        }
+      //  showImgView.image = imgPickerImgs[sender.tag];
+        [imgPickerImgs removeObjectAtIndex:sender.tag];
+        [allImgsPicked setObject:imgPickerImgs forKey:PICPICKER_IMGS_KEY];
     }
     else
     {
-        
-        JKAssets *_asset = self.assetsArray[sender.tag];
-        ALAssetsLibrary   *lib = [[ALAssetsLibrary alloc] init];
-        [lib assetForURL:_asset.assetPropertyURL resultBlock:^(ALAsset *asset) {
-            if (asset) {
-                PictureShowView *picShow = [[PictureShowView alloc] initWithTitle:nil showImg:[UIImage imageWithCGImage:[[asset  defaultRepresentation] fullScreenImage]]];
-                picShow.mydelegate = self;
-                [picShow show];
-            }
-
-        } failureBlock:^(NSError *error) {
-            
-        }];
-
-
+        NSInteger imgpickerCount;
+        if(imgPickerImgs == nil)
+        {
+            imgpickerCount = 0;
+        }
+        else
+        {
+            imgpickerCount = imgPickerImgs.count;
+        }
+        if(photoImgs !=nil)
+        {
+            [photoImgs removeObjectAtIndex:(sender.tag - imgpickerCount)];
+            [allImgsPicked setObject:photoImgs forKey:PHOTO_IMGS_KEY];
+        }
     }
     
+    if((imgPickerImgs.count == 0|| imgPickerImgs==nil) && (photoImgs.count == 0||photoImgs==nil))
+    {
+        picShowView.hidden = YES;
+        _textView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellTextViewHeight);
+        [_mainTableView reloadData];
+    }
+    
+    [_collectionView reloadData];
+}
+
+-(void)imgBtnClick:(UIButton *)sender
+{
+    
+  //  NSLog(@"sender .tag = %ld",sender.tag);
+ 
+    NSMutableArray *tempArr = [NSMutableArray array];
+    
+    [tempArr addObjectsFromArray:allImgsPicked[PICPICKER_IMGS_KEY]];
+    [tempArr addObjectsFromArray:allImgsPicked[PHOTO_IMGS_KEY]];
+    
+    PictureShowView *picShow = [[PictureShowView alloc] initWithTitle:@"" andImgs:tempArr andShowIndex:sender.tag];
+    [picShow show];
 }
 #pragma mark - pick show delegate
 
@@ -869,9 +1044,15 @@ static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return CGSizeMake(40, 40);
+//}
+
+-( UIEdgeInsets )collectionView:( UICollectionView *)collectionView layout:( UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:( NSInteger )section
 {
-    return CGSizeMake(40, 40);
+    return UIEdgeInsetsMake(0, 10, 0, 0);
+
 }
 
 #pragma mark - UICollectionViewDelegate

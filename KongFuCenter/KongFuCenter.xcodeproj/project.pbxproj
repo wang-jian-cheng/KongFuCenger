@@ -170,6 +170,7 @@
 		B5451CC91C2796B6001BB39F /* ChineseString.m in Sources */ = {isa = PBXBuildFile; fileRef = B5451CC61C2796B6001BB39F /* ChineseString.m */; };
 		B5451CCA1C2796B6001BB39F /* pinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = B5451CC81C2796B6001BB39F /* pinyin.m */; };
 		B5451CCE1C27970E001BB39F /* CCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5451CCD1C27970E001BB39F /* CCLocationManager.m */; };
+		B54F13891C46283B001EABE5 /* del@2x.PNG in Resources */ = {isa = PBXBuildFile; fileRef = B54F13881C46283B001EABE5 /* del@2x.PNG */; };
 		B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */; };
 		B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */; };
 		B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B569DB901C126F1C00325CFA /* temp2@2x.png */; };
@@ -752,6 +753,7 @@
 		B5451CC81C2796B6001BB39F /* pinyin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pinyin.m; sourceTree = "<group>"; };
 		B5451CCC1C27970E001BB39F /* CCLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLocationManager.h; sourceTree = "<group>"; };
 		B5451CCD1C27970E001BB39F /* CCLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLocationManager.m; sourceTree = "<group>"; };
+		B54F13881C46283B001EABE5 /* del@2x.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "del@2x.PNG"; sourceTree = "<group>"; };
 		B569DB8A1C126BC600325CFA /* BaseVideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVideoCollectionViewCell.h; sourceTree = "<group>"; };
 		B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVideoCollectionViewCell.m; sourceTree = "<group>"; };
 		B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseVideoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -876,8 +878,8 @@
 		B5B7376C1C3CAAF100DF7437 /* Search-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Search-Prefix.pch"; sourceTree = "<group>"; };
 		B5B737801C3D0B8800DF7437 /* AnnounceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnounceDetailViewController.h; sourceTree = "<group>"; };
 		B5B737811C3D0B8800DF7437 /* AnnounceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnounceDetailViewController.m; sourceTree = "<group>"; };
-		B5B737C21C3E3D0100DF7437 /* AddressMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressMapViewController.h; sourceTree = "<group>"; };
-		B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressMapViewController.m; sourceTree = "<group>"; };
+		B5B737C21C3E3D0100DF7437 /* AddressMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddressMapViewController.h; path = PictureShow/AddressMapViewController.h; sourceTree = "<group>"; };
+		B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddressMapViewController.m; path = PictureShow/AddressMapViewController.m; sourceTree = "<group>"; };
 		B5B737CB1C3E45E600DF7437 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		B5B737CC1C3E45E600DF7437 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		B5B738101C40B1EC00DF7437 /* ChatSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSetViewController.h; sourceTree = "<group>"; };
@@ -1760,6 +1762,8 @@
 		B53791A91C1525CD00C45BA7 /* CommonUI */ = {
 			isa = PBXGroup;
 			children = (
+				B5B737C21C3E3D0100DF7437 /* AddressMapViewController.h */,
+				B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */,
 				8074B0961C4376D60029C8B1 /* PlayerController.h */,
 				8074B0971C4376D60029C8B1 /* PlayerController.m */,
 				8074B0981C4376D60029C8B1 /* PlayerController.xib */,
@@ -2373,8 +2377,6 @@
 		B5D345D41C2A77EB00D39891 /* PictureShow */ = {
 			isa = PBXGroup;
 			children = (
-				B5B737C21C3E3D0100DF7437 /* AddressMapViewController.h */,
-				B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */,
 				B5D345D81C2A792E00D39891 /* PictureShowView.h */,
 				B5D345D91C2A792E00D39891 /* PictureShowView.m */,
 			);
@@ -2403,6 +2405,7 @@
 		B5D899FB1C113CB900F55BFA /* other */ = {
 			isa = PBXGroup;
 			children = (
+				B54F13881C46283B001EABE5 /* del@2x.PNG */,
 				B569DB8F1C126F1C00325CFA /* temp */,
 				B5D89A061C1165E400F55BFA /* temp@2x.png */,
 				B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */,
@@ -3112,6 +3115,7 @@
 				B5F13B251C1FBAAC00155038 /* read_me.txt in Resources */,
 				B5F90AD41C192A2200D7879D /* chenglong@2x.png in Resources */,
 				B5905E0A1C1BC2CF00ECA9BA /* weikaishi@2x.png in Resources */,
+				B54F13891C46283B001EABE5 /* del@2x.PNG in Resources */,
 				B7617E551C1C299700CF96E7 /* mao@2x.jpg in Resources */,
 				B5AF70851C183A9F00C041AF /* photo@2x.png in Resources */,
 				B5AF70861C183A9F00C041AF /* picture@2x.png in Resources */,

@@ -219,6 +219,7 @@
             [_mainTableView.mj_header beginRefreshing];
             break;
     }
+    [self positionDismissView:moreSettingBackView];
     
 }
 
@@ -468,14 +469,14 @@
         [cell addSubview:relayBtn];
         
         //under line
-        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, lineView.frame.origin.y+(50 - 35)/2, 35, 35) andImgName:@"me" andNav:(self.navigationController)];
+        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft-20, lineView.frame.origin.y+(50 - 35)/2, 35, 35) andImgName:@"me" andNav:(self.navigationController)];
         [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,dataArr[indexPath.section][@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@""]];
         [headView makeSelfRound];
         [cell addSubview:headView];
         
         
         UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x+headView.frame.size.width + 5),
-                                                                     (headView.frame.size.height/4+headView.frame.origin.y), 60, headView.frame.size.height/2)];
+                                                                     (headView.frame.size.height/4+headView.frame.origin.y), 100, headView.frame.size.height/2)];
         
         nameLab.textColor = [UIColor whiteColor];
         nameLab.text = [dataArr[indexPath.section][@"NicName"] isEqual:[NSNull null]]?@"":dataArr[indexPath.section][@"NicName"];
@@ -483,7 +484,7 @@
         [cell addSubview:nameLab];
         
         
-        UIButton *commentBtn = [[UIButton alloc] initWithFrame:CGRectMake(((nameLab.frame.origin.x+nameLab.frame.size.width + 10)),
+        UIButton *commentBtn = [[UIButton alloc] initWithFrame:CGRectMake(((nameLab.frame.origin.x+nameLab.frame.size.width)),
                                                                          (headView.frame.size.height/4+headView.frame.origin.y),
                                                                          (SCREEN_WIDTH - (nameLab.frame.origin.x+nameLab.frame.size.width + 10) -10)/2,
                                                                           headView.frame.size.height/2)];
@@ -494,10 +495,10 @@
         
         UIButton *timeBtn = [[UIButton alloc] initWithFrame:CGRectMake(((commentBtn.frame.origin.x+commentBtn.frame.size.width + 5)),
                                                                           (headView.frame.size.height/4+headView.frame.origin.y),
-                                                                          commentBtn.frame.size.width,//(SCREEN_WIDTH - (nameLab.frame.origin.x+nameLab.frame.size.width + 10) -10)/2,
+                                                                          commentBtn.frame.size.width+15,//(SCREEN_WIDTH - (nameLab.frame.origin.x+nameLab.frame.size.width + 10) -10)/2,
                                                                           headView.frame.size.height/2)];
         [timeBtn setImage:[UIImage imageNamed:@"clock"] forState:UIControlStateNormal];
-        [timeBtn setTitle:[dataArr[indexPath.section][@"PublishTime"] isEqual:[NSNull null]]?@"0":dataArr[indexPath.section][@"PublishTime"] forState:UIControlStateNormal];
+        [timeBtn setTitle:[self GetDateWith:[dataArr[indexPath.section][@"PublishTime"] isEqual:[NSNull null]]?@"0":dataArr[indexPath.section][@"PublishTime"]] forState:UIControlStateNormal];
         timeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         
         [cell addSubview:timeBtn];
@@ -601,5 +602,19 @@
     
 }
 
+-(NSString *)GetDateWith:(NSString *)dateStr
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSDate *date = [dateFormatter dateFromString:dateStr];
+    
+    [dateFormatter setDateFormat:@"MM月dd日"];
+    
+    NSString *strHour = [dateFormatter stringFromDate:date];
+    
+    return strHour;
+}
 
 @end

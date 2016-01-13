@@ -21,6 +21,8 @@
 #import "APService.h"
 #import <AudioToolbox/AudioToolbox.h>
 
+
+
 #define LogIn_UserID_key    @"mAccountID"
 #define LogIn_UserPass_key   @"password"
 
@@ -503,6 +505,33 @@
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
     NSLog(@"接收的通知内容2%@",userInfo);
+    
+    switch ([userInfo[@"flg"] intValue]) {
+        case 1:
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"JumpTeamNews" object:nil];
+        }
+            break;
+        case 2:
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"JumpAttention" object:nil];
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+        case 4:
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"JumpToWYNews" object:nil];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    
 }
 #pragma mark 极光推送结束
 

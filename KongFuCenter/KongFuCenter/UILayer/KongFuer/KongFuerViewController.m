@@ -7,6 +7,9 @@
 //
 
 #import "KongFuerViewController.h"
+#import "TeamNewsViewController.h"
+#import "WYNewsViewController.h"
+#import "NewConcernFriendViewController.h"
 
 @interface KongFuerViewController ()
 {
@@ -43,7 +46,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToTeamNews) name:@"JumpTeamNews" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToWYNews) name:@"JumpToWYNews" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToAttention) name:@"JumpAttention" object:nil];
     _sectionNum = 5;
     _cellHeight = SCREEN_HEIGHT / 12;
     [self setBarTitle:@"核武者"];
@@ -709,14 +714,19 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)JumpToTeamNews
+{
+    TeamNewsViewController *teamNewsVC = [[TeamNewsViewController alloc] init];
+    [self.navigationController pushViewController:teamNewsVC animated:YES];
 }
-*/
-
+-(void)JumpToWYNews
+{
+    WYNewsViewController *wyNewsVC = [[WYNewsViewController alloc] init];
+    [self.navigationController pushViewController:wyNewsVC animated:YES];
+}
+-(void)JumpToAttention
+{
+    NewConcernFriendViewController *newConcernFriendVC = [[NewConcernFriendViewController alloc] init];
+    [self.navigationController pushViewController:newConcernFriendVC animated:YES];
+}
 @end

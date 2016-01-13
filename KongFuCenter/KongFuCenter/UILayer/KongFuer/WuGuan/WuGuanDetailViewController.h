@@ -21,6 +21,7 @@
 {
     NSDictionary *wuGuanDetailDict;
     NSMutableArray *showPicArr;
+    NSMutableArray *imgUrls;
     
 }
 @property (nonatomic, retain,readonly) UICollectionView *collectionView;

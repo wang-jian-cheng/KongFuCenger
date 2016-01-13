@@ -37,6 +37,7 @@
     NSInteger cateId;
     NSMutableArray *delArr;
     NSInteger deleCount;
+    NSString *planMode;
 }
 @end
 
@@ -63,6 +64,7 @@
     planArr = [NSMutableArray array];
     delArr  = [NSMutableArray array];
     cateId = 51;
+    planMode= @"周计划";
 }
 
 -(void)initViews
@@ -198,6 +200,11 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+    
+    if(_mainTableView !=nil)
+    {
+        [_mainTableView.mj_header beginRefreshing];
+    }
 }
 
 #pragma mark - self data source
@@ -343,6 +350,7 @@
     }
     //更新数据
     cateId = sender.tag;
+    planMode = sender.titleLabel.text;
     [_mainTableView.mj_header beginRefreshing];
     
     EnditMode = NO;
@@ -401,8 +409,10 @@
         }
         else if([sender.titleLabel.text isEqualToString:@"发布"])
         {
+            [self positionDismissView:moreSettingBackView];
             NewPlanViewController *newPlanViewCtl = [[NewPlanViewController alloc] init];
             newPlanViewCtl.navtitle = @"发布训练计划";
+            newPlanViewCtl.planMode = planMode;
             [self.navigationController pushViewController:newPlanViewCtl animated:YES];
         }
     }

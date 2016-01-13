@@ -247,6 +247,22 @@
             }
             
             [showPicArr addObjectsFromArray:dict[@"data"]];
+            
+            if(imgUrls == nil)
+            {
+                imgUrls = [NSMutableArray array];
+            }
+            else
+            {
+                [imgUrls removeAllObjects];
+            }
+            
+            for(int i = 0;i<showPicArr.count;i++)
+            {
+                NSString *url = [NSString stringWithFormat:@"%@%@",Url,showPicArr[i][@"ImagePath"]];
+                [imgUrls addObject:url];
+            }
+            
             if (_collectionView) {
                 [_collectionView reloadData];
   
@@ -719,10 +735,8 @@
 
 -(void)imgBtnClick:(UIButton *)sender
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@",Url,showPicArr[sender.tag][@"ImagePath"]];
-    PictureShowView *picShow = [[PictureShowView alloc] initWithUrl:url andHolderImg:[UIImage imageNamed:@"headImg"]];
+    PictureShowView *picShow = [[PictureShowView alloc] initWithTitle:@"" andImgUrls:imgUrls andShowIndex:sender.tag andHolderImg:[UIImage imageNamed:@"wuguanimg"]];
     [picShow show];
-    NSLog(@"sender .tag = %ld",sender.tag);
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
