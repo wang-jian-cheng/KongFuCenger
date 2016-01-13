@@ -553,8 +553,12 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if(indexPath.row == 0)
+        return;
     TeamNewsViewController *teamNewsViewCtl = [[TeamNewsViewController alloc] init];
-    
+    teamNewsViewCtl.teamId =[NSString stringWithFormat:@"%@",teamArray[indexPath.row-1][@"Id"]];
+    teamNewsViewCtl.teamName =[NSString stringWithFormat:@"%@",teamArray[indexPath.row-1][@"Name"]];
+    teamNewsViewCtl.teamImg = [NSString stringWithFormat:@"%@",teamArray[indexPath.row-1][@"ImagePath"]];
 //    unionNewsViewCtl.navtitle
     [self.navigationController pushViewController:teamNewsViewCtl animated:YES];
 }
