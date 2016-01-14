@@ -531,7 +531,7 @@
         default:
             break;
     }
-    
+    application.applicationIconBadgeNumber = 0;
     
 }
 #pragma mark 极光推送结束

@@ -22,6 +22,10 @@
     int selectRow;
     NSString *kAdmin;
     BOOL isComment;
+    NSUserDefaults *userDefault;
 }
 @property(nonatomic)NSString *teamId;//设置则显示其他战队动态
+@property(nonatomic)NSString *teamName;
+@property(nonatomic)NSString *teamImg;
+
 @end

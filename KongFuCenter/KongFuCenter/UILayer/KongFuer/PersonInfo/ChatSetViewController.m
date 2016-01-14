@@ -344,6 +344,13 @@
     if(indexPath.section == 1)
     {
         switch (indexPath.row) {
+            case 2://举报
+            {
+                JvbaoView *jvbaoView = [[JvbaoView alloc] init];
+                jvbaoView.delegate = self;
+                [jvbaoView show];
+            }
+                break;
             case 4:
             {
                 ChatContentViewController *chat = [[ChatContentViewController alloc]init];
@@ -363,6 +370,14 @@
                 break;
         }
     }
+}
+
+-(void)JvbaoSureBtnClick:(NSString *)content
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
+    //举报
+    [dataprovider ReportUser:[Toolkit getUserID] andTargetId:self.userID andContent:content];
 }
 
 

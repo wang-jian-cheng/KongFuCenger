@@ -11,5 +11,6 @@
 #import "VideoListForStudyViewController.h"
 #import "UIImageView+WebCache.h"
 @interface StudyOnLineViewController : BaseNavigationController<UICollectionViewDelegate,UICollectionViewDataSource,RAMCollectionViewFlemishBondLayoutDelegate>
+
 @property (nonatomic, strong) RAMCollectionViewFlemishBondLayout *collectionViewLayout;
 @end

@@ -20,8 +20,10 @@
 @property (nonatomic, assign) id<PlayerControllerDelegate> delegate;
 -(void)goBackButtonAction;
 @property (nonatomic, assign) IBOutlet UIView  	*backView;
+@property (nonatomic, assign) IBOutlet UIView  	*carrier;
 @property (weak, nonatomic) IBOutlet UIButton *playandpuase;
 
 @property (nonatomic, assign) IBOutlet UIButton *modeBtn;
+@property (nonatomic,strong)VMediaPlayer       *mMPayer;
 -(void)nextVideo:(NSURL *)url andTitle:(NSString *)title;
 @end

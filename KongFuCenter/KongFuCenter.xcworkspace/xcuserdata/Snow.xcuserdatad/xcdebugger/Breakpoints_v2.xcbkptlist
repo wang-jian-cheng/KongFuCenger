@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "474261522.435424"
+            timestampString = "474444034.528428"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "474261522.435424"
+            timestampString = "474444034.528428"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -394,11 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "474261522.435424"
+            timestampString = "474444034.528428"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "-initViews"
             landmarkType = "5">
          </BreakpointContent>
@@ -687,7 +687,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "132"
             endingLineNumber = "132"
-            landmarkName = "-getInitCountryCallBack:"
+            landmarkName = "-getInitCityCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -714,11 +714,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "474261522.435424"
+            timestampString = "474444034.528428"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "-initViews"
             landmarkType = "5">
          </BreakpointContent>
@@ -726,7 +726,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuPower/UploadVideoViewController.m"
@@ -794,11 +794,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "474261661.247971"
+            timestampString = "474455112.473348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1211"
-            endingLineNumber = "1211"
+            startingLineNumber = "1228"
+            endingLineNumber = "1228"
             landmarkName = "-drawRect:"
             landmarkType = "5">
          </BreakpointContent>
@@ -810,11 +810,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "474261661.247971"
+            timestampString = "474455112.473348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1215"
-            endingLineNumber = "1215"
+            startingLineNumber = "1232"
+            endingLineNumber = "1232"
             landmarkName = "-drawRect:"
             landmarkType = "5">
          </BreakpointContent>
@@ -826,11 +826,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "474261661.247971"
+            timestampString = "474455112.473348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1220"
-            endingLineNumber = "1220"
+            startingLineNumber = "1237"
+            endingLineNumber = "1237"
             landmarkName = "@implementation VideoDetailViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -842,11 +842,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "474261522.435424"
+            timestampString = "474455112.473348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "-changeModle:"
             landmarkType = "5">
          </BreakpointContent>
@@ -858,11 +858,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/VideoDetailViewController.m"
-            timestampString = "474261522.435424"
+            timestampString = "474455112.473348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
             landmarkName = "-changeModle:"
             landmarkType = "5">
          </BreakpointContent>
@@ -938,11 +938,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/PlayerController.m"
-            timestampString = "474263358.452216"
+            timestampString = "474435138.271428"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "441"
-            endingLineNumber = "441"
+            startingLineNumber = "442"
+            endingLineNumber = "442"
             landmarkName = "-startPauseButtonAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1008,6 +1008,86 @@
             startingLineNumber = "498"
             endingLineNumber = "498"
             landmarkName = "-application:didReceiveRemoteNotification:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuer/PersonInfo/PersonInfoViewController.m"
+            timestampString = "474384532.853144"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "576"
+            endingLineNumber = "576"
+            landmarkName = "-getProvinceCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuer/PersonInfo/PersonInfoViewController.m"
+            timestampString = "474384532.853144"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "701"
+            endingLineNumber = "701"
+            landmarkName = "-getAreaByCityCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuer/PersonInfo/PersonInfoViewController.m"
+            timestampString = "474384532.853144"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "726"
+            endingLineNumber = "726"
+            landmarkName = "-getAreaByCityCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuer/PersonInfo/PersonInfoViewController.m"
+            timestampString = "474384532.853144"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "657"
+            endingLineNumber = "657"
+            landmarkName = "-getCityByProvinceCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/AppDelegate.m"
+            timestampString = "474443697.784312"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
+            landmarkName = "-application:didReceiveRemoteNotification:fetchCompletionHandler:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

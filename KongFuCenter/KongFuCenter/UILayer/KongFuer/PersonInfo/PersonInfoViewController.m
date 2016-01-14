@@ -13,9 +13,9 @@
 #define WeightTAG       (2015+2)
 #define AgeTAG          (2015+3)
 #define LearnTimeTAG    (2015+4)
-#define ProvinceTAG     (2015+5)
-#define CityTAG         (2015+6)
-#define AreaTAG         (2015+7)
+#define ProvinceTAG     (0)
+#define CityTAG         (1)
+#define AreaTAG         (2)
 #define ORIGINAL_MAX_WIDTH 640.0f
 @interface PersonInfoViewController ()<UserHeadViewDelegate>
 {
@@ -32,10 +32,17 @@
     BOOL relayoutViewFlag;
     /*省*/
     NSMutableArray *provinceArr;
+    
+    NSArray * provinceArray;
+    
     /*市*/
     NSMutableArray *cityArr;
+    
+    NSArray * cityArray;
     /*区／县*/
     NSMutableArray  *areaArr;
+    
+    NSArray *areaArray;
     
     NSString *cityID;
     NSString *imgPath;
@@ -118,6 +125,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHidden) name:UIKeyboardDidHideNotification object:nil];
     
     
+    
+    
+    
     _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - 216), SCREEN_WIDTH, 216)];
     // 显示选中框
     _pickerView.showsSelectionIndicator=YES;
@@ -184,29 +194,40 @@
                  
  // pickerView 列数
  - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-     return 1;
+     return 3;
  }
  
  // pickerView 每列个数
  - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-     return infoArr.count;
+     switch (component) {
+         case 0:
+             return provinceArray.count;
+         case 1:
+             return cityArray.count;
+         case 2:
+             return areaArray.count;
+         default:
+             return infoArr.count;
+             break;
+     }
+     
  }
  
- // 每列宽度
- - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-     
-     return 180;
- }
+// // 每列宽度
+// - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+//     
+//     return 180;
+// }
  // 返回选中的行
  - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    switch (pickerView.tag  ) {
+    switch (component) {
         case ProvinceTAG:
         {
             NSString *provinceId;
             
-            [provinceBtn setTitle:[infoArr objectAtIndex:row][@"Name"] forState:UIControlStateNormal];
-            for (NSDictionary *tempDict in provinceArr) {
+            [provinceBtn setTitle:[provinceArray objectAtIndex:row][@"Name"] forState:UIControlStateNormal];
+            for (NSDictionary *tempDict in provinceArray) {
 //                NSLog(@"[tempDict[Name] = %@",tempDict[@"Name"]);
 //                NSLog(@"provinceBtn.titleLabel.text = %@",provinceBtn.titleLabel.text);
                 if([tempDict[@"Name"] isEqualToString:provinceBtn.titleLabel.text] )
@@ -228,10 +249,10 @@
             break;
         case CityTAG:
         {
-            [cityBtn setTitle:[infoArr objectAtIndex:row][@"Name"] forState:UIControlStateNormal];
+            [cityBtn setTitle:[cityArray objectAtIndex:row][@"Name"] forState:UIControlStateNormal];
             NSString *cityCode;
             
-            for (NSDictionary *tempDict in cityArr) {
+            for (NSDictionary *tempDict in cityArray) {
                 
                 if([tempDict[@"Name"] isEqualToString:cityBtn.titleLabel.text] )
                 {
@@ -251,8 +272,8 @@
         }
             break;
         case AreaTAG:
-            [areaBtn setTitle:[infoArr objectAtIndex:row][@"Name"] forState:UIControlStateNormal];
-            cityID = infoArr[row][@"Id"];
+            [areaBtn setTitle:[areaArray objectAtIndex:row][@"Name"] forState:UIControlStateNormal];
+            cityID = areaArray[row][@"Id"];
             break;
         default:
             break;
@@ -263,7 +284,16 @@
                  //返回当前行的内容,此处是将数组中数值添加到滚动的那个显示栏上
 -(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return  infoArr[row][@"Name"];
+    switch (component) {
+        case 0:
+            return provinceArray[row][@"Name"];
+        case 1:
+            return cityArray[row][@"Name"];
+        case 2:
+            return areaArray[row][@"Name"];
+        default:
+            return infoArr[row][@"Name"];
+    }
 }
 
 
@@ -524,7 +554,7 @@
 
             [provinceArr addObjectsFromArray:dict[@"data"]];
             
-            
+            provinceArray=dict[@"data"];
             NSString *provinceId;
             
             for (NSDictionary *tempDict in provinceArr) {
@@ -537,14 +567,14 @@
                 }
                 
             }
-            if(provinceId == nil)
-            {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-//                [alert show];
-                return;
-            }
-            if(clickAddBtn == YES || loadDataFlag ==YES)
-                [self getCityByProvince:provinceId];
+//            if(provinceId == nil)
+//            {
+////                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+////                [alert show];
+//                return;
+//            }
+//            if(clickAddBtn == YES || loadDataFlag ==YES)
+                [self getCityByProvince:provinceArray[0][@"Code"]];
             
 
         }
@@ -583,7 +613,7 @@
             
             [cityArr addObjectsFromArray:dict[@"data"]];
             
-           
+            cityArray=dict[@"data"];
             if(loadDataFlag == NO)//首次只填充city的数据
             {
                 if(cityArr.count > 0)
@@ -618,14 +648,18 @@
                     }
                     
                 }
-                if(cityCode == nil)
-                {
-//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-//                    [alert show];
-                    return;
-                }
-                [self getAreaByCity:cityCode];
+//                if(cityCode == nil)
+//                {
+////                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+////                    [alert show];
+//                    return;
+//                }
+                [self getAreaByCity:cityCode== nil?cityArray[0][@"Code"]:cityCode];
 
+            }
+            else
+            {
+                [self getAreaByCity:cityArray[0][@"Code"]];
             }
             loadDataFlag = NO;
 
@@ -664,6 +698,7 @@
         @try {
            
             [areaArr addObjectsFromArray:dict[@"data"]];
+            areaArray=dict[@"data"];
             if(areaArr.count > 0)
                 [areaBtn  setTitle:areaArr[0][@"Name"] forState:UIControlStateNormal] ;
             else
@@ -687,7 +722,8 @@
             
         }
         @finally {
-            
+            [_pickerView reloadComponent:1];
+            [_pickerView reloadComponent:2];
         }
     }
     else
@@ -868,54 +904,54 @@
             break;
         case CityTAG:
         {
-            NSString *provinceId;
-            
-            for (NSDictionary *tempDict in provinceArr) {
-                NSLog(@"[tempDict[Name] = %@",tempDict[@"Name"]);
-                NSLog(@"provinceBtn.titleLabel.text = %@",provinceBtn.titleLabel.text);
-                if([tempDict[@"Name"] isEqualToString:provinceBtn.titleLabel.text] )
-                {
-                    provinceId = [NSString stringWithFormat:@"%@",tempDict[@"Code"]];
-                    break;
-                }
-                
-            }
-            if(provinceId == nil)
-            {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-//                [alert show];
-                return;
-            }
-            clickAddBtn = YES;
-
-            [self getCityByProvince:provinceId];
-            [self.view addSubview:_pickerView];
-
+//            NSString *provinceId;
+//            
+//            for (NSDictionary *tempDict in provinceArr) {
+//                NSLog(@"[tempDict[Name] = %@",tempDict[@"Name"]);
+//                NSLog(@"provinceBtn.titleLabel.text = %@",provinceBtn.titleLabel.text);
+//                if([tempDict[@"Name"] isEqualToString:provinceBtn.titleLabel.text] )
+//                {
+//                    provinceId = [NSString stringWithFormat:@"%@",tempDict[@"Code"]];
+//                    break;
+//                }
+//                
+//            }
+//            if(provinceId == nil)
+//            {
+////                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+////                [alert show];
+//                return;
+//            }
+//            clickAddBtn = YES;
+//
+//            [self getCityByProvince:provinceId];
+//            [self.view addSubview:_pickerView];
+//
           
         }
             break;
         case AreaTAG:
         {
-            NSString *cityCode;
-            
-            for (NSDictionary *tempDict in cityArr) {
-                
-                if([tempDict[@"Name"] isEqualToString:cityBtn.titleLabel.text] )
-                {
-                    cityCode = [NSString stringWithFormat:@"%@",tempDict[@"Code"]];
-                    break;
-                }
-                
-            }
-            if(cityCode == nil)
-            {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-//                [alert show];
-                return;
-            }
-            clickAddBtn = YES;
-            [self getAreaByCity:cityCode];
-            [self.view addSubview:_pickerView];
+//            NSString *cityCode;
+//            
+//            for (NSDictionary *tempDict in cityArr) {
+//                
+//                if([tempDict[@"Name"] isEqualToString:cityBtn.titleLabel.text] )
+//                {
+//                    cityCode = [NSString stringWithFormat:@"%@",tempDict[@"Code"]];
+//                    break;
+//                }
+//                
+//            }
+//            if(cityCode == nil)
+//            {
+////                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"城市获取失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+////                [alert show];
+//                return;
+//            }
+//            clickAddBtn = YES;
+//            [self getAreaByCity:cityCode];
+//            [self.view addSubview:_pickerView];
 
         }
             break;

@@ -9,7 +9,10 @@
 #import "BaseNavigationController.h"
 
 @interface VideoListForStudyViewController : BaseNavigationController
-
+{
+    NSString *ServerTime;
+    NSString *overTime;
+}
 @property (nonatomic,strong) NSString *categoryid;
 
 @end

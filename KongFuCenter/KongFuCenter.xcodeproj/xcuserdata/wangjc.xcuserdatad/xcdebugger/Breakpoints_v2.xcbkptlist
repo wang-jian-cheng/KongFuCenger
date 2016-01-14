@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/KongFuerViewController.m"
-            timestampString = "474190490.702935"
+            timestampString = "474436257.755372"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
+            startingLineNumber = "488"
+            endingLineNumber = "488"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/KongFuerViewController.m"
-            timestampString = "474190490.702935"
+            timestampString = "474436257.755372"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
+            startingLineNumber = "611"
+            endingLineNumber = "611"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/KongFuerViewController.m"
-            timestampString = "474190490.702935"
+            timestampString = "474436257.755372"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "351"
-            endingLineNumber = "351"
+            startingLineNumber = "440"
+            endingLineNumber = "440"
             landmarkName = "-cateHBtnClick:"
             landmarkType = "5">
          </BreakpointContent>

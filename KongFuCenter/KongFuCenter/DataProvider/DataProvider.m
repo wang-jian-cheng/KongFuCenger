@@ -154,7 +154,7 @@
 
 }
 #pragma mark - 支付
--(void)getPingppCharge:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description
+-(void)getPingppCharge:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description andFlg:(NSString *)flg
 {
     if(userid != nil  && channel !=nil && amount != nil & description != nil)
     {
@@ -163,7 +163,8 @@
         NSDictionary * prm=@{@"userid":userid,
                              @"channel":channel,
                              @"amount":amount,
-                             @"description":description};
+                             @"description":description,
+                             @"flg":flg};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         
@@ -179,6 +180,43 @@
         NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/OpenHuiyuan",Url];
         NSDictionary * prm=@{@"userid":userid,
                              @"month":month};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)getVipTime:(NSString *)userid
+{
+//
+    if(userid)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/GetPayOverTime",Url];
+        NSDictionary * prm=@{@"userid":userid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
+    
+}
+
+
+-(void)closeVip:(NSString *)userid
+{
+    if(userid)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/CloseHuiyuan",Url];
+        NSDictionary * prm=@{@"userid":userid};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         
@@ -255,6 +293,26 @@
     {
         DLog(@"Err:%d",Param_err);
         return Param_err;
+    }
+}
+
+
+
+-(void)ReportUser:(NSString *)userId andTargetId:(NSString *)targetId andContent:(NSString *)content
+{
+    if(userId != nil && targetId != nil && content != nil )
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/MessageRepeatAndFavorite",Url];
+        NSDictionary * prm=@{@"userId":userId,
+                             @"targetId":targetId,
+                             @"content":content};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
     }
 }
 //视频的取消

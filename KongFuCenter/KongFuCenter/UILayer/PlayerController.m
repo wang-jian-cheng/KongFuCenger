@@ -14,7 +14,7 @@
 
 @interface PlayerController ()
 {
-    VMediaPlayer       *mMPayer;
+    
     long               mDuration;
     long               mCurPostion;
     NSTimer            *mSyncSeekTimer;
@@ -34,7 +34,7 @@
 @property (nonatomic, assign) IBOutlet UILabel  *downloadRate;
 @property (nonatomic, assign) IBOutlet UIView  	*activityCarrier;
 
-@property (nonatomic, assign) IBOutlet UIView  	*carrier;
+
 
 @property (nonatomic, copy)   NSURL *videoURL;
 @property (nonatomic, retain) UIActivityIndicatorView *activityView;
@@ -66,12 +66,13 @@
     [self.progressSld setMinimumTrackImage:[UIImage imageNamed:@"pb-seek-bar-fr"] forState:UIControlStateNormal];
     [self.progressSld setMaximumTrackImage:[UIImage imageNamed:@"pb-seek-bar-bg"] forState:UIControlStateNormal];
 
-	if (!mMPayer) {
-		mMPayer = [VMediaPlayer sharedInstance];
+	if (!_mMPayer) {
+		_mMPayer = [VMediaPlayer sharedInstance];
         
-		[mMPayer setupPlayerWithCarrierView:self.carrier withDelegate:self];
+		[_mMPayer setupPlayerWithCarrierView:self.carrier withDelegate:self];
         
 		[self setupObservers];
+        
 	}
     _backViewOldFrame=_backView.frame;
 }
@@ -102,7 +103,7 @@
 - (void)dealloc
 {
 	[self unSetupObservers];
-	[mMPayer unSetupPlayer];
+	[_mMPayer unSetupPlayer];
 
 }
 
@@ -146,17 +147,17 @@
 {
 	switch (event.subtype) {
 		case UIEventSubtypeRemoteControlTogglePlayPause:
-			if ([mMPayer isPlaying]) {
-				[mMPayer pause];
+			if ([_mMPayer isPlaying]) {
+				[_mMPayer pause];
 			} else {
-				[mMPayer start];
+				[_mMPayer start];
 			}
 			break;
 		case UIEventSubtypeRemoteControlPlay:
-			[mMPayer start];
+			[_mMPayer start];
 			break;
 		case UIEventSubtypeRemoteControlPause:
-			[mMPayer pause];
+			[_mMPayer pause];
 			break;
 		case UIEventSubtypeRemoteControlPreviousTrack:
 			[self prevButtonAction:nil];
@@ -171,18 +172,18 @@
 
 - (void)applicationDidEnterForeground:(NSNotification *)notification
 {
-	[mMPayer setVideoShown:YES];
-    if (![mMPayer isPlaying]) {
-		[mMPayer start];
+	[_mMPayer setVideoShown:YES];
+    if (![_mMPayer isPlaying]) {
+		[_mMPayer start];
 		[self.startPause setTitle:@"Pause" forState:UIControlStateNormal];
 	}
 }
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification
 {
-    if ([mMPayer isPlaying]) {
-		[mMPayer pause];
-		[mMPayer setVideoShown:NO];
+    if ([_mMPayer isPlaying]) {
+		[_mMPayer pause];
+		[_mMPayer setVideoShown:NO];
     }
 }
 
@@ -362,16 +363,16 @@
 	} else {
 		self.videoURL = fileURL;
 	}
-//    [mMPayer setDataSource:self.videoURL header:nil];
-    [mMPayer setDataSource:self.videoURL];
+//    [_mMPayer setDataSource:self.videoURL header:nil];
+    [_mMPayer setDataSource:self.videoURL];
 #elif TEST_setOptionsWithKeys // Test setOptionsWithKeys:withValues:
 	self.videoURL = [NSURL URLWithString:@"rtmp://videodownls.9xiu.com/9xiu/552"]; // This is a live stream.
 	NSMutableArray *keys = [NSMutableArray arrayWithCapacity:0];
 	NSMutableArray *vals = [NSMutableArray arrayWithCapacity:0];
 	keys[0] = @"-rtmp_live";
 	vals[0] = @"-1";
-    [mMPayer setDataSource:self.videoURL header:nil];
-	[mMPayer setOptionsWithKeys:keys withValues:vals];
+    [_mMPayer setDataSource:self.videoURL header:nil];
+	[_mMPayer setOptionsWithKeys:keys withValues:vals];
 #elif TEST_setDataSegmentsSource // Test setDataSegmentsSource:fileList:
 	NSMutableArray *list = [NSMutableArray arrayWithCapacity:0];
 	[list addObject:@"http://112.65.235.140/vlive.qqvideo.tc.qq.com/95V8NuxWX2J.p202.1.mp4?vkey=E3D97333E93EDF36E56CB85CE0B02018E1001BA5C023DFFD298C0204CD81610CFCE546C79DE6C3E2"];
@@ -393,11 +394,11 @@
 	[list addObject:@"http://112.65.235.140/vlive.qqvideo.tc.qq.com/95V8NuxWX2J.p202.17.mp4?vkey=E95EC62FAE0D92BE8A2FE85842B875F2E9B9B07616B8892D1EF18A0C645994E885D65BDAC24EF0FD"];
 	[list addObject:@"http://112.65.235.140/vlive.qqvideo.tc.qq.com/95V8NuxWX2J.p202.18.mp4?vkey=48B021C886CFC23E22FA56C71C7C204E300E7D58CBB97867F23CC8F30EB4D1B53ABE41627F7D6610"];
 	[list addObject:@"http://112.65.235.140/vlive.qqvideo.tc.qq.com/95V8NuxWX2J.p202.19.mp4?vkey=0D51F428BB12C2C5C015E41997371FC80338924F804D9D688C7B9560C7336A48870873F34189C58D"];
-    [mMPayer setDataSegmentsSource:nil fileList:list];
+    [_mMPayer setDataSegmentsSource:nil fileList:list];
 #endif
 
-    [mMPayer prepareAsync];
-	[self startActivityWithMsg:@"Loading..."];
+    [_mMPayer prepareAsync];
+	[self startActivityWithMsg:@"正在缓冲..."];
 }
 
 -(void)quicklyReplayMovie:(NSURL*)fileURL title:(NSString*)title seekToPos:(long)pos
@@ -408,7 +409,7 @@
 
 -(void)quicklyStopMovie
 {
-	[mMPayer reset];
+	[_mMPayer reset];
 	[mSyncSeekTimer invalidate];
 	mSyncSeekTimer = nil;
 	self.progressSld.value = 0.0;
@@ -436,12 +437,12 @@
 
 -(IBAction)startPauseButtonAction:(id)sender
 {
-	BOOL isPlaying = [mMPayer isPlaying];
+	BOOL isPlaying = [_mMPayer isPlaying];
 	if (isPlaying) {
-		[mMPayer pause];
+		[_mMPayer pause];
 		[self.playandpuase setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
 	} else {
-		[mMPayer start];
+		[_mMPayer start];
 		[self.playandpuase setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateNormal];
 	}
 }
@@ -527,7 +528,7 @@
 //	static int curModeIdx = 0;
 //
 //	curModeIdx = (curModeIdx + 1) % (int)(sizeof(modes)/sizeof(modes[0]));
-//	[mMPayer setVideoFillMode:modes[curModeIdx]];
+//	[_mMPayer setVideoFillMode:modes[curModeIdx]];
     
     
     
@@ -564,7 +565,7 @@
 	UISlider *sld = (UISlider *)sender;
 	NSLog(@"NAL 1BVC &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& seek = %ld", (long)(sld.value * mDuration));
 	[self startActivityWithMsg:@"加载中"];
-	[mMPayer seekTo:(long)(sld.value * mDuration)];
+	[_mMPayer seekTo:(long)(sld.value * mDuration)];
 }
 
 -(IBAction)dragProgressSliderAction:(id)sender
@@ -587,7 +588,7 @@
 	self.curPosLbl.text = [Utilities timeToHumanString:seek];
 	NSLog(@"NAL 2BVC &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& seek = %ld", seek);
 	[self startActivityWithMsg:@"加载"];
-    [mMPayer seekTo:seek];
+    [_mMPayer seekTo:seek];
 }
 
 
@@ -596,7 +597,7 @@
 -(void)syncUIStatus
 {
 	if (!self.progressDragging) {
-		mCurPostion  = [mMPayer getCurrentPosition];
+		mCurPostion  = [_mMPayer getCurrentPosition];
 		[self.progressSld setValue:(float)mCurPostion/mDuration];
 		self.curPosLbl.text = [Utilities timeToHumanString:mCurPostion];
 		self.durationLbl.text = [Utilities timeToHumanString:mDuration];
