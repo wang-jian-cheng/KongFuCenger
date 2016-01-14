@@ -8,6 +8,7 @@
 
 #import "ShieldViewController.h"
 #import "UIImageView+WebCache.h"
+#import "UserHeadView.h"
 
 @interface ShieldViewController () <UITableViewDataSource, UITableViewDelegate>{
     NSArray *ShieldNewsFriendArray;
@@ -94,10 +95,16 @@
     NSLog(@"%@",ShieldNewsFriendArray);
     NSString *PhotoPath = [Toolkit judgeIsNull:[ShieldNewsFriendArray[indexPath.row] valueForKey:@"PhotoPath"]];
     NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
-    cell.imageView.image = [UIImage imageNamed:@"headImg@2x"];
-    cell.textLabel.text = [Toolkit judgeIsNull:[ShieldNewsFriendArray[indexPath.row] valueForKey:@"NicName"]];
+    UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(14, (85 - 70) / 2, 70, 70) andUrl:url andNav:self.navigationController];
+    headView.userId = [Toolkit judgeIsNull:[ShieldNewsFriendArray[indexPath.row] valueForKey:@"FriendId"]];
+    [headView makeSelfRound];
     
+    [cell addSubview:headView];
+    
+    UILabel *mLabel = [[UILabel alloc] initWithFrame:CGRectMake(headView.frame.origin.x + headView.frame.size.width + 5, (85 - 21) / 2, 150, 21)];
+    mLabel.textColor = [UIColor whiteColor];
+    mLabel.text = [Toolkit judgeIsNull:[ShieldNewsFriendArray[indexPath.row] valueForKey:@"NicName"]];
+    [cell addSubview:mLabel];
     
     
     return cell;

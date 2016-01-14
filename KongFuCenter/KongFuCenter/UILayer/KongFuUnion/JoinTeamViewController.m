@@ -290,6 +290,7 @@
     }else{
         arreaCode = countryCode;
     }
+    [SVProgressHUD showWithStatus:@"加载中..."];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"GetTeamListBackCall:"];
     [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:searchTxt.text andCitycode:arreaCode];
@@ -308,6 +309,7 @@
     }else{
         arreaCode = countryCode;
     }
+    [SVProgressHUD showWithStatus:@"加载中..."];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
     [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:searchTxt.text andCitycode:arreaCode];
@@ -325,7 +327,7 @@
 
 -(void)FootRefireshBackCall:(id)dict
 {
-    
+    [SVProgressHUD dismiss];
     NSLog(@"上拉刷新");
     // 结束刷新
     [mTableView.mj_footer endRefreshing];

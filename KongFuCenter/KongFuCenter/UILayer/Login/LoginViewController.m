@@ -701,6 +701,8 @@
             [mUserDefault setValue:[NSString stringWithFormat:@"%d",ThirdLogin] forKey:@"ThirdLogin"];//是否是第三方登录
             //连接融云服务器
             [[NSNotificationCenter defaultCenter] postNotificationName:@"connectServer" object:nil];
+            //是否屏蔽评论
+            [mUserDefault setValue:[Toolkit judgeIsNull:[NSString stringWithFormat:@"%@",[dict valueForKey:@"IsShieldComment"]]] forKey:@"IsShieldComment"];
          //  [mUserDefault setValue:[dict valueForKey:@"avatar"] forKey:@"avatar"];
            
             NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
