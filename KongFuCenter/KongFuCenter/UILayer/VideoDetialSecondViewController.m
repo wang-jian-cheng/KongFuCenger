@@ -1,35 +1,33 @@
 //
-//  VideoDetailViewController.m
+//  VideoDetialSecondViewController.m
 //  KongFuCenter
 //
-//  Created by 王建成 on 15/12/7.
-//  Copyright © 2015年 zykj. All rights reserved.
+//  Created by 于金祥 on 16/1/14.
+//  Copyright © 2016年 zykj. All rights reserved.
 //
 
-#import "VideoDetailViewController.h"
+#import "VideoDetialSecondViewController.h"
 #import "UserHeadView.h"
-//#import "MoviePlayer.h"
+#import "MoviePlayer.h"
 #import "DataProvider.h"
-#import "PlayerControllerDelegate.h"
-#import "PlayerController.h"
-
-
 
 #define VideoPlaySection    0
 #define VideoDetailSection  1
 #define OtherVideoSection   2
 #define CommentSection      3
 
-#define GapToLeft           13
+#define GapToLeft           20
 #define TextColors          [UIColor whiteColor]
 
-@interface VideoDetailViewController ()<PlayerControllerDelegate>
+
+
+@interface VideoDetialSecondViewController ()
 {
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
-//    MoviePlayer *moviePlayerview;
+    //    MoviePlayer *moviePlayerview;
     
     
     NSString * VideoPath;
@@ -42,18 +40,12 @@
     
     NSMutableArray  * otherVideoArray;
     
-    PlayerController *playerCtrl;
-    
-    CGRect _VideoViewFrame;
-    
-    CGRect _modleBtnFrame;
-    
-    CGRect _backViewFrame;
+    MoviePlayer *moviePlayerview;
     
 }
 @end
 
-@implementation VideoDetailViewController
+@implementation VideoDetialSecondViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -70,7 +62,7 @@
     _cellHeight = SCREEN_HEIGHT/12;
     if(_cellHeight < 50)
         _cellHeight = 50;
-
+    
     videoCommentArray=[NSMutableArray array];
     
     commentWidth = SCREEN_WIDTH - _cellHeight -GapToLeft - 40;
@@ -132,7 +124,7 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
     [self.view addGestureRecognizer:tapGesture];
     tapGesture.delegate = self;
-
+    
     //
     //    //注册通知,监听键盘弹出事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
@@ -142,11 +134,8 @@
     
     /***************init for video******************/
     
- 
     
     
-    playerCtrl = [[PlayerController alloc] initWithNibName:nil bundle:nil] ;
- 
     
 }
 
@@ -168,7 +157,7 @@
 {
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
-//        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
+        //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
         
         VideoPath=[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"][@"VideoPath"] isEqual:[NSNull null]]?@"":dict[@"data"][@"VideoPath"]];
         
@@ -195,45 +184,20 @@
         if([VideoDict[@"IsFree"] intValue] == 0&&[Toolkit isVip] == NO)
         {
             
-                shouldPay = YES;
-                if(playerCtrl.view.superview !=nil)
-                {
-                    [playerCtrl.view removeFromSuperview];
-                    [playerCtrl goBackButtonAction];
-                }
+            shouldPay = YES;
+            if(moviePlayerview !=nil)
+            {
+                [moviePlayerview removeFromSuperview];
+            }
             
         }
         else
         {
             shouldPay = NO;
+            moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
             
-            
-            playerCtrl.delegate = self;
-            playerCtrl.view.frame=CGRectMake(0, 0, SCREEN_WIDTH, 4*_cellHeight +172);
-            playerCtrl.backView.frame=CGRectMake(0, 0, SCREEN_WIDTH, 4*_cellHeight+172);
-            
-            _VideoViewFrame=CGRectMake(0, 0, SCREEN_WIDTH, 4*_cellHeight+172);
-            
-            _backViewFrame=playerCtrl.backView.frame;
-            
-            _modleBtnFrame=playerCtrl.modeBtn.frame;
-            
-            [playerCtrl.modeBtn addTarget:self action:@selector(changeModle:) forControlEvents:UIControlEventTouchUpInside];
-            
-            //[self presentModalViewController:playerCtrl animated:YES];
-            [self.view addSubview:playerCtrl.view];
-            
-            UIButton * btn_goBack=[[UIButton alloc] initWithFrame:CGRectMake(10, 20, 30, 30)];
-            
-            [btn_goBack setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
-            
-            [btn_goBack addTarget:self action:@selector(clickLeftButton:) forControlEvents:UIControlEventTouchUpInside];
-            
-            [self.view addSubview:btn_goBack];
-            
-            [self.view bringSubviewToFront:btn_goBack];
-            
-            [playerCtrl nextVideo:[NSURL URLWithString:VideoPath] andTitle:dict[@"data"][@"Title"]];
+            [_mainTableView reloadData];
+            [self.view addSubview:moviePlayerview];
         }
         
         
@@ -245,52 +209,6 @@
         
         
         
-    }
-}
-
--(void)changeModle:(UIButton *)sender
-{
-    if (sender.tag!=1) {
-        
-        [playerCtrl.modeBtn setImage:[UIImage imageNamed:@"small"] forState:UIControlStateNormal];
-        
-        sender.tag=1;
-        
-        playerCtrl.view.frame=CGRectMake(0, 0,SCREEN_WIDTH, SCREEN_HEIGHT);
-        
-        playerCtrl.backView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
-        
-        playerCtrl.carrier.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
-        
-        playerCtrl.modeBtn.frame=CGRectMake(SCREEN_HEIGHT-40,playerCtrl.modeBtn.frame.origin.y , playerCtrl.modeBtn.frame.size.width , playerCtrl.modeBtn.frame.size.height);
-        
-        playerCtrl.backView.center=CGPointMake(SCREEN_WIDTH/2,SCREEN_HEIGHT/2 );
-        
-        CGAffineTransform transform = CGAffineTransformMakeRotation(90 * M_PI/180.0);
-        
-        [playerCtrl.backView setTransform:transform];
-        
-        [self.view bringSubviewToFront:playerCtrl.view];
-        
-    }
-    else
-    {
-        
-        [sender setImage:[UIImage imageNamed:@"big"] forState:UIControlStateNormal];
-        
-        sender.tag=0;
-        
-        
-        
-        CGAffineTransform transform = CGAffineTransformMakeRotation(0 * M_PI/180.0);
-        
-        [playerCtrl.backView setTransform:transform];
-        
-        playerCtrl.modeBtn.frame=_modleBtnFrame;
-        
-        playerCtrl.backView.frame=_backViewFrame;
-        
-        playerCtrl.view.frame=_VideoViewFrame;
     }
 }
 
@@ -310,7 +228,7 @@
         @try
         {
             if(videoCommentArray !=nil && videoCommentArray.count>0)
-              [ videoCommentArray removeAllObjects];
+                [ videoCommentArray removeAllObjects];
             
             [videoCommentArray addObjectsFromArray:dict[@"data"]];
             
@@ -341,7 +259,7 @@
         @try
         {
             if(otherVideoArray !=nil && otherVideoArray.count>0)
-              [ otherVideoArray removeAllObjects];
+                [ otherVideoArray removeAllObjects];
             
             [otherVideoArray addObjectsFromArray:dict[@"data"]];
             
@@ -425,7 +343,7 @@
 -(void)otherVideoBtnClick:(UIButton *)sender
 {
     self.videoID = otherVideoArray[sender.tag][@"Id"];
-//    [playerCtrl goBackButtonAction];
+    //    [playerCtrl goBackButtonAction];
     [self getData];
 }
 
@@ -475,7 +393,7 @@
                            }
                            
                        }];
-
+            
         }
         @catch (NSException *exception) {
             NSLog(@"Crash");
@@ -490,14 +408,13 @@
 -(void)tapViewAction:(id)sender
 {
     [self.view endEditing:YES];
-//    [commentTextView resignFirstResponder];
+    //    [commentTextView resignFirstResponder];
 }
 
 -(void)clickLeftButton:(UIButton *)sender
 {
- //   moviePlayerview=[[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:@""]];
-//    [moviePlayerview stopPlayer];
-    [playerCtrl goBackButtonAction];
+    //   moviePlayerview=[[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:@""]];
+    [moviePlayerview stopPlayer];
     [self.navigationController popViewControllerAnimated:YES];
     
     
@@ -516,10 +433,10 @@
     jvbaoView.delegate = self;
     [jvbaoView show];
     
-//    DataProvider * dataprovider=[[DataProvider alloc] init];
-//    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
-//    //举报
-//    [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3" andDescription:nil];
+    //    DataProvider * dataprovider=[[DataProvider alloc] init];
+    //    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
+    //    //举报
+    //    [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3" andDescription:nil];
 }
 
 -(void)JvbaoSureBtnClick:(NSString *)content
@@ -532,7 +449,7 @@
 
 -(void)btnClick:(UIButton *)sender
 {
-//    sender.selected = !sender.selected;
+    //    sender.selected = !sender.selected;
     
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
@@ -551,7 +468,7 @@
                 sender.selected = NO;
                 NSLog(@"取消点赞");
                 
-//                DataProvider * dataprovider=[[DataProvider alloc] init];
+                //                DataProvider * dataprovider=[[DataProvider alloc] init];
                 [dataprovider voicedelete:_videoID andUserId:[Toolkit getUserID] andFlg:@"2"];
             }
         }
@@ -563,7 +480,7 @@
                 sender.selected = YES;
                 NSLog(@"收藏");
                 
-//                DataProvider * dataprovider=[[DataProvider alloc] init];
+                //                DataProvider * dataprovider=[[DataProvider alloc] init];
                 [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"1" andDescription:nil];
             }
             else
@@ -571,7 +488,7 @@
                 sender.selected = NO;
                 NSLog(@"取消收藏");
                 
-//                DataProvider * dataprovider=[[DataProvider alloc] init];
+                //                DataProvider * dataprovider=[[DataProvider alloc] init];
                 
                 [dataprovider voicedelete:_videoID andUserId:[Toolkit getUserID] andFlg:@"1"];
             }
@@ -584,7 +501,7 @@
                 sender.selected = YES;
                 NSLog(@"转发");
                 
-//                DataProvider * dataprovider=[[DataProvider alloc] init];
+                //                DataProvider * dataprovider=[[DataProvider alloc] init];
                 [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"0" andDescription:nil];
             }
             else
@@ -657,7 +574,7 @@
     [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height -Header_Height -keyboardRect.size.height)];
     //tableView 滚动
     [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-
+    
     
     //[_mainTableView reloadData];
     [UIView commitAnimations];
@@ -682,14 +599,14 @@
 
 {
     
-//    NSRange range;
-//    
-//    range.location = 0;
-//    
-//    range.length = 0;
-//    
-//    textView.selectedRange = range;
-//    
+    //    NSRange range;
+    //
+    //    range.location = 0;
+    //
+    //    range.length = 0;
+    //
+    //    textView.selectedRange = range;
+    //
 }
 
 
@@ -753,7 +670,7 @@
                 [cell addSubview:payBtn];
             }
         }
-        break;
+            break;
         case VideoDetailSection:
         {
             if(indexPath.row == 0)
@@ -790,15 +707,15 @@
                     [cell addSubview:nameLab];
                     
                     
-//                    /*举报*/
-//                    UIButton *jubaoBtn = [[UIButton alloc] initWithFrame:CGRectMake((nameLab.frame.origin.x +nameLab.frame.size.width + 10),
-//                                                                                    headView.frame.origin.y, 40, headView.frame.size.height/2)];
-//                    [jubaoBtn setTitle:@"举报" forState:UIControlStateNormal];
-//                    jubaoBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-//                    jubaoBtn.tag = 4;
-//                    [jubaoBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-//                    [cell addSubview:jubaoBtn];
-//                    
+                    //                    /*举报*/
+                    //                    UIButton *jubaoBtn = [[UIButton alloc] initWithFrame:CGRectMake((nameLab.frame.origin.x +nameLab.frame.size.width + 10),
+                    //                                                                                    headView.frame.origin.y, 40, headView.frame.size.height/2)];
+                    //                    [jubaoBtn setTitle:@"举报" forState:UIControlStateNormal];
+                    //                    jubaoBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                    //                    jubaoBtn.tag = 4;
+                    //                    [jubaoBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    //                    [cell addSubview:jubaoBtn];
+                    //
                     /*date*/
                     UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLab.frame.origin.x,
                                                                                  (nameLab.frame.origin.y + nameLab.frame.size.height + 2),
@@ -832,7 +749,7 @@
                     
                     
                     
-                     collectBtn.frame = CGRectMake(btnW+btnGap, 5, btnW, backView.frame.size.height-10);
+                    collectBtn.frame = CGRectMake(btnW+btnGap, 5, btnW, backView.frame.size.height-10);
                     [collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
                     collectBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
                     [collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
@@ -870,7 +787,7 @@
                     
                 }
                 /*head */
-               
+                
                 
             }
             
@@ -940,7 +857,7 @@
                     UIScrollView *showOtherVideoView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*2+20)];
                     CGFloat gapWidth;
                     gapWidth =(SCREEN_WIDTH - GapToLeft*2)/3 - (2*_cellHeight -30);
-//                    showOtherVideoView.backgroundColor = [UIColor redColor];
+                    //                    showOtherVideoView.backgroundColor = [UIColor redColor];
                     if (otherVideoArray.count < 4) {
                         showOtherVideoView.contentSize = CGSizeMake(SCREEN_WIDTH, 0);
                     }
@@ -1032,15 +949,15 @@
                 [headView makeSelfRound];
                 [cell addSubview:headView];
                 
-                 commentTextView.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width+5),
-                                                                                      (_cellHeight -44)/2,
-                                                                                       (SCREEN_WIDTH -(headView.frame.origin.x + headView.frame.size.width+5) - 80),44 );
+                commentTextView.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width+5),
+                                                   (_cellHeight -44)/2,
+                                                   (SCREEN_WIDTH -(headView.frame.origin.x + headView.frame.size.width+5) - 80),44 );
                 
                 tempIndexPath = indexPath;
-//                if(commentTextView.superview !=nil)
-//                {
-//                    [commentTextView removeFromSuperview];
-//                }
+                //                if(commentTextView.superview !=nil)
+                //                {
+                //                    [commentTextView removeFromSuperview];
+                //                }
                 [cell addSubview:commentTextView];
                 
                 UIButton * btn_SendComment=[[UIButton alloc] initWithFrame:CGRectMake(commentTextView.frame.size.width+commentTextView.frame.origin.x+10, commentTextView.frame.origin.y, 60, commentTextView.frame.size.height)];
@@ -1087,11 +1004,11 @@
                     [supportBtn setTitle:@"20" forState:UIControlStateNormal];
                     [supportBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                     supportBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-                   // [cell addSubview:supportBtn];
+                    // [cell addSubview:supportBtn];
                     
                     
                     NSString *commentStr = tempDict[@"Content"];
-                   // commentWidth = (SCREEN_WIDTH-(headView.frame.origin.x +headView.frame.size.width + 10) - 10);
+                    // commentWidth = (SCREEN_WIDTH-(headView.frame.origin.x +headView.frame.size.width + 10) - 10);
                     CGFloat commentHeight = [Toolkit heightWithString:commentStr fontSize:12 width:commentWidth];
                     
                     UILabel *commentLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
@@ -1113,7 +1030,7 @@
                     
                     [cell addSubview:dateLab];
                     
-
+                    
                 }
                 @catch (NSException *exception) {
                     
@@ -1139,7 +1056,7 @@
     
     if(indexPath.section != 0)
     {
-       
+        
         
         if(indexPath.section == OtherVideoSection || indexPath.section == CommentSection)
         {
@@ -1154,7 +1071,7 @@
     
     switch (indexPath.section) {
         case 0:
-            return 4*_cellHeight+108 ;
+            return 4*_cellHeight ;
             break;
         case 1:
         {
@@ -1172,14 +1089,14 @@
         {
             if(indexPath.row == 1)
                 return _cellHeight;
-        
+            
             NSString *commentStr = videoCommentArray[indexPath.row - 2][@"Content"];
             //commentWidth = (SCREEN_WIDTH-(headView.frame.origin.x +headView.frame.size.width + 10) - 10);
             CGFloat commentHeight = [Toolkit heightWithString:commentStr fontSize:12 width:commentWidth];
             return commentHeight + 30+(_cellHeight-10)/2+10;
         }
             break;
-
+            
         default:
             break;
     }
@@ -1197,7 +1114,7 @@
     {
         if(indexPath.row < 2)
             return;
-
+        
         if(videoCommentArray == nil || videoCommentArray.count <= 0 || videoCommentArray.count < indexPath.row-1)
             return;
         @try {
@@ -1218,7 +1135,7 @@
         @finally {
             
         }
-
+        
     }
     
 }
@@ -1274,14 +1191,14 @@
 {
     UIView *tempView = [[UIView alloc] init];
     
-//    switch (section) {
-//        case 1:
-//     
-//            break;
-//            
-//        default:
-//            break;
-//    }
+    //    switch (section) {
+    //        case 1:
+    //
+    //            break;
+    //
+    //        default:
+    //            break;
+    //    }
     
     return tempView;
 }
@@ -1290,9 +1207,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-//    if(section != 0)
-//        return _cellHeight;
-//    else
+    //    if(section != 0)
+    //        return _cellHeight;
+    //    else
     return 0;
 }
 
@@ -1307,25 +1224,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
-
-#pragma mark 播放器代理
-- (NSURL *)playCtrlGetCurrMediaTitle:(NSString **)title lastPlayPos:(long *)lastPlayPos
-{
-    return [NSURL URLWithString:VideoPath];
-}
-- (NSURL *)playCtrlGetNextMediaTitle:(NSString **)title lastPlayPos:(long *)lastPlayPos
-{
-    return [NSURL URLWithString:VideoPath];
-}
-
-- (NSURL *)playCtrlGetPrevMediaTitle:(NSString **)title lastPlayPos:(long *)lastPlayPos
-{
-    return [NSURL URLWithString:VideoPath];
-}
-
 
 
 

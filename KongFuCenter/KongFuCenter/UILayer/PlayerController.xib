@@ -14,7 +14,6 @@
                 <outlet property="curPosLbl" destination="25" id="28"/>
                 <outlet property="downloadRate" destination="44" id="45"/>
                 <outlet property="durationLbl" destination="27" id="29"/>
-                <outlet property="modeBtn" destination="S0l-ak-s5g" id="Ks8-de-PrG"/>
                 <outlet property="playandpuase" destination="8Ao-Mh-tCv" id="yig-X5-EeA"/>
                 <outlet property="progressSld" destination="9" id="10"/>
                 <outlet property="view" destination="1" id="7"/>
@@ -29,51 +28,6 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="209"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <view contentMode="scaleToFill" id="24">
-                            <rect key="frame" x="-2" y="135" width="320" height="90"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <subviews>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="9" customClass="VSegmentSlider">
-                                    <rect key="frame" x="98" y="42" width="114" height="29"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                    <connections>
-                                        <action selector="dragProgressSliderAction:" destination="-1" eventType="valueChanged" id="59"/>
-                                        <action selector="progressSliderDownAction:" destination="-1" eventType="touchDown" id="57"/>
-                                        <action selector="progressSliderUpAction:" destination="-1" eventType="touchUpInside" id="60"/>
-                                        <action selector="progressSliderUpAction:" destination="-1" eventType="touchCancel" id="62"/>
-                                    </connections>
-                                </slider>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="25">
-                                    <rect key="frame" x="49" y="46" width="50" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="27">
-                                    <rect key="frame" x="218" y="46" width="50" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="right" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" id="S0l-ak-s5g">
-                                    <rect key="frame" x="285" y="41" width="28" height="28"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <state key="normal" image="big"/>
-                                </button>
-                                <button opaque="NO" contentMode="left" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8Ao-Mh-tCv">
-                                    <rect key="frame" x="15" y="42" width="28" height="25"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="stop"/>
-                                    <connections>
-                                        <action selector="startPauseButtonAction:" destination="-1" eventType="touchUpInside" id="Qgm-yj-zlm"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </view>
                         <view clipsSubviews="YES" contentMode="scaleToFill" id="48">
                             <rect key="frame" x="8" y="10" width="304" height="160"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -102,6 +56,45 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
+                        <view contentMode="scaleToFill" id="24">
+                            <rect key="frame" x="-2" y="135" width="320" height="90"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <subviews>
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="9" customClass="VSegmentSlider">
+                                    <rect key="frame" x="98" y="42" width="156" height="29"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                    <connections>
+                                        <action selector="dragProgressSliderAction:" destination="-1" eventType="valueChanged" id="59"/>
+                                        <action selector="progressSliderDownAction:" destination="-1" eventType="touchDown" id="57"/>
+                                        <action selector="progressSliderUpAction:" destination="-1" eventType="touchUpInside" id="60"/>
+                                        <action selector="progressSliderUpAction:" destination="-1" eventType="touchCancel" id="62"/>
+                                    </connections>
+                                </slider>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="25">
+                                    <rect key="frame" x="49" y="46" width="50" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="27">
+                                    <rect key="frame" x="260" y="46" width="50" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="left" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8Ao-Mh-tCv">
+                                    <rect key="frame" x="15" y="42" width="28" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="stop"/>
+                                    <connections>
+                                        <action selector="startPauseButtonAction:" destination="-1" eventType="touchUpInside" id="Qgm-yj-zlm"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
@@ -117,7 +110,6 @@
         </view>
     </objects>
     <resources>
-        <image name="big" width="72" height="72"/>
         <image name="stop" width="72" height="72"/>
     </resources>
 </document>

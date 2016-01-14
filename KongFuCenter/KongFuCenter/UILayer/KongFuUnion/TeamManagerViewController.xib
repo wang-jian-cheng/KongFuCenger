@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TeamManagerViewController">
+            <connections>
+                <outlet property="mainTableView" destination="Vn1-Dn-Rht" id="som-cp-PcM"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vn1-Dn-Rht">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Vn1-Dn-Rht" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EED-vV-Fap"/>
+                <constraint firstAttribute="trailing" secondItem="Vn1-Dn-Rht" secondAttribute="trailing" id="dRS-Hp-8kO"/>
+                <constraint firstAttribute="bottom" secondItem="Vn1-Dn-Rht" secondAttribute="bottom" id="nRJ-gS-Uug"/>
+                <constraint firstItem="Vn1-Dn-Rht" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="w4c-7e-2dP"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="Vn1-Dn-Rht"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="EED-vV-Fap"/>
+                    <exclude reference="dRS-Hp-8kO"/>
+                    <exclude reference="nRJ-gS-Uug"/>
+                    <exclude reference="w4c-7e-2dP"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="Vn1-Dn-Rht"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="EED-vV-Fap"/>
+                    <include reference="dRS-Hp-8kO"/>
+                    <include reference="nRJ-gS-Uug"/>
+                    <include reference="w4c-7e-2dP"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>

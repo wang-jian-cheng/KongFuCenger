@@ -124,6 +124,9 @@
 		80DB846E1C23D3A6008CA670 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DB845C1C23D3A6008CA670 /* UIImageView+HighlightedWebCache.m */; };
 		80DB846F1C23D3A6008CA670 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DB845E1C23D3A6008CA670 /* UIImageView+WebCache.m */; };
 		80DB84701C23D3A6008CA670 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DB84601C23D3A6008CA670 /* UIView+WebCacheOperation.m */; };
+		80DBEA341C473D6B0012339C /* TeamManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DBEA321C473D6B0012339C /* TeamManagerViewController.m */; };
+		80DBEA351C473D6B0012339C /* TeamManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80DBEA331C473D6B0012339C /* TeamManagerViewController.xib */; };
+		80DBEA381C4796580012339C /* VideoDetialSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DBEA371C4796580012339C /* VideoDetialSecondViewController.m */; };
 		B529B7A31C2110BF003AC21C /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B529B7981C2110BF003AC21C /* AlipaySDK.bundle */; };
 		B529B7A41C2110BF003AC21C /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B7991C2110BF003AC21C /* AlipaySDK.framework */; };
 		B529B7A51C2110BF003AC21C /* libpingpp+alipay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */; };
@@ -689,6 +692,11 @@
 		80DB845E1C23D3A6008CA670 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		80DB845F1C23D3A6008CA670 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		80DB84601C23D3A6008CA670 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		80DBEA311C473D6B0012339C /* TeamManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamManagerViewController.h; sourceTree = "<group>"; };
+		80DBEA321C473D6B0012339C /* TeamManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamManagerViewController.m; sourceTree = "<group>"; };
+		80DBEA331C473D6B0012339C /* TeamManagerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamManagerViewController.xib; sourceTree = "<group>"; };
+		80DBEA361C4796580012339C /* VideoDetialSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDetialSecondViewController.h; sourceTree = "<group>"; };
+		80DBEA371C4796580012339C /* VideoDetialSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDetialSecondViewController.m; sourceTree = "<group>"; };
 		917C8DDA7A56E94AAC386040 /* Pods-KongFuCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KongFuCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KongFuCenter/Pods-KongFuCenter.debug.xcconfig"; sourceTree = "<group>"; };
 		B529B7981C2110BF003AC21C /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		B529B7991C2110BF003AC21C /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
@@ -1784,6 +1792,8 @@
 				B5B737CC1C3E45E600DF7437 /* MapViewController.m */,
 				B5B738151C451AB200DF7437 /* JvbaoView.h */,
 				B5B738161C451AB200DF7437 /* JvbaoView.m */,
+				80DBEA361C4796580012339C /* VideoDetialSecondViewController.h */,
+				80DBEA371C4796580012339C /* VideoDetialSecondViewController.m */,
 			);
 			name = CommonUI;
 			sourceTree = "<group>";
@@ -2681,6 +2691,9 @@
 				B7617E2E1C1C298F00CF96E7 /* Manager */,
 				B7617E2A1C1C28AC00CF96E7 /* TeamNewsViewController.h */,
 				B7617E2B1C1C28AC00CF96E7 /* TeamNewsViewController.m */,
+				80DBEA311C473D6B0012339C /* TeamManagerViewController.h */,
+				80DBEA321C473D6B0012339C /* TeamManagerViewController.m */,
+				80DBEA331C473D6B0012339C /* TeamManagerViewController.xib */,
 			);
 			name = TeamNews;
 			sourceTree = "<group>";
@@ -3093,6 +3106,7 @@
 				B5451CBE1C2795C8001BB39F /* upsanjiao@2x.png in Resources */,
 				B7E0BF301C2A919A000DD4E1 /* wyhf.png in Resources */,
 				8074B09A1C4376D60029C8B1 /* PlayerController.xib in Resources */,
+				80DBEA351C473D6B0012339C /* TeamManagerViewController.xib in Resources */,
 				804952231C250B3800F5584A /* WechatShortVideoController.xib in Resources */,
 				B53E737B1C166389009E7878 /* collect@2x.png in Resources */,
 				B5AF70641C17FA7300C041AF /* zhibo@2x.png in Resources */,
@@ -3381,6 +3395,7 @@
 				B569DB9C1C12B6C000325CFA /* UITableViewCell+EditMode.m in Sources */,
 				8049520B1C250B3800F5584A /* SCPlayer.m in Sources */,
 				B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */,
+				80DBEA381C4796580012339C /* VideoDetialSecondViewController.m in Sources */,
 				80DB846E1C23D3A6008CA670 /* UIImageView+HighlightedWebCache.m in Sources */,
 				B5451CCA1C2796B6001BB39F /* pinyin.m in Sources */,
 				7BA38E991C215E62000996EE /* AnnouncementViewController.m in Sources */,
@@ -3438,6 +3453,7 @@
 				B7617E6C1C1C29A500CF96E7 /* WFHudView.m in Sources */,
 				B7D846461C22AB7500718E9E /* MJRefreshFooter.m in Sources */,
 				804952121C250B3800F5584A /* SCRecordSessionSegment.m in Sources */,
+				80DBEA341C473D6B0012339C /* TeamManagerViewController.m in Sources */,
 				80DB84681C23D3A6008CA670 /* SDWebImageManager.m in Sources */,
 				B5905E1C1C1C0A5A00ECA9BA /* MushaMatchOngoingViewController.m in Sources */,
 				B7617E6B1C1C29A500CF96E7 /* WFActionSheet.m in Sources */,

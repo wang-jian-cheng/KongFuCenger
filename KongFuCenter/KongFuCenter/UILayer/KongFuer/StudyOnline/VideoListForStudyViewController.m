@@ -8,7 +8,7 @@
 
 #import "VideoListForStudyViewController.h"
 #import "BaseVideoCollectionViewCell.h"
-#import "VideoDetailViewController.h"
+#import "VideoDetialSecondViewController.h"
 #import "DataProvider.h"
 #import "MJRefresh.h"
 #import "UIImageView+WebCache.h"
@@ -274,7 +274,7 @@
 //           return;
 //        }
 //    }
-    VideoDetailViewController *viewDetailViewCtl = [[VideoDetailViewController alloc] init];
+    VideoDetialSecondViewController *viewDetailViewCtl = [[VideoDetialSecondViewController alloc] init];
     viewDetailViewCtl.videoID=videoArray[indexPath.row][@"Id"];
 //    NSLog(@"%@",videoArray[indexPath.row][@"Id"]);
     [self.navigationController pushViewController:viewDetailViewCtl animated:YES];
