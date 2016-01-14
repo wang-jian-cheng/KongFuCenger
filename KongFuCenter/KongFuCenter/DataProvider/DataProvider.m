@@ -1257,6 +1257,15 @@
     }
 }
 
+-(void)SetNickName:(NSString *)userid andfriend:(NSString *)friend andrname:(NSString *)rname
+{
+    if (userid && friend&&rname) {
+        NSString *url = [NSString stringWithFormat:@"%@LoginAndRegister.asmx/ChangeFriendRName",Url];
+        NSDictionary *prm = @{@"userid":userid,@"friend":friend,@"rname":rname};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong{
     if (userid && istuisong) {

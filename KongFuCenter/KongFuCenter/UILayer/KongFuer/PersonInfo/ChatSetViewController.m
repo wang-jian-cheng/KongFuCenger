@@ -8,7 +8,7 @@
 
 #import "ChatSetViewController.h"
 
-@interface ChatSetViewController ()
+@interface ChatSetViewController ()<UIAlertViewDelegate>
 {
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
@@ -358,6 +358,13 @@
                 [self.navigationController pushViewController:chat animated:YES];
             }
                 break;
+            case 1:
+            {
+                UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"请输入备注名称" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+                [alert show];
+            }
+                break;
                 
             default:
                 break;
@@ -446,14 +453,24 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1) {
+        UITextField *tf=[alertView textFieldAtIndex:0];
+        if (tf.text.length>0) {
+            [dataProvider setDelegateObject:self setBackFunctionName:@"SetNickNameCallBack:"];
+            [dataProvider SetNickName:[Toolkit getUserID] andfriend:[userInfoArray valueForKey:@"Id"] andrname:tf.text];
+        }
+    }
 }
-*/
+
+-(void)SetNickNameCallBack:(id)dict
+{
+    if ([dict[@"code"] intValue]==200) {
+        [SVProgressHUD showSuccessWithStatus:@"设置成功" maskType:SVProgressHUDMaskTypeBlack];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"getUserInfoById:"];
+        [dataProvider getUserInfo:_userID];
+    }
+}
 
 @end
