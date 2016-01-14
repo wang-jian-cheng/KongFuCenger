@@ -834,6 +834,8 @@
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamPage",Url];
         NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"name":name,@"citycode":citycode};
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -929,6 +931,8 @@
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectDongtaiByFriendId",Url];
         NSDictionary *prm = @{@"friendid":friendid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -1384,10 +1388,19 @@
     }
 }
 
+-(void)SetNickName:(NSString *)userid andfriend:(NSString *)friend andrname:(NSString *)rname
+{
+    if (userid && friend&&rname) {
+        NSString *url = [NSString stringWithFormat:@"%@LoginAndRegister.asmx/ChangeFriendRName",Url];
+        NSDictionary *prm = @{@"userid":userid,@"friend":friend,@"rname":rname};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong{
     if (userid && istuisong) {
-        NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/SelectVideoByCategory",Url];
+        NSString *url = [NSString stringWithFormat:@"%@LoginAndRegister.asmx/ChangeTuiSong",Url];
         NSDictionary *prm = @{@"userid":userid,@"istuisong":istuisong};
         [self PostRequest:url andpram:prm];
     }else{

@@ -95,7 +95,7 @@
 
 -(void)TeamTopRefresh{
     curpage = 0;
-    [SVProgressHUD showWithStatus:@"加载中"];
+    [SVProgressHUD showWithStatus:@"加载中..."];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getMyNewsCallBack:"];
     //[dataProvider GetDongtaiPageByFriends:self.UserID andstartRowIndex:@"0" andmaximumRows:@"10"];
     [dataProvider SelectDongtaiByFriendId:self.UserID andstartRowIndex:@"0" andmaximumRows:@"5"];

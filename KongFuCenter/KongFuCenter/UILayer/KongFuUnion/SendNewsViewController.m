@@ -405,7 +405,7 @@
             cell.textLabel.text = @"发帖内容";
             _textView.frame = CGRectMake(10, 0, cell.frame.size.width,_cellTextViewHeight);
             _textView.backgroundColor  = BACKGROUND_COLOR;
-            _textView.textColor = [UIColor whiteColor];
+            _textView.textColor = YellowBlock;
             _textView.font = [UIFont systemFontOfSize:15];
             _textView.delegate = self;
             //            _textView.returnKeyType = UIReturnKeyDefault;
