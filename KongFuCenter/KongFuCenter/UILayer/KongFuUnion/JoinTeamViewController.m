@@ -345,7 +345,9 @@
     NSLog(@"%@",get_sp(@"TeamId"));
     if([btn.titleLabel.text  isEqualToString:@"加入"])
     {
-        if(!get_sp(@"TeamId") || ![get_sp(@"TeamId") isEqual:@"0"]){
+//        NSString *teamID = get_sp(@"TeamId");
+    
+        if(get_sp(@"TeamId")!=nil && [get_sp(@"TeamId") isEqualToString:@"0"]!=YES){
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您已经有战队,请先退出~" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
             [alertView show];
             return;

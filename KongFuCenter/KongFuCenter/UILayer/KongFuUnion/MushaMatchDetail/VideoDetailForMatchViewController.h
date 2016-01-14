@@ -16,5 +16,8 @@
     CGFloat commentWidth;
     UITextView *commentTextView;
 }
-@property(nonatomic,strong) NSString * videoID;
+@property(nonatomic,strong) NSString *videoID;
+@property(nonatomic,strong) NSString *matchId;
+@property(nonatomic,strong) NSString *matchUserId;
+@property(nonatomic,strong) NSString *matchTeamId;
 @end

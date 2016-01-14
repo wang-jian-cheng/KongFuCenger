@@ -10,6 +10,7 @@
 #import "UserHeadView.h"
 #import "ChatContentViewController.h"
 #import "MyNewsViewController.h"
-@interface ChatSetViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+#import "JvbaoView.h"
+@interface ChatSetViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,JvbaoDelegate>
 @property(strong,nonatomic) NSString *userID;
 @end

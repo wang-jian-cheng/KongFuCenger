@@ -34,5 +34,7 @@
     
     UIApplication *application;
     
+    NSString *ServerTime;
+    NSString *overTime;
 }
 @end
