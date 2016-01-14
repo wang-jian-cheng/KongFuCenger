@@ -52,6 +52,13 @@
 @property (nonatomic,strong) UILabel *userNameLbl;
 
 /**
+ *  删除动态图标
+ */
+@property (nonatomic,strong) UIButton *delIcon;
+
+
+
+/**
  *  用户简介label
  */
 @property (nonatomic,strong) UILabel *userIntroLbl;
