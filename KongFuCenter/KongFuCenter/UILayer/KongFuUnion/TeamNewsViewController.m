@@ -19,6 +19,7 @@
 #import "Member-ViewController.h"
 #import "IntroduceViewController.h"
 #import "AnnouncementViewController.h"
+#import "TeamManagerViewController.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -182,7 +183,7 @@
     userDefault = [NSUserDefaults standardUserDefaults];
     [self setBarTitle:@"战队动态"];
     [self addLeftButton:@"left"];
-//    [self addRightButton:@"moreNoword"];
+    [self addRightButton:@"moreNoword"];
     pageSize = 10;
     wyArray = [NSMutableArray array];
     commentArr = [NSMutableArray array];
@@ -283,6 +284,9 @@
 //    {
 //        [self positionDismissView:moreSettingBackView];
 //    }
+    TeamManagerViewController * teamManagerVC=[[TeamManagerViewController alloc] initWithNibName:@"TeamManagerViewController" bundle:[NSBundle mainBundle]];
+    
+    [self.navigationController pushViewController:teamManagerVC animated:YES];
 }
 
 #pragma mark - self data source
