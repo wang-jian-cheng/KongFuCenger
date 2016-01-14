@@ -997,7 +997,7 @@
 }
 
 -(void)SelectMatchDetail:(NSString *)matchId anduserId:(NSString *)userId{
-    if (matchId) {
+    if (matchId&&userId) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchDetailWithIsJoin",Url];
         NSDictionary *prm = @{@"matchId":matchId,@"userId":userId};
         [self PostRequest:url andpram:prm];
@@ -1005,6 +1005,20 @@
         [SVProgressHUD dismiss];
     }
 }
+
+-(void)getTeamDetailForMatch:(NSString *)matchId andTeamId:(NSString *)teamid
+{
+    if (matchId&&teamid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchTeamDetail",Url];
+        NSDictionary *prm = @{@"matchId":matchId,
+                              @"teamid":teamid};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 
 -(void)JoinMatch:(NSString *)matchId anduserid:(NSString *)userid andmatchVideo:(NSString *)matchVideo andmatchImage:(NSString *)matchImage andmatchDescription:(NSString *)matchDescription andtitle:(NSString *)title andvideoDuration:(NSString *)videoDuration{
     if (matchId && userid) {
@@ -1039,7 +1053,9 @@
 -(void)SelectMatchMemberDetail:(NSString *)matchId anduserid:(NSString *)userid{
     if (matchId && userid) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchMemberDetail",Url];
-        NSDictionary *prm = @{@"matchId":matchId,@"userid":userid};
+        NSDictionary *prm = @{@"matchId":matchId,
+                              @"userid":userid};
+        DLog(@"%@",prm);
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];
@@ -1052,6 +1068,78 @@
         NSDictionary *prm = @{@"matchId":matchId,@"userid":userid};
         [self PostRequest:url andpram:prm];
     }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+#pragma mark - 战队赛事评论
+
+-(void)getMatchComment:(NSString *)memberId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows
+{
+    if(memberId && startRowIndex && maximumRows)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetMatchComment",Url];
+        NSDictionary *prm = @{@"memberId":memberId,
+                              @"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)commentMatch:(NSString *)memberId andUserID:(NSString *)userId andComment:(NSString *)comment
+{
+    if(memberId && userId && comment)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/CommentMatch",Url];
+        NSDictionary *prm = @{@"memberId":memberId,
+                              @"userId":userId,
+                              @"comment":comment};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
+}
+
+
+-(void)voteTeam:(NSString *)matchId andTeamId:(NSString *)teamid andUserId:(NSString *)voterId
+{
+//Helianmeng.asmx/VoteTeam
+    if(matchId && teamid && voterId)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/VoteTeam",Url];
+        NSDictionary *prm = @{@"matchId":matchId,
+                              @"teamid":teamid,
+                              @"voterId":voterId};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)votePerson:(NSString *)matchId andUserid:(NSString *)userid andUserId:(NSString *)voterId
+{
+    if(matchId && userid && voterId)
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/VotePerso",Url];
+        NSDictionary *prm = @{@"matchId":matchId,
+                              @"userid":userid,
+                              @"voterId":voterId};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else
+    {
         [SVProgressHUD dismiss];
     }
 }

@@ -129,6 +129,7 @@
 }
 
 -(void)delFriendEvent{
+    [SVProgressHUD showInfoWithStatus:@"取消中。。。"];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"delFriendCallBack:"];
     [dataProvider DeleteFriend:[userDefault valueForKey:@"id"] andfriendid:self.userID];
