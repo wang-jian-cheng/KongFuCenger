@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    pageSize = 10;
+    pageSize = 12;
     // Do any additional setup after loading the view.
     announceArr = [NSMutableArray array];
     [self p_navigation];
@@ -55,6 +55,11 @@
             pageNo ++;
             [announceArr addObjectsFromArray:dict[@"data"]];
             [self.tableView reloadData];
+            
+            if(announceArr.count >= [dict[@"recordcount"] intValue])
+            {
+                [self.tableView.mj_footer setState:MJRefreshStateNoMoreData];
+            }
         }
         @catch (NSException *exception) {
             
@@ -100,7 +105,10 @@
     self.tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         pageNo=0;
         [announceArr removeAllObjects];
-        
+        if(self.tableView.mj_footer != nil)
+        {
+            [self.tableView.mj_footer setState:MJRefreshStateIdle];
+        }
         [weakSelf getTeamAnnounce];
         // 结束刷新
         [self.tableView.mj_header endRefreshing];

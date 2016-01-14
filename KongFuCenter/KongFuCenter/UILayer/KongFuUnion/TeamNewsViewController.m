@@ -120,7 +120,7 @@
             NSMutableArray *picPath = [NSMutableArray array];
 
             for (int j = 0; j<picList.count; j++) {
-                [picPath addObject:[NSString stringWithFormat:@"%@%@",Kimg_path,picList[i][@"ImagePath"]]];
+                [picPath addObject:[NSString stringWithFormat:@"%@%@",Kimg_path,picList[j][@"ImagePath"]]];
             }
             
             messBody1.posterPostImage = picPath;
@@ -214,7 +214,7 @@
             [_tableDataSource removeAllObjects];
         [weakSelf getTeamNews];
         // 结束刷新
-        [mainTable.mj_header endRefreshing];
+        
     }];
     [mainTable.mj_header beginRefreshing];
     
@@ -293,7 +293,7 @@
 
 -(void)getTeamNews
 {
-    [SVProgressHUD showWithStatus:@"刷新" maskType:SVProgressHUDMaskTypeBlack];
+   // [SVProgressHUD showWithStatus:@"刷新" maskType:SVProgressHUDMaskTypeBlack];
 
     if(self.teamId == nil)
     {
@@ -344,6 +344,7 @@
             
         }
         @finally {
+            [mainTable.mj_header endRefreshing];
             [mainTable reloadData];
         }
     }
@@ -624,7 +625,7 @@
 -(void)joinTeamBtnClick:(UIButton *)sender
 {
     
-    if(!get_sp(@"TeamId") || ![get_sp(@"TeamId") isEqual:@"0"]){
+    if(get_sp(@"TeamId")!=nil && [get_sp(@"TeamId") isEqualToString:@"0"]!=YES){
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您已经有战队,请先退出~" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alertView show];
         return;
@@ -866,6 +867,16 @@
 }
 -(void)chatBtkClick:(UIButton *)sender
 {
+    if(self.teamId!=nil)
+    {
+        if(![self.teamId isEqualToString:get_sp(@"TeamId")])
+        {
+            UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"提示" message:@"您不是该战队成员" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alertView show];
+            return;
+        }
+    }
+    
     //新建一个聊天会话View Controller对象
     ChatContentViewController *chat = [[ChatContentViewController alloc]init];
     //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等

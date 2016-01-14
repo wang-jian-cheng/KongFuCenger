@@ -399,6 +399,7 @@
         [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"HomeAreaprovinceName"] ]forKey:@"HomeAreaprovinceName"];
         [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"HomeAreaCityName"]] forKey:@"HomeAreaCityName"];
         [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"HomeAreaCountyName"]] forKey:@"HomeAreaCountyName"];
+        [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict[@"data"] valueForKey:@"IsShieldComment"]] forKey:@"IsShieldComment"];
         
         [self setNotificate];
     }

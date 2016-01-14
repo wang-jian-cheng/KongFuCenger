@@ -107,9 +107,100 @@
     // 默认先隐藏footer
     mainCollectionView.mj_footer.hidden = YES;
     
+    
+    if([get_sp(@"IsPay") isEqualToString:@"1"])
+    {
+        [self getVipTime];
+    }
 //    mainCollectionView.mj_footer.automaticallyRefresh=NO;
     
 }
+
+#pragma mark - self data source
+
+
+-(void)getVipTime
+{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getVipTimeCallBack:"];
+    [dataProvider getVipTime:[Toolkit getUserID]];
+}
+-(void)getVipTimeCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            if([dict[@"data"][@"IsPay"] intValue] == 0)
+            {
+                set_sp(@"IsPay", @"0");
+            }
+            else
+            {
+                set_sp(@"IsPay", @"1");
+                overTime = dict[@"data"][@"OverTime"];
+                ServerTime= dict[@"data"][@"ServerTime"];
+                
+                
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                NSDate *overdate = [formatter dateFromString:overTime];
+                NSDate *ServerTimeDate = [formatter dateFromString:ServerTime];
+                
+                NSTimeInterval over = [overdate timeIntervalSince1970];
+                NSTimeInterval server = [ServerTimeDate timeIntervalSince1970];
+                
+                if(server > over)
+                {
+                    set_sp(@"IsPay", @"0");
+//                    isPayLab.text= @"成为会员";
+                    DataProvider *dataProvider = [[DataProvider alloc] init];
+                    [dataProvider setDelegateObject:self setBackFunctionName:@"closeVipCallBack:"];
+                    [dataProvider closeVip:[Toolkit getUserID]];
+                    return;
+                }
+                
+            }
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+    
+}
+
+-(void)closeVipCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
 
 -(void)TopRefreshCallBack:(id)dict
 {
@@ -177,6 +268,9 @@
         
     }
 }
+
+
+
 
 
 #pragma mark - UICollectionViewDataSource

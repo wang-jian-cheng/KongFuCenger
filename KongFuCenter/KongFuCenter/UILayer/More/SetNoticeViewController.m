@@ -68,19 +68,15 @@
             if(sender.isOn == 0)
             {
                 NSLog(@"关闭朋友圈的评论提示");
-                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-                [userDefaults setObject:@"0" forKey:@"comment"];
                 DataProvider *dataProvider = [[DataProvider alloc] init];
-                [dataProvider setDelegateObject:self setBackFunctionName:@"commentNoticeCallBack:"];
+                [dataProvider setDelegateObject:self setBackFunctionName:@"commentNoticeOffCallBack:"];
                 [dataProvider ChangeTuiSong:get_sp(@"id") andistuisong:@"FALSE"];
             }
             else
             {
                 NSLog(@"打开朋友圈的评论提示");
-                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-                [userDefaults setObject:@"1" forKey:@"comment"];
                 DataProvider *dataProvider = [[DataProvider alloc] init];
-                [dataProvider setDelegateObject:self setBackFunctionName:@"commentNoticeCallBack:"];
+                [dataProvider setDelegateObject:self setBackFunctionName:@"commentNoticeOnCallBack:"];
                 [dataProvider ChangeTuiSong:get_sp(@"id") andistuisong:@"TRUE"];
             }
         }
@@ -149,9 +145,22 @@
     }
 }
 
--(void)commentNoticeCallBack:(id)dict{
+-(void)commentNoticeOffCallBack:(id)dict{
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
+        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"0" forKey:@"IsShieldComment"];
+        [SVProgressHUD showSuccessWithStatus:@"操作成功~"];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:@"操作失败~"];
+    }
+}
+
+-(void)commentNoticeOnCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"1" forKey:@"IsShieldComment"];
         [SVProgressHUD showSuccessWithStatus:@"操作成功~"];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"操作失败~"];
@@ -199,7 +208,7 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-                if([[userDefaults objectForKey:@"comment"] isEqualToString:@"0"])
+                if([[userDefaults objectForKey:@"IsShieldComment"] isEqualToString:@"0"])
                 {
                     [switchBtn setOn:NO];
                 }
@@ -321,7 +330,7 @@
     if(indexPath.section == 0 && indexPath.row == 4)
     {
         ShieldViewController * shieldViewController = [[ShieldViewController alloc] init];
-        [self showViewController:shieldViewController sender:nil];
+        [self.navigationController pushViewController:shieldViewController animated:YES];
     }
 }
 

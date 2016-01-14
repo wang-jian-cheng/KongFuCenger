@@ -9,6 +9,10 @@
 #import "BaseNavigationController.h"
 #import "PayForVipViewController.h"
 @interface VipViewController : BaseNavigationController
+{
+    NSString *ServerTime;
+    NSString *overTime;
+}
 @property (weak, nonatomic) IBOutlet UIButton *payBtn;
 @property (weak, nonatomic) IBOutlet UILabel *vipExplainLab;
 @property (weak, nonatomic) IBOutlet UIView *backView;

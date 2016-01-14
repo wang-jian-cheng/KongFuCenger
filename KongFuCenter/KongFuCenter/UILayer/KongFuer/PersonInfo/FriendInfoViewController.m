@@ -27,7 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    [self addRightbuttontitle:@"聊天设置"];
+   // [self addRightbuttontitle:@"聊天设置"];
+    [self addRightButton:@"moreNoword"];
     self.view.backgroundColor = BACKGROUND_COLOR;
     userDefault = [NSUserDefaults standardUserDefaults];
     userInfoArray = [[NSDictionary alloc] init];
@@ -44,6 +45,7 @@
 
 -(void)getUserInfoById:(id)dict{
     [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
         userInfoArray = dict[@"data"];
         NSLog(@"%@",userInfoArray);
@@ -162,8 +164,11 @@
             
             
             
-            UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x+headView.frame.size.width), 4*_cellHeight+5, 200, _cellHeight/2)];
-            nameLab.text = [userInfoArray valueForKey:@"NicName"];
+            UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x+headView.frame.size.width),
+                                                                         4*_cellHeight+5,
+                                                                         SCREEN_WIDTH - (headView.frame.origin.x+headView.frame.size.width),
+                                                                         _cellHeight/2)];
+            nameLab.text =[NSString stringWithFormat:@"%@   %@",[userInfoArray valueForKey:@"NicName"],[userInfoArray valueForKey:@"Phone"]];
             nameLab.textColor = YellowBlock;
             nameLab.font = [UIFont boldSystemFontOfSize:16];
             [cell addSubview:nameLab];
@@ -195,48 +200,59 @@
         {
 
             UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 100, _cellHeight)];
-            titleLab.text = @"账号信息：";
+            titleLab.text = @"好友动态";
             titleLab.textColor = [UIColor whiteColor];
             titleLab.font = [UIFont systemFontOfSize:16];
             [cell addSubview:titleLab];
 
-            UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -200), 0, 200, _cellHeight)];
-            numLab.text = [userInfoArray valueForKey:@"Phone"];
-            numLab.textColor = [UIColor grayColor];
-            numLab.textAlignment = NSTextAlignmentRight;
-            [cell addSubview:numLab];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
             break;
         case 2:
         {
 
             UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 100, _cellHeight)];
-            titleLab.text = @"身高：";
+            titleLab.text = @"好友战队";
             titleLab.textColor = [UIColor whiteColor];
             titleLab.font = [UIFont systemFontOfSize:16];
             [cell addSubview:titleLab];
-
-            UILabel *heightLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -200), 0, 200, _cellHeight)];
-            heightLab.text = [NSString stringWithFormat:@"%@cm",[userInfoArray valueForKey:@"Height"]];//@"180Cm";
-            heightLab.textColor = [UIColor grayColor];
-            heightLab.textAlignment = NSTextAlignmentRight;
-            [cell addSubview:heightLab];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
         }
             break;
         case 3:
         {
 
-            UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 100, _cellHeight)];
-            titleLab.text = @"体重：";
-            titleLab.textColor = [UIColor whiteColor];
-            titleLab.font = [UIFont systemFontOfSize:16];
-            [cell addSubview:titleLab];
-
-            UILabel *weightLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -200), 0, 200, _cellHeight)];
-            weightLab.text = [NSString stringWithFormat:@"%@kg",[userInfoArray valueForKey:@"Weight"]];//@"8kg";
+            UILabel *weightLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, (SCREEN_WIDTH-GapToLeft)/2, _cellHeight)];
             weightLab.textColor = [UIColor grayColor];
-            weightLab.textAlignment = NSTextAlignmentRight;
+            NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"体重： %@kg",[userInfoArray valueForKey:@"Weight"]]];
+            [str addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0,3)];
+            
+            weightLab.attributedText =str;
+            
+            weightLab.font = [UIFont systemFontOfSize:16];
             [cell addSubview:weightLab];
+//
+//            UILabel *weightLab = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 200, _cellHeight)];
+//            weightLab.text = [NSString stringWithFormat:@"%@kg",[userInfoArray valueForKey:@"Weight"]];//@"8kg";
+//            weightLab.textColor = [UIColor grayColor];
+//            weightLab.textAlignment = NSTextAlignmentRight;
+//            [cell addSubview:weightLab];
+            
+            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(weightLab.frame.origin.x+weightLab.frame.size.width,
+                                                                        2, 1, _cellHeight-2*2)];
+            lineView.backgroundColor = Separator_Color;
+            [cell addSubview:lineView];
+            
+            UILabel *heightLab = [[UILabel alloc] initWithFrame:CGRectMake(((SCREEN_WIDTH-GapToLeft)/2+GapToLeft), 0, (SCREEN_WIDTH-GapToLeft)/2, _cellHeight)];
+            NSMutableAttributedString *str2 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"身高： %@Cm",[userInfoArray valueForKey:@"Height"]]];
+            [str2 addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0,3)];
+            heightLab.textColor = [UIColor grayColor];
+            heightLab.attributedText = str2;//@"180Cm";
+            
+            heightLab.textAlignment = NSTextAlignmentLeft;
+            [cell addSubview:heightLab];
+
         }
             break;
         case 4:
@@ -314,6 +330,36 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
 
+    
+    switch (indexPath.row) {
+        case 1:
+        {
+            MyNewsViewController *friendNews = [[MyNewsViewController alloc] init];
+            friendNews.UserID = userInfoArray[@"Id"];
+            friendNews.navtitle = userInfoArray[@"NicName"];
+            [self.navigationController pushViewController:friendNews animated:YES];
+        }
+        break;
+        case 2:
+        {
+            if(!([[NSString stringWithFormat:@"%@",userInfoArray[@"TeamId"]] isEqualToString:@""] || userInfoArray[@"TeamId"] ==nil||[[NSString stringWithFormat:@"%@",userInfoArray[@"TeamId"]] isEqualToString:@"0"]))
+            {
+                TeamNewsViewController *teamNewsViewCtl = [[TeamNewsViewController alloc] init];
+                teamNewsViewCtl.teamId =[NSString stringWithFormat:@"%@",userInfoArray[@"TeamId"]];
+                //    unionNewsViewCtl.navtitle
+                [self.navigationController pushViewController:teamNewsViewCtl animated:YES];
+            }
+            else
+            {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"他还未加入战队" delegate:self cancelButtonTitle:@"确认" otherButtonTitles: nil];
+                [alertView show];
+            }
+        }
+        break;
+            
+        default:
+            break;
+    }
 }
 
 

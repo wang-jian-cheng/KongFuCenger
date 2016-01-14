@@ -290,6 +290,7 @@
     }else{
         arreaCode = countryCode;
     }
+    [SVProgressHUD showWithStatus:@"加载中..."];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"GetTeamListBackCall:"];
     [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:searchTxt.text andCitycode:arreaCode];
@@ -308,6 +309,7 @@
     }else{
         arreaCode = countryCode;
     }
+    [SVProgressHUD showWithStatus:@"加载中..."];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
     [dataProvider SelectTeamPage:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andName:searchTxt.text andCitycode:arreaCode];
@@ -325,7 +327,7 @@
 
 -(void)FootRefireshBackCall:(id)dict
 {
-    
+    [SVProgressHUD dismiss];
     NSLog(@"上拉刷新");
     // 结束刷新
     [mTableView.mj_footer endRefreshing];
@@ -345,7 +347,9 @@
     NSLog(@"%@",get_sp(@"TeamId"));
     if([btn.titleLabel.text  isEqualToString:@"加入"])
     {
-        if(!get_sp(@"TeamId") || ![get_sp(@"TeamId") isEqual:@"0"]){
+//        NSString *teamID = get_sp(@"TeamId");
+    
+        if(get_sp(@"TeamId")!=nil && [get_sp(@"TeamId") isEqualToString:@"0"]!=YES){
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您已经有战队,请先退出~" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
             [alertView show];
             return;

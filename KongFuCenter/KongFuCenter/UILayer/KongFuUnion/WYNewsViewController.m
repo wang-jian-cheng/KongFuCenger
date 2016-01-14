@@ -594,6 +594,7 @@
 
 -(void)tapPhotoImg{
     MyNewsViewController *myNewsVC = [[MyNewsViewController alloc] init];
+    myNewsVC.UserID = get_sp(@"id");
     [self.navigationController pushViewController:myNewsVC animated:YES];
 }
 

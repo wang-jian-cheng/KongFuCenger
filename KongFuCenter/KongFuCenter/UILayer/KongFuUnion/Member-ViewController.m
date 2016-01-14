@@ -53,6 +53,17 @@
 }
 
 
+#pragma mark UITextFieldDelegate
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+//    [self TeamTopRefresh];
+    
+    [self startSearchBtnClick:nil];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self.textField resignFirstResponder];
+    return YES;
+}
+
 
 //设置点在某个view时部触发事件
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -217,6 +228,7 @@
     [self setBarTitle:@"战队成员"];
     [self addLeftButton:@"left"];
 }
+
 #pragma mark - search框
 - (void)p_searchView
 {
@@ -240,7 +252,9 @@
     self.textField.textColor = [UIColor whiteColor];
 //    self.textField.backgroundColor = [UIColor orangeColor];
     [self.searchView addSubview:self.textField];
-    
+    self.textField.returnKeyType = UIReturnKeySearch;
+    self.textField.delegate = self;
+//    self.textField.keyboardAppearance = UIReturnKeySearch;
     self.textField.delegate = self;
     
     

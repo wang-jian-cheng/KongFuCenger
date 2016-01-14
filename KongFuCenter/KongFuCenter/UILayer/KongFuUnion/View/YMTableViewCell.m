@@ -46,6 +46,9 @@
         _userNameLbl.textColor = [UIColor whiteColor];//[UIColor colorWithRed:104/255.0 green:109/255.0 blue:248/255.0 alpha:1.0];
         [self.contentView addSubview:_userNameLbl];
         
+        _delIcon = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_HEIGHT - 50, 5, 20, 20)];
+        [self.contentView addSubview:_delIcon];
+        
         
         
         _userIntroLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, 5 + TableHeader/2 , screenWidth - 120, TableHeader/2)];
@@ -150,6 +153,13 @@
     //_userHeaderImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tempDate.messageBody.posterImgstr]]];//[UIImage imageNamed:tempDate.messageBody.posterImgstr];
     [_userHeaderImage sd_setImageWithURL:[NSURL URLWithString:tempDate.messageBody.posterImgstr] placeholderImage:[UIImage imageNamed:@"me"]];
     _userNameLbl.text = tempDate.messageBody.posterName;
+    NSLog(@"%@",ymData);
+    WFMessageBody *m = ymData.messageBody;
+    if ([m.mID isEqual:get_sp(@"id")]) {
+        [_delIcon setImage:[UIImage imageNamed:@"del"] forState:UIControlStateNormal];
+    }else{
+        [_delIcon setImage:nil forState:UIControlStateNormal];
+    }
     _userIntroLbl.text = tempDate.messageBody.posterIntro;
     
     //移除说说view 避免滚动时内容重叠

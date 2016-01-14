@@ -148,10 +148,13 @@
  */
 -(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid andUserId:(NSString *)userid;
 #pragma mark - 支付
--(void)getPingppCharge:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description;
+-(void)getPingppCharge:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description andFlg:(NSString *)flg;
 //成为会员
 -(void)becomeVip:(NSString *)userid andMonth:(NSString *)month;
 -(void)getVipTime:(NSString *)userid;
+-(void)closeVip:(NSString *)userid;
+//举报会员
+-(void)ReportUser:(NSString *)userId andTargetId:(NSString *)targetId andContent:(NSString *)content;
 #pragma mark - 武馆
 //根据城市名和经纬度获取武馆
 -(void)getWuguanList:(NSString*)areaname andLat:(NSString *)lat andLng:(NSString *)lng andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;

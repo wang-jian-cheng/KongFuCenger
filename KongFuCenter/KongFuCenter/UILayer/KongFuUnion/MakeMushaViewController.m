@@ -323,6 +323,7 @@
     }else{
         arreaCode = countryCode;
     }
+    [SVProgressHUD showWithStatus:@"加载中..."];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"GetTeamListBackCall:"];
     [dataProvider GetFriendBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andMaximumRows:@"10" andNicName:searchTxt.text andAreaCode:arreaCode andAge:[NSString stringWithFormat:@"%d",selectAge] andSexuality:[NSString stringWithFormat:@"%d",selectSex] andUserid:[userDefault valueForKey:@"id"]];

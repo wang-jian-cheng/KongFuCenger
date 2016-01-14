@@ -65,6 +65,7 @@
 
 -(void)getMatchPersonInfoCallBack:(id)dict{
     [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict);
         PlayerArray = [[NSArray alloc] initWithArray:dict[@"data"]];
@@ -338,10 +339,22 @@
 
 -( void )collectionView:( UICollectionView *)collectionView didSelectItemAtIndexPath:( NSIndexPath *)indexPath
 {
-    VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
-    videoViewCtl.videoID = _matchId;
-    videoViewCtl.navtitle = @"大赛个人详情";
-    [self.navigationController pushViewController:videoViewCtl animated:YES];
+    if(_mushaMatchOngoingMode == Mode_TeamOnGoing||_mushaMatchOngoingMode == Mode_TeamEnd)
+    {
+        VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
+        videoViewCtl.matchTeamId = _matchId;
+        videoViewCtl.matchId  = _matchId;
+        videoViewCtl.navtitle = @"大赛战队详情";
+        [self.navigationController pushViewController:videoViewCtl animated:YES];
+    }
+    else
+    {
+        VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
+        videoViewCtl.matchId = _matchId;
+        videoViewCtl.matchUserId  = _matchId;
+        videoViewCtl.navtitle = @"大赛个人详情";
+        [self.navigationController pushViewController:videoViewCtl animated:YES];
+    }
 }
 
 //返回这个UICollectionViewCell是否可以被选择

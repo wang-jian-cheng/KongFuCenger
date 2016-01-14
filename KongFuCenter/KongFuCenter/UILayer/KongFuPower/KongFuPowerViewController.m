@@ -284,7 +284,7 @@
 
 -(void)TopRefreshCallBack:(id)dict
 {
-    NSLog(@"%@",dict);
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         dataArr=dict[@"data"];
         if (!_mainTableView) {
@@ -470,6 +470,7 @@
         
         //under line
         UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft-20, lineView.frame.origin.y+(50 - 35)/2, 35, 35) andImgName:@"me" andNav:(self.navigationController)];
+        headView.userId = dataArr[indexPath.section][@"UserId"];
         [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,dataArr[indexPath.section][@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@""]];
         [headView makeSelfRound];
         [cell addSubview:headView];

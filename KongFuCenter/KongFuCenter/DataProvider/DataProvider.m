@@ -154,7 +154,7 @@
 
 }
 #pragma mark - 支付
--(void)getPingppCharge:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description
+-(void)getPingppCharge:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description andFlg:(NSString *)flg
 {
     if(userid != nil  && channel !=nil && amount != nil & description != nil)
     {
@@ -163,7 +163,8 @@
         NSDictionary * prm=@{@"userid":userid,
                              @"channel":channel,
                              @"amount":amount,
-                             @"description":description};
+                             @"description":description,
+                             @"flg":flg};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         
@@ -206,6 +207,24 @@
         [SVProgressHUD dismiss];
     }
     
+}
+
+
+-(void)closeVip:(NSString *)userid
+{
+    if(userid)
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/CloseHuiyuan",Url];
+        NSDictionary * prm=@{@"userid":userid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
 }
 #pragma mark - 我的收藏
 - (NSInteger )collectData:(NSString *)userId andIsVideo:(NSString *)isVideo  andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
@@ -274,6 +293,26 @@
     {
         DLog(@"Err:%d",Param_err);
         return Param_err;
+    }
+}
+
+
+
+-(void)ReportUser:(NSString *)userId andTargetId:(NSString *)targetId andContent:(NSString *)content
+{
+    if(userId != nil && targetId != nil && content != nil )
+    {
+        
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/MessageRepeatAndFavorite",Url];
+        NSDictionary * prm=@{@"userId":userId,
+                             @"targetId":targetId,
+                             @"content":content};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
     }
 }
 //视频的取消
@@ -795,6 +834,8 @@
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamPage",Url];
         NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"name":name,@"citycode":citycode};
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -890,6 +931,8 @@
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectDongtaiByFriendId",Url];
         NSDictionary *prm = @{@"friendid":friendid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -1269,7 +1312,7 @@
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong{
     if (userid && istuisong) {
-        NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/SelectVideoByCategory",Url];
+        NSString *url = [NSString stringWithFormat:@"%@LoginAndRegister.asmx/ChangeTuiSong",Url];
         NSDictionary *prm = @{@"userid":userid,@"istuisong":istuisong};
         [self PostRequest:url andpram:prm];
     }else{
