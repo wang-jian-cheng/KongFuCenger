@@ -350,7 +350,7 @@
     if(_mushaMatchOngoingMode == Mode_TeamOnGoing||_mushaMatchOngoingMode == Mode_TeamEnd)
     {
         VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
-        videoViewCtl.matchTeamId = _matchId;
+        videoViewCtl.matchTeamId = [NSString stringWithFormat:@"%@",PlayerArray[indexPath.row][@"TeamId"]];
         videoViewCtl.matchId  = _matchId;
         videoViewCtl.navtitle = @"大赛战队详情";
         [self.navigationController pushViewController:videoViewCtl animated:YES];
@@ -359,7 +359,7 @@
     {
         VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
         videoViewCtl.matchId = _matchId;
-        videoViewCtl.matchUserId  = _matchId;
+        videoViewCtl.matchUserId  =[NSString stringWithFormat:@"%@" ,PlayerArray[indexPath.row][@"UserId"]];
         videoViewCtl.navtitle = @"大赛个人详情";
         [self.navigationController pushViewController:videoViewCtl animated:YES];
     }

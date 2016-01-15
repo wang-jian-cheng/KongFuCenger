@@ -271,7 +271,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "373"
             endingLineNumber = "373"
-            landmarkName = "-getUserid:andNum:andmessageID:"
+            landmarkName = "-growUserId:andStartRowIndex:andMaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -303,7 +303,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "371"
             endingLineNumber = "371"
-            landmarkName = "-getUserid:andNum:andmessageID:"
+            landmarkName = "-growUserId:andStartRowIndex:andMaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1053,7 +1053,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "233"
             endingLineNumber = "233"
-            landmarkName = "-collectData:andIsVideo:andStartRowIndex:andMaximumRows:"
+            landmarkName = "-closeVip:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1085,7 +1085,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "231"
             endingLineNumber = "231"
-            landmarkName = "-collectData:andIsVideo:andStartRowIndex:andMaximumRows:"
+            landmarkName = "-closeVip:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1101,7 +1101,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "790"
             endingLineNumber = "790"
-            landmarkName = "-delePlan:"
+            landmarkName = "-getPlanInfo:andCateId:andStartRow:andMaxNumRows:"
             landmarkType = "5">
             <Locations>
                <Location
@@ -1149,8 +1149,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "791"
             endingLineNumber = "791"
-            landmarkName = "@implementation DataProvider"
-            landmarkType = "3">
+            landmarkName = "-getPlanInfo:andCateId:andStartRow:andMaxNumRows:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
