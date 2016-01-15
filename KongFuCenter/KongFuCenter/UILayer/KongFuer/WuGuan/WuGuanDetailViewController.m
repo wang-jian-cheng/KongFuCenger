@@ -27,6 +27,9 @@
     
     NSString *telStr;
     UIImageView *mainImg;
+    
+    
+    
 }
 
 @end
@@ -91,6 +94,11 @@
 {
     MapViewController *addressViewCtl = [[MapViewController alloc]init];
     addressViewCtl.navtitle = @"武馆位置";
+    addressViewCtl.lat = lat;
+    addressViewCtl.lng = lng;
+    addressViewCtl.addr = wuGuanDetailDict[@"Address"];
+    addressViewCtl.Title = wuGuanDetailDict[@"Title"];
+//    addressViewCtl.lat
     [self.navigationController pushViewController:addressViewCtl animated:YES];
 }
 
@@ -308,6 +316,10 @@
             [_mainTableView reloadData];
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,wuGuanDetailDict[@"ImagePath"]];
             [mainImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
+            
+            
+            lat = [dict[@"data"][@"Lat"] doubleValue];
+            lng = [dict[@"data"][@"Lng"] doubleValue];
         }
         @catch (NSException *exception) {
             

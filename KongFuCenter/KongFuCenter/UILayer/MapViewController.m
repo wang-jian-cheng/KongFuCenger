@@ -55,13 +55,12 @@
 //    self.mapView.addAnnotation(annotation1)
     //MAPointAnnotation
     MKPointAnnotation *pointAnnotation = [[MKPointAnnotation alloc] init];
-    pointAnnotation.coordinate = CLLocationCoordinate2DMake(39.989631, 116.481018);
-    pointAnnotation.title = @"方恒国际";
-    pointAnnotation.subtitle = @"阜通东大街6号";
-    
+    pointAnnotation.coordinate = CLLocationCoordinate2DMake(self.lat, self.lng);
+    pointAnnotation.title = self.Title;
+    pointAnnotation.subtitle = self.addr;
     [mapView addAnnotation:pointAnnotation];
     
-    CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(39.989631, 116.481018);
+    CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(self.lat, self.lng);
     //放大地图到自身的经纬度位置。
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
     [mapView setRegion:region animated:YES];
