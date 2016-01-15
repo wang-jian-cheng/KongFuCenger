@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "471746480.681654"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "-uploadHeadImg:andImgData:andImgName:"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472975430.513721"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
-            landmarkName = "-growCateid:andUserId:andStartRowIndex:andMaximumRows:"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
+            landmarkName = "-growUserId:andStartRowIndex:andMaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472117596.950728"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "-setCollect:andIsVideo:andStartRowIndex:andMaximumRowst:"
             landmarkType = "5">
          </BreakpointContent>
@@ -250,12 +250,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472179389.665758"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "-setCollect:andIsVideo:andStartRowIndex:andMaximumRowst:"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
+            landmarkName = "-collectData:andIsVideo:andStartRowIndex:andMaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -330,12 +330,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472975430.513721"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "581"
-            endingLineNumber = "581"
-            landmarkName = "-getStudyOnlineSecundCategory:"
+            startingLineNumber = "599"
+            endingLineNumber = "599"
+            landmarkName = "-setMyDream:andMyDream:andHow:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -346,12 +346,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472975430.513721"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
-            landmarkName = "-growUserId:andStartRowIndex:andMaximumRows:"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
+            landmarkName = "-ReportUser:andTargetId:andContent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -362,12 +362,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472975430.513721"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "589"
-            endingLineNumber = "589"
-            landmarkName = "-getStudyOnlineVideoList:andstartRowIndex:andmaximumRows:"
+            startingLineNumber = "607"
+            endingLineNumber = "607"
+            landmarkName = "-setMyDream:andMyDream:andHow:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -378,13 +378,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472975430.513721"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "598"
-            endingLineNumber = "598"
-            landmarkName = "-getStudyOnlineVideoList:andstartRowIndex:andmaximumRows:"
-            landmarkType = "5">
+            startingLineNumber = "616"
+            endingLineNumber = "616"
+            landmarkName = "@implementation DataProvider"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -442,12 +442,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472975430.513721"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "501"
-            endingLineNumber = "501"
-            landmarkName = "-getGrowHistory:andstartRowIndex:andmaximumRows:"
+            startingLineNumber = "519"
+            endingLineNumber = "519"
+            landmarkName = "-commentVideo:andUserId:andComment:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -554,12 +554,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472975430.513721"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "552"
-            endingLineNumber = "552"
-            landmarkName = "-setMyDream:andMyDream:andHow:"
+            startingLineNumber = "570"
+            endingLineNumber = "570"
+            landmarkName = "-getTheirDream"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -570,12 +570,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472975430.513721"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "551"
-            endingLineNumber = "551"
-            landmarkName = "-setMyDream:andMyDream:andHow:"
+            startingLineNumber = "569"
+            endingLineNumber = "569"
+            landmarkName = "-getTheirDream"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -618,12 +618,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472975430.513721"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "550"
-            endingLineNumber = "550"
-            landmarkName = "-setMyDream:andMyDream:andHow:"
+            startingLineNumber = "568"
+            endingLineNumber = "568"
+            landmarkName = "-getTheirDream"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -650,12 +650,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472974045.617305"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
-            landmarkName = "-setCollect:andIsVideo:andStartRowIndex:andMaximumRowst:"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
+            landmarkName = "-collectData:andIsVideo:andStartRowIndex:andMaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -666,11 +666,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "472975449.868684"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
             landmarkName = "-voiceAction:andUserId:andFlg:andDescription:"
             landmarkType = "5">
          </BreakpointContent>
@@ -758,7 +758,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
@@ -767,14 +767,14 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "475"
             endingLineNumber = "475"
-            landmarkName = "-hiddenTabBar"
+            landmarkName = "-showTabBar"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
@@ -1098,12 +1098,108 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/PersonInfo/ChatSetViewController.m"
-            timestampString = "474469702.861209"
+            timestampString = "474512457.247995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/More/SetNoticeViewController.m"
+            timestampString = "474511852.425506"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "-commentNoticeOffCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/More/SetNoticeViewController.m"
+            timestampString = "474511872.698238"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "-commentNoticeOnCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/More/SetNoticeViewController.m"
+            timestampString = "474511874.170157"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "-commentNoticeOnCallBack:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SetNoticeViewController commentNoticeOnCallBack:]"
+                  moduleName = "KongFuCenter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Snow/Documents/KongFuCenger/KongFuCenter/KongFuCenter/UILayer/More/SetNoticeViewController.m"
+                  timestampString = "474512457.369344"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "165"
+                  endingLineNumber = "165"
+                  offsetFromSymbolStart = "300">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SetNoticeViewController commentNoticeOnCallBack:]"
+                  moduleName = "KongFuCenter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Snow/Documents/KongFuCenger/KongFuCenter/KongFuCenter/UILayer/More/SetNoticeViewController.m"
+                  timestampString = "474512457.369485"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "165"
+                  endingLineNumber = "165"
+                  offsetFromSymbolStart = "312">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/DataProvider/DataProvider.m"
+            timestampString = "474512457.247995"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "-getUserInfo:andfriendid:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

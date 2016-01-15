@@ -363,6 +363,8 @@
 -(void)GetVideoByCategory:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andcateid:(NSString *)cateid;
 //设置备注名
 -(void)SetNickName:(NSString *)userid andfriend:(NSString *)friend andrname:(NSString *)rname;
+//获取用户信息带备注名称
+-(NSInteger)getUserInfo:(NSString *)userId andfriendid:(NSString *)friendid;
 
 
 #pragma mark - 更多

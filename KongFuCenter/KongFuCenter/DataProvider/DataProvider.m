@@ -132,6 +132,24 @@
     }
 }
 
+-(NSInteger)getUserInfo:(NSString *)userId andfriendid:(NSString *)friendid
+{
+    if(userId != nil)
+    {
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/GetUserInfor",Url];
+        NSDictionary * prm=@{@"userid":userId,@"friendid":friendid};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+        
+        return OK;
+    }
+    else
+    {
+        DLog(@"Err:%d",Param_err);
+        return Param_err;
+    }
+}
+
 -(NSInteger)uploadHeadImg:(NSString *)userId andImgData:(NSString *)filestream  andImgName:(NSString *)fileName
 {
     if(userId != nil  && filestream !=nil)
