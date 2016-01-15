@@ -84,8 +84,8 @@
     
     _sectionNum = 4;
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
-    
+//    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height) style:UITableViewStyleGrouped];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -1190,16 +1190,14 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *tempView = [[UIView alloc] init];
-    
-    //    switch (section) {
-    //        case 1:
-    //
-    //            break;
-    //
-    //        default:
-    //            break;
-    //    }
-    
+    tempView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1);
+    return tempView;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *tempView = [[UIView alloc] init];
+    tempView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 10);
     return tempView;
 }
 
@@ -1207,10 +1205,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    //    if(section != 0)
-    //        return _cellHeight;
-    //    else
-    return 0;
+    return 1;
 }
 
 //设置section footer的高度

@@ -306,9 +306,10 @@
 -(void)SelectAllMatchTeamBySearch:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andmatchId:(NSString *)matchId andmembercode:(NSString *)membercode andnicname:(NSString *)nicname andflg:(NSString *)flg;
 
 //查看参赛人员明细
--(void)SelectMatchMemberDetail:(NSString *)matchId anduserid:(NSString *)userid;
+-(void)SelectMatchMemberDetail:(NSString *)matchId anduserid:(NSString *)userid andMyId:(NSString *)myId;
 //查看参赛战队
--(void)getTeamDetailForMatch:(NSString *)matchId andTeamId:(NSString *)teamid;
+
+-(void)getTeamDetailForMatch:(NSString *)matchId andTeamId:(NSString *)teamid andmyId:(NSString *)myId;
 //个人比赛取消报名
 -(void)CancleJoinMatch:(NSString *)matchId anduserid:(NSString *)userid;
 #pragma mark - 战队赛事评论

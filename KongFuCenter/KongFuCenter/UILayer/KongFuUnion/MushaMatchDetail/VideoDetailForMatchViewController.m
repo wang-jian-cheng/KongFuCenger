@@ -28,6 +28,9 @@
     
     NSDictionary * VideoDict;//视频信息
     NSString * VideoPath;
+    
+    NSDictionary *teamDict;
+    NSDictionary *matchUserDict;
 }
 @end
 
@@ -53,7 +56,9 @@
     _sectionNum = 4;
     commentWidth = SCREEN_WIDTH - _cellHeight -GapToLeft - 40;
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
+//    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
+    
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height ) style:UITableViewStyleGrouped];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -86,7 +91,7 @@
     commentTextView.textColor = [UIColor whiteColor];
     commentTextView.backgroundColor = [UIColor grayColor];
     
-    
+    supportBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, _cellHeight -10)];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
     tapGesture.delegate = self;
     [self.view addGestureRecognizer:tapGesture];
@@ -118,14 +123,14 @@
     {
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider setDelegateObject:self setBackFunctionName:@"GetTeamMatchCallBack:"];
-        [dataprovider getTeamDetailForMatch:self.matchId andTeamId:self.matchTeamId];
+        [dataprovider getTeamDetailForMatch:self.matchId andTeamId:self.matchTeamId andmyId:[Toolkit getUserID]];
         
     }
     else if(self.matchUserId !=nil &&self.matchTeamId == nil)
     {
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider setDelegateObject:self setBackFunctionName:@"GetUserMatchCallBack:"];
-        [dataprovider SelectMatchMemberDetail:self.matchId anduserid:self.matchUserId];
+        [dataprovider SelectMatchMemberDetail:self.matchId anduserid:self.matchUserId andMyId:[Toolkit getUserID]];
 
     }
     else
@@ -144,6 +149,9 @@
     if ([dict[@"code"] intValue]==200) {
         //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
         [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];
+        
+        [supportBtn setTitle:@"已投票" forState:UIControlStateNormal];
+        supportBtn.enabled = NO;
     }
     else{
         UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
@@ -156,6 +164,17 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
+        
+        VideoPath=[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"][@"MatchVideo"] isEqual:[NSNull null]]?@"":dict[@"data"][@"MatchVideo"]];
+        
+        VideoPath=[VideoPath stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
+        
+        teamDict = dict[@"data"];
+        
+        moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
+        
+        [_mainTableView reloadData];
+        [self.view addSubview:moviePlayerview];
 
     }
     else{
@@ -190,13 +209,7 @@
         
         VideoDict=dict[@"data"];
         
-       
-        if([dict[@"data"][@"IsFree"] intValue] == 0)
-        {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"会员才可观看" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-            [alertView show];
-            return;
-        }
+
         
         moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
         
@@ -231,6 +244,12 @@
 //            
             [videoCommentArray addObjectsFromArray:dict[@"data"]];
             
+            if(videoCommentArray.count >= [dict[@"recordcount"] intValue])
+            {
+            
+                [_mainTableView.mj_footer setState:MJRefreshStateNoMoreData];
+            }
+            
         }
         @catch (NSException *exception) {
             
@@ -260,6 +279,8 @@
             [SVProgressHUD showSuccessWithStatus:@"评论成功" maskType:SVProgressHUDMaskTypeBlack];
             commentTextView.text = @"";
             [self GetVideoCommentDetial];
+            [_mainTableView.mj_footer setState:MJRefreshStateIdle];
+            pageNo = 0;
             
         }
         @catch (NSException *exception) {
@@ -356,6 +377,7 @@
 -(void)keyboardDidShow:(NSNotification *)notification
 {
     
+     [_mainTableView.mj_footer endRefreshing];
     //获取键盘高度
     NSValue *keyboardObject = [[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey];
     
@@ -394,6 +416,7 @@
     
     //[_mainTableView reloadData];
     [UIView commitAnimations];
+    [_mainTableView.mj_footer setState:MJRefreshStateIdle];
     
 }
 
@@ -435,229 +458,259 @@
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
     cell.backgroundColor = ItemsBaseColor;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    NSDictionary *tempDict;
+    if(self.matchUserId == nil && self.matchTeamId != nil)
+    {
+        tempDict = teamDict;
+    }
+    else if(self.matchUserId != nil && self.matchTeamId == nil)
+    {
+        tempDict = matchUserDict;
+    }
     
+    if(tempDict == nil)
+        return cell;
     
-    switch (indexPath.section) {
-        case VideoDetailSection:
-        {
-            if(indexPath.row == 0)
+    @try {
+        switch (indexPath.section) {
+            case VideoDetailSection:
             {
-                
-                CGFloat FontSize = 12;
-                
-                /*head */
-                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
-                                                                  andImgName:@"me"
-                                                                      andNav:self.navigationController];
-                [headView makeSelfRound];
-                [cell addSubview:headView];
-                
-                /*name*/
-                UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
-                                                                             headView.frame.origin.y, 100, headView.frame.size.height/2)];
-                nameLab.text = @"成龙战队";
-                nameLab.textColor = TextColors;
-                nameLab.font = [UIFont systemFontOfSize:FontSize];
-                [cell addSubview:nameLab];
-                
-                
-                
-                UILabel *supportNum = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -140 - 10),
-                                                                                headView.frame.origin.y, 140, headView.frame.size.height/2)];
-                supportNum.text = @"已获得票数：100";
-                supportNum.textColor = [UIColor whiteColor];
-                supportNum.font = [UIFont systemFontOfSize:12];
-                supportNum.textAlignment = NSTextAlignmentRight;
-                [cell addSubview:supportNum];
-                
-               
-                UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLab.frame.origin.x,
-                                                                             (nameLab.frame.origin.y + nameLab.frame.size.height + 2),
-                                                                             100, headView.frame.size.height/2)];
-                dateLab.text = @"编号：001";
-                dateLab.textColor = TextColors;
-                dateLab.font = [UIFont systemFontOfSize:FontSize];
-                [cell addSubview:dateLab];
-                
-                UILabel *checkNum = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -140 - 10),
-                                                                                 (nameLab.frame.origin.y + nameLab.frame.size.height + 2), 140, headView.frame.size.height/2)];
-                checkNum.text = @"查看人数：100";
-                checkNum.textColor = [UIColor whiteColor];
-                checkNum.font = [UIFont systemFontOfSize:12];
-                checkNum.textAlignment = NSTextAlignmentRight;
-                [cell addSubview:checkNum];
-                
-            }
-            
-            if(indexPath.row == 1)
-            {
-                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 10, SCREEN_WIDTH, 30)];
-                titleLab.textColor = TextColors;
-                titleLab.text = @"名字：咏春拳最快制敌方法";
-                titleLab.font = [UIFont boldSystemFontOfSize:14];
-                [cell addSubview:titleLab];
-                
-                NSString *detailStr = @"简介：咏春拳是一门传统的中国武术，是一门禁止侵袭技术，是一个积极、精简的正当防卫系统";
-                CGFloat detailWidth = SCREEN_WIDTH-GapToLeft*2;
-                CGFloat detailHeight = [Toolkit heightWithString:detailStr fontSize:12 width:detailWidth];
-                
-                UILabel *detailLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft,
-                                                                               (titleLab.frame.origin.y+titleLab.frame.size.height+5),
-                                                                               detailWidth, detailHeight)];
-                detailLab.textColor = TextColors;
-                detailLab.text = detailStr;
-                detailLab.numberOfLines = 0;
-                detailLab.font = [UIFont boldSystemFontOfSize:12];
-                [cell addSubview:detailLab];
-                
-            }
-        }
-            break;
-        case SupportSection:
-        {
-            UIButton *supportBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, _cellHeight -10)];
-            supportBtn.center = CGPointMake(SCREEN_WIDTH/2, _cellHeight/2);
-            supportBtn.backgroundColor = YellowBlock;
-            [supportBtn addTarget:self action:@selector(voteBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            [supportBtn setTitle:@"点击投票" forState:UIControlStateNormal];
-            [cell addSubview:supportBtn];
-        }
-            
-            break;
-        case CommentSection:
-        {
-            
-            
-            if(indexPath.row == 0)
-            {
-                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 150, _cellHeight)];
-                titleLab.text = @"用户评论";
-                titleLab.font = [UIFont systemFontOfSize:14];
-                titleLab.textColor = TextColors;
-                [cell addSubview:titleLab];
-                
-                
-                
-                UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
-                numLab.text = [NSString stringWithFormat:@"共%ld条",videoCommentArray.count];
-                numLab.font = [UIFont systemFontOfSize:12];
-                numLab.textColor = TextColors;
-                [cell addSubview:numLab];
-                
-                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(numLab.frame.origin.x - 10, 5, 1, _cellHeight-10)];
-                lineView.backgroundColor = Separator_Color;
-                [cell addSubview:lineView];
-                
-            }
-            else if(indexPath.row == 1)
-            {
-                /*head */
-                UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
-                                                                  andImgName:@"headImg"
-                                                                      andNav:self.navigationController];
-                
-                NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,get_sp(@"PhotoPath")];
-                [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed: @"headImg"]];
-                [headView makeSelfRound];
-                [cell addSubview:headView];
-                
-                commentTextView.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width+5),
-                                                   (_cellHeight -44)/2,
-                                                   (SCREEN_WIDTH -(headView.frame.origin.x + headView.frame.size.width+5) - 80),44 );
-                
-                tempIndexPath = indexPath;
-                if(commentTextView.subviews !=nil)
+                if(indexPath.row == 0)
                 {
-                    [commentTextView removeFromSuperview];
-                }
-                [cell.contentView addSubview:commentTextView];
-                
-                UIButton * btn_SendComment=[[UIButton alloc] initWithFrame:CGRectMake(commentTextView.frame.size.width+commentTextView.frame.origin.x+10, commentTextView.frame.origin.y, 60, commentTextView.frame.size.height)];
-                
-                [btn_SendComment setTitle:@"发布" forState:UIControlStateNormal];
-                [btn_SendComment setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                [btn_SendComment addTarget:self action:@selector(sendCommentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                btn_SendComment.backgroundColor=ItemsBaseColor;
-                [cell addSubview:btn_SendComment];
-            }
-            else
-            {
-                
-                
-                if(videoCommentArray == nil || videoCommentArray.count <= 0 || videoCommentArray.count < indexPath.row-1)
-                    return cell;
-                
-                @try {
-                    NSDictionary *tempDict = videoCommentArray[indexPath.row - 2];
                     
+                    CGFloat FontSize = 12;
                     
+                    /*head */
                     UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
                                                                       andImgName:@"me"
                                                                           andNav:self.navigationController];
-                    
-                    NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"CommenterPhotoPath"]];
-                    [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]] ;
-                    headView.userId = tempDict[@"CommenterId"];
                     [headView makeSelfRound];
                     [cell addSubview:headView];
                     
                     /*name*/
                     UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
-                                                                                 headView.frame.origin.y, 200, headView.frame.size.height/2)];
-                    nameLab.text = tempDict[@"CommenterNicName"];
+                                                                                 headView.frame.origin.y, 100, headView.frame.size.height/2)];
+                    nameLab.text = @"成龙战队";
                     nameLab.textColor = TextColors;
-                    nameLab.font = [UIFont systemFontOfSize:12];
+                    nameLab.font = [UIFont systemFontOfSize:FontSize];
                     [cell addSubview:nameLab];
                     
                     
-                    UIButton *supportBtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 44),headView.frame.origin.y , 44, headView.frame.size.height/2)];
-                    [supportBtn setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
-                    [supportBtn setImage:[UIImage imageNamed:@"support_h"] forState:UIControlStateSelected];
-                    [supportBtn setTitle:@"20" forState:UIControlStateNormal];
-                    [supportBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-                    supportBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-                    // [cell addSubview:supportBtn];
+                    
+                    UILabel *supportNum = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -140 - 10),
+                                                                                    headView.frame.origin.y, 140, headView.frame.size.height/2)];
+                    supportNum.text =[NSString stringWithFormat:@"已获得票数：%@",tempDict[@"VoteNum"]];
+                    supportNum.textColor = [UIColor whiteColor];
+                    supportNum.font = [UIFont systemFontOfSize:12];
+                    supportNum.textAlignment = NSTextAlignmentRight;
+                    [cell addSubview:supportNum];
                     
                     
-                    NSString *commentStr = tempDict[@"Content"];
-                    // commentWidth = (SCREEN_WIDTH-(headView.frame.origin.x +headView.frame.size.width + 10) - 10);
-                    CGFloat commentHeight = [Toolkit heightWithString:commentStr fontSize:12 width:commentWidth];
-                    
-                    UILabel *commentLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
-                                                                                    headView.frame.size.height/2+5,
-                                                                                    commentWidth,
-                                                                                    commentHeight)];
-                    commentLab.text = commentStr;
-                    commentLab.font = [UIFont systemFontOfSize:12];
-                    commentLab.numberOfLines = 0;
-                    commentLab.textColor = [UIColor whiteColor];
-                    [cell addSubview:commentLab];
-                    
-                    UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100),
-                                                                                 (commentLab.frame.size.height+commentLab.frame.origin.y),
-                                                                                 100, 30)];
-                    dateLab.text =[tempDict[@"PublishTime"] substringToIndex:10];
-                    dateLab.font = [UIFont systemFontOfSize:12];
-                    dateLab.textColor = [UIColor grayColor];
-                    
+                    UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLab.frame.origin.x,
+                                                                                 (nameLab.frame.origin.y + nameLab.frame.size.height + 2),
+                                                                                 100, headView.frame.size.height/2)];
+                    dateLab.text =[NSString stringWithFormat:@"编号：%@",tempDict[@"MatchNum"]];
+                    dateLab.textColor = TextColors;
+                    dateLab.font = [UIFont systemFontOfSize:FontSize];
                     [cell addSubview:dateLab];
                     
-                    
-                }
-                @catch (NSException *exception) {
-                    
-                }
-                @finally {
+                    UILabel *checkNum = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -140 - 10),
+                                                                                  (nameLab.frame.origin.y + nameLab.frame.size.height + 2), 140, headView.frame.size.height/2)];
+                    checkNum.text = [NSString stringWithFormat:@"查看人数：%@",tempDict[@"VisitNum"]];
+                    checkNum.textColor = [UIColor whiteColor];
+                    checkNum.font = [UIFont systemFontOfSize:12];
+                    checkNum.textAlignment = NSTextAlignmentRight;
+                    [cell addSubview:checkNum];
                     
                 }
                 
+                if(indexPath.row == 1)
+                {
+                    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 10, SCREEN_WIDTH, 30)];
+                    titleLab.textColor = TextColors;
+                    titleLab.text = tempDict[@"Title"];
+                    titleLab.font = [UIFont boldSystemFontOfSize:14];
+                    [cell addSubview:titleLab];
+                    
+                    NSString *detailStr = tempDict[@"MatchDescription"];
+                    CGFloat detailWidth = SCREEN_WIDTH-GapToLeft*2;
+                    CGFloat detailHeight = [Toolkit heightWithString:detailStr fontSize:12 width:detailWidth];
+                    
+                    UILabel *detailLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft,
+                                                                                   (titleLab.frame.origin.y+titleLab.frame.size.height+5),
+                                                                                   detailWidth, detailHeight)];
+                    detailLab.textColor = TextColors;
+                    detailLab.text = detailStr;
+                    detailLab.numberOfLines = 0;
+                    detailLab.font = [UIFont boldSystemFontOfSize:12];
+                    [cell addSubview:detailLab];
+                    
+                }
             }
+                break;
+            case SupportSection:
+            {
+//                supportBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, _cellHeight -10)];
+                supportBtn.center = CGPointMake(SCREEN_WIDTH/2, _cellHeight/2);
+                supportBtn.backgroundColor = YellowBlock;
+                [supportBtn addTarget:self action:@selector(voteBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                if([tempDict[@"IsVote"] intValue ]==1)
+                {
+                    [supportBtn setTitle:@"已投票" forState:UIControlStateNormal];
+                    supportBtn.enabled = NO;
+                }
+                else
+                {
+                    [supportBtn setTitle:@"点击投票" forState:UIControlStateNormal];
+                }
+                [cell addSubview:supportBtn];
+            }
+                
+                break;
+            case CommentSection:
+            {
+                
+                
+                if(indexPath.row == 0)
+                {
+                    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 150, _cellHeight)];
+                    titleLab.text = @"用户评论";
+                    titleLab.font = [UIFont systemFontOfSize:14];
+                    titleLab.textColor = TextColors;
+                    [cell addSubview:titleLab];
+                    
+                    
+                    
+                    UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
+                    numLab.text = [NSString stringWithFormat:@"共%ld条",videoCommentArray.count];
+                    numLab.font = [UIFont systemFontOfSize:12];
+                    numLab.textColor = TextColors;
+                    [cell addSubview:numLab];
+                    
+                    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(numLab.frame.origin.x - 10, 5, 1, _cellHeight-10)];
+                    lineView.backgroundColor = Separator_Color;
+                    [cell addSubview:lineView];
+                    
+                }
+                else if(indexPath.row == 1)
+                {
+                    /*head */
+                    UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
+                                                                      andImgName:@"headImg"
+                                                                          andNav:self.navigationController];
+                    
+                    NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,get_sp(@"PhotoPath")];
+                    [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed: @"headImg"]];
+                    [headView makeSelfRound];
+                    [cell addSubview:headView];
+                    
+                    commentTextView.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width+5),
+                                                       (_cellHeight -44)/2,
+                                                       (SCREEN_WIDTH -(headView.frame.origin.x + headView.frame.size.width+5) - 80),44 );
+                    
+                    tempIndexPath = indexPath;
+                    if(commentTextView.subviews !=nil)
+                    {
+                        [commentTextView removeFromSuperview];
+                    }
+                    [cell.contentView addSubview:commentTextView];
+                    
+                    UIButton * btn_SendComment=[[UIButton alloc] initWithFrame:CGRectMake(commentTextView.frame.size.width+commentTextView.frame.origin.x+10, commentTextView.frame.origin.y, 60, commentTextView.frame.size.height)];
+                    
+                    [btn_SendComment setTitle:@"发布" forState:UIControlStateNormal];
+                    [btn_SendComment setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    [btn_SendComment addTarget:self action:@selector(sendCommentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                    btn_SendComment.backgroundColor=ItemsBaseColor;
+                    [cell addSubview:btn_SendComment];
+                }
+                else
+                {
+                    
+                    
+                    if(videoCommentArray == nil || videoCommentArray.count <= 0 || videoCommentArray.count < indexPath.row-1)
+                        return cell;
+                    
+                    @try {
+                        NSDictionary *tempDict = videoCommentArray[indexPath.row - 2];
+                        
+                        
+                        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
+                                                                          andImgName:@"me"
+                                                                              andNav:self.navigationController];
+                        
+                        NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"CommenterPhotoPath"]];
+                        [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]] ;
+                        headView.userId = tempDict[@"CommenterId"];
+                        [headView makeSelfRound];
+                        [cell addSubview:headView];
+                        
+                        /*name*/
+                        UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
+                                                                                     headView.frame.origin.y, 200, headView.frame.size.height/2)];
+                        nameLab.text = tempDict[@"CommenterNicName"];
+                        nameLab.textColor = TextColors;
+                        nameLab.font = [UIFont systemFontOfSize:12];
+                        [cell addSubview:nameLab];
+                        
+                        
+                        UIButton *supportBtn2 = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 44),headView.frame.origin.y , 44, headView.frame.size.height/2)];
+                        [supportBtn2 setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
+                        [supportBtn2 setImage:[UIImage imageNamed:@"support_h"] forState:UIControlStateSelected];
+                        [supportBtn2 setTitle:@"20" forState:UIControlStateNormal];
+                        [supportBtn2 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                        supportBtn2.titleLabel.font = [UIFont systemFontOfSize:14];
+                        // [cell addSubview:supportBtn];
+                        
+                        
+                        NSString *commentStr = tempDict[@"Content"];
+                        // commentWidth = (SCREEN_WIDTH-(headView.frame.origin.x +headView.frame.size.width + 10) - 10);
+                        CGFloat commentHeight = [Toolkit heightWithString:commentStr fontSize:12 width:commentWidth];
+                        
+                        UILabel *commentLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
+                                                                                        headView.frame.size.height/2+5,
+                                                                                        commentWidth,
+                                                                                        commentHeight)];
+                        commentLab.text = commentStr;
+                        commentLab.font = [UIFont systemFontOfSize:12];
+                        commentLab.numberOfLines = 0;
+                        commentLab.textColor = [UIColor whiteColor];
+                        [cell addSubview:commentLab];
+                        
+                        UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100),
+                                                                                     (commentLab.frame.size.height+commentLab.frame.origin.y),
+                                                                                     100, 30)];
+                        dateLab.text =[tempDict[@"PublishTime"] substringToIndex:10];
+                        dateLab.font = [UIFont systemFontOfSize:12];
+                        dateLab.textColor = [UIColor grayColor];
+                        
+                        [cell addSubview:dateLab];
+                        
+                        
+                    }
+                    @catch (NSException *exception) {
+                        
+                    }
+                    @finally {
+                        
+                    }
+                    
+                }
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        default:
-            break;
+        
+        
+        
     }
-    
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
     
     
     
@@ -790,27 +843,22 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *tempView = [[UIView alloc] init];
-    
-    //    switch (section) {
-    //        case 1:
-    //
-    //            break;
-    //
-    //        default:
-    //            break;
-    //    }
-    
+    tempView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1);
+    return tempView;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *tempView = [[UIView alloc] init];
+    tempView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 10);
     return tempView;
 }
 
 //设置section header 的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    
-    //    if(section != 0)
-    //        return _cellHeight;
-    //    else
-    return 0;
+
+    return 1;
 }
 
 //设置section footer的高度

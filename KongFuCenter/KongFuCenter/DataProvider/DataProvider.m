@@ -1010,12 +1010,13 @@
     }
 }
 
--(void)getTeamDetailForMatch:(NSString *)matchId andTeamId:(NSString *)teamid
+-(void)getTeamDetailForMatch:(NSString *)matchId andTeamId:(NSString *)teamid andmyId:(NSString *)myId
 {
-    if (matchId&&teamid) {
+    if (matchId&&teamid&&myId) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchTeamDetail",Url];
         NSDictionary *prm = @{@"matchId":matchId,
-                              @"teamid":teamid};
+                              @"teamid":teamid,
+                              @"myId":myId};
         DLog(@"%@",prm);
         [self PostRequest:url andpram:prm];
     }else{
@@ -1054,11 +1055,12 @@
     }
 }
 
--(void)SelectMatchMemberDetail:(NSString *)matchId anduserid:(NSString *)userid{
+-(void)SelectMatchMemberDetail:(NSString *)matchId anduserid:(NSString *)userid andMyId:(NSString *)myId{
     if (matchId && userid) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchMemberDetail",Url];
         NSDictionary *prm = @{@"matchId":matchId,
-                              @"userid":userid};
+                              @"userid":userid,
+                              @"myId":myId};
         DLog(@"%@",prm);
         [self PostRequest:url andpram:prm];
     }else{

@@ -151,12 +151,12 @@
     switch (indexPath.row) {
         case 0:
         {
-            UIImageView *backImg = [[UIImageView alloc]  initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*4)];
+            UIImageView *backImg = [[UIImageView alloc]  initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3)];
             backImg.image = [UIImage imageNamed:@"head_bg"];
             [cell addSubview:backImg];
             NSString *PhotoPath = [userInfoArray valueForKey:@"PhotoPath"];
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
-            UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 3*_cellHeight, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]]];
+            UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 2*_cellHeight, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]]];
             [headView makeSelfRound];
             headView.layer.borderWidth = 1;
             headView.layer.borderColor = [[UIColor blackColor] CGColor];
@@ -165,7 +165,7 @@
             
             
             UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x+headView.frame.size.width),
-                                                                         4*_cellHeight+5,
+                                                                         3*_cellHeight+5,
                                                                          SCREEN_WIDTH - (headView.frame.origin.x+headView.frame.size.width),
                                                                          _cellHeight/2)];
             nameLab.text =[NSString stringWithFormat:@"%@   %@",[userInfoArray valueForKey:@"NicName"],[userInfoArray valueForKey:@"Phone"]];
@@ -188,7 +188,9 @@
             NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
             NSInteger age = [dateComponent year] - mYear;
             NSString *address = [userInfoArray valueForKey:@"HomeAddress"];
-            otherInfoLab.text = [NSString stringWithFormat:@"%@  %d岁  %@",[sex isEqual:@"0"]?@"男":@"女",(int)age,address];
+            
+            
+            otherInfoLab.text = [NSString stringWithFormat:@"%@  %d岁  %@",[sex isEqual:@"1"]?@"男":@"女",(int)age,address];
             
             [cell addSubview:otherInfoLab];
             
@@ -244,7 +246,7 @@
             lineView.backgroundColor = Separator_Color;
             [cell addSubview:lineView];
             
-            UILabel *heightLab = [[UILabel alloc] initWithFrame:CGRectMake(((SCREEN_WIDTH-GapToLeft)/2+GapToLeft), 0, (SCREEN_WIDTH-GapToLeft)/2, _cellHeight)];
+            UILabel *heightLab = [[UILabel alloc] initWithFrame:CGRectMake(((SCREEN_WIDTH-GapToLeft)/2+GapToLeft)+5, 0, (SCREEN_WIDTH-GapToLeft)/2, _cellHeight)];
             NSMutableAttributedString *str2 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"身高： %@Cm",[userInfoArray valueForKey:@"Height"]]];
             [str2 addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0,3)];
             heightLab.textColor = [UIColor grayColor];
@@ -308,7 +310,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
         case 0:
-            return _cellHeight*6;
+            return _cellHeight*5-(_cellHeight/2);
             break;
         case 1:
         case 2:
