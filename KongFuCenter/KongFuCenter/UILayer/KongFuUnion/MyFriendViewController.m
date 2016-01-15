@@ -32,6 +32,8 @@
     //控件
     UITextField *searchTxt;
     UILabel *nameLbl;
+    
+    NewConcernFriendViewController *newConcernFriendVC;
 }
 
 @end
@@ -53,7 +55,7 @@
     friendArray = [[NSMutableArray alloc] init];
     
     //初始化数据
-    [self initData];
+    //[self initData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -63,6 +65,10 @@
 
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [searchTxt resignFirstResponder];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [self initData];
 }
 
 #pragma mark 自定义方法
@@ -128,7 +134,7 @@
 }
 
 -(void)newConcernEvent{
-    NewConcernFriendViewController *newConcernFriendVC = [[NewConcernFriendViewController alloc] init];
+    newConcernFriendVC = [[NewConcernFriendViewController alloc] init];
     [self.navigationController pushViewController:newConcernFriendVC animated:YES];
 }
 
@@ -271,7 +277,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.section == 1){
-        NewConcernFriendViewController *newConcernFriendVC = [[NewConcernFriendViewController alloc] init];
+        newConcernFriendVC = [[NewConcernFriendViewController alloc] init];
         [self.navigationController pushViewController:newConcernFriendVC animated:YES];
     }else if (indexPath.section == 2) {
         //新建一个聊天会话View Controller对象

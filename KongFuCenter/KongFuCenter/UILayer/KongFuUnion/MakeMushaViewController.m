@@ -182,6 +182,11 @@
             cityArray = [[NSMutableArray alloc] init];
             [cityArray addObject:itemDict];
             [addressPickView reloadAllComponents];
+            
+            cityCode = @"0";
+            cityTxt = @"-全部-";
+            countryCode = @"0";
+            countryTxt = @"-全部-";
             return;
         }
         NSArray *itemArray = dict[@"data"];
@@ -396,6 +401,9 @@
 -(void)addFriendCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showSuccessWithStatus:@"关注成功~"];
+        [self TeamTopRefresh];
+    }else if ([dict[@"code"] intValue] == 50){
+        [SVProgressHUD showSuccessWithStatus:@"已经是您的好友~"];
         [self TeamTopRefresh];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"关注失败~"];

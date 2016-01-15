@@ -384,7 +384,7 @@
 -(void)quitTeamCallBack:(id)dict
 {
     if ([dict[@"code"] intValue] == 200) {
-        
+        [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_GROUP targetId:get_sp(@"TeamId")];
         remove_sp(@"TeamId");
         remove_sp(@"TeamImg");
         remove_sp(@"TeamName");
