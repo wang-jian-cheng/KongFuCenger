@@ -26,6 +26,12 @@
     
     [self.view addSubview:img_view];
     
+    UIView * myVeiw=[[UIView alloc] initWithFrame:img_view.frame];
+    
+    myVeiw.backgroundColor=[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.7];
+    
+    [self.view addSubview:myVeiw];
+    
     
     UILabel *tipLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
