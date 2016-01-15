@@ -647,22 +647,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/main.m"
-            timestampString = "473132548.124185"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "main()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/KongFuerViewController.m"
             timestampString = "474184917.420842"
             startingColumnNumber = "9223372036854775807"
@@ -1464,11 +1448,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/WuGuan/WuGuanDetailViewController.m"
-            timestampString = "474256560.302939"
+            timestampString = "474534468.267747"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "-btn_callAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1480,11 +1464,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/WuGuan/WuGuanDetailViewController.m"
-            timestampString = "474256560.302939"
+            timestampString = "474534468.267747"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "-btn_callAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1496,11 +1480,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/WuGuan/WuGuanDetailViewController.m"
-            timestampString = "474256560.302939"
+            timestampString = "474534468.267747"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "-btn_callAction:"
             landmarkType = "5">
          </BreakpointContent>

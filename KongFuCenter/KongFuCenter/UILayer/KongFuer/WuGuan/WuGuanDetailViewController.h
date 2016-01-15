@@ -23,6 +23,9 @@
     NSMutableArray *showPicArr;
     NSMutableArray *imgUrls;
     
+    CLLocationDegrees lat;
+    CLLocationDegrees lng;
+    
 }
 @property (nonatomic, retain,readonly) UICollectionView *collectionView;
 @property(nonatomic)NSString *wuGuanId;

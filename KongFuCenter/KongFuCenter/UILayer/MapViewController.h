@@ -11,4 +11,6 @@
 @interface MapViewController : BaseNavigationController
 @property(nonatomic) CLLocationDegrees lat;
 @property(nonatomic) CLLocationDegrees lng;
+@property(nonatomic) NSString *addr;
+@property(nonatomic) NSString *Title;
 @end
