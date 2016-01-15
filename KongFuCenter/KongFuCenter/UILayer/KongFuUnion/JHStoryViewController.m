@@ -29,6 +29,7 @@
     [super viewDidLoad];
     
     //初始化参数
+    self.view.backgroundColor = BACKGROUND_COLOR;
     mCellHeight = SCREEN_HEIGHT / 6;
     [self setBarTitle:@"江湖故事"];
     [self addLeftButton:@"left"];

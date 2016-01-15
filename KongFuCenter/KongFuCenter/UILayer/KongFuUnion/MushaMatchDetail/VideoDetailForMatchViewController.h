@@ -8,6 +8,7 @@
 
 #import "BaseNavigationController.h"
 #import "CustomButton.h"
+#import "UserHeadView.h"
 @interface VideoDetailForMatchViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate>
 {
     CGFloat _keyHeight;
@@ -18,6 +19,11 @@
     
     int pageNo;
     int pageSize;
+    UIButton *supportBtn;
+    
+    
+    UILabel *nameLab;
+    UserHeadView *headView;
 }
 @property(nonatomic,strong) NSString *videoID;
 @property(nonatomic,strong) NSString *matchId;

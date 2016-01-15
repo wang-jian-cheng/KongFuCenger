@@ -143,6 +143,7 @@
             NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
             messBody.mID = [itemDict valueForKey:@"Id"];
+            messBody.userID = [itemDict valueForKey:@"UserId"];
             messBody.posterImgstr = url;//@"mao.jpg";
             messBody.posterName = [itemDict valueForKey:@"NicName"];
             messBody.posterIntro = @"";
@@ -322,7 +323,7 @@
     }
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
-    [dataProvider GetDongtaiPageByFriends:self.UserID andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
+    [dataProvider SelectDongtaiByFriendId:self.UserID andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
 }
 
 -(void)FootRefireshBackCall:(id)dict
@@ -370,6 +371,8 @@
             }
             NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+            messBody.mID = [itemDict valueForKey:@"Id"];
+            messBody.userID = [itemDict valueForKey:@"UserId"];
             messBody.posterImgstr = url;//@"mao.jpg";
             messBody.posterName = [itemDict valueForKey:@"NicName"];
             messBody.posterIntro = @"";

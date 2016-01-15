@@ -253,7 +253,15 @@
     [cell addSubview:baseImg];
     
     UILabel *timeLabInImg = [[UILabel alloc] initWithFrame:CGRectMake((baseImg.frame.size.width - 5 -90), (baseImg.frame.size.height - 40), 90, 25)];
-    timeLabInImg.text = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"MemberVideoDuration"]];//@"5:00";
+    NSString *str = [Toolkit judgeIsNull:[PlayerArray[indexPath.row] valueForKey:@"MemberVideoDuration"]];
+    if(str == nil || str.length==0)
+    {
+        timeLabInImg.text = @"00:00";
+    }
+    else
+    {
+        timeLabInImg.text = str;//@"5:00";
+    }
     timeLabInImg.textColor = [UIColor whiteColor];
     timeLabInImg.textAlignment = NSTextAlignmentCenter;
     timeLabInImg.backgroundColor = BACKGROUND_COLOR;
@@ -342,7 +350,7 @@
     if(_mushaMatchOngoingMode == Mode_TeamOnGoing||_mushaMatchOngoingMode == Mode_TeamEnd)
     {
         VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
-        videoViewCtl.matchTeamId = _matchId;
+        videoViewCtl.matchTeamId = [NSString stringWithFormat:@"%@",PlayerArray[indexPath.row][@"TeamId"]];
         videoViewCtl.matchId  = _matchId;
         videoViewCtl.navtitle = @"大赛战队详情";
         [self.navigationController pushViewController:videoViewCtl animated:YES];
@@ -351,7 +359,7 @@
     {
         VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
         videoViewCtl.matchId = _matchId;
-        videoViewCtl.matchUserId  = _matchId;
+        videoViewCtl.matchUserId  =[NSString stringWithFormat:@"%@" ,PlayerArray[indexPath.row][@"UserId"]];
         videoViewCtl.navtitle = @"大赛个人详情";
         [self.navigationController pushViewController:videoViewCtl animated:YES];
     }

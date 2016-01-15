@@ -46,7 +46,7 @@
         _userNameLbl.textColor = [UIColor whiteColor];//[UIColor colorWithRed:104/255.0 green:109/255.0 blue:248/255.0 alpha:1.0];
         [self.contentView addSubview:_userNameLbl];
         
-        _delIcon = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_HEIGHT - 50, 5, 20, 20)];
+        _delIcon = [[UIButton alloc] initWithFrame:CGRectMake(screenWidth - 50, 15, 20, 20)];
         [self.contentView addSubview:_delIcon];
         
         
@@ -145,6 +145,7 @@
 }
 
 
+
 - (void)setYMViewWith:(YMTextData *)ymData{
     
     tempDate = ymData;
@@ -153,10 +154,10 @@
     //_userHeaderImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tempDate.messageBody.posterImgstr]]];//[UIImage imageNamed:tempDate.messageBody.posterImgstr];
     [_userHeaderImage sd_setImageWithURL:[NSURL URLWithString:tempDate.messageBody.posterImgstr] placeholderImage:[UIImage imageNamed:@"me"]];
     _userNameLbl.text = tempDate.messageBody.posterName;
-    NSLog(@"%@",ymData);
     WFMessageBody *m = ymData.messageBody;
-    if ([m.mID isEqual:get_sp(@"id")]) {
-        [_delIcon setImage:[UIImage imageNamed:@"del"] forState:UIControlStateNormal];
+    if ([[NSString stringWithFormat:@"%@",m.userID] isEqual:[NSString stringWithFormat:@"%@",get_sp(@"id")]]) {
+        [_delIcon setImage:[UIImage imageNamed:@"del@2x.png"] forState:UIControlStateNormal];
+        _delIcon.tag = [m.mID intValue];
     }else{
         [_delIcon setImage:nil forState:UIControlStateNormal];
     }

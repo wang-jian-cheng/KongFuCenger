@@ -56,7 +56,7 @@
     [SVProgressHUD showWithStatus:@"加载中..."];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getWorksInfoCallBack:"];
-    [dataProvider SelectMatchMemberDetail:_matchId anduserid:get_sp(@"id")];
+    [dataProvider SelectMatchMemberDetail:_matchId anduserid:get_sp(@"id") andMyId:[Toolkit getUserID]];
 }
 
 -(void)getWorksInfoCallBack:(id)dict{
