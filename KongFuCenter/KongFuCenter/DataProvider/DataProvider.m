@@ -322,9 +322,10 @@
     {
         
         NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/MessageRepeatAndFavorite",Url];
-        NSDictionary * prm=@{@"userId":userId,
-                             @"targetId":targetId,
-                             @"content":content};
+        NSDictionary * prm=@{@"id":targetId,
+                             @"userid":userId,
+                             @"flg":@"3",
+                             @"description":content};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
     }
@@ -887,6 +888,8 @@
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SaveFriend",Url];
         NSDictionary *prm = @{@"userid":userid,@"friendid":friendid};
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 
