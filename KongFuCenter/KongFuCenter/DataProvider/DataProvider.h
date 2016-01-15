@@ -312,6 +312,9 @@
 -(void)getTeamDetailForMatch:(NSString *)matchId andTeamId:(NSString *)teamid andmyId:(NSString *)myId;
 //个人比赛取消报名
 -(void)CancleJoinMatch:(NSString *)matchId anduserid:(NSString *)userid;
+//根据好友ID查询用户视图
+-(void)SelectMyFriend:(NSString *)userid andfriend:(NSString *)friendid;
+
 #pragma mark - 战队赛事评论
 -(void)getMatchComment:(NSString *)memberId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
 -(void)commentMatch:(NSString *)memberId andUserID:(NSString *)userId andComment:(NSString *)comment;

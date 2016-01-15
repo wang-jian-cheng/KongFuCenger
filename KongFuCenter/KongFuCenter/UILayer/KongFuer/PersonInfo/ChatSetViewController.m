@@ -32,14 +32,14 @@
     userDefault = [NSUserDefaults standardUserDefaults];
     
     [self initData];
-    [self initViews];
 }
 
 -(void)initData{
     [SVProgressHUD showWithStatus:@"加载中"];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getUserInfoById:"];
-    [dataProvider getUserInfo:[Toolkit getUserID] andfriendid:_userID];
+    //[dataProvider getUserInfo:[Toolkit getUserID] andfriendid:_userID];
+    [dataProvider SelectMyFriend:get_sp(@"id") andfriend:_userID];
 }
 
 -(void)getUserInfoById:(id)dict{
@@ -47,7 +47,7 @@
     if ([dict[@"code"] intValue] == 200) {
         userInfoArray = dict[@"data"];
         NSLog(@"%@",userInfoArray);
-        [_mainTableView reloadData];
+        [self initViews];
     }
 }
 
@@ -88,7 +88,7 @@
 
 -(void)UnShieldFriendMessage{
     dataProvider = [[DataProvider alloc] init];
-    [dataProvider setDelegateObject:self setBackFunctionName:@"ShieldFriendMessageCallBack:"];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"UnShieldFriendMessageCallBack:"];
     [dataProvider UnShieldFriendMessage:[Toolkit getUserID] andFriendId:self.userID];
 }
 
@@ -98,7 +98,27 @@
     DLog(@"%@",dict);
     
     if ([dict[@"code"] intValue] == 200) {
-        
+        [[RCIMClient sharedRCIMClient] addToBlacklist:[NSString stringWithFormat:@"%@",_userID] success:^{
+            [SVProgressHUD showSuccessWithStatus:@"设置成功~" maskType:SVProgressHUDMaskTypeBlack];
+        } error:^(RCErrorCode status) {
+            [SVProgressHUD showSuccessWithStatus:@"设置失败~" maskType:SVProgressHUDMaskTypeBlack];
+        }];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:dict[@"data"]];
+    }
+}
+
+-(void)UnShieldFriendMessageCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    
+    if ([dict[@"code"] intValue] == 200) {
+        [[RCIMClient sharedRCIMClient] removeFromBlacklist:[NSString stringWithFormat:@"%@",_userID] success:^{
+            [SVProgressHUD showSuccessWithStatus:@"设置成功~" maskType:SVProgressHUDMaskTypeBlack];
+        } error:^(RCErrorCode status) {
+            [SVProgressHUD showSuccessWithStatus:@"设置失败~" maskType:SVProgressHUDMaskTypeBlack];
+        }];
     }else{
         [SVProgressHUD showSuccessWithStatus:dict[@"data"]];
     }
@@ -122,8 +142,7 @@
     DLog(@"%@",dict);
     
     if ([dict[@"code"] intValue] == 200) {
-        [SVProgressHUD showSuccessWithStatus:@"设置成功" maskType:SVProgressHUDMaskTypeBlack];
-        
+        [SVProgressHUD showSuccessWithStatus:@"设置成功~" maskType:SVProgressHUDMaskTypeBlack];
     }else{
          [SVProgressHUD showSuccessWithStatus:dict[@"data"]];
     }
@@ -233,6 +252,12 @@
                 cell.accessoryType = UITableViewCellAccessoryNone;
 
                 UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3, 50, _cellHeight/3)];
+                NSString *isShield = [Toolkit judgeIsNull:[userInfoArray valueForKey:@"IsShield"]];
+                if ([isShield isEqual:@"0"]) {
+                    switchBtn.on = YES;
+                }else{
+                    switchBtn.on = NO;
+                }
                 switchBtn.tag = indexPath.row;
                 switchBtn.center = CGPointMake(self.view.frame.size.width-(20+50)+25, _cellHeight/2);
                 
@@ -265,7 +290,14 @@
                 cell.textLabel.text = @"屏蔽消息";
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3, 50, _cellHeight/3)];
+                NSString *isShieldNews = [Toolkit judgeIsNull:[userInfoArray valueForKey:@"IsShieldNews"]];
+                if ([isShieldNews isEqual:@"0"]) {
+                    switchBtn.on = NO;
+                }else{
+                    switchBtn.on = YES;
+                }
                 switchBtn.tag = indexPath.row;
+                [switchBtn addTarget:self action:@selector(switchBtnAction:) forControlEvents:UIControlEventValueChanged];
                 switchBtn.center = CGPointMake(self.view.frame.size.width-(20+50)+25, _cellHeight/2);
                 [cell addSubview:switchBtn];
                 
