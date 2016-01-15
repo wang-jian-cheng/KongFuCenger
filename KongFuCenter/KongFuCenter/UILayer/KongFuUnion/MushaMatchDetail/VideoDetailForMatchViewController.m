@@ -104,6 +104,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHidden) name:UIKeyboardDidHideNotification object:nil];
     
     
+    headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
+                                        andImgName:@"headImg"
+                                            andNav:self.navigationController];
+    
+    nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
+                                                        headView.frame.origin.y, 100, headView.frame.size.height/2)];
+    
     
 }
 #pragma mark - self data source
@@ -114,6 +121,61 @@
     [self GetVideoDetial];
     
     [self GetVideoCommentDetial];
+    
+    [self getUserInfo];
+}
+
+
+-(void)getUserInfo
+{
+    if(self.matchUserId !=nil)
+    {
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
+        [dataprovider getUserInfo:self.matchUserId];
+    }
+    else if(self.matchTeamId !=nil)
+    {
+        DataProvider *dataProvider1 = [[DataProvider alloc] init];
+        [dataProvider1 setDelegateObject:self setBackFunctionName:@"getTeamCallBack:"];
+        [dataProvider1 SelectTeam:self.matchTeamId];
+    }
+}
+
+-(void)getUserInfoCallBack:(id)dict
+{
+    DLog(@"%@",dict)
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue]==200) {
+        NSDictionary *tempDict = dict[@"data"];
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
+        [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
+        nameLab.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
+    }
+    else{
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
+
+-(void)getTeamCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        
+        NSDictionary *tempDict = dict[@"data"];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
+        [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
+        nameLab.text = [NSString stringWithFormat:@"%@",tempDict[@"Name"]];
+//        [_mainTableView reloadData];
+    }
+    else{
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
 }
 
 -(void)GetVideoDetial
@@ -188,7 +250,16 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
+        VideoPath=[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"][@"MatchVideo"] isEqual:[NSNull null]]?@"":dict[@"data"][@"MatchVideo"]];
         
+        VideoPath=[VideoPath stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
+        
+        matchUserDict = dict[@"data"];
+        
+        moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
+        
+        [_mainTableView reloadData];
+        [self.view addSubview:moviePlayerview];
     }
     else{
         UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
@@ -482,16 +553,12 @@
                     CGFloat FontSize = 12;
                     
                     /*head */
-                    UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 5, _cellHeight-10, _cellHeight-10)
-                                                                      andImgName:@"me"
-                                                                          andNav:self.navigationController];
                     [headView makeSelfRound];
                     [cell addSubview:headView];
                     
                     /*name*/
-                    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),
-                                                                                 headView.frame.origin.y, 100, headView.frame.size.height/2)];
-                    nameLab.text = @"成龙战队";
+                   
+//                    nameLab.text = @"成龙战队";
                     nameLab.textColor = TextColors;
                     nameLab.font = [UIFont systemFontOfSize:FontSize];
                     [cell addSubview:nameLab];

@@ -72,14 +72,16 @@
 
 -(void)myVideoEvent{
     VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
-    videoViewCtl.videoID = _matchId;
+    videoViewCtl.matchId = _matchId;
+    videoViewCtl.matchUserId = [Toolkit getUserID];
     videoViewCtl.navtitle = @"大赛个人详情";
     [self.navigationController pushViewController:videoViewCtl animated:YES];
 }
 
 -(void)myVideoTeamEvent{
     VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
-    videoViewCtl.videoID = _matchId;
+    videoViewCtl.matchId = _matchId;
+    videoViewCtl.matchTeamId = get_sp(@"TeamId");
     videoViewCtl.navtitle = @"战队详情";
     [self.navigationController pushViewController:videoViewCtl animated:YES];
 }
@@ -88,6 +90,7 @@
     PlayerForMatchViewController *playForMatchViewCtl = [[PlayerForMatchViewController alloc] init];
     playForMatchViewCtl.navtitle = @"参赛成员";
     playForMatchViewCtl.matchId = _matchId;
+    
     [self.navigationController pushViewController:playForMatchViewCtl animated:YES];
 }
 
