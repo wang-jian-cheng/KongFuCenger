@@ -15,6 +15,9 @@
     NSMutableArray * videoCommentArray;//评论列表
     CGFloat commentWidth;
     UITextView *commentTextView;
+    
+    int pageNo;
+    int pageSize;
 }
 @property(nonatomic,strong) NSString *videoID;
 @property(nonatomic,strong) NSString *matchId;

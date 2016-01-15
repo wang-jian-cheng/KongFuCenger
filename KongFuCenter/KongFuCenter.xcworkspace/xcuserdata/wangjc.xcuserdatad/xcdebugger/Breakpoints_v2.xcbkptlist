@@ -287,7 +287,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "122"
             endingLineNumber = "122"
-            landmarkName = "-textViewShouldBeginEditing:"
+            landmarkName = "-keyboardDidShow:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -381,7 +381,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "238"
             endingLineNumber = "238"
-            landmarkName = "-changeModle:"
+            landmarkName = "-GetVideoDetialCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -226,38 +226,47 @@ typedef enum _MatchMode
         cell = [[[NSBundle mainBundle] loadNibNamed:@"MushaMatchCell" owner:self options:nil] objectAtIndex:0];
         cell.backgroundColor = ItemsBaseColor;
     }
-    NSLog(@"%@",matchArray);
-    NSString *ImagePath = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"MatchImage"]];
-    NSString *url = [NSString stringWithFormat:@"%@%@",Url,ImagePath];
-    [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"jhstory"]];
-    cell.mName.text = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Name"]];//@"永春拳公益巡回演出";
-    cell.mDetail.text = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Introduction"]];//@"咏春拳是最快的制敌拳法,公益巡回演出,让大家更好的理解咏春拳";
-    NSString *startDate = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"MatchTimeStart"]];
-    NSString *year = [startDate substringToIndex:4];
-    NSString *month = [startDate substringWithRange:NSMakeRange(5, 2)];
-    NSString *day = [startDate substringWithRange:NSMakeRange(8, 2)];
-    cell.mDate.text = [NSString stringWithFormat:@"%@月%@日",month,day];
-    NSString *endDate = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"MatchTimeEnd"]];
-    NSString *yearend = [endDate substringToIndex:4];
-    NSString *monthend = [endDate substringWithRange:NSMakeRange(5, 2)];
-    NSString *dayend = [endDate substringWithRange:NSMakeRange(8, 2)];
-    NSString *resultState = [self matchState:startDate andEndDate:endDate];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.mState.frame.size.width, cell.mState.frame.size.height)];
-    if ([resultState isEqual:@"未开始"]) {
-        cell.mEndDate.text = [NSString stringWithFormat:@"开始时间:%@年%@月%@日",year,month,day];
-        imageView.image = [UIImage imageNamed:@"weikaishi"];
-        cell.tag = 0;
-    }else if([resultState isEqual:@"进行中"]){
-        cell.mEndDate.text = [NSString stringWithFormat:@"结束时间:%@年%@月%@日",yearend,monthend,dayend];
-        imageView.image = [UIImage imageNamed:@"jinxingzhong"];
-        cell.tag = 1;
-    }else{
-        cell.mEndDate.text = [NSString stringWithFormat:@"结束时间:%@年%@月%@日",yearend,monthend,dayend];
-        imageView.image = [UIImage imageNamed:@"yijieshu"];
-        cell.tag = 2;
+    @try {
+        
+        NSLog(@"%@",matchArray);
+        NSString *ImagePath = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"MatchImage"]];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,ImagePath];
+        [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"jhstory"]];
+        cell.mName.text = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Name"]];//@"永春拳公益巡回演出";
+        cell.mDetail.text = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Introduction"]];//@"咏春拳是最快的制敌拳法,公益巡回演出,让大家更好的理解咏春拳";
+        NSString *startDate = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"MatchTimeStart"]];
+        NSString *year = [startDate substringToIndex:4];
+        NSString *month = [startDate substringWithRange:NSMakeRange(5, 2)];
+        NSString *day = [startDate substringWithRange:NSMakeRange(8, 2)];
+        cell.mDate.text = [NSString stringWithFormat:@"%@月%@日",month,day];
+        NSString *endDate = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"MatchTimeEnd"]];
+        NSString *yearend = [endDate substringToIndex:4];
+        NSString *monthend = [endDate substringWithRange:NSMakeRange(5, 2)];
+        NSString *dayend = [endDate substringWithRange:NSMakeRange(8, 2)];
+        NSString *resultState = [self matchState:startDate andEndDate:endDate];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.mState.frame.size.width, cell.mState.frame.size.height)];
+        if ([resultState isEqual:@"未开始"]) {
+            cell.mEndDate.text = [NSString stringWithFormat:@"开始时间:%@年%@月%@日",year,month,day];
+            imageView.image = [UIImage imageNamed:@"weikaishi"];
+            cell.tag = 0;
+        }else if([resultState isEqual:@"进行中"]){
+            cell.mEndDate.text = [NSString stringWithFormat:@"结束时间:%@年%@月%@日",yearend,monthend,dayend];
+            imageView.image = [UIImage imageNamed:@"jinxingzhong"];
+            cell.tag = 1;
+        }else{
+            cell.mEndDate.text = [NSString stringWithFormat:@"结束时间:%@年%@月%@日",yearend,monthend,dayend];
+            imageView.image = [UIImage imageNamed:@"yijieshu"];
+            cell.tag = 2;
+        }
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [cell.mState addSubview:imageView];
     }
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [cell.mState addSubview:imageView];
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
 //    
 //    
 //    [cell.mState setTitle:@"未开始" forState:UIControlStateNormal];

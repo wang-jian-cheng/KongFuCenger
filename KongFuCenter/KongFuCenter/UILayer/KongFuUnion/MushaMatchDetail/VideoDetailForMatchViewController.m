@@ -38,6 +38,7 @@
     [self addLeftButton:@"left"];
     videoCommentArray = [NSMutableArray array];
     [self initViews];
+    pageSize = 15;
     //_videoID = @"254";
     
     [self getData];
@@ -61,6 +62,14 @@
     _mainTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.scrollEnabled = NO;
+    __unsafe_unretained __typeof(self) weakSelf = self;
+
+    _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        [weakSelf GetVideoCommentDetial];
+        [_mainTableView.mj_footer endRefreshing];
+    }];
+
     
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
     [self.view addSubview:_mainTableView];
@@ -105,16 +114,70 @@
 -(void)GetVideoDetial
 {
     
-    
-    
-    
-    
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
-    if([dataprovider getStudyOnlineVideoDetial:_videoID andUserId:[Toolkit getUserID]] != OK)
+    if(self.matchUserId==nil&&self.matchTeamId!=nil)
     {
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"GetTeamMatchCallBack:"];
+        [dataprovider getTeamDetailForMatch:self.matchId andTeamId:self.matchTeamId];
+        
+    }
+    else if(self.matchUserId !=nil &&self.matchTeamId == nil)
+    {
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"GetUserMatchCallBack:"];
+        [dataprovider SelectMatchMemberDetail:self.matchId anduserid:self.matchUserId];
+
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"未找到视频" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:nil];
+        [alertView show];
+        return;
     }
 }
+
+
+-(void)voteCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
+        [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];
+    }
+    else{
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
+-(void)GetTeamMatchCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
+
+    }
+    else{
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
+-(void)GetUserMatchCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
+        
+    }
+    else{
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
+
 -(void)GetVideoDetialCallBack:(id)dict
 {
     DLog(@"%@",dict);
@@ -152,7 +215,7 @@
     
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoCommentDetialCallBack:"];
     
-    [dataprovider getMessageIdInfo:_videoID];
+    [dataprovider getMatchComment:self.matchId andstartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
 }
 
 -(void)GetVideoCommentDetialCallBack:(id)dict
@@ -161,9 +224,11 @@
     if ([dict[@"code"] intValue]==200) {
         @try
         {
-            if(videoCommentArray !=nil && videoCommentArray.count>0)
-                [ videoCommentArray removeAllObjects];
+            pageNo++;
             
+//            if(videoCommentArray !=nil && videoCommentArray.count>0)
+//                [ videoCommentArray removeAllObjects];
+//            
             [videoCommentArray addObjectsFromArray:dict[@"data"]];
             
         }
@@ -246,7 +311,9 @@
     
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"commentCallBack:"];
-    [dataprovider commentVideo:self.videoID andUserId:[Toolkit getUserID] andComment:commentTextView.text];
+//    [dataprovider commentVideo:self.videoID andUserId:[Toolkit getUserID] andComment:commentTextView.text];
+    [dataprovider commentMatch:self.matchId andUserID:[Toolkit getUserID] andComment:commentTextView.text];
+    
 }
 -(void)clickLeftButton:(UIButton *)sender
 {
@@ -263,6 +330,25 @@
     sender.selected = !sender.selected;
 }
 
+
+
+-(void)voteBtnClick:(UIButton *)sender
+{
+    [SVProgressHUD showWithStatus:@"操作中..."];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"voteCallBack:"];
+    //    [dataprovider commentVideo:self.videoID andUserId:[Toolkit getUserID] andComment:commentTextView.text];
+    if(self.matchUserId==nil&&self.matchTeamId!=nil)
+    {
+        [dataprovider voteTeam:self.matchId andTeamId:self.matchTeamId andUserId:[Toolkit getUserID]];
+        
+    }
+    else if(self.matchUserId !=nil &&self.matchTeamId == nil)
+    {
+        [dataprovider votePerson:self.matchId andUserid:self.matchUserId andUserId:[Toolkit getUserID]];
+    }
+
+}
 
 #pragma mark - 键盘操作
 
@@ -432,7 +518,7 @@
             UIButton *supportBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, _cellHeight -10)];
             supportBtn.center = CGPointMake(SCREEN_WIDTH/2, _cellHeight/2);
             supportBtn.backgroundColor = YellowBlock;
-            
+            [supportBtn addTarget:self action:@selector(voteBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             [supportBtn setTitle:@"点击投票" forState:UIControlStateNormal];
             [cell addSubview:supportBtn];
         }

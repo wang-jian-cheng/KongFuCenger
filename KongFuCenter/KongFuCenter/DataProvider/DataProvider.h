@@ -307,10 +307,17 @@
 
 //查看参赛人员明细
 -(void)SelectMatchMemberDetail:(NSString *)matchId anduserid:(NSString *)userid;
-
+//查看参赛战队
+-(void)getTeamDetailForMatch:(NSString *)matchId andTeamId:(NSString *)teamid;
 //个人比赛取消报名
 -(void)CancleJoinMatch:(NSString *)matchId anduserid:(NSString *)userid;
-
+#pragma mark - 战队赛事评论
+-(void)getMatchComment:(NSString *)memberId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+-(void)commentMatch:(NSString *)memberId andUserID:(NSString *)userId andComment:(NSString *)comment;
+//给战队投票
+-(void)voteTeam:(NSString *)matchId andTeamId:(NSString *)teamid andUserId:(NSString *)voterId;
+//给队员投票
+-(void)votePerson:(NSString *)matchId andUserid:(NSString *)userid andUserId:(NSString *)voterId;
 //获取被关注列表
 -(void)SelectFriended:(NSString *)userid;
 
