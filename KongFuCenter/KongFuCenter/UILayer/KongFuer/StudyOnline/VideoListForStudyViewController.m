@@ -89,6 +89,7 @@
     // 下拉刷新
     mainCollectionView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         pageNo=0;
+        [mainCollectionView.mj_footer setState:MJRefreshStateIdle];
         [weakSelf GetVideoList];
         // 结束刷新
         [mainCollectionView.mj_header endRefreshing];
@@ -239,7 +240,7 @@
 
 -(void)FooterRefreshCallBack:(id)dict
 {
-    NSLog(@"%@",dict);
+    DLog(@"%@",dict);
     
     if ([dict[@"code"] intValue]==200) {
         @try {
@@ -250,7 +251,14 @@
             for (int i=0; i<itemArray.count; i++) {
                 [mutableArray addObject:itemArray[i]];
             }
+
             videoArray=[[NSArray alloc] initWithArray:mutableArray];
+            
+            if(videoArray.count >= [dict[@"recordcount"] intValue])
+            {
+                [mainCollectionView.mj_footer setState:MJRefreshStateNoMoreData];
+            }
+            
             [mainCollectionView reloadData];
             
         }

@@ -78,7 +78,12 @@
             [rebuildGrowArr removeAllObjects];
         }
         
-            [weakSelf getGrowHistory];
+        if(_mainTableView.mj_footer !=nil)
+        {
+            [_mainTableView.mj_footer setState:MJRefreshStateIdle];
+        }
+        
+        [weakSelf getGrowHistory];
         // 结束刷新
         [_mainTableView.mj_header endRefreshing];
     }];
@@ -221,6 +226,10 @@
                 }
   
             }
+            if(growArr.count >= [dict[@"recordcount"] intValue])
+            {
+                [_mainTableView.mj_footer setState:MJRefreshStateNoMoreData];
+            }
             
             NSLog(@"rebuildGrowArr = %@",rebuildGrowArr);
             NSLog(@"rebuildGrowArr count = %ld",rebuildGrowArr.count);
@@ -248,15 +257,31 @@
     {
         [self addRightbuttontitle:@"删除"];
         EnditMode = YES;
+        [_mainTableView reloadData];
     }
     else{
+        if (delArr.count == 0) {
+            return;
+        }
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否删除？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
+        [alertView show];
+        
+    }
+    
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex ==0 )
+    {
         [self delVideos];
         [self addRightbuttontitle:@"编辑"];
         EnditMode = NO;
+        [_mainTableView reloadData];
     }
-    [_mainTableView reloadData];
 }
-
 -(void)roundBtnClick:(UIButton *)sender
 {
     sender.selected = ! sender.selected;

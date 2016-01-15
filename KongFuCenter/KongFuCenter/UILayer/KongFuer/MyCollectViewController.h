@@ -21,5 +21,7 @@
     
     int pageVideoNo;
     int pageVideoSize;
+    
+    NSInteger delcount;
 }
 @end

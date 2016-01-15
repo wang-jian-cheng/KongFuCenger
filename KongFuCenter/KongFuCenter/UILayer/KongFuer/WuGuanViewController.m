@@ -12,6 +12,8 @@
 
 @interface WuGuanViewController ()
 {
+    
+    UILabel *label;
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
     CGFloat _cellHeight;
@@ -24,6 +26,7 @@
     
     NSMutableArray *WuGuanListArr;
     NSString *cityID;
+    NSString *onlyCityName;
     NSString *oldCity;
 }
 @end
@@ -34,7 +37,7 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     pageNo=0;
-    pageSize=6;
+    pageSize=12;
     cityID =nil;
     WuGuanListArr = [NSMutableArray array];
     [self initViews];
@@ -51,6 +54,7 @@
     _sectionNum = 10;
     
     
+   
 //    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT-Header_Height+10  )];
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT-Header_Height+10  ) style:UITableViewStyleGrouped];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
@@ -73,6 +77,7 @@
         {
             [WuGuanListArr removeAllObjects];
         }
+        [_mainTableView.mj_footer setState:MJRefreshStateIdle];
         [weakSelf loadWuguanList:cityID];
         // 结束刷新
         [_mainTableView.mj_header endRefreshing];
@@ -86,6 +91,14 @@
         [_mainTableView.mj_footer endRefreshing];
     }];
 
+    label = [[UILabel alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
+    [self.view addSubview:label];
+    label.backgroundColor = BACKGROUND_COLOR;
+    label.text = @"没有武馆(若无法定位请手动选择城市)";
+    label.font = [UIFont systemFontOfSize:16];
+    label.numberOfLines = 0;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
     
 
     placeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, StatusBar_HEIGHT, 100, NavigationBar_HEIGHT)];
@@ -127,6 +140,7 @@
                 [[CCLocationManager shareLocation] getCity:^(NSString *addressString) {
                    // NSLog(@"City : %@",addressString);
                     cityName = [self getRealCityName:addressString];
+                    onlyCityName =cityName;
                     [placeBtn setTitle:cityName forState:UIControlStateNormal];
                     DataProvider * dataprovider=[[DataProvider alloc] init];
                     [dataprovider setDelegateObject:self setBackFunctionName:@"getWuguanListCallBack:"];
@@ -178,8 +192,19 @@
             
             
             [WuGuanListArr addObjectsFromArray:dict[@"data"]];
-            
+            if(WuGuanListArr.count >= [dict[@"recordcount"] intValue])
+            {
+                [_mainTableView.mj_footer setState:MJRefreshStateNoMoreData];
+            }
             [_mainTableView reloadData];
+            
+            if (WuGuanListArr.count ==0) {
+                label.hidden = NO;
+            }
+            else
+            {
+                label.hidden = YES;
+            }
             
         }
         @catch (NSException *exception) {
@@ -221,6 +246,10 @@
 //            
             [WuGuanListArr addObjectsFromArray:dict[@"data"]];
             
+            if(WuGuanListArr.count >= [dict[@"recordcount"] intValue])
+            {
+                [_mainTableView.mj_footer setState:MJRefreshStateNoMoreData];
+            }
             [_mainTableView reloadData];
             
         }
@@ -246,6 +275,7 @@
 {
     [placeBtn setTitle:City forState:UIControlStateNormal];
     cityID = cityId;
+    onlyCityName = City;
     [_mainTableView.mj_header beginRefreshing];
 }
 
@@ -311,7 +341,7 @@
         cell.describeLab.text = tempDict[@"Content"];
         cell.titleLab.text = tempDict[@"Title"];
         cell.phoneLab.text = [NSString stringWithFormat:@"电话:%@",tempDict[@"TelePhone"]];
-        cell.addressLab.text = [NSString stringWithFormat:@"地址:%@",tempDict[@"Address"]];
+        cell.addressLab.text = [NSString stringWithFormat:@"地址:%@",[onlyCityName substringToIndex:(onlyCityName.length-2)]];
         
         NSString *url = [NSString stringWithFormat:@"%@%@",Url,tempDict[@"ImagePath"]];
         [cell.mainImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];

@@ -182,7 +182,7 @@
         _textView = [[UITextView alloc] init];
     if(tipbtn==nil)
     {
-        tipbtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 150 ), 0, 150, _cellHeight)];
+        tipbtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 120 ), 0, 120, _cellHeight)];
         if(self.planMode !=nil)
         {
             [tipbtn setTitle:self.planMode forState:UIControlStateNormal];
@@ -285,6 +285,7 @@
     }
     
     [self getDateAndTime];
+    [_mainTableView reloadData];
 }
 -(void)setPlanMode:(NSString *)planMode
 {
@@ -343,7 +344,7 @@
             break;
         case YearPlan:
         {
-            NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:(nowTimeInterVal +12*30*OneDay)];
+            NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:(nowTimeInterVal +365*OneDay)];
             endDateStr = [NSString stringWithFormat:@"%@",endDate];
         }
             break;
@@ -540,6 +541,7 @@
         {
             _titleField.frame = CGRectMake(10, 0, cell.frame.size.width, _cellHeight);
             _titleField.placeholder = @"标题";
+            
             _titleField.backgroundColor  = ItemsBaseColor;
             _titleField.delegate = self;
             _titleField.textColor = [UIColor whiteColor];
@@ -551,11 +553,13 @@
             break;
         case  1:
         {
-            cell.textLabel.text = @"选择周期";
+            cell.textLabel.text = [NSString stringWithFormat:@"%@~%@",[startDateStr  substringToIndex:10],[endDateStr substringToIndex:10] ];//@"选择周期";
             cell.textLabel.textColor = [UIColor whiteColor];
-            
+            cell.textLabel.font = [UIFont systemFontOfSize:12];
             tipbtn.backgroundColor = ItemsBaseColor;
             [tipbtn addTarget:self action:@selector(pushViewAction:) forControlEvents:UIControlEventTouchUpInside];
+            tipbtn.titleLabel.font = [UIFont systemFontOfSize:14];
+            
             
             UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
             rightView.frame = CGRectMake((tipbtn.frame.size.width - 20 -20), 0, 15, 15);
@@ -583,7 +587,7 @@
             
             [_textView addSubview:textViewHolderLab];
             textViewHolderLab.text = @"发帖内容";
-            textViewHolderLab.frame = CGRectMake(0, 0, _textView.frame.size.width, 30);
+            textViewHolderLab.frame = CGRectMake(10, 0, _textView.frame.size.width, 30);
 //            _textView.returnKeyType = UIReturnKeyDefault;
 //            _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             

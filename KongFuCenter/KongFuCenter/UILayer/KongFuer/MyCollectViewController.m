@@ -87,7 +87,10 @@
                 [model setValuesForKeysWithDictionary:dic];
                 [self.arr_voiceData addObject:model];
             }
-            
+            if(self.arr_deleteVoice.count >= [dict[@"recordcount"] intValue])
+            {
+                [mainCollectionView.mj_footer setState:MJRefreshStateNoMoreData];
+            }
             
         }
         @catch (NSException *exception) {
@@ -128,6 +131,10 @@
             
             [ArticleArr addObjectsFromArray:dict[@"data"]];
            
+            if(ArticleArr.count>=[dict[@"recordcount"] intValue])
+            {
+                [_mainTableView.mj_footer setState:MJRefreshStateNoMoreData];
+            }
             [_mainTableView reloadData];
        
         }
@@ -233,6 +240,11 @@
             [self.arr_voiceData removeAllObjects];
         [weakSelf getUserInfo];
         // 结束刷新
+        if(mainCollectionView.mj_footer !=nil)
+        {
+            [mainCollectionView.mj_footer setState:MJRefreshStateIdle];
+        }
+        
         [mainCollectionView.mj_header endRefreshing];
     }];
     [mainCollectionView.mj_header beginRefreshing];
@@ -282,7 +294,10 @@
         {
             [ArticleArr removeAllObjects];
         }
-        
+        if( _mainTableView.mj_footer!=nil)
+        {
+            [_mainTableView.mj_footer setState:MJRefreshStateIdle];
+        }
         [weakSelf getUserInfo1];
         // 结束刷新
         [_mainTableView.mj_header endRefreshing];
@@ -316,15 +331,49 @@
     }
     else
     {
+        if(self.arr_deleteVoice.count==0)
+        {
+            [self addRightbuttontitle:@"删除"];
+            self.isDelete = 0;
+            
+            for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
+                UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
+                btn_select.hidden = YES;
+            }
+            return;
+        }
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认删除？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
+        [alertView show];
+        NSLog(@"%ld",(unsigned long)self.arr_voiceData.count);
+        
+        
+
+//        
+       
+
+//        [mainCollectionView reloadData];
+        
+//        self.arr_deleteVoice = nil;
+     
+       
+        
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0)//确认
+    {
         [self addRightbuttontitle:@"删除"];
         self.isDelete = 0;
-        
-        NSLog(@"%ld",self.arr_voiceData.count);
-        
+        for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
+            UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
+            btn_select.hidden = YES;
+        }
         
         if(self.arr_deleteVoice.count == 1)
         {
-            
+
         }
         else
         {
@@ -339,30 +388,20 @@
                 }
             }
         }
-        
         for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
             UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
             btn_select.hidden = YES;
         }
+        delcount = 0;
         
-        for (NSString * str in self.arr_deleteVoice) {
+        NSString *str =self.arr_deleteVoice[delcount];
+        model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
+        
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack3:"];
             
-            model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
-            
-            DataProvider * dataprovider=[[DataProvider alloc] init];
-            [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
-            [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack3:"];
-            
-//            [self.arr_voiceData removeObjectAtIndex:[str integerValue]];
-//            [mainCollectionView reloadData];
-        }
 
-//        [mainCollectionView reloadData];
-        
-//        self.arr_deleteVoice = nil;
-     
-       
-        
     }
 }
 
@@ -370,6 +409,7 @@
 {
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
+        
         @try
         {
             if(self.arr_deleteVoice.count == 1)
@@ -378,6 +418,7 @@
             }
             else
             {
+                delcount++;
                 for(int i = 0; i < self.arr_deleteVoice.count ; i ++)
                 {
                     for (int j = 0; j < self.arr_deleteVoice.count - 1 - i; j ++)
@@ -390,21 +431,30 @@
                 }
             }
             
-            for (NSString * str in self.arr_deleteVoice) {
+ 
+            
+            
+            if(delcount >=self.arr_deleteVoice.count)
+            {
+                for (NSString * str in self.arr_deleteVoice) {
+                    [self.arr_voiceData removeObjectAtIndex:[str integerValue]];
+                    [mainCollectionView reloadData];
+                    [mainCollectionView.mj_header beginRefreshing];
+                }
                 
-//                model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
-//                
-//                DataProvider * dataprovider=[[DataProvider alloc] init];
-//                [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
-//                [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack3:"];
-                
-                [self.arr_voiceData removeObjectAtIndex:[str integerValue]];
+                self.arr_deleteVoice = nil;
                 [mainCollectionView reloadData];
             }
-            
-            [mainCollectionView reloadData];
-            
-            self.arr_deleteVoice = nil;
+            else
+            {
+                NSString *str =self.arr_deleteVoice[delcount];
+                model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
+                
+                DataProvider * dataprovider=[[DataProvider alloc] init];
+                [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
+                [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack3:"];
+
+            }
         }
         @catch (NSException *exception) {
             
