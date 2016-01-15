@@ -368,6 +368,9 @@
 //           return;
 //        }
 //    }
+//    if (videoArray[indexPath.row][@"UserId"]) {
+//        <#statements#>
+//    }
     VideoDetialSecondViewController *viewDetailViewCtl = [[VideoDetialSecondViewController alloc] init];
     viewDetailViewCtl.videoID=videoArray[indexPath.row][@"Id"];
 //    NSLog(@"%@",videoArray[indexPath.row][@"Id"]);

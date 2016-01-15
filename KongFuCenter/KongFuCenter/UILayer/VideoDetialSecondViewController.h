@@ -13,13 +13,6 @@
 #import <ShareSDKInterfaceAdapter/ISSContainer.h>
 #import "VipViewController.h"
 #import "JvbaoView.h"
-typedef enum _DetailMode
-{
-    StudyOnline = 0,
-    NormalVideo
-    
-}VideoDetailMode;
-
 
 @interface VideoDetialSecondViewController : BaseNavigationController<UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,JvbaoDelegate>
 {
@@ -36,6 +29,5 @@ typedef enum _DetailMode
 
 @property(nonatomic,strong) NSString * videoID;
 
-@property(nonatomic)VideoDetailMode detailMode;
 
 @end

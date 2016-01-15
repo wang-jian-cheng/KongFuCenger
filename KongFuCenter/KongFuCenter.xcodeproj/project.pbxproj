@@ -90,6 +90,9 @@
 		804952271C2523FA00F5584A /* UploadVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 804952251C2523FA00F5584A /* UploadVideoViewController.m */; };
 		804952281C2523FA00F5584A /* UploadVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804952261C2523FA00F5584A /* UploadVideoViewController.xib */; };
 		806240621C48842000691D0C /* KongfuStore_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 806240611C48842000691D0C /* KongfuStore_0.png */; };
+		806240661C48936E00691D0C /* SecriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806240641C48936E00691D0C /* SecriteViewController.m */; };
+		806240671C48936E00691D0C /* SecriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806240651C48936E00691D0C /* SecriteViewController.xib */; };
+		806240691C4893AF00691D0C /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 806240681C4893AF00691D0C /* index.html */; };
 		8074B0991C4376D60029C8B1 /* PlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8074B0971C4376D60029C8B1 /* PlayerController.m */; };
 		8074B09A1C4376D60029C8B1 /* PlayerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8074B0981C4376D60029C8B1 /* PlayerController.xib */; };
 		8074B09E1C437FEF0029C8B1 /* libffmpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8074B09B1C437FEF0029C8B1 /* libffmpeg.a */; };
@@ -627,6 +630,10 @@
 		804952251C2523FA00F5584A /* UploadVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadVideoViewController.m; sourceTree = "<group>"; };
 		804952261C2523FA00F5584A /* UploadVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadVideoViewController.xib; sourceTree = "<group>"; };
 		806240611C48842000691D0C /* KongfuStore_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KongfuStore_0.png; sourceTree = "<group>"; };
+		806240631C48936E00691D0C /* SecriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecriteViewController.h; sourceTree = "<group>"; };
+		806240641C48936E00691D0C /* SecriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecriteViewController.m; sourceTree = "<group>"; };
+		806240651C48936E00691D0C /* SecriteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecriteViewController.xib; sourceTree = "<group>"; };
+		806240681C4893AF00691D0C /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		8074B0961C4376D60029C8B1 /* PlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerController.h; sourceTree = "<group>"; };
 		8074B0971C4376D60029C8B1 /* PlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerController.m; sourceTree = "<group>"; };
 		8074B0981C4376D60029C8B1 /* PlayerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerController.xib; sourceTree = "<group>"; };
@@ -2045,6 +2052,7 @@
 		B59408C71C0FC9E8003DC15D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				806240681C4893AF00691D0C /* index.html */,
 				B59408D01C0FC9E8003DC15D /* Main.storyboard */,
 				B59408D31C0FC9E8003DC15D /* big.xcassets */,
 				B59408D81C0FC9E8003DC15D /* Info.plist */,
@@ -2577,6 +2585,9 @@
 		B5F90AE21C197D3D00D7879D /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				806240631C48936E00691D0C /* SecriteViewController.h */,
+				806240641C48936E00691D0C /* SecriteViewController.m */,
+				806240651C48936E00691D0C /* SecriteViewController.xib */,
 				B5F90AF31C197F1700D7879D /* DataDefine.h */,
 				B5F90AF41C197F1700D7879D /* DataDefine.m */,
 				B5F90AE31C197D3D00D7879D /* InputText.h */,
@@ -3128,6 +3139,7 @@
 				B53791B61C15724900C45BA7 /* temp3@2x.png in Resources */,
 				B5F90AD51C192A2200D7879D /* lixiaolong@2x.png in Resources */,
 				802118E81C1AFAE100DCEE73 /* yinliangxiao.png in Resources */,
+				806240691C4893AF00691D0C /* index.html in Resources */,
 				B7CE7F481C16C6F30035D8CA /* JoinTeamCell.xib in Resources */,
 				B5F13B251C1FBAAC00155038 /* read_me.txt in Resources */,
 				B5F90AD41C192A2200D7879D /* chenglong@2x.png in Resources */,
@@ -3140,6 +3152,7 @@
 				B53791BF1C1579F500C45BA7 /* hewuzhe@2x.png in Resources */,
 				B5F90AFF1C1985A100D7879D /* Logintitle@2x.png in Resources */,
 				B5F13B3D1C1FE6E600155038 /* 108@2x.png in Resources */,
+				806240671C48936E00691D0C /* SecriteViewController.xib in Resources */,
 				B728F67C1C2BD7AD004E90F3 /* wyzan_no.png in Resources */,
 				B70208001C45F15E00AF1687 /* newconcernfriend.png in Resources */,
 				B53E737F1C166389009E7878 /* support@2x.png in Resources */,
@@ -3403,6 +3416,7 @@
 				80DB846E1C23D3A6008CA670 /* UIImageView+HighlightedWebCache.m in Sources */,
 				B5451CCA1C2796B6001BB39F /* pinyin.m in Sources */,
 				7BA38E991C215E62000996EE /* AnnouncementViewController.m in Sources */,
+				806240661C48936E00691D0C /* SecriteViewController.m in Sources */,
 				B577E2321C1A9A6C006695F1 /* SetNoticeViewController.m in Sources */,
 				B5F4E3A61C1EBBB6001F81F0 /* StrangerInfoViewController.m in Sources */,
 				804952071C250B3800F5584A /* SCImageView.m in Sources */,

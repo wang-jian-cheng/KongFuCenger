@@ -527,6 +527,10 @@
         {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"JumpToWYNews" object:nil];
         }
+        case 5:
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"JumpToTeamgonggao" object:nil];
+        }
             break;
         default:
             break;

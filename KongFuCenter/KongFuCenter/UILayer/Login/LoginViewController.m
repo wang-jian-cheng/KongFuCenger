@@ -11,6 +11,7 @@
 #import "RegisterViewController.h"
 #import "SVProgressHUD.h"
 #import <RongIMKit/RongIMKit.h>
+#import "SecriteViewController.h"
 
 #define LogIn_UserID_key    @"mAccountID"
 #define LogIn_UserPass_key   @"password"
@@ -160,6 +161,20 @@
 
 -(void) initLabels
 {
+    
+    UILabel * lbl_secrit=[[UILabel alloc] initWithFrame:CGRectMake( 10, ZY_UIPART_SCREEN_HEIGHT*78.8-40, 170, 15)];
+    lbl_secrit.text=@"点击登录表示您已完成阅读";
+    lbl_secrit.textColor=[UIColor grayColor];
+    lbl_secrit.font=[UIFont systemFontOfSize:13];
+    [self.view addSubview:lbl_secrit];
+    UIButton * btn_secrit=[[UIButton alloc] initWithFrame:CGRectMake(lbl_secrit.frame.origin.x+lbl_secrit.frame.size.width, lbl_secrit.frame.origin.y, 60, 15)];
+    [btn_secrit setTitle:@"隐私政策" forState:UIControlStateNormal];
+    [btn_secrit setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    btn_secrit.titleLabel.font=[UIFont systemFontOfSize:13];
+    [btn_secrit addTarget:self action:@selector(btn_secritClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn_secrit];
+    [self.view bringSubviewToFront:btn_secrit];
+    
     NSString *str =@"你可以使用第三方进行登录";
     UIFont *font = [UIFont fontWithName:@"Arial" size:12];
 //    
@@ -276,6 +291,8 @@
     [WechatBtn addTarget:self action:@selector(weChatLogin:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:WechatBtn];
     
+    
+    
 }
 
 -(void) initTexts
@@ -389,7 +406,7 @@
     // if(gestureRecognizer.d)
     
     // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
-    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"])
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]||[NSStringFromClass([touch.view class]) isEqualToString:@"UIButton"])
     {
         return NO;
     }
@@ -1122,14 +1139,11 @@
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)btn_secritClick
+{
+    SecriteViewController *_mysecriteVC=[[SecriteViewController alloc] initWithNibName:@"SecriteViewController" bundle:[NSBundle mainBundle]];
+    
+    [self.navigationController pushViewController:_mysecriteVC animated:YES];
 }
-*/
 
 @end

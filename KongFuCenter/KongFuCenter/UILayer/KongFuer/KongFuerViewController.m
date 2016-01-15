@@ -10,6 +10,7 @@
 #import "TeamNewsViewController.h"
 #import "WYNewsViewController.h"
 #import "NewConcernFriendViewController.h"
+#import "AnnouncementViewController.h"
 
 @interface KongFuerViewController ()
 {
@@ -49,6 +50,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToTeamNews) name:@"JumpTeamNews" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToWYNews) name:@"JumpToWYNews" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToAttention) name:@"JumpAttention" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToTeamgonggao) name:@"JumpToTeamgonggao" object:nil];
     _sectionNum = 5;
     _cellHeight = SCREEN_HEIGHT / 12;
     [self setBarTitle:@"核武者"];
@@ -818,5 +820,10 @@
 {
     NewConcernFriendViewController *newConcernFriendVC = [[NewConcernFriendViewController alloc] init];
     [self.navigationController pushViewController:newConcernFriendVC animated:YES];
+}
+-(void)JumpToTeamgonggao
+{
+    AnnouncementViewController * announcementViewController = [[AnnouncementViewController alloc] init];
+    [self.navigationController pushViewController:announcementViewController animated:YES];
 }
 @end

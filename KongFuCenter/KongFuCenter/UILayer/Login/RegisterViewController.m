@@ -208,12 +208,12 @@
                 
                 cell.backgroundColor = BACKGROUND_COLOR;
                 //if(_pageMode == MODE_Reg)
-                if(1)
-                {
+//                if(1)
+//                {
                     UIButton * btn_fuwuxieyi=[[UIButton alloc] initWithFrame:CGRectMake(20, 10, 100, 30)];
                     [btn_fuwuxieyi setImage:[UIImage imageNamed:@"regster_select_icon@2x.png"] forState:UIControlStateNormal];
                     [btn_fuwuxieyi setTitle:@"服务协议" forState:UIControlStateNormal];
-                    [btn_fuwuxieyi setTitleColor:BACKGROUND_COLOR forState:UIControlStateNormal];
+                    [btn_fuwuxieyi setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                     
                     btn_fuwuxieyi.imageView.contentMode = UIViewContentModeScaleAspectFit;
                     btn_fuwuxieyi.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -222,13 +222,13 @@
                     UIButton * btn_yinsi=[[UIButton alloc] initWithFrame:CGRectMake(btn_fuwuxieyi.frame.size.width+btn_fuwuxieyi.frame.origin.x+ 20, 10, 100, 30)];
                     [btn_yinsi setImage:[UIImage imageNamed:@"regster_select_icon@2x.png"] forState:UIControlStateNormal];
                     [btn_yinsi setTitle:@"隐私政策" forState:UIControlStateNormal];
-                    [btn_yinsi setTitleColor:BACKGROUND_COLOR forState:UIControlStateNormal];
+                    [btn_yinsi setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                     
                     
                     btn_yinsi.imageView.contentMode = UIViewContentModeScaleAspectFit;
                     btn_yinsi.titleLabel.font = [UIFont systemFontOfSize:14];
                     [cell addSubview:btn_yinsi];
-                }
+//                }
             }
                 break;
             case 5:
