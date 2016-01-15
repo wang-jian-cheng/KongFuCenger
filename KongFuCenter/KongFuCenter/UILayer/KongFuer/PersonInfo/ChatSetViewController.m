@@ -158,7 +158,8 @@
 -(void)delFriendCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showSuccessWithStatus:@"取消成功~"];
-        [self.navigationController popViewControllerAnimated:YES];
+        //[self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"取消失败~"];
     }
@@ -271,7 +272,7 @@
                 
                 cell.textLabel.text = @"设置备注名";
                 
-                UILabel *heightLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 50 -100), 0, 100, _cellHeight)];
+                UILabel *heightLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 50 -150), 0, 150, _cellHeight)];
                 heightLab.text = [userInfoArray[@"RemarkName"] isEqual:[NSNull null]]?@"":userInfoArray[@"RemarkName"];
                 heightLab.textColor = YellowBlock;
                 heightLab.textAlignment = NSTextAlignmentRight;
@@ -415,12 +416,21 @@
 
 -(void)JvbaoSureBtnClick:(NSString *)content
 {
+    [SVProgressHUD showWithStatus:@"加载中..."];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
     //举报
     [dataprovider ReportUser:[Toolkit getUserID] andTargetId:self.userID andContent:content];
 }
 
+-(void)MakeActionCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"举报成功~"];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:@"举报失败~"];
+    }
+}
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();

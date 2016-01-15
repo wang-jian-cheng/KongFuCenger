@@ -9,6 +9,7 @@
 #import "NewConcernFriendViewController.h"
 #import "NewConcernFriendTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "UserHeadView.h"
 
 @interface NewConcernFriendViewController (){
     UITableView *mTableView;
@@ -65,12 +66,14 @@
 }
 
 -(void)cancelConcernEvent:(UIButton *)btn{
+    [SVProgressHUD showWithStatus:@"加载中..."];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"deleteFriendCallBack:"];
     [dataProvider DeleteFriend:get_sp(@"id") andfriendid:[NSString stringWithFormat:@"%d",(int)btn.tag]];
 }
 
 -(void)deleteFriendCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showSuccessWithStatus:@"取消关注成功~"];
         [self initData];
@@ -80,12 +83,14 @@
 }
 
 -(void)concernEvent:(UIButton *)btn{
+    [SVProgressHUD showWithStatus:@"加载中..."];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"addFriendCallBack:"];
     [dataProvider SaveFriend:get_sp(@"id") andFriendid:[NSString stringWithFormat:@"%d",(int)btn.tag]];
 }
 
 -(void)addFriendCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showSuccessWithStatus:@"关注成功~"];
         [self initData];
@@ -115,7 +120,11 @@
     }
     NSString *photoPath = [Toolkit judgeIsNull:[NewConcernFriendArray[indexPath.row] valueForKey:@"PhotoPath"]];
     NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoPath];
-    [cell.mImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+    UserHeadView *headView = [[UserHeadView alloc] initWithFrame:cell.mImgView.frame andUrl:url andNav:self.navigationController];
+    headView.userId = [Toolkit judgeIsNull:[NewConcernFriendArray[indexPath.row] valueForKey:@"UserId"]];
+    [headView makeSelfRound];
+    
+    [cell addSubview:headView];
     cell.mName.text = [Toolkit judgeIsNull:[NewConcernFriendArray[indexPath.row] valueForKey:@"NicName"]];
     NSString *joinTime = [Toolkit judgeIsNull:[NewConcernFriendArray[indexPath.row] valueForKey:@"JoinTime"]];
     cell.mDate.text = [NSString stringWithFormat:@"%@关注了你",joinTime];

@@ -312,7 +312,7 @@
     RCUserInfo *user = [[RCUserInfo alloc]init];
     NSLog(@"%@",userId);
     user.userId = userId;
-    user.name = @"匿名";
+    user.name = @"陌生人";
     //user.portraitUri = @"http://img.zcool.cn/community/033d26a5618cb9732f8755701e1a308.jpg@250w_188h_1c_1e_2o";
     if ([userId isEqual:[NSString stringWithFormat:@"%@",[mUserDefault valueForKey:@"id"]]]) {
         user.name = [mUserDefault valueForKey:@"NicName"];
