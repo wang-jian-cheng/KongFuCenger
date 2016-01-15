@@ -92,8 +92,8 @@
     
     _sectionNum = 4;
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
-    
+//    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height) style:UITableViewStyleGrouped];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -510,16 +510,23 @@
     [self.navigationController pushViewController:vipViewCtl animated:YES];
 }
 
--(void)clickRightButton:(UIButton *)sender
+//-(void)clickRightButton:(UIButton *)sender
+//{
+//    JvbaoView *jvbaoView = [[JvbaoView alloc] init];
+//    jvbaoView.delegate = self;
+//    [jvbaoView show];
+//    
+////    DataProvider * dataprovider=[[DataProvider alloc] init];
+////    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
+////    //举报
+////    [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3" andDescription:nil];
+//}
+
+-(void)JUbao:(UIButton *)sender
 {
     JvbaoView *jvbaoView = [[JvbaoView alloc] init];
     jvbaoView.delegate = self;
     [jvbaoView show];
-    
-//    DataProvider * dataprovider=[[DataProvider alloc] init];
-//    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
-//    //举报
-//    [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3" andDescription:nil];
 }
 
 -(void)JvbaoSureBtnClick:(NSString *)content
@@ -876,7 +883,7 @@
             
             if(indexPath.row == 1)
             {
-                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 10, SCREEN_WIDTH, 30)];
+                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 10, SCREEN_WIDTH-60, 30)];
                 titleLab.textColor = TextColors;
                 titleLab.text = [VideoDict[@"Title"] isEqual:[NSNull null]]?@"":VideoDict[@"Title"];
                 titleLab.font = [UIFont boldSystemFontOfSize:14];
@@ -895,6 +902,18 @@
                 detailLab.font = [UIFont boldSystemFontOfSize:12];
                 [cell addSubview:detailLab];
                 
+                UIButton * btn_jubao=[[UIButton alloc] initWithFrame:CGRectMake(titleLab.frame.origin.x+titleLab.frame.size.width, 10, 40, detailHeight+40)];
+                
+                [btn_jubao setTitle:@"举报" forState:UIControlStateNormal];
+                
+                [btn_jubao setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                
+                btn_jubao.backgroundColor=ItemsBaseColor;
+                
+                [btn_jubao addTarget:self action:@selector(JUbao:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [cell addSubview:btn_jubao];
+            
             }
         }
             break;
@@ -1270,22 +1289,20 @@
 #pragma mark - setting for section
 //设置section的header view
 
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *tempView = [[UIView alloc] init];
-    
-//    switch (section) {
-//        case 1:
-//     
-//            break;
-//            
-//        default:
-//            break;
-//    }
-    
+    tempView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1);
     return tempView;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *tempView = [[UIView alloc] init];
+    tempView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 10);
+    return tempView;
+}
 //设置section header 的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -1293,7 +1310,7 @@
 //    if(section != 0)
 //        return _cellHeight;
 //    else
-    return 0;
+    return 1;
 }
 
 //设置section footer的高度

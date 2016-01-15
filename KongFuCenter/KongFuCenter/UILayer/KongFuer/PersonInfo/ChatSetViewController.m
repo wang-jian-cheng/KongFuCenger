@@ -39,7 +39,7 @@
     [SVProgressHUD showWithStatus:@"加载中"];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getUserInfoById:"];
-    [dataProvider getUserInfo:_userID];
+    [dataProvider getUserInfo:[Toolkit getUserID] andfriendid:_userID];
 }
 
 -(void)getUserInfoById:(id)dict{
@@ -122,6 +122,7 @@
     DLog(@"%@",dict);
     
     if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"设置成功" maskType:SVProgressHUDMaskTypeBlack];
         
     }else{
          [SVProgressHUD showSuccessWithStatus:dict[@"data"]];
@@ -246,7 +247,7 @@
                 cell.textLabel.text = @"设置备注名";
                 
                 UILabel *heightLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 50 -100), 0, 100, _cellHeight)];
-                heightLab.text = @"龙的传人";
+                heightLab.text = [userInfoArray[@"RemarkName"] isEqual:[NSNull null]]?@"":userInfoArray[@"RemarkName"];
                 heightLab.textColor = YellowBlock;
                 heightLab.textAlignment = NSTextAlignmentRight;
                 [cell addSubview:heightLab];
@@ -319,7 +320,7 @@
         NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
         NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
         NSInteger age = [dateComponent year] - mYear;
-        otherInfoLab.text = [NSString stringWithFormat:@"%@－%d岁",[[NSString stringWithFormat:@"%@",[userInfoArray valueForKey:@"Sexuality"]] isEqual:@"0"]?@"男":@"女",(int)age];
+        otherInfoLab.text = [NSString stringWithFormat:@"%@－%d岁",[[NSString stringWithFormat:@"%@",[userInfoArray valueForKey:@"Sexuality"]] isEqual:@"1"]?@"男":@"女",(int)age];
         
         [cell addSubview:otherInfoLab];
         
@@ -475,7 +476,7 @@
         UITextField *tf=[alertView textFieldAtIndex:0];
         if (tf.text.length>0) {
             [dataProvider setDelegateObject:self setBackFunctionName:@"SetNickNameCallBack:"];
-            [dataProvider SetNickName:[Toolkit getUserID] andfriend:[userInfoArray valueForKey:@"Id"] andrname:tf.text];
+            [dataProvider SetNickName:[Toolkit getUserID] andfriend:_userID andrname:tf.text];
         }
     }
 }
@@ -485,7 +486,7 @@
     if ([dict[@"code"] intValue]==200) {
         [SVProgressHUD showSuccessWithStatus:@"设置成功" maskType:SVProgressHUDMaskTypeBlack];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getUserInfoById:"];
-        [dataProvider getUserInfo:_userID];
+        [dataProvider getUserInfo:[Toolkit getUserID] andfriendid:_userID];
     }
 }
 

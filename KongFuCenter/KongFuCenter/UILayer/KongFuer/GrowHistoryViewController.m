@@ -308,7 +308,7 @@
     
     @try {
         
-        if(rebuildGrowArr == nil || rebuildGrowArr.count ==0 ||rebuildGrowArr.count- 1< indexPath.row)
+        if(rebuildGrowArr == nil || rebuildGrowArr.count ==0 )
             return cell;
         
         NSDictionary *tempDict = rebuildGrowArr[indexPath.section][@"growHistory"][indexPath.row];

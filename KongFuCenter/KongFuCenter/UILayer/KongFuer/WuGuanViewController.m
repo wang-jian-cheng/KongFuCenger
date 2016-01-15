@@ -100,7 +100,7 @@
     imgView.contentMode = UIViewContentModeScaleAspectFit;
     [placeBtn addSubview:imgView];
     
-    [self loadWuguanList:cityID];
+//    [self loadWuguanList:cityID];
     
 }
 
@@ -407,13 +407,21 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *tempView = [[UIView alloc] init];
+    tempView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1) ;
     return tempView;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *tempView = [[UIView alloc] init];
+    tempView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 10) ;
+    return tempView;
+   
 }
 
 //设置section header 的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0;
+    return 1;
 }
 
 //设置section footer的高度

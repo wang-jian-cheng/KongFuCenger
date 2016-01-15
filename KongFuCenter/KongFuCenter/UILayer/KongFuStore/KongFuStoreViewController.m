@@ -20,6 +20,13 @@
     [self setBarTitle:@"核装备"];
     
     
+    UIImageView * img_view=[[UIImageView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-49)];
+    
+    img_view.image=[UIImage imageNamed:@"KongfuStore_0.png"];
+    
+    [self.view addSubview:img_view];
+    
+    
     UILabel *tipLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     tipLab.text = @"敬请期待";

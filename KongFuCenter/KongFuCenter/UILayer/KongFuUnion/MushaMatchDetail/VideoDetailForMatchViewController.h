@@ -18,6 +18,7 @@
     
     int pageNo;
     int pageSize;
+    UIButton *supportBtn;
 }
 @property(nonatomic,strong) NSString *videoID;
 @property(nonatomic,strong) NSString *matchId;

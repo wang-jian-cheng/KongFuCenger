@@ -115,7 +115,7 @@
         return 1;
     }
     
-    return 4;
+    return 3;
     
 }
 
@@ -151,25 +151,25 @@
 
             }
                 break;
+//            case 1:
+//            {
+//                
+//                cell.textLabel.text = @"设置备注名";
+//                
+//                UILabel *heightLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 50 -100), 0, 100, _cellHeight)];
+//                heightLab.text = @"龙的传人";
+//                heightLab.textColor = YellowBlock;
+//                heightLab.textAlignment = NSTextAlignmentRight;
+//                [cell addSubview:heightLab];
+//            }
+//                break;
             case 1:
-            {
-                
-                cell.textLabel.text = @"设置备注名";
-                
-                UILabel *heightLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 50 -100), 0, 100, _cellHeight)];
-                heightLab.text = @"龙的传人";
-                heightLab.textColor = YellowBlock;
-                heightLab.textAlignment = NSTextAlignmentRight;
-                [cell addSubview:heightLab];
-            }
-                break;
-            case 2:
             {
                 
                 cell.textLabel.text = @"举报";
             }
                 break;
-            case 3:
+            case 2:
             {
                 
                 cell.textLabel.text = @"屏蔽好友";
@@ -218,7 +218,7 @@
         NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
         NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
         NSInteger age = [dateComponent year] - mYear;
-        otherInfoLab.text = [NSString stringWithFormat:@"%@－%d岁",[[NSString stringWithFormat:@"%@",[userInfoArray valueForKey:@"Sexuality"]] isEqual:@"0"]?@"男":@"女",(int)age];
+        otherInfoLab.text = [NSString stringWithFormat:@"%@－%d岁",[[NSString stringWithFormat:@"%@",[userInfoArray valueForKey:@"Sexuality"]] isEqual:@"1"]?@"男":@"女",(int)age];
         
         [cell addSubview:otherInfoLab];
         
