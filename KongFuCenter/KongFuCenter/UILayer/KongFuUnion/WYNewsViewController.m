@@ -32,7 +32,7 @@
 #define sendNews  (2015+1)
 #define smallVideo  (2015+2)
 
-@interface WYNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate,WechatShortVideoDelegate>
+@interface WYNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate,WechatShortVideoDelegate,UIAlertViewDelegate>
 {
     NSMutableArray *_imageDataSource;
     
@@ -68,6 +68,8 @@
     BOOL isComment;
     int curpage;//页数
     int sumpage;
+    
+    NSString *delDTId;
     
 }
 
@@ -161,6 +163,7 @@
             NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
             messBody.mID = [itemDict valueForKey:@"Id"];
+            messBody.userID = [itemDict valueForKey:@"UserId"];
             messBody.posterImgstr = url;//@"mao.jpg";
             messBody.posterName = [itemDict valueForKey:@"NicName"];
             messBody.posterIntro = @"";
@@ -237,6 +240,8 @@
             }
             NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+            messBody.mID = [itemDict valueForKey:@"Id"];
+            messBody.userID = [itemDict valueForKey:@"UserId"];
             messBody.posterImgstr = url;//@"mao.jpg";
             messBody.posterName = [itemDict valueForKey:@"NicName"];
             messBody.posterIntro = @"";
@@ -564,7 +569,7 @@
         [cell.videoImg addGestureRecognizer:clickVideoImg];
         clickVideoImg.view.tag = indexPath.row;
     }
-    
+    [cell.delIcon addTarget:self action:@selector(delMyInfoEvent:) forControlEvents:UIControlEventTouchUpInside];
     cell.delegate = self;
     NSLog(@"%d------%d",(int)indexPath.section,(int)indexPath.row);
     NSLog(@"%@",[_tableDataSource objectAtIndex:indexPath.row]);
@@ -696,6 +701,30 @@
     if ([dict[@"code"] intValue] == 200) {
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateComment" object:nil];//ios7 多次调用会导致崩溃
     [replyView updateComment];
+    }
+}
+
+-(void)delMyInfoEvent:(UIButton *)btn{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认删除动态?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    delDTId = [NSString stringWithFormat:@"%d",(int)btn.tag];
+    [alertView show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        [SVProgressHUD showWithStatus:@"删除中..."];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"delMyInfoCallBack:"];
+        [dataProvider delePlan:delDTId];
+    }
+}
+
+-(void)delMyInfoCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"删除成功~"];
+        [mainTable.mj_header beginRefreshing];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:@"删除失败~"];
     }
 }
 

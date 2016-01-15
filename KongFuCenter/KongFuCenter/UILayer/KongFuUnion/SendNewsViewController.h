@@ -1,8 +1,8 @@
 //
-//  SendNewsViewController.h
+//  NewPlanViewController.h
 //  KongFuCenter
 //
-//  Created by Rain on 15/12/25.
+//  Created by 王建成 on 15/12/9.
 //  Copyright © 2015年 zykj. All rights reserved.
 //
 
@@ -15,9 +15,13 @@
 #import "PictureShowView.h"
 #import "UploadDataToServer.h"
 #import "TrainsPlanViewController.h"
+#import "JKAssets.h"
 
-@interface SendNewsViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate,ChoosePlanTypeDelegate,UICollectionViewDelegate,UICollectionViewDataSource,JKImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,VPImageCropperDelegate,UIGestureRecognizerDelegate,UploadDataToServerDelegate>{
-    
+#define PICPICKER_IMGS_KEY      @"picPicker"
+#define PHOTO_IMGS_KEY          @"photoPicker"
+
+@interface SendNewsViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate,ChoosePlanTypeDelegate,UICollectionViewDelegate,UICollectionViewDataSource,JKImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,VPImageCropperDelegate,UIGestureRecognizerDelegate,UploadDataToServerDelegate,PictureShowViewDelegate>
+{
     NSIndexPath *tempIndexPath;
     UIImage *photoImg;
     //img upload
@@ -25,6 +29,14 @@
     NSInteger uploadImgIndex;
     NSMutableArray * img_prm;
     
+    NSMutableDictionary *allImgsPicked;//所有照片合集
+    NSMutableArray *imgPickerImgs;//照片选择器
+    NSMutableArray *photoImgs;//拍照
+    
+    
+    UIView *picShowView;
 }
+@property(nonatomic) NSDictionary *DefaultDict;
+@property(nonatomic) NSString *planMode;
 
 @end

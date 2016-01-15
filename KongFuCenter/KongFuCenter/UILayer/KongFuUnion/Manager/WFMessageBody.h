@@ -15,6 +15,11 @@
 @property (nonatomic,copy) NSString *mID;
 
 /**
+ *  发布的用户ID
+ */
+@property (nonatomic,copy) NSString *userID;
+
+/**
  *  用户头像url 此处直接用图片名代替
  */
 @property (nonatomic,copy) NSString *posterImgstr;//

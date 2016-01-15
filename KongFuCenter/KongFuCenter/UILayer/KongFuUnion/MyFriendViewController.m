@@ -42,7 +42,7 @@
     [super viewDidLoad];
     
     //初始化参数
-    self.view.backgroundColor = ItemsBaseColor;
+    self.view.backgroundColor = BACKGROUND_COLOR;
     mCellHeight = 70;
     [self setBarTitle:@"我的武友"];
     [self addLeftButton:@"left"];

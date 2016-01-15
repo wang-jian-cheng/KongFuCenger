@@ -786,6 +786,8 @@
         NSDictionary * prm=@{@"id":planId};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 
