@@ -2139,8 +2139,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "397"
             endingLineNumber = "397"
-            landmarkName = "@implementation PersonInfoViewController"
-            landmarkType = "3">
+            landmarkName = "-calculateAge:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2155,8 +2155,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "396"
             endingLineNumber = "396"
-            landmarkName = "@implementation PersonInfoViewController"
-            landmarkType = "3">
+            landmarkName = "-calculateAge:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2166,12 +2166,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/Login/RegisterViewController.m"
-            timestampString = "472530385.141201"
+            timestampString = "474529948.007111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "464"
-            endingLineNumber = "464"
-            landmarkName = "-ChangePwdFunC:"
+            startingLineNumber = "465"
+            endingLineNumber = "465"
+            landmarkName = "-ForgetFunC:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2182,12 +2182,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/Login/RegisterViewController.m"
-            timestampString = "472531338.916908"
+            timestampString = "474529948.007111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "478"
-            endingLineNumber = "478"
-            landmarkName = "-ChangePwdCallBack:"
+            startingLineNumber = "479"
+            endingLineNumber = "479"
+            landmarkName = "-ForgetFunC:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

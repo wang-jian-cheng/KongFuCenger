@@ -121,6 +121,7 @@
     if (_pageMode == MODE_change) {
         if (indexPath.row == 0) {
             txt_oldPwd=[[UITextField alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH, 30)];
+            txt_oldPwd.secureTextEntry = YES;
             txt_oldPwd.placeholder=@"请输入您的原密码";
             txt_oldPwd.textColor = [UIColor whiteColor];
             [txt_oldPwd setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
