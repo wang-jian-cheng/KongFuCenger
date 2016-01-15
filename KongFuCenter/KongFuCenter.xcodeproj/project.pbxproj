@@ -89,6 +89,7 @@
 		804952231C250B3800F5584A /* WechatShortVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804951FC1C250B3800F5584A /* WechatShortVideoController.xib */; };
 		804952271C2523FA00F5584A /* UploadVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 804952251C2523FA00F5584A /* UploadVideoViewController.m */; };
 		804952281C2523FA00F5584A /* UploadVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804952261C2523FA00F5584A /* UploadVideoViewController.xib */; };
+		806240621C48842000691D0C /* KongfuStore_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 806240611C48842000691D0C /* KongfuStore_0.png */; };
 		8074B0991C4376D60029C8B1 /* PlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8074B0971C4376D60029C8B1 /* PlayerController.m */; };
 		8074B09A1C4376D60029C8B1 /* PlayerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8074B0981C4376D60029C8B1 /* PlayerController.xib */; };
 		8074B09E1C437FEF0029C8B1 /* libffmpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8074B09B1C437FEF0029C8B1 /* libffmpeg.a */; };
@@ -625,6 +626,7 @@
 		804952241C2523FA00F5584A /* UploadVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadVideoViewController.h; sourceTree = "<group>"; };
 		804952251C2523FA00F5584A /* UploadVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadVideoViewController.m; sourceTree = "<group>"; };
 		804952261C2523FA00F5584A /* UploadVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadVideoViewController.xib; sourceTree = "<group>"; };
+		806240611C48842000691D0C /* KongfuStore_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KongfuStore_0.png; sourceTree = "<group>"; };
 		8074B0961C4376D60029C8B1 /* PlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerController.h; sourceTree = "<group>"; };
 		8074B0971C4376D60029C8B1 /* PlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerController.m; sourceTree = "<group>"; };
 		8074B0981C4376D60029C8B1 /* PlayerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerController.xib; sourceTree = "<group>"; };
@@ -2196,6 +2198,7 @@
 		B594091B1C0FDB6A003DC15D /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				806240611C48842000691D0C /* KongfuStore_0.png */,
 				B5B737501C3A921700DF7437 /* del@2x.png */,
 				8021E8FA1C2799F8005C7539 /* Index_APP.png */,
 				8021E9011C279AE7005C7539 /* index_1.png */,
@@ -3128,6 +3131,7 @@
 				B7CE7F481C16C6F30035D8CA /* JoinTeamCell.xib in Resources */,
 				B5F13B251C1FBAAC00155038 /* read_me.txt in Resources */,
 				B5F90AD41C192A2200D7879D /* chenglong@2x.png in Resources */,
+				806240621C48842000691D0C /* KongfuStore_0.png in Resources */,
 				B5905E0A1C1BC2CF00ECA9BA /* weikaishi@2x.png in Resources */,
 				B54F13891C46283B001EABE5 /* del@2x.PNG in Resources */,
 				B7617E551C1C299700CF96E7 /* mao@2x.jpg in Resources */,

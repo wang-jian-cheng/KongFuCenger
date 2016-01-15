@@ -510,16 +510,23 @@
     [self.navigationController pushViewController:vipViewCtl animated:YES];
 }
 
--(void)clickRightButton:(UIButton *)sender
+//-(void)clickRightButton:(UIButton *)sender
+//{
+//    JvbaoView *jvbaoView = [[JvbaoView alloc] init];
+//    jvbaoView.delegate = self;
+//    [jvbaoView show];
+//    
+////    DataProvider * dataprovider=[[DataProvider alloc] init];
+////    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
+////    //举报
+////    [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3" andDescription:nil];
+//}
+
+-(void)JUbao:(UIButton *)sender
 {
     JvbaoView *jvbaoView = [[JvbaoView alloc] init];
     jvbaoView.delegate = self;
     [jvbaoView show];
-    
-//    DataProvider * dataprovider=[[DataProvider alloc] init];
-//    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
-//    //举报
-//    [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3" andDescription:nil];
 }
 
 -(void)JvbaoSureBtnClick:(NSString *)content
@@ -876,7 +883,7 @@
             
             if(indexPath.row == 1)
             {
-                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 10, SCREEN_WIDTH, 30)];
+                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 10, SCREEN_WIDTH-60, 30)];
                 titleLab.textColor = TextColors;
                 titleLab.text = [VideoDict[@"Title"] isEqual:[NSNull null]]?@"":VideoDict[@"Title"];
                 titleLab.font = [UIFont boldSystemFontOfSize:14];
@@ -895,6 +902,18 @@
                 detailLab.font = [UIFont boldSystemFontOfSize:12];
                 [cell addSubview:detailLab];
                 
+                UIButton * btn_jubao=[[UIButton alloc] initWithFrame:CGRectMake(titleLab.frame.origin.x+titleLab.frame.size.width, 10, 40, detailHeight+40)];
+                
+                [btn_jubao setTitle:@"举报" forState:UIControlStateNormal];
+                
+                [btn_jubao setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                
+                btn_jubao.backgroundColor=ItemsBaseColor;
+                
+                [btn_jubao addTarget:self action:@selector(JUbao:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [cell addSubview:btn_jubao];
+            
             }
         }
             break;
