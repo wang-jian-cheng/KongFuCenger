@@ -30,6 +30,11 @@
 @property (nonatomic,copy) NSString *posterName;
 
 /**
+ *  是否转发
+ */
+@property (nonatomic,copy) NSString *isRepeat;
+
+/**
  *  用户简介
  */
 @property (nonatomic,copy) NSString *posterIntro;//

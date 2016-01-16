@@ -146,6 +146,7 @@
             messBody.userID = [itemDict valueForKey:@"UserId"];
             messBody.posterImgstr = url;//@"mao.jpg";
             messBody.posterName = [itemDict valueForKey:@"NicName"];
+            messBody.isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             messBody.posterIntro = @"";
             messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
             messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
@@ -375,6 +376,7 @@
             messBody.userID = [itemDict valueForKey:@"UserId"];
             messBody.posterImgstr = url;//@"mao.jpg";
             messBody.posterName = [itemDict valueForKey:@"NicName"];
+            messBody.isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             messBody.posterIntro = @"";
             messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
             messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;

@@ -286,7 +286,11 @@
             NSString *url = [ymData.showVideoArray[0] stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
             [_videoImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
             _startImg.image = [UIImage imageNamed:@"play"];
-            _videoTime.text = [NSString stringWithFormat:@"%@s",[ymData.showVideoArray[2] componentsSeparatedByString:@":"][2]];
+            if ([ymData.messageBody.isRepeat isEqual:@"0"]) {
+                _videoTime.text = [NSString stringWithFormat:@"%@s",[ymData.showVideoArray[2] componentsSeparatedByString:@":"][2]];
+            }else{
+                _videoTime.text = @"";
+            }
         }
         @catch (NSException *exception) {
             _videoTime.text = @"00s";
@@ -408,7 +412,7 @@
 
 -(BOOL)isExitVideo:(YMTextData *)ymData{
     NSLog(@"%@",ymData);
-    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[1] isEqual:@""]&&ymData.showVideoArray.count>0;
+    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0;
 }
 
 #pragma mark - ilcoreTextDelegate

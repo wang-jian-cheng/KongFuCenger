@@ -28,7 +28,7 @@
 #define sendNews  (2015+1)
 #define smallVideo  (2015+2)
 
-@interface OneShuoshuoViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate>
+@interface OneShuoshuoViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
 {
     NSMutableArray *_imageDataSource;
     
@@ -168,8 +168,19 @@
         
         [SVProgressHUD dismiss];
         
-    }else{
+    }else if([dict[@"code"] intValue] == 201){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"原视频已删除~" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
+        alertView.delegate = self;
+        [alertView show];
+    }
+    else{
         [SVProgressHUD dismiss];
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
