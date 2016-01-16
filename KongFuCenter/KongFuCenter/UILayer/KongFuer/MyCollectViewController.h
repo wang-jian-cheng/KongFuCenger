@@ -13,6 +13,12 @@
 #import "VideoDetailViewController.h"
 #import "UnionNewsDetailViewController.h"
 #import "MJRefresh.h"
+typedef enum _cateMode
+{
+    CollectionViewMode,
+    TableViewMode
+}CateMode;
+
 @interface MyCollectViewController : BaseNavigationController<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     BOOL EditMode;
@@ -23,5 +29,7 @@
     int pageVideoSize;
     
     NSInteger delcount;
+    
+    CateMode mode;
 }
 @end

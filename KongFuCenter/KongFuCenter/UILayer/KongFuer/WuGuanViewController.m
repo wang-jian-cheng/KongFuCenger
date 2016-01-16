@@ -341,7 +341,7 @@
         cell.describeLab.text = tempDict[@"Content"];
         cell.titleLab.text = tempDict[@"Title"];
         cell.phoneLab.text = [NSString stringWithFormat:@"电话:%@",tempDict[@"TelePhone"]];
-        cell.addressLab.text = [NSString stringWithFormat:@"地址:%@",[onlyCityName substringToIndex:(onlyCityName.length-2)]];
+        cell.addressLab.text = [NSString stringWithFormat:@"地址:%@",[onlyCityName substringToIndex:(onlyCityName.length-1)]];
         
         NSString *url = [NSString stringWithFormat:@"%@%@",Url,tempDict[@"ImagePath"]];
         [cell.mainImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
