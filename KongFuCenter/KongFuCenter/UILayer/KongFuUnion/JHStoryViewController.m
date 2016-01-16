@@ -138,6 +138,7 @@
 -(void)TeamTopRefresh{
     curpage = 0;
     jhStoryArray = [[NSArray alloc] init];
+    [mTableView.mj_footer setState:MJRefreshStateIdle];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"TopRefireshCallBack:"];
     [dataProvider GetJianghuListByPage:@"0" andUserId:[Toolkit getUserID] andmaximumRows:@"10" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
@@ -148,6 +149,10 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
         jhStoryArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        if(jhStoryArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
         [mTableView reloadData];
     }
 }
@@ -173,6 +178,13 @@
             [itemarray addObject:item];
         }
         jhStoryArray=[[NSArray alloc] initWithArray:itemarray];
+        
+        
+        if(jhStoryArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
+        
     }
     [mTableView reloadData];
 }

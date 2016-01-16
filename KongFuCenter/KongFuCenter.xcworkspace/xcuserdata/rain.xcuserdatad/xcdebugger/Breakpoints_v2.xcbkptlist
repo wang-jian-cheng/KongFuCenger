@@ -2235,7 +2235,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "954"
             endingLineNumber = "954"
-            landmarkName = "-YMReplyInputWithReply:appendTag:"
+            landmarkName = "-clickRichText:replyIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2251,7 +2251,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "855"
             endingLineNumber = "855"
-            landmarkName = "-replyMessage:"
+            landmarkName = "-addLike"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2315,7 +2315,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "804"
             endingLineNumber = "804"
-            landmarkName = "-operationView"
+            landmarkName = "-initHeadView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2363,7 +2363,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "684"
             endingLineNumber = "684"
-            landmarkName = "-commentEvent:"
+            landmarkName = "-zanCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2395,7 +2395,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "710"
             endingLineNumber = "710"
-            landmarkName = "-mainCommentCallBack:"
+            landmarkName = "-sendButton:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2507,7 +2507,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "686"
             endingLineNumber = "686"
-            landmarkName = "-commentEvent:"
+            landmarkName = "-zanCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2523,7 +2523,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "922"
             endingLineNumber = "922"
-            landmarkName = "-clickRichText:replyIndex:"
+            landmarkName = "-longClickRichText:replyIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2555,7 +2555,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "709"
             endingLineNumber = "709"
-            landmarkName = "-mainCommentCallBack:"
+            landmarkName = "-sendButton:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2603,7 +2603,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "522"
             endingLineNumber = "522"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-isExitVideo:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2635,7 +2635,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "665"
             endingLineNumber = "665"
-            landmarkName = "-zanCallBack:"
+            landmarkName = "-zanEvent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2651,7 +2651,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "653"
             endingLineNumber = "653"
-            landmarkName = "-zanEvent:"
+            landmarkName = "-formatDate:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2683,7 +2683,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "649"
             endingLineNumber = "649"
-            landmarkName = "-zanEvent:"
+            landmarkName = "-formatDate:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2731,7 +2731,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "610"
             endingLineNumber = "610"
-            landmarkName = "-tapPhotoImg"
+            landmarkName = "-clickVideoImgEvent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2747,7 +2747,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "289"
             endingLineNumber = "289"
-            landmarkName = "-clickRightButton:"
+            landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2859,7 +2859,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "885"
             endingLineNumber = "885"
-            landmarkName = "-showImageViewWithImageViews:byClickWhich:"
+            landmarkName = "-changeFoldState:onCellRow:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3067,7 +3067,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "604"
             endingLineNumber = "604"
-            landmarkName = "-clickVideoImgEvent:"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3147,7 +3147,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "104"
             endingLineNumber = "104"
-            landmarkName = "-getMyNewsCallBack:"
+            landmarkName = "-setUserID:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3163,7 +3163,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "103"
             endingLineNumber = "103"
-            landmarkName = "-getMyNewsCallBack:"
+            landmarkName = "-setUserID:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3291,7 +3291,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "523"
             endingLineNumber = "523"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-isExitVideo:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3515,7 +3515,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "507"
             endingLineNumber = "507"
-            landmarkName = "-tableView:numberOfRowsInSection:"
+            landmarkName = "-viewSetHidden:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3643,7 +3643,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "113"
             endingLineNumber = "113"
-            landmarkName = "-getMyNewsCallBack:"
+            landmarkName = "-TeamTopRefresh"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4889,7 +4889,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1012"
             endingLineNumber = "1012"
-            landmarkName = "-actionSheet:clickedButtonAtIndex:"
+            landmarkName = "-destorySelf"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4905,7 +4905,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "283"
             endingLineNumber = "283"
-            landmarkName = "-viewDidAppear:"
+            landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5753,7 +5753,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "114"
             endingLineNumber = "114"
-            landmarkName = "-getMyNewsCallBack:"
+            landmarkName = "-TeamTopRefresh"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6391,7 +6391,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "742"
             endingLineNumber = "742"
-            landmarkName = "-jumpDetailEvent:"
+            landmarkName = "-delMyInfoCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

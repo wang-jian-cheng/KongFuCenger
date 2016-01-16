@@ -116,7 +116,7 @@
     
     mTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         pageNo=0;
-        
+        [mTableView.mj_footer setState:MJRefreshStateIdle];
         if(newArr != nil && newArr.count)
         {
             [newArr removeAllObjects];
@@ -179,6 +179,11 @@
         {
             pageNo ++;
             [newArr addObjectsFromArray:dict[@"data"]];
+            
+            if(newArr.count >= [dict[@"recordcount"] intValue])
+            {
+                [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+            }
             
         }
         @catch (NSException *exception) {

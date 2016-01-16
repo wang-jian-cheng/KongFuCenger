@@ -241,9 +241,37 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
-    
+    if(indexPath.row == 0 && indexPath.section == 1)
+    {
+        MyNewsViewController *friendNews = [[MyNewsViewController alloc] init];
+        friendNews.UserID = userInfoArray[@"Id"];
+        friendNews.navtitle = userInfoArray[@"NicName"];
+        [self.navigationController pushViewController:friendNews animated:YES];
+    }
+    else if (indexPath.row== 1 && indexPath.section == 1)
+    {
+        JvbaoView *jvbaoView = [[JvbaoView alloc] init];
+        jvbaoView.delegate = self;
+        [jvbaoView show];
+    }
+}
+-(void)JvbaoSureBtnClick:(NSString *)content
+{
+//    [SVProgressHUD showWithStatus:@"加载中..."];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
+    //举报
+    [dataprovider ReportUser:[Toolkit getUserID] andTargetId:self.userID andContent:content];
 }
 
+-(void)MakeActionCallBack:(id)dict{
+  //  [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"举报成功" maskType:SVProgressHUDMaskTypeBlack];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:@"举报失败" maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
