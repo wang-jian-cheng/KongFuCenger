@@ -156,6 +156,31 @@
     }
 }
 
+
+-(void)delArticleCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try
+        {
+
+            [_mainTableView.mj_header beginRefreshing];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
 #pragma mark ----------------
 
 -(void)viewWillAppear:(BOOL)animated
@@ -319,50 +344,48 @@
 
 -(void)clickRightButton:(UIButton *)sender
 {
-    if(self.isDelete == 0)
+    
+    if(mode == CollectionViewMode)
     {
-        [self addRightbuttontitle:@"确定"];
-        self.isDelete = 1;
-        
-        for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
-            UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
-            btn_select.hidden = NO;
+        if(self.isDelete == 0)
+        {
+            [self addRightbuttontitle:@"确定"];
+            self.isDelete = 1;
+            
+            for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
+                UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
+                btn_select.hidden = NO;
+            }
+        }
+        else
+        {
+            if(self.arr_deleteVoice.count==0)
+            {
+                [self addRightbuttontitle:@"删除"];
+                self.isDelete = 0;
+                
+                for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
+                    UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
+                    btn_select.hidden = YES;
+                }
+                return;
+            }
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认删除？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
+            alertView.tag = 2016+0;
+            [alertView show];
+            NSLog(@"%ld",(unsigned long)self.arr_voiceData.count);
+            
         }
     }
     else
     {
-        if(self.arr_deleteVoice.count==0)
-        {
-            [self addRightbuttontitle:@"删除"];
-            self.isDelete = 0;
-            
-            for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
-                UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
-                btn_select.hidden = YES;
-            }
-            return;
-        }
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认删除？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
-        [alertView show];
-        NSLog(@"%ld",(unsigned long)self.arr_voiceData.count);
-        
-        
-
-//        
-       
-
-//        [mainCollectionView reloadData];
-        
-//        self.arr_deleteVoice = nil;
-     
-       
-        
+    
     }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 0)//确认
+    if(buttonIndex == 0&&alertView.tag == 2016+0)//确认
     {
         [self addRightbuttontitle:@"删除"];
         self.isDelete = 0;
@@ -402,6 +425,12 @@
         [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack3:"];
             
 
+    }
+    else if(buttonIndex == 0)
+    {
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider voicedelete:ArticleArr[alertView.tag - 2016-1][@"MessageId"] andUserId:[Toolkit getUserID] andFlg:@"1"];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"delArticleCallBack:"];
     }
 }
 
@@ -491,9 +520,11 @@
             [self.view addSubview:mainCollectionView];
         }
         _lblRight.hidden = NO;
+        mode = CollectionViewMode;
     }
     else if(sender.tag == 1)
     {
+        mode = TableViewMode;
         if(mainCollectionView.superview != nil)
         {
             [mainCollectionView removeFromSuperview];
@@ -505,7 +536,7 @@
             [self.view addSubview:_mainTableView];
         }
         
-        _lblRight.hidden = YES;
+//        _lblRight.hidden = YES;
     }
     
     for(int i =0;i<btnArr.count;i++)
@@ -881,11 +912,18 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-        [self.arr_TitleData removeObject:self.arr_TitleData[indexPath.row]];
-        //删除多行,单行UI,刷新数据
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationLeft)];
-        //            [tableView reloadData];
+//
+//        [self.arr_TitleData removeObject:self.arr_TitleData[indexPath.row]];
+//        //删除多行,单行UI,刷新数据
+//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationLeft)];
+//        //            [tableView reloadData];
+//
+    
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否删除？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
+    alertView.tag = 2016+1+indexPath.row;
+    [alertView show];
+    
     
 }
 
