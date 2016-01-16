@@ -7,7 +7,7 @@
 //
 
 #import "MushaMatchOngoingViewController.h"
-#import "MushaMatchDetailGoingViewController.h"
+#import "MushaMatchDetailViewController.h"
 #import "MJRefresh.h"
 
 #define _CELL @ "acell"
@@ -163,17 +163,17 @@
 
 -(void)clickRightButton:(UIButton *)sender{
     if (_mushaMatchOngoingMode == Mode_MushaOnGoing) {
-        MushaMatchDetailGoingViewController *mushaMatchDetailGoingVC = [[MushaMatchDetailGoingViewController alloc] init];
-        [mushaMatchDetailGoingVC setMushaMatchDetailGoingMode:Mode_MushaGoing];
-        mushaMatchDetailGoingVC.navtitle = @"武者大赛介绍";
-        mushaMatchDetailGoingVC.matchId = _matchId;
-        [self.navigationController pushViewController:mushaMatchDetailGoingVC animated:YES];
+        MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
+        [mushaMatchDetailViewCtl setMushaMatchDetailMode:Mode_MushaGoing];
+        mushaMatchDetailViewCtl.navtitle  = @"武者大赛介绍";
+        mushaMatchDetailViewCtl.matchId = _matchId;
+        [self.navigationController pushViewController:mushaMatchDetailViewCtl animated:YES];
     }else if (_mushaMatchOngoingMode == Mode_TeamOnGoing){
-        MushaMatchDetailGoingViewController *mushaMatchDetailGoingVC = [[MushaMatchDetailGoingViewController alloc] init];
-        [mushaMatchDetailGoingVC setMushaMatchDetailGoingMode:Mode_TeamGoing];
-        mushaMatchDetailGoingVC.navtitle = @"战队大赛介绍";
-        mushaMatchDetailGoingVC.matchId = _matchId;
-        [self.navigationController pushViewController:mushaMatchDetailGoingVC animated:YES];
+        MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
+        [mushaMatchDetailViewCtl setMushaMatchDetailMode:Mode_TeamGoing];
+        mushaMatchDetailViewCtl.navtitle  = @"战队大赛介绍";
+        mushaMatchDetailViewCtl.matchId = _matchId;
+        [self.navigationController pushViewController:mushaMatchDetailViewCtl animated:YES];
     }
 }
 
