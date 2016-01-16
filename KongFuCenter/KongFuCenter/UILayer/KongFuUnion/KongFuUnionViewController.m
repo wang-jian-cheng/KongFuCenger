@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _cellHeight = SCREEN_HEIGHT / 12;
-    [self setBarTitle:@"核联盟"];
+    [self setBarTitle:@"功夫圈"];
     [self addLeftButton:@"wdwy"];
     [self addRightButton:@"chat_icon"];
     _imgLeft.frame = CGRectMake(_btnLeft.frame.origin.x + 10, (NavigationBar_HEIGHT - 25) / 2 + StatusBar_HEIGHT, 25, 25);

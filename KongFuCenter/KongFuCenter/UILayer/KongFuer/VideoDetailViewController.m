@@ -280,8 +280,6 @@
         
         sender.tag=0;
         
-        
-        
         CGAffineTransform transform = CGAffineTransformMakeRotation(0 * M_PI/180.0);
         
         [playerCtrl.backView setTransform:transform];
@@ -437,10 +435,10 @@
     if (imageArray) {
         @try {
             NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-            [shareParams SSDKSetupShareParamsByText:[[@"核武者上线啦！快来乐享" stringByAppendingString:@"降龙十八掌"] stringByAppendingString:strurl]
+            [shareParams SSDKSetupShareParamsByText:[[@"@功夫上线啦！快来乐享" stringByAppendingString:@"降龙十八掌"] stringByAppendingString:strurl]
                                              images:imageArray
                                                 url:[NSURL URLWithString:strurl]
-                                              title:@"核武者"
+                                              title:@"@功夫"
                                                type:SSDKContentTypeAuto];
             
             
@@ -811,7 +809,7 @@
                                                                                  (nameLab.frame.origin.y + nameLab.frame.size.height + 2),
                                                                                  100, headView.frame.size.height/2)];
                     
-                    dateLab.text = [NSString stringWithFormat:@"发布于%@",[NSString stringWithFormat:@"%@",VideoDict[@"PublishTime"]].length<10?@"":[[NSString stringWithFormat:@"%@",VideoDict[@"PublishTime"]] substringToIndex:10]];
+                    dateLab.text = [[NSString stringWithFormat:@"%@",VideoDict[@"UserId"]] isEqualToString:@"0"]?[NSString stringWithFormat:@"播放次数%@",[VideoDict[@"VisitNum"] isEqual:[NSNull null]]?@"0":VideoDict[@"VisitNum"]]:[NSString stringWithFormat:@"发布于%@",[self GetDateWith:VideoDict[@"PublishTime"]]];//如果是系统发布的，则显示播放次数
                     dateLab.textColor = TextColors;
                     dateLab.font = [UIFont systemFontOfSize:FontSize];
                     [cell addSubview:dateLab];
@@ -1343,7 +1341,28 @@
     return [NSURL URLWithString:VideoPath];
 }
 
-
+-(NSString *)GetDateWith:(NSString *)dateStr
+{
+    @try {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        NSDate *date = [dateFormatter dateFromString:dateStr];
+        
+        [dateFormatter setDateFormat:@"MM月dd日"];
+        
+        NSString *strHour = [dateFormatter stringFromDate:date];
+        
+        return strHour;
+    }
+    @catch (NSException *exception) {
+        return @"";
+    }
+    @finally {
+        
+    }
+}
 
 
 

@@ -155,7 +155,7 @@
             }
                 break;
             case 1:
-                cell.textLabel.text = @"关于核武者";
+                cell.textLabel.text = @"关于@功夫";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 break;
             default:

@@ -13,5 +13,6 @@
 @interface UploadVideoViewController : BaseNavigationController
 
 @property (nonatomic,strong) NSURL * VideoFilePath;
+@property (nonatomic,strong)NSString * uploadType;
 
 @end

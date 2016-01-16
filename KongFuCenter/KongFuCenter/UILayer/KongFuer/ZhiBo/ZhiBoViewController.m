@@ -31,7 +31,9 @@
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
     
     webView.scalesPageToFit = YES;
+    
     [self.view addSubview:webView];
+    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@zhibo.aspx",Url]];
     NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
     [webView loadRequest:request];

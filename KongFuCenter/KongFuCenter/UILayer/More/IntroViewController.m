@@ -45,7 +45,7 @@
 - (void)p_navigation
 {
     self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"关于核武者"];
+    [self setBarTitle:@"关于@功夫"];
     [self addLeftButton:@"left"];
 }
 

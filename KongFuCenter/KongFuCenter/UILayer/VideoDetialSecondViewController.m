@@ -355,10 +355,10 @@
     if (imageArray) {
         @try {
             NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-            [shareParams SSDKSetupShareParamsByText:[[@"核武者上线啦！快来乐享" stringByAppendingString:@"降龙十八掌"] stringByAppendingString:strurl]
+            [shareParams SSDKSetupShareParamsByText:[[@"@功夫上线啦！快来乐享" stringByAppendingString:@"降龙十八掌"] stringByAppendingString:strurl]
                                              images:imageArray
                                                 url:[NSURL URLWithString:strurl]
-                                              title:@"核武者"
+                                              title:@"@功夫"
                                                type:SSDKContentTypeAuto];
             
             
@@ -721,7 +721,7 @@
                                                                                  (nameLab.frame.origin.y + nameLab.frame.size.height + 2),
                                                                                  100, headView.frame.size.height/2)];
                     
-                    dateLab.text = [NSString stringWithFormat:@"发布于%@",[NSString stringWithFormat:@"%@",VideoDict[@"PublishTime"]].length<10?@"":[[NSString stringWithFormat:@"%@",VideoDict[@"PublishTime"]] substringToIndex:10]];
+                    dateLab.text = [[NSString stringWithFormat:@"%@",VideoDict[@"UserId"]] isEqualToString:@"0"]?[NSString stringWithFormat:@"播放次数%@",[VideoDict[@"VisitNum"] isEqual:[NSNull null]]?@"0":VideoDict[@"VisitNum"]]:[NSString stringWithFormat:@"发布于%@",[self GetDateWith:VideoDict[@"PublishTime"]]];//如果是系统发布的，则显示播放次数
                     dateLab.textColor = TextColors;
                     dateLab.font = [UIFont systemFontOfSize:FontSize];
                     [cell addSubview:dateLab];
@@ -733,7 +733,7 @@
                     [cell addSubview:backView];
                     CGFloat btnW = backView.frame.size.width/4 - 5;
                     CGFloat btnGap = 5;
-                    SupportBtn.frame = CGRectMake(0, 5, btnW, backView.frame.size.height-10);
+                    SupportBtn.frame = CGRectMake(backView.frame.size.width-2*(btnW+10), 5, btnW, backView.frame.size.height-10);
                     [SupportBtn setTitle:@"点赞" forState:UIControlStateNormal];
                     SupportBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
                     [SupportBtn setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
@@ -749,7 +749,7 @@
                     
                     
                     
-                    collectBtn.frame = CGRectMake(btnW+btnGap, 5, btnW, backView.frame.size.height-10);
+                    collectBtn.frame = CGRectMake(backView.frame.size.width-btnW-10, 5, btnW, backView.frame.size.height-10);
                     [collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
                     collectBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
                     [collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
@@ -759,26 +759,26 @@
                     collectBtn.tag = 1;
                     [collectBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                     [backView addSubview:collectBtn];
-                    
-                    CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 5, btnW, backView.frame.size.height-10)];
-                    [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
-                    shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-                    [shareBtn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
-                    shareBtn.imageView.contentMode = UIViewContentModeCenter;
-                    shareBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-                    shareBtn.tag = 2;
-                    [shareBtn addTarget:self action:@selector(shareContentBuild) forControlEvents:UIControlEventTouchUpInside];
-                    [backView addSubview:shareBtn];
-                    
-                    CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 5, btnW, backView.frame.size.height-10)];
-                    [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
-                    relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-                    relayBtn.imageView.contentMode = UIViewContentModeCenter;
-                    relayBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-                    [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
-                    relayBtn.tag = 3;
-                    [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-                    [backView addSubview:relayBtn];
+//                    
+//                    CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 5, btnW, backView.frame.size.height-10)];
+//                    [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
+//                    shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+//                    [shareBtn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+//                    shareBtn.imageView.contentMode = UIViewContentModeCenter;
+//                    shareBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+//                    shareBtn.tag = 2;
+//                    [shareBtn addTarget:self action:@selector(shareContentBuild) forControlEvents:UIControlEventTouchUpInside];
+//                    [backView addSubview:shareBtn];
+//                    
+//                    CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 5, btnW, backView.frame.size.height-10)];
+//                    [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
+//                    relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+//                    relayBtn.imageView.contentMode = UIViewContentModeCenter;
+//                    relayBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+//                    [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
+//                    relayBtn.tag = 3;
+//                    [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+//                    [backView addSubview:relayBtn];
                 }
                 @catch (NSException *exception) {
                     
@@ -1221,6 +1221,27 @@
 }
 
 
-
+-(NSString *)GetDateWith:(NSString *)dateStr
+{
+    @try {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        NSDate *date = [dateFormatter dateFromString:dateStr];
+        
+        [dateFormatter setDateFormat:@"MM月dd日"];
+        
+        NSString *strHour = [dateFormatter stringFromDate:date];
+        
+        return strHour;
+    }
+    @catch (NSException *exception) {
+        return @"";
+    }
+    @finally {
+        
+    }
+}
 
 @end

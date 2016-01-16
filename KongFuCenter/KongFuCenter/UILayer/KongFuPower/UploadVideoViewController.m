@@ -167,31 +167,41 @@
         
         [dataprovider setDelegateObject:self setBackFunctionName:@"UploadVideoInfoCallBack:"];
         
-        NSMutableDictionary * prm=[[NSMutableDictionary alloc] init];
-        
-        [prm setObject:@"0" forKey:@"id"];
-        
-        
-        
-        [prm setObject:[[NSString stringWithFormat:@"%@",dict[@"data"][@"ImageName"]] stringByReplacingOccurrencesOfString:@"\\" withString:@"/"] forKey:@"ImagePath"];
-        
-        [prm setObject:txt_Content.text forKey:@"Content"];
-        
-        [prm setObject:txt_title.text forKey:@"Title"];
-        
-        [prm setObject:dict[@"data"][@"VideoName"] forKey:@"VideoPath"];
-        
-        [prm setObject:@"TRUE" forKey:@"IsOriginal"];
-        
-        [prm setObject:@"TRUE" forKey:@"IsFree"];
-        
-        [prm setObject:channelID forKey:@"CategoryId"];
-        
-        [prm setObject:[Toolkit getUserID] forKey:@"UserId"];
-        
-        [prm setObject:dict[@"data"][@"VideoDuration"] forKey:@"VideoDuration"];
-        
-        [dataprovider SendVideoInfo:prm];
+        @try {
+            NSMutableDictionary * prm=[[NSMutableDictionary alloc] init];
+            
+            [prm setObject:@"0" forKey:@"id"];
+            
+            
+            
+            [prm setObject:[[NSString stringWithFormat:@"%@",dict[@"data"][@"ImageName"]] stringByReplacingOccurrencesOfString:@"\\" withString:@"/"] forKey:@"ImagePath"];
+            
+            [prm setObject:txt_Content.text forKey:@"Content"];
+            
+            [prm setObject:txt_title.text forKey:@"Title"];
+            
+            [prm setObject:dict[@"data"][@"VideoName"] forKey:@"VideoPath"];
+            
+            [prm setObject:@"TRUE" forKey:@"IsOriginal"];
+            
+            [prm setObject:@"TRUE" forKey:@"IsFree"];
+            
+            [prm setObject:channelID forKey:@"CategoryId"];
+            
+            [prm setObject:[Toolkit getUserID] forKey:@"UserId"];
+            
+            [prm setObject:dict[@"data"][@"VideoDuration"] forKey:@"VideoDuration"];
+            
+            [prm setObject:_uploadType forKey:@"uploadType"];
+            
+            [dataprovider SendVideoInfo:prm];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
         
         
     }

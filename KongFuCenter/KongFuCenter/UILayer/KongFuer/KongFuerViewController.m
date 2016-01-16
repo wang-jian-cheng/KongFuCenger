@@ -53,7 +53,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToTeamgonggao) name:@"JumpToTeamgonggao" object:nil];
     _sectionNum = 5;
     _cellHeight = SCREEN_HEIGHT / 12;
-    [self setBarTitle:@"核武者"];
+    [self setBarTitle:@"功夫派"];
     mUserDefault = [NSUserDefaults standardUserDefaults];
     [self initDatas];
     [self initViews];

@@ -31,6 +31,8 @@
     
     int pageSize;
     
+    BOOL isLocalHostVideo;
+    
     
 }
 @end
@@ -47,7 +49,7 @@
     
      self.view.backgroundColor = BACKGROUND_COLOR;
     
-    [self setBarTitle:@"核动力"];
+    [self setBarTitle:@"功夫汇"];
     
     [self addRightButton:@"photo"];
     
@@ -524,7 +526,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
-    if ((![dataArr[indexPath.section][@"Id"] isEqual:[NSNull null]])&&[[NSString stringWithFormat:@"%@",dataArr[indexPath.section][@"UserId"]] isEqualToString:@"0"]) {
+    if (((![dataArr[indexPath.section][@"Id"] isEqual:[NSNull null]])&&[[NSString stringWithFormat:@"%@",dataArr[indexPath.section][@"UserId"]] isEqualToString:@"0"])||([[NSString stringWithFormat:@"%@",[dataArr[indexPath.section][@"uploadType"] isEqual:[NSNull null]]?@"":dataArr[indexPath.section][@"uploadType"]] isEqualToString:@"0"])) {
         VideoDetialSecondViewController *videoDetailViewCtl = [[VideoDetialSecondViewController alloc] init];
         videoDetailViewCtl.navtitle =@"视频";
         videoDetailViewCtl.videoID=[NSString stringWithFormat:@"%@" ,dataArr[indexPath.section][@"Id"]];
@@ -537,8 +539,6 @@
         videoDetailViewCtl.videoID=[NSString stringWithFormat:@"%@" ,dataArr[indexPath.section][@"Id"]];
         [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
     }
-    
-    
 }
 
 
@@ -572,6 +572,8 @@
     
     uploadVideoVC.VideoFilePath=filePath;
     
+    uploadVideoVC.uploadType=@"1";
+    
     [self.navigationController pushViewController:uploadVideoVC animated:YES];
     
 }
@@ -593,6 +595,7 @@
         UploadVideoViewController * uploadVideoViewController = [[UploadVideoViewController alloc] init];
         
         uploadVideoViewController.VideoFilePath = videoURL;
+        uploadVideoViewController.uploadType=@"0";
         
         [self showViewController:uploadVideoViewController sender:nil];
     }
