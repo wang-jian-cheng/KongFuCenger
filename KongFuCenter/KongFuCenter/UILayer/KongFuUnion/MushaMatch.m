@@ -289,7 +289,7 @@ typedef enum _MatchMode
     int matchState = (int)cell.tag;
     if(matchMode == WuZheMode)
     {
-        if (matchState == 0) {//未开始
+        if (matchState == 1) {//未开始
             MushaMatchDetailViewController *mushaMatchDetailViewCtl = [[MushaMatchDetailViewController alloc] init];
             [mushaMatchDetailViewCtl setMushaMatchDetailMode:Mode_Musha];
             mushaMatchDetailViewCtl.navtitle  = [Toolkit judgeIsNull:[matchArray[indexPath.row] valueForKey:@"Name"]];

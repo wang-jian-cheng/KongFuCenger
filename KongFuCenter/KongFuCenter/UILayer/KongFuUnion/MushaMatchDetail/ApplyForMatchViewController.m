@@ -211,6 +211,13 @@
     return newImage;
 }
 
+-(void)clickLeftButton:(UIButton *)sender{
+    [_player pause];
+    playerView = nil;
+    _player = nil;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)clickRightButton:(UIButton *)sender{
     if (!videoURL || [videoURL isEqual:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请上传视频" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
@@ -267,6 +274,7 @@
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict);
+        [_player pause];
         if(_applyForMatchMode == Mode_Add){
             [SVProgressHUD showSuccessWithStatus:@"报名成功~"];
         }else{

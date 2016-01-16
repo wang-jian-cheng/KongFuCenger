@@ -277,7 +277,7 @@
             NSLog(@"%@",personMatchDetalDict);
             NSString *MatchPath = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"MatchImage"]];
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,MatchPath];
-            UIImageView *mainImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, _cellHeight*4)];
+            UIImageView *mainImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*4)];
             [mainImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"yewenback"]]; //[UIImage imageNamed:@"yewenback"];
             [cell addSubview:mainImgView];
             
