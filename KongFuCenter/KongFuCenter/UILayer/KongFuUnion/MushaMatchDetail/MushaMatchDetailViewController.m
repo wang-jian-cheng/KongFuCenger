@@ -9,6 +9,8 @@
 #import "MushaMatchDetailViewController.h"
 #import "ApplyForMatchViewController.h"
 #import "VideoDetailForMatchViewController.h"
+#import "MushaMatchOngoingViewController.h"
+#import "MapViewController.h"
 
 #define cancelApply  (2015+1)
 #define changeWorks  (2015+2)
@@ -225,6 +227,13 @@
         playForMatchViewCtl.navtitle = @"参赛成员";
         playForMatchViewCtl.matchId = _matchId;
         [self.navigationController pushViewController:playForMatchViewCtl animated:YES];
+    }else if([sender.titleLabel.text isEqualToString:@"查看报名战队"])
+    {
+        PlayerForMatchViewController *playForMatchViewCtl = [[PlayerForMatchViewController alloc] init];
+        [playForMatchViewCtl setPlayerForMatchMode:Mode_TeamPlayer];
+        playForMatchViewCtl.navtitle = @"参赛成员";
+        playForMatchViewCtl.matchId = _matchId;
+        [self.navigationController pushViewController:playForMatchViewCtl animated:YES];
     }else if([sender.titleLabel.text isEqualToString:@"我的视频"])
     {
         VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
@@ -232,7 +241,30 @@
         videoViewCtl.matchUserId = [Toolkit getUserID];
         videoViewCtl.navtitle = @"大赛个人详情";
         [self.navigationController pushViewController:videoViewCtl animated:YES];
+    }else if([sender.titleLabel.text isEqualToString:@"战队视频"])
+    {
+        VideoDetailForMatchViewController *videoViewCtl = [[VideoDetailForMatchViewController alloc] init];
+        videoViewCtl.matchId = _matchId;
+        videoViewCtl.matchTeamId = get_sp(@"TeamId");
+        videoViewCtl.navtitle = @"战队详情";
+        [self.navigationController pushViewController:videoViewCtl animated:YES];
     }
+}
+
+-(void)voteEvent{
+    MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
+    [mushaMatchOngoingViewCtl setMushaMatchOngoingMode:Mode_MushaRanking];
+    mushaMatchOngoingViewCtl.navtitle = @"投票排名";
+    mushaMatchOngoingViewCtl.matchId = _matchId;
+    [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
+}
+
+-(void)voteTeamEvent{
+    MushaMatchOngoingViewController *mushaMatchOngoingViewCtl =[[MushaMatchOngoingViewController alloc] init];
+    [mushaMatchOngoingViewCtl setMushaMatchOngoingMode:Mode_TeamRanking];
+    mushaMatchOngoingViewCtl.navtitle = @"投票排名";
+    mushaMatchOngoingViewCtl.matchId = _matchId;
+    [self.navigationController pushViewController:mushaMatchOngoingViewCtl animated:YES];
 }
 
 -(void)connectPhoneClick:(UIButton *)btn{
@@ -244,9 +276,20 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        NSString *phoneStr = [NSString stringWithFormat:@"tel://%@",@""];
+        NSString *phoneStr = [NSString stringWithFormat:@"tel://%@",[Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Phone"]]];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneStr]];
     }
+}
+
+-(void)dingweiEvent{
+    NSLog(@"%@",personMatchDetalDict);
+    MapViewController *mapVC = [[MapViewController alloc] init];
+    mapVC.navtitle = @"大赛位置";
+    mapVC.lat = [[Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Lat"]] doubleValue];//118.35571299999999;
+    mapVC.lng = [[Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Lng"]] doubleValue];;//35.121513;
+    mapVC.Title = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Name"]];
+    mapVC.addr = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"MatchAddress"]];
+    [self.navigationController pushViewController:mapVC animated:YES];
 }
 
 #pragma mark -  tableview  Delegate
@@ -292,7 +335,7 @@
             [placeBtn setImage:[UIImage imageNamed:@"dingwei"] forState:UIControlStateNormal];
             UIView *backView = [[UIView alloc] initWithFrame:placeBtn.frame];
             
-            UITextField *placeLab = [[UITextField alloc] initWithFrame:CGRectMake(GapToLeft,(titlelab.frame.size.height+titlelab.frame.origin.y) , SCREEN_WIDTH-GapToLeft, _cellHeight/2-5)];
+            UITextField *placeLab = [[UITextField alloc] initWithFrame:CGRectMake(GapToLeft,(titlelab.frame.size.height+titlelab.frame.origin.y) + 5 , SCREEN_WIDTH-GapToLeft, _cellHeight/2-5)];
             placeLab.leftView =backView;
             placeLab.leftViewMode = UITextFieldViewModeAlways;
             placeLab.text = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"MatchAddress"]];//@"临沂市兰山区沂蒙路和上海路交汇处朗润大厦18楼";
@@ -302,8 +345,10 @@
             placeLab.enabled = NO;
             [placeLab addSubview:placeBtn];
             [cell addSubview:placeLab];
-
             
+            UIButton *placeEventBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, (titlelab.frame.size.height+titlelab.frame.origin.y) + 5, SCREEN_WIDTH, (_cellHeight/2-5) * 2)];
+            [placeEventBtn addTarget:self action:@selector(dingweiEvent) forControlEvents:UIControlEventTouchUpInside];\
+            [cell addSubview:placeEventBtn];
         }
             break;
         case 1:
@@ -407,7 +452,7 @@
             contentView.text = str;
             contentView.backgroundColor = ItemsBaseColor;
             [cell addSubview:contentView];
-            if (_mushaMatchDetailMode == Mode_Musha) {
+            if (_mushaMatchDetailMode == Mode_MushaNoStart) {
                 UIButton *actionBtn =[[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight )];
                 actionBtn.backgroundColor = BACKGROUND_COLOR;
                 [actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -429,7 +474,42 @@
                 [checkBtn addTarget:self action:@selector(actionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
                 checkBtn.titleLabel.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:checkBtn];
-            }else{
+            }else if (_mushaMatchDetailMode == Mode_MushaGoing) {
+                UIButton *actionBtn =[[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight )];
+                actionBtn.backgroundColor = BACKGROUND_COLOR;
+                [actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [actionBtn setTitle:@"我的视频" forState:UIControlStateNormal];
+                [actionBtn addTarget:self action:@selector(actionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                actionBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [cell addSubview:actionBtn];
+                
+                
+                UIButton *checkBtn =[[UIButton alloc] initWithFrame:CGRectMake((actionBtn.frame.size.width+actionBtn.frame.origin.x +50), (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight)];
+                checkBtn.backgroundColor = BACKGROUND_COLOR;
+                [checkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [checkBtn setTitle:@"查看报名选手" forState:UIControlStateNormal];
+                [checkBtn addTarget:self action:@selector(actionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                checkBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [cell addSubview:checkBtn];
+            }
+            else if (_mushaMatchDetailMode == Mode_MushaEnd){
+                UIButton *actionBtn =[[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight )];
+                actionBtn.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
+                [actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [actionBtn setTitle:@"活动结束" forState:UIControlStateNormal];
+                actionBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [cell addSubview:actionBtn];
+                
+                
+                UIButton *checkBtn =[[UIButton alloc] initWithFrame:CGRectMake((actionBtn.frame.size.width+actionBtn.frame.origin.x +50), (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight)];
+                checkBtn.backgroundColor = [UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1];
+                [checkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [checkBtn setTitle:@"投票排名" forState:UIControlStateNormal];
+                [checkBtn addTarget:self action:@selector(voteEvent) forControlEvents:UIControlEventTouchUpInside];
+                checkBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [cell addSubview:checkBtn];
+            }
+            else if(_mushaMatchDetailMode == Mode_TeamNoStart){
                 UIButton *connectPhone = [[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, (contentView.frame.size.height + contentView.frame.origin.y + 10), SCREEN_WIDTH -GapToLeft*2, _cellHeight)];
                 connectPhone.backgroundColor = BACKGROUND_COLOR;
                 [connectPhone setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -437,6 +517,38 @@
                 connectPhone.titleLabel.font = [UIFont systemFontOfSize:14];
                 [connectPhone addTarget:self action:@selector(connectPhoneClick:) forControlEvents:UIControlEventTouchUpInside];
                 [cell addSubview:connectPhone];
+            }else if (_mushaMatchDetailMode == Mode_TeamGoing) {
+                UIButton *actionBtn =[[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight )];
+                actionBtn.backgroundColor = BACKGROUND_COLOR;
+                [actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [actionBtn setTitle:@"战队视频" forState:UIControlStateNormal];
+                [actionBtn addTarget:self action:@selector(actionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                actionBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [cell addSubview:actionBtn];
+                
+                UIButton *checkBtn =[[UIButton alloc] initWithFrame:CGRectMake((actionBtn.frame.size.width+actionBtn.frame.origin.x +50), (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight)];
+                checkBtn.backgroundColor = BACKGROUND_COLOR;
+                [checkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [checkBtn setTitle:@"查看报名战队" forState:UIControlStateNormal];
+                [checkBtn addTarget:self action:@selector(actionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                checkBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [cell addSubview:checkBtn];
+            }else if (_mushaMatchDetailMode == Mode_TeamEnd){
+                UIButton *actionBtn =[[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight )];
+                actionBtn.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
+                [actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [actionBtn setTitle:@"活动结束" forState:UIControlStateNormal];
+                actionBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [cell addSubview:actionBtn];
+                
+                
+                UIButton *checkBtn =[[UIButton alloc] initWithFrame:CGRectMake((actionBtn.frame.size.width+actionBtn.frame.origin.x +50), (contentView.frame.size.height + contentView.frame.origin.y + 10), (SCREEN_WIDTH -GapToLeft*2 -50)/2, _cellHeight)];
+                checkBtn.backgroundColor = [UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1];
+                [checkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [checkBtn setTitle:@"投票排名" forState:UIControlStateNormal];
+                [checkBtn addTarget:self action:@selector(voteTeamEvent) forControlEvents:UIControlEventTouchUpInside];
+                checkBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [cell addSubview:checkBtn];
             }
         }
             break;
@@ -452,7 +564,7 @@
     
     switch (indexPath.section) {
         case 0:
-            return _cellHeight*5;
+            return _cellHeight*5 + 10;
             break;
         case 1:{
             NSString *str = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Introduction"]];//@"让全球玩家通过形神兼备的武功招式、手脑并用的立体激斗，领略到一个融视、听、感为一体的武侠江湖，让所有参与者在精彩的世界电竞盛会中感受武侠和武术文化的独特魅力，最终将武侠这一独特的东方文化发扬、传播至全球";

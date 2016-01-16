@@ -12,8 +12,12 @@
 
 typedef enum _mushaMatchDetailMode
 {
-    Mode_Musha,
-    Mode_Team
+    Mode_MushaNoStart,
+    Mode_MushaGoing,
+    Mode_MushaEnd,
+    Mode_TeamNoStart,
+    Mode_TeamGoing,
+    Mode_TeamEnd
 }MushaMatchDetailMode;
 
 @interface MushaMatchDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
