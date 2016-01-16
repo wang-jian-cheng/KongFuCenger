@@ -156,7 +156,8 @@
             [cell addSubview:backImg];
             NSString *PhotoPath = [userInfoArray valueForKey:@"PhotoPath"];
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
-            UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 2*_cellHeight, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]]];
+            UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 2*_cellHeight, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageNamed:@"me"]];
+            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
             [headView makeSelfRound];
             headView.layer.borderWidth = 1;
             headView.layer.borderColor = [[UIColor blackColor] CGColor];

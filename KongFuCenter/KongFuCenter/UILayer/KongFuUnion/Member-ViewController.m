@@ -189,7 +189,7 @@
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getTeamMemberCallBack:"];
-    [dataprovider getTeamMember:get_sp(@"TeamId")];
+    [dataprovider getTeamMember:get_sp(@"TeamId") andUserId:[Toolkit getUserID]];
 
 }
 
@@ -298,7 +298,14 @@
             return cell;
         
         NSDictionary *tempDict = searchArr[indexPath.row];
-        cell.name.text = tempDict[@"NicName"];
+        if([tempDict[@"RemarkName"] length] == 0)
+        {
+            cell.name.text = tempDict[@"NicName"];
+        }
+        else
+        {
+            cell.name.text = tempDict[@"RemarkName"];
+        }
         cell.number.text = tempDict[@"Phone"];
         NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
         

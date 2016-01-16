@@ -54,6 +54,7 @@
         pageNo=0;
         if(jiFenArr!=nil && jiFenArr.count > 0)
             [jiFenArr removeAllObjects];
+        [_mainTableView.mj_footer setState:MJRefreshStateIdle];
         [self getUserInfo];
         [weakSelf getJiFenList];
         // 结束刷新
@@ -86,11 +87,7 @@
 
 -(void)FooterRefresh
 {
-    [SVProgressHUD showWithStatus:@"	" maskType:SVProgressHUDMaskTypeBlack];
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"FooterRefreshCallBack:"];
-    [dataprovider getJiFenList:[Toolkit getUserID] andStartRow:[NSString stringWithFormat:@"%d",(pageNo*pageSize)] andMaxNumRows:[NSString stringWithFormat:@"%d",pageSize]];
-    
+    [self getJiFenList];
 }
 
 
@@ -148,9 +145,13 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
-            NSDictionary *tempDict = dict[@"data"];
+            
             pageNo++;
             [jiFenArr addObjectsFromArray:dict[@"data"]];
+            if(jiFenArr.count >= [dict[@"recordcount"] intValue])
+            {
+                [_mainTableView.mj_footer setState:MJRefreshStateNoMoreData];
+            }
             [_mainTableView reloadData];
         }
         @catch (NSException *exception) {

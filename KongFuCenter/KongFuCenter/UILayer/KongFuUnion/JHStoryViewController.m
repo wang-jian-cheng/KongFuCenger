@@ -19,6 +19,7 @@
     NSArray *menuArray;
     UIImageView *menuImgView;
     NSArray *jhStoryArray;
+    UnionNewsDetailViewController *unionNewsViewCtl;
 }
 
 @end
@@ -45,6 +46,12 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    if (unionNewsViewCtl) {
+        [self initData];
+    }
+}
+
 #pragma mark 自定义方法
 
 -(void)initData{
@@ -56,9 +63,12 @@
 }
 
 -(void)GetCateForJianghuCallBack:(id)dict{
-    menuArray = [[NSArray alloc] initWithArray:dict[@"data"]];
-    //初始化View
-    [self initViews];
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        menuArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        //初始化View
+        [self initViews];
+    }
 }
 
 -(void)initViews{
@@ -128,6 +138,7 @@
 -(void)TeamTopRefresh{
     curpage = 0;
     jhStoryArray = [[NSArray alloc] init];
+    [mTableView.mj_footer setState:MJRefreshStateIdle];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"TopRefireshCallBack:"];
     [dataProvider GetJianghuListByPage:@"0" andUserId:[Toolkit getUserID] andmaximumRows:@"10" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
@@ -138,6 +149,10 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
         jhStoryArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        if(jhStoryArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
         [mTableView reloadData];
     }
 }
@@ -163,6 +178,13 @@
             [itemarray addObject:item];
         }
         jhStoryArray=[[NSArray alloc] initWithArray:itemarray];
+        
+        
+        if(jhStoryArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
+        
     }
     [mTableView reloadData];
 }
@@ -228,12 +250,13 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    UnionNewsDetailViewController *unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
+    NSLog(@"%@",jhStoryArray);
+    unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
     unionNewsViewCtl.webId =[ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"Id"]];
     unionNewsViewCtl.navtitle = jhStoryArray[indexPath.row][@"Title"];
     unionNewsViewCtl.collectNum = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"FavoriteNum"]];
     unionNewsViewCtl.isFavorite = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"IsFavorite"]];
+    unionNewsViewCtl.readNum = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"VisitNum"]];
     [self.navigationController pushViewController:unionNewsViewCtl animated:YES];
 }
 

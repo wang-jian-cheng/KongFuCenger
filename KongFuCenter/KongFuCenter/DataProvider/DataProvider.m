@@ -1286,12 +1286,12 @@
 
 }
 
--(void)getTeamMember:(NSString *)teamid
+-(void)getTeamMember:(NSString *)teamid andUserId:(NSString *)userid
 {
-    if(teamid)
+    if(teamid&&userid)
     {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectTeamMember",Url];
-        NSDictionary *prm = @{@"teamid":teamid};
+        NSDictionary *prm = @{@"teamid":teamid,@"userid":userid};
         DLog(@"%@",prm);
         [self PostRequest:url andpram:prm];
 

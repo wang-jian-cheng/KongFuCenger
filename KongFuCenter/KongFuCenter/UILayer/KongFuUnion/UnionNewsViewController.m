@@ -24,6 +24,8 @@
     UIImageView *menuImgView;
     
     NSMutableArray *newArr;
+    
+    UnionNewsDetailViewController  *unionNew;
 }
 
 @property (nonatomic, strong) NSMutableArray * arr_title;
@@ -50,6 +52,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    if (unionNew) {
+        [self getUnionCates];
+    }
 }
 
 #pragma mark 自定义方法
@@ -108,7 +116,7 @@
     
     mTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         pageNo=0;
-        
+        [mTableView.mj_footer setState:MJRefreshStateIdle];
         if(newArr != nil && newArr.count)
         {
             [newArr removeAllObjects];
@@ -172,6 +180,11 @@
             pageNo ++;
             [newArr addObjectsFromArray:dict[@"data"]];
             
+            if(newArr.count >= [dict[@"recordcount"] intValue])
+            {
+                [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+            }
+            
         }
         @catch (NSException *exception) {
             
@@ -194,6 +207,7 @@
 
 -(void)getUnionCates
 {
+    [SVProgressHUD showWithStatus:@"加载中..."];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getUnionNewsCateCallback:"];
     [dataprovider getUnionNewsCate];
@@ -203,6 +217,7 @@
 {
     [SVProgressHUD dismiss];
     DLog(@"%@",dict);
+    _arr_title = [[NSMutableArray alloc] init];
     if ([dict[@"code"] intValue]==200) {
         @try {
             
@@ -311,11 +326,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
-    UnionNewsDetailViewController  *unionNew = [[UnionNewsDetailViewController alloc] init];
+    unionNew = [[UnionNewsDetailViewController alloc] init];
     unionNew.navtitle = @"联盟详情";
     unionNew.webId =[ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"Id"]];
     unionNew.collectNum =[ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"FavoriteNum"]];
     unionNew.isFavorite = [ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"IsFavorite"]];
+    unionNew.readNum = [ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"VisitNum"]];
     [self.navigationController pushViewController:unionNew animated:YES];
     
     

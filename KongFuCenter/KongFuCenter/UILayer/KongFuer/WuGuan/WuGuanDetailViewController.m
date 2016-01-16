@@ -187,7 +187,7 @@
     [self.view addSubview:phoneCallWebView];
     
 #endif
-    if(telStr ==nil)
+    if(telStr ==nil||telStr.length==0)
     {
         [SVProgressHUD showErrorWithStatus:@"该武馆没有提供号码呦～" maskType:SVProgressHUDMaskTypeBlack];
         return;
@@ -728,7 +728,7 @@
     if( showPicArr!= nil&&showPicArr.count > 0&&indexPath.row < showPicArr.count)
     {
         UIImageView *showImg =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
-        
+        showImg.contentMode = UIViewContentModeScaleAspectFit;
         NSString *url = [NSString stringWithFormat:@"%@%@",Url,showPicArr[indexPath.row][@"ImagePath"]];
         [showImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
         [cell addSubview:showImg];

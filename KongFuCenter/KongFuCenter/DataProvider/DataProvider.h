@@ -344,7 +344,7 @@
 //获取其他战队状态
 -(void)getOtherTeamNews:(NSString *)teamid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 //获取战队成员
--(void)getTeamMember:(NSString *)teamid;
+-(void)getTeamMember:(NSString *)teamid andUserId:(NSString *)userid;
 //获取战队介绍　
 -(void)getTeamIntro:(NSString *)teamid;
 //删除评论

@@ -381,7 +381,15 @@
             jiFenNumLab.text = [NSString stringWithFormat:@"%@分",tempDict[@"Credit"]];
 //            jiFenNumLab.text = @"1000分";
             nickLab.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
-            IdLab.text = [NSString stringWithFormat:@"ID:%08d",[[Toolkit getUserID] intValue]];
+            if([NSString stringWithFormat:@"%@",tempDict[@"Phone"]].length>0)
+            {
+                IdLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"Phone"]];
+            }
+            else
+            {
+                IdLab.text = [NSString stringWithFormat:@"ID:%08d",[[Toolkit getUserID] intValue]];
+            }
+//            IdLab.text = [NSString stringWithFormat:@"ID:%08d",[[Toolkit getUserID] intValue]];
             NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
             [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
             

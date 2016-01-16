@@ -28,6 +28,8 @@
     
     //引用类
     DataProvider *dataProvider;
+    
+    UnionNewsDetailViewController *unionNewsViewCtl;
 }
 
 @end
@@ -55,6 +57,12 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    if (unionNewsViewCtl) {
+        [self initData];
+    }
+}
+
 #pragma mark 自定义方法
 -(void)initData{
     
@@ -75,6 +83,7 @@
 
 -(void)TeamTopRefresh{
     curpage = 0;
+    [mTableView.mj_footer setState:MJRefreshStateIdle];
     zhInfoArray = [[NSArray alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"GetHezuoListByPageCallBack:"];
     [dataProvider GetHezuoListByPage:@"0" andUserId:[Toolkit getUserID] andmaximumRows:@"1" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
@@ -124,6 +133,7 @@
     // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
     
     mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
         [weakSelf TeamTopRefresh];
         [weakTv.mj_header endRefreshing];
     }];
@@ -158,8 +168,15 @@
         arrayitem=dict[@"data"];
         for (id item in arrayitem) {
             [itemarray addObject:item];
+            
+            
         }
         zhInfoArray=[[NSArray alloc] initWithArray:itemarray];
+        
+        if(zhInfoArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
     }
     [mTableView reloadData];
 }
@@ -218,11 +235,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
-    UnionNewsDetailViewController *unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
+    unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
     unionNewsViewCtl.webId =[ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"Id"]];
     unionNewsViewCtl.navtitle = zhInfoArray[indexPath.row][@"Title"];
     unionNewsViewCtl.collectNum = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"FavoriteNum"]];
     unionNewsViewCtl.isFavorite = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"IsFavorite"]];
+    unionNewsViewCtl.readNum = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"VisitNum"]];
     [self.navigationController pushViewController:unionNewsViewCtl animated:YES];
 }
 

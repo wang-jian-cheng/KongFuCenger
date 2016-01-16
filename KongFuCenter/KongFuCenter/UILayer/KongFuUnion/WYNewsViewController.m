@@ -105,6 +105,7 @@
 -(void)TeamTopRefresh{
     curpage = 0;
     [SVProgressHUD showWithStatus:@"加载中"];
+    [mainTable.mj_footer setState:MJRefreshStateIdle];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getWYNewsCallBack:"];
     [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
 }
@@ -166,6 +167,7 @@
             messBody.userID = [itemDict valueForKey:@"UserId"];
             messBody.posterImgstr = url;//@"mao.jpg";
             messBody.posterName = [itemDict valueForKey:@"NicName"];
+            messBody.isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             messBody.posterIntro = @"";
             messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
             messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
@@ -244,6 +246,7 @@
             messBody.userID = [itemDict valueForKey:@"UserId"];
             messBody.posterImgstr = url;//@"mao.jpg";
             messBody.posterName = [itemDict valueForKey:@"NicName"];
+            messBody.isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             messBody.posterIntro = @"";
             messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
             messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
@@ -256,6 +259,11 @@
             messBody.posterPostVideo = videoArray;
             
             [_contentDataSource addObject:messBody];
+        }
+        
+        if(_contentDataSource.count >= [dict[@"recordcount"] intValue])
+        {
+            [mainTable.mj_footer setState:MJRefreshStateNoMoreData];
         }
         
         //[self initTableview];
@@ -512,7 +520,7 @@
 }
 
 -(BOOL)isExitVideo:(YMTextData *)ymData{
-    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[1] isEqual:@""]&&ymData.showVideoArray.count>0;
+    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0;
 }
 
 
@@ -563,11 +571,19 @@
     }
     cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey:@"LikeNum"]];
     if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0){
-        UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoImgEvent:)];
-        cell.videoImg.userInteractionEnabled = YES;
-        NSLog(@"%d",(int)indexPath.row);
-        [cell.videoImg addGestureRecognizer:clickVideoImg];
-        clickVideoImg.view.tag = indexPath.row;
+        if([m.isRepeat isEqual:@"0"]){
+            UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoImgEvent:)];
+            cell.videoImg.userInteractionEnabled = YES;
+            NSLog(@"%d",(int)indexPath.row);
+            [cell.videoImg addGestureRecognizer:clickVideoImg];
+            clickVideoImg.view.tag = indexPath.row;
+        }else{
+            UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jumpDetailEvent:)];
+            cell.videoImg.userInteractionEnabled = YES;
+            NSLog(@"%d",(int)indexPath.row);
+            [cell.videoImg addGestureRecognizer:clickVideoImg];
+            clickVideoImg.view.tag = indexPath.row;
+        }
     }
     [cell.delIcon addTarget:self action:@selector(delMyInfoEvent:) forControlEvents:UIControlEventTouchUpInside];
     cell.delegate = self;
@@ -726,6 +742,17 @@
     }else{
         [SVProgressHUD showSuccessWithStatus:@"删除失败~"];
     }
+}
+
+-(void)jumpDetailEvent:(id)sender{
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer*)sender;
+    UIView *views = (UIView*) tap.view;
+    NSLog(@"%d",(int)views.tag);
+    OneShuoshuoViewController *oneShuoshuoVC = [[OneShuoshuoViewController alloc] init];
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:views.tag];
+    WFMessageBody *m = ymData.messageBody;
+    oneShuoshuoVC.shuoshuoID = m.mID;
+    [self.navigationController pushViewController:oneShuoshuoVC animated:YES];
 }
 
 ////////////////////////////////////////////////////////////////////
