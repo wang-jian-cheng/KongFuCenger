@@ -8,7 +8,8 @@
 
 #import "BaseNavigationController.h"
 #import "UserHeadView.h"
-@interface StrangerInfoViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+#import "JvbaoView.h"
+@interface StrangerInfoViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,JvbaoDelegate>
 
 @property(strong,nonatomic) NSString *userID;
 

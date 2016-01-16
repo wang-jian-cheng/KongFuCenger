@@ -31,6 +31,9 @@
 
 @interface MyNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate>
 {
+    
+    UserHeadView *headImg;
+    
     NSMutableArray *_imageDataSource;
     
     NSMutableArray *_contentDataSource;//模拟接口给的数据
@@ -61,6 +64,9 @@
     int curpage;//页数
     int sumpage;
     
+    
+    NSString *userPhotoPath;
+    NSString *_userName;
 }
 
 @property (nonatomic,strong) WFPopView *operationView;
@@ -75,10 +81,12 @@
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     
-    [self setBarTitle:@"我的动态"];
+    [self setBarTitle:@"个人动态"];
     [self addLeftButton:@"left"];
-    [self addRightbuttontitle:@"评论回复"];
-    
+    if([self.UserID isEqualToString:[Toolkit getUserID]])
+    {
+        [self addRightbuttontitle:@"评论回复"];
+    }
     userDefault = [NSUserDefaults standardUserDefaults];
     dataProvider = [[DataProvider alloc] init];
     _tableDataSource = [[NSMutableArray alloc] init];
@@ -91,6 +99,11 @@
     //[self loadTextData];
     
     //[self initData];
+}
+
+-(void)setUserID:(NSString *)UserID
+{
+    _UserID = [NSString stringWithFormat:@"%@",UserID];
 }
 
 -(void)TeamTopRefresh{
@@ -141,11 +154,15 @@
                 messBody.posterReplies = commentArray;
             }
             NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
+            userPhotoPath = PhotoPath;
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+            [headImg.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
             messBody.mID = [itemDict valueForKey:@"Id"];
             messBody.userID = [itemDict valueForKey:@"UserId"];
             messBody.posterImgstr = url;//@"mao.jpg";
             messBody.posterName = [itemDict valueForKey:@"NicName"];
+            _userName =messBody.posterName;
+            name_lbl.text = _userName;
             messBody.posterIntro = @"";
             messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
             messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
@@ -693,16 +710,16 @@
     
     UIView *headImgView = [[UIView alloc] initWithFrame:CGRectMake(0, headView.frame.size.height - 50 - 10, SCREEN_WIDTH, 60)];
 //    UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50)];
-    NSString *photoPath = [userDefault valueForKey:@"PhotoPath"];
+    NSString *photoPath =userPhotoPath; // [userDefault valueForKey:@"PhotoPath"];
     NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoPath];
 //    headImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
     //UserHeadView *headImg = [[UserHeadView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50) andurl:url];
-    UserHeadView *headImg = [[UserHeadView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50) andUrl:url andNav:self.navigationController];
+    headImg = [[UserHeadView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50) andUrl:url andNav:self.navigationController];
     [headImgView addSubview:headImg];
-    UILabel *name_lbl = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - headImg.frame.size.width - 10 - 120 - 5, (headImg.frame.size.height - 21) / 2, 120, 21)];
+    name_lbl = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - headImg.frame.size.width - 10 - 120 - 5, (headImg.frame.size.height - 21) / 2, 120, 21)];
     name_lbl.textColor = [UIColor whiteColor];
     name_lbl.textAlignment = NSTextAlignmentRight;
-    name_lbl.text = [userDefault valueForKey:@"NicName"];//@"成龙";
+    name_lbl.text = _userName;//[userDefault valueForKey:@"NicName"];//@"成龙";
     name_lbl.font = [UIFont systemFontOfSize:15];
     [headImgView addSubview:name_lbl];
     //    UILabel *id_lbl = [[UILabel alloc] initWithFrame:CGRectMake(headImg.frame.origin.x + headImg.frame.size.width+ 2, name_lbl.frame.origin.y + name_lbl.frame.size.height / 2 +10, 100, 21)];

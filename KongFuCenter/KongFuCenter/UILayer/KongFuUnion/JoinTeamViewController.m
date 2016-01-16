@@ -82,6 +82,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+    if(mTableView!=nil&&mTableView.mj_header!=nil)
+        [mTableView.mj_header beginRefreshing];
 }
 
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -354,14 +356,37 @@
             [alertView show];
             return;
         }
-        teamId = [NSString stringWithFormat:@"%@",teamArray[btn.tag][@"Id"] ];
-        teamImg = [NSString stringWithFormat:@"%@",teamArray[btn.tag][@"ImagePath"] ];
-        teamName = [NSString stringWithFormat:@"%@",teamArray[btn.tag][@"Name"] ];
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认加入战队？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
+        alertView.tag = 2016-btn.tag;
+        [alertView show];
+        
+    
+        
+        
+    }
+    else if ([btn.titleLabel.text isEqualToString:@"退出"])
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认退出战队？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
+        alertView.tag = 2017+btn.tag;
+        [alertView show];
+       
+    }
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if((alertView.tag <= 2016)&&buttonIndex ==0)
+    {
+        teamId = [NSString stringWithFormat:@"%@",teamArray[2016 - alertView.tag][@"Id"] ];
+        teamImg = [NSString stringWithFormat:@"%@",teamArray[2016 - alertView.tag][@"ImagePath"] ];
+        teamName = [NSString stringWithFormat:@"%@",teamArray[2016 - alertView.tag][@"Name"] ];
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"joinTeamCallBack:"];
         [dataProvider JoinTeam:[userDefault valueForKey:@"id"] andTeamId:teamId andName:teamName];
     }
-    else if ([btn.titleLabel.text isEqualToString:@"退出"])
+    else if(alertView.tag >= 2017&&buttonIndex ==0)
     {
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"quitTeamCallBack:"];

@@ -183,7 +183,11 @@
     userDefault = [NSUserDefaults standardUserDefaults];
     [self setBarTitle:@"战队动态"];
     [self addLeftButton:@"left"];
-    [self addRightButton:@"moreNoword"];
+    
+    if(self.teamId==nil || [self.teamId isEqualToString:get_sp(@"TeamId")])
+    {
+            [self addRightButton:@"moreNoword"];
+    }
     pageSize = 10;
     wyArray = [NSMutableArray array];
     commentArr = [NSMutableArray array];
@@ -835,6 +839,15 @@
 #pragma mark - 战队信息的点击事件
 - (void)btn_1Action:(UIButton *)sender
 {
+    if(self.teamId!=nil)
+    {
+        if(![self.teamId isEqualToString:get_sp(@"TeamId")])
+        {
+            UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"提示" message:@"您不是该战队成员" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alertView show];
+            return;
+        }
+    }
 //    NSLog(@"跳转到战队成员");
     Member_ViewController * member_ViewController = [[Member_ViewController alloc] init];
     [self.navigationController pushViewController:member_ViewController animated:YES];
@@ -843,6 +856,15 @@
 
 - (void)btn_2Action:(UIButton *)sender
 {
+    if(self.teamId!=nil)
+    {
+        if(![self.teamId isEqualToString:get_sp(@"TeamId")])
+        {
+            UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"提示" message:@"您不是该战队成员" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alertView show];
+            return;
+        }
+    }
 //    NSLog(@"跳转到战队介绍");
     IntroduceViewController * introduceViewController = [[IntroduceViewController alloc] init];
     if(self.teamId==nil)
@@ -860,7 +882,15 @@
 - (void)btn_3Action:(UIButton *)sender
 {
 //    NSLog(@"跳转到战队公告");
-    
+    if(self.teamId!=nil)
+    {
+        if(![self.teamId isEqualToString:get_sp(@"TeamId")])
+        {
+            UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"提示" message:@"您不是该战队成员" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alertView show];
+            return;
+        }
+    }
     AnnouncementViewController * announcementViewController = [[AnnouncementViewController alloc] init];
     [self.navigationController pushViewController:announcementViewController animated:YES];
     //[self showViewController:announcementViewController sender:nil];

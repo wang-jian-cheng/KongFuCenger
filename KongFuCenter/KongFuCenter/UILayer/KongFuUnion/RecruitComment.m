@@ -75,6 +75,7 @@
 
 -(void)TeamTopRefresh{
     curpage = 0;
+    [mTableView.mj_footer setState:MJRefreshStateIdle];
     zhInfoArray = [[NSArray alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"GetHezuoListByPageCallBack:"];
     [dataProvider GetHezuoListByPage:@"0" andUserId:[Toolkit getUserID] andmaximumRows:@"1" andcategoryid:[menuArray[selectMenuIndex] valueForKey:@"Id"]];
@@ -124,6 +125,7 @@
     // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
     
     mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
         [weakSelf TeamTopRefresh];
         [weakTv.mj_header endRefreshing];
     }];
@@ -158,8 +160,15 @@
         arrayitem=dict[@"data"];
         for (id item in arrayitem) {
             [itemarray addObject:item];
+            
+            
         }
         zhInfoArray=[[NSArray alloc] initWithArray:itemarray];
+        
+        if(zhInfoArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
     }
     [mTableView reloadData];
 }

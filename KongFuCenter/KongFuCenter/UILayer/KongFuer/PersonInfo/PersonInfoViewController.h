@@ -36,6 +36,21 @@
     UITextView *introductionText;
     UIPickerView *_pickerView;
     
+    
+    
+    NSString *provinceCode;
+    NSString *provinceTxt;
+    NSString *cityCode;
+    NSString *cityTxt;
+    NSString *countryCode;
+    NSString *countryTxt;
+    NSMutableArray *countryArray;
+    
+    
+    
+    NSInteger cityRow;
+    NSInteger provinceRow;
+    NSInteger areaRow;
    
 }
 @end
