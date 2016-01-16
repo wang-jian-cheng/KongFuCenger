@@ -102,6 +102,7 @@
     // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
     
     mainCollectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [mainCollectionView.mj_footer setState:MJRefreshStateIdle];
         [weakSelf TeamTopRefresh];
         [weakTv.mj_header endRefreshing];
     }];
@@ -157,6 +158,10 @@
             [itemarray addObject:item];
         }
         PlayerArray=[[NSArray alloc] initWithArray:itemarray];
+        if(PlayerArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [mainCollectionView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
     }
     [mainCollectionView reloadData];
 }

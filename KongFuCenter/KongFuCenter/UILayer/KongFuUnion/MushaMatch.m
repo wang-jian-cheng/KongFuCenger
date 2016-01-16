@@ -121,6 +121,7 @@ typedef enum _MatchMode
     curpage = 0;
     matchArray = [[NSArray alloc] init];
     DataProvider *dataProvider = [[DataProvider alloc] init];
+    [mTableView.mj_footer setState:MJRefreshStateIdle];
     [dataProvider setDelegateObject:self setBackFunctionName:@"TopRefireshCallBack:"];
     if (matchMode == WuZheMode) {
         [dataProvider SelectMatchPageByPerson:@"0" andmaximumRows:@"10"];
@@ -152,6 +153,7 @@ typedef enum _MatchMode
 {
     
     NSLog(@"上拉刷新");
+    DLog(@"%@",dict);
     // 结束刷新
     [mTableView.mj_footer endRefreshing];
     NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:matchArray];
@@ -162,6 +164,10 @@ typedef enum _MatchMode
             [itemarray addObject:item];
         }
         matchArray=[[NSArray alloc] initWithArray:itemarray];
+        if(matchArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
     }
     [mTableView reloadData];
 }

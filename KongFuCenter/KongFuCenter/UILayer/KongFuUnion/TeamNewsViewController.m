@@ -162,6 +162,8 @@
 
         }
         
+        
+        
 
     }
     @catch (NSException *exception) {
@@ -216,6 +218,7 @@
         [wyArray removeAllObjects];
         if(_tableDataSource != nil && _tableDataSource.count > 0)
             [_tableDataSource removeAllObjects];
+        [mainTable.mj_footer setState:MJRefreshStateIdle];
         [weakSelf getTeamNews];
         // 结束刷新
         
@@ -341,8 +344,14 @@
                 [_contentDataSource removeAllObjects];
             [self configData:dict[@"data"]];
             
+            if(_contentDataSource.count >= [dict[@"recordcount"] intValue])
+            {
+                [mainTable.mj_footer setState:MJRefreshStateNoMoreData];
+            }
             [self loadTextData];
 
+            
+            
         }
         @catch (NSException *exception) {
             

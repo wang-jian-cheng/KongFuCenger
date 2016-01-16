@@ -78,6 +78,8 @@
     curpage = 0;
     PlayerArray = [[NSArray alloc] init];
     [SVProgressHUD showWithStatus:@"加载中..."];
+    [_mainTableView.mj_footer setState:MJRefreshStateIdle];
+
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"SelectMatchMemberByPersonCallBack:"];
     //_matchId = @"3";
@@ -142,6 +144,11 @@
             [itemarray addObject:item];
         }
         PlayerArray=[[NSArray alloc] initWithArray:itemarray];
+        if(PlayerArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [_mainTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
+        
     }
     [_mainTableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
 }

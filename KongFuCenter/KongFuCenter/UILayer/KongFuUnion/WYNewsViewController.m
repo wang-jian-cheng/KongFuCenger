@@ -105,6 +105,7 @@
 -(void)TeamTopRefresh{
     curpage = 0;
     [SVProgressHUD showWithStatus:@"加载中"];
+    [mainTable.mj_footer setState:MJRefreshStateIdle];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getWYNewsCallBack:"];
     [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
 }
@@ -256,6 +257,11 @@
             messBody.posterPostVideo = videoArray;
             
             [_contentDataSource addObject:messBody];
+        }
+        
+        if(_contentDataSource.count >= [dict[@"recordcount"] intValue])
+        {
+            [mainTable.mj_footer setState:MJRefreshStateNoMoreData];
         }
         
         //[self initTableview];
