@@ -34,8 +34,8 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     videoCommentArray = [NSMutableArray array];
-    [self initViews];
     [self GetVideoCommentDetial];
+    self.view.backgroundColor = BACKGROUND_COLOR;
     // Do any additional setup after loading the view.
 }
 
@@ -88,6 +88,7 @@
 
 -(void)GetVideoCommentDetial
 {
+    [SVProgressHUD showWithStatus:@"加载中..."];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoCommentDetialCallBack:"];
@@ -98,6 +99,7 @@
 -(void)GetVideoCommentDetialCallBack:(id)dict
 {
     DLog(@"%@",dict);
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue]==200) {
         @try
         {
@@ -112,8 +114,9 @@
         }
         @finally {
             
-            [_mainTableView reloadData];
+            //[_mainTableView reloadData];
             [SVProgressHUD dismiss];
+            [self initViews];
             NSLog(@"完成");
         }
     }

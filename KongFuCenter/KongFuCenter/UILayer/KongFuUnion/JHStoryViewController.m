@@ -19,6 +19,7 @@
     NSArray *menuArray;
     UIImageView *menuImgView;
     NSArray *jhStoryArray;
+    UnionNewsDetailViewController *unionNewsViewCtl;
 }
 
 @end
@@ -45,6 +46,12 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    if (unionNewsViewCtl) {
+        [self initData];
+    }
+}
+
 #pragma mark 自定义方法
 
 -(void)initData{
@@ -56,9 +63,12 @@
 }
 
 -(void)GetCateForJianghuCallBack:(id)dict{
-    menuArray = [[NSArray alloc] initWithArray:dict[@"data"]];
-    //初始化View
-    [self initViews];
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        menuArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        //初始化View
+        [self initViews];
+    }
 }
 
 -(void)initViews{
@@ -228,12 +238,13 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    UnionNewsDetailViewController *unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
+    NSLog(@"%@",jhStoryArray);
+    unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
     unionNewsViewCtl.webId =[ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"Id"]];
     unionNewsViewCtl.navtitle = jhStoryArray[indexPath.row][@"Title"];
     unionNewsViewCtl.collectNum = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"FavoriteNum"]];
     unionNewsViewCtl.isFavorite = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"IsFavorite"]];
+    unionNewsViewCtl.readNum = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"VisitNum"]];
     [self.navigationController pushViewController:unionNewsViewCtl animated:YES];
 }
 

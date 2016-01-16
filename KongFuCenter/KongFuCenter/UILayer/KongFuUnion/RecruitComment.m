@@ -28,6 +28,8 @@
     
     //引用类
     DataProvider *dataProvider;
+    
+    UnionNewsDetailViewController *unionNewsViewCtl;
 }
 
 @end
@@ -53,6 +55,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    if (unionNewsViewCtl) {
+        [self initData];
+    }
 }
 
 #pragma mark 自定义方法
@@ -218,11 +226,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
-    UnionNewsDetailViewController *unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
+    unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
     unionNewsViewCtl.webId =[ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"Id"]];
     unionNewsViewCtl.navtitle = zhInfoArray[indexPath.row][@"Title"];
     unionNewsViewCtl.collectNum = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"FavoriteNum"]];
     unionNewsViewCtl.isFavorite = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"IsFavorite"]];
+    unionNewsViewCtl.readNum = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"VisitNum"]];
     [self.navigationController pushViewController:unionNewsViewCtl animated:YES];
 }
 

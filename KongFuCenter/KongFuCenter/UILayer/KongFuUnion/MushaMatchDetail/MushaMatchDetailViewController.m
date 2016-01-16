@@ -10,6 +10,7 @@
 #import "ApplyForMatchViewController.h"
 #import "VideoDetailForMatchViewController.h"
 #import "MushaMatchOngoingViewController.h"
+#import "MapViewController.h"
 
 #define cancelApply  (2015+1)
 #define changeWorks  (2015+2)
@@ -275,9 +276,20 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        NSString *phoneStr = [NSString stringWithFormat:@"tel://%@",@""];
+        NSString *phoneStr = [NSString stringWithFormat:@"tel://%@",[Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Phone"]]];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneStr]];
     }
+}
+
+-(void)dingweiEvent{
+    NSLog(@"%@",personMatchDetalDict);
+    MapViewController *mapVC = [[MapViewController alloc] init];
+    mapVC.navtitle = @"大赛位置";
+    mapVC.lat = 0;//118.35571299999999;
+    mapVC.lng = 0;//35.121513;
+    mapVC.Title = @"title";
+    mapVC.addr = @"address";
+    [self.navigationController pushViewController:mapVC animated:YES];
 }
 
 #pragma mark -  tableview  Delegate
@@ -319,11 +331,11 @@
             titlelab.font = [UIFont systemFontOfSize:14];
             [cell addSubview:titlelab];
             
-            UIButton *placeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, _cellHeight/2-5)];
+            UIButton *placeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 5, 30, _cellHeight/2-5)];
             [placeBtn setImage:[UIImage imageNamed:@"dingwei"] forState:UIControlStateNormal];
             UIView *backView = [[UIView alloc] initWithFrame:placeBtn.frame];
             
-            UITextField *placeLab = [[UITextField alloc] initWithFrame:CGRectMake(GapToLeft,(titlelab.frame.size.height+titlelab.frame.origin.y) , SCREEN_WIDTH-GapToLeft, _cellHeight/2-5)];
+            UITextField *placeLab = [[UITextField alloc] initWithFrame:CGRectMake(GapToLeft,(titlelab.frame.size.height+titlelab.frame.origin.y) + 5 , SCREEN_WIDTH-GapToLeft, _cellHeight/2-5)];
             placeLab.leftView =backView;
             placeLab.leftViewMode = UITextFieldViewModeAlways;
             placeLab.text = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"MatchAddress"]];//@"临沂市兰山区沂蒙路和上海路交汇处朗润大厦18楼";
@@ -333,8 +345,10 @@
             placeLab.enabled = NO;
             [placeLab addSubview:placeBtn];
             [cell addSubview:placeLab];
-
             
+            UIButton *placeEventBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, (titlelab.frame.size.height+titlelab.frame.origin.y) + 5, SCREEN_WIDTH, (_cellHeight/2-5) * 2)];
+            [placeEventBtn addTarget:self action:@selector(dingweiEvent) forControlEvents:UIControlEventTouchUpInside];\
+            [cell addSubview:placeEventBtn];
         }
             break;
         case 1:
@@ -550,7 +564,7 @@
     
     switch (indexPath.section) {
         case 0:
-            return _cellHeight*5;
+            return _cellHeight*5 + 10;
             break;
         case 1:{
             NSString *str = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Introduction"]];//@"让全球玩家通过形神兼备的武功招式、手脑并用的立体激斗，领略到一个融视、听、感为一体的武侠江湖，让所有参与者在精彩的世界电竞盛会中感受武侠和武术文化的独特魅力，最终将武侠这一独特的东方文化发扬、传播至全球";
