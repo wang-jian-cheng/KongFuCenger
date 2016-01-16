@@ -285,10 +285,10 @@
     NSLog(@"%@",personMatchDetalDict);
     MapViewController *mapVC = [[MapViewController alloc] init];
     mapVC.navtitle = @"大赛位置";
-    mapVC.lat = 0;//118.35571299999999;
-    mapVC.lng = 0;//35.121513;
-    mapVC.Title = @"title";
-    mapVC.addr = @"address";
+    mapVC.lat = [[Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Lat"]] doubleValue];//118.35571299999999;
+    mapVC.lng = [[Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Lng"]] doubleValue];;//35.121513;
+    mapVC.Title = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"Name"]];
+    mapVC.addr = [Toolkit judgeIsNull:[personMatchDetalDict valueForKey:@"MatchAddress"]];
     [self.navigationController pushViewController:mapVC animated:YES];
 }
 
@@ -331,7 +331,7 @@
             titlelab.font = [UIFont systemFontOfSize:14];
             [cell addSubview:titlelab];
             
-            UIButton *placeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 5, 30, _cellHeight/2-5)];
+            UIButton *placeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, _cellHeight/2-5)];
             [placeBtn setImage:[UIImage imageNamed:@"dingwei"] forState:UIControlStateNormal];
             UIView *backView = [[UIView alloc] initWithFrame:placeBtn.frame];
             
