@@ -93,7 +93,7 @@
     cell.backgroundColor = ItemsBaseColor;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            [self setCell:cell andImg:@"wydt" andName:@"武友动态"];
+            [self setCell:cell andImg:@"wydt" andName:@"武者动态"];
         }else if(indexPath.row == 1){
             [self setCell:cell andImg:@"zddt" andName:@"战队动态"];
         }else{
@@ -107,9 +107,9 @@
         }
     }else if(indexPath.section == 2){
         if (indexPath.row == 0) {
-            [self setCell:cell andImg:@"wzss" andName:@"武者赛事"];
+            [self setCell:cell andImg:@"wzss" andName:@"武者大赛"];
         }else if(indexPath.row == 1){
-            [self setCell:cell andImg:@"jhgs" andName:@"江湖故事"];
+            [self setCell:cell andImg:@"jhgs" andName:@"行业资讯"];
         }else{
             [self setCell:cell andImg:@"zphz" andName:@"招聘合作"];
         }
