@@ -51,11 +51,11 @@
     conversationVC.targetId = model.targetId;
     conversationVC.userName = model.conversationTitle;
     conversationVC.mTitle = model.conversationTitle;
-    if (conversationVC.conversationType == ConversationType_PRIVATE) {
-        conversationVC.displayUserNameInCell = NO;
-    }else{
-        conversationVC.displayUserNameInCell = YES;
-    }
+//    if (conversationVC.conversationType == ConversationType_PRIVATE) {
+//        conversationVC.displayUserNameInCell = NO;
+//    }else{
+//        conversationVC.displayUserNameInCell = YES;
+//    }
     [self.navigationController pushViewController:conversationVC animated:YES];
 }
 

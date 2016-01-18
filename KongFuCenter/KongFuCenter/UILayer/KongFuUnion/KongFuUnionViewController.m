@@ -24,6 +24,7 @@
     //tableview参数
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    UIButton *noReadNumTxt;
 }
 @end
 
@@ -42,6 +43,11 @@
 
 -(void)initViews
 {
+    int noReadNum = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];
+    if (noReadNum != 0) {
+        [self initNoReadMessageView:noReadNum];
+    }
+    
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - TabBar_HEIGHT)];
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
@@ -49,11 +55,45 @@
     _mainTableView.separatorColor =  Separator_Color;
     _mainTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:_mainTableView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMessageNum) name:@"updateMessageNum" object:nil];
+}
+
+-(void)initNoReadMessageView:(int)noReadNum{
+    if (!noReadNumTxt) {
+        if (noReadNum > 99) {
+            noReadNumTxt = [[UIButton alloc] initWithFrame:CGRectMake(_btnRight.frame.size.width - 22, 0, 24, 24)];
+        }else{
+            noReadNumTxt = [[UIButton alloc] initWithFrame:CGRectMake(_btnRight.frame.size.width - 20, 0, 21, 21)];
+        }
+        noReadNumTxt.backgroundColor = [UIColor redColor];
+        noReadNumTxt.userInteractionEnabled = NO;
+        [noReadNumTxt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        noReadNumTxt.titleLabel.font = [UIFont systemFontOfSize:11];
+        [noReadNumTxt setTitle:noReadNum > 99?@"99+":[NSString stringWithFormat:@"%d",noReadNum] forState:UIControlStateNormal];
+        noReadNumTxt.layer.cornerRadius = noReadNumTxt.frame.size.width / 2;
+        noReadNumTxt.layer.masksToBounds = YES;
+        [_btnRight addSubview:noReadNumTxt];
+    }else{
+        noReadNumTxt.hidden = NO;
+        [noReadNumTxt setTitle:noReadNum > 99?@"99+":[NSString stringWithFormat:@"%d",noReadNum] forState:UIControlStateNormal];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
+    
+    [self updateMessageNum];
+}
+
+-(void)updateMessageNum{
+    int noReadNum = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];
+    if (noReadNum != 0) {
+        [self initNoReadMessageView:noReadNum];
+    }else{
+        noReadNumTxt.hidden = YES;
+    }
 }
 
 -(void)clickLeftButton:(UIButton *)sender{

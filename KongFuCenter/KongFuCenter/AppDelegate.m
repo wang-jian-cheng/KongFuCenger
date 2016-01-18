@@ -348,6 +348,8 @@
     if (!shock || [shock isEqual:@"1"]) {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
+    //获取未读条数和最新一条消息的时间
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMessageNum" object:nil];
 }
 
 #pragma mark - 尝试登录之前保存的账号登录

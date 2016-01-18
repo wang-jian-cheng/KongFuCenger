@@ -85,7 +85,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     
-    [self setBarTitle:@"武友动态"];
+    [self setBarTitle:@"武者动态"];
     [self addLeftButton:@"left"];
     [self addRightButton:@"moreNoword"];
     

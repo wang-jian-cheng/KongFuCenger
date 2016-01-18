@@ -18,37 +18,51 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dh6-qJ-21y">
                         <rect key="frame" x="8" y="5" width="60" height="60"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="60" id="bAQ-4v-guG"/>
+                            <constraint firstAttribute="width" constant="60" id="lGU-WZ-8X3"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vj9-eP-ERP">
-                        <rect key="frame" x="76" y="8" width="191" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <rect key="frame" x="76" y="8" width="236" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RuX-sY-ln1">
-                        <rect key="frame" x="76" y="37" width="191" height="21"/>
+                        <rect key="frame" x="76" y="37" width="66" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="66" id="sow-Sw-8ek"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.84313725490196079" green="0.50588235294117645" blue="0.039215686274509803" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mFn-88-61g">
+                        <rect key="frame" x="144" y="37" width="96" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.63921568627450975" green="0.64313725490196083" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Dh6-qJ-21y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="2G2-pZ-X78"/>
-                    <constraint firstItem="Vj9-eP-ERP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="TMt-v9-qaV"/>
-                    <constraint firstItem="Vj9-eP-ERP" firstAttribute="trailing" secondItem="RuX-sY-ln1" secondAttribute="trailing" id="W4J-p7-5SL"/>
-                    <constraint firstItem="RuX-sY-ln1" firstAttribute="top" secondItem="Vj9-eP-ERP" secondAttribute="bottom" constant="8" symbolic="YES" id="WVt-hb-ic3"/>
-                    <constraint firstItem="Vj9-eP-ERP" firstAttribute="leading" secondItem="Dh6-qJ-21y" secondAttribute="trailing" constant="8" symbolic="YES" id="cqK-5c-106"/>
-                    <constraint firstItem="Dh6-qJ-21y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-3" id="fqt-xY-k7Q"/>
-                    <constraint firstItem="RuX-sY-ln1" firstAttribute="leading" secondItem="Vj9-eP-ERP" secondAttribute="leading" id="mBU-c7-rgf"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Vj9-eP-ERP" secondAttribute="trailing" constant="45" id="p61-r7-ATW"/>
-                    <constraint firstItem="Dh6-qJ-21y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="vTl-ZC-Bya"/>
+                    <constraint firstItem="Vj9-eP-ERP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="1Wb-cC-kGG"/>
+                    <constraint firstItem="Dh6-qJ-21y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9tj-aq-LcK"/>
+                    <constraint firstItem="mFn-88-61g" firstAttribute="top" secondItem="RuX-sY-ln1" secondAttribute="top" id="OMU-vw-8Ud"/>
+                    <constraint firstItem="RuX-sY-ln1" firstAttribute="bottom" secondItem="mFn-88-61g" secondAttribute="bottom" id="W7G-PY-yVL"/>
+                    <constraint firstItem="RuX-sY-ln1" firstAttribute="leading" secondItem="Vj9-eP-ERP" secondAttribute="leading" id="c9u-q2-cMd"/>
+                    <constraint firstItem="Dh6-qJ-21y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-3" id="cmn-xO-om8"/>
+                    <constraint firstItem="Vj9-eP-ERP" firstAttribute="leading" secondItem="Dh6-qJ-21y" secondAttribute="trailing" constant="8" symbolic="YES" id="hud-qz-vz1"/>
+                    <constraint firstItem="Vj9-eP-ERP" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="hxV-yv-GQ3"/>
+                    <constraint firstItem="Dh6-qJ-21y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="j4G-95-7mN"/>
+                    <constraint firstItem="mFn-88-61g" firstAttribute="leading" secondItem="RuX-sY-ln1" secondAttribute="trailing" constant="2" id="jbV-1j-UMb"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="RuX-sY-ln1" secondAttribute="bottom" constant="3" id="pgz-c2-47q"/>
+                    <constraint firstItem="RuX-sY-ln1" firstAttribute="top" secondItem="Vj9-eP-ERP" secondAttribute="bottom" constant="8" symbolic="YES" id="tI7-aL-kcR"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="mFn-88-61g" secondAttribute="trailing" constant="72" id="ui0-3L-NNS"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="mImageView" destination="Dh6-qJ-21y" id="12a-eC-3qe"/>
                 <outlet property="mName" destination="Vj9-eP-ERP" id="Ymn-dT-0G3"/>
+                <outlet property="mOldPrice" destination="mFn-88-61g" id="NQ6-SK-1TW"/>
                 <outlet property="mPrice" destination="RuX-sY-ln1" id="uDM-6u-Nop"/>
             </connections>
             <point key="canvasLocation" x="315" y="222"/>

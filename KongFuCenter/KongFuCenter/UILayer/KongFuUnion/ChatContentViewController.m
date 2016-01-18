@@ -24,7 +24,29 @@
     
     userDefault = [NSUserDefaults standardUserDefaults];
     
-    [self initView];
+    [self initData];
+}
+
+-(void)initData{
+    if ([_mTitle isEqual:@"陌生人"]) {
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"getUserInfo:"];
+        [dataProvider getUserInfo:[self targetId]];
+    }else{
+        [self initView];
+    }
+}
+
+-(void)getUserInfo:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        NSLog(@"%@",dict);
+        [self initView];
+    }
+}
+
+- (void)willDisplayConversationTableCell:(RCMessageBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    ((RCMessageCell*)cell).nicknameLabel.text = @"eeeeeee";
 }
 
 -(void)initView{

@@ -7,11 +7,14 @@
 //
 
 #import "MapViewController.h"
+
 //#import "CCLocationManager.h"
-@interface MapViewController ()<CLLocationManagerDelegate>
+@interface MapViewController ()<CLLocationManagerDelegate,MKMapViewDelegate>
 {
     MKMapView *mapView;
     CLLocationManager *locationManager;
+    id <MKAnnotation> _myAnnotation;
+    MKAnnotationView *newAnnotation;
 }
 @end
 
@@ -22,7 +25,8 @@
     
     
     mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
-    mapView.userTrackingMode = MKUserTrackingModeFollow;
+    mapView.delegate = self;
+    //mapView.userTrackingMode = MKUserTrackingModeFollow;
     mapView.mapType = MKMapTypeStandard;
     [self addLeftButton:@"left"];
     
@@ -62,10 +66,22 @@
     
     CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(self.lat, self.lng);
     //放大地图到自身的经纬度位置。
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 2000, 2000);
     [mapView setRegion:region animated:YES];
 
     
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation{
+    ///// 自动显示 Callout
+    _myAnnotation = annotation;
+    [self performSelector:@selector(showCallout) withObject:self afterDelay:0.1];
+    
+    return newAnnotation;
+}
+
+- (void)showCallout {
+    [mapView selectAnnotation:_myAnnotation animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

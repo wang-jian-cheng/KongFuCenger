@@ -304,6 +304,7 @@
     [addressPickView removeFromSuperview];
     [mTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     
+    searchTxt.text = @"";
     [self TeamTopRefresh];
 }
 
@@ -445,7 +446,7 @@
         searchTxt.returnKeyType = UIReturnKeySearch;
         searchTxt.delegate = self;
         searchTxt.textColor = [UIColor whiteColor];
-        searchTxt.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索用户昵称" attributes:@{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.44 green:0.43 blue:0.44 alpha:1]}];
+        searchTxt.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索用户昵称、手机号" attributes:@{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.44 green:0.43 blue:0.44 alpha:1]}];
         UIImageView *searchIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 20)];
         searchIv.contentMode = UIViewContentModeScaleAspectFit;
         searchIv.image = [UIImage imageNamed:@"search"];
@@ -675,6 +676,11 @@
 
 #pragma mark - textfield delegate
 -(void)textFieldDidEndEditing:(UITextField *)textField{
+    provinceCode = @"0";
+    cityCode = @"0";
+    countryCode = @"0";
+    selectAge = 0;
+    selectSex = 0;
     [self TeamTopRefresh];
 }
 

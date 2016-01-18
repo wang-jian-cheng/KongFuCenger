@@ -7,6 +7,7 @@
 //
 
 #import "UserHeadView.h"
+#import "IntroViewController.h"
 
 @implementation UserHeadView
 
@@ -160,7 +161,10 @@
     
     if(self.enableRespondClick == YES)
     {
-        if(self.userId == nil || [self.userId isEqual:[Toolkit getUserID]])//自己
+        if ([self.userId isEqual:@"0"]) {
+            IntroViewController *mIntroVC = [[IntroViewController alloc] init];
+            [tempNav pushViewController:mIntroVC animated:YES];
+        }else if(self.userId == nil || [self.userId isEqual:[Toolkit getUserID]])//自己
         {
             PersonInfoViewController *personInfoViewCtl = [[PersonInfoViewController alloc] init];
             personInfoViewCtl.navtitle = @"个人资料";
