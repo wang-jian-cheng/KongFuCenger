@@ -8,6 +8,6 @@
 
 #import "BaseNavigationController.h"
 
-@interface KongFuStoreViewController : BaseNavigationController
+@interface KongFuStoreViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end
