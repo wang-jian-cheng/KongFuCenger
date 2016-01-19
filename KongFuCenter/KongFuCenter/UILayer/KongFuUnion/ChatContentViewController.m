@@ -24,30 +24,17 @@
     
     userDefault = [NSUserDefaults standardUserDefaults];
     
-    [self initData];
+    [self initView];
 }
 
--(void)initData{
-    if ([_mTitle isEqual:@"陌生人"]) {
-        DataProvider *dataProvider = [[DataProvider alloc] init];
-        [dataProvider setDelegateObject:self setBackFunctionName:@"getUserInfo:"];
-        [dataProvider getUserInfo:[self targetId]];
-    }else{
-        [self initView];
-    }
-}
-
--(void)getUserInfo:(id)dict{
-    if ([dict[@"code"] intValue] == 200) {
-        NSLog(@"%@",dict);
-        [self initView];
-    }
-}
-
-- (void)willDisplayConversationTableCell:(RCMessageBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    ((RCMessageCell*)cell).nicknameLabel.text = @"eeeeeee";
-}
+//- (void)willDisplayConversationTableCell:(RCMessageBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSLog(@"%@---%@",[self targetId],get_sp(@"id"));
+//    if (![[NSString stringWithFormat:@"%@",[self targetId]] isEqual:[NSString stringWithFormat:@"%@",get_sp(@"id")]] && _mName) {
+//        ((RCMessageCell*)cell).nicknameLabel.text = _mName;
+//        [((UIImageView *)(((RCMessageCell*)cell).portraitImageView)) sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,_mHeadImage]] placeholderImage:[UIImage imageNamed:@"me"]];
+//    }
+//}
 
 -(void)initView{
     topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBar_HEIGHT + StatusBar_HEIGHT)];

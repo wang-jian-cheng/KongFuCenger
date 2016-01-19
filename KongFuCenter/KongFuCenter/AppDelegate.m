@@ -320,7 +320,7 @@
     }else{
         for (int i = 0; i < friendArray.count; i++) {
             if([userId isEqual:[NSString stringWithFormat:@"%@",[friendArray[i] valueForKey:@"Key"]]]){
-                user.name = [friendArray[i] valueForKey:@"Value"][@"NicName"];
+                user.name = [friendArray[i] valueForKey:@"Value"][@"RemarkName"];
                 user.portraitUri = [NSString stringWithFormat:@"%@%@",Url,[friendArray[i] valueForKey:@"Value"][@"PhotoPath"]];
                 break;
             }

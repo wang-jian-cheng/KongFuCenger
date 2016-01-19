@@ -211,7 +211,7 @@
     {
         ChineseString *chineseString=[[ChineseString alloc]init];
         NSLog(@"%@",stringArr[i]);
-        chineseString.string=[stringArr[i] valueForKey:@"NicName"];
+        chineseString.string=[stringArr[i] valueForKey:@"RemarkName"];
         chineseString.friendID = [stringArr[i] valueForKey:@"Key"];
         chineseString.photoImg = [stringArr[i] valueForKey:@"PhotoPath"];
         chineseString.level = [stringArr[i] valueForKey:@"Rank"];

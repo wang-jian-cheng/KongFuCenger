@@ -81,12 +81,14 @@
 #pragma mark - self data source 
 
 -(void)ShieldFriendMessage{
+    [SVProgressHUD showWithStatus:@"加载中..."];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"ShieldFriendMessageCallBack:"];
     [dataProvider ShieldFriendMessage:[Toolkit getUserID] andFriendId:self.userID];
 }
 
 -(void)UnShieldFriendMessage{
+    [SVProgressHUD showWithStatus:@"加载中..."];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"UnShieldFriendMessageCallBack:"];
     [dataProvider UnShieldFriendMessage:[Toolkit getUserID] andFriendId:self.userID];
@@ -125,12 +127,14 @@
 }
 
 -(void)ShieldFriendNew{
+    [SVProgressHUD showWithStatus:@"加载中..."];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"ShieldFriendNewCallBack:"];
     [dataProvider ShieldFriendNew:[Toolkit getUserID] andFriendid:_userID];
 }
 
 -(void)UnShieldFriendNew{
+    [SVProgressHUD showWithStatus:@"加载中..."];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"ShieldFriendNewCallBack:"];
     [dataProvider UnShieldFriend:[Toolkit getUserID] andFriendId:_userID];
@@ -157,8 +161,8 @@
 
 -(void)delFriendCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
-        [SVProgressHUD showSuccessWithStatus:@"取消成功~"];
         //[self.navigationController popViewControllerAnimated:YES];
+        [userDefault setValue:@"1" forKey:@"delFriendState"];
         [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"取消失败~"];

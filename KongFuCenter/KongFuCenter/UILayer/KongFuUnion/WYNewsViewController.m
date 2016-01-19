@@ -372,7 +372,7 @@
 
 - (void) initTableview{
     
-    mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64 + 45)];
+    mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
     mainTable.backgroundColor = [UIColor clearColor];
     // mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     mainTable.delegate = self;
@@ -889,7 +889,6 @@
 
 #pragma mark - 图片点击事件回调
 - (void)showImageViewWithImageViews:(NSArray *)imageViews byClickWhich:(NSInteger)clickTag{
-    
     UIView *maskview = [[UIView alloc] initWithFrame:self.view.bounds];
     maskview.backgroundColor = [UIColor blackColor];
     [self.view addSubview:maskview];
@@ -903,7 +902,6 @@
             maskview.alpha = 0.0f;
             
         } completion:^(BOOL finished) {
-            
             [ymImageV removeFromSuperview];
             [maskview removeFromSuperview];
         }];

@@ -90,9 +90,15 @@
         [tempDict setObject:friendArray[i][@"Key"] forKey:@"Key"];
         [itemmutablearray addObject:tempDict];
     }
-    indexArray = [ChineseString mIndexArray:[itemmutablearray valueForKey:@"NicName"]];
+    indexArray = [ChineseString mIndexArray:[itemmutablearray valueForKey:@"RemarkName"]];
     LetterResultArr = [ChineseString mLetterSortArray:itemmutablearray];
     [SVProgressHUD dismiss];
+    NSString *delFriendState = [userDefault valueForKey:@"delFriendState"];
+    if ([delFriendState isEqual:@"1"]) {
+        [userDefault setValue:@"0" forKey:@"delFriendState"];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"删除成功~" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        [alertView show];
+    }
     //初始化View
     [self initViews];
 }
