@@ -29,7 +29,7 @@
 #define sendNews  (2015+1)
 #define smallVideo  (2015+2)
 
-@interface MyNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate>
+@interface MyNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
 {
     
     UserHeadView *headImg;
@@ -67,6 +67,8 @@
     
     NSString *userPhotoPath;
     NSString *_userName;
+    
+    NSString *delDTId;
 }
 
 @property (nonatomic,strong) WFPopView *operationView;
@@ -556,7 +558,7 @@
         [cell.videoImg addGestureRecognizer:clickVideoImg];
         clickVideoImg.view.tag = indexPath.row;
     }
-    
+    [cell.delIcon addTarget:self action:@selector(delMyInfoEvent:) forControlEvents:UIControlEventTouchUpInside];
     cell.delegate = self;
     [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
     cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
@@ -580,6 +582,30 @@
     PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
     playVideoVC.videoPath = ymData.showVideoArray[1];
     [self.navigationController pushViewController:playVideoVC animated:YES];
+}
+
+-(void)delMyInfoEvent:(UIButton *)btn{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认删除动态?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    delDTId = [NSString stringWithFormat:@"%d",(int)btn.tag];
+    [alertView show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        [SVProgressHUD showWithStatus:@"删除中..."];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"delMyInfoCallBack:"];
+        [dataProvider delePlan:delDTId];
+    }
+}
+
+-(void)delMyInfoCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"删除成功~"];
+        [mainTable.mj_header beginRefreshing];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:@"删除失败~"];
+    }
 }
 
 -(NSString *)compareDate:(NSDate *)date{

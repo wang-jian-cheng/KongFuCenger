@@ -412,7 +412,7 @@
 
 -(BOOL)isExitVideo:(YMTextData *)ymData{
     NSLog(@"%@",ymData);
-    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0;
+    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:Url]&&ymData.showVideoArray.count>0;
 }
 
 #pragma mark - ilcoreTextDelegate

@@ -149,10 +149,12 @@
     
     if(cell != nil)
     {
-        for (int i =0 ; i<cell.subviews.count; i++) {
-            [ [cell.subviews objectAtIndex:i] removeFromSuperview];//清空一下原来cell上面的view'防止cell的重用影响到后面section的显示
+//        for (int i =0 ; i<cell.subviews.count; i++) {
+//            [ [cell.subviews objectAtIndex:i] removeFromSuperview];//清空一下原来cell上面的view'防止cell的重用影响到后面section的显示
+//        }
+        for (UIView *view in cell.contentView.subviews) {
+            [view removeFromSuperview];
         }
-        
     }
     
     

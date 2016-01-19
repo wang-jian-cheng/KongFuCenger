@@ -1237,6 +1237,8 @@
                               @"friendid":friendid};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 -(void)UnShieldFriendMessage:(NSString *)userid andFriendId:(NSString *)friendid
@@ -1248,6 +1250,8 @@
                               @"friendid":friendid};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 #pragma mark - 联盟动态
