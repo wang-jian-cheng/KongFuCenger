@@ -57,7 +57,7 @@
     self.scrollView.showsVerticalScrollIndicator = NO;
     
     //需要先得到文字的内容判断frame
-    NSString * str = @"SD卡人家时间爱的,撒旦了撒旦离开,老是觉得可垃,圾收到垃圾了就觉得拉斯克奖阿迪力捡垃圾绿卡数据德里克撒娇 的立刻,就死了肯德 基阿斯利康简单绿卡数据的绿卡数据的绿卡数据大立科技奇偶ijlasjlkasj得利,卡数据离开家阿斯利,康点击绿卡数据的绿卡数,,据领导看见爱上领导看见爱上了都结束了简单了解了开始,觉得两款手机 的两款手机登陆卡数据的两款手机登陆空间,,阿斯顿离开家阿斯利康就SD卡人家时间爱的撒旦了撒旦离开 老是觉,得可垃圾收到垃圾了就觉得拉斯克奖阿迪力捡垃圾绿卡数据德里克撒娇的立刻就死了肯德基阿斯,利康简单绿卡数据的绿卡数据的绿卡数据大立科技,,奇偶ijlasjlkasj得利卡数据离开家阿斯利康点击绿卡数据的绿卡数据领导看见爱上领导看见爱上了都结束了简单了解了开始觉得两款手机的两款手机登陆卡数";
+    NSString * str = @"专为武术，功夫，跆拳道等爱好者打造的一款集在线学习，视频教程，直播课堂，名师讲堂，即时通讯，互动交流，在线购物，行业资讯等服务为一体的平台！";
     CGFloat H = [str boundingRectWithSize:CGSizeMake(self.scrollView.frame.size.width - 20, 2000) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:18]} context:nil].size.height;
     
     
@@ -73,13 +73,13 @@
     //    self.image.image = [UIImage imageNamed:@""];
     [self.scrollView addSubview:self.image];
     
-    
-    self.detail = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.image.frame) + 10, self.scrollView.frame.size.width - 20, H)];
-    self.detail.textColor = [UIColor whiteColor];
-    self.detail.text = str;
-    self.detail.numberOfLines = 0;
-    self.detail.font = [UIFont systemFontOfSize:18];
-    [self.scrollView addSubview:self.detail];
+//    
+//    self.detail = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.image.frame) + 10, self.scrollView.frame.size.width - 20, H)];
+//    self.detail.textColor = [UIColor whiteColor];
+//    self.detail.text = str;
+//    self.detail.numberOfLines = 0;
+//    self.detail.font = [UIFont systemFontOfSize:18];
+//    [self.scrollView addSubview:self.detail];
     
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, CGRectGetMaxY(self.detail.frame) + 15);

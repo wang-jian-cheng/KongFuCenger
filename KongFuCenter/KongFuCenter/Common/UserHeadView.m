@@ -161,21 +161,25 @@
     
     if(self.enableRespondClick == YES)
     {
-        if ([self.userId isEqual:@"0"]) {
-            IntroViewController *mIntroVC = [[IntroViewController alloc] init];
-            [tempNav pushViewController:mIntroVC animated:YES];
-        }else if(self.userId == nil || [self.userId isEqual:[Toolkit getUserID]])//自己
-        {
-            PersonInfoViewController *personInfoViewCtl = [[PersonInfoViewController alloc] init];
-            personInfoViewCtl.navtitle = @"个人资料";
-            
-            if(tempNav!=nil)
-               [tempNav pushViewController:personInfoViewCtl animated:YES];
+        if (self.userId!=nil) {
+            NSLog(@"%@",self.userId);
+            if ([self.userId intValue]==0) {
+                IntroViewController *mIntroVC = [[IntroViewController alloc] init];
+                [tempNav pushViewController:mIntroVC animated:YES];
+            }else if(self.userId == nil || [self.userId isEqual:[Toolkit getUserID]])//自己
+            {
+                PersonInfoViewController *personInfoViewCtl = [[PersonInfoViewController alloc] init];
+                personInfoViewCtl.navtitle = @"个人资料";
+                
+                if(tempNav!=nil)
+                    [tempNav pushViewController:personInfoViewCtl animated:YES];
+            }
+            else
+            {
+                [self CheckIsFriend:self.userId];
+            }
         }
-        else
-        {
-            [self CheckIsFriend:self.userId];
-        }
+        
     }
     
     if([self.delegate respondsToSelector:@selector(userHeadViewClick)])
