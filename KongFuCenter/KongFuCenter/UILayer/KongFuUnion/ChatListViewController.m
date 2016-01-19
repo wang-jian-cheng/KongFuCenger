@@ -16,6 +16,7 @@
     UIView *topView;
     NSUserDefaults *userDefault;
     NSArray *friendArray;
+    ChatContentViewController *conversationVC;
 }
 
 @end
@@ -46,7 +47,7 @@
 - (void)onSelectedTableRow:(RCConversationModelType)conversationModelType
          conversationModel:(RCConversationModel *)model
                atIndexPath:(NSIndexPath *)indexPath {
-    ChatContentViewController *conversationVC = [[ChatContentViewController alloc]init];
+    conversationVC = [[ChatContentViewController alloc]init];
     conversationVC.conversationType = model.conversationType;
     conversationVC.targetId = model.targetId;
     conversationVC.userName = model.conversationTitle;
@@ -56,7 +57,27 @@
 //    }else{
 //        conversationVC.displayUserNameInCell = YES;
 //    }
+    
+//    if ([model.conversationTitle isEqual:@"陌生人"]) {
+//        [SVProgressHUD showWithStatus:@""];
+//        DataProvider *dataProvider = [[DataProvider alloc] init];
+//        [dataProvider setDelegateObject:self setBackFunctionName:@"getUserInfo:"];
+//        [dataProvider getUserInfo:model.targetId];
+//    }else{
+//        [self.navigationController pushViewController:conversationVC animated:YES];
+//    }
+    
     [self.navigationController pushViewController:conversationVC animated:YES];
+}
+
+-(void)getUserInfo:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        NSLog(@"%@",dict);
+        conversationVC.mHeadImage = [Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"PhotoPath"]];
+        conversationVC.mName = [Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"NicName"]];
+        [self.navigationController pushViewController:conversationVC animated:YES];
+    }
 }
 
 - (void)willDisplayConversationTableCell:(RCConversationBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath{

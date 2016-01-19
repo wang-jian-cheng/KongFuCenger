@@ -92,12 +92,14 @@
 
 #pragma mark 自定义方法
 -(void)initAddressData{
+    [SVProgressHUD showWithStatus:@""];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getInitProvinceCallBack:"];
     [dataProvider getProvince];
 }
 
 -(void)getInitProvinceCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"Id",@"0",@"Code",@"-全部-",@"Name", nil];
         provinceArray = [[NSMutableArray alloc] init];
@@ -115,7 +117,7 @@
             [countryArray addObject:itemDict];
             return;
         }
-        
+        [SVProgressHUD showWithStatus:@""];
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getInitCityCallBack:"];
         [dataProvider getCityByProvinceCode:[NSString stringWithFormat:@"%@",provinceCode]];
@@ -124,6 +126,7 @@
 
 -(void)getInitCityCallBack:(id)dict{
     NSLog(@"%@",dict);
+    [SVProgressHUD dismiss];
     NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"Id",@"0",@"Code",@"-全部-",@"Name", nil];
     cityArray = [[NSMutableArray alloc] init];
     countryArray = [[NSMutableArray alloc] init];
@@ -135,6 +138,7 @@
             [cityArray addObject:itemArray[i]];
         }
         if (cityArray.count > 0) {
+            [SVProgressHUD showWithStatus:@""];
             dataProvider = [[DataProvider alloc] init];
             [dataProvider setDelegateObject:self setBackFunctionName:@"getInitCountryCallBack:"];
             [dataProvider getCountryByCityCode:cityCode];
@@ -143,6 +147,7 @@
 }
 
 -(void)getInitCountryCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict[@"data"]);
         NSArray *itemArray = dict[@"data"];
@@ -160,6 +165,7 @@
 
 -(void)getCityCallBack:(id)dict{
     NSLog(@"%@",dict);
+    [SVProgressHUD dismiss];
     NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"Id",@"0",@"Code",@"-全部-",@"Name", nil];
     cityArray = [[NSMutableArray alloc] init];
     countryArray = [[NSMutableArray alloc] init];
@@ -192,6 +198,7 @@
                 countryCode = @"0";
                 countryTxt = @"-全部-";
             }else{
+                [SVProgressHUD showWithStatus:@""];
                 dataProvider = [[DataProvider alloc] init];
                 [dataProvider setDelegateObject:self setBackFunctionName:@"getCountryCallBack:"];
                 [dataProvider getCountryByCityCode:cityCode];
@@ -206,6 +213,7 @@
 }
 
 -(void)getCountryCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     NSDictionary *itemDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"Id",@"0",@"Code",@"-全部-",@"Name", nil];
     countryArray = [[NSMutableArray alloc] init];
     [countryArray addObject:itemDict];
@@ -633,6 +641,7 @@
         provinceTxt = provinceArray[row][@"Name"];
         provinceCode = provinceArray[row][@"Code"];
         dataProvider = [[DataProvider alloc] init];
+        [SVProgressHUD showWithStatus:@""];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getCityCallBack:"];
         [dataProvider getCityByProvinceCode:provinceCode];
     }else if(component == 1){
@@ -640,6 +649,7 @@
         cityTxt = cityArray[row][@"Name"];
         cityCode = cityArray[row][@"Code"];
         dataProvider = [[DataProvider alloc] init];
+        [SVProgressHUD showWithStatus:@""];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getCountryCallBack:"];
         [dataProvider getCountryByCityCode:cityCode];
     }else{

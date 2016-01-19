@@ -12,5 +12,7 @@
 @interface ChatContentViewController : RCConversationViewController
 
 @property(strong,nonatomic) NSString *mTitle;
+@property(strong,nonatomic) NSString *mHeadImage;
+@property(strong,nonatomic) NSString *mName;
 
 @end
