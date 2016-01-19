@@ -347,7 +347,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "684"
             endingLineNumber = "684"
-            landmarkName = "-setLoginValue:"
+            landmarkName = "-loginBackcall:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -363,7 +363,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "800"
             endingLineNumber = "800"
-            landmarkName = "-QQLogin:"
+            landmarkName = "-didReceiveMemoryWarning"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -379,7 +379,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "651"
             endingLineNumber = "651"
-            landmarkName = "-LoginFunc"
+            landmarkName = "-loginBtnClick:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -395,7 +395,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "661"
             endingLineNumber = "661"
-            landmarkName = "-LoginFunc"
+            landmarkName = "-loginBtnClick:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -406,7 +406,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "473571856.71242"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "267"
@@ -427,7 +427,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "685"
             endingLineNumber = "685"
-            landmarkName = "-setLoginValue:"
+            landmarkName = "-loginBackcall:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -470,7 +470,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "473571856.71242"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "272"
@@ -710,7 +710,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "473571856.71242"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "270"
@@ -726,7 +726,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "473571856.71242"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "268"
@@ -1510,7 +1510,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "473571856.71242"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "271"
@@ -1526,7 +1526,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "473571856.71242"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "270"
@@ -3078,7 +3078,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "473571856.71242"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "252"
@@ -3526,11 +3526,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "474864673.607693"
+            timestampString = "474866440.484821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "-clickRightBtn:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3542,11 +3542,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "474864673.607693"
+            timestampString = "474866440.484821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "-getFriendBackCall:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3654,11 +3654,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "474864673.607693"
+            timestampString = "474866440.484821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "-initView"
             landmarkType = "5">
          </BreakpointContent>
@@ -3670,11 +3670,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "474864673.607693"
+            timestampString = "474866440.484821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "-initView"
             landmarkType = "5">
          </BreakpointContent>
@@ -3686,11 +3686,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "474864673.607693"
+            timestampString = "474866440.484821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "-initView"
             landmarkType = "5">
          </BreakpointContent>
@@ -4198,7 +4198,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "473751438.338034"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "295"
@@ -4278,7 +4278,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "474799080.323923"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "377"
@@ -4294,7 +4294,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "474799080.323923"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "378"
@@ -4310,7 +4310,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "474799080.323923"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "364"
@@ -4326,44 +4326,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "473752386.88287"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "347"
             endingLineNumber = "347"
             landmarkName = "-onRCIMReceiveMessage:left:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "473751528.687382"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
-            landmarkName = "-getUserInfoWithUserId:completion:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "473752373.63312"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
-            landmarkName = "-getUserInfoWithUserId:completion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5316,7 +5284,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "474279503.573856"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "315"
@@ -5332,23 +5300,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "474279788.681157"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
-            landmarkName = "-getUserInfoWithUserId:completion:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "474280066.956874"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "337"
@@ -5364,7 +5316,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "474280099.538166"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "302"
@@ -5380,11 +5332,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "474864673.607693"
+            timestampString = "474866440.484821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "-willDisplayConversationTableCell:atIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5609,7 +5561,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "691"
             endingLineNumber = "691"
-            landmarkName = "-setLoginValue:"
+            landmarkName = "-loginBackcall:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5684,7 +5636,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/AppDelegate.m"
-            timestampString = "474799080.323923"
+            timestampString = "474869400.241877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "404"
@@ -6786,12 +6738,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatListViewController.m"
-            timestampString = "474864673.607693"
+            timestampString = "474866440.484821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "-getUserInfo:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/AppDelegate.m"
+            timestampString = "474869400.241877"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "-initUI"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/AppDelegate.m"
+            timestampString = "474869400.241877"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
+            landmarkName = "-getUserInfoWithUserId:completion:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/AppDelegate.m"
+            timestampString = "474869400.241877"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
+            landmarkName = "-getUserInfoWithUserId:completion:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/AppDelegate.m"
+            timestampString = "474869400.241877"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
+            landmarkName = "-getUserInfoWithUserId:completion:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/AppDelegate.m"
+            timestampString = "474869400.241877"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
+            landmarkName = "-getUserInfoWithUserId:completion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

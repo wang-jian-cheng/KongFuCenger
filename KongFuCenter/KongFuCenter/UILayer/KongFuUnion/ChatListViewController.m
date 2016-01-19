@@ -57,7 +57,7 @@
 //    }else{
 //        conversationVC.displayUserNameInCell = YES;
 //    }
-    
+    [self.navigationController pushViewController:conversationVC animated:YES];
 //    if ([model.conversationTitle isEqual:@"陌生人"]) {
 //        [SVProgressHUD showWithStatus:@""];
 //        DataProvider *dataProvider = [[DataProvider alloc] init];
@@ -66,14 +66,13 @@
 //    }else{
 //        [self.navigationController pushViewController:conversationVC animated:YES];
 //    }
-    
-    [self.navigationController pushViewController:conversationVC animated:YES];
 }
 
 -(void)getUserInfo:(id)dict{
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         NSLog(@"%@",dict);
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateUser" object:nil];
         conversationVC.mHeadImage = [Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"PhotoPath"]];
         conversationVC.mName = [Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"NicName"]];
         [self.navigationController pushViewController:conversationVC animated:YES];

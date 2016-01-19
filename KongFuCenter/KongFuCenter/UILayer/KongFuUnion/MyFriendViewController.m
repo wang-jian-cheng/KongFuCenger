@@ -90,7 +90,7 @@
         [tempDict setObject:friendArray[i][@"Key"] forKey:@"Key"];
         [itemmutablearray addObject:tempDict];
     }
-    indexArray = [ChineseString mIndexArray:[itemmutablearray valueForKey:@"NicName"]];
+    indexArray = [ChineseString mIndexArray:[itemmutablearray valueForKey:@"RemarkName"]];
     LetterResultArr = [ChineseString mLetterSortArray:itemmutablearray];
     [SVProgressHUD dismiss];
     NSString *delFriendState = [userDefault valueForKey:@"delFriendState"];

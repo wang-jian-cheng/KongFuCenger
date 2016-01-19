@@ -44,7 +44,7 @@
 -(void)initViews
 {
     int noReadNum = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];
-    if (noReadNum != 0) {
+    if (noReadNum != 0 && noReadNum != -1) {
         [self initNoReadMessageView:noReadNum];
     }
     
@@ -89,7 +89,7 @@
 
 -(void)updateMessageNum{
     int noReadNum = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];
-    if (noReadNum != 0) {
+    if (noReadNum != 0 && noReadNum != -1) {
         [self initNoReadMessageView:noReadNum];
     }else{
         noReadNumTxt.hidden = YES;
