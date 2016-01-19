@@ -1597,6 +1597,36 @@
     }];
 }
 
+-(NSDictionary *)getUserInfoByUserID:(NSString *)userID
+{
+    BOOL isTrue = false;
+    NSString * urlstr=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/UpdateUser",Url];
+    NSURL *url = [NSURL URLWithString:urlstr];
+    NSMutableURLRequest *urlrequest = [[NSMutableURLRequest alloc]initWithURL:url];
+    urlrequest.HTTPMethod = @"POST";
+    NSString *bodyStr = [NSString stringWithFormat:@"userid=%@",userID];
+    NSData *body = [bodyStr dataUsingEncoding:NSUTF8StringEncoding];
+    urlrequest.HTTPBody = body;
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlrequest];
+    requestOperation.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+    [requestOperation start];
+    [requestOperation waitUntilFinished];
+    
+    NSData * data =[requestOperation.responseString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    NSDictionary *dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSLog(@"%@",dict);
+    NSRange range = [requestOperation.responseString rangeOfString:@"\"msg\":\"0\""];
+    if (range.location != NSNotFound) {
+        isTrue = true;
+    }
+    if (!isTrue) {
+        //SHOWALERT(@"错误", @"您需要联系开发人员");
+    }
+    return  dict;
+}
+
 - (void)uploadImageWithImage:(NSString *)imagePath andurl:(NSString *)url andprm:(NSDictionary *)prm
 {
     NSData *data=[NSData dataWithContentsOfFile:imagePath];

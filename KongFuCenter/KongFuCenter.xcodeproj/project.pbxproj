@@ -3731,6 +3731,7 @@
 					"$(PROJECT_DIR)/Utils/Vitamio",
 					"$(PROJECT_DIR)/Utils/Vitamio-online",
 					"$(PROJECT_DIR)/Utils/libpolyvSDK",
+					"$(PROJECT_DIR)/KongFuCenter/Common/Utilities/UMAnalytics",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				"OTHER_LDFLAGS[arch=*]" = (
@@ -3794,6 +3795,7 @@
 					"$(PROJECT_DIR)/Utils/Vitamio",
 					"$(PROJECT_DIR)/Utils/Vitamio-online",
 					"$(PROJECT_DIR)/Utils/libpolyvSDK",
+					"$(PROJECT_DIR)/KongFuCenter/Common/Utilities/UMAnalytics",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
