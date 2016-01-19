@@ -84,7 +84,7 @@
     }];
     [_mainTableView.mj_header beginRefreshing];
     
-
+    numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
     
 }
 #pragma mark - click actions
@@ -264,7 +264,7 @@
             {
                 [imgUrls removeAllObjects];
             }
-            
+            numLab.text = [NSString stringWithFormat:@"共%ld张",(unsigned long)showPicArr.count];
             for(int i = 0;i<showPicArr.count;i++)
             {
                 NSString *url = [NSString stringWithFormat:@"%@%@",Url,showPicArr[i][@"ImagePath"]];
@@ -361,7 +361,7 @@
     
     switch (section) {
         case WuGuanSection:
-            return 2;
+            return 3;
             break;
         case WuGuanDetailSection:
             return 2;
@@ -442,30 +442,41 @@
                 image.image = [UIImage imageNamed:@"dingwei@2x"];
                 [cell addSubview:image];
                 
-                UILabel * address = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(image.frame) + 5, 5, self.view.frame.size.width - CGRectGetMaxX(image.frame) - 15 - 60, cell.frame.size.height - 10)];
+                UILabel * address = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(image.frame) + 5, 5, self.view.frame.size.width - GapToLeft , cell.frame.size.height - 10)];
                 address.textColor = Separator_Color;
                 address.text =wuGuanDetailDict[@"Address"];
                 address.font = [UIFont systemFontOfSize:15];
                 [cell addSubview:address];
                 
-               
-                
-                UIView * line = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(address.frame) + 5, 3, 1, cell.frame.size.height - 6)];
-                line.backgroundColor = Separator_Color;
-                [cell addSubview:line];
-                
-                UIButton *coverBtn = [[UIButton alloc ] initWithFrame:CGRectMake(0, 0, line.frame.origin.x, _cellHeight)];
+                UIButton *coverBtn = [[UIButton alloc ] initWithFrame:CGRectMake(GapToLeft, 0,(address.frame.origin.x+address.frame.size.width), _cellHeight)];
                 [coverBtn addTarget:self action:@selector(addresssBtnClick:) forControlEvents:UIControlEventTouchUpInside];
                 [cell addSubview:coverBtn];
+//                
+//                UIView * line = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(address.frame) + 5, 3, 1, cell.frame.size.height - 6)];
+//                line.backgroundColor = Separator_Color;
+//                [cell addSubview:line];
+//                
+               
+                
+            }
+            else if(indexPath.row == 2)
+            {
+               
                 
                 UIButton * btn_call = [UIButton buttonWithType:(UIButtonTypeSystem)];
-                btn_call.frame = CGRectMake(CGRectGetMaxX(line.frame) + 15, 10, 25 ,25);
+                btn_call.frame = CGRectMake(GapToLeft, 10, 25 ,25);
                 [btn_call addTarget:self action:@selector(btn_callAction:) forControlEvents:(UIControlEventTouchUpInside)];
                 [btn_call setImage:[UIImage imageNamed:@"电话"] forState:(UIControlStateNormal)];
                 [btn_call setTintColor:Separator_Color];
                 [cell addSubview:btn_call];
                 
+                UILabel *phoneNum = [[UILabel alloc] initWithFrame:CGRectMake((btn_call.frame.size.width+btn_call.frame.origin.x+15),
+                                                                             0, SCREEN_WIDTH-(btn_call.frame.size.width+btn_call.frame.origin.x), _cellHeight)];
+                phoneNum.textColor = Separator_Color;
+                phoneNum.text = telStr;
+                [cell addSubview:phoneNum];
             }
+            
 
         }
             break;
@@ -512,8 +523,8 @@
                 [cell addSubview:titleLab];
                 
                 
-                UILabel *numLab = [[UILabel alloc ] initWithFrame:CGRectMake((SCREEN_WIDTH -80 ), 0, 80, _cellHeight)];
-                numLab.text = [NSString stringWithFormat:@"共%ld张",showPicArr.count];
+                
+                numLab.text = [NSString stringWithFormat:@"共%ld张",(unsigned long)showPicArr.count];
                 numLab.font = [UIFont systemFontOfSize:12];
                 numLab.textColor = TextColors;
                 [cell addSubview:numLab];
@@ -724,7 +735,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = (UICollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:_CELL forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor greenColor];
+//    cell.backgroundColor = [UIColor greenColor];
     if( showPicArr!= nil&&showPicArr.count > 0&&indexPath.row < showPicArr.count)
     {
         UIImageView *showImg =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];

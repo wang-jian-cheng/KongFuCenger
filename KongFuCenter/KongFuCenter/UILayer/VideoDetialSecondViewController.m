@@ -686,11 +686,13 @@
                                                                       andImgName:@"me" andNav:self.navigationController];
                     
                     NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,VideoDict[@"PhotoPath"]];
+                    
                     [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
                     
                     headView.userId = VideoDict[@"UserId"];
                     
                     [headView makeSelfRound];
+                    
                     [cell addSubview:headView];
                     /*name*/
                     UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x +headView.frame.size.width + 10),

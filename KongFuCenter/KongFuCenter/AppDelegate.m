@@ -45,7 +45,7 @@
 
 #pragma mark - share sdk
 
-#define SHARESDK_AppKey @"d556d5fc79dc"
+#define SHARESDK_AppKey @"d556d5fed22cf3dd4e950e773deba55c79dc"
 #define SHARESDK_Secret @"e3e9c5157e8f547ddcc6979d49c6e61f"
 
 
