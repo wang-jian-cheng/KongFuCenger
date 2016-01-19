@@ -277,10 +277,19 @@
 
     if(cell != nil)
     {
-        for (int i =0 ; i<cell.subviews.count; i++) {
-            [ [cell.subviews objectAtIndex:i] removeFromSuperview];//清空一下原来cell上面的view'防止cell的重用影响到后面section的显示
+//        DLog(@"cell content sub views = %lu indexrow0 = %ld",cell.contentView.subviews.count,indexPath.row);
+//        for (int i =0 ; i<cell.contentView.subviews.count; i++) {
+//            [ [cell.contentView.subviews objectAtIndex:i] removeFromSuperview];//清空一下原来cell上面的view'防止cell的重用影响到后面section的显示
+//        }
+//         DLog(@"cell content sub views = %lu indexrow3 = %ld",cell.contentView.subviews.count,indexPath.row);
+//        for (int i =0 ; i<cell.contentView.subviews.count; i++) {
+//            [ [cell.contentView.subviews objectAtIndex:i] removeFromSuperview];//清空一下原来cell上面的view'防止cell的重用影响到后面section的显示
+//        }
+//        DLog(@"cell content sub views = %lu indexrow1 = %ld",cell.contentView.subviews.count,indexPath.row);
+
+        for (UIView *view in cell.contentView.subviews) {
+            [view removeFromSuperview];
         }
-        
     }
     @try {
         if(secondCateArr == nil ||secondCateArr.count == 0||indexPath.row > secondCateArr.count -1)
@@ -290,7 +299,7 @@
         UIImageView *backView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
         NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,secondCateArr[indexPath.row][@"ImagePath"]];
         [backView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"temp2"]];
-        [cell addSubview:backView];
+        [cell.contentView addSubview:backView];
         
         UILabel *cateNameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
         cateNameLab.text = secondCateArr[indexPath.row][@"Name"];
@@ -299,7 +308,11 @@
         cateNameLab.backgroundColor = [UIColor blackColor];
         cateNameLab.textAlignment = NSTextAlignmentCenter;
         cateNameLab.alpha = 0.3;
-        [cell addSubview:cateNameLab];
+        [cell.contentView addSubview:cateNameLab];
+        
+        
+        DLog(@"cell content sub views = %lu indexrow2 = %ld",cell.contentView.subviews.count,indexPath.row);
+        
     }
     @catch (NSException *exception) {
         

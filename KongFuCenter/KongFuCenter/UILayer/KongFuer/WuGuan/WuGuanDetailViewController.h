@@ -26,6 +26,8 @@
     CLLocationDegrees lat;
     CLLocationDegrees lng;
     
+    UILabel *numLab;
+    
 }
 @property (nonatomic, retain,readonly) UICollectionView *collectionView;
 @property(nonatomic)NSString *wuGuanId;
