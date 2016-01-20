@@ -152,7 +152,8 @@
         case 0:
         {
             UIImageView *backImg = [[UIImageView alloc]  initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3-0.5*_cellHeight)];
-            backImg.image = [UIImage imageNamed:@"head_bg"];
+//            backImg.image = [UIImage imageNamed:@"head_bg"];
+            backImg.backgroundColor = ItemsBaseColor;//[UIColor blackColor];
             [cell addSubview:backImg];
             NSString *PhotoPath = [userInfoArray valueForKey:@"PhotoPath"];
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];

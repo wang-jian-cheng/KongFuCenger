@@ -473,9 +473,16 @@
         
         //under line
         UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft-20, lineView.frame.origin.y+(50 - 35)/2, 35, 35) andImgName:@"me" andNav:(self.navigationController)];
-        headView.userId = dataArr[indexPath.section][@"UserId"];
-        [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,dataArr[indexPath.section][@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@""]];
+        headView.userId =[NSString stringWithFormat:@"%@",dataArr[indexPath.section][@"UserId"]];
+        if([headView.userId isEqualToString:@"0"])
+        {
+            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,dataArr[indexPath.section][@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@"80"]];
+        }else
+        {
+            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,dataArr[indexPath.section][@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@"headImg"]];
+        }
         [headView makeSelfRound];
+            
         [cell addSubview:headView];
         
         

@@ -124,6 +124,12 @@
 }
 
 
+
+-(void)setUserId:(NSString *)userId
+{
+    _userId = [NSString stringWithFormat:@"%@",userId];
+}
+
 -(void)CheckIsFriend:(NSString *)userId
 {
     DataProvider *dataProvider = [[DataProvider alloc] init];
