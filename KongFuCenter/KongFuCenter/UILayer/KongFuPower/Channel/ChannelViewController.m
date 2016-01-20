@@ -66,6 +66,7 @@
         secondCateArr=[[NSMutableArray alloc] initWithArray:dict[@"data"]];
         [mainCollectionView reloadData];
     }
+    
 }
 
 -(void)initViews
