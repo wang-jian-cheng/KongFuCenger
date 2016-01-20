@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <RongIMKit/RongIMKit.h>
 
+typedef enum _chatPageType
+{
+    Mode_Chat,
+    Mode_History
+}ChatPageType;
+
 @interface ChatContentViewController : RCConversationViewController
 
 @property(strong,nonatomic) NSString *mTitle;
 @property(strong,nonatomic) NSString *mHeadImage;
 @property(strong,nonatomic) NSString *mName;
+@property(nonatomic) ChatPageType chatPageType;
 
 @end

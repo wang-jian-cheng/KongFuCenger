@@ -158,7 +158,10 @@
     listTableView.tableFooterView = [[UIView alloc] init];
     listTableView.backgroundColor = BACKGROUND_COLOR;
     
-    [self.emptyConversationView removeFromSuperview];
+    UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64)];
+    emptyView.backgroundColor = BACKGROUND_COLOR;
+    self.emptyConversationView = emptyView;
+    
 }
 
 -(void)clickLeftBtn{

@@ -275,6 +275,7 @@
         [dataProvider getFriendForKeyValue:userId];
         
         //获取战队信息
+        [SVProgressHUD showWithStatus:nil];
         DataProvider *dataProvider1 = [[DataProvider alloc] init];
         [dataProvider1 setDelegateObject:self setBackFunctionName:@"getTeamBackCall:"];
         [dataProvider1 SelectTeam:[mUserDefault valueForKey:@"TeamId"]];
@@ -300,6 +301,7 @@
 }
 
 -(void)getTeamBackCall:(id)dict{
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         teamDict = dict[@"data"];
         [mUserDefault setValue:[teamDict valueForKey:@"ImagePath"] forKey:@"TeamImg"];
@@ -334,7 +336,6 @@
             user.portraitUri = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"PhotoPath"]]];
         }
     }
-    
     return completion(user);
 }
 

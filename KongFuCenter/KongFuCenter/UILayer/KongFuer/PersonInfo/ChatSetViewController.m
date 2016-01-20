@@ -395,6 +395,7 @@
                 ChatContentViewController *chat = [[ChatContentViewController alloc]init];
                 //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众账号等
                 chat.conversationType = ConversationType_PRIVATE;
+                [chat setChatPageType:Mode_History];
                 //设置会话的目标会话ID。（单聊、客服、公众账号服务为对方的ID，讨论组、群聊、聊天室为会话的ID）
                 chat.targetId = [NSString stringWithFormat:@"%@",self.userID];
 //                chat.userName = @"";
