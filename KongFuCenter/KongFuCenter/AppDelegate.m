@@ -152,6 +152,8 @@
     
     // Required
     [APService setupWithOption:launchOptions];
+    
+    
     /***************************************极光推送结束*********************************************/
     [self initUI];
     
@@ -500,7 +502,7 @@
     
     // Required
     [APService registerDeviceToken:deviceToken];
-    application.applicationIconBadgeNumber = 0;
+//    application.applicationIconBadgeNumber = 0;
     DLog(@"小红点%ld",(long)application.applicationIconBadgeNumber);
 }
 
