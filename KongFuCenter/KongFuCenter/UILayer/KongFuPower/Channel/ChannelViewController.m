@@ -76,7 +76,7 @@
     self.collectionViewLayout = [[RAMCollectionViewFlemishBondLayout alloc] init];
     self.collectionViewLayout.delegate = self;
     self.collectionViewLayout.numberOfElements = 3;
-    self.collectionViewLayout.highlightedCellHeight = 150.f;
+    self.collectionViewLayout.highlightedCellHeight = (SCREEN_HEIGHT - Header_Height )/100*35;
     self.collectionViewLayout.highlightedCellWidth = SCREEN_WIDTH/5*3;
     //  layout.itemSize = CGSizeMake(318, 286);
     
