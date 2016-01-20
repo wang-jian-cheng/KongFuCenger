@@ -26,38 +26,38 @@
     [self setBarTitle:@"功夫库"];
     
     
-//    UIImageView * img_back=[[UIImageView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-49)];
-//    
-//    img_back.image=[UIImage imageNamed:@"KongfuStore_0.png"];
-//    
-//    [self.view addSubview:img_back];
-//    
-//    UIView * fugai=[[UIView alloc] initWithFrame:img_back.frame];
-//    
-//    fugai.backgroundColor=[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.7];
-//    
-//    [self.view addSubview:fugai];
-//    
-//    UILabel * lbl_tishi=[[UILabel alloc] init];
-//    
-//    lbl_tishi.bounds=CGRectMake(0, 0, SCREEN_WIDTH, 30);
-//    
-//    lbl_tishi.text=@"敬请期待";
-//    
-//    lbl_tishi.textAlignment=NSTextAlignmentCenter;
-//    
-//    lbl_tishi.textColor=[UIColor whiteColor];
-//    
-//    lbl_tishi.center=CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-//    
-//    [self.view addSubview:lbl_tishi];
+    UIImageView * img_back=[[UIImageView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-49)];
+    
+    img_back.image=[UIImage imageNamed:@"KongfuStore_0.png"];
+    
+    [self.view addSubview:img_back];
+    
+    UIView * fugai=[[UIView alloc] initWithFrame:img_back.frame];
+    
+    fugai.backgroundColor=[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.7];
+    
+    [self.view addSubview:fugai];
+    
+    UILabel * lbl_tishi=[[UILabel alloc] init];
+    
+    lbl_tishi.bounds=CGRectMake(0, 0, SCREEN_WIDTH, 30);
+    
+    lbl_tishi.text=@"敬请期待";
+    
+    lbl_tishi.textAlignment=NSTextAlignmentCenter;
+    
+    lbl_tishi.textColor=[UIColor whiteColor];
+    
+    lbl_tishi.center=CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+    
+    [self.view addSubview:lbl_tishi];
     
     
     
     
     
     //初始化View
-    [self initViews];
+    //[self initViews];
 }
 
 -(void)viewWillAppear:(BOOL)animated
