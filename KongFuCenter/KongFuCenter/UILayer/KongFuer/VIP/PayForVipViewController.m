@@ -167,7 +167,7 @@
     [dataProvider setDelegateObject:self setBackFunctionName:@"realPayCallBack:"];
     [dataProvider getPingppCharge:[Toolkit getUserID]
                        andChannel:channel
-                        andAmount:@"1"//[NSString stringWithFormat:@"%d",(int)realpaymoney*100]
+                        andAmount:[NSString stringWithFormat:@"%d",(int)realpaymoney*100]
                    andDescription:@"1"
                            andFlg:@"0"];
     

@@ -1142,8 +1142,8 @@
 -(void)btn_secritClick
 {
     SecriteViewController *_mysecriteVC=[[SecriteViewController alloc] initWithNibName:@"SecriteViewController" bundle:[NSBundle mainBundle]];
-    
-    [self.navigationController pushViewController:_mysecriteVC animated:YES];
+    [self presentViewController:_mysecriteVC animated:YES completion:nil];
+  //  [self.navigationController pushViewController:_mysecriteVC animated:YES];
 }
 
 @end

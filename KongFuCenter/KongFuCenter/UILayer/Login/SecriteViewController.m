@@ -18,11 +18,16 @@
     [super viewDidLoad];
     _lblTitle.text=@"隐私政策";
     _lblTitle.textColor=[UIColor whiteColor];
-    [self addLeftButton:@"Icon_Back@2x.png"];
+    [self addLeftButton:@"left"];
     
     NSString *htmlPath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
     NSString *htmlString = [[NSString alloc] initWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
     [_mywebView loadHTMLString:htmlString baseURL:[NSURL URLWithString:htmlPath]];
+}
+
+-(void)clickLeftButton:(UIButton *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
