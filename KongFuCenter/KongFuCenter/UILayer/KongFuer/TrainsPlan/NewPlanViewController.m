@@ -164,13 +164,39 @@
     
     
     picShowView = [[UIView alloc] init];
-    picShowView.hidden = YES;
+    if(defaultImgPath == nil || defaultImgPath.count==0)
+        picShowView.hidden = YES;
 }
 
 
 -(void)setDefaultDict:(NSDictionary *)DefaultDict
 {
     _DefaultDict = DefaultDict;
+    
+    
+    if(defaultImgPath==nil)
+    {
+        defaultImgPath = [NSMutableArray array];
+    }
+    else
+    {
+        [defaultImgPath removeAllObjects];
+    }
+    NSArray *tempArr = _DefaultDict[@"planImgList"];
+    
+    for (NSDictionary *tempDict in tempArr) {
+       
+        NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"ImagePath"]];
+        [defaultImgPath addObject:url];
+    }
+    
+    
+    
+    if(defaultImgPath.count>0)
+    {
+        picShowView.hidden = NO;
+    }
+    
     if (_cellCount == 0) {
         _cellHeight = self.view.frame.size.height/12;
         
@@ -374,18 +400,10 @@
         return;
     }
     
-    if(self.DefaultDict !=nil)
-    {
-        
-        [SVProgressHUD showInfoWithStatus:@"更新中..." maskType:SVProgressHUDMaskTypeBlack];
-        DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider setDelegateObject:self setBackFunctionName:@"delPlanCallBack:"];
-        [dataprovider delePlan:self.DefaultDict[@"planId"]];
-    }
-    else
-    {
-        [self BuildSliderData];
-    }
+    
+   
+    [self BuildSliderData];
+    
 }
 
 #pragma mark - self datasource
@@ -395,7 +413,15 @@
     [SVProgressHUD dismiss];
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
-        [self BuildSliderData];
+//        [self BuildSliderData];
+        
+        [SVProgressHUD showSuccessWithStatus:@"上传成功" maskType:SVProgressHUDMaskTypeBlack];
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        if([self.delegate respondsToSelector:@selector(endOfEdit)])
+        {
+            [self.delegate endOfEdit];
+        }
     }
     else
     {
@@ -466,6 +492,13 @@
             
         }
     }
+    
+    if(defaultImgPath!=nil)
+    {
+        for (int i = 0; i<defaultImgPath.count; i++) {
+            allImgPath = [NSString stringWithFormat:@"%@&%@",allImgPath,[defaultImgPath[i] substringFromIndex:Kimg_path.length]];
+        }
+    }
     [SVProgressHUD showWithStatus:@"正在保存数据" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"uploadPlansCallBack:"];
@@ -479,9 +512,19 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
-            
-            [SVProgressHUD showSuccessWithStatus:@"上传成功" maskType:SVProgressHUDMaskTypeBlack];
-            [self.navigationController popViewControllerAnimated:YES];
+            if(self.DefaultDict !=nil)//先上传再删除原有的以防出现网络错误，倒是计划消失
+            {
+                
+                [SVProgressHUD showInfoWithStatus:@"更新中..." maskType:SVProgressHUDMaskTypeBlack];
+                DataProvider * dataprovider=[[DataProvider alloc] init];
+                [dataprovider setDelegateObject:self setBackFunctionName:@"delPlanCallBack:"];
+                [dataprovider delePlan:self.DefaultDict[@"planId"]];
+            }
+            else
+            {
+                [SVProgressHUD showSuccessWithStatus:@"上传成功" maskType:SVProgressHUDMaskTypeBlack];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
         @catch (NSException *exception) {
             
@@ -926,6 +969,12 @@ static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
     {
         picNum = imgPickerImgs.count;
     }
+    
+    if(defaultImgPath!=nil&&defaultImgPath.count>0)
+    {
+        return picNum + photoNum+defaultImgPath.count;
+    }
+    
     return picNum + photoNum;
 }
 
@@ -949,10 +998,31 @@ static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
             {
                 imgpickerCount = imgPickerImgs.count;
             }
-            if(photoImgs !=nil)
+            if(photoImgs !=nil&&photoImgs.count - 1 >= (indexPath.row - imgpickerCount)&&photoImgs.count!=0)
             {
                 showImgView.image = photoImgs[indexPath.row - imgpickerCount ];
             }
+            else
+            {
+                NSInteger photoImgsCount;
+                if(photoImgs == nil)
+                {
+                    photoImgsCount = 0;
+                }
+                else
+                {
+                    photoImgsCount = imgPickerImgs.count;
+                }
+                if(defaultImgPath!=nil&&
+                   defaultImgPath.count>0&&
+                   defaultImgPath.count - 1 >= (indexPath.row - photoImgsCount- imgpickerCount))
+                {
+//                    NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,defaultImgPath[indexPath.row - photoImgsCount- imgpickerCount][@"ImagePath"]];
+                    [showImgView sd_setImageWithURL:[NSURL URLWithString:defaultImgPath[indexPath.row - photoImgsCount- imgpickerCount]] placeholderImage:[UIImage imageNamed:@"me"]];
+                }
+            }
+            
+            
         }
         [cell addSubview:showImgView];
 ////        
@@ -1006,14 +1076,32 @@ static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
         {
             imgpickerCount = imgPickerImgs.count;
         }
-        if(photoImgs !=nil)
+        if(photoImgs !=nil&&photoImgs.count - 1 >= (sender.tag - imgpickerCount)&&photoImgs.count!=0)
         {
             [photoImgs removeObjectAtIndex:(sender.tag - imgpickerCount)];
             [allImgsPicked setObject:photoImgs forKey:PHOTO_IMGS_KEY];
         }
+        else
+        {
+            NSInteger photoImgsCount;
+            if(photoImgs == nil)
+            {
+                photoImgsCount = 0;
+            }
+            else
+            {
+                photoImgsCount = imgPickerImgs.count;
+            }
+            if(defaultImgPath!=nil&&
+               defaultImgPath.count>0&&
+               defaultImgPath.count - 1 >= (sender.tag - photoImgsCount- imgpickerCount))
+            {
+                [defaultImgPath removeObjectAtIndex:(sender.tag - photoImgsCount- imgpickerCount)];
+            }
+        }
     }
     
-    if((imgPickerImgs.count == 0|| imgPickerImgs==nil) && (photoImgs.count == 0||photoImgs==nil))
+    if((imgPickerImgs.count == 0|| imgPickerImgs==nil) && (photoImgs.count == 0||photoImgs==nil)&&(defaultImgPath==nil||defaultImgPath.count==0))
     {
         picShowView.hidden = YES;
         _textView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellTextViewHeight);
@@ -1032,8 +1120,9 @@ static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
     
     [tempArr addObjectsFromArray:allImgsPicked[PICPICKER_IMGS_KEY]];
     [tempArr addObjectsFromArray:allImgsPicked[PHOTO_IMGS_KEY]];
-    
-    PictureShowView *picShow = [[PictureShowView alloc] initWithTitle:@"" andImgs:tempArr andShowIndex:sender.tag];
+    [tempArr addObjectsFromArray:defaultImgPath];
+//    PictureShowView *picShow = [[PictureShowView alloc] initWithTitle:@"" andImgs:tempArr andShowIndex:sender.tag];
+    PictureShowView *picShow  = [[PictureShowView alloc] initWithTitle:@"" andImgsOrUrl:tempArr andShowIndex:sender.tag];
     [picShow show];
 }
 #pragma mark - pick show delegate

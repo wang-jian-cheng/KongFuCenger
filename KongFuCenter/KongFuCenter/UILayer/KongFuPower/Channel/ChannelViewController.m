@@ -163,13 +163,18 @@
     [img_BackGround sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,secondCateArr[indexPath.row][@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@"temp2"]];
     [cell addSubview:img_BackGround];
     
+    UIView *coverView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+    coverView.backgroundColor = [UIColor blackColor];
+    coverView.alpha = 0.3;
+    [cell.contentView addSubview:coverView];
+    
     UILabel *cateNameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
     cateNameLab.text = secondCateArr[indexPath.row][@"Name"];
     cateNameLab.textColor = [UIColor whiteColor];
     cateNameLab.font = [UIFont boldSystemFontOfSize:20];
-    cateNameLab.backgroundColor = [UIColor blackColor];
+//    cateNameLab.backgroundColor = [UIColor blackColor];
     cateNameLab.textAlignment = NSTextAlignmentCenter;
-    cateNameLab.alpha = 0.3;
+//    cateNameLab.alpha = 0.3;
     [cell addSubview:cateNameLab];
     return cell;
     

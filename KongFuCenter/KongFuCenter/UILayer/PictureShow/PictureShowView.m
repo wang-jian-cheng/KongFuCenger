@@ -98,7 +98,10 @@
             return self;
         if(showIndex>self.imgArr.count)
             showIndex = 0;
+        
+
         _showImg = self.imgArr[showIndex];
+
         
         
         showPicNormalMode = YES;
@@ -107,6 +110,39 @@
     return self;
 }
 
+
+- (instancetype)initWithTitle:(NSString *)title
+                      andImgsOrUrl:(NSArray *)showImg andShowIndex:(NSUInteger)index{
+    self = [super init];
+    if (self) {
+        _title = title;
+        self.delegate = self;
+        if(showImg==nil)
+            return self;
+        
+        showIndex  = index;
+        self.imgArr = showImg;
+        if(showImg == nil || showImg.count ==0)
+            return self;
+        if(showIndex>self.imgArr.count)
+            showIndex = 0;
+        
+        DLog(@"%@",NSStringFromClass([self.imgArr[showIndex] class]));
+        
+        if ([NSStringFromClass([self.imgArr[showIndex] class]) isEqualToString:@"__NSCFString"]) {
+            _url = self.imgArr[showIndex];
+        }
+        else
+        {
+            _showImg = self.imgArr[showIndex];
+        }
+        
+        
+        showPicNormalMode = YES;
+        [self buildViews];
+    }
+    return self;
+}
 
 - (instancetype)initWithTitle:(NSString *)title
                    andImgUrls:(NSArray *)showImgUrls andShowIndex:(NSUInteger)index andHolderImg:(UIImage *)holderImg{
@@ -214,7 +250,12 @@
     else
     {
         _imgShowView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , AlertHeight)];
-        
+        /*兼容uiimage和url模式*/
+        if(_url!=nil)
+        {
+            [_imgShowView sd_setImageWithURL:[NSURL URLWithString:_url] placeholderImage:[UIImage imageNamed:@"me"]];
+        }
+   
     }
     
     if(self.imgUrls!=nil&&self.imgUrls.count>0)
@@ -227,6 +268,7 @@
     }
     else if(self.imgArr!=nil&&self.imgArr.count>0)
     {
+        
         indexLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
         indexLab.textColor = [UIColor whiteColor];
         indexLab.textAlignment = NSTextAlignmentCenter;
@@ -304,6 +346,7 @@
     if(showIndex == 0||showPicNormalMode == NO)
         return;
     
+    
     showIndex -- ;
     if(self.imgUrls !=nil && self.imgUrls.count > 0)
     {
@@ -314,9 +357,19 @@
     }
     if(self.imgArr!=nil && self.imgArr.count > 0)
     {
-        _showImg = self.imgArr[showIndex];
-        _imgShowView.image = _showImg;
-        indexLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)(showIndex+1),(unsigned long)self.imgArr.count];
+        
+        if([NSStringFromClass([self.imgArr[showIndex] class]) isEqualToString:@"__NSCFString"])
+        {
+            _url = self.imgArr[showIndex];
+            [_imgShowView sd_setImageWithURL:[NSURL URLWithString:_url] placeholderImage:_showImg];
+            indexLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)(showIndex+1),(unsigned long)self.imgArr.count];
+        }
+        else
+        {
+            _showImg = self.imgArr[showIndex];
+            _imgShowView.image = _showImg;
+            indexLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)(showIndex+1),(unsigned long)self.imgArr.count];
+        }
     }
     
     
@@ -338,9 +391,18 @@
     }
     if(self.imgArr!=nil && self.imgArr.count > 0)
     {
-        _showImg = self.imgArr[showIndex];
-        _imgShowView.image = _showImg;
-        indexLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)(showIndex+1),(unsigned long)self.imgArr.count];
+        if([NSStringFromClass([self.imgArr[showIndex] class]) isEqualToString:@"__NSCFString"])
+        {
+            _url = self.imgArr[showIndex];
+            [_imgShowView sd_setImageWithURL:[NSURL URLWithString:_url] placeholderImage:_showImg];
+            indexLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)(showIndex+1),(unsigned long)self.imgArr.count];
+        }
+        else
+        {
+            _showImg = self.imgArr[showIndex];
+            _imgShowView.image = _showImg;
+            indexLab.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)(showIndex+1),(unsigned long)self.imgArr.count];
+        }
     }
 }
 -(void)handleLongPress:(UILongPressGestureRecognizer *)sender

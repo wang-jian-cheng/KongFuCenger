@@ -50,5 +50,7 @@
                       andImgs:(NSArray <UIImageView *>*)showImg andShowIndex:(NSUInteger)index;
 - (void)show;
 - (void)dismiss;
+- (instancetype)initWithTitle:(NSString *)title
+                 andImgsOrUrl:(NSArray *)showImg andShowIndex:(NSUInteger)index;
 
 @end
