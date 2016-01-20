@@ -57,7 +57,7 @@
     
     
     //初始化View
-//    [self initViews];
+    //[self initViews];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -67,7 +67,7 @@
 
 #pragma mark 自定义方法
 -(void)initViews{
-    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
+    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - TabBar_HEIGHT)];
     mTableView.delegate = self;
     mTableView.dataSource = self;
     mTableView.backgroundColor = BACKGROUND_COLOR;
@@ -90,15 +90,61 @@
 }
 
 #pragma mark setting for section
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if (section == 0) {
+        UIView *mView = [[UIView alloc] init];
+        mView.backgroundColor = BACKGROUND_COLOR;
+        return mView;
+    }else{
+        return nil;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == 0) {
+        return 4;
+    }else{
+        return 0;
+    }
+}
 
 #pragma mark setting for cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
         cell.backgroundColor = ItemsBaseColor;
-        UIImageView *mIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1700)];
-        [mIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"head_bg"]];
+        UIImageView *mIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
+        [mIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
         [cell addSubview:mIv];
+        
+        //menu
+        CGFloat mWidth = SCREEN_WIDTH / 4;
+        CGFloat mOriginY = mIv.frame.origin.y + mIv.frame.size.height + (45 - 21) / 2;
+        
+        UIButton *allClassBtn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, mOriginY, mWidth, 21)];
+        allClassBtn1.titleLabel.font = [UIFont systemFontOfSize:15];
+        [allClassBtn1 setTitle:@"全部分类" forState:UIControlStateNormal];
+        [cell addSubview:allClassBtn1];
+        
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 2, 1, 35)];
+        lineView.backgroundColor = [UIColor colorWithRed:0.25 green:0.26 blue:0.27 alpha:1];
+        [allClassBtn1 addSubview:lineView];
+        
+        UIButton *allClassBtn2 = [[UIButton alloc] initWithFrame:CGRectMake(allClassBtn1.frame.origin.x + allClassBtn1.frame.size.width, mOriginY, mWidth, 21)];
+        allClassBtn2.titleLabel.font = [UIFont systemFontOfSize:16];
+        [allClassBtn2 setTitle:@"营养美食" forState:UIControlStateNormal];
+        [cell addSubview:allClassBtn2];
+        
+        UIButton *allClassBtn3 = [[UIButton alloc] initWithFrame:CGRectMake(allClassBtn2.frame.origin.x + allClassBtn2.frame.size.width, mOriginY, mWidth, 21)];
+        allClassBtn3.titleLabel.font = [UIFont systemFontOfSize:16];
+        [allClassBtn3 setTitle:@"武器防具" forState:UIControlStateNormal];
+        [cell addSubview:allClassBtn3];
+        
+        UIButton *allClassBtn4 = [[UIButton alloc] initWithFrame:CGRectMake(allClassBtn3.frame.origin.x + allClassBtn3.frame.size.width, mOriginY, mWidth, 21)];
+        allClassBtn4.titleLabel.font = [UIFont systemFontOfSize:16];
+        [allClassBtn4 setTitle:@"服饰用品" forState:UIControlStateNormal];
+        [cell addSubview:allClassBtn4];
+        
         return cell;
     }else{
         if (indexPath.row == 0) {
@@ -106,6 +152,7 @@
             cell.backgroundColor = ItemsBaseColor;
             UILabel *mLabel = [[UILabel alloc] initWithFrame:CGRectMake(14, 0, 80, cell.frame.size.height)];
             mLabel.textAlignment = NSTextAlignmentCenter;
+            mLabel.font = [UIFont systemFontOfSize:18];
             mLabel.textColor = [UIColor whiteColor];
             mLabel.text = @"推荐商品";
             [cell addSubview:mLabel];
@@ -135,7 +182,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 195;
+        return 215;
     }else{
         if (indexPath.row == 0) {
             return 45;

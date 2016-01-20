@@ -1616,7 +1616,6 @@
     
     
     NSDictionary *dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSLog(@"%@",dict);
     NSRange range = [requestOperation.responseString rangeOfString:@"\"msg\":\"0\""];
     if (range.location != NSNotFound) {
         isTrue = true;
