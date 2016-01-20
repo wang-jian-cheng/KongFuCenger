@@ -54,7 +54,12 @@
     [topView addSubview:leftTitle];
     
     UICollectionView *messageCollectionView = self.conversationMessageCollectionView;
-    messageCollectionView.frame = CGRectMake(0, NavigationBar_HEIGHT + StatusBar_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - StatusBar_HEIGHT - TabBar_HEIGHT);
+    if (_chatPageType == Mode_History) {
+        self.conversationMessageCollectionView.frame = CGRectMake(0,NavigationBar_HEIGHT + StatusBar_HEIGHT,SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - StatusBar_HEIGHT);
+        self.chatSessionInputBarControl.hidden = YES;
+    }else{
+        messageCollectionView.frame = CGRectMake(0, NavigationBar_HEIGHT + StatusBar_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBar_HEIGHT - StatusBar_HEIGHT - TabBar_HEIGHT);
+    }
     messageCollectionView.backgroundColor = BACKGROUND_COLOR;
     [self scrollToBottomAnimated:YES];
 }

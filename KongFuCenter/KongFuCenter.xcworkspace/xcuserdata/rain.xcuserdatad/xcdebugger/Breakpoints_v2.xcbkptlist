@@ -2118,11 +2118,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatContentViewController.m"
-            timestampString = "474877510.100213"
+            timestampString = "474953625.840351"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2139,7 +2139,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "397"
             endingLineNumber = "397"
-            landmarkName = "-calculateAge:"
+            landmarkName = "-getDatas"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2155,7 +2155,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "396"
             endingLineNumber = "396"
-            landmarkName = "-calculateAge:"
+            landmarkName = "-getDatas"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5444,11 +5444,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/ChatContentViewController.m"
-            timestampString = "474877510.100213"
+            timestampString = "474953625.840351"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "-locationPicker:didSelectLocation:locationName:mapScreenShot:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6082,11 +6082,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/PersonInfo/ChatSetViewController.m"
-            timestampString = "474857269.884147"
+            timestampString = "474953625.840351"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "432"
-            endingLineNumber = "432"
+            startingLineNumber = "433"
+            endingLineNumber = "433"
             landmarkName = "-MakeActionCallBack:"
             landmarkType = "5">
          </BreakpointContent>
