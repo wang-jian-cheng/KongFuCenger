@@ -20,6 +20,12 @@
 #define PICPICKER_IMGS_KEY      @"picPicker"
 #define PHOTO_IMGS_KEY          @"photoPicker"
 
+@protocol  NewPlanDelegate<NSObject>
+
+-(void)endOfEdit;
+
+@end
+
 @interface NewPlanViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate,ChoosePlanTypeDelegate,UICollectionViewDelegate,UICollectionViewDataSource,JKImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,VPImageCropperDelegate,UIGestureRecognizerDelegate,UploadDataToServerDelegate,PictureShowViewDelegate>
 {
     NSIndexPath *tempIndexPath;
@@ -34,9 +40,11 @@
     NSMutableArray *photoImgs;//拍照
 
     
+    NSMutableArray *defaultImgPath;
+    
     UIView *picShowView;
 }
 @property(nonatomic) NSDictionary *DefaultDict;
 @property(nonatomic) NSString *planMode;
-
+@property(nonatomic) id<NewPlanDelegate> delegate;
 @end

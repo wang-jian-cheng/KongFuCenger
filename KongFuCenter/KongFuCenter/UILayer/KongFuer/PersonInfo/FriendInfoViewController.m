@@ -59,7 +59,7 @@
     _sectionNum = 1;
     
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT  )];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -68,7 +68,7 @@
     
     UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3)];
     
-    UIButton *opBtn = [[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight, SCREEN_WIDTH- 2*GapToLeft, _cellHeight)];
+    UIButton *opBtn = [[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight-15, SCREEN_WIDTH- 2*GapToLeft, _cellHeight)];
     opBtn.backgroundColor = YellowBlock;
     [opBtn setTitle:@"发送消息" forState:UIControlStateNormal];
     [opBtn addTarget:self action:@selector(sendMessageEvent) forControlEvents:UIControlEventTouchUpInside];
@@ -78,7 +78,7 @@
     
   //  _mainTableView.contentSize = CGSizeMake(SCREEN_WIDTH, 15*_cellHeight);
     [self.view addSubview:_mainTableView];
-    
+    [self.view sendSubviewToBack:_mainTableView];
 }
 
 -(void)sendMessageEvent{
@@ -151,12 +151,12 @@
     switch (indexPath.row) {
         case 0:
         {
-            UIImageView *backImg = [[UIImageView alloc]  initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3)];
+            UIImageView *backImg = [[UIImageView alloc]  initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3-0.5*_cellHeight)];
             backImg.image = [UIImage imageNamed:@"head_bg"];
             [cell addSubview:backImg];
             NSString *PhotoPath = [userInfoArray valueForKey:@"PhotoPath"];
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
-            UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 2*_cellHeight, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageNamed:@"me"]];
+            UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 1.5*_cellHeight, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageNamed:@"me"]];
             [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
             [headView makeSelfRound];
             headView.layer.borderWidth = 1;
@@ -166,7 +166,7 @@
             
             
             UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((headView.frame.origin.x+headView.frame.size.width),
-                                                                         3*_cellHeight+5,
+                                                                         2.5*_cellHeight+5,
                                                                          SCREEN_WIDTH - (headView.frame.origin.x+headView.frame.size.width),
                                                                          _cellHeight/2)];
             nameLab.text =[NSString stringWithFormat:@"%@   %@",[userInfoArray valueForKey:@"NicName"],[userInfoArray valueForKey:@"Phone"]];
@@ -286,9 +286,9 @@
             NSString *contentStr = [userInfoArray valueForKey:@"Description"];
             CGFloat contentWidth = (SCREEN_WIDTH -GapToLeft - 20);
             CGFloat contentHeight = [Toolkit heightWithString:contentStr fontSize:16 width:contentWidth]+10;
-            contentHeight = contentHeight > (_cellHeight*3)?(_cellHeight*3):contentHeight;
+            contentHeight = contentHeight > (_cellHeight*1)?(_cellHeight*1):contentHeight;
             
-            UITextView *contentLan = [[UITextView alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight-10, contentWidth, _cellHeight*3)];
+            UITextView *contentLan = [[UITextView alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight-10, contentWidth, contentHeight)];
             contentLan.font = [UIFont systemFontOfSize:16];
             contentLan.textColor = [UIColor grayColor];
             contentLan.text = contentStr;
@@ -311,7 +311,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
         case 0:
-            return _cellHeight*5-(_cellHeight/2);
+            return _cellHeight*5-_cellHeight;
             break;
         case 1:
         case 2:
@@ -320,7 +320,7 @@
             return _cellHeight;
             break;
         case 5:
-            return 4*_cellHeight;
+            return 2*_cellHeight;
             break;
         default:
             break;

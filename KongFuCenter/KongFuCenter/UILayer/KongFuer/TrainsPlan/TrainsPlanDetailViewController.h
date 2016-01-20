@@ -24,10 +24,12 @@
     NSInteger _cellHeight;
     NSInteger _cellTextViewHeight;//包含textview的cell的高度
     UITableView *_mainTableView;
-    UITextField *_titleField;//标题
+    UILabel *_titleField;//标题
     UITextView *_textView;
     CGFloat _keyHeight;
+    UIView *picShowView;
     
+    BOOL editPlan;
 
 }
 @property (nonatomic, retain) UICollectionView *collectionView;

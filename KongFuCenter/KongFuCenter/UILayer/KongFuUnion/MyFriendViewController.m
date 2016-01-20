@@ -282,7 +282,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(indexPath.section == 1){
+    if(indexPath.section == 0){
+        return;
+    }else if(indexPath.section == 1){
         newConcernFriendVC = [[NewConcernFriendViewController alloc] init];
         [self.navigationController pushViewController:newConcernFriendVC animated:YES];
     }else if (indexPath.section == 2) {

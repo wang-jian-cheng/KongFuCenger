@@ -190,7 +190,7 @@
     {
             [self addRightButton:@"moreNoword"];
     }
-    pageSize = 10;
+    pageSize = 5;
     wyArray = [NSMutableArray array];
     commentArr = [NSMutableArray array];
   //  [self configData];
@@ -324,7 +324,7 @@
 -(void)FooterRefresh
 {
     [self getTeamNews];
-    [mainTable.mj_footer endRefreshing];
+    
     
 }
 
@@ -358,6 +358,7 @@
         }
         @finally {
             [mainTable.mj_header endRefreshing];
+            [mainTable.mj_footer endRefreshing];
             [mainTable reloadData];
         }
     }
@@ -365,6 +366,7 @@
     {
         UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
         [alert show];
+        [mainTable.mj_footer endRefreshing];
         
     }
 }
