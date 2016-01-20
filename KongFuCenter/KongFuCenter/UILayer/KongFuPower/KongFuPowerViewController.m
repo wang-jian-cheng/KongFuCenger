@@ -127,6 +127,7 @@
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
     _mainTableView.separatorColor =  Separator_Color;
+    _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.scrollEnabled = NO;
     
 //    _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, dataArr.count*(_cellHeight + 20));
@@ -192,6 +193,30 @@
 
 -(void)cateBtnClick:(UIButton *)sender
 {
+    
+    NSInteger tag = sender.tag;
+    
+    videoType=(int)tag;
+    
+    switch (tag) {
+            
+        case CHANNEL_BTN:
+        {
+            ChannelViewController *channelViewCtl = [[ChannelViewController alloc] init];
+            channelViewCtl.navtitle = @"频道";
+            [self.navigationController pushViewController:channelViewCtl animated:YES];
+            [self positionDismissView:moreSettingBackView];
+            return;
+        }
+            break;
+            
+        default:
+            [_mainTableView.mj_header beginRefreshing];
+            break;
+    }
+    [self positionDismissView:moreSettingBackView];
+    
+    
     sender.selected = YES;
     [btnImgView removeFromSuperview];
     btnImgView.frame = CGRectMake((sender.frame.size.width-15)/2, (sender.frame.size.height - 15), 15, 15);
@@ -204,25 +229,7 @@
             ((UIButton *)btnArr[i]).selected = NO;
         }
     }
-    NSInteger tag = sender.tag;
-    
-    videoType=(int)tag;
-    
-    switch (tag) {
-            
-        case CHANNEL_BTN:
-        {
-            ChannelViewController *channelViewCtl = [[ChannelViewController alloc] init];
-            channelViewCtl.navtitle = @"频道";
-            [self.navigationController pushViewController:channelViewCtl animated:YES];
-        }
-            break;
-            
-        default:
-            [_mainTableView.mj_header beginRefreshing];
-            break;
-    }
-    [self positionDismissView:moreSettingBackView];
+   
     
 }
 
