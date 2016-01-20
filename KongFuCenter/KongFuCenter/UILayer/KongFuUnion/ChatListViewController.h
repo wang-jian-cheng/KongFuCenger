@@ -11,4 +11,6 @@
 
 @interface ChatListViewController : RCConversationListViewController
 
+@property(nonatomic,strong) NSString *loadFlag;
+
 @end
