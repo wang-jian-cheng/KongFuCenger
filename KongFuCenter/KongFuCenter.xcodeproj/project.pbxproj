@@ -400,6 +400,7 @@
 		B7617E711C1C29A500CF96E7 /* YMShowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E661C1C29A500CF96E7 /* YMShowImageView.m */; };
 		B7617E721C1C29A500CF96E7 /* YMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E681C1C29A500CF96E7 /* YMTableViewCell.m */; };
 		B7617E731C1C29A500CF96E7 /* YMTapGestureRecongnizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E6A1C1C29A500CF96E7 /* YMTapGestureRecongnizer.m */; };
+		B79B22FC1C4F5BDC00B0BFF7 /* ShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B79B22FB1C4F5BDC00B0BFF7 /* ShopDetailViewController.m */; };
 		B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */; };
 		B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C428021C1524F3003F504F /* JHStoryViewController.m */; };
 		B7CB2A711C3B4C5C009E62ED /* OneShuoshuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CB2A701C3B4C5C009E62ED /* OneShuoshuoViewController.m */; };
@@ -1129,6 +1130,8 @@
 		B7617E681C1C29A500CF96E7 /* YMTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMTableViewCell.m; sourceTree = "<group>"; };
 		B7617E691C1C29A500CF96E7 /* YMTapGestureRecongnizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMTapGestureRecongnizer.h; sourceTree = "<group>"; };
 		B7617E6A1C1C29A500CF96E7 /* YMTapGestureRecongnizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMTapGestureRecongnizer.m; sourceTree = "<group>"; };
+		B79B22FA1C4F5BDC00B0BFF7 /* ShopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailViewController.h; sourceTree = "<group>"; };
+		B79B22FB1C4F5BDC00B0BFF7 /* ShopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailViewController.m; sourceTree = "<group>"; };
 		B7C427FE1C1524F3003F504F /* JHStoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryTableViewCell.h; sourceTree = "<group>"; };
 		B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryTableViewCell.m; sourceTree = "<group>"; };
 		B7C428011C1524F3003F504F /* JHStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryViewController.h; sourceTree = "<group>"; };
@@ -1886,6 +1889,8 @@
 				B7E1CD111C4C7179008DFE49 /* ShopTableViewCell.h */,
 				B7E1CD121C4C7179008DFE49 /* ShopTableViewCell.m */,
 				B7E1CD131C4C7179008DFE49 /* ShopTableViewCell.xib */,
+				B79B22FA1C4F5BDC00B0BFF7 /* ShopDetailViewController.h */,
+				B79B22FB1C4F5BDC00B0BFF7 /* ShopDetailViewController.m */,
 			);
 			path = KongFuStore;
 			sourceTree = "<group>";
@@ -3432,6 +3437,7 @@
 				80DBEA381C4796580012339C /* VideoDetialSecondViewController.m in Sources */,
 				80DB846E1C23D3A6008CA670 /* UIImageView+HighlightedWebCache.m in Sources */,
 				B5451CCA1C2796B6001BB39F /* pinyin.m in Sources */,
+				B79B22FC1C4F5BDC00B0BFF7 /* ShopDetailViewController.m in Sources */,
 				7BA38E991C215E62000996EE /* AnnouncementViewController.m in Sources */,
 				806240661C48936E00691D0C /* SecriteViewController.m in Sources */,
 				B577E2321C1A9A6C006695F1 /* SetNoticeViewController.m in Sources */,

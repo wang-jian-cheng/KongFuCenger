@@ -70,7 +70,7 @@
     
     self.image = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.text_introduce.frame) + 10 , self.scrollView.frame.size.width, self.scrollView.frame.size.width * 0.7)];
     self.image.backgroundColor = [UIColor orangeColor];
-    //    self.image.image = [UIImage imageNamed:@""];
+    self.image.image = [UIImage imageNamed:@"store_head_bg"];
     [self.scrollView addSubview:self.image];
     
 //    
@@ -82,7 +82,7 @@
 //    [self.scrollView addSubview:self.detail];
     
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, CGRectGetMaxY(self.detail.frame) + 15);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, CGRectGetMaxY(self.image.frame) + 15);
     [self.view addSubview:self.scrollView];
 }
 
