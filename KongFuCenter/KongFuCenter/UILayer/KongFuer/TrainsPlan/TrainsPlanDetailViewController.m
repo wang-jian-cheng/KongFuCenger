@@ -1,11 +1,3 @@
-//
-//  TrainsPlanDetailViewController.m
-//  KongFuCenter
-//
-//  Created by Wangjc on 15/12/24.
-//  Copyright © 2015年 zykj. All rights reserved.
-//
-
 #import "TrainsPlanDetailViewController.h"
 
 @interface TrainsPlanDetailViewController ()
@@ -13,14 +5,14 @@
     NSMutableArray *imgPaths;
 }
 @end
-
+static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
 @implementation TrainsPlanDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     _cellHeight = self.view.frame.size.height/12;
-   
+    
     [self addRightbuttontitle:@"编辑"];
     
     [self initViews];
@@ -39,6 +31,7 @@
     _mainTableView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height);
     
     _mainTableView.separatorColor =  Separator_Color;
+    _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.separatorEffect = ;
     
     
@@ -53,18 +46,27 @@
             [_mainTableView setLayoutMargins:UIEdgeInsetsMake(0,0,0,0)];
         }
     }
-    _cellCount = 4;
-    _cellTextViewHeight = SCREEN_HEIGHT - 3*_cellHeight - 64;
+    _cellCount = 1;
+    _cellTextViewHeight = _cellHeight*4;
     
-    _titleField = [[UITextField alloc]init];
+    _titleField = [[UILabel alloc]init];
     
     _textView = [[UITextView alloc] init];
     //   _textView.text = @"发帖内容";
+    picShowView = [[UIView alloc] init];
     
     [self.view addSubview:_mainTableView];
     
 }
 
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    if(editPlan == YES)
+    {
+        [self.navigationController popViewControllerAnimated:NO];
+    }
+}
 
 -(void)setPlanInfo:(NSDictionary *)planInfo
 {
@@ -99,6 +101,7 @@
 
 -(void)clickRightButton:(UIButton *)sender
 {
+    editPlan = YES;
     NewPlanViewController *newPlanViewCtl = [[NewPlanViewController alloc] init];
     newPlanViewCtl.navtitle = @"编辑计划";
     @try {
@@ -125,10 +128,11 @@
         {
             [tempDict setObject:[NSString stringWithFormat:@"%d",YearPlan] forKey:@"planCateId"];
         }
-
+        
         newPlanViewCtl.DefaultDict = tempDict;
+        newPlanViewCtl.delegate = self;
         [self.navigationController pushViewController:newPlanViewCtl animated:YES];
-
+        
     }
     @catch (NSException *exception) {
         
@@ -136,11 +140,20 @@
     @finally {
         
     }
-  
+    
 }
 
-#pragma mark - tableView
 
+#pragma mark - tableView
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    
+    if(picArr.count==0)
+    {
+        return 1;
+    }
+    return 2;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     
@@ -150,131 +163,112 @@
 //设置每行调用的cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell  *cell = [[UITableViewCell alloc] init];
-    cell.backgroundColor = BACKGROUND_COLOR;
+    cell.backgroundColor = ItemsBaseColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if(self.planInfo == nil)
         return cell;
     
+    
+    
     @try {
-        if(indexPath.row == 2)
-        {
-            cell.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellTextViewHeight);
-        }
-        else
-        {
-            cell.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cellHeight);
-        }
+    
+        cell.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width,  _cellTextViewHeight+2*_cellHeight);
         
-        switch (indexPath.row) {
-            case 0:
-            {
-                _titleField.frame = CGRectMake(10, 0, cell.frame.size.width, _cellHeight);
-                _titleField.text = self.planInfo[@"Title"];
-                _titleField.backgroundColor  = BACKGROUND_COLOR;
-                _titleField.enabled = NO;
-                _titleField.textAlignment = NSTextAlignmentCenter;
-                _titleField.textColor = [UIColor whiteColor];
-                _titleField.font = [UIFont boldSystemFontOfSize:18];
-                [cell addSubview:_titleField];
-                
-            }
-                break;
-            case  1:
-            {
-                UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH, _cellHeight)];
-                timeLab.textColor = [UIColor whiteColor];
-                timeLab.font = [UIFont systemFontOfSize:14];
-                timeLab.text = [NSString stringWithFormat:@"%@~%@",
-                                [self.planInfo[@"StartTime"] substringToIndex:10],
-                                [self.planInfo[@"EndTime"] substringToIndex:10]];
-                [cell addSubview:timeLab];
-            }
-            case 2:
-            {
-                _textView.frame = CGRectMake(10, 0, cell.frame.size.width,_cellTextViewHeight);
-                _textView.backgroundColor  = BACKGROUND_COLOR;
-                _textView.font = [UIFont systemFontOfSize:15];
-                _textView.editable = NO;
-                _textView.text = self.planInfo[@"Content"];
-                //            _textView.delegate = self;
-                //            _textView.returnKeyType = UIReturnKeyDefault;
-                //            _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-                
-                [cell addSubview:_textView];
-            }
-                break;
-            case 3:
-            {
-                
-                UIScrollView *imgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
-                [cell addSubview:imgScrollView];
-                
-                CGFloat BtnWidth = _cellHeight - 10;
-                int i;
-                for ( i = 0; i < picArr.count; i++) {
-                    UIButton *imgBtn = [[UIButton alloc] initWithFrame:CGRectMake(10+i*(BtnWidth+10), 5, BtnWidth, BtnWidth)];
-                    imgBtn.tag = i;
-                    [imgBtn addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                    [imgScrollView addSubview:imgBtn];
+        if(indexPath.section == 0)
+        {
+            switch (indexPath.row) {
+                case 0:
+                {
+                    _titleField.frame = CGRectMake(10, 0, cell.frame.size.width, 30);
+                    _titleField.text = self.planInfo[@"Title"];
+                    _titleField.backgroundColor  = ItemsBaseColor;
+                    _titleField.textAlignment = NSTextAlignmentLeft;
+                    _titleField.textColor = [UIColor whiteColor];
+                    _titleField.font = [UIFont systemFontOfSize:18];
+                    [cell addSubview:_titleField];
                     
-                    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imgBtn.frame.size.width, imgBtn.frame.size.height)];
-                    NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,picArr[i][@"ImagePath"]];
-                    [imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
                     
-                    [imgBtn addSubview:imgView];
+                    UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(10, _titleField.frame.size.height, SCREEN_WIDTH, 30)];
+                    timeLab.textColor = Separator_Color;
+                    timeLab.font = [UIFont systemFontOfSize:14];
+                    timeLab.text = [NSString stringWithFormat:@"%@~%@",
+                                    [self.planInfo[@"StartTime"] substringToIndex:10],
+                                    [self.planInfo[@"EndTime"] substringToIndex:10]];
+                    [cell addSubview:timeLab];
+                    
+                    _textView.frame = CGRectMake(8, (timeLab.frame.size.height+timeLab.frame.origin.y),
+                                                 cell.frame.size.width,_cellTextViewHeight);
+                    _textView.backgroundColor  = ItemsBaseColor;
+                    _textView.font = [UIFont systemFontOfSize:16];
+                    _textView.textAlignment = NSTextAlignmentLeft;
+                    _textView.textColor = [UIColor whiteColor];
+                    _textView.editable = NO;
+                    _textView.text = self.planInfo[@"Content"];
+                    //            _textView.delegate = self;
+                    //            _textView.returnKeyType = UIReturnKeyDefault;
+                    //            _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+                    
+                    [cell addSubview:_textView];
+                }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        else if(indexPath.section == 1)
+        {
+            cell.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cellHeight*3);
+            if(indexPath.row == 0)
+            {
+                picShowView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3);
+//                picShowView.backgroundColor = [UIColor redColor];
+                [cell addSubview:picShowView];
+                
+                
+                
+                if (!_collectionView) {
+                    CGFloat titleH = 30;
+                    
+                    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+                    layout.minimumLineSpacing = 5.0;
+                    layout.minimumInteritemSpacing = 5.0;
+                    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+                    layout.sectionInset =  UIEdgeInsetsMake(0,20,0,20);
+                    layout.itemSize = CGSizeMake(picShowView.frame.size.height - 20 - titleH, picShowView.frame.size.height - 20 - titleH);
+                    //                layout.minimumLineSpacing = 10;//cell 的左右间距
+                    
+                    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-2*_cellHeight, _cellHeight) collectionViewLayout:layout];
+                    _collectionView.backgroundColor = ItemsBaseColor;
+                    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kPhotoCellIdentifier];
+                    _collectionView.delegate = self;
+                    _collectionView.dataSource = self;
+                    _collectionView.showsHorizontalScrollIndicator = NO;
+                    _collectionView.showsVerticalScrollIndicator = NO;
+                    
+                    
+                    _collectionView.frame = CGRectMake(0, 10+titleH, SCREEN_WIDTH, picShowView.frame.size.height - 20-titleH);
+                    
+                    [picShowView addSubview:_collectionView];
+                    
+                    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 10,SCREEN_WIDTH , titleH)];
+                    titleLab.backgroundColor = ItemsBaseColor;
+                    titleLab.textColor = [UIColor whiteColor];
+                    titleLab.text = @"  文章图片";
+                    [picShowView addSubview:titleLab];
+                    
+                    
+                }
+                else
+                {
+                    [picShowView addSubview:_collectionView];
                 }
                 
-                imgScrollView.contentSize = CGSizeMake(i*(BtnWidth+10)+20,_cellHeight );
-                [cell addSubview:imgScrollView];
                 
-//                UIButton *picBtns = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.height, cell.frame.size.height)];
-//                [picBtns setImage:[UIImage imageNamed:@"picture"] forState:UIControlStateNormal];
-//                //          [picBtns addTarget:self action:@selector(composePicAdd) forControlEvents:UIControlEventTouchUpInside];
-//                
-//                UIButton *photoBtns = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.height, 0, cell.frame.size.height, cell.frame.size.height)];
-//                [photoBtns setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
-//                //          [photoBtns addTarget:self action:@selector(editPortrait) forControlEvents:UIControlEventTouchUpInside];
-//                
-//                [cell addSubview:picBtns];
-//                [cell addSubview:photoBtns];
-                
-                
-//                if (!_collectionView) {
-//                    
-//                    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-//                    layout.minimumLineSpacing = 5.0;
-//                    layout.minimumInteritemSpacing = 5.0;
-//                    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-//                    
-//                    
-//                    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-2*_cellHeight, _cellHeight) collectionViewLayout:layout];
-//                    _collectionView.backgroundColor = [UIColor clearColor];
-//                    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:_CELL];
-//                    _collectionView.delegate = self;
-//                    _collectionView.dataSource = self;
-//                    _collectionView.showsHorizontalScrollIndicator = NO;
-//                    _collectionView.showsVerticalScrollIndicator = NO;
-//                    
-//                    
-//                    _collectionView.frame = CGRectMake(picBtns.frame.size.width+photoBtns.frame.origin.x+5, 0, SCREEN_WIDTH-(2*cell.frame.size.height), cell.frame.size.height);
-//                    
-//                    [cell addSubview:_collectionView];
-//                    
-//                    
-//                    
-//                }
-//                else
-//                {
-//                    [cell addSubview:_collectionView];
-//                }
-//
             }
-                break;
-            default:
-                break;
         }
-
+        
     }
     @catch (NSException *exception) {
     }
@@ -285,7 +279,7 @@
             [cell setLayoutMargins:UIEdgeInsetsZero];
         }
         return cell;
-
+        
     }
     
 }
@@ -295,12 +289,23 @@
 //设置cell每行间隔的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     //   NSLog(@"%f-%f",SCREEN_HEIGHT,self.view.frame.size.height);
-    if(indexPath.row==2)
-        return _cellTextViewHeight;
-    return _cellHeight;
+    if(indexPath.section==0)
+    {
+        if(picArr.count==0)
+        {
+            _cellTextViewHeight = 7*_cellHeight;
+        }
+        
+        return _cellTextViewHeight+2*_cellHeight;
+    }
+    return _cellHeight*3;
     
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10;
+}
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -309,7 +314,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = (UICollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:_CELL forIndexPath:indexPath];
+    UICollectionViewCell *cell = (UICollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:indexPath];
     
     
     
@@ -335,9 +340,9 @@
 {
     
     
-//    PictureShowView *picShow = [[PictureShowView alloc] initWithUrl:url andHolderImg:[UIImage imageNamed:@"me"]];
-//    picShow.mydelegate = self;
-//    [picShow show];
+    //    PictureShowView *picShow = [[PictureShowView alloc] initWithUrl:url andHolderImg:[UIImage imageNamed:@"me"]];
+    //    picShow.mydelegate = self;
+    //    [picShow show];
     
     PictureShowView *picShow  = [[PictureShowView alloc] initWithTitle:@"" andImgUrls:imgPaths andShowIndex:sender.tag andHolderImg:[UIImage imageNamed:@"me"]];
     picShow.mydelegate = self;
@@ -348,7 +353,7 @@
 
 -(void)longPressCallBack
 {
- //   NSLog(@"long press delegate");
+    //   NSLog(@"long press delegate");
     
     
     UIActionSheet *choiceSheet = [[UIActionSheet alloc] initWithTitle:nil
@@ -375,12 +380,18 @@
     {
         NSLog(@"删除图片");
     }
-
+    
 }
 #pragma mark - UICollectionViewDelegateFlowLayout
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return CGSizeMake(40, 40);
+//}
+
+-( UIEdgeInsets )collectionView:( UICollectionView *)collectionView layout:( UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:( NSInteger )section
 {
-    return CGSizeMake(40, 40);
+    return UIEdgeInsetsMake(0, 10, 0, 0);
+    
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -399,13 +410,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
+

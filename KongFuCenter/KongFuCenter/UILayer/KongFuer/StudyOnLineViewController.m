@@ -301,13 +301,18 @@
         [backView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"temp2"]];
         [cell.contentView addSubview:backView];
         
+        UIView *coverView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+        coverView.backgroundColor = [UIColor blackColor];
+        coverView.alpha = 0.3;
+        [cell.contentView addSubview:coverView];
+        
         UILabel *cateNameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
         cateNameLab.text = secondCateArr[indexPath.row][@"Name"];
         cateNameLab.textColor = [UIColor whiteColor];
         cateNameLab.font = [UIFont boldSystemFontOfSize:20];
-        cateNameLab.backgroundColor = [UIColor blackColor];
+//        cateNameLab.backgroundColor = [UIColor blackColor];
         cateNameLab.textAlignment = NSTextAlignmentCenter;
-        cateNameLab.alpha = 0.3;
+//        cateNameLab.alpha = 0.3;
         [cell.contentView addSubview:cateNameLab];
         
         
