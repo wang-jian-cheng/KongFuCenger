@@ -381,4 +381,5 @@
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;
 -(void)ShieldNewsFriend:(NSString *)userid;
+-(NSDictionary *)getUserInfoByUserID:(NSString *)userID;
 @end

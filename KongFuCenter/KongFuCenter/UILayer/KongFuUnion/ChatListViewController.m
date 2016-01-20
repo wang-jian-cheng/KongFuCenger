@@ -17,6 +17,7 @@
     NSUserDefaults *userDefault;
     NSArray *friendArray;
     ChatContentViewController *conversationVC;
+    NSString *currentTitle;
 }
 
 @end
@@ -51,13 +52,18 @@
     conversationVC.conversationType = model.conversationType;
     conversationVC.targetId = model.targetId;
     conversationVC.userName = model.conversationTitle;
-    conversationVC.mTitle = model.conversationTitle;
-//    if (conversationVC.conversationType == ConversationType_PRIVATE) {
-//        conversationVC.displayUserNameInCell = NO;
-//    }else{
-//        conversationVC.displayUserNameInCell = YES;
-//    }
-    [self.navigationController pushViewController:conversationVC animated:YES];
+    currentTitle = model.conversationTitle;
+    if (conversationVC.conversationType == ConversationType_PRIVATE) {
+        [SVProgressHUD showWithStatus:nil];
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"isFriendCallBack:"];
+        [dataProvider IsWuyou:get_sp(@"id") andfriendid:model.targetId];
+    }else{
+        conversationVC.mTitle = model.conversationTitle;
+        [self.navigationController pushViewController:conversationVC animated:YES];
+    }
+    
+    
 //    if ([model.conversationTitle isEqual:@"陌生人"]) {
 //        [SVProgressHUD showWithStatus:@""];
 //        DataProvider *dataProvider = [[DataProvider alloc] init];
@@ -66,6 +72,22 @@
 //    }else{
 //        [self.navigationController pushViewController:conversationVC animated:YES];
 //    }
+}
+
+-(void)isFriendCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        if([dict[@"data"] intValue] == 1)//好友
+        {
+            conversationVC.mTitle = currentTitle;
+        }
+        else//陌生人
+        {
+            conversationVC.mTitle = @"陌生人";
+        }
+    }
+    [self.navigationController pushViewController:conversationVC animated:YES];
 }
 
 -(void)getUserInfo:(id)dict{

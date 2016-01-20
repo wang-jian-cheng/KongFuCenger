@@ -22,7 +22,6 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 
-
 #define LogIn_UserID_key    @"mAccountID"
 #define LogIn_UserPass_key   @"password"
 
@@ -36,7 +35,10 @@
     NSDictionary *teamDict;
     
     int connectServerIFlag;
+    
+    
 }
+
 @end
 
 @implementation AppDelegate
@@ -130,8 +132,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-    
     
     [self ThirdFrameWorksInit];
     /***************************************极光推送开始*********************************************/
@@ -318,12 +318,20 @@
         user.name = [mUserDefault valueForKey:@"NicName"];
         user.portraitUri = [NSString stringWithFormat:@"%@%@",Url,[mUserDefault valueForKey:@"PhotoPath"]];
     }else{
-        for (int i = 0; i < friendArray.count; i++) {
+        BOOL isFrendState = NO;
+        for (int i = 0; i < friendArray .count; i++) {
             if([userId isEqual:[NSString stringWithFormat:@"%@",[friendArray[i] valueForKey:@"Key"]]]){
+                isFrendState = YES;
                 user.name = [friendArray[i] valueForKey:@"Value"][@"RemarkName"];
                 user.portraitUri = [NSString stringWithFormat:@"%@%@",Url,[friendArray[i] valueForKey:@"Value"][@"PhotoPath"]];
                 break;
             }
+        }
+        if (!isFrendState) {
+            DataProvider *dataProvider = [[DataProvider alloc] init];
+            NSDictionary *dict = [dataProvider getUserInfoByUserID:userId];
+            user.name = [Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"NicName"]];
+            user.portraitUri = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"PhotoPath"]]];
         }
     }
     

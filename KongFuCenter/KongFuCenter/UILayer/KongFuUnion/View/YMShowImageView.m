@@ -7,6 +7,7 @@
 //
 
 #import "YMShowImageView.h"
+#import "UIImageView+WebCache.h"
 
 @implementation YMShowImageView{
 
@@ -72,8 +73,9 @@
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
         //UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[appendArray objectAtIndex:i]]];
-        UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[appendArray objectAtIndex:i]]]];
-        imageView.image = img;
+        //UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[appendArray objectAtIndex:i]]]];
+        //imageView.image = img;
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[appendArray objectAtIndex:i]] placeholderImage:[UIImage imageNamed:@"me"]];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         [imageScrollView addSubview:imageView];
         [_scrollView addSubview:imageScrollView];

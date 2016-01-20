@@ -13,6 +13,7 @@
 @interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate>{
     UIView *topView;
     NSUserDefaults *userDefault;
+    NSString *friendID;
 }
 
 @end
@@ -99,10 +100,30 @@
         [self.navigationController pushViewController:personInfoViewCtl animated:YES];
             
     }else{
-        FriendInfoViewController *friendInfoViewCtl = [[FriendInfoViewController alloc] init];
-        friendInfoViewCtl.navtitle = @"好友资料";
-        friendInfoViewCtl.userID = userId;
-        [self.navigationController pushViewController:friendInfoViewCtl animated:YES];
+        friendID = userId;
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"isFriendCallBack:"];
+        [dataProvider IsWuyou:[userDefault valueForKey:@"id"] andfriendid:userId];
+    }
+}
+
+-(void)isFriendCallBack:(id)dict{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        if([dict[@"data"] intValue] == 1)//好友
+        {
+            FriendInfoViewController *friendInfoViewCtl = [[FriendInfoViewController alloc] init];
+            friendInfoViewCtl.navtitle = @"好友资料";
+            friendInfoViewCtl.userID = friendID;
+            [self.navigationController pushViewController:friendInfoViewCtl animated:YES];
+        }
+        else//陌生人
+        {
+            StrangerInfoViewController *strangerInfoViewCtl = [[StrangerInfoViewController alloc] init];
+            strangerInfoViewCtl.navtitle = @"陌生人资料";
+            strangerInfoViewCtl.userID = friendID;
+            [self.navigationController pushViewController:strangerInfoViewCtl animated:YES];
+        }
     }
 }
 
