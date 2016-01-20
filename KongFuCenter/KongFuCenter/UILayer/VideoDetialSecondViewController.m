@@ -761,26 +761,29 @@
                     collectBtn.tag = 1;
                     [collectBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                     [backView addSubview:collectBtn];
-//                    
-//                    CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*2, 5, btnW, backView.frame.size.height-10)];
-//                    [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
-//                    shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-//                    [shareBtn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
-//                    shareBtn.imageView.contentMode = UIViewContentModeCenter;
-//                    shareBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-//                    shareBtn.tag = 2;
-//                    [shareBtn addTarget:self action:@selector(shareContentBuild) forControlEvents:UIControlEventTouchUpInside];
-//                    [backView addSubview:shareBtn];
-//                    
-//                    CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*3, 5, btnW, backView.frame.size.height-10)];
-//                    [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
-//                    relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-//                    relayBtn.imageView.contentMode = UIViewContentModeCenter;
-//                    relayBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-//                    [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
-//                    relayBtn.tag = 3;
-//                    [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-//                    [backView addSubview:relayBtn];
+                    if ([VideoDict[@"UserId"] intValue] !=0) {
+                        CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake(backView.frame.size.width-3*(btnW+10), 5, btnW, backView.frame.size.height-10)];
+                        [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
+                        shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                        [shareBtn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+                        shareBtn.imageView.contentMode = UIViewContentModeCenter;
+                        shareBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                        shareBtn.tag = 2;
+                        [shareBtn addTarget:self action:@selector(shareContentBuild) forControlEvents:UIControlEventTouchUpInside];
+                        [backView addSubview:shareBtn];
+                        
+                        CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake(backView.frame.size.width-4*(btnW+10), 5, btnW, backView.frame.size.height-10)];
+                        [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
+                        relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+                        relayBtn.imageView.contentMode = UIViewContentModeCenter;
+                        relayBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+                        [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
+                        relayBtn.tag = 3;
+                        [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+                        [backView addSubview:relayBtn];
+                    }
+                    
+                    
                 }
                 @catch (NSException *exception) {
                     
