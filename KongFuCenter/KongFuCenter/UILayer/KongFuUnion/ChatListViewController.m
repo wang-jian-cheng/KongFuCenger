@@ -25,10 +25,8 @@
 @implementation ChatListViewController
 
 - (void)viewDidLoad {
-    
     //重写显示相关的接口，必须先调用super，否则会屏蔽SDK默认的处理
     [super viewDidLoad];
-    
     userDefault = [NSUserDefaults standardUserDefaults];
     friendArray = [[NSArray alloc] init];
     
@@ -113,6 +111,12 @@
 #pragma mark - 自定义方法
 
 -(void)initView{
+    NSString *chatListLoadFlag = [userDefault valueForKey:@"chatListLoadFlag"];
+    NSLog(@"------------------------------------%@",chatListLoadFlag);
+    if (!chatListLoadFlag) {
+        [userDefault setValue:@"1" forKey:@"chatListLoadFlag"];
+        [SVProgressHUD showWithStatus:@"加载中..."];
+    }
     NSLog(@"%@",[userDefault valueForKey:@"sound"]);
     if ([userDefault valueForKey:@"sound"]) {
         [RCIM sharedRCIM].disableMessageAlertSound = [[userDefault valueForKey:@"sound"] isEqual:@"1"]?NO:YES;

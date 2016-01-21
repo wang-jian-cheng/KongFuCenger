@@ -313,6 +313,7 @@
 }
 
 -(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
+    [SVProgressHUD dismiss];
     RCUserInfo *user = [[RCUserInfo alloc]init];
     user.userId = userId;
     user.name = @"陌生人";
@@ -331,10 +332,12 @@
             }
         }
         if (!isFrendState) {
-            DataProvider *dataProvider = [[DataProvider alloc] init];
-            NSDictionary *dict = [dataProvider getUserInfoByUserID:userId];
-            user.name = [Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"NicName"]];
-            user.portraitUri = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"PhotoPath"]]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                DataProvider *dataProvider = [[DataProvider alloc] init];
+                NSDictionary *dict = [dataProvider getUserInfoByUserID:userId];
+                user.name = [Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"NicName"]];
+                user.portraitUri = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"PhotoPath"]]];
+            });
         }
     }
     return completion(user);
@@ -548,7 +551,7 @@
         default:
             break;
     }
-//    application.applicationIconBadgeNumber = 0;
+    application.applicationIconBadgeNumber = 0;
     
     DLog(@"%ld",(long)application.applicationIconBadgeNumber);
     
@@ -576,6 +579,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"chatListLoadFlag"];
 }
 
 @end

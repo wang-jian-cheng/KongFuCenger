@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -18,13 +18,14 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OD1-Mz-WPv">
                         <rect key="frame" x="8" y="7" width="55" height="55"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="55" id="GSy-3e-clT"/>
+                            <constraint firstAttribute="height" constant="55" id="OXt-FQ-2r0"/>
+                            <constraint firstAttribute="width" constant="55" id="tFi-jI-bbf"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUA-g1-B8b">
                         <rect key="frame" x="71" y="24" width="189" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="21" id="w7V-SX-AEa"/>
+                            <constraint firstAttribute="width" constant="189" id="Rlg-PR-GGP"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -32,12 +33,11 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="OD1-Mz-WPv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="1Qm-SW-EW8"/>
-                    <constraint firstItem="BUA-g1-B8b" firstAttribute="leading" secondItem="OD1-Mz-WPv" secondAttribute="trailing" constant="8" id="3zD-hy-fZN"/>
-                    <constraint firstItem="BUA-g1-B8b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="16" id="8IC-1y-HfV"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="BUA-g1-B8b" secondAttribute="trailing" constant="52" id="ElZ-O1-khz"/>
-                    <constraint firstItem="OD1-Mz-WPv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LM2-qs-zNE"/>
-                    <constraint firstItem="OD1-Mz-WPv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-1" id="svm-PO-vZA"/>
+                    <constraint firstItem="BUA-g1-B8b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="16" id="1W1-dx-Cev"/>
+                    <constraint firstItem="OD1-Mz-WPv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-1" id="L30-yy-J0p"/>
+                    <constraint firstItem="BUA-g1-B8b" firstAttribute="leading" secondItem="OD1-Mz-WPv" secondAttribute="trailing" constant="8" id="h0Q-w5-aWw"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="BUA-g1-B8b" secondAttribute="bottom" constant="16" id="qDv-kW-ttp"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="OD1-Mz-WPv" secondAttribute="leading" id="tbx-Bf-kNv"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

@@ -369,6 +369,8 @@
 		B712CC951C2CCEFE00B1A2E8 /* MyNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B712CC941C2CCEFD00B1A2E8 /* MyNewsViewController.m */; };
 		B712CC981C2CDC9D00B1A2E8 /* SendNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B712CC971C2CDC9D00B1A2E8 /* SendNewsViewController.m */; };
 		B712CC9B1C2D1D6B00B1A2E8 /* SendVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B712CC9A1C2D1D6B00B1A2E8 /* SendVideoViewController.m */; };
+		B7172D771C50B32C009C4ABE /* store_nocollection.png in Resources */ = {isa = PBXBuildFile; fileRef = B7172D751C50B32C009C4ABE /* store_nocollection.png */; };
+		B7172D781C50B32C009C4ABE /* store_collection.png in Resources */ = {isa = PBXBuildFile; fileRef = B7172D761C50B32C009C4ABE /* store_collection.png */; };
 		B728F67C1C2BD7AD004E90F3 /* wyzan_no.png in Resources */ = {isa = PBXBuildFile; fileRef = B728F67B1C2BD7AD004E90F3 /* wyzan_no.png */; };
 		B72C3CBE1C1558F000D3250A /* KongFuUnionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */; };
 		B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CC21C15668800D3250A /* RecruitComment.m */; };
@@ -1082,6 +1084,8 @@
 		B712CC971C2CDC9D00B1A2E8 /* SendNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendNewsViewController.m; sourceTree = "<group>"; };
 		B712CC991C2D1D6A00B1A2E8 /* SendVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendVideoViewController.h; sourceTree = "<group>"; };
 		B712CC9A1C2D1D6B00B1A2E8 /* SendVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendVideoViewController.m; sourceTree = "<group>"; };
+		B7172D751C50B32C009C4ABE /* store_nocollection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_nocollection.png; sourceTree = "<group>"; };
+		B7172D761C50B32C009C4ABE /* store_collection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_collection.png; sourceTree = "<group>"; };
 		B728F67B1C2BD7AD004E90F3 /* wyzan_no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wyzan_no.png; sourceTree = "<group>"; };
 		B72C3CBB1C1558F000D3250A /* KongFuUnionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KongFuUnionViewController.h; sourceTree = "<group>"; };
 		B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KongFuUnionViewController.m; sourceTree = "<group>"; };
@@ -2955,6 +2959,8 @@
 				B51A7B741C4F678200273384 /* KongFuStoreAdd@2x.png */,
 				B51A7B751C4F678200273384 /* KongFuStoreDel@2x.png */,
 				B51A7B761C4F678200273384 /* KongFuStoreProduct@2x.png */,
+				B7172D751C50B32C009C4ABE /* store_nocollection.png */,
+				B7172D761C50B32C009C4ABE /* store_collection.png */,
 				B7E1CD171C4C95B5008DFE49 /* store_head_bg.png */,
 			);
 			name = KongFuStore;
@@ -3126,6 +3132,7 @@
 				B5F13B411C1FE6E600155038 /* 58@2x.png in Resources */,
 				B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */,
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
+				B7172D781C50B32C009C4ABE /* store_collection.png in Resources */,
 				B7E4CD0F1C1FE15000C2E69A /* wydt.png in Resources */,
 				B7617E531C1C299700CF96E7 /* button_send_comment@2x.png in Resources */,
 				804952201C250B3800F5584A /* WechatShortVideo_scan_focus@3x.png in Resources */,
@@ -3206,6 +3213,7 @@
 				806240621C48842000691D0C /* KongfuStore_0.png in Resources */,
 				B5905E0A1C1BC2CF00ECA9BA /* weikaishi@2x.png in Resources */,
 				B54F13891C46283B001EABE5 /* del@2x.PNG in Resources */,
+				B7172D771C50B32C009C4ABE /* store_nocollection.png in Resources */,
 				B7617E551C1C299700CF96E7 /* mao@2x.jpg in Resources */,
 				B5AF70851C183A9F00C041AF /* photo@2x.png in Resources */,
 				B5AF70861C183A9F00C041AF /* picture@2x.png in Resources */,
