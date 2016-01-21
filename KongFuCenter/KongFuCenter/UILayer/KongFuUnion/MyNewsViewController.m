@@ -184,6 +184,10 @@
         
         //[self initTableview];
         
+        if (_contentDataSource.count == 0) {
+            [self dataEmptyTip];
+        }
+        
         [self loadTextData];
         
         [mainTable reloadData];
@@ -257,6 +261,7 @@
         
     }
     
+    
     double deltaTime = [[NSDate date] timeIntervalSinceDate:tmpStartData];
     NSLog(@"cost time = %f", deltaTime);
     
@@ -269,7 +274,13 @@
     
 }
 
-
+-(void)dataEmptyTip{
+    UILabel *tipLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, SCREEN_HEIGHT - 10)];
+    tipLbl.textAlignment = NSTextAlignmentCenter;
+    tipLbl.textColor = [UIColor whiteColor];
+    tipLbl.text = @"还没留下任何动态";
+    [self.view addSubview:tipLbl];
+}
 
 
 - (void)backToPre{
@@ -285,6 +296,7 @@
     // mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     mainTable.delegate = self;
     mainTable.dataSource = self;
+    mainTable.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mainTable];
     
     [self initHeadView];

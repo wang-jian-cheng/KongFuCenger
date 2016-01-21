@@ -186,6 +186,10 @@
         
         //[self initTableview];
         
+        if(_contentDataSource.count == 0){
+            [self dataEmptyTip];
+        }
+        
         [self loadTextData];
         
         [mainTable reloadData];
@@ -195,6 +199,14 @@
     }else{
         [SVProgressHUD dismiss];
     }
+}
+
+-(void)dataEmptyTip{
+    UILabel *tipLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, SCREEN_HEIGHT - 10)];
+    tipLbl.textAlignment = NSTextAlignmentCenter;
+    tipLbl.textColor = [UIColor whiteColor];
+    tipLbl.text = @"还没留下任何动态";
+    [self.view addSubview:tipLbl];
 }
 
 -(void)FootRefireshBackCall:(id)dict
