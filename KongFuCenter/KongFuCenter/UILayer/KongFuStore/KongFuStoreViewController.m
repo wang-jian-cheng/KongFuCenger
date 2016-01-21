@@ -24,8 +24,10 @@
     //初始化参数
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"功夫库"];
+    [self addLeftbuttontitle:@"订单"];
     
-    
+    [self addRightButton:@"shoppingCart"];
+#if 0
     UIImageView * img_back=[[UIImageView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-49)];
     
     img_back.image=[UIImage imageNamed:@"KongfuStore_0.png"];
@@ -53,11 +55,11 @@
     [self.view addSubview:lbl_tishi];
     
     
-    
+#endif
     
     
     //初始化View
-//    [self initViews];
+    [self initViews];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -76,6 +78,15 @@
     [self.view addSubview:mTableView];
 }
 
+
+#pragma mark - btn clicks
+-(void)clickRightButton:(UIButton *)sender
+{
+    ShoppingCartViewController *shoppingCart = [[ShoppingCartViewController alloc] init];
+    shoppingCart.navtitle = @"购物车";
+    [self.navigationController pushViewController:shoppingCart animated:YES];
+}
+
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
@@ -89,7 +100,6 @@
     }
 }
 
-#pragma mark setting for section
 
 #pragma mark setting for cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

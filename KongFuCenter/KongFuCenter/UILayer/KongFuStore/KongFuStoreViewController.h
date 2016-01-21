@@ -7,7 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "ShoppingCart/ShoppingCartViewController.h"
 @interface KongFuStoreViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end
