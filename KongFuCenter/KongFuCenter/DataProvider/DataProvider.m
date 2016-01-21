@@ -1495,6 +1495,7 @@
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName
 {
     CallBackObject = cbobject;
+    
     callBackFunctionName = selectorName;
 }
 

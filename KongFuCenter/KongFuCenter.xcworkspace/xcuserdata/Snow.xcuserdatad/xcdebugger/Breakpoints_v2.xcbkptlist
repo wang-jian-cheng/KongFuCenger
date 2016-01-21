@@ -1130,7 +1130,7 @@
                   moduleName = "KongFuCenter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Snow/Documents/KongFuCenger/KongFuCenter/KongFuCenter/UILayer/More/SetNoticeViewController.m"
-                  timestampString = "474964507.17266"
+                  timestampString = "475030216.699723"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "165"
@@ -1145,7 +1145,7 @@
                   moduleName = "KongFuCenter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Snow/Documents/KongFuCenger/KongFuCenter/KongFuCenter/UILayer/More/SetNoticeViewController.m"
-                  timestampString = "474964507.172803"
+                  timestampString = "475030216.699843"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "165"
@@ -1210,12 +1210,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/KongFuerViewController.m"
-            timestampString = "474522288.853069"
+            timestampString = "474968791.486641"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "821"
-            endingLineNumber = "821"
-            landmarkName = "-JumpToAttention"
+            startingLineNumber = "823"
+            endingLineNumber = "823"
+            landmarkName = "-JumpToTeamNews"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1226,12 +1226,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/KongFuerViewController.m"
-            timestampString = "474522288.853069"
+            timestampString = "474968791.486641"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "822"
-            endingLineNumber = "822"
-            landmarkName = "-JumpToAttention"
+            startingLineNumber = "824"
+            endingLineNumber = "824"
+            landmarkName = "-JumpToWYNews"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1350,7 +1350,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/View/YMTableViewCell.m"
