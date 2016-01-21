@@ -9,6 +9,7 @@
 #import "ChannelVideosViewController.h"
 #import "DataProvider.h"
 #import "MJRefresh.h"
+#import "VideoDetialSecondViewController.h"
 
 #define GapToLeft   20
 #define PageSize 6
@@ -187,7 +188,7 @@
         
         //under line
         UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, lineView.frame.origin.y+(50 - 35)/2, 35, 35) andImgName:@"me" andNav:(self.navigationController)];
-        [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,dataArr[indexPath.section][@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@""]];
+        [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,dataArr[indexPath.section][@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@"me"]];
         [headView makeSelfRound];
         [cell addSubview:headView];
         
@@ -239,10 +240,19 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
-    VideoDetailViewController *videoDetailViewCtl = [[VideoDetailViewController alloc] init];
-    videoDetailViewCtl.navtitle =@"视频";
-    videoDetailViewCtl.videoID=dataArr[indexPath.section][@"Id"];
-    [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
+    if (((![dataArr[indexPath.section][@"Id"] isEqual:[NSNull null]])&&[[NSString stringWithFormat:@"%@",dataArr[indexPath.section][@"UserId"]] isEqualToString:@"0"])||([[NSString stringWithFormat:@"%@",[dataArr[indexPath.section][@"uploadType"] isEqual:[NSNull null]]?@"":dataArr[indexPath.section][@"uploadType"]] isEqualToString:@"0"])) {
+        VideoDetialSecondViewController *videoDetailViewCtl = [[VideoDetialSecondViewController alloc] init];
+        videoDetailViewCtl.navtitle =@"视频";
+        videoDetailViewCtl.videoID=[NSString stringWithFormat:@"%@" ,dataArr[indexPath.section][@"Id"]];
+        [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
+    }
+    else
+    {
+        VideoDetailViewController *videoDetailViewCtl = [[VideoDetailViewController alloc] init];
+        videoDetailViewCtl.navtitle =@"视频";
+        videoDetailViewCtl.videoID=[NSString stringWithFormat:@"%@" ,dataArr[indexPath.section][@"Id"]];
+        [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
+    }
     
 }
 
