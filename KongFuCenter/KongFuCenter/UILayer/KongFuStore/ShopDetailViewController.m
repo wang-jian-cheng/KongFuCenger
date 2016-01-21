@@ -37,13 +37,41 @@
 
 #pragma mark 自定义方法
 -(void)initViews{
-    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
+    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - 50)];
     mTableView.delegate = self;
     mTableView.dataSource = self;
     mTableView.backgroundColor = BACKGROUND_COLOR;
     mTableView.separatorColor = Separator_Color;
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
+    
+    UIView *mFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50)];
+    
+    UIButton *collectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    collectionBtn.backgroundColor = [UIColor colorWithRed:0.16 green:0.16 blue:0.18 alpha:1];
+    UIImageView *collectionIv = [[UIImageView alloc] initWithFrame:CGRectMake((50 - 25) / 2, 2, 25, 25)];
+    collectionIv.image = [UIImage imageNamed:@"store_nocollection"];
+    [collectionBtn addSubview:collectionIv];
+    UILabel *collectionLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, collectionIv.frame.origin.y + collectionIv.frame.size.height + 2, 50, 21)];
+    collectionLbl.font = [UIFont systemFontOfSize:14];
+    collectionLbl.textColor = [UIColor whiteColor];
+    collectionLbl.textAlignment = NSTextAlignmentCenter;
+    collectionLbl.text = @"收藏";
+    [collectionBtn addSubview:collectionLbl];
+    [mFooterView addSubview:collectionBtn];
+    
+    UIButton *joinShoppingCar = [[UIButton alloc] initWithFrame:CGRectMake(50, 0, (SCREEN_WIDTH - 50) / 2, 50)];
+    [joinShoppingCar setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [joinShoppingCar setTitle:@"加入购物车" forState:UIControlStateNormal];
+    [mFooterView addSubview:joinShoppingCar];
+    
+    UIButton *immediatelyBuyBtn = [[UIButton alloc] initWithFrame:CGRectMake(50 + (SCREEN_WIDTH - 50) / 2, 0, (SCREEN_WIDTH - 50) / 2, 50)];
+    immediatelyBuyBtn.backgroundColor = YellowBlock;
+    [immediatelyBuyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [immediatelyBuyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
+    [mFooterView addSubview:immediatelyBuyBtn];
+    
+    [self.view addSubview:mFooterView];
 }
 
 #pragma mark tableview delegate
@@ -185,16 +213,17 @@
             mName.text = @"路人甲";
             [cell addSubview:mName];
             
-            UITextView *mContent = [[UITextView alloc] initWithFrame:CGRectMake(mName.frame.origin.x, mName.frame.origin.y + mName.frame.size.height + 2, SCREEN_WIDTH - mName.frame.origin.x - 10, 50)];
+            NSString *mContentStr = @"东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.";
+            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+10;
+            UITextView *mContent = [[UITextView alloc] initWithFrame:CGRectMake(mName.frame.origin.x, mName.frame.origin.y + mName.frame.size.height + 2, SCREEN_WIDTH - mName.frame.origin.x - 10, contentHeight)];
             mContent.textColor = [UIColor whiteColor];
             mContent.editable = NO;
+            mContent.scrollEnabled = NO;
             mContent.font = [UIFont systemFontOfSize:12];
             mContent.backgroundColor = ItemsBaseColor;
-            NSString *mContentStr = @"东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.";
             mContent.text = mContentStr;
             [cell addSubview:mContent];
             
-            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+5;
             UILabel *mDate = [[UILabel alloc] initWithFrame:CGRectMake(mName.frame.origin.x, mName.frame.origin.y + mName.frame.size.height + 2 + contentHeight + 5, 200, 21)];
             mDate.font = [UIFont systemFontOfSize:12];
             mDate.text = @"2016-01-03 10:20:00";

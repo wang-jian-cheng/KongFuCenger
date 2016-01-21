@@ -1659,7 +1659,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "162"
             endingLineNumber = "162"
-            landmarkName = "-UserHeadBtnClick:"
+            landmarkName = "-isFriendCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2331,7 +2331,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "136"
             endingLineNumber = "136"
-            landmarkName = "-isFriendCallBack:"
+            landmarkName = "-CheckIsFriend:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
