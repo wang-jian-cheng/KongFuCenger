@@ -73,6 +73,8 @@
     noReadNumTxt.layer.cornerRadius = noReadNumTxt.frame.size.width / 2;
     noReadNumTxt.layer.masksToBounds = YES;
     [_btnRight addSubview:noReadNumTxt];
+    
+    DLog(@"%@",noReadNumTxt.titleLabel.text);
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -87,7 +89,11 @@
     if (noReadNum != 0 && noReadNum != -1) {
         [self initNoReadMessageView:noReadNum];
     }else{
-        noReadNumTxt.hidden = YES;
+        for (id view in _btnRight.subviews) {
+            if ([view isKindOfClass:[UIButton class]]) {
+                [view removeFromSuperview];
+            }
+        }
     }
 }
 
