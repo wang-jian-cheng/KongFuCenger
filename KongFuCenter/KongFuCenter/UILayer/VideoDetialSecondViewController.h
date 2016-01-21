@@ -14,7 +14,7 @@
 #import "VipViewController.h"
 #import "JvbaoView.h"
 
-@interface VideoDetialSecondViewController : BaseNavigationController<UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,JvbaoDelegate>
+@interface VideoDetialSecondViewController : BaseNavigationController<UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,JvbaoDelegate,UIAlertViewDelegate>
 {
     CGFloat _keyHeight;
     NSIndexPath *tempIndexPath;

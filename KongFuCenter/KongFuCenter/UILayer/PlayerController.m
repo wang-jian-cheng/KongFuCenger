@@ -234,7 +234,7 @@
 	// Set buffer size, default is 1024KB(1*1024*1024).
 //	[player setBufferSize:256*1024];
 	[player setBufferSize:512*1024];
-//	[player setAdaptiveStream:YES];
+	[player setAdaptiveStream:YES];
 
 	[player setVideoQuality:VMVideoQualityHigh];
 
@@ -398,7 +398,7 @@
 #endif
 
     [_mMPayer prepareAsync];
-	[self startActivityWithMsg:@"正在缓冲..."];
+	[self startActivityWithMsg:@"正在寻找视频并解码...0％"];
 }
 
 -(void)quicklyReplayMovie:(NSURL*)fileURL title:(NSString*)title seekToPos:(long)pos

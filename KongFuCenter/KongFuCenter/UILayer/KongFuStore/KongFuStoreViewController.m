@@ -9,6 +9,7 @@
 #import "KongFuStoreViewController.h"
 #import "ShopTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "ShopDetailViewController.h"
 
 @interface KongFuStoreViewController (){
     UITableView *mTableView;
@@ -25,7 +26,6 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"功夫库"];
     [self addLeftbuttontitle:@"订单"];
-    
     [self addRightButton:@"shoppingCart"];
 #if 0
     UIImageView * img_back=[[UIImageView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-49)];
@@ -69,7 +69,7 @@
 
 #pragma mark 自定义方法
 -(void)initViews{
-    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
+    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - TabBar_HEIGHT)];
     mTableView.delegate = self;
     mTableView.dataSource = self;
     mTableView.backgroundColor = BACKGROUND_COLOR;
@@ -87,6 +87,13 @@
     [self.navigationController pushViewController:shoppingCart animated:YES];
 }
 
+-(void)clickLeftButton:(UIButton *)sender
+{
+    OrderMainViewController *orderViewCtl = [[OrderMainViewController alloc] init];
+    orderViewCtl.navtitle = @"订单";
+    [self.navigationController pushViewController:orderViewCtl animated:YES];
+}
+
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
@@ -100,15 +107,71 @@
     }
 }
 
+#pragma mark setting for section
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if (section == 0) {
+        UIView *mView = [[UIView alloc] init];
+        mView.backgroundColor = BACKGROUND_COLOR;
+        return mView;
+    }else{
+        return nil;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == 0) {
+        return 4;
+    }else{
+        return 0;
+    }
+}
+
 
 #pragma mark setting for cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
         cell.backgroundColor = ItemsBaseColor;
-        UIImageView *mIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1700)];
-        [mIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"head_bg"]];
+        UIImageView *mIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
+        [mIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
         [cell addSubview:mIv];
+        
+        //menu
+        CGFloat mWidth = SCREEN_WIDTH / 4;
+        CGFloat mOriginY = mIv.frame.origin.y + mIv.frame.size.height;
+        
+        UIButton *allClassBtn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, mOriginY, mWidth, 45)];
+        allClassBtn1.titleLabel.font = [UIFont systemFontOfSize:15];
+        [allClassBtn1 setTitle:@"全部分类" forState:UIControlStateNormal];
+        [cell addSubview:allClassBtn1];
+        
+        UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(mWidth, 5, 1, 35)];
+        lineView1.backgroundColor = [UIColor colorWithRed:0.25 green:0.26 blue:0.27 alpha:1];
+        [allClassBtn1 addSubview:lineView1];
+        
+        UIButton *allClassBtn2 = [[UIButton alloc] initWithFrame:CGRectMake(allClassBtn1.frame.origin.x + allClassBtn1.frame.size.width, mOriginY, mWidth, 45)];
+        allClassBtn2.titleLabel.font = [UIFont systemFontOfSize:16];
+        [allClassBtn2 setTitle:@"营养美食" forState:UIControlStateNormal];
+        [cell addSubview:allClassBtn2];
+        
+        UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(mWidth, 5, 1, 35)];
+        lineView2.backgroundColor = [UIColor colorWithRed:0.25 green:0.26 blue:0.27 alpha:1];
+        [allClassBtn2 addSubview:lineView2];
+        
+        UIButton *allClassBtn3 = [[UIButton alloc] initWithFrame:CGRectMake(allClassBtn2.frame.origin.x + allClassBtn2.frame.size.width, mOriginY, mWidth, 45)];
+        allClassBtn3.titleLabel.font = [UIFont systemFontOfSize:16];
+        [allClassBtn3 setTitle:@"武器防具" forState:UIControlStateNormal];
+        [cell addSubview:allClassBtn3];
+        
+        UIView *lineView3 = [[UIView alloc] initWithFrame:CGRectMake(mWidth, 5, 1, 35)];
+        lineView3.backgroundColor = [UIColor colorWithRed:0.25 green:0.26 blue:0.27 alpha:1];
+        [allClassBtn3 addSubview:lineView3];
+        
+        UIButton *allClassBtn4 = [[UIButton alloc] initWithFrame:CGRectMake(allClassBtn3.frame.origin.x + allClassBtn3.frame.size.width, mOriginY, mWidth, 45)];
+        allClassBtn4.titleLabel.font = [UIFont systemFontOfSize:16];
+        [allClassBtn4 setTitle:@"服饰用品" forState:UIControlStateNormal];
+        [cell addSubview:allClassBtn4];
+        
         return cell;
     }else{
         if (indexPath.row == 0) {
@@ -116,6 +179,7 @@
             cell.backgroundColor = ItemsBaseColor;
             UILabel *mLabel = [[UILabel alloc] initWithFrame:CGRectMake(14, 0, 80, cell.frame.size.height)];
             mLabel.textAlignment = NSTextAlignmentCenter;
+            mLabel.font = [UIFont systemFontOfSize:18];
             mLabel.textColor = [UIColor whiteColor];
             mLabel.text = @"推荐商品";
             [cell addSubview:mLabel];
@@ -145,7 +209,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 195;
+        return 215;
     }else{
         if (indexPath.row == 0) {
             return 45;
@@ -157,6 +221,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
+    ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
+    [self.navigationController pushViewController:shopDetailVC animated:YES];
 }
 
 @end

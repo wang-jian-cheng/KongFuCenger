@@ -152,6 +152,8 @@
     
     // Required
     [APService setupWithOption:launchOptions];
+    
+    
     /***************************************极光推送结束*********************************************/
     [self initUI];
     
@@ -312,7 +314,6 @@
 
 -(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
     RCUserInfo *user = [[RCUserInfo alloc]init];
-    NSLog(@"%@",userId);
     user.userId = userId;
     user.name = @"陌生人";
     //user.portraitUri = @"http://img.zcool.cn/community/033d26a5618cb9732f8755701e1a308.jpg@250w_188h_1c_1e_2o";
@@ -500,7 +501,7 @@
     
     // Required
     [APService registerDeviceToken:deviceToken];
-    application.applicationIconBadgeNumber = 0;
+//    application.applicationIconBadgeNumber = 0;
     DLog(@"小红点%ld",(long)application.applicationIconBadgeNumber);
 }
 

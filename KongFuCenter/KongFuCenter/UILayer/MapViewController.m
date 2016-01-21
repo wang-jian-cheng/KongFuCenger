@@ -24,6 +24,7 @@
     [super viewDidLoad];
     
     
+    
     mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
     mapView.delegate = self;
     //mapView.userTrackingMode = MKUserTrackingModeFollow;
@@ -77,10 +78,34 @@
     _myAnnotation = annotation;
     [self performSelector:@selector(showCallout) withObject:self afterDelay:0.1];
     
+    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 10)];
+    titleLab.backgroundColor = [UIColor redColor];
+    titleLab.text = @"123";
+    titleLab.textColor = [UIColor greenColor];
+    
+//    newAnnotation = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
+    
+//    newAnnotation=[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotation1"];
+//    if ([[annotation title] isEqualToString:@"当前位置"]) {
+//        newAnnotation.image = [UIImage imageNamed:@"me"];
+//    }
+//    else{
+//        newAnnotation.image = [UIImage imageNamed:@"headImg"];
+//        
+//    }
+//    
+//    newAnnotation.canShowCallout=YES;
+    
     return newAnnotation;
+    
+//    [newAnnotation addSubview:titleLab];
+//    newAnnotation.subviews
+//    return newAnnotation;
 }
 
 - (void)showCallout {
+    
+    
     [mapView selectAnnotation:_myAnnotation animated:YES];
 }
 

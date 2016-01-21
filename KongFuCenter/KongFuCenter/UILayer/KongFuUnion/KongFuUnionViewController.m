@@ -60,24 +60,19 @@
 }
 
 -(void)initNoReadMessageView:(int)noReadNum{
-    if (!noReadNumTxt) {
-        if (noReadNum > 99) {
-            noReadNumTxt = [[UIButton alloc] initWithFrame:CGRectMake(_btnRight.frame.size.width - 22, 0, 24, 24)];
-        }else{
-            noReadNumTxt = [[UIButton alloc] initWithFrame:CGRectMake(_btnRight.frame.size.width - 20, 0, 21, 21)];
-        }
-        noReadNumTxt.backgroundColor = [UIColor redColor];
-        noReadNumTxt.userInteractionEnabled = NO;
-        [noReadNumTxt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        noReadNumTxt.titleLabel.font = [UIFont systemFontOfSize:11];
-        [noReadNumTxt setTitle:noReadNum > 99?@"99+":[NSString stringWithFormat:@"%d",noReadNum] forState:UIControlStateNormal];
-        noReadNumTxt.layer.cornerRadius = noReadNumTxt.frame.size.width / 2;
-        noReadNumTxt.layer.masksToBounds = YES;
-        [_btnRight addSubview:noReadNumTxt];
+    if (noReadNum > 99) {
+        noReadNumTxt = [[UIButton alloc] initWithFrame:CGRectMake(_btnRight.frame.size.width - 22, 0, 24, 24)];
     }else{
-        noReadNumTxt.hidden = NO;
-        [noReadNumTxt setTitle:noReadNum > 99?@"99+":[NSString stringWithFormat:@"%d",noReadNum] forState:UIControlStateNormal];
+        noReadNumTxt = [[UIButton alloc] initWithFrame:CGRectMake(_btnRight.frame.size.width - 20, 0, 21, 21)];
     }
+    noReadNumTxt.backgroundColor = [UIColor redColor];
+    noReadNumTxt.userInteractionEnabled = NO;
+    [noReadNumTxt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    noReadNumTxt.titleLabel.font = [UIFont systemFontOfSize:11];
+    [noReadNumTxt setTitle:noReadNum > 99?@"99+":[NSString stringWithFormat:@"%d",noReadNum] forState:UIControlStateNormal];
+    noReadNumTxt.layer.cornerRadius = noReadNumTxt.frame.size.width / 2;
+    noReadNumTxt.layer.masksToBounds = YES;
+    [_btnRight addSubview:noReadNumTxt];
 }
 
 -(void)viewWillAppear:(BOOL)animated
