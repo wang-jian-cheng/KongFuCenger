@@ -131,6 +131,12 @@
 		80DBEA341C473D6B0012339C /* TeamManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DBEA321C473D6B0012339C /* TeamManagerViewController.m */; };
 		80DBEA351C473D6B0012339C /* TeamManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80DBEA331C473D6B0012339C /* TeamManagerViewController.xib */; };
 		80DBEA381C4796580012339C /* VideoDetialSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DBEA371C4796580012339C /* VideoDetialSecondViewController.m */; };
+		B51A7B731C4F5E0100273384 /* ShoppingCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B51A7B721C4F5E0100273384 /* ShoppingCartViewController.m */; };
+		B51A7B771C4F678200273384 /* KongFuStoreAdd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B51A7B741C4F678200273384 /* KongFuStoreAdd@2x.png */; };
+		B51A7B781C4F678200273384 /* KongFuStoreDel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B51A7B751C4F678200273384 /* KongFuStoreDel@2x.png */; };
+		B51A7B791C4F678200273384 /* KongFuStoreProduct@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B51A7B761C4F678200273384 /* KongFuStoreProduct@2x.png */; };
+		B51A7B7B1C4F6E4D00273384 /* shoppingCart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B51A7B7A1C4F6E4D00273384 /* shoppingCart@2x.png */; };
+		B5207D2F1C506F3400CE729F /* OrderMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5207D2E1C506F3400CE729F /* OrderMainViewController.m */; };
 		B529B7A31C2110BF003AC21C /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B529B7981C2110BF003AC21C /* AlipaySDK.bundle */; };
 		B529B7A41C2110BF003AC21C /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B7991C2110BF003AC21C /* AlipaySDK.framework */; };
 		B529B7A51C2110BF003AC21C /* libpingpp+alipay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */; };
@@ -713,6 +719,14 @@
 		80DBEA361C4796580012339C /* VideoDetialSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDetialSecondViewController.h; sourceTree = "<group>"; };
 		80DBEA371C4796580012339C /* VideoDetialSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDetialSecondViewController.m; sourceTree = "<group>"; };
 		917C8DDA7A56E94AAC386040 /* Pods-KongFuCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KongFuCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KongFuCenter/Pods-KongFuCenter.debug.xcconfig"; sourceTree = "<group>"; };
+		B51A7B711C4F5E0100273384 /* ShoppingCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartViewController.h; sourceTree = "<group>"; };
+		B51A7B721C4F5E0100273384 /* ShoppingCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartViewController.m; sourceTree = "<group>"; };
+		B51A7B741C4F678200273384 /* KongFuStoreAdd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "KongFuStoreAdd@2x.png"; path = "KongFuStore/KongFuStoreAdd@2x.png"; sourceTree = "<group>"; };
+		B51A7B751C4F678200273384 /* KongFuStoreDel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "KongFuStoreDel@2x.png"; path = "KongFuStore/KongFuStoreDel@2x.png"; sourceTree = "<group>"; };
+		B51A7B761C4F678200273384 /* KongFuStoreProduct@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "KongFuStoreProduct@2x.png"; path = "KongFuStore/KongFuStoreProduct@2x.png"; sourceTree = "<group>"; };
+		B51A7B7A1C4F6E4D00273384 /* shoppingCart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shoppingCart@2x.png"; path = "KongFuStore/shoppingCart@2x.png"; sourceTree = "<group>"; };
+		B5207D2D1C506F3400CE729F /* OrderMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderMainViewController.h; sourceTree = "<group>"; };
+		B5207D2E1C506F3400CE729F /* OrderMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderMainViewController.m; sourceTree = "<group>"; };
 		B529B7981C2110BF003AC21C /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		B529B7991C2110BF003AC21C /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpingpp+alipay.a"; sourceTree = "<group>"; };
@@ -1749,6 +1763,24 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		B51A7B701C4F5DCE00273384 /* ShoppingCart */ = {
+			isa = PBXGroup;
+			children = (
+				B51A7B711C4F5E0100273384 /* ShoppingCartViewController.h */,
+				B51A7B721C4F5E0100273384 /* ShoppingCartViewController.m */,
+			);
+			path = ShoppingCart;
+			sourceTree = "<group>";
+		};
+		B5207D2C1C506E8E00CE729F /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				B5207D2D1C506F3400CE729F /* OrderMainViewController.h */,
+				B5207D2E1C506F3400CE729F /* OrderMainViewController.m */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
 		B529B7951C2110BF003AC21C /* lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1891,6 +1923,8 @@
 		B53791C21C157CEC00C45BA7 /* KongFuStore */ = {
 			isa = PBXGroup;
 			children = (
+				B5207D2C1C506E8E00CE729F /* Order */,
+				B51A7B701C4F5DCE00273384 /* ShoppingCart */,
 				B53791C31C157CFF00C45BA7 /* KongFuStoreViewController.h */,
 				B53791C41C157CFF00C45BA7 /* KongFuStoreViewController.m */,
 				B7E1CD111C4C7179008DFE49 /* ShopTableViewCell.h */,
@@ -2926,6 +2960,10 @@
 		B7E1CD161C4C9594008DFE49 /* KongFuStore */ = {
 			isa = PBXGroup;
 			children = (
+				B51A7B7A1C4F6E4D00273384 /* shoppingCart@2x.png */,
+				B51A7B741C4F678200273384 /* KongFuStoreAdd@2x.png */,
+				B51A7B751C4F678200273384 /* KongFuStoreDel@2x.png */,
+				B51A7B761C4F678200273384 /* KongFuStoreProduct@2x.png */,
 				B7172D751C50B32C009C4ABE /* store_nocollection.png */,
 				B7172D761C50B32C009C4ABE /* store_collection.png */,
 				B7E1CD171C4C95B5008DFE49 /* store_head_bg.png */,
@@ -3114,6 +3152,7 @@
 				B7E4CD151C1FE1AE00C2E69A /* jjwz.png in Resources */,
 				B5F13B3E1C1FE6E600155038 /* 120@2x.png in Resources */,
 				B5F90AF11C197D3D00D7879D /* RegisterViewController.xib in Resources */,
+				B51A7B771C4F678200273384 /* KongFuStoreAdd@2x.png in Resources */,
 				B7E4CCFF1C1FA1F200C2E69A /* zdjs.png in Resources */,
 				B53791C01C1579F500C45BA7 /* hezhuangbei@2x.png in Resources */,
 				B53791CD1C15821E00C45BA7 /* right@2x.png in Resources */,
@@ -3152,6 +3191,7 @@
 				B7E0BF301C2A919A000DD4E1 /* wyhf.png in Resources */,
 				8074B09A1C4376D60029C8B1 /* PlayerController.xib in Resources */,
 				80DBEA351C473D6B0012339C /* TeamManagerViewController.xib in Resources */,
+				B51A7B7B1C4F6E4D00273384 /* shoppingCart@2x.png in Resources */,
 				804952231C250B3800F5584A /* WechatShortVideoController.xib in Resources */,
 				B53E737B1C166389009E7878 /* collect@2x.png in Resources */,
 				B5AF70641C17FA7300C041AF /* zhibo@2x.png in Resources */,
@@ -3174,6 +3214,7 @@
 				B7CE7F481C16C6F30035D8CA /* JoinTeamCell.xib in Resources */,
 				B5F13B251C1FBAAC00155038 /* read_me.txt in Resources */,
 				B5F90AD41C192A2200D7879D /* chenglong@2x.png in Resources */,
+				B51A7B791C4F678200273384 /* KongFuStoreProduct@2x.png in Resources */,
 				806240621C48842000691D0C /* KongfuStore_0.png in Resources */,
 				B5905E0A1C1BC2CF00ECA9BA /* weikaishi@2x.png in Resources */,
 				B54F13891C46283B001EABE5 /* del@2x.PNG in Resources */,
@@ -3239,6 +3280,7 @@
 				B7E07BA01C3A4CD8004FAC42 /* CommentTableViewCell.xib in Resources */,
 				B7E4CD1D1C1FE20000C2E69A /* zphz.png in Resources */,
 				B5905E081C1BC2CF00ECA9BA /* jointeam.png in Resources */,
+				B51A7B781C4F678200273384 /* KongFuStoreDel@2x.png in Resources */,
 				B7617E561C1C299700CF96E7 /* personal_showBac@2x.png in Resources */,
 				B53791C11C1579F500C45BA7 /* more@2x.png in Resources */,
 				B5905E0F1C1BC34A00ECA9BA /* dingwei@2x.png in Resources */,
@@ -3412,6 +3454,7 @@
 				B7617E721C1C29A500CF96E7 /* YMTableViewCell.m in Sources */,
 				B5F90ACD1C190CF900D7879D /* ChoosePlanTypeViewController.m in Sources */,
 				B5F90AEE1C197D3D00D7879D /* LoginViewController.m in Sources */,
+				B5207D2F1C506F3400CE729F /* OrderMainViewController.m in Sources */,
 				804951FF1C250B3800F5584A /* README.md in Sources */,
 				B7D8464C1C22AB7500718E9E /* MJRefreshBackNormalFooter.m in Sources */,
 				B7CE7F471C16C6F30035D8CA /* JoinTeamCell.m in Sources */,
@@ -3520,6 +3563,7 @@
 				B5B737771C3CAAF100DF7437 /* PinYinForObjc.m in Sources */,
 				B5451CC21C279656001BB39F /* AutoLocationViewController.m in Sources */,
 				80DB84641C23D3A6008CA670 /* SDWebImageCompat.m in Sources */,
+				B51A7B731C4F5E0100273384 /* ShoppingCartViewController.m in Sources */,
 				80DB84671C23D3A6008CA670 /* SDWebImageDownloaderOperation.m in Sources */,
 				8021E8FF1C279AB4005C7539 /* FirstScrollController.m in Sources */,
 				802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */,

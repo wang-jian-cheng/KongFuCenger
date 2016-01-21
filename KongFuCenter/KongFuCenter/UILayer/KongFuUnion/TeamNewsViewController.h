@@ -15,7 +15,7 @@
 {
     int pageNo;
     int pageSize;
-    
+    UILabel *label;
     
     //数据
     NSMutableArray *wyArray;

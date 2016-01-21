@@ -415,7 +415,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "282"
             endingLineNumber = "282"
-            landmarkName = "-TeamFootRefresh"
+            landmarkName = "-TeamTopRefresh"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -687,7 +687,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "291"
             endingLineNumber = "291"
-            landmarkName = "-TopRefreshCallBack:"
+            landmarkName = "-TeamFootRefresh"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1130,12 +1130,12 @@
                   moduleName = "KongFuCenter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Snow/Documents/KongFuCenger/KongFuCenter/KongFuCenter/UILayer/More/SetNoticeViewController.m"
-                  timestampString = "475030216.699723"
+                  timestampString = "475056331.707402"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "165"
                   endingLineNumber = "165"
-                  offsetFromSymbolStart = "300">
+                  offsetFromSymbolStart = "268">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -1145,12 +1145,12 @@
                   moduleName = "KongFuCenter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Snow/Documents/KongFuCenger/KongFuCenter/KongFuCenter/UILayer/More/SetNoticeViewController.m"
-                  timestampString = "475030216.699843"
+                  timestampString = "475056331.708834"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "165"
                   endingLineNumber = "165"
-                  offsetFromSymbolStart = "312">
+                  offsetFromSymbolStart = "276">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1263,8 +1263,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "529"
             endingLineNumber = "529"
-            landmarkName = "@implementation KongFuPowerViewController"
-            landmarkType = "3">
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1279,7 +1279,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "532"
             endingLineNumber = "532"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkName = "-tableView:heightForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

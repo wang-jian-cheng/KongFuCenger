@@ -271,6 +271,18 @@
     [self.view addSubview:moreSettingBackView];
     moreSettingBackView.hidden = YES;
     
+    
+    label = [[UILabel alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
+    [self.view addSubview:label];
+    label.backgroundColor = BACKGROUND_COLOR;
+    label.text = @"队长很懒，什么都没有留下～～";
+    label.font = [UIFont systemFontOfSize:16];
+    label.numberOfLines = 0;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
+    
+
+    
 }
 
 
@@ -343,6 +355,15 @@
             if(_contentDataSource != nil || _contentDataSource.count>0)
                 [_contentDataSource removeAllObjects];
             [self configData:dict[@"data"]];
+            if(_contentDataSource.count == 0 || _contentDataSource==nil)
+            {
+                label.hidden = NO;
+            }
+            else
+            {
+                label.hidden = YES;
+            }
+            
             
             if(_contentDataSource.count >= [dict[@"recordcount"] intValue])
             {

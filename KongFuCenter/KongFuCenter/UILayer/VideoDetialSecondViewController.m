@@ -20,6 +20,16 @@
 #define TextColors          [UIColor whiteColor]
 
 
+typedef enum _ActionType{
+
+    cancelZan = 100,
+    setZan,
+    cancelCollect,
+    setCollect,
+    setZhuanfa
+    
+}ActionType;
+
 
 @interface VideoDetialSecondViewController ()
 {
@@ -41,7 +51,9 @@
     NSMutableArray  * otherVideoArray;
     
     MoviePlayer *moviePlayerview;
+ 
     
+    ActionType actionType;
 }
 @end
 
@@ -55,7 +67,6 @@
     _topView.backgroundColor=[UIColor clearColor];
     
     OtherVideo=0;
-    
     otherVideoArray=[NSMutableArray array];
     
     VideoDict=[[NSDictionary alloc] init];
@@ -87,15 +98,10 @@
 //    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height) style:UITableViewStyleGrouped];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
-    
     _mainTableView.delegate = self;
-    
     _mainTableView.dataSource = self;
-    
     _mainTableView.separatorColor = Separator_Color;
-    
     _mainTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    
     _mainTableView.tableFooterView = [[UIView alloc] init];
     
     //_mainTableView.scrollEnabled = NO;
@@ -148,13 +154,14 @@
 
 -(void)GetVideoDetial
 {
+    [SVProgressHUD showWithStatus:@"加载..." maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
-    
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
     [dataprovider getStudyOnlineVideoDetial:_videoID andUserId:[Toolkit getUserID]];
 }
 -(void)GetVideoDetialCallBack:(id)dict
 {
+    [SVProgressHUD dismiss];
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
@@ -298,7 +305,7 @@
         @finally {
             
             [_mainTableView reloadData];
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
         }
     }
     else
@@ -342,9 +349,20 @@
 
 -(void)otherVideoBtnClick:(UIButton *)sender
 {
-    self.videoID = otherVideoArray[sender.tag][@"Id"];
-    //    [playerCtrl goBackButtonAction];
-    [self getData];
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否切换视频" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
+    alertView.delegate = self;
+    alertView.tag = sender.tag;
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0)
+    {
+        self.videoID = otherVideoArray[alertView.tag][@"Id"];
+        [self getData];
+    }
 }
 
 -(void)shareContentBuild
@@ -460,15 +478,14 @@
             {
                 sender.selected = YES;
                 NSLog(@"点赞");
-                
+                actionType = setZan;
                 [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"2" andDescription:nil];
             }
             else
             {
                 sender.selected = NO;
                 NSLog(@"取消点赞");
-                
-                //                DataProvider * dataprovider=[[DataProvider alloc] init];
+                actionType = cancelZan;
                 [dataprovider voicedelete:_videoID andUserId:[Toolkit getUserID] andFlg:@"2"];
             }
         }
@@ -479,17 +496,14 @@
             {
                 sender.selected = YES;
                 NSLog(@"收藏");
-                
-                //                DataProvider * dataprovider=[[DataProvider alloc] init];
+                actionType = setCollect;
                 [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"1" andDescription:nil];
             }
             else
             {
+                actionType = cancelCollect;
                 sender.selected = NO;
                 NSLog(@"取消收藏");
-                
-                //                DataProvider * dataprovider=[[DataProvider alloc] init];
-                
                 [dataprovider voicedelete:_videoID andUserId:[Toolkit getUserID] andFlg:@"1"];
             }
         }
@@ -498,10 +512,9 @@
         {
             if(sender.selected == NO)
             {
+                actionType = setZhuanfa;
                 sender.selected = YES;
                 NSLog(@"转发");
-                
-                //                DataProvider * dataprovider=[[DataProvider alloc] init];
                 [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"0" andDescription:nil];
             }
             else
@@ -526,7 +539,28 @@
 {
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
-        [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];
+//        [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];
+        
+        switch (actionType) {
+            case cancelZan:
+                [SVProgressHUD showSuccessWithStatus:@"取消赞" maskType:SVProgressHUDMaskTypeBlack];
+                break;
+            case setZan:
+                [SVProgressHUD showSuccessWithStatus:@"赞＋1" maskType:SVProgressHUDMaskTypeBlack];
+                break;
+            case setCollect:
+                [SVProgressHUD showSuccessWithStatus:@"收藏成功" maskType:SVProgressHUDMaskTypeBlack];
+                break;
+            case cancelCollect:
+                [SVProgressHUD showSuccessWithStatus:@"取消收藏" maskType:SVProgressHUDMaskTypeBlack];
+                break;
+            case setZhuanfa:
+                [SVProgressHUD showSuccessWithStatus:@"已转发" maskType:SVProgressHUDMaskTypeBlack];
+                break;
+            default:
+                break;
+        }
+    
     }
     else
     {
@@ -542,7 +576,6 @@
         return;
         
     }
-    
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"commentCallBack:"];
     [dataprovider commentVideo:self.videoID andUserId:[Toolkit getUserID] andComment:commentTextView.text];
@@ -761,7 +794,7 @@
                     collectBtn.tag = 1;
                     [collectBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                     [backView addSubview:collectBtn];
-                    if ([VideoDict[@"UserId"] intValue] !=0) {
+                    if ([VideoDict[@"IsFree"] intValue] == 1) {
                         CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake(backView.frame.size.width-3*(btnW+10), 5, btnW, backView.frame.size.height-10)];
                         [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
                         shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];

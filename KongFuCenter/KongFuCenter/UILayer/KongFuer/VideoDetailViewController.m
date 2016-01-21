@@ -23,6 +23,16 @@
 #define GapToLeft           13
 #define TextColors          [UIColor whiteColor]
 
+typedef enum _ActionType{
+    
+    cancelZan = 100,
+    setZan,
+    cancelCollect,
+    setCollect,
+    setZhuanfa
+    
+}ActionType;
+
 @interface VideoDetailViewController ()<PlayerControllerDelegate>
 {
 #pragma mark - pram for tableView
@@ -49,7 +59,7 @@
     CGRect _modleBtnFrame;
     
     CGRect _backViewFrame;
-    
+    ActionType actionType;
 }
 @end
 
@@ -159,13 +169,14 @@
 
 -(void)GetVideoDetial
 {
+    [SVProgressHUD showWithStatus:@"加载..." maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
-    
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
     [dataprovider getStudyOnlineVideoDetial:_videoID andUserId:[Toolkit getUserID]];
 }
 -(void)GetVideoDetialCallBack:(id)dict
 {
+    [SVProgressHUD dismiss];
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
 //        _lblTitle.text=[dict[@"data"][@"Title"] isEqual:[NSNull null]]?@"":dict[@"data"][@"Title"];
@@ -378,7 +389,6 @@
         @finally {
             
             [_mainTableView reloadData];
-            [SVProgressHUD dismiss];
         }
     }
     else
@@ -422,9 +432,20 @@
 
 -(void)otherVideoBtnClick:(UIButton *)sender
 {
-    self.videoID = otherVideoArray[sender.tag][@"Id"];
-//    [playerCtrl goBackButtonAction];
-    [self getData];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否切换视频" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
+    alertView.delegate = self;
+    alertView.tag = sender.tag;
+    [alertView show];
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0)
+    {
+        self.videoID = otherVideoArray[alertView.tag][@"Id"];
+        [self getData];
+    }
 }
 
 -(void)shareContentBuild
@@ -548,14 +569,14 @@
             {
                 sender.selected = YES;
                 NSLog(@"点赞");
-                
+                actionType = setZan;
                 [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"2" andDescription:nil];
             }
             else
             {
                 sender.selected = NO;
                 NSLog(@"取消点赞");
-                
+                actionType = cancelZan;
 //                DataProvider * dataprovider=[[DataProvider alloc] init];
                 [dataprovider voicedelete:_videoID andUserId:[Toolkit getUserID] andFlg:@"2"];
             }
@@ -567,7 +588,7 @@
             {
                 sender.selected = YES;
                 NSLog(@"收藏");
-                
+                actionType = setCollect;
 //                DataProvider * dataprovider=[[DataProvider alloc] init];
                 [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"1" andDescription:nil];
             }
@@ -575,7 +596,7 @@
             {
                 sender.selected = NO;
                 NSLog(@"取消收藏");
-                
+                actionType = cancelCollect;
 //                DataProvider * dataprovider=[[DataProvider alloc] init];
                 
                 [dataprovider voicedelete:_videoID andUserId:[Toolkit getUserID] andFlg:@"1"];
@@ -588,7 +609,7 @@
             {
                 sender.selected = YES;
                 NSLog(@"转发");
-                
+                actionType = setZhuanfa;
 //                DataProvider * dataprovider=[[DataProvider alloc] init];
                 [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"0" andDescription:nil];
             }
@@ -614,7 +635,27 @@
 {
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
-        [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];
+//        [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];
+        
+        switch (actionType) {
+            case cancelZan:
+                [SVProgressHUD showSuccessWithStatus:@"取消赞" maskType:SVProgressHUDMaskTypeBlack];
+                break;
+            case setZan:
+                [SVProgressHUD showSuccessWithStatus:@"赞＋1" maskType:SVProgressHUDMaskTypeBlack];
+                break;
+            case setCollect:
+                [SVProgressHUD showSuccessWithStatus:@"收藏成功" maskType:SVProgressHUDMaskTypeBlack];
+                break;
+            case cancelCollect:
+                [SVProgressHUD showSuccessWithStatus:@"取消收藏" maskType:SVProgressHUDMaskTypeBlack];
+                break;
+            case setZhuanfa:
+                [SVProgressHUD showSuccessWithStatus:@"转发成功" maskType:SVProgressHUDMaskTypeBlack];
+                break;
+            default:
+                break;
+        }
     }
     else
     {
