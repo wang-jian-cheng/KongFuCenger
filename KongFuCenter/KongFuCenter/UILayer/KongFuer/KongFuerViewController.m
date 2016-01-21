@@ -645,6 +645,7 @@
             return cell;
         
         UILabel *gategoryNameLab = [[UILabel alloc ] initWithFrame:CGRectMake(10, 0, 100, _cellHeight)];
+        
         gategoryNameLab.center = CGPointMake(SCREEN_WIDTH/2, _cellHeight/2);
         gategoryNameLab.text =cateGoryV[indexPath.section-2][indexPath.row];
         gategoryNameLab.textColor  = [UIColor whiteColor];
@@ -817,21 +818,25 @@
 -(void)JumpToTeamNews
 {
     TeamNewsViewController *teamNewsVC = [[TeamNewsViewController alloc] init];
+    
     [self.navigationController pushViewController:teamNewsVC animated:YES];
 }
 -(void)JumpToWYNews
 {
     WYNewsViewController *wyNewsVC = [[WYNewsViewController alloc] init];
+    
     [self.navigationController pushViewController:wyNewsVC animated:YES];
 }
 -(void)JumpToAttention
 {
     NewConcernFriendViewController *newConcernFriendVC = [[NewConcernFriendViewController alloc] init];
+    
     [self.navigationController pushViewController:newConcernFriendVC animated:YES];
 }
 -(void)JumpToTeamgonggao
 {
     AnnouncementViewController * announcementViewController = [[AnnouncementViewController alloc] init];
+    
     [self.navigationController pushViewController:announcementViewController animated:YES];
 }
 @end

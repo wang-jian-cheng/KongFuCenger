@@ -548,7 +548,7 @@
         default:
             break;
     }
-//    application.applicationIconBadgeNumber = 0;
+    application.applicationIconBadgeNumber = 0;
     
     DLog(@"%ld",(long)application.applicationIconBadgeNumber);
     
