@@ -61,9 +61,9 @@
 
 -(void)initNoReadMessageView:(int)noReadNum{
     if (noReadNum > 99) {
-        noReadNumTxt = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 22, 20, 24, 24)];
+        noReadNumTxt = [[UIButton alloc] initWithFrame:CGRectMake(_btnRight.frame.size.width - 22, 0, 24, 24)];
     }else{
-        noReadNumTxt = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 20,20, 21, 21)];
+        noReadNumTxt = [[UIButton alloc] initWithFrame:CGRectMake(_btnRight.frame.size.width - 20, 0, 21, 21)];
     }
     noReadNumTxt.backgroundColor = [UIColor redColor];
     noReadNumTxt.userInteractionEnabled = NO;
@@ -72,8 +72,7 @@
     [noReadNumTxt setTitle:noReadNum > 99?@"99+":[NSString stringWithFormat:@"%d",noReadNum] forState:UIControlStateNormal];
     noReadNumTxt.layer.cornerRadius = noReadNumTxt.frame.size.width / 2;
     noReadNumTxt.layer.masksToBounds = YES;
-    [self.view addSubview:noReadNumTxt];
-    //[self.view setNeedsDisplay];
+    [_btnRight addSubview:noReadNumTxt];
     
     DLog(@"%@",noReadNumTxt.titleLabel.text);
 }
@@ -90,7 +89,11 @@
     if (noReadNum != 0 && noReadNum != -1) {
         [self initNoReadMessageView:noReadNum];
     }else{
-        [noReadNumTxt removeFromSuperview];
+        for (id view in _btnRight.subviews) {
+            if ([view isKindOfClass:[UIButton class]]) {
+                [view removeFromSuperview];
+            }
+        }
     }
 }
 
