@@ -44,7 +44,7 @@
 //    lbl_tishi.bounds=CGRectMake(0, 0, SCREEN_WIDTH, 30);
 //    
 //    lbl_tishi.text=@"敬请期待";
-//    
+//     
 //    lbl_tishi.textAlignment=NSTextAlignmentCenter;
 //    
 //    lbl_tishi.textColor=[UIColor whiteColor];
