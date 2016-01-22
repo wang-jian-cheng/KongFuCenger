@@ -119,6 +119,7 @@
 //        if(EnditMode == YES)
 //            return ;
         pageNo=0;
+        [_mainTableView.mj_footer setState:MJRefreshStateIdle];
         [weakSelf getPlans];
         // 结束刷新
         [_mainTableView.mj_header endRefreshing];
@@ -270,6 +271,13 @@
               [planArr removeAllObjects];
             
             [planArr addObjectsFromArray:dict[@"data"]];
+            
+            if(planArr.count >= [dict[@"recordcount"] intValue])
+            {
+                [_mainTableView.mj_footer setState:MJRefreshStateNoMoreData];
+            }
+            
+            
             [_mainTableView reloadData];
         }
         @catch (NSException *exception) {

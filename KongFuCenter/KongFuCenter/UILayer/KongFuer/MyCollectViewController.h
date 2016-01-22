@@ -13,6 +13,7 @@
 #import "VideoDetailViewController.h"
 #import "UnionNewsDetailViewController.h"
 #import "MJRefresh.h"
+#import "VideoDetialSecondViewController.h"
 typedef enum _cateMode
 {
     CollectionViewMode,
@@ -31,5 +32,7 @@ typedef enum _cateMode
     NSInteger delcount;
     
     CateMode mode;
+    
+    NSString *videoId;
 }
 @end

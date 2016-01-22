@@ -66,15 +66,15 @@
 {
     [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getCollectVideoCallBack:"];
 //    [dataprovider collectData:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"1" andMaximumRows:@"6"];
     [dataprovider setCollect:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:[NSString stringWithFormat:@"%d",pageVideoNo*pageVideoSize] andMaximumRowst:[NSString stringWithFormat:@"%d",pageVideoSize]];
     
 }
 
--(void)getUserInfoCallBack:(id)dict
+-(void)getCollectVideoCallBack:(id)dict
 {
-//    DLog(@"%@",dict);
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try
         {
@@ -87,7 +87,7 @@
                 [model setValuesForKeysWithDictionary:dic];
                 [self.arr_voiceData addObject:model];
             }
-            if(self.arr_deleteVoice.count >= [dict[@"recordcount"] intValue])
+            if(self.arr_voiceData.count >= [dict[@"recordcount"] intValue])
             {
                 [mainCollectionView.mj_footer setState:MJRefreshStateNoMoreData];
             }
@@ -180,6 +180,36 @@
         
     }
 }
+
+
+-(void)GetVideoDetial:(NSString *)videoId
+{
+    [SVProgressHUD showWithStatus:@"加载..." maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetVideoDetialCallBack:"];
+    [dataprovider getStudyOnlineVideoDetial:videoId andUserId:[Toolkit getUserID]];
+}
+-(void)GetVideoDetialCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+       if(!([dict[@"data"][@"UserId"] intValue] == 0))
+       {
+           VideoDetailViewController *viewDetailViewCtl = [[VideoDetailViewController alloc] init];
+           viewDetailViewCtl.videoID = [NSString stringWithFormat:@"%@",videoId];
+           [self.navigationController pushViewController:viewDetailViewCtl animated:YES];
+       }
+       else
+       {
+           VideoDetialSecondViewController *viewDetailViewCtl = [[VideoDetialSecondViewController alloc] init];
+           viewDetailViewCtl.videoID = [NSString stringWithFormat:@"%@",videoId];
+           [self.navigationController pushViewController:viewDetailViewCtl animated:YES];
+       }
+    }
+}
+
+
 
 #pragma mark ----------------
 
@@ -441,13 +471,14 @@
         
         @try
         {
+            delcount++;
             if(self.arr_deleteVoice.count == 1)
             {
                 
             }
             else
             {
-                delcount++;
+                
                 for(int i = 0; i < self.arr_deleteVoice.count ; i ++)
                 {
                     for (int j = 0; j < self.arr_deleteVoice.count - 1 - i; j ++)
@@ -536,7 +567,7 @@
             [self.view addSubview:_mainTableView];
         }
         
-//        _lblRight.hidden = YES;
+        _lblRight.hidden = YES;
     }
     
     for(int i =0;i<btnArr.count;i++)
@@ -1089,13 +1120,14 @@
     
     model_collect * model = self.arr_voiceData[indexPath.item];
 //    NSLog(@"%@",model.MessageId);
-    
-    VideoDetailViewController *viewDetailViewCtl = [[VideoDetailViewController alloc] init];
-    viewDetailViewCtl.videoID = [NSString stringWithFormat:@"%@", model.MessageId];
-    [self.navigationController pushViewController:viewDetailViewCtl animated:YES];
-    
+    videoId = [NSString stringWithFormat:@"%@", model.MessageId];
+//    VideoDetailViewController *viewDetailViewCtl = [[VideoDetailViewController alloc] init];
+//    viewDetailViewCtl.videoID = [NSString stringWithFormat:@"%@", model.MessageId];
+//    [self.navigationController pushViewController:viewDetailViewCtl animated:YES];
+//    
 
     
+    [self GetVideoDetial:[NSString stringWithFormat:@"%@", model.MessageId]];
 }
 
 //返回这个UICollectionViewCell是否可以被选择
