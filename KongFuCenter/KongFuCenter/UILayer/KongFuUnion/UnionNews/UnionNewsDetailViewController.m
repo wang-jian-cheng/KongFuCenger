@@ -313,24 +313,42 @@
         {
             if(indexPath.row==0)
             {
-                webView.scalesPageToFit = YES;
                 
-                webView.frame = CGRectMake(0, 0, SCREEN_WIDTH, WebViewHeight);
-                webView.backgroundColor = BACKGROUND_COLOR;
-                
-                
-                NSURL* url;
-                if(self.webId == nil)
+                if(0)
                 {
-                    url = [NSURL URLWithString:@"http://115.28.67.86:8033/MessageAndImageNews.aspx?id=260"];//创建URL
+                    [cell addSubview:webView];
+                     cell.backgroundColor = [UIColor whiteColor];
+                    RCLabel *label = [[RCLabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, WebViewHeight)];
+                    [label setBackgroundColor:[UIColor clearColor]];
+//                    RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:@"<font size=14><p align=justify><font color=red>JUSTIFY哈哈哈哈哈哈</font> It’s been almost a decade since the publication of “Moneyball,”</p>\n <p align=left><font color=red>LEFT ALIGNED</font>  Michael Lewis’s famous book-turned-movie about how the small-market Oakland Athletics used statistical artistry to compete against their (much) richer rivals. </p>\n<p align=right><font color=red>RIGHT ALIGNED</font> Billy Beane is still the A’s general manager, but here’s a modest proposal for his next act.</p>\n<p align=center><font color=red>CENTER ALIGNED</font> He could become the head of another budget-strapped sports organization like, say, the Olympic Committee of Kyrgyzstan — or another small-market country with limited resources. Bishkek is nice this time of year!</p></font> "];
+                    
+//                    RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:@"<font size = 20>Which browser is the best?</font>\n<a href='http://www.firefox.com'><img src='\'http://s12.sinaimg.cn/orignal/4aa94566gce6b2f40dc9b&690\'\"'>Firefox</a>\n<a href='http://windows.microsoft.com/en-US/internet-explorer/products/ie/home'><img src='index_3.png'>IE</a><a href='http://www.chrome.com'><img src='chrome.jpg'>Chrome</a><a href='http://www.apple.com/safari'><img src='safari.png'>Safari</a>" ];
+                    RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:self.content];
+                    label.componentsAndPlainText = componentsDS;
+                    
+                    [cell addSubview:label];
                 }
                 else
                 {
-                    url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Web_path,self.webId]];
+                    webView.scalesPageToFit = YES;
+                    
+                    webView.frame = CGRectMake(0, 0, SCREEN_WIDTH, WebViewHeight);
+                    webView.backgroundColor = BACKGROUND_COLOR;
+                    
+                    
+                    NSURL* url;
+                    if(self.webId == nil)
+                    {
+    //                    url = [NSURL URLWithString:@"http://115.28.67.86:8033/MessageAndImageNews.aspx?id=260"];//创建URL
+                    }
+                    else
+                    {
+                        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Web_path,self.webId]];
+                    }
+                    NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
+                    [webView loadRequest:request];
                 }
-                NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
-                [webView loadRequest:request];
-                [cell addSubview:webView];
+                
             }
             
             if(indexPath.row == 1)
