@@ -7,6 +7,7 @@
 //
 
 #import "ClassificationViewController.h"
+#import "ShopListViewController.h"
 
 @interface ClassificationViewController (){
     UITableView *firstTableView;
@@ -195,6 +196,8 @@
         [threeTableView reloadData];
     }else{
         [threeTableView deselectRowAtIndexPath:indexPath animated:YES];
+        ShopListViewController *shopListVC = [[ShopListViewController alloc] init];
+        [self.navigationController pushViewController:shopListVC animated:YES];
     }
 }
 

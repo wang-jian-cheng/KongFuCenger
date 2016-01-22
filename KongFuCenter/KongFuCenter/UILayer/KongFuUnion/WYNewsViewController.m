@@ -24,6 +24,7 @@
 #import "MJRefresh.h"
 #import "UIImageView+WebCache.h"
 #import "OneShuoshuoViewController.h"
+#import "CommentListViewController.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -72,6 +73,8 @@
     NSString *delDTId;
     
     UIButton *noReadNumBtn;
+    CommentListViewController *commentListVC;
+    MyNewsViewController *myNewsVC;
     
 }
 
@@ -302,6 +305,9 @@
 -(void)viewDidAppear:(BOOL)animated{
     if (sendNewsVC || wechatShortVideoController) {
         [self TeamTopRefresh];
+    }
+    if (commentListVC || myNewsVC) {
+        [self initHeadView];
     }
 }
 
@@ -628,7 +634,7 @@
 }
 
 -(void)tapPhotoImg{
-    MyNewsViewController *myNewsVC = [[MyNewsViewController alloc] init];
+    myNewsVC = [[MyNewsViewController alloc] init];
     myNewsVC.UserID = get_sp(@"id");
     [self.navigationController pushViewController:myNewsVC animated:YES];
 }
@@ -769,6 +775,11 @@
     [self.navigationController pushViewController:oneShuoshuoVC animated:YES];
 }
 
+-(void)jumpPageCommentList{
+    commentListVC = [[CommentListViewController alloc] init];
+    [self.navigationController pushViewController:commentListVC animated:YES];
+}
+
 ////////////////////////////////////////////////////////////////////
 
 #pragma mark - 按钮动画
@@ -821,9 +832,10 @@
     NSString *noReadMessageNum = [userDefault valueForKey:@"noReadMessageNum"];
     
     noReadNumBtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 120) / 2, (160 - 40) / 2, 120, 40)];
+    [noReadNumBtn addTarget:self action:@selector(jumpPageCommentList) forControlEvents:UIControlEventTouchUpInside];
     noReadNumBtn.backgroundColor = [UIColor colorWithRed:0.31 green:0.31 blue:0.32 alpha:1];
     UIImageView *endNoReadPhoto = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, 36, 36)];
-    NSString *urls = [NSString stringWithFormat:@"%@%@",Url,endReadUserPhoto];
+    NSString *urls = endReadUserPhoto;
     [endNoReadPhoto sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:@"me"]];
     [noReadNumBtn addSubview:endNoReadPhoto];
     UILabel *noReadNumLbl = [[UILabel alloc] initWithFrame:CGRectMake(endNoReadPhoto.frame.origin.x + endNoReadPhoto.frame.size.width + 3, (45 - 21) / 2, 100, 21)];

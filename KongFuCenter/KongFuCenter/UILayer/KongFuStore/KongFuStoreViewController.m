@@ -26,38 +26,36 @@
     //初始化参数
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"功夫库"];
-    [self addLeftbuttontitle:@"订单"];
-    [self addRightButton:@"shoppingCart"];
 
-    UIImageView * img_back=[[UIImageView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-49)];
-    
-    img_back.image=[UIImage imageNamed:@"KongfuStore_0.png"];
-    
-    [self.view addSubview:img_back];
-    
-    UIView * fugai=[[UIView alloc] initWithFrame:img_back.frame];
-    
-    fugai.backgroundColor=[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.7];
-    
-    [self.view addSubview:fugai];
-    
-    UILabel * lbl_tishi=[[UILabel alloc] init];
-    
-    lbl_tishi.bounds=CGRectMake(0, 0, SCREEN_WIDTH, 30);
-    
-    lbl_tishi.text=@"敬请期待";
-    
-    lbl_tishi.textAlignment=NSTextAlignmentCenter;
-    
-    lbl_tishi.textColor=[UIColor whiteColor];
-    
-    lbl_tishi.center=CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-    
-    [self.view addSubview:lbl_tishi];
+//    UIImageView * img_back=[[UIImageView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-49)];
+//    
+//    img_back.image=[UIImage imageNamed:@"KongfuStore_0.png"];
+//    
+//    [self.view addSubview:img_back];
+//    
+//    UIView * fugai=[[UIView alloc] initWithFrame:img_back.frame];
+//    
+//    fugai.backgroundColor=[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.7];
+//    
+//    [self.view addSubview:fugai];
+//    
+//    UILabel * lbl_tishi=[[UILabel alloc] init];
+//    
+//    lbl_tishi.bounds=CGRectMake(0, 0, SCREEN_WIDTH, 30);
+//    
+//    lbl_tishi.text=@"敬请期待";
+//    
+//    lbl_tishi.textAlignment=NSTextAlignmentCenter;
+//    
+//    lbl_tishi.textColor=[UIColor whiteColor];
+//    
+//    lbl_tishi.center=CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+//    
+//    [self.view addSubview:lbl_tishi];
 
     
     //初始化View
-    //[self initViews];
+    [self initViews];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -76,36 +74,43 @@
     [self.view addSubview:mTableView];
 }
 
--(void)jumpClassificationPage:(UIButton *)btn{
-    ClassificationViewController *classificationVC = [[ClassificationViewController alloc] init];
-    [self.navigationController pushViewController:classificationVC animated:YES];
-}
-
-#pragma mark - btn clicks
--(void)clickRightButton:(UIButton *)sender
-{
-    ShoppingCartViewController *shoppingCart = [[ShoppingCartViewController alloc] init];
-    shoppingCart.navtitle = @"购物车";
-    [self.navigationController pushViewController:shoppingCart animated:YES];
-}
-
--(void)clickLeftButton:(UIButton *)sender
-{
-    OrderMainViewController *orderViewCtl = [[OrderMainViewController alloc] init];
-    orderViewCtl.navtitle = @"订单";
-    [self.navigationController pushViewController:orderViewCtl animated:YES];
+-(void)jumpPage:(UIButton *)btn{
+    switch (btn.tag) {
+        case 1:{
+            ClassificationViewController *classificationVC = [[ClassificationViewController alloc] init];
+            [self.navigationController pushViewController:classificationVC animated:YES];
+        }
+            break;
+        case 2:{
+            
+        }
+            break;
+        case 3:{
+            OrderMainViewController *orderViewCtl = [[OrderMainViewController alloc] init];
+            orderViewCtl.navtitle = @"订单";
+            [self.navigationController pushViewController:orderViewCtl animated:YES];
+        }
+        case 4:{
+            ShoppingCartViewController *shoppingCart = [[ShoppingCartViewController alloc] init];
+            shoppingCart.navtitle = @"购物车";
+            [self.navigationController pushViewController:shoppingCart animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 1 + 2;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if(section == 0){
         return 1;
     }else{
-        return 1 + 6;
+        return 1 + 3;
     }
 }
 
@@ -142,45 +147,81 @@
         CGFloat mWidth = SCREEN_WIDTH / 4;
         CGFloat mOriginY = mIv.frame.origin.y + mIv.frame.size.height;
         
-        UIButton *allClassBtn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, mOriginY, mWidth, 45)];
-        allClassBtn1.titleLabel.font = [UIFont systemFontOfSize:15];
-        [allClassBtn1 setTitle:@"全部分类" forState:UIControlStateNormal];
+        UIButton *allClassBtn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, mOriginY, mWidth, 60)];
         allClassBtn1.tag = 1;
-        [allClassBtn1 addTarget:self action:@selector(jumpClassificationPage:) forControlEvents:UIControlEventTouchUpInside];
+        [allClassBtn1 addTarget:self action:@selector(jumpPage:) forControlEvents:UIControlEventTouchUpInside];
         [cell addSubview:allClassBtn1];
         
-        UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(mWidth, 5, 1, 35)];
+        UIImageView *allClassIv = [[UIImageView alloc] initWithFrame:CGRectMake((mWidth - 30) / 2, 5, 30, 30)];
+        allClassIv.image = [UIImage imageNamed:@"allclass"];
+        [allClassBtn1 addSubview:allClassIv];
+        
+        UILabel *allClassLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, allClassIv.frame.origin.y + allClassIv.frame.size.height + 2, mWidth, 21)];
+        allClassLbl.textAlignment = NSTextAlignmentCenter;
+        allClassLbl.textColor = [UIColor whiteColor];
+        allClassLbl.font = [UIFont systemFontOfSize:14];
+        allClassLbl.text = @"全部分类";
+        [allClassBtn1 addSubview:allClassLbl];
+        
+        UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(mWidth, 5, 1, 50)];
         lineView1.backgroundColor = [UIColor colorWithRed:0.25 green:0.26 blue:0.27 alpha:1];
         [allClassBtn1 addSubview:lineView1];
         
-        UIButton *allClassBtn2 = [[UIButton alloc] initWithFrame:CGRectMake(allClassBtn1.frame.origin.x + allClassBtn1.frame.size.width, mOriginY, mWidth, 45)];
-        allClassBtn2.titleLabel.font = [UIFont systemFontOfSize:16];
-        [allClassBtn2 setTitle:@"营养美食" forState:UIControlStateNormal];
-        allClassBtn2.tag = 2;
-        [allClassBtn2 addTarget:self action:@selector(jumpClassificationPage:) forControlEvents:UIControlEventTouchUpInside];
-        [cell addSubview:allClassBtn2];
+        UIButton *recommendGoodsBtn = [[UIButton alloc] initWithFrame:CGRectMake(mWidth, mOriginY, mWidth, 60)];
+        recommendGoodsBtn.tag = 2;
+        [recommendGoodsBtn addTarget:self action:@selector(jumpPage:) forControlEvents:UIControlEventTouchUpInside];
+        [cell addSubview:recommendGoodsBtn];
         
-        UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(mWidth, 5, 1, 35)];
+        UIImageView *recommendGoodsIv = [[UIImageView alloc] initWithFrame:CGRectMake((mWidth - 30) / 2, 5, 30, 30)];
+        recommendGoodsIv.image = [UIImage imageNamed:@"recommend_goods"];
+        [recommendGoodsBtn addSubview:recommendGoodsIv];
+        
+        UILabel *recommendGoodsLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, allClassIv.frame.origin.y + allClassIv.frame.size.height + 2, mWidth, 21)];
+        recommendGoodsLbl.textAlignment = NSTextAlignmentCenter;
+        recommendGoodsLbl.textColor = [UIColor whiteColor];
+        recommendGoodsLbl.font = [UIFont systemFontOfSize:14];
+        recommendGoodsLbl.text = @"推荐商品";
+        [recommendGoodsBtn addSubview:recommendGoodsLbl];
+        
+        UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(mWidth, 5, 1, 50)];
         lineView2.backgroundColor = [UIColor colorWithRed:0.25 green:0.26 blue:0.27 alpha:1];
-        [allClassBtn2 addSubview:lineView2];
+        [recommendGoodsBtn addSubview:lineView2];
         
-        UIButton *allClassBtn3 = [[UIButton alloc] initWithFrame:CGRectMake(allClassBtn2.frame.origin.x + allClassBtn2.frame.size.width, mOriginY, mWidth, 45)];
-        allClassBtn3.titleLabel.font = [UIFont systemFontOfSize:16];
-        [allClassBtn3 setTitle:@"武器防具" forState:UIControlStateNormal];
-        allClassBtn3.tag = 3;
-        [allClassBtn3 addTarget:self action:@selector(jumpClassificationPage:) forControlEvents:UIControlEventTouchUpInside];
-        [cell addSubview:allClassBtn3];
+        UIButton *myOrderBtn = [[UIButton alloc] initWithFrame:CGRectMake(mWidth * 2, mOriginY, mWidth, 60)];
+        myOrderBtn.tag = 3;
+        [myOrderBtn addTarget:self action:@selector(jumpPage:) forControlEvents:UIControlEventTouchUpInside];
+        [cell addSubview:myOrderBtn];
         
-        UIView *lineView3 = [[UIView alloc] initWithFrame:CGRectMake(mWidth, 5, 1, 35)];
+        UIImageView *myOrderIv = [[UIImageView alloc] initWithFrame:CGRectMake((mWidth - 30) / 2, 5, 30, 30)];
+        myOrderIv.image = [UIImage imageNamed:@"myorder"];
+        [myOrderBtn addSubview:myOrderIv];
+        
+        UILabel *myOrderLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, allClassIv.frame.origin.y + allClassIv.frame.size.height + 2, mWidth, 21)];
+        myOrderLbl.textAlignment = NSTextAlignmentCenter;
+        myOrderLbl.textColor = [UIColor whiteColor];
+        myOrderLbl.font = [UIFont systemFontOfSize:14];
+        myOrderLbl.text = @"我的订单";
+        [myOrderBtn addSubview:myOrderLbl];
+        
+        UIView *lineView3 = [[UIView alloc] initWithFrame:CGRectMake(mWidth, 5, 1, 50)];
         lineView3.backgroundColor = [UIColor colorWithRed:0.25 green:0.26 blue:0.27 alpha:1];
-        [allClassBtn3 addSubview:lineView3];
+        [myOrderBtn addSubview:lineView3];
         
-        UIButton *allClassBtn4 = [[UIButton alloc] initWithFrame:CGRectMake(allClassBtn3.frame.origin.x + allClassBtn3.frame.size.width, mOriginY, mWidth, 45)];
-        allClassBtn4.titleLabel.font = [UIFont systemFontOfSize:16];
-        [allClassBtn4 setTitle:@"服饰用品" forState:UIControlStateNormal];
-        allClassBtn4.tag = 4;
-        [allClassBtn4 addTarget:self action:@selector(jumpClassificationPage:) forControlEvents:UIControlEventTouchUpInside];
-        [cell addSubview:allClassBtn4];
+        UIButton *shoppingCarBtn = [[UIButton alloc] initWithFrame:CGRectMake(mWidth * 3, mOriginY, mWidth, 60)];
+        shoppingCarBtn.tag = 4;
+        [shoppingCarBtn addTarget:self action:@selector(jumpPage:) forControlEvents:UIControlEventTouchUpInside];
+        [cell addSubview:shoppingCarBtn];
+        
+        UIImageView *shoppingCarIv = [[UIImageView alloc] initWithFrame:CGRectMake((mWidth - 30) / 2, 5, 30, 30)];
+        shoppingCarIv.image = [UIImage imageNamed:@"shopping_car"];
+        [shoppingCarBtn addSubview:shoppingCarIv];
+        
+        UILabel *shoppingCarLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, allClassIv.frame.origin.y + allClassIv.frame.size.height + 2, mWidth, 21)];
+        shoppingCarLbl.textAlignment = NSTextAlignmentCenter;
+        shoppingCarLbl.textColor = [UIColor whiteColor];
+        shoppingCarLbl.font = [UIFont systemFontOfSize:14];
+        shoppingCarLbl.text = @"购物车";
+        [shoppingCarBtn addSubview:shoppingCarLbl];
         
         return cell;
     }else{
@@ -189,9 +230,9 @@
             cell.backgroundColor = ItemsBaseColor;
             UILabel *mLabel = [[UILabel alloc] initWithFrame:CGRectMake(14, 0, 80, cell.frame.size.height)];
             mLabel.textAlignment = NSTextAlignmentCenter;
-            mLabel.font = [UIFont systemFontOfSize:18];
+            mLabel.font = [UIFont systemFontOfSize:14];
             mLabel.textColor = [UIColor whiteColor];
-            mLabel.text = @"推荐商品";
+            mLabel.text = @"散打护具";
             [cell addSubview:mLabel];
             return cell;
         }else{
@@ -202,15 +243,11 @@
                 cell.backgroundColor = ItemsBaseColor;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-            [cell.mImageView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"me"]];
+            [cell.mImageView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
             cell.mName.text = @"男士哑铃一对10公斤";
             cell.mPrice.text = [NSString stringWithFormat:@"¥20.00"];
-            NSString *oldPriceStr = @"¥30.00";
-            cell.mOldPrice.text = oldPriceStr;
-            CGSize size = [oldPriceStr sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]}];
-            UIView *delLine = [[UIView alloc] initWithFrame:CGRectMake(0, (cell.mOldPrice.frame.size.height - 1) / 2, size.width, 1)];
-            delLine.backgroundColor = [UIColor grayColor];
-            [cell.mOldPrice addSubview:delLine];
+            cell.watchNum.text = [NSString stringWithFormat:@"%@人",@"1000"];
+            cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",@"1000"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         }
@@ -219,7 +256,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 215;
+        return 170 + 60;
     }else{
         if (indexPath.row == 0) {
             return 45;
