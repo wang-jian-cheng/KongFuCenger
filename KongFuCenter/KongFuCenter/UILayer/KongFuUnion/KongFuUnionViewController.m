@@ -18,6 +18,8 @@
 #import "WYNewsViewController.h"
 #import "ChatListViewController.h"
 #import "MyFriendViewController.h"
+#import "WZLBadgeImport.h"
+#import "UIView+Frame.h"
 
 @interface KongFuUnionViewController ()
 {
@@ -82,6 +84,21 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
     
     [self updateMessageNum];
+    
+    [self initNoReadMessageNum];
+}
+
+-(void)initNoReadMessageNum{
+    //[SVProgressHUD showWithStatus:@"加载中..."];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getNoReadMessageInfo:"];
+}
+
+-(void)getNoReadMessageInfo:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        [_mainTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 -(void)updateMessageNum{
@@ -283,7 +300,16 @@
         lbl_name.font = [UIFont systemFontOfSize:18];
     }
     lbl_name.text = name;
+    
+    if ([name isEqual:@"武者动态"]) {
+        [lbl_name showBadgeWithStyle:WBadgeStyleNumber value:3 animationType:WBadgeAnimTypeNone];
+        lbl_name.badge.x = lbl_name.badge.x - 20;
+        lbl_name.badge.y = 8;
+    }
+    
     [cell addSubview:lbl_name];
+    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 @end

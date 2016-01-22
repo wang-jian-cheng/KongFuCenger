@@ -410,6 +410,11 @@
 		B7617E721C1C29A500CF96E7 /* YMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E681C1C29A500CF96E7 /* YMTableViewCell.m */; };
 		B7617E731C1C29A500CF96E7 /* YMTapGestureRecongnizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E6A1C1C29A500CF96E7 /* YMTapGestureRecongnizer.m */; };
 		B79B22FC1C4F5BDC00B0BFF7 /* ShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B79B22FB1C4F5BDC00B0BFF7 /* ShopDetailViewController.m */; };
+		B7A6FC7F1C51C41B00B6D665 /* UIBarButtonItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A6FC731C51C41B00B6D665 /* UIBarButtonItem+WZLBadge.m */; };
+		B7A6FC801C51C41B00B6D665 /* UITabBarItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A6FC751C51C41B00B6D665 /* UITabBarItem+WZLBadge.m */; };
+		B7A6FC811C51C41B00B6D665 /* CAAnimation+WAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A6FC781C51C41B00B6D665 /* CAAnimation+WAnimation.m */; };
+		B7A6FC821C51C41B00B6D665 /* UIView+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A6FC7D1C51C41B00B6D665 /* UIView+WZLBadge.m */; };
+		B7A6FC861C51C6F900B6D665 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A6FC851C51C6F900B6D665 /* UIView+Frame.m */; };
 		B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */; };
 		B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C428021C1524F3003F504F /* JHStoryViewController.m */; };
 		B7CB2A711C3B4C5C009E62ED /* OneShuoshuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CB2A701C3B4C5C009E62ED /* OneShuoshuoViewController.m */; };
@@ -1153,6 +1158,18 @@
 		B7617E6A1C1C29A500CF96E7 /* YMTapGestureRecongnizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMTapGestureRecongnizer.m; sourceTree = "<group>"; };
 		B79B22FA1C4F5BDC00B0BFF7 /* ShopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailViewController.h; sourceTree = "<group>"; };
 		B79B22FB1C4F5BDC00B0BFF7 /* ShopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailViewController.m; sourceTree = "<group>"; };
+		B7A6FC721C51C41B00B6D665 /* UIBarButtonItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WZLBadge.h"; sourceTree = "<group>"; };
+		B7A6FC731C51C41B00B6D665 /* UIBarButtonItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WZLBadge.m"; sourceTree = "<group>"; };
+		B7A6FC741C51C41B00B6D665 /* UITabBarItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+WZLBadge.h"; sourceTree = "<group>"; };
+		B7A6FC751C51C41B00B6D665 /* UITabBarItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+WZLBadge.m"; sourceTree = "<group>"; };
+		B7A6FC771C51C41B00B6D665 /* CAAnimation+WAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+WAnimation.h"; sourceTree = "<group>"; };
+		B7A6FC781C51C41B00B6D665 /* CAAnimation+WAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+WAnimation.m"; sourceTree = "<group>"; };
+		B7A6FC7A1C51C41B00B6D665 /* WZLBadgeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLBadgeProtocol.h; sourceTree = "<group>"; };
+		B7A6FC7C1C51C41B00B6D665 /* UIView+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WZLBadge.h"; sourceTree = "<group>"; };
+		B7A6FC7D1C51C41B00B6D665 /* UIView+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WZLBadge.m"; sourceTree = "<group>"; };
+		B7A6FC7E1C51C41B00B6D665 /* WZLBadgeImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLBadgeImport.h; sourceTree = "<group>"; };
+		B7A6FC841C51C6F900B6D665 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		B7A6FC851C51C6F900B6D665 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		B7C427FE1C1524F3003F504F /* JHStoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryTableViewCell.h; sourceTree = "<group>"; };
 		B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryTableViewCell.m; sourceTree = "<group>"; };
 		B7C428011C1524F3003F504F /* JHStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryViewController.h; sourceTree = "<group>"; };
@@ -2491,6 +2508,7 @@
 		B5F13A901C1FA75100155038 /* ThirdFramework */ = {
 			isa = PBXGroup;
 			children = (
+				B7A6FC701C51C41B00B6D665 /* WZLBadge */,
 				B5B737561C3CAAF100DF7437 /* Search */,
 				B5B737491C3A640500DF7437 /* UUDatePicker_Block */,
 				803E36311C350E1D006DE3A9 /* JPush */,
@@ -2824,6 +2842,66 @@
 				B7617E6A1C1C29A500CF96E7 /* YMTapGestureRecongnizer.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B7A6FC701C51C41B00B6D665 /* WZLBadge */ = {
+			isa = PBXGroup;
+			children = (
+				B7A6FC831C51C6F900B6D665 /* Category */,
+				B7A6FC711C51C41B00B6D665 /* BarItem */,
+				B7A6FC761C51C41B00B6D665 /* CategorySupport */,
+				B7A6FC791C51C41B00B6D665 /* Protocol */,
+				B7A6FC7B1C51C41B00B6D665 /* View */,
+				B7A6FC7E1C51C41B00B6D665 /* WZLBadgeImport.h */,
+			);
+			name = WZLBadge;
+			path = SMS_SDK/WZLBadge;
+			sourceTree = "<group>";
+		};
+		B7A6FC711C51C41B00B6D665 /* BarItem */ = {
+			isa = PBXGroup;
+			children = (
+				B7A6FC721C51C41B00B6D665 /* UIBarButtonItem+WZLBadge.h */,
+				B7A6FC731C51C41B00B6D665 /* UIBarButtonItem+WZLBadge.m */,
+				B7A6FC741C51C41B00B6D665 /* UITabBarItem+WZLBadge.h */,
+				B7A6FC751C51C41B00B6D665 /* UITabBarItem+WZLBadge.m */,
+			);
+			path = BarItem;
+			sourceTree = "<group>";
+		};
+		B7A6FC761C51C41B00B6D665 /* CategorySupport */ = {
+			isa = PBXGroup;
+			children = (
+				B7A6FC771C51C41B00B6D665 /* CAAnimation+WAnimation.h */,
+				B7A6FC781C51C41B00B6D665 /* CAAnimation+WAnimation.m */,
+			);
+			path = CategorySupport;
+			sourceTree = "<group>";
+		};
+		B7A6FC791C51C41B00B6D665 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				B7A6FC7A1C51C41B00B6D665 /* WZLBadgeProtocol.h */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		B7A6FC7B1C51C41B00B6D665 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B7A6FC7C1C51C41B00B6D665 /* UIView+WZLBadge.h */,
+				B7A6FC7D1C51C41B00B6D665 /* UIView+WZLBadge.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B7A6FC831C51C6F900B6D665 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				B7A6FC841C51C6F900B6D665 /* UIView+Frame.h */,
+				B7A6FC851C51C6F900B6D665 /* UIView+Frame.m */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 		B7C427FD1C15248C003F504F /* JHStory */ = {
@@ -3387,6 +3465,7 @@
 				B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */,
 				B5D345C41C28E97E00D39891 /* JKAssetsViewCell.m in Sources */,
 				B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */,
+				B7A6FC861C51C6F900B6D665 /* UIView+Frame.m in Sources */,
 				B594090A1C0FCEE4003DC15D /* KongFuerViewController.m in Sources */,
 				B7D8464A1C22AB7500718E9E /* MJRefreshAutoStateFooter.m in Sources */,
 				B59409201C102719003DC15D /* StudyOnLineViewController.m in Sources */,
@@ -3404,6 +3483,7 @@
 				B7617E6E1C1C29A500CF96E7 /* WFTextView.m in Sources */,
 				B7CCA2E41C211F5F00B7AC8C /* ChatContentViewController.m in Sources */,
 				B5AF70691C18032B00C041AF /* VipViewController.m in Sources */,
+				B7A6FC811C51C41B00B6D665 /* CAAnimation+WAnimation.m in Sources */,
 				80CE42D61C3CB26C00B027CC /* VAppInfo.m in Sources */,
 				B712CC981C2CDC9D00B1A2E8 /* SendNewsViewController.m in Sources */,
 				7BA38E901C214305000996EE /* MemberTableViewCell.m in Sources */,
@@ -3412,6 +3492,7 @@
 				B72C3CC81C1568C900D3250A /* RecruitCommentCell.m in Sources */,
 				B59408CF1C0FC9E8003DC15D /* ViewController.m in Sources */,
 				B5D89A0A1C117A4100F55BFA /* MyCollectViewController.m in Sources */,
+				B7A6FC801C51C41B00B6D665 /* UITabBarItem+WZLBadge.m in Sources */,
 				80DB84661C23D3A6008CA670 /* SDWebImageDownloader.m in Sources */,
 				B5D345C81C28E97E00D39891 /* JKPromptView.m in Sources */,
 				B5AF70591C17C21400C041AF /* Dialog.m in Sources */,
@@ -3454,6 +3535,7 @@
 				B7617E721C1C29A500CF96E7 /* YMTableViewCell.m in Sources */,
 				B5F90ACD1C190CF900D7879D /* ChoosePlanTypeViewController.m in Sources */,
 				B5F90AEE1C197D3D00D7879D /* LoginViewController.m in Sources */,
+				B7A6FC821C51C41B00B6D665 /* UIView+WZLBadge.m in Sources */,
 				B5207D2F1C506F3400CE729F /* OrderMainViewController.m in Sources */,
 				804951FF1C250B3800F5584A /* README.md in Sources */,
 				B7D8464C1C22AB7500718E9E /* MJRefreshBackNormalFooter.m in Sources */,
@@ -3576,6 +3658,7 @@
 				B5905E141C1BC7D800ECA9BA /* ApplyForMatchViewController.m in Sources */,
 				B5AF70611C17F69B00C041AF /* ZhiBoViewController.m in Sources */,
 				B577E2361C1AA7C2006695F1 /* DataProvider.m in Sources */,
+				B7A6FC7F1C51C41B00B6D665 /* UIBarButtonItem+WZLBadge.m in Sources */,
 				B53E73901C168BDA009E7878 /* MyDreamViewController.m in Sources */,
 				B7E07B9F1C3A4CD8004FAC42 /* CommentTableViewCell.m in Sources */,
 				B5D345991C28E95900D39891 /* VPImageCropperViewController.m in Sources */,

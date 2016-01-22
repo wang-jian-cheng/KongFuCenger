@@ -44,6 +44,19 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)clickLeftButton:(UIButton *)sender{
+    [SVProgressHUD showWithStatus:nil];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getNoReadMessageInfo:"];
+}
+
+-(void)getNoReadMessageInfo:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 #pragma mark 自定义方法
 
 -(void)TeamTopRefresh{
