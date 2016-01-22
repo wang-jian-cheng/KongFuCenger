@@ -29,8 +29,9 @@
     
     userInfoArray = [[NSDictionary alloc] init];
     userDefault = [NSUserDefaults standardUserDefaults];
-    
+    [self initViews];
     [self initData];
+    
 }
 
 -(void)initData{
@@ -41,12 +42,23 @@
 }
 
 -(void)getUserInfoById:(id)dict{
-    [SVProgressHUD dismiss];
+//    [SVProgressHUD dismiss];
+     DLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD dismiss];
         userInfoArray = dict[@"data"];
-        NSLog(@"%@",userInfoArray);
-        [self initViews];
+       
+        [_mainTableView reloadData];
     }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:dict[@"data"] maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
+-(void)setUserID:(NSString *)userID
+{
+    _userID = [NSString stringWithFormat:@"%@",userID];
 }
 
 -(void)initViews
@@ -192,7 +204,8 @@
         NSString *photoPath = [userInfoArray valueForKey:@"PhotoPath"];
         NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoPath];
         //UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight/2, 2*_cellHeight, 2*_cellHeight) andImgName:@"me"];
-        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight/2, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]]];
+        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight/2, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageNamed:@"headImg"]];
+        [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
         [headView makeSelfRound];
         [cell addSubview:headView];
         

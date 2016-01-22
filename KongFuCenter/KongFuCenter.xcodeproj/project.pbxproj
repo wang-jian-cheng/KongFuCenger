@@ -137,6 +137,11 @@
 		B51A7B791C4F678200273384 /* KongFuStoreProduct@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B51A7B761C4F678200273384 /* KongFuStoreProduct@2x.png */; };
 		B51A7B7B1C4F6E4D00273384 /* shoppingCart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B51A7B7A1C4F6E4D00273384 /* shoppingCart@2x.png */; };
 		B5207D2F1C506F3400CE729F /* OrderMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5207D2E1C506F3400CE729F /* OrderMainViewController.m */; };
+		B5207D7B1C51BFC300CE729F /* RCLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5207D7A1C51BFC300CE729F /* RCLabel.m */; };
+		B5207D801C51D4A900CE729F /* chrome.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B5207D7C1C51D4A900CE729F /* chrome.jpg */; };
+		B5207D811C51D4A900CE729F /* firefox.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B5207D7D1C51D4A900CE729F /* firefox.jpg */; };
+		B5207D821C51D4A900CE729F /* ie.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B5207D7E1C51D4A900CE729F /* ie.jpg */; };
+		B5207D831C51D4A900CE729F /* safari.png in Resources */ = {isa = PBXBuildFile; fileRef = B5207D7F1C51D4A900CE729F /* safari.png */; };
 		B529B7A31C2110BF003AC21C /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B529B7981C2110BF003AC21C /* AlipaySDK.bundle */; };
 		B529B7A41C2110BF003AC21C /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B7991C2110BF003AC21C /* AlipaySDK.framework */; };
 		B529B7A51C2110BF003AC21C /* libpingpp+alipay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */; };
@@ -741,6 +746,12 @@
 		B51A7B7A1C4F6E4D00273384 /* shoppingCart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shoppingCart@2x.png"; path = "KongFuStore/shoppingCart@2x.png"; sourceTree = "<group>"; };
 		B5207D2D1C506F3400CE729F /* OrderMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderMainViewController.h; sourceTree = "<group>"; };
 		B5207D2E1C506F3400CE729F /* OrderMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderMainViewController.m; sourceTree = "<group>"; };
+		B5207D791C51BFC300CE729F /* RCLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCLabel.h; sourceTree = "<group>"; };
+		B5207D7A1C51BFC300CE729F /* RCLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCLabel.m; sourceTree = "<group>"; };
+		B5207D7C1C51D4A900CE729F /* chrome.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chrome.jpg; sourceTree = "<group>"; };
+		B5207D7D1C51D4A900CE729F /* firefox.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = firefox.jpg; sourceTree = "<group>"; };
+		B5207D7E1C51D4A900CE729F /* ie.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ie.jpg; sourceTree = "<group>"; };
+		B5207D7F1C51D4A900CE729F /* safari.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safari.png; sourceTree = "<group>"; };
 		B529B7981C2110BF003AC21C /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		B529B7991C2110BF003AC21C /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpingpp+alipay.a"; sourceTree = "<group>"; };
@@ -1817,6 +1828,15 @@
 			path = Order;
 			sourceTree = "<group>";
 		};
+		B5207D781C51BF9C00CE729F /* RCLabel */ = {
+			isa = PBXGroup;
+			children = (
+				B5207D791C51BFC300CE729F /* RCLabel.h */,
+				B5207D7A1C51BFC300CE729F /* RCLabel.m */,
+			);
+			path = RCLabel;
+			sourceTree = "<group>";
+		};
 		B529B7951C2110BF003AC21C /* lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -2273,11 +2293,11 @@
 				B5AF705D1C17F67B00C041AF /* ZhiBo */,
 				7B580B081C2A291200BFF83D /* Model */,
 				B5AF70771C18292600C041AF /* TrainsPlan */,
+				B53791AD1C156AF100C45BA7 /* StudyOnline */,
 				B5AF70651C18031600C041AF /* VIP */,
 				B53E738D1C168B47009E7878 /* MyDream */,
 				B53E73821C166FB9009E7878 /* JiFen */,
 				B53791B11C15707900C45BA7 /* WuGuan */,
-				B53791AD1C156AF100C45BA7 /* StudyOnline */,
 				B59409081C0FCEE4003DC15D /* KongFuerViewController.h */,
 				B59409091C0FCEE4003DC15D /* KongFuerViewController.m */,
 				B5D89A081C117A4000F55BFA /* MyCollectViewController.h */,
@@ -2318,6 +2338,7 @@
 		B5AF704F1C17C20600C041AF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				B5207D781C51BF9C00CE729F /* RCLabel */,
 				8045582E1C3E4A0000166DAC /* libpolyvSDK */,
 				80CE42BA1C3CB23100B027CC /* Vitamio-online */,
 				804951B01C250B3800F5584A /* PhoneVideo */,
@@ -2518,6 +2539,10 @@
 		B5D899FB1C113CB900F55BFA /* other */ = {
 			isa = PBXGroup;
 			children = (
+				B5207D7C1C51D4A900CE729F /* chrome.jpg */,
+				B5207D7D1C51D4A900CE729F /* firefox.jpg */,
+				B5207D7E1C51D4A900CE729F /* ie.jpg */,
+				B5207D7F1C51D4A900CE729F /* safari.png */,
 				B54F13881C46283B001EABE5 /* del@2x.PNG */,
 				B569DB8F1C126F1C00325CFA /* temp */,
 				B5D89A061C1165E400F55BFA /* temp@2x.png */,
@@ -3316,6 +3341,7 @@
 				B5F13B401C1FE6E600155038 /* 512@2x.png in Resources */,
 				B5F90AFD1C1985A100D7879D /* LoginPassword@2x.png in Resources */,
 				B5F90AEF1C197D3D00D7879D /* LoginViewController.xib in Resources */,
+				B5207D811C51D4A900CE729F /* firefox.jpg in Resources */,
 				B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */,
 				B5AF70871C183A9F00C041AF /* smilies@2x.png in Resources */,
 				B53791B61C15724900C45BA7 /* temp3@2x.png in Resources */,
@@ -3353,6 +3379,7 @@
 				B7617E4D1C1C299700CF96E7 /* 01@2x.png in Resources */,
 				B5D89A071C1165E400F55BFA /* temp@2x.png in Resources */,
 				8049521C1C250B3800F5584A /* WechatShortVideo_close@2x.png in Resources */,
+				B5207D801C51D4A900CE729F /* chrome.jpg in Resources */,
 				8021E9041C279AE7005C7539 /* index_1.png in Resources */,
 				B7F0D6351C51FECA002F1EEF /* shopping_car.png in Resources */,
 				8049521D1C250B3800F5584A /* WechatShortVideo_close@3x.png in Resources */,
@@ -3368,6 +3395,7 @@
 				B5905E071C1BC2CF00ECA9BA /* jinxingzhong.png in Resources */,
 				B5D345BE1C28E97E00D39891 /* ImagesPicker.xcassets in Resources */,
 				B5905E061C1BC2CF00ECA9BA /* jhstory.png in Resources */,
+				B5207D831C51D4A900CE729F /* safari.png in Resources */,
 				B5F90AD01C1928C200D7879D /* plus@2x.png in Resources */,
 				B53E737D1C166389009E7878 /* share@2x.png in Resources */,
 				B7E4CD191C1FE1C900C2E69A /* wzss.png in Resources */,
@@ -3389,6 +3417,7 @@
 				B59408D41C0FC9E8003DC15D /* big.xcassets in Resources */,
 				B5AF70841C183A9F00C041AF /* down@2x.png in Resources */,
 				B5905E161C1BCC7700ECA9BA /* dajiahao@2x.png in Resources */,
+				B5207D821C51D4A900CE729F /* ie.jpg in Resources */,
 				B59408D21C0FC9E8003DC15D /* Main.storyboard in Resources */,
 				8049521A1C250B3800F5584A /* WechatShortVideo_37x-Checkmark@2x.png in Resources */,
 				B7E4CCFE1C1FA1F200C2E69A /* zdcy.png in Resources */,
@@ -3723,6 +3752,7 @@
 				B712CC951C2CCEFE00B1A2E8 /* MyNewsViewController.m in Sources */,
 				80DB84691C23D3A6008CA670 /* SDWebImagePrefetcher.m in Sources */,
 				802118E61C1AFAE100DCEE73 /* MoviePlayer.m in Sources */,
+				B5207D7B1C51BFC300CE729F /* RCLabel.m in Sources */,
 				B7617E711C1C29A500CF96E7 /* YMShowImageView.m in Sources */,
 				B5B7374F1C3A640500DF7437 /* UUDatePicker_DateModel.m in Sources */,
 			);

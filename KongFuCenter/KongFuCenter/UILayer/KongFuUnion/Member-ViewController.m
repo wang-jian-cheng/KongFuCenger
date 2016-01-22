@@ -52,6 +52,24 @@
     // Dispose of any resources that can be recreated.
 }
 
+//设置点在某个view时部触发事件
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    // 输出点击的view的类名
+    NSLog(@"-%@", NSStringFromClass([touch.view class]));
+    
+    //||[NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"] [NSStringFromClass([touch.view class]) isEqualToString:@"UIView"]||
+    
+    // if(gestureRecognizer.d)
+    
+    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]||[NSStringFromClass([touch.view class]) isEqualToString:@"UIButton"])
+    {
+        return NO;
+    }
+    //  NSLog(@"return YES");
+    return  YES;
+}
 
 #pragma mark UITextFieldDelegate
 -(void)textFieldDidEndEditing:(UITextField *)textField{
@@ -64,21 +82,6 @@
     return YES;
 }
 
-
-//设置点在某个view时部触发事件
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    // 输出点击的view的类名
-    NSLog(@"-%@", NSStringFromClass([touch.view class]));
-    
-
-    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"])
-    {
-        return NO;
-    }
-    //  NSLog(@"return YES");
-    return  YES;
-}
 
 #pragma mark - click action
 
@@ -306,7 +309,14 @@
         {
             cell.name.text = tempDict[@"RemarkName"];
         }
-        cell.number.text = tempDict[@"Phone"];
+        if(tempDict[@"Phone"] == nil||[tempDict[@"Phone"] length] == 0)
+        {
+            cell.number.text =[NSString stringWithFormat:@"%08d",[tempDict[@"Id"] intValue]];
+        }
+        else
+        {
+            cell.number.text = tempDict[@"Phone"];
+        }
         NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
         
         
@@ -335,7 +345,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    clickId = searchArr[indexPath.row][@"MemnerId"];
+    clickId = searchArr[indexPath.row][@"Id"];
     
     [self CheckIsFriend:clickId];
     
