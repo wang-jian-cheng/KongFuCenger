@@ -33,7 +33,7 @@ static CGSize MakeVideoSize(CGSize videoSize, float requestedWidth) {
         return videoSize;
     }
     
-    return CGSizeMake(videoSize.width / ratio, videoSize.height / ratio);
+    return CGSizeMake(videoSize.width / ratio, videoSize.width / ratio);
 }
 
 - (NSDictionary *)createAssetWriterOptionsWithVideoSize:(CGSize)videoSize {
@@ -48,13 +48,13 @@ static CGSize MakeVideoSize(CGSize videoSize, float requestedWidth) {
     if (self.preset != nil) {
         if ([self.preset isEqualToString:SCPresetLowQuality]) {
             bitrate = 500000;
-            outputSize = MakeVideoSize(videoSize, 640);
+            outputSize = MakeVideoSize(videoSize, 320);
         } else if ([self.preset isEqualToString:SCPresetMediumQuality]) {
             bitrate = 1000000;
-            outputSize = MakeVideoSize(videoSize, 1280);
+            outputSize = MakeVideoSize(videoSize, 640);
         } else if ([self.preset isEqualToString:SCPresetHighestQuality]) {
             bitrate = 6000000;
-            outputSize = MakeVideoSize(videoSize, 1920);
+            outputSize = MakeVideoSize(videoSize, 960);
         } else {
             NSLog(@"Unrecognized video preset %@", self.preset);
         }
@@ -95,13 +95,19 @@ static CGSize MakeVideoSize(CGSize videoSize, float requestedWidth) {
              };
 
 }
-
+/**
+ *  修改视频保存尺寸
+ *
+ *  @param sampleBuffer <#sampleBuffer description#>
+ *
+ *  @return <#return value description#>
+ */
 - (NSDictionary *)createAssetWriterOptionsUsingSampleBuffer:(CMSampleBufferRef)sampleBuffer {
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     size_t width = CVPixelBufferGetWidth(imageBuffer);
     size_t height = CVPixelBufferGetHeight(imageBuffer);
     
-    return [self createAssetWriterOptionsWithVideoSize:CGSizeMake(width, height)];
+    return [self createAssetWriterOptionsWithVideoSize:CGSizeMake(width, width)];
 }
 
 @end
