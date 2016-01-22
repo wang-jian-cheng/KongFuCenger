@@ -203,6 +203,8 @@
 }
 - (void) initTableview{
     
+  
+    
     mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
     mainTable.backgroundColor = [UIColor clearColor];
     // mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -272,14 +274,7 @@
     moreSettingBackView.hidden = YES;
     
     
-    label = [[UILabel alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
-    [self.view addSubview:label];
-    label.backgroundColor = BACKGROUND_COLOR;
-    label.text = @"队长很懒，什么都没有留下～～";
-    label.font = [UIFont systemFontOfSize:16];
-    label.numberOfLines = 0;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor];
+   
     
 
     
@@ -357,6 +352,16 @@
             [self configData:dict[@"data"]];
             if(_contentDataSource.count == 0 || _contentDataSource==nil)
             {
+                
+                label = [[UILabel alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
+                [self.view addSubview:label];
+                label.backgroundColor = BACKGROUND_COLOR;
+                label.text = @"队长很懒，什么都没有留下～～";
+                label.font = [UIFont systemFontOfSize:16];
+                label.numberOfLines = 0;
+                label.textAlignment = NSTextAlignmentCenter;
+                label.textColor = [UIColor whiteColor];
+                
                 label.hidden = NO;
             }
             else

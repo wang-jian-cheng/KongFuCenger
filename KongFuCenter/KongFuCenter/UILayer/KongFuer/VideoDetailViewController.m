@@ -29,7 +29,8 @@ typedef enum _ActionType{
     setZan,
     cancelCollect,
     setCollect,
-    setZhuanfa
+    setZhuanfa,
+    jubao
     
 }ActionType;
 
@@ -434,16 +435,16 @@ typedef enum _ActionType{
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否切换视频" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
     alertView.delegate = self;
-    alertView.tag = sender.tag;
+    alertView.tag = sender.tag+2016;
     [alertView show];
 }
 
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 0)
+    if(buttonIndex == 0&&alertView.tag>=2016)
     {
-        self.videoID = otherVideoArray[alertView.tag][@"Id"];
+        self.videoID = otherVideoArray[alertView.tag-2016][@"Id"];
         [self getData];
     }
 }
@@ -553,6 +554,7 @@ typedef enum _ActionType{
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
     //举报
+    actionType = jubao;
     [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"3" andDescription:content];
 }
 
@@ -635,7 +637,7 @@ typedef enum _ActionType{
 {
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
-//        [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];
+        
         
         switch (actionType) {
             case cancelZan:
@@ -653,7 +655,13 @@ typedef enum _ActionType{
             case setZhuanfa:
                 [SVProgressHUD showSuccessWithStatus:@"转发成功" maskType:SVProgressHUDMaskTypeBlack];
                 break;
+            case jubao:
+                [SVProgressHUD showSuccessWithStatus:@"举报成功" maskType:SVProgressHUDMaskTypeBlack];
+                break;
             default:
+            {
+                [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];
+            }
                 break;
         }
     }

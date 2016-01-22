@@ -1111,6 +1111,16 @@
     }
 }
 
+-(void)GetNoReadCommentNumByUserId:(NSString *)userid{
+    if (userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetNoReadCommentNumByUserId",Url];
+        NSDictionary *prm = @{@"userid":userid};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark - 战队赛事评论
 
 -(void)getMatchComment:(NSString *)memberId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows

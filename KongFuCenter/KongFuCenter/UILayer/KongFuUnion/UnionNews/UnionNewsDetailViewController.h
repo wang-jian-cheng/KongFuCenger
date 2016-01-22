@@ -8,6 +8,7 @@
 
 #import "BaseNavigationController.h"
 #import "CustomButton.h"
+#import "RCLabel.h"
 #import "UserHeadView.h"
 @interface UnionNewsDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
 {
@@ -24,4 +25,5 @@
 @property(nonatomic) NSString *readNum;
 @property(nonatomic) NSString *collectNum;
 @property(nonatomic) NSString *isFavorite;
+@property(nonatomic) NSString *content;
 @end

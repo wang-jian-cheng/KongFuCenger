@@ -18,6 +18,8 @@
 #import "WYNewsViewController.h"
 #import "ChatListViewController.h"
 #import "MyFriendViewController.h"
+#import "WZLBadgeImport.h"
+#import "UIView+Frame.h"
 
 @interface KongFuUnionViewController ()
 {
@@ -25,6 +27,7 @@
     CGFloat _cellHeight;
     UITableView *_mainTableView;
     UIButton *noReadNumTxt;
+    NSUserDefaults *userDefault;
 }
 @end
 
@@ -36,6 +39,7 @@
     [self setBarTitle:@"功夫圈"];
     [self addLeftButton:@"wdwy"];
     [self addRightButton:@"chat_icon"];
+    userDefault = [NSUserDefaults standardUserDefaults];
     _imgLeft.frame = CGRectMake(_btnLeft.frame.origin.x + 10, (NavigationBar_HEIGHT - 25) / 2 + StatusBar_HEIGHT, 25, 25);
     _imgRight.frame = CGRectMake(_btnRight.frame.origin.x + 25, (NavigationBar_HEIGHT - 25) / 2 + StatusBar_HEIGHT, 25, 25);
     [self initViews];
@@ -82,6 +86,24 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
     
     [self updateMessageNum];
+    
+    [self initNoReadMessageNum];
+}
+
+-(void)initNoReadMessageNum{
+    [SVProgressHUD showWithStatus:@"加载中..."];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getNoReadMessageInfo:"];
+    [dataProvider GetNoReadCommentNumByUserId:get_sp(@"id")];
+}
+
+-(void)getNoReadMessageInfo:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        [userDefault setValue:[NSString stringWithFormat:@"%@%@",Url,dict[@"data"]] forKey:@"endReadUserPhoto"];
+        [userDefault setValue:dict[@"count"] forKey:@"noReadMessageNum"];
+        [_mainTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 -(void)updateMessageNum{
@@ -283,7 +305,17 @@
         lbl_name.font = [UIFont systemFontOfSize:18];
     }
     lbl_name.text = name;
+    
+    if ([name isEqual:@"武者动态"]) {
+        NSLog(@"%@",[userDefault valueForKey:@"noReadMessageNum"]);
+        [lbl_name showBadgeWithStyle:WBadgeStyleNumber value:[[userDefault valueForKey:@"noReadMessageNum"] intValue] animationType:WBadgeAnimTypeNone];
+        lbl_name.badge.x = lbl_name.badge.x - 20;
+        lbl_name.badge.y = 8;
+    }
+    
     [cell addSubview:lbl_name];
+    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 @end

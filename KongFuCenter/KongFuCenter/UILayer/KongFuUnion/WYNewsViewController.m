@@ -24,6 +24,7 @@
 #import "MJRefresh.h"
 #import "UIImageView+WebCache.h"
 #import "OneShuoshuoViewController.h"
+#import "CommentListViewController.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -70,6 +71,10 @@
     int sumpage;
     
     NSString *delDTId;
+    
+    UIButton *noReadNumBtn;
+    CommentListViewController *commentListVC;
+    MyNewsViewController *myNewsVC;
     
 }
 
@@ -300,6 +305,9 @@
 -(void)viewDidAppear:(BOOL)animated{
     if (sendNewsVC || wechatShortVideoController) {
         [self TeamTopRefresh];
+    }
+    if (commentListVC || myNewsVC) {
+        [self initHeadView];
     }
 }
 
@@ -626,7 +634,7 @@
 }
 
 -(void)tapPhotoImg{
-    MyNewsViewController *myNewsVC = [[MyNewsViewController alloc] init];
+    myNewsVC = [[MyNewsViewController alloc] init];
     myNewsVC.UserID = get_sp(@"id");
     [self.navigationController pushViewController:myNewsVC animated:YES];
 }
@@ -767,6 +775,11 @@
     [self.navigationController pushViewController:oneShuoshuoVC animated:YES];
 }
 
+-(void)jumpPageCommentList{
+    commentListVC = [[CommentListViewController alloc] init];
+    [self.navigationController pushViewController:commentListVC animated:YES];
+}
+
 ////////////////////////////////////////////////////////////////////
 
 #pragma mark - 按钮动画
@@ -811,13 +824,31 @@
     name_lbl.text = [[NSString stringWithFormat:@"%@",[userDefault valueForKey:@"NicName"]] isEqual:@""]?@"匿名":[userDefault valueForKey:@"NicName"];//@"成龙";
     name_lbl.font = [UIFont systemFontOfSize:15];
     [headImgView addSubview:name_lbl];
-//    UILabel *id_lbl = [[UILabel alloc] initWithFrame:CGRectMake(headImg.frame.origin.x + headImg.frame.size.width+ 2, name_lbl.frame.origin.y + name_lbl.frame.size.height / 2 +10, 100, 21)];
-//    id_lbl.textColor = [UIColor whiteColor];
-//    id_lbl.text = @"ID:123456789";
-//    id_lbl.font = [UIFont systemFontOfSize:13];
-//    [headImgView addSubview:id_lbl];
+    
     [headView addSubview:headImgView];
     
+    
+    NSString *endReadUserPhoto = [userDefault valueForKey:@"endReadUserPhoto"];
+    NSString *noReadMessageNum = [userDefault valueForKey:@"noReadMessageNum"];
+    
+    noReadNumBtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 120) / 2, (160 - 40) / 2, 120, 40)];
+    [noReadNumBtn addTarget:self action:@selector(jumpPageCommentList) forControlEvents:UIControlEventTouchUpInside];
+    noReadNumBtn.backgroundColor = [UIColor colorWithRed:0.31 green:0.31 blue:0.32 alpha:1];
+    UIImageView *endNoReadPhoto = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, 36, 36)];
+    NSString *urls = endReadUserPhoto;
+    [endNoReadPhoto sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:@"me"]];
+    [noReadNumBtn addSubview:endNoReadPhoto];
+    UILabel *noReadNumLbl = [[UILabel alloc] initWithFrame:CGRectMake(endNoReadPhoto.frame.origin.x + endNoReadPhoto.frame.size.width + 3, (45 - 21) / 2, 100, 21)];
+    noReadNumLbl.font = [UIFont systemFontOfSize:14];
+    noReadNumLbl.textColor = [UIColor whiteColor];
+    noReadNumLbl.text = [NSString stringWithFormat:@"%@条新消息",noReadMessageNum];
+    [noReadNumBtn addSubview:noReadNumLbl];
+    [headView addSubview:noReadNumBtn];
+    noReadNumBtn.hidden = YES;
+    
+    if (noReadMessageNum && [noReadMessageNum intValue] > 0) {
+        noReadNumBtn.hidden = NO;
+    }
 }
 
 - (WFPopView *)operationView {

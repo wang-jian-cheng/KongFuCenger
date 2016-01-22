@@ -44,6 +44,22 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)clickLeftButton:(UIButton *)sender{
+    [SVProgressHUD showWithStatus:nil];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getNoReadMessageInfo:"];
+    [dataProvider GetNoReadCommentNumByUserId:get_sp(@"id")];
+}
+
+-(void)getNoReadMessageInfo:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        [userDefault setValue:[NSString stringWithFormat:@"%@%@",Url,dict[@"data"]] forKey:@"endReadUserPhoto"];
+        [userDefault setValue:dict[@"count"] forKey:@"noReadMessageNum"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 #pragma mark 自定义方法
 
 -(void)TeamTopRefresh{

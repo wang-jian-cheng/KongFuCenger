@@ -241,6 +241,7 @@
     unionNewsViewCtl.collectNum = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"FavoriteNum"]];
     unionNewsViewCtl.isFavorite = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"IsFavorite"]];
     unionNewsViewCtl.readNum = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"VisitNum"]];
+    unionNewsViewCtl.content = zhInfoArray[indexPath.row][@"Content"];
     [self.navigationController pushViewController:unionNewsViewCtl animated:YES];
 }
 

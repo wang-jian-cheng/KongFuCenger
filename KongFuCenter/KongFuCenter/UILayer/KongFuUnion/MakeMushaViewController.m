@@ -403,12 +403,14 @@
 }
 
 -(void)addFriendEvent:(UIButton *)btn{
+    [SVProgressHUD showWithStatus:@"加载中..."];
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"addFriendCallBack:"];
     [dataProvider SaveFriend:[userDefault valueForKey:@"id"] andFriendid:[NSString stringWithFormat:@"%ld",(long)btn.tag]];
 }
 
 -(void)addFriendCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showSuccessWithStatus:@"关注成功~"];
         [self TeamTopRefresh];
