@@ -115,7 +115,7 @@
     NSLog(@"------------------------------------%@",chatListLoadFlag);
     if (!chatListLoadFlag) {
         [userDefault setValue:@"1" forKey:@"chatListLoadFlag"];
-        [SVProgressHUD showWithStatus:@"加载中..."];
+        [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeClear];
     }
     NSLog(@"%@",[userDefault valueForKey:@"sound"]);
     if ([userDefault valueForKey:@"sound"]) {
