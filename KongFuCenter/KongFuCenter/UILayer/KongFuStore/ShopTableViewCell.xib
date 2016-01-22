@@ -35,7 +35,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgr-7Z-pC7">
-                        <rect key="frame" x="106" y="44" width="52" height="21"/>
+                        <rect key="frame" x="103" y="44" width="52" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="52" id="Mh9-b1-JdT"/>
                             <constraint firstAttribute="height" constant="21" id="YjO-Jg-Qfl"/>
@@ -44,35 +44,35 @@
                         <color key="textColor" red="0.37647058823529411" green="0.37647058823529411" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="watchnum.png" translatesAutoresizingMaskIntoConstraints="NO" id="VgO-Mg-LpS">
-                        <rect key="frame" x="79" y="44" width="25" height="22"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="25" id="ZdJ-Hv-xiJ"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T4f-Fd-Qlo">
                         <rect key="frame" x="170" y="44" width="128" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="watchnum.png" translatesAutoresizingMaskIntoConstraints="NO" id="VgO-Mg-LpS">
+                        <rect key="frame" x="77" y="45" width="23" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="23" id="ZdJ-Hv-xiJ"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="mgr-7Z-pC7" firstAttribute="leading" secondItem="VgO-Mg-LpS" secondAttribute="trailing" constant="2" id="0eh-1A-0uu"/>
+                    <constraint firstItem="mgr-7Z-pC7" firstAttribute="leading" secondItem="VgO-Mg-LpS" secondAttribute="trailing" constant="3" id="0eh-1A-0uu"/>
                     <constraint firstItem="Dh6-qJ-21y" firstAttribute="centerY" secondItem="a4M-9V-far" secondAttribute="centerY" id="3XB-lR-dcI"/>
-                    <constraint firstItem="mgr-7Z-pC7" firstAttribute="top" secondItem="VgO-Mg-LpS" secondAttribute="top" id="4z1-QA-rbC"/>
+                    <constraint firstItem="mgr-7Z-pC7" firstAttribute="top" secondItem="VgO-Mg-LpS" secondAttribute="top" constant="-1" id="4z1-QA-rbC"/>
                     <constraint firstItem="Dh6-qJ-21y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-3" id="76V-a0-i4o"/>
                     <constraint firstItem="Vj9-eP-ERP" firstAttribute="leading" secondItem="Dh6-qJ-21y" secondAttribute="trailing" constant="8" symbolic="YES" id="Du6-ZY-hF0"/>
                     <constraint firstItem="a4M-9V-far" firstAttribute="leading" secondItem="Vj9-eP-ERP" secondAttribute="leading" id="FVc-VA-3LL"/>
                     <constraint firstItem="Vj9-eP-ERP" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="GdW-xt-sQZ"/>
-                    <constraint firstItem="VgO-Mg-LpS" firstAttribute="top" secondItem="Vj9-eP-ERP" secondAttribute="bottom" constant="17" id="IZJ-ok-BtZ"/>
+                    <constraint firstItem="VgO-Mg-LpS" firstAttribute="top" secondItem="Vj9-eP-ERP" secondAttribute="bottom" constant="18" id="IZJ-ok-BtZ"/>
                     <constraint firstItem="mgr-7Z-pC7" firstAttribute="baseline" secondItem="T4f-Fd-Qlo" secondAttribute="baseline" id="PVl-ns-5LD"/>
                     <constraint firstItem="Dh6-qJ-21y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Uwh-QU-u2p"/>
                     <constraint firstItem="T4f-Fd-Qlo" firstAttribute="firstBaseline" secondItem="mgr-7Z-pC7" secondAttribute="firstBaseline" id="Vzy-at-g2a"/>
-                    <constraint firstItem="VgO-Mg-LpS" firstAttribute="leading" secondItem="Dh6-qJ-21y" secondAttribute="trailing" constant="11" id="W5w-nk-cUW"/>
+                    <constraint firstItem="VgO-Mg-LpS" firstAttribute="leading" secondItem="Dh6-qJ-21y" secondAttribute="trailing" constant="9" id="W5w-nk-cUW"/>
                     <constraint firstItem="mgr-7Z-pC7" firstAttribute="centerY" secondItem="VgO-Mg-LpS" secondAttribute="centerY" id="aXx-UG-pGX"/>
                     <constraint firstItem="Dh6-qJ-21y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="c1H-FT-dIY"/>
-                    <constraint firstItem="T4f-Fd-Qlo" firstAttribute="leading" secondItem="mgr-7Z-pC7" secondAttribute="trailing" constant="12" id="cY1-1F-1NU"/>
+                    <constraint firstItem="T4f-Fd-Qlo" firstAttribute="leading" secondItem="mgr-7Z-pC7" secondAttribute="trailing" constant="15" id="cY1-1F-1NU"/>
                     <constraint firstItem="Vj9-eP-ERP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="kuF-h3-Oxh"/>
                     <constraint firstItem="mgr-7Z-pC7" firstAttribute="bottom" secondItem="Dh6-qJ-21y" secondAttribute="bottom" id="mXw-F6-uMh"/>
                     <constraint firstAttribute="trailingMargin" secondItem="T4f-Fd-Qlo" secondAttribute="trailing" constant="14" id="ncr-VJ-QKr"/>

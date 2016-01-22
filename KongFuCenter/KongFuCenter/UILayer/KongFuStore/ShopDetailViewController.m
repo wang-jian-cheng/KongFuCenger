@@ -129,21 +129,11 @@
             priceLbl.text = priceStr;
             [cell addSubview:priceLbl];
             
-            NSString *oldPriceStr = [NSString stringWithFormat:@"¥%@",@"20.00"];
-            CGSize oldPriceSize = [oldPriceStr sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]}];
-            UILabel *oldPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(priceLbl.frame.origin.x + priceLbl.frame.size.width + 10, 5, oldPriceSize.width, 21)];
-            oldPriceLbl.textColor = [UIColor colorWithRed:0.45 green:0.45 blue:0.45 alpha:1];
-            oldPriceLbl.font = [UIFont systemFontOfSize:14];
-            oldPriceLbl.text = oldPriceStr;
-            [cell addSubview:oldPriceLbl];
-            UIView *delLineView = [[UIView alloc] initWithFrame:CGRectMake(0, (oldPriceLbl.frame.size.height - 1) / 2, oldPriceSize.width, 1)];
-            delLineView.backgroundColor = [UIColor grayColor];
-            [oldPriceLbl addSubview:delLineView];
-            
             UILabel *byLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, priceLbl.frame.origin.y + priceLbl.frame.size.height + 5, SCREEN_WIDTH / 3, 21)];
             byLbl.font = [UIFont systemFontOfSize:15];
             byLbl.textColor = [UIColor colorWithRed:0.45 green:0.45 blue:0.45 alpha:1];
             byLbl.text = @"包邮";
+            
             [cell addSubview:byLbl];
             
             UILabel *browseNum = [[UILabel alloc] initWithFrame:CGRectMake(byLbl.frame.origin.x + byLbl.frame.size.width, priceLbl.frame.origin.y + priceLbl.frame.size.height + 5, SCREEN_WIDTH / 3, 21)];
@@ -224,11 +214,17 @@
             mContent.text = mContentStr;
             [cell addSubview:mContent];
             
-            UILabel *mDate = [[UILabel alloc] initWithFrame:CGRectMake(mName.frame.origin.x, mName.frame.origin.y + mName.frame.size.height + 2 + contentHeight + 5, 200, 21)];
+            UILabel *mDate = [[UILabel alloc] initWithFrame:CGRectMake(mName.frame.origin.x, mName.frame.origin.y + mName.frame.size.height + 2 + contentHeight + 5, 150, 21)];
             mDate.font = [UIFont systemFontOfSize:12];
             mDate.text = @"2016-01-03 10:20:00";
             mDate.textColor = [UIColor colorWithRed:0.46 green:0.46 blue:0.46 alpha:1];
             [cell addSubview:mDate];
+            
+            UILabel *mSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(mDate.frame.origin.x + mDate.frame.size.width, mName.frame.origin.y + mName.frame.size.height + 2 + contentHeight + 5, 200, 21)];
+            mSpecLbl.font = [UIFont systemFontOfSize:12];
+            mSpecLbl.text = [NSString stringWithFormat:@"规格:%@",@"S/黑色"];
+            mSpecLbl.textColor = [UIColor colorWithRed:0.46 green:0.46 blue:0.46 alpha:1];
+            [cell addSubview:mSpecLbl];
             
             return cell;
         }

@@ -267,9 +267,11 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [mTableView deselectRowAtIndexPath:indexPath animated:YES];
-    ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
-    [self.navigationController pushViewController:shopDetailVC animated:YES];
+    if (indexPath.section > 0 && indexPath.row > 0) {
+        [mTableView deselectRowAtIndexPath:indexPath animated:YES];
+        ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
+        [self.navigationController pushViewController:shopDetailVC animated:YES];
+    }
 }
 
 @end
