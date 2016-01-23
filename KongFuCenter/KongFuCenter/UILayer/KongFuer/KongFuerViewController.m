@@ -11,6 +11,7 @@
 #import "WYNewsViewController.h"
 #import "NewConcernFriendViewController.h"
 #import "AnnouncementViewController.h"
+#import "IntegralExchangeViewController.h"
 
 @interface KongFuerViewController ()
 {
@@ -73,7 +74,7 @@
     cateGoryV = [NSMutableArray array];
     [cateGoryV addObjectsFromArray:@[@[@"视频直播"],
                                      @[@"训练计划",@"成长记录"],
-                                     @[@"我的积分"]]
+                                     @[@"积分兑换"]]
                                     ];
 }
 
@@ -713,9 +714,11 @@
             break;
         case 2://积分
         {
-            JiFenViewController *jiFenViewCtl = [[JiFenViewController alloc] init];
-            jiFenViewCtl.navtitle = cateGoryV[indexPath.section-2][indexPath.row];
-            [self.navigationController pushViewController:jiFenViewCtl animated:YES];
+//            JiFenViewController *jiFenViewCtl = [[JiFenViewController alloc] init];
+//            jiFenViewCtl.navtitle = cateGoryV[indexPath.section-2][indexPath.row];
+//            [self.navigationController pushViewController:jiFenViewCtl animated:YES];
+            IntegralExchangeViewController *integralExchangeVC = [[IntegralExchangeViewController alloc] init];
+            [self.navigationController pushViewController:integralExchangeVC animated:YES];
             
         }
             break;

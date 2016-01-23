@@ -47,6 +47,12 @@
     if ([dict[@"code"] intValue] == 200) {
         userInfoArray = dict[@"data"];
         NSLog(@"%@",userInfoArray);
+        RCUserInfo *userInfo = [[RCUserInfo alloc] init];
+        userInfo.userId = [Toolkit judgeIsNull:[userInfoArray valueForKey:@"Id"]];
+        userInfo.name = [Toolkit judgeIsNull:[userInfoArray valueForKey:@"RemarkName"]];
+        userInfo.portraitUri = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[userInfoArray valueForKey:@"PhotoPath"]]];
+        [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:[Toolkit judgeIsNull:[userInfoArray valueForKey:@"Id"]]];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"refreshList" object:nil];
         [self initViews];
     }
 }
@@ -534,6 +540,10 @@
         [SVProgressHUD showSuccessWithStatus:@"设置成功" maskType:SVProgressHUDMaskTypeBlack];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getUserInfoById:"];
         [dataProvider getUserInfo:[Toolkit getUserID] andfriendid:_userID];
+        //[[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:_userID];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"refreshList" object:nil];
+        //- (void)refreshUserInfoCache:(RCUserInfo *)userInfo
+//    withUserId:(NSString *)userId;
     }
 }
 

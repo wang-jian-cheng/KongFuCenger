@@ -253,6 +253,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.section == 1){
+        
+    }
 }
 
 @end

@@ -11,6 +11,7 @@
 #import "UIImageView+WebCache.h"
 #import "ShopDetailViewController.h"
 #import "ClassificationViewController.h"
+#import "RecommendGoodsViewController.h"
 
 @interface KongFuStoreViewController (){
     UITableView *mTableView;
@@ -82,7 +83,8 @@
         }
             break;
         case 2:{
-            
+            RecommendGoodsViewController *recommendGoodsVC = [[RecommendGoodsViewController alloc] init];
+            [self.navigationController pushViewController:recommendGoodsVC animated:YES];
         }
             break;
         case 3:{
