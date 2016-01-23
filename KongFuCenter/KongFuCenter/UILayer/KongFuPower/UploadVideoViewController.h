@@ -11,7 +11,9 @@
 #import "BaseNavigationController.h"
 
 @interface UploadVideoViewController : BaseNavigationController
-
+{
+    UILabel *channelNameLab;
+}
 @property (nonatomic,strong) NSURL * VideoFilePath;
 @property (nonatomic,strong)NSString * uploadType;
 

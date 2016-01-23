@@ -59,6 +59,7 @@
     
     txt_title=[[UITextView alloc] initWithFrame:CGRectMake(playerView.frame.origin.x+playerView.frame.size.width+10, 74, SCREEN_WIDTH-(playerView.frame.origin.x+playerView.frame.size.width+20), playerView.frame.size.height)];
     txt_title.backgroundColor=ItemsBaseColor;
+    txt_title.textColor = [UIColor whiteColor];
     
     [self.view addSubview:txt_title];
     
@@ -69,16 +70,22 @@
     UILabel * lbl_title=[[UILabel alloc] initWithFrame:CGRectMake(0, 11, (SCREEN_WIDTH-20)/2, 20)];
     
     lbl_title.text=@"请选择视频分类";
-    
+    lbl_title.textColor = [UIColor whiteColor];
     [selectView addSubview:lbl_title];
+    
     
     UIImageView *rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right"]];
     rightView.frame = CGRectMake((SCREEN_WIDTH - 20 -20), 13.5, 15, 15);
     rightView.contentMode = UIViewContentModeScaleAspectFit;
     
-    
-    
     [selectView addSubview:rightView];
+    
+    channelNameLab = [[UILabel alloc] initWithFrame:CGRectMake(rightView.frame.origin.x - 100, 0, 90, selectView.frame.size.height)];
+//    channelNameLab.font = [UIFont systemFontOfSize:14];
+    channelNameLab.textColor = [UIColor whiteColor];
+    channelNameLab.textAlignment = NSTextAlignmentRight;
+    
+    [selectView addSubview:channelNameLab];
     
     UIButton * btn_selectFenlei=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, selectView.frame.size.width, selectView.frame.size.height)];
     
@@ -92,7 +99,7 @@
     txt_Content=[[UITextView alloc] initWithFrame:CGRectMake(10,selectView.frame.size.height+selectView.frame.origin.y+10 , SCREEN_WIDTH-20, SCREEN_HEIGHT-selectView.frame.size.height-selectView.frame.origin.y-20)];
     
     txt_Content.backgroundColor=ItemsBaseColor;
-    
+    txt_Content.textColor = [UIColor whiteColor];
     [self.view addSubview:txt_Content];
     
     
@@ -234,7 +241,8 @@
 {
     NSLog(@"%@",[notice object]);
     
-    channelID=[notice object];
+    channelID=[[notice object] objectForKey:@"channelId"];
+    channelNameLab.text = [[notice object] objectForKey:@"channelName"];
 }
 
 

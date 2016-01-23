@@ -117,6 +117,16 @@
     [_mainTableView reloadData];
 }
 
+-(void)rightBtnClick:(UIButton *)sender
+{
+    if([sender.titleLabel.text isEqualToString:@"去付款"])
+    {
+        PayOrderViewController *payOrderViewCtl = [[PayOrderViewController alloc] init];
+        payOrderViewCtl.navtitle = @"确认订单";
+        [self.navigationController pushViewController:payOrderViewCtl animated:YES];
+    }
+}
+
 #pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -152,6 +162,7 @@
             btnRight.backgroundColor = YellowBlock;
             btnRight.titleLabel.font = [UIFont systemFontOfSize:14];
             [cell addSubview:btnRight];
+            [btnRight addTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             
             UIButton *btnLeft = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80-20-btnRight.frame.size.width),
                                                                            10, 80, 30)];
@@ -252,6 +263,7 @@
     {
         return 50;
     }
+    
     
     return _cellHeight;
 }

@@ -7,7 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "PayOrderViewController.h"
 typedef enum _orderMode{
     orderNeedPay,
     orderNeedSend,

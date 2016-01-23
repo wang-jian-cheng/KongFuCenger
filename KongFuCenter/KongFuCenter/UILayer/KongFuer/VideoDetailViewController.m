@@ -1275,7 +1275,7 @@
         @try {
             NSDictionary *tempDict = videoCommentArray[indexPath.row -2];
             
-            commentTextView.text = [NSString stringWithFormat:@"回复://%@:%@",tempDict[@"CommenterNicName"],tempDict[@"Content"]];
+            commentTextView.text = [NSString stringWithFormat:@"@%@:%@",tempDict[@"CommenterNicName"],tempDict[@"Content"]];
             [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
             [commentTextView becomeFirstResponder];
             
