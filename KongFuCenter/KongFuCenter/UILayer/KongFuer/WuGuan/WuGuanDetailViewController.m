@@ -439,7 +439,7 @@
             else if (indexPath.row == 1)
             {
                 UIImageView * image = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 15, cell.frame.size.height - 30 , cell.frame.size.height - 30)];
-                image.image = [UIImage imageNamed:@"dingwei@2x"];
+                image.image = [UIImage imageNamed:@"dingwei"];
                 [cell addSubview:image];
                 
                 UILabel * address = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(image.frame) + 5, 5, self.view.frame.size.width - GapToLeft , cell.frame.size.height - 10)];

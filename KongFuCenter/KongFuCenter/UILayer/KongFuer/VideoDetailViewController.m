@@ -23,16 +23,16 @@
 #define GapToLeft           13
 #define TextColors          [UIColor whiteColor]
 
-typedef enum _ActionType{
-    
-    cancelZan = 100,
-    setZan,
-    cancelCollect,
-    setCollect,
-    setZhuanfa,
-    jubao
-    
-}ActionType;
+//typedef enum _ActionType{
+//    
+//    cancelZan = 100,
+//    setZan,
+//    cancelCollect,
+//    setCollect,
+//    setZhuanfa,
+//    jubao
+//    
+//}ActionType;
 
 @interface VideoDetailViewController ()<PlayerControllerDelegate>
 {
@@ -656,7 +656,7 @@ typedef enum _ActionType{
                 [SVProgressHUD showSuccessWithStatus:@"转发成功" maskType:SVProgressHUDMaskTypeBlack];
                 break;
             case jubao:
-                [SVProgressHUD showSuccessWithStatus:@"举报成功" maskType:SVProgressHUDMaskTypeBlack];
+                [SVProgressHUD showSuccessWithStatus:@"举报已提交等待后台审核" maskType:SVProgressHUDMaskTypeBlack];
                 break;
             default:
             {
@@ -667,7 +667,7 @@ typedef enum _ActionType{
     }
     else
     {
-        [SVProgressHUD showErrorWithStatus:@"操作失败" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"操作失败:%@",dict[@"data"]] maskType:SVProgressHUDMaskTypeBlack];
     }
 }
 -(void)sendCommentBtnClick:(id)sender

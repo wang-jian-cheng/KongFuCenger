@@ -11,5 +11,7 @@
 @interface OneShuoshuoViewController : BaseNavigationController
 
 @property(nonatomic,strong) NSString *shuoshuoID;
+@property(nonatomic,strong) NSString *teamImg;
+@property(nonatomic,strong) NSString *teamName;
 
 @end

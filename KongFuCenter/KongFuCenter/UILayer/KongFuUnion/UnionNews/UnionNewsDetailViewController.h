@@ -10,7 +10,7 @@
 #import "CustomButton.h"
 #import "RCLabel.h"
 #import "UserHeadView.h"
-@interface UnionNewsDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
+@interface UnionNewsDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate>
 {
     CGFloat _keyHeight;
     NSIndexPath *tempIndexPath;

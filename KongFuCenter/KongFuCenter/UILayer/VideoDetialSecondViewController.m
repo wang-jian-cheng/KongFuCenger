@@ -19,17 +19,17 @@
 #define GapToLeft           20
 #define TextColors          [UIColor whiteColor]
 
-
-typedef enum _ActionType{
-
-    cancelZan = 100,
-    setZan,
-    cancelCollect,
-    setCollect,
-    setZhuanfa,
-    jubao
-    
-}ActionType;
+//
+//typedef enum _ActionType{
+//
+//    cancelZan = 100,
+//    setZan,
+//    cancelCollect,
+//    setCollect,
+//    setZhuanfa,
+//    jubao
+//    
+//}ActionType;
 
 
 @interface VideoDetialSecondViewController ()
@@ -560,7 +560,7 @@ typedef enum _ActionType{
                 [SVProgressHUD showSuccessWithStatus:@"已转发" maskType:SVProgressHUDMaskTypeBlack];
                 break;
             case jubao:
-                [SVProgressHUD showSuccessWithStatus:@"举报成功" maskType:SVProgressHUDMaskTypeBlack];
+                [SVProgressHUD showSuccessWithStatus:@"举报已提交等待后台审核" maskType:SVProgressHUDMaskTypeBlack];
                 break;
             default:
                 [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];

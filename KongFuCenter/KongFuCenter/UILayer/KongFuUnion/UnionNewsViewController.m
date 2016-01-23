@@ -332,6 +332,7 @@
     unionNew.collectNum =[ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"FavoriteNum"]];
     unionNew.isFavorite = [ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"IsFavorite"]];
     unionNew.readNum = [ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"VisitNum"]];
+    unionNew.content =newArr[indexPath.row][@"Content"];
     [self.navigationController pushViewController:unionNew animated:YES];
     
     

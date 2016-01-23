@@ -175,13 +175,13 @@
     {
         if([sender isOn])
         {
-            [self UnShieldFriendNew];
-            NSLog(@"Yes");
+            [self ShieldFriendNew];
+            NSLog(@"No");
         }
         else
         {
-            [self ShieldFriendNew];
-            NSLog(@"No");
+            [self UnShieldFriendNew];
+            NSLog(@"Yes");
         }
     }
     else if(sender.tag == 3)
@@ -253,7 +253,7 @@
                 
             case 0:
             {
-                cell.textLabel.text = @"他的动态";
+                cell.textLabel.text = @"不看他的动态";
                 cell.accessoryType = UITableViewCellAccessoryNone;
 
                 UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-(20+50), _cellHeight/3, 50, _cellHeight/3)];
@@ -429,11 +429,11 @@
 }
 
 -(void)MakeActionCallBack:(id)dict{
-    [SVProgressHUD dismiss];
+//    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
-        [SVProgressHUD showSuccessWithStatus:@"举报成功~"];
+        [SVProgressHUD showSuccessWithStatus:@"举报已提交等待后台审核" maskType:SVProgressHUDMaskTypeBlack];
     }else{
-        [SVProgressHUD showSuccessWithStatus:@"举报失败~"];
+        [SVProgressHUD showErrorWithStatus:@"举报提交失败，请检查网络" maskType:SVProgressHUDMaskTypeBlack];
     }
 }
 
