@@ -1284,6 +1284,8 @@
                               @"maximumRows":maximumRows};
         DLog(@"%@",prm);
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 -(void)getOtherTeamNews:(NSString *)teamid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
@@ -1296,6 +1298,8 @@
                               @"maximumRows":maximumRows};
         DLog(@"%@",prm);
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 
 }

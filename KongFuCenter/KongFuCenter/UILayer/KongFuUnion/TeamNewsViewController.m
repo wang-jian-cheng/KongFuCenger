@@ -308,7 +308,7 @@
 
 -(void)getTeamNews
 {
-   // [SVProgressHUD showWithStatus:@"刷新" maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
 
     if(self.teamId == nil)
     {
