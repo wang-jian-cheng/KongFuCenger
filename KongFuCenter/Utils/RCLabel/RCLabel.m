@@ -720,6 +720,12 @@ CGFloat MyGetWidthCallback( void* refCon ){
 //                        imgView.contentMode = UIViewContentModeScaleAspectFit;
 //                        [self addSubview:imgView];
                         
+                        
+                        if(runBounds.size.width > runBounds.size.height)
+                        {
+                            runBounds.size.width = runBounds.size.height;
+                        }
+                        
                         CGContextDrawImage(context, runBounds, [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Kimg_path,url]]]].CGImage);
                         
                     }

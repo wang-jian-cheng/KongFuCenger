@@ -92,6 +92,7 @@
             orderViewCtl.navtitle = @"订单";
             [self.navigationController pushViewController:orderViewCtl animated:YES];
         }
+            break;
         case 4:{
             ShoppingCartViewController *shoppingCart = [[ShoppingCartViewController alloc] init];
             shoppingCart.navtitle = @"购物车";

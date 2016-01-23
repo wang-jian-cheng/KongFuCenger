@@ -140,11 +140,29 @@
             }
             messBody.posterReplies = commentArray;
         }
-        NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
+        NSString *PhotoPath ;
+        if(self.teamImg !=nil)
+        {
+            PhotoPath = self.teamImg;
+        }
+        else
+        {
+            PhotoPath= [itemDict valueForKey:@"PhotoPath"];
+        }
         NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
         messBody.mID = [itemDict valueForKey:@"Id"];
         messBody.posterImgstr = url;//@"mao.jpg";
-        messBody.posterName = [itemDict valueForKey:@"NicName"];
+        
+        if(self.teamName !=nil)
+        {
+            messBody.posterName = self.teamName;
+        }
+        else
+        {
+            messBody.posterName= [itemDict valueForKey:@"NicName"];
+        }
+        
+        
         messBody.posterIntro = @"";
         messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
         messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
@@ -274,6 +292,7 @@
     // mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     mainTable.delegate = self;
     mainTable.dataSource = self;
+    mainTable.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mainTable];
     
 }

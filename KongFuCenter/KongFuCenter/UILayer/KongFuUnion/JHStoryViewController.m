@@ -32,7 +32,7 @@
     //初始化参数
     self.view.backgroundColor = BACKGROUND_COLOR;
     mCellHeight = SCREEN_HEIGHT / 6;
-    [self setBarTitle:@"行业咨询"];
+    [self setBarTitle:@"行业资讯"];
     [self addLeftButton:@"left"];
     
     selectMenuIndex = 0;
@@ -63,6 +63,7 @@
 }
 
 -(void)GetCateForJianghuCallBack:(id)dict{
+    DLog(@"%@",dict);
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         menuArray = [[NSArray alloc] initWithArray:dict[@"data"]];
@@ -257,6 +258,7 @@
     unionNewsViewCtl.collectNum = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"FavoriteNum"]];
     unionNewsViewCtl.isFavorite = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"IsFavorite"]];
     unionNewsViewCtl.readNum = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"VisitNum"]];
+    unionNewsViewCtl.content = jhStoryArray[indexPath.row][@"Content"];
     [self.navigationController pushViewController:unionNewsViewCtl animated:YES];
 }
 

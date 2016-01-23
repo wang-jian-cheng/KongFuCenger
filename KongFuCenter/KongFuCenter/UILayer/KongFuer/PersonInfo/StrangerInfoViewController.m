@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
+    self.navtitle = @"陌生人资料";
     self.view.backgroundColor = BACKGROUND_COLOR;
     
     userInfoArray = [[NSDictionary alloc] init];

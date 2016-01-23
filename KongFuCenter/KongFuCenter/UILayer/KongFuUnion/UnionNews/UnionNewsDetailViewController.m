@@ -17,6 +17,7 @@
 
 #define  WebViewHeight  (9*_cellHeight)
 
+#define USECONTENT  0
 @interface UnionNewsDetailViewController ()
 {
 #pragma mark - pram for tableView
@@ -72,7 +73,7 @@
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
     [self.view addGestureRecognizer:tapGesture];
-    
+    tapGesture.delegate = self;
     
     //    //注册通知,监听键盘弹出事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
@@ -180,6 +181,25 @@
 {
     [self.view endEditing:YES];
     
+}
+
+//设置点在某个view时部触发事件
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    // 输出点击的view的类名
+    NSLog(@"-%@", NSStringFromClass([touch.view class]));
+    
+    //||[NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"] [NSStringFromClass([touch.view class]) isEqualToString:@"UIView"]||
+    
+    // if(gestureRecognizer.d)
+    
+    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]||[NSStringFromClass([touch.view class]) isEqualToString:@"UIButton"])
+    {
+        return NO;
+    }
+    //  NSLog(@"return YES");
+    return  YES;
 }
 
 -(void)btnClick:(UIButton *)sender
@@ -314,22 +334,20 @@
             if(indexPath.row==0)
             {
                 
-                if(0)
+                if(self.content!=nil&&USECONTENT)
                 {
-                    [cell addSubview:webView];
-                     cell.backgroundColor = [UIColor whiteColor];
-                    RCLabel *label = [[RCLabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, WebViewHeight)];
-                    [label setBackgroundColor:[UIColor clearColor]];
-//                    RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:@"<font size=14><p align=justify><font color=red>JUSTIFY哈哈哈哈哈哈</font> It’s been almost a decade since the publication of “Moneyball,”</p>\n <p align=left><font color=red>LEFT ALIGNED</font>  Michael Lewis’s famous book-turned-movie about how the small-market Oakland Athletics used statistical artistry to compete against their (much) richer rivals. </p>\n<p align=right><font color=red>RIGHT ALIGNED</font> Billy Beane is still the A’s general manager, but here’s a modest proposal for his next act.</p>\n<p align=center><font color=red>CENTER ALIGNED</font> He could become the head of another budget-strapped sports organization like, say, the Olympic Committee of Kyrgyzstan — or another small-market country with limited resources. Bishkek is nice this time of year!</p></font> "];
                     
-//                    RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:@"<font size = 20>Which browser is the best?</font>\n<a href='http://www.firefox.com'><img src='\'http://s12.sinaimg.cn/orignal/4aa94566gce6b2f40dc9b&690\'\"'>Firefox</a>\n<a href='http://windows.microsoft.com/en-US/internet-explorer/products/ie/home'><img src='index_3.png'>IE</a><a href='http://www.chrome.com'><img src='chrome.jpg'>Chrome</a><a href='http://www.apple.com/safari'><img src='safari.png'>Safari</a>" ];
+                    RCLabel *label = [[RCLabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, [Toolkit heightWithString:self.content fontSize:14 width:SCREEN_WIDTH]+80+20)];
+                    [label setBackgroundColor:[UIColor clearColor]];
+                    
                     RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:self.content];
                     label.componentsAndPlainText = componentsDS;
-                    
+                    label.textColor = [UIColor whiteColor];
                     [cell addSubview:label];
                 }
                 else
                 {
+                    [cell addSubview:webView];
                     webView.scalesPageToFit = YES;
                     
                     webView.frame = CGRectMake(0, 0, SCREEN_WIDTH, WebViewHeight);
@@ -552,7 +570,12 @@
             if (indexPath.row == 1) {
                 return _cellHeight;
             }
-            return WebViewHeight;
+            if(self.content!=nil&&USECONTENT)
+            {
+                return [Toolkit heightWithString:self.content fontSize:14 width:SCREEN_WIDTH]+80+20;
+            }
+            else
+                return WebViewHeight;
             
             break;
         case CommentSection:
@@ -587,7 +610,7 @@
         @try {
             NSDictionary *tempDict = videoCommentArray[indexPath.row -2];
             
-            commentTextView.text = [NSString stringWithFormat:@"//%@:%@",tempDict[@"CommenterNicName"],tempDict[@"Content"]];
+            commentTextView.text = [NSString stringWithFormat:@"回复：//%@:%@",tempDict[@"CommenterNicName"],tempDict[@"Content"]];
             [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
             [commentTextView becomeFirstResponder];
             

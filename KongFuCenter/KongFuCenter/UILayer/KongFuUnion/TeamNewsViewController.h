@@ -11,6 +11,19 @@
 #import "MJRefresh.h"
 #import "ChatContentViewController.h"
 #import "PlayVideoViewController.h"
+#import "OneShuoshuoViewController.h"
+
+typedef enum _ActionType{
+    
+    cancelZan = 100,
+    setZan,
+    cancelCollect,
+    setCollect,
+    setZhuanfa,
+    jubao
+    
+}ActionType;
+
 @interface TeamNewsViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
 {
     int pageNo;
@@ -23,6 +36,8 @@
     NSString *kAdmin;
     BOOL isComment;
     NSUserDefaults *userDefault;
+    
+    ActionType actionType;
 }
 @property(nonatomic)NSString *teamId;//设置则显示其他战队动态
 @property(nonatomic)NSString *teamName;

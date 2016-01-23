@@ -8,6 +8,7 @@
 
 #import "BaseNavigationController.h"
 #import "MJRefresh.h"
+#import "OrderDetailViewController.h"
 
 @interface OrderMainViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {

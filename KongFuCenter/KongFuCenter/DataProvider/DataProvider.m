@@ -970,7 +970,7 @@
 }
 
 -(void)GetDongtaiById:(NSString *)userid andmessid:(NSString *)messid{
-    if(userid){
+    if(userid&&messid){
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetDongtaiById",Url];
         NSDictionary *prm = @{@"userid":userid,@"messid":messid};
         [self PostRequest:url andpram:prm];

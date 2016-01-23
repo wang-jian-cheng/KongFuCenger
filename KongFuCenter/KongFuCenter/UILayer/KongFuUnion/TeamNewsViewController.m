@@ -128,7 +128,7 @@
             NSString *url;
             if(self.teamImg!=nil)
             {
-                url = self.teamImg;
+                url = [NSString stringWithFormat:@"%@%@",Kimg_path ,self.teamImg];
             }
             else
             {
@@ -225,7 +225,7 @@
         // 结束刷新
         
     }];
-    [mainTable.mj_header beginRefreshing];
+    
     
     // 上拉刷新
 //    mainTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -285,6 +285,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+    [mainTable.mj_header beginRefreshing];
 }
 
 -(void)clickRightButton:(UIButton *)sender
@@ -573,40 +574,48 @@
     
     @try {
         
-        
-        
-        cell.CommentBtn.tag = indexPath.row;
-        [cell.CommentBtn addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
-        cell.CommentBtnHF.tag = indexPath.row;
-        [cell.CommentBtnHF addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
-        
-        cell.zanBtn.tag = indexPath.row;
-        [cell.zanBtn addTarget:self action:@selector(zanEvent:) forControlEvents:UIControlEventTouchUpInside];
-        YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:indexPath.row];
-        WFMessageBody *m = ymData.messageBody;
-        if (m.isFavour == YES) {//此时该取消赞
-            [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan"] forState:UIControlStateNormal];
-        }else{
-            [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan_no"] forState:UIControlStateNormal];
+        @try {
+            
+            cell.CommentBtn.tag = indexPath.row;
+            [cell.CommentBtn addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
+            cell.CommentBtnHF.tag = indexPath.row;
+            [cell.CommentBtnHF addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
+            
+            cell.zanBtn.tag = indexPath.row;
+            [cell.zanBtn addTarget:self action:@selector(zanEvent:) forControlEvents:UIControlEventTouchUpInside];
+            YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:indexPath.row];
+            WFMessageBody *m = ymData.messageBody;
+            if (m.isFavour == YES) {//此时该取消赞
+                [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan"] forState:UIControlStateNormal];
+            }else{
+                [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan_no"] forState:UIControlStateNormal];
+            }
+            cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey
+            
+            
+            cell.stamp = indexPath.row;
+            //cell.replyBtn.appendIndexPath = indexPath;
+            //[cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
+            cell.delegate = self;
+            cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
+            [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
+            
+            
+            if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0){
+                UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoImgEvent:)];
+                cell.videoImg.userInteractionEnabled = YES;
+                NSLog(@"%d",(int)indexPath.row);
+                [cell.videoImg addGestureRecognizer:clickVideoImg];
+                clickVideoImg.view.tag = indexPath.row;
+            }
         }
-        cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey
-        
-        
-        cell.stamp = indexPath.row;
-        //cell.replyBtn.appendIndexPath = indexPath;
-        //[cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
-        cell.delegate = self;
-        cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
-        [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
-        
-        
-        if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0){
-            UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoImgEvent:)];
-            cell.videoImg.userInteractionEnabled = YES;
-            NSLog(@"%d",(int)indexPath.row);
-            [cell.videoImg addGestureRecognizer:clickVideoImg];
-            clickVideoImg.view.tag = indexPath.row;
+        @catch (NSException *exception) {
+            
         }
+        @finally {
+            
+        }
+        
 
     }
     @catch (NSException *exception) {
@@ -663,6 +672,28 @@
     }
     
     return headView;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    OneShuoshuoViewController *oneShuoshuoVC = [[OneShuoshuoViewController alloc] init];
+    oneShuoshuoVC.shuoshuoID = [wyArray[indexPath.row] valueForKey:@"Id"];
+    if(self.teamName!=nil)
+    {
+        oneShuoshuoVC.teamName = self.teamName;
+    }
+    else
+    {
+        oneShuoshuoVC.teamName = get_sp(@"TeamName");
+    }
+    if(self.teamImg!=nil)
+    {
+        oneShuoshuoVC.teamImg = self.teamImg;
+    }
+    else
+    {
+        oneShuoshuoVC.teamImg = get_sp(@"TeamImg");
+    }
+    [self.navigationController pushViewController:oneShuoshuoVC animated:YES];
 }
 
 -(void)joinTeamBtnClick:(UIButton *)sender
@@ -739,7 +770,7 @@
     UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 40) / 2 , 0, 40, 40)];
     NSString *url ;
     if (self.teamImg !=nil) {
-        url = self.teamImg;
+        url = [NSString stringWithFormat:@"%@%@",Kimg_path ,self.teamImg];
     }
     else{
         url = [NSString stringWithFormat:@"%@%@",Kimg_path,get_sp(@"TeamImg")];
@@ -1007,11 +1038,17 @@
     selectRow = (int)sender.tag;
     YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
     WFMessageBody *m = ymData.messageBody;
+    
+    [SVProgressHUD showWithStatus:@"提交更改" maskType:SVProgressHUDMaskTypeBlack];
+    
     if (m.isFavour == YES) {//此时该取消赞
+        actionType = cancelZan;
         DataProvider *dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
         [dataProvider voicedelete:[wyArray[sender.tag] valueForKey:@"Id"] andUserId:[Toolkit getUserID] andFlg:@"2"];
+        
     }else{
+        actionType = setZan;
         DataProvider *dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
         [dataProvider voiceAction:[wyArray[sender.tag] valueForKey:@"Id"] andUserId:[Toolkit getUserID] andFlg:@"2" andDescription:nil];
@@ -1022,6 +1059,14 @@
     DLog(@"%@",dict);
     
     if ([dict[@"code"] intValue] == 200) {
+        if(actionType == setZan)
+        {
+            [SVProgressHUD showSuccessWithStatus:@"赞＋1"];
+        }
+        else if(actionType == cancelZan)
+        {
+            [SVProgressHUD showSuccessWithStatus:@"取消成功"];
+        }
         YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
         WFMessageBody *m = ymData.messageBody;
         if (m.isFavour == YES) {//此时该取消赞
@@ -1040,6 +1085,7 @@
     }
     else
     {
+        [SVProgressHUD dismiss];
         UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
         [alert show];
     }

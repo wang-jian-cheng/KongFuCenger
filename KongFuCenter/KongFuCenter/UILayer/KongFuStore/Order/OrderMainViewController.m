@@ -8,6 +8,8 @@
 
 #import "OrderMainViewController.h"
 
+
+
 @interface OrderMainViewController ()
 {
     NSArray *cateArr;
@@ -16,6 +18,8 @@
     CGFloat _cellHeight;
     
     UITableView *_mainTableView;
+    
+    OrderMode orderMode;
 }
 @end
 
@@ -26,16 +30,20 @@
     
     cateArr = @[@"待付款",@"待发货",@"待收货",@"已收货"];
     btnArr = [NSMutableArray array];
-    
+    [self addLeftButton:@"left"];
     [self initViews];
     // Do any additional setup after loading the view.
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
 
 -(void)initViews
 {
     UIView *viewForBtns = [[UIView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, 44)];
-    for (int i = 0;i< cateArr.count; i++) {
+    for (int i = orderNeedPay;i< (cateArr.count+orderNeedPay); i++) {
         UIButton *cateBtn = [[UIButton alloc] initWithFrame:CGRectMake(0 + i*(SCREEN_WIDTH/cateArr.count), 0,(SCREEN_WIDTH/cateArr.count) , viewForBtns.frame.size.height)];
         
         if(i == 0)
@@ -95,6 +103,7 @@
 
 -(void)cateBtnClick:(UIButton *)sender
 {
+    orderMode = (OrderMode)sender.tag;
     sender.selected = YES;
     for(int i =0;i<btnArr.count;i++)
     {
@@ -105,6 +114,7 @@
     }
     //更新数据
     [_mainTableView.mj_header beginRefreshing];
+    [_mainTableView reloadData];
 }
 
 #pragma mark -  tableview  Delegate
@@ -134,9 +144,52 @@
     cell.backgroundColor = ItemsBaseColor;
     @try {
         
+    
+        
         if(indexPath.row == 2)
         {
-        
+            UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80), 10, 80, 30)];
+            btnRight.backgroundColor = YellowBlock;
+            btnRight.titleLabel.font = [UIFont systemFontOfSize:14];
+            [cell addSubview:btnRight];
+            
+            UIButton *btnLeft = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80-20-btnRight.frame.size.width),
+                                                                           10, 80, 30)];
+            btnLeft.backgroundColor = [UIColor grayColor];
+            btnLeft.titleLabel.font = [UIFont systemFontOfSize:14];
+            [cell addSubview:btnLeft];
+            
+            switch (orderMode) {
+                case orderNeedPay:
+                {
+                    [btnRight setTitle:@"去付款" forState:UIControlStateNormal];
+                    [btnLeft setTitle:@"取消订单" forState:UIControlStateNormal];
+                    btnLeft.hidden = NO;
+                }
+                    break;
+                case orderNeedSend:
+                {
+                    [btnRight setTitle:@"取消订单" forState:UIControlStateNormal];
+                    btnLeft.hidden = YES;
+                }
+                    break;
+                case orderNeedReceive:
+                {
+                    [btnRight setTitle:@"确认收货" forState:UIControlStateNormal];
+                    [btnLeft setTitle:@"查看物流" forState:UIControlStateNormal];
+                    btnLeft.hidden = NO;
+
+                }
+                    break;
+                case orderFinish:
+                {
+                    [btnRight setTitle:@"评价商品" forState:UIControlStateNormal];
+                    btnLeft.hidden = YES;
+                }
+                    break;
+                default:
+                    break;
+            }
         }
         else
         {
@@ -208,7 +261,13 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
-    }
+    
+    OrderDetailViewController *orderDetailViewCtl = [[OrderDetailViewController alloc] init];
+    orderDetailViewCtl.orderMode = orderMode;
+    orderDetailViewCtl.navtitle = @"订单详情";
+    [self.navigationController pushViewController:orderDetailViewCtl animated:YES];
+    
+}
 
 
 //设置划动cell是否出现del按钮，可供删除数据里进行处理
