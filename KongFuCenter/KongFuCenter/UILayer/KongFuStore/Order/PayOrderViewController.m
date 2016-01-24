@@ -1,22 +1,24 @@
 //
-//  OrderDetailViewController.m
+//  PayOrderViewController.m
 //  KongFuCenter
 //
-//  Created by Wangjc on 16/1/22.
+//  Created by Wangjc on 16/1/23.
 //  Copyright © 2016年 zykj. All rights reserved.
 //
 
-#import "OrderDetailViewController.h"
+#import "PayOrderViewController.h"
 
-@interface OrderDetailViewController ()
+@interface PayOrderViewController ()
 
 @end
 
-@implementation OrderDetailViewController
+@implementation PayOrderViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
+    roundBtnArr = [NSMutableArray array];
     [self initViews];
     // Do any additional setup after loading the view.
 }
@@ -28,7 +30,19 @@
     _cellHeight = 100;
     pageSize = 10;
     
-    //    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
+    for(int i = 0;i<2;i++)
+    {
+        SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake((SCREEN_WIDTH - 60), _cellHeight/2)];
+        if (i == 0) {
+            roundBtn.selected = YES;
+        }
+        roundBtn.backgroundColor = BACKGROUND_COLOR;
+        [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        roundBtn.tag = i+1000;
+        [roundBtnArr addObject:roundBtn];
+    }
+    
+    
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - 50 ) style:UITableViewStyleGrouped];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
@@ -39,70 +53,35 @@
     _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.scrollEnabled = NO;
     [self.view addSubview:_mainTableView];
-
+    
     UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - 50), SCREEN_WIDTH, 50)];
     btnBackView.backgroundColor = ItemsBaseColor;
     
-    UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80), 10, 80, 30)];
+    UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH  - 100), 0, 100, 30)];
     btnRight.backgroundColor = YellowBlock;
     btnRight.titleLabel.font = [UIFont systemFontOfSize:14];
-    
-    [btnRight addTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [btnBackView addSubview:btnRight];
+    btnRight.titleLabel.text = @"确认结算";
     
-    UIButton *btnLeft = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80-20-btnRight.frame.size.width),
-                                                                   10, 80, 30)];
-    btnLeft.backgroundColor = [UIColor grayColor];
-    btnLeft.titleLabel.font = [UIFont systemFontOfSize:14];
-    [btnBackView addSubview:btnLeft];
+//    UIButton *btnLeft = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80-20-btnRight.frame.size.width),
+//                                                                   10, 80, 30)];
+//    btnLeft.backgroundColor = [UIColor grayColor];
+//    btnLeft.titleLabel.font = [UIFont systemFontOfSize:14];
+//    [btnBackView addSubview:btnLeft];
     
-    switch (self.orderMode) {
-        case orderNeedPay:
-        {
-            [btnRight setTitle:@"去付款" forState:UIControlStateNormal];
-            [btnLeft setTitle:@"取消订单" forState:UIControlStateNormal];
-            btnLeft.hidden = NO;
-        }
-            break;
-        case orderNeedSend:
-        {
-            [btnRight setTitle:@"取消订单" forState:UIControlStateNormal];
-            btnLeft.hidden = YES;
-        }
-            break;
-        case orderNeedReceive:
-        {
-            [btnRight setTitle:@"确认收货" forState:UIControlStateNormal];
-            [btnLeft setTitle:@"查看物流" forState:UIControlStateNormal];
-            btnLeft.hidden = NO;
-            
-        }
-            break;
-        case orderFinish:
-        {
-            [btnRight setTitle:@"评价商品" forState:UIControlStateNormal];
-            btnLeft.hidden = YES;
-        }
-            break;
-        default:
-            break;
-    }
+
     [self.view addSubview:btnBackView];
     
 }
+
 #pragma mark - click action
 
--(void)rightBtnClick:(UIButton *)sender
+-(void)roundBtnClick:(UIButton *)sender
 {
-    if([sender.titleLabel.text isEqualToString:@"去付款"])
-    {
-        PayOrderViewController *payOrderViewCtl = [[PayOrderViewController alloc] init];
-        payOrderViewCtl.navtitle = @"确认订单";
-        [self.navigationController pushViewController:payOrderViewCtl animated:YES];
-    }
+
 }
 
-#pragma mark - tableview  Delegate
+#pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -117,6 +96,8 @@
     if (section == 1) {
         return 5;
     }
+    if(section == 2)
+        return 3;
     return 1;
     
 }
@@ -220,13 +201,13 @@
             else if(indexPath.row == 4)
             {
                 cell.textLabel.textColor = [UIColor whiteColor];
-                cell.textLabel.text = @"合计价格";
+                cell.textLabel.text = @"共两件商品";
                 cell.textLabel.font = [UIFont systemFontOfSize:15];
                 
                 UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 160-20), 0, 160, 50)];
-                tipLab.text = @"¥ 40.00";
+                tipLab.text = @"合计¥ 40.00";
                 tipLab.font = [UIFont systemFontOfSize:15];
-                tipLab.textColor = [UIColor whiteColor];
+                tipLab.textColor = [UIColor orangeColor];
                 tipLab.textAlignment = NSTextAlignmentRight;
                 [cell.contentView addSubview:tipLab];
             }
@@ -234,31 +215,33 @@
         
         if(indexPath.section == 2)
         {
-            UILabel *orderNum = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft,
-                                                                         10, SCREEN_WIDTH,
-                                                                          (_cellHeight-10*2)/3)];
-            orderNum.textColor = [UIColor whiteColor];
-            orderNum.text = [NSString stringWithFormat:@"订单编号：%@",@"123456789"];
-            orderNum.font = [UIFont systemFontOfSize:14];
-            [cell.contentView addSubview:orderNum];
-            
-            UILabel *paytimeLab = [[UILabel alloc] initWithFrame:CGRectMake(orderNum.frame.origin.x,
-                                                                          (orderNum.frame.origin.y+orderNum.frame.size.height),
-                                                                            SCREEN_WIDTH,
-                                                                          (_cellHeight-10*2)/3)];
-            paytimeLab.textColor = [UIColor whiteColor];
-            paytimeLab.text = [NSString stringWithFormat:@"付款时间：%@",@"2015:12:12 08:20:20"];
-            paytimeLab.font = [UIFont systemFontOfSize:14];
-            [cell.contentView addSubview:paytimeLab];
-            
-            UILabel *createtimeLab = [[UILabel alloc] initWithFrame:CGRectMake(paytimeLab.frame.origin.x,
-                                                                            (paytimeLab.frame.origin.y+paytimeLab.frame.size.height),
-                                                                               SCREEN_WIDTH,
-                                                                            (_cellHeight-10*2)/3)];
-            createtimeLab.textColor = [UIColor whiteColor];
-            createtimeLab.text = [NSString stringWithFormat:@"创建订单：%@",@"2015:12:12 07:20:20"];
-            createtimeLab.font = [UIFont systemFontOfSize:14];
-            [cell.contentView addSubview:createtimeLab];
+            if(indexPath.row == 0)
+            {
+                cell.textLabel.text = @"支付方式";
+                cell.textLabel.textColor = [UIColor whiteColor];
+                cell.textLabel.font = [UIFont systemFontOfSize:16];
+            }
+            else if(indexPath.row == 1)
+            {
+                cell.imageView.image = [UIImage imageNamed:@"zhifubao"];
+                cell.textLabel.text = @"支付宝支付";
+                cell.textLabel.textColor = [UIColor whiteColor];
+                cell.textLabel.font = [UIFont systemFontOfSize:14];
+                
+                [cell addSubview:roundBtnArr[indexPath.row - 1]];
+                
+                
+            }
+            else if(indexPath.row == 2)
+            {
+                cell.imageView.image = [UIImage imageNamed:@"weixin"];
+                cell.textLabel.text = @"微信支付";
+                cell.textLabel.textColor = [UIColor whiteColor];
+                cell.textLabel.font = [UIFont systemFontOfSize:14];
+                
+                [cell addSubview:roundBtnArr[indexPath.row - 1]];
+            }
+
             
         }
     }
@@ -284,6 +267,8 @@
             return 50;
         }
     }
+    if(indexPath.section == 2)
+        return 50;
     
     return _cellHeight;
 }
@@ -361,7 +346,6 @@
     return 10;
     
 }
-
 
 
 

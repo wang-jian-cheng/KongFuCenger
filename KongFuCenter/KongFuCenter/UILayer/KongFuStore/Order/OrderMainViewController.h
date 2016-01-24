@@ -9,7 +9,7 @@
 #import "BaseNavigationController.h"
 #import "MJRefresh.h"
 #import "OrderDetailViewController.h"
-
+#import "PayOrderViewController.h"
 @interface OrderMainViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
     int pageNo;

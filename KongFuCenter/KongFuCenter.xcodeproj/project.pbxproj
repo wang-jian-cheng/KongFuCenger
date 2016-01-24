@@ -143,6 +143,7 @@
 		B5207D821C51D4A900CE729F /* ie.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B5207D7E1C51D4A900CE729F /* ie.jpg */; };
 		B5207D831C51D4A900CE729F /* safari.png in Resources */ = {isa = PBXBuildFile; fileRef = B5207D7F1C51D4A900CE729F /* safari.png */; };
 		B5207D861C52198C00CE729F /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5207D851C52198C00CE729F /* OrderDetailViewController.m */; };
+		B5207D891C5355EA00CE729F /* PayOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5207D881C5355EA00CE729F /* PayOrderViewController.m */; };
 		B529B7A31C2110BF003AC21C /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B529B7981C2110BF003AC21C /* AlipaySDK.bundle */; };
 		B529B7A41C2110BF003AC21C /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B7991C2110BF003AC21C /* AlipaySDK.framework */; };
 		B529B7A51C2110BF003AC21C /* libpingpp+alipay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */; };
@@ -425,6 +426,14 @@
 		B7A6FC8D1C51D6AD00B6D665 /* store_shop_down.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A6FC8A1C51D6AD00B6D665 /* store_shop_down.png */; };
 		B7A6FC8E1C51D6AD00B6D665 /* store_shop_up.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A6FC8B1C51D6AD00B6D665 /* store_shop_up.png */; };
 		B7A6FC8F1C51D6AD00B6D665 /* store_shop_selectdown.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A6FC8C1C51D6AD00B6D665 /* store_shop_selectdown.png */; };
+		B7BED2181C531C280058CBF4 /* RecommendGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7BED2171C531C280058CBF4 /* RecommendGoodsViewController.m */; };
+		B7BED21C1C531EDC0058CBF4 /* IntegralExchangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7BED21B1C531EDC0058CBF4 /* IntegralExchangeViewController.m */; };
+		B7BED2201C531F520058CBF4 /* IntegralExchangeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7BED21E1C531F520058CBF4 /* IntegralExchangeTableViewCell.m */; };
+		B7BED2211C531F520058CBF4 /* IntegralExchangeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BED21F1C531F520058CBF4 /* IntegralExchangeTableViewCell.xib */; };
+		B7BED2241C5322BF0058CBF4 /* ExchangeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7BED2231C5322BF0058CBF4 /* ExchangeDetailViewController.m */; };
+		B7BED2271C5330590058CBF4 /* IntegralExchangeRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7BED2261C5330590058CBF4 /* IntegralExchangeRecordViewController.m */; };
+		B7BED22B1C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7BED2291C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.m */; };
+		B7BED22C1C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BED22A1C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.xib */; };
 		B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */; };
 		B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C428021C1524F3003F504F /* JHStoryViewController.m */; };
 		B7CB2A711C3B4C5C009E62ED /* OneShuoshuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CB2A701C3B4C5C009E62ED /* OneShuoshuoViewController.m */; };
@@ -755,6 +764,8 @@
 		B5207D7F1C51D4A900CE729F /* safari.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safari.png; sourceTree = "<group>"; };
 		B5207D841C52198C00CE729F /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
 		B5207D851C52198C00CE729F /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
+		B5207D871C5355EA00CE729F /* PayOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayOrderViewController.h; sourceTree = "<group>"; };
+		B5207D881C5355EA00CE729F /* PayOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayOrderViewController.m; sourceTree = "<group>"; };
 		B529B7981C2110BF003AC21C /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		B529B7991C2110BF003AC21C /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		B529B79A1C2110BF003AC21C /* libpingpp+alipay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libpingpp+alipay.a"; sourceTree = "<group>"; };
@@ -1198,6 +1209,20 @@
 		B7A6FC8A1C51D6AD00B6D665 /* store_shop_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_shop_down.png; sourceTree = "<group>"; };
 		B7A6FC8B1C51D6AD00B6D665 /* store_shop_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_shop_up.png; sourceTree = "<group>"; };
 		B7A6FC8C1C51D6AD00B6D665 /* store_shop_selectdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_shop_selectdown.png; sourceTree = "<group>"; };
+		B7BED2161C531C280058CBF4 /* RecommendGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendGoodsViewController.h; sourceTree = "<group>"; };
+		B7BED2171C531C280058CBF4 /* RecommendGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendGoodsViewController.m; sourceTree = "<group>"; };
+		B7BED21A1C531EDC0058CBF4 /* IntegralExchangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegralExchangeViewController.h; sourceTree = "<group>"; };
+		B7BED21B1C531EDC0058CBF4 /* IntegralExchangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralExchangeViewController.m; sourceTree = "<group>"; };
+		B7BED21D1C531F520058CBF4 /* IntegralExchangeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegralExchangeTableViewCell.h; sourceTree = "<group>"; };
+		B7BED21E1C531F520058CBF4 /* IntegralExchangeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralExchangeTableViewCell.m; sourceTree = "<group>"; };
+		B7BED21F1C531F520058CBF4 /* IntegralExchangeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntegralExchangeTableViewCell.xib; sourceTree = "<group>"; };
+		B7BED2221C5322BF0058CBF4 /* ExchangeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeDetailViewController.h; sourceTree = "<group>"; };
+		B7BED2231C5322BF0058CBF4 /* ExchangeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeDetailViewController.m; sourceTree = "<group>"; };
+		B7BED2251C5330590058CBF4 /* IntegralExchangeRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegralExchangeRecordViewController.h; sourceTree = "<group>"; };
+		B7BED2261C5330590058CBF4 /* IntegralExchangeRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralExchangeRecordViewController.m; sourceTree = "<group>"; };
+		B7BED2281C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegralExchangeRecordTableViewCell.h; sourceTree = "<group>"; };
+		B7BED2291C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralExchangeRecordTableViewCell.m; sourceTree = "<group>"; };
+		B7BED22A1C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntegralExchangeRecordTableViewCell.xib; sourceTree = "<group>"; };
 		B7C427FE1C1524F3003F504F /* JHStoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryTableViewCell.h; sourceTree = "<group>"; };
 		B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryTableViewCell.m; sourceTree = "<group>"; };
 		B7C428011C1524F3003F504F /* JHStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryViewController.h; sourceTree = "<group>"; };
@@ -1829,6 +1854,8 @@
 				B5207D2E1C506F3400CE729F /* OrderMainViewController.m */,
 				B5207D841C52198C00CE729F /* OrderDetailViewController.h */,
 				B5207D851C52198C00CE729F /* OrderDetailViewController.m */,
+				B5207D871C5355EA00CE729F /* PayOrderViewController.h */,
+				B5207D881C5355EA00CE729F /* PayOrderViewController.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1984,6 +2011,7 @@
 		B53791C21C157CEC00C45BA7 /* KongFuStore */ = {
 			isa = PBXGroup;
 			children = (
+				B7BED2191C531E430058CBF4 /* IntegralExchange */,
 				B5207D2C1C506E8E00CE729F /* Order */,
 				B51A7B701C4F5DCE00273384 /* ShoppingCart */,
 				B53791C31C157CFF00C45BA7 /* KongFuStoreViewController.h */,
@@ -1997,6 +2025,8 @@
 				B7172D7A1C50B93F009C4ABE /* ClassificationViewController.m */,
 				B7A6FC871C51CCB700B6D665 /* ShopListViewController.h */,
 				B7A6FC881C51CCB700B6D665 /* ShopListViewController.m */,
+				B7BED2161C531C280058CBF4 /* RecommendGoodsViewController.h */,
+				B7BED2171C531C280058CBF4 /* RecommendGoodsViewController.m */,
 			);
 			path = KongFuStore;
 			sourceTree = "<group>";
@@ -2955,6 +2985,25 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		B7BED2191C531E430058CBF4 /* IntegralExchange */ = {
+			isa = PBXGroup;
+			children = (
+				B7BED21A1C531EDC0058CBF4 /* IntegralExchangeViewController.h */,
+				B7BED21B1C531EDC0058CBF4 /* IntegralExchangeViewController.m */,
+				B7BED21D1C531F520058CBF4 /* IntegralExchangeTableViewCell.h */,
+				B7BED21E1C531F520058CBF4 /* IntegralExchangeTableViewCell.m */,
+				B7BED21F1C531F520058CBF4 /* IntegralExchangeTableViewCell.xib */,
+				B7BED2221C5322BF0058CBF4 /* ExchangeDetailViewController.h */,
+				B7BED2231C5322BF0058CBF4 /* ExchangeDetailViewController.m */,
+				B7BED2251C5330590058CBF4 /* IntegralExchangeRecordViewController.h */,
+				B7BED2261C5330590058CBF4 /* IntegralExchangeRecordViewController.m */,
+				B7BED2281C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.h */,
+				B7BED2291C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.m */,
+				B7BED22A1C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.xib */,
+			);
+			name = IntegralExchange;
+			sourceTree = "<group>";
+		};
 		B7C427FD1C15248C003F504F /* JHStory */ = {
 			isa = PBXGroup;
 			children = (
@@ -3312,6 +3361,7 @@
 				B7617E4E1C1C299700CF96E7 /* 02@2x.png in Resources */,
 				804952281C2523FA00F5584A /* UploadVideoViewController.xib in Resources */,
 				B5905E091C1BC2CF00ECA9BA /* search.png in Resources */,
+				B7BED2211C531F520058CBF4 /* IntegralExchangeTableViewCell.xib in Resources */,
 				B53E739A1C16E1EF009E7878 /* pointH@2x.png in Resources */,
 				B53E738C1C1673B3009E7878 /* tip@2x.png in Resources */,
 				B5F90AFC1C1985A100D7879D /* LoginAccount@2x.png in Resources */,
@@ -3387,6 +3437,7 @@
 				B5207D801C51D4A900CE729F /* chrome.jpg in Resources */,
 				8021E9041C279AE7005C7539 /* index_1.png in Resources */,
 				B7F0D6351C51FECA002F1EEF /* shopping_car.png in Resources */,
+				B7BED22C1C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.xib in Resources */,
 				8049521D1C250B3800F5584A /* WechatShortVideo_close@3x.png in Resources */,
 				B5F13B421C1FE6E600155038 /* 80@2x.png in Resources */,
 				B5905E0D1C1BC2CF00ECA9BA /* yijieshu.png in Resources */,
@@ -3549,7 +3600,9 @@
 				B5D89A0E1C118BB800F55BFA /* MyCollectTableViewCell.m in Sources */,
 				B5451CC91C2796B6001BB39F /* ChineseString.m in Sources */,
 				80DB846B1C23D3A6008CA670 /* UIImage+GIF.m in Sources */,
+				B7BED2181C531C280058CBF4 /* RecommendGoodsViewController.m in Sources */,
 				B7D846491C22AB7500718E9E /* MJRefreshAutoNormalFooter.m in Sources */,
+				B5207D891C5355EA00CE729F /* PayOrderViewController.m in Sources */,
 				B59409001C0FCB0F003DC15D /* BaseNavigationController.m in Sources */,
 				B7617E6E1C1C29A500CF96E7 /* WFTextView.m in Sources */,
 				B7CCA2E41C211F5F00B7AC8C /* ChatContentViewController.m in Sources */,
@@ -3614,6 +3667,7 @@
 				B7CE7F471C16C6F30035D8CA /* JoinTeamCell.m in Sources */,
 				80CE42E41C3CE1E900B027CC /* VImVideoViewController.m in Sources */,
 				804952081C250B3800F5584A /* SCIOPixelBuffers.m in Sources */,
+				B7BED2241C5322BF0058CBF4 /* ExchangeDetailViewController.m in Sources */,
 				B5B737751C3CAAF100DF7437 /* NSString+PinYin4Cocoa.m in Sources */,
 				B59409191C0FD720003DC15D /* Toolkit.m in Sources */,
 				B7617E401C1C298F00CF96E7 /* YMTextData.m in Sources */,
@@ -3688,6 +3742,7 @@
 				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
 				B7617E731C1C29A500CF96E7 /* YMTapGestureRecongnizer.m in Sources */,
 				B7617E3F1C1C298F00CF96E7 /* WFReplyBody.m in Sources */,
+				B7BED2271C5330590058CBF4 /* IntegralExchangeRecordViewController.m in Sources */,
 				80CE42D71C3CB26C00B027CC /* VSegmentSlider.m in Sources */,
 				804952141C250B3800F5584A /* SCSwipeableFilterView.m in Sources */,
 				B5B737781C3CAAF100DF7437 /* PinyinHelper.m in Sources */,
@@ -3705,6 +3760,7 @@
 				B53E73891C167080009E7878 /* JiFenTableViewCell.m in Sources */,
 				B7617E6C1C1C29A500CF96E7 /* WFHudView.m in Sources */,
 				B7D846461C22AB7500718E9E /* MJRefreshFooter.m in Sources */,
+				B7BED2201C531F520058CBF4 /* IntegralExchangeTableViewCell.m in Sources */,
 				804952121C250B3800F5584A /* SCRecordSessionSegment.m in Sources */,
 				80DBEA341C473D6B0012339C /* TeamManagerViewController.m in Sources */,
 				80DB84681C23D3A6008CA670 /* SDWebImageManager.m in Sources */,
@@ -3725,6 +3781,7 @@
 				B7617E6D1C1C29A500CF96E7 /* WFPopView.m in Sources */,
 				B5F4E3A91C1EC3B9001F81F0 /* VideoDetailForMatchViewController.m in Sources */,
 				B5F4E3A31C1EA45C001F81F0 /* FriendInfoViewController.m in Sources */,
+				B7BED22B1C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.m in Sources */,
 				B7D846451C22AB7500718E9E /* MJRefreshComponent.m in Sources */,
 				B7617E2C1C1C28AC00CF96E7 /* TeamNewsViewController.m in Sources */,
 				804952221C250B3800F5584A /* WechatShortVideoController.m in Sources */,
@@ -3761,6 +3818,7 @@
 				B5207D7B1C51BFC300CE729F /* RCLabel.m in Sources */,
 				B7617E711C1C29A500CF96E7 /* YMShowImageView.m in Sources */,
 				B5B7374F1C3A640500DF7437 /* UUDatePicker_DateModel.m in Sources */,
+				B7BED21C1C531EDC0058CBF4 /* IntegralExchangeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

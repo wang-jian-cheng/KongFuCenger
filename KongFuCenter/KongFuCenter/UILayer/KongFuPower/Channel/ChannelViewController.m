@@ -171,7 +171,7 @@
     
     UILabel *cateNameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
     cateNameLab.text = secondCateArr[indexPath.row][@"Name"];
-    cateNameLab.textColor = [UIColor whiteColor];
+    cateNameLab.textColor = [UIColor orangeColor];
     cateNameLab.font = [UIFont boldSystemFontOfSize:20];
 //    cateNameLab.backgroundColor = [UIColor blackColor];
     cateNameLab.textAlignment = NSTextAlignmentCenter;
@@ -198,8 +198,12 @@
     }
     else
     {
+    
+        NSMutableDictionary *channelInfo = [NSMutableDictionary dictionary];
+        [channelInfo setObject:[NSString stringWithFormat:@"%@",secondCateArr[indexPath.row][@"Id"]] forKey:@"channelId"];
+        [channelInfo setObject:secondCateArr[indexPath.row][@"Name"] forKey:@"channelName"];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"select_channel_finish" object:[NSString stringWithFormat:@"%@",secondCateArr[indexPath.row][@"Id"]]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"select_channel_finish" object:channelInfo];
         [self.navigationController popViewControllerAnimated:YES];
     }
     
