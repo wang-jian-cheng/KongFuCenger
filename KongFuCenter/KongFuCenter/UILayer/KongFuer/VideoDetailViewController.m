@@ -169,7 +169,9 @@
     
     [self GetVideoCommentDetial];
 }
-
+/**
+ *  获取视频详情
+ */
 -(void)GetVideoDetial
 {
     [SVProgressHUD showWithStatus:@"加载..." maskType:SVProgressHUDMaskTypeBlack];
@@ -221,20 +223,22 @@
         {
             shouldPay = NO;
             
-            
             playerCtrl.delegate = self;
+            
             playerCtrl.view.frame=CGRectMake(0, 0, SCREEN_WIDTH, 4*_cellHeight +172);
+            
             playerCtrl.backView.frame=CGRectMake(0, 0, SCREEN_WIDTH, 4*_cellHeight+172);
             
             _VideoViewFrame=CGRectMake(0, 0, SCREEN_WIDTH, 4*_cellHeight+172);
             
             _backViewFrame=playerCtrl.backView.frame;
             
-            _modleBtnFrame=playerCtrl.modeBtn.frame;
+            playerCtrl.modeBtn.frame=CGRectMake(SCREEN_WIDTH-50, playerCtrl.modeBtn.frame.origin.y, playerCtrl.modeBtn.frame.size.width, playerCtrl.modeBtn.frame.size.height);
+            
+             _modleBtnFrame=playerCtrl.modeBtn.frame;
             
             [playerCtrl.modeBtn addTarget:self action:@selector(changeModle:) forControlEvents:UIControlEventTouchUpInside];
             
-            //[self presentModalViewController:playerCtrl animated:YES];
             [self.view addSubview:playerCtrl.view];
             
             btn_goBack=[[UIButton alloc] initWithFrame:CGRectMake(10, 20, 30, 30)];
@@ -462,10 +466,10 @@
     if (imageArray) {
         @try {
             NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-            [shareParams SSDKSetupShareParamsByText:[[@"@功夫上线啦！快来乐享" stringByAppendingString:@"降龙十八掌"] stringByAppendingString:strurl]
+            [shareParams SSDKSetupShareParamsByText:[[@"艾特功夫上线啦！快来乐享" stringByAppendingString:@"降龙十八掌"] stringByAppendingString:strurl]
                                              images:imageArray
                                                 url:[NSURL URLWithString:strurl]
-                                              title:@"@功夫"
+                                              title:@"艾特功夫"
                                                type:SSDKContentTypeAuto];
             
             
@@ -854,12 +858,11 @@
                     
 //                    /*举报*/
 //                    UIButton *jubaoBtn = [[UIButton alloc] initWithFrame:CGRectMake((nameLab.frame.origin.x +nameLab.frame.size.width + 10),
-//                                                                                    headView.frame.origin.y, 40, headView.frame.size.height/2)];
+//                                         btnClick:) forControlEvents:UIControlEventTouchUpInside];
+//                    [cell addSubview:jubaoBtn];                                           headView.frame.origin.y, 40, headView.frame.size.height/2)];
 //                    [jubaoBtn setTitle:@"举报" forState:UIControlStateNormal];
 //                    jubaoBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
 //                    jubaoBtn.tag = 4;
-//                    [jubaoBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-//                    [cell addSubview:jubaoBtn];
 //                    
                     /*date*/
                     UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLab.frame.origin.x,
@@ -878,7 +881,7 @@
                     [cell addSubview:backView];
                     CGFloat btnW = backView.frame.size.width/4 - 10;
                     CGFloat btnGap = 5;
-                    SupportBtn.frame = CGRectMake(backView.frame.size.width-2*(btnW+10), 5, btnW, backView.frame.size.height-10);
+                    SupportBtn.frame = CGRectMake(backView.frame.size.width-2*(btnW+5), 5, btnW, backView.frame.size.height-10);
                     [SupportBtn setTitle:@"点赞" forState:UIControlStateNormal];
                     SupportBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
                     [SupportBtn setImage:[UIImage imageNamed:@"support"] forState:UIControlStateNormal];
@@ -894,7 +897,7 @@
                     
                     
                     
-                    collectBtn.frame = CGRectMake(backView.frame.size.width-btnW-10, 5, btnW, backView.frame.size.height-10);
+                    collectBtn.frame = CGRectMake(backView.frame.size.width-btnW-5, 5, btnW, backView.frame.size.height-10);
                     [collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
                     collectBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
                     [collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
@@ -905,7 +908,7 @@
                     [collectBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                     [backView addSubview:collectBtn];
                     if ([VideoDict[@"IsFree"] intValue] == 1) {
-                        CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake(backView.frame.size.width-3*(btnW+10), 5, btnW, backView.frame.size.height-10)];
+                        CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake(backView.frame.size.width-3*(btnW+5), 5, btnW, backView.frame.size.height-10)];
                         [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
                         shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
                         [shareBtn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
@@ -915,7 +918,7 @@
                         [shareBtn addTarget:self action:@selector(shareContentBuild) forControlEvents:UIControlEventTouchUpInside];
                         [backView addSubview:shareBtn];
                         
-                        CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake(backView.frame.size.width-4*(btnW+10), 5, btnW, backView.frame.size.height-10)];
+                        CustomButton *relayBtn = [[CustomButton alloc] initWithFrame:CGRectMake(backView.frame.size.width-4*(btnW+5), 5, btnW, backView.frame.size.height-10)];
                         [relayBtn setTitle:@"转发" forState:UIControlStateNormal];
                         relayBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
                         relayBtn.imageView.contentMode = UIViewContentModeCenter;
