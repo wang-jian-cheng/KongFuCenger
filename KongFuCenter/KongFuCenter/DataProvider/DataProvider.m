@@ -321,11 +321,10 @@
     if(userId != nil && targetId != nil && content != nil )
     {
         
-        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/MessageRepeatAndFavorite",Url];
-        NSDictionary * prm=@{@"id":targetId,
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/ReportUser",Url];
+        NSDictionary * prm=@{@"targetId":targetId,
                              @"userid":userId,
-                             @"flg":@"3",
-                             @"description":content};
+                             @"content":content};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
     }

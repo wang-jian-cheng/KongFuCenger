@@ -131,6 +131,8 @@
 		80DBEA341C473D6B0012339C /* TeamManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DBEA321C473D6B0012339C /* TeamManagerViewController.m */; };
 		80DBEA351C473D6B0012339C /* TeamManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80DBEA331C473D6B0012339C /* TeamManagerViewController.xib */; };
 		80DBEA381C4796580012339C /* VideoDetialSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DBEA371C4796580012339C /* VideoDetialSecondViewController.m */; };
+		B50122661C55C5460087E920 /* CommentOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B50122651C55C5460087E920 /* CommentOrderViewController.m */; };
+		B50122691C55D1F70087E920 /* MyTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B50122681C55D1F70087E920 /* MyTextView.m */; };
 		B51A7B731C4F5E0100273384 /* ShoppingCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B51A7B721C4F5E0100273384 /* ShoppingCartViewController.m */; };
 		B51A7B771C4F678200273384 /* KongFuStoreAdd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B51A7B741C4F678200273384 /* KongFuStoreAdd@2x.png */; };
 		B51A7B781C4F678200273384 /* KongFuStoreDel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B51A7B751C4F678200273384 /* KongFuStoreDel@2x.png */; };
@@ -232,6 +234,7 @@
 		B59409191C0FD720003DC15D /* Toolkit.m in Sources */ = {isa = PBXBuildFile; fileRef = B59409181C0FD720003DC15D /* Toolkit.m */; };
 		B594091D1C0FDCAB003DC15D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */; };
 		B59409201C102719003DC15D /* StudyOnLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B594091F1C102719003DC15D /* StudyOnLineViewController.m */; };
+		B59D77881C561CDC005D81BA /* BaseNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59D77871C561CDC005D81BA /* BaseNavViewController.m */; };
 		B5AF70591C17C21400C041AF /* Dialog.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AF70521C17C21400C041AF /* Dialog.m */; };
 		B5AF705A1C17C21400C041AF /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AF70541C17C21400C041AF /* MBProgressHUD.m */; };
 		B5AF70611C17F69B00C041AF /* ZhiBoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AF705F1C17F69B00C041AF /* ZhiBoViewController.m */; };
@@ -748,6 +751,10 @@
 		80DBEA361C4796580012339C /* VideoDetialSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDetialSecondViewController.h; sourceTree = "<group>"; };
 		80DBEA371C4796580012339C /* VideoDetialSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDetialSecondViewController.m; sourceTree = "<group>"; };
 		917C8DDA7A56E94AAC386040 /* Pods-KongFuCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KongFuCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KongFuCenter/Pods-KongFuCenter.debug.xcconfig"; sourceTree = "<group>"; };
+		B50122641C55C5460087E920 /* CommentOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentOrderViewController.h; sourceTree = "<group>"; };
+		B50122651C55C5460087E920 /* CommentOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentOrderViewController.m; sourceTree = "<group>"; };
+		B50122671C55D1F70087E920 /* MyTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTextView.h; sourceTree = "<group>"; };
+		B50122681C55D1F70087E920 /* MyTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTextView.m; sourceTree = "<group>"; };
 		B51A7B711C4F5E0100273384 /* ShoppingCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartViewController.h; sourceTree = "<group>"; };
 		B51A7B721C4F5E0100273384 /* ShoppingCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartViewController.m; sourceTree = "<group>"; };
 		B51A7B741C4F678200273384 /* KongFuStoreAdd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "KongFuStoreAdd@2x.png"; path = "KongFuStore/KongFuStoreAdd@2x.png"; sourceTree = "<group>"; };
@@ -898,6 +905,8 @@
 		B594091C1C0FDCAB003DC15D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B594091E1C102719003DC15D /* StudyOnLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StudyOnLineViewController.h; path = ../StudyOnLineViewController.h; sourceTree = "<group>"; };
 		B594091F1C102719003DC15D /* StudyOnLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StudyOnLineViewController.m; path = ../StudyOnLineViewController.m; sourceTree = "<group>"; };
+		B59D77861C561CDC005D81BA /* BaseNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavViewController.h; sourceTree = "<group>"; };
+		B59D77871C561CDC005D81BA /* BaseNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavViewController.m; sourceTree = "<group>"; };
 		B5AF70511C17C21400C041AF /* Dialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dialog.h; sourceTree = "<group>"; };
 		B5AF70521C17C21400C041AF /* Dialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dialog.m; sourceTree = "<group>"; };
 		B5AF70531C17C21400C041AF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -1856,6 +1865,10 @@
 				B5207D851C52198C00CE729F /* OrderDetailViewController.m */,
 				B5207D871C5355EA00CE729F /* PayOrderViewController.h */,
 				B5207D881C5355EA00CE729F /* PayOrderViewController.m */,
+				B50122641C55C5460087E920 /* CommentOrderViewController.h */,
+				B50122651C55C5460087E920 /* CommentOrderViewController.m */,
+				B50122671C55D1F70087E920 /* MyTextView.h */,
+				B50122681C55D1F70087E920 /* MyTextView.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -2256,6 +2269,8 @@
 				B59408FD1C0FCB0F003DC15D /* BaseNavigationController.m */,
 				B59408FE1C0FCB0F003DC15D /* CustomTabBarViewController.h */,
 				B59408FF1C0FCB0F003DC15D /* CustomTabBarViewController.m */,
+				B59D77861C561CDC005D81BA /* BaseNavViewController.h */,
+				B59D77871C561CDC005D81BA /* BaseNavViewController.m */,
 			);
 			path = CustomViewController;
 			sourceTree = "<group>";
@@ -3696,6 +3711,7 @@
 				B594090D1C0FCEF3003DC15D /* MoreViewController.m in Sources */,
 				7BA38E8D1C213930000996EE /* Member-ViewController.m in Sources */,
 				B5D345C01C28E97E00D39891 /* JKAssetsCollectionFooterView.m in Sources */,
+				B59D77881C561CDC005D81BA /* BaseNavViewController.m in Sources */,
 				B569DB9C1C12B6C000325CFA /* UITableViewCell+EditMode.m in Sources */,
 				B5207D861C52198C00CE729F /* OrderDetailViewController.m in Sources */,
 				8049520B1C250B3800F5584A /* SCPlayer.m in Sources */,
@@ -3779,6 +3795,7 @@
 				8021E8FF1C279AB4005C7539 /* FirstScrollController.m in Sources */,
 				802118E51C1AFAE100DCEE73 /* DIYButton.m in Sources */,
 				B7617E6D1C1C29A500CF96E7 /* WFPopView.m in Sources */,
+				B50122661C55C5460087E920 /* CommentOrderViewController.m in Sources */,
 				B5F4E3A91C1EC3B9001F81F0 /* VideoDetailForMatchViewController.m in Sources */,
 				B5F4E3A31C1EA45C001F81F0 /* FriendInfoViewController.m in Sources */,
 				B7BED22B1C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.m in Sources */,
@@ -3810,6 +3827,7 @@
 				804952061C250B3800F5584A /* SCFilterSelectorView.m in Sources */,
 				8049520E1C250B3800F5584A /* SCRecorderFocusTargetView.m in Sources */,
 				B5D345CB1C28E97E00D39891 /* UIView+JKPicker.m in Sources */,
+				B50122691C55D1F70087E920 /* MyTextView.m in Sources */,
 				B5F90AED1C197D3D00D7879D /* InputText.m in Sources */,
 				804952001C250B3800F5584A /* SCAssetExportSession.m in Sources */,
 				B712CC951C2CCEFE00B1A2E8 /* MyNewsViewController.m in Sources */,

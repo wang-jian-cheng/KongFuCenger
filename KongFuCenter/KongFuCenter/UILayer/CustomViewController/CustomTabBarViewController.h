@@ -7,6 +7,7 @@
 //
 #import "KongFuStoreViewController.h"
 #import <UIKit/UIKit.h>
+#import "BaseNavViewController.h"
 //#import "JSBadgeView.h"
 @interface CustomTabBarViewController : UITabBarController<UITabBarDelegate, UINavigationBarDelegate,UIScrollViewDelegate>
 {

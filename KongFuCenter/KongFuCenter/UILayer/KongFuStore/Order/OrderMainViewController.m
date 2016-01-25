@@ -125,6 +125,12 @@
         payOrderViewCtl.navtitle = @"确认订单";
         [self.navigationController pushViewController:payOrderViewCtl animated:YES];
     }
+    else if([sender.titleLabel.text isEqualToString:@"评价商品"])
+    {
+        CommentOrderViewController *commentOrderViewCtl = [[CommentOrderViewController alloc] init];
+        commentOrderViewCtl.navtitle = @"评价订单";
+        [self.navigationController pushViewController:commentOrderViewCtl animated:YES];
+    }
 }
 
 #pragma mark -  tableview  Delegate

@@ -169,6 +169,20 @@
     NSLog(@"right button click");
 }
 
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskAll;
+//}
+
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+-(BOOL)shouldAutorotate
+{
+    return NO;
+}
 - (void)addStarToNavigtionBar
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(80, 0, 32 / 2.0, 45 / 2.0)];

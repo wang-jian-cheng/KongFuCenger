@@ -37,9 +37,11 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@zhibo.aspx",Url]];
     NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
     [webView loadRequest:request];
+//    [[UIDevice currentDevice] setValue: [NSNumber numberWithInteger: UIDeviceOrientationLandscapeLeft] forKey:@"orientation"];
     
     // Do any additional setup after loading the view from its nib.
 }
+
 
 -(void)initViews
 {
@@ -62,6 +64,16 @@
     _checkBtn.frame = temprect;
     
 }
+
+//-(UIInterfaceOrientationMask)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskAll;
+//}
+//
+//-(BOOL)shouldAutorotate
+//{
+//    return YES;
+//}
 
 -(void)viewWillAppear:(BOOL)animated
 {
