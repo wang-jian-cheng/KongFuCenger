@@ -59,10 +59,10 @@
 {
     //[self getUserInfo];
     
-//    [self getUserInfo1];
+//    [self getCollectArticle];
 }
 
--(void)getUserInfo
+-(void)getCollectVideo
 {
     [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
@@ -111,16 +111,16 @@
     }
 }
 
--(void)getUserInfo1
+-(void)getCollectArticle
 {
     [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack1:"];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getCollectArticleCallBack:"];
     //    [dataprovider collectData:[Toolkit getUserID] andIsVideo:@"true" andStartRowIndex:@"1" andMaximumRows:@"6"];
     [dataprovider setCollect:[Toolkit getUserID] andIsVideo:@"false" andStartRowIndex:[NSString stringWithFormat:@"%d",pageSize*pageNo] andMaximumRowst:[NSString stringWithFormat:@"%d",pageSize]];
 }
 
--(void)getUserInfoCallBack1:(id)dict
+-(void)getCollectArticleCallBack:(id)dict
 {
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
@@ -293,7 +293,7 @@
         pageVideoNo=0;
         if(self.arr_voiceData !=nil)
             [self.arr_voiceData removeAllObjects];
-        [weakSelf getUserInfo];
+        [weakSelf getCollectVideo];
         // 结束刷新
         if(mainCollectionView.mj_footer !=nil)
         {
@@ -307,7 +307,7 @@
     // 上拉刷新
     mainCollectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         
-        [weakSelf getUserInfo];
+        [weakSelf getCollectVideo];
         [mainCollectionView.mj_footer endRefreshing];
     }];
     
@@ -353,7 +353,7 @@
         {
             [_mainTableView.mj_footer setState:MJRefreshStateIdle];
         }
-        [weakSelf getUserInfo1];
+        [weakSelf getCollectArticle];
         // 结束刷新
         [_mainTableView.mj_header endRefreshing];
     }];
@@ -363,7 +363,7 @@
     _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         //        if(EnditMode == YES)
         //            return;
-        [weakSelf getUserInfo1];
+        [weakSelf getCollectArticle];
         [_mainTableView.mj_footer endRefreshing];
     }];
     //[self.view addSubview:_mainTableView];
@@ -452,7 +452,7 @@
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
-        [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack3:"];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"delCollectionCallBack:"];
             
 
     }
@@ -464,7 +464,7 @@
     }
 }
 
-- (void)getUserInfoCallBack3:(id)dict
+- (void)delCollectionCallBack:(id)dict
 {
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
@@ -512,7 +512,7 @@
                 
                 DataProvider * dataprovider=[[DataProvider alloc] init];
                 [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
-                [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack3:"];
+                [dataprovider setDelegateObject:self setBackFunctionName:@"delCollectionCallBack:"];
 
             }
         }
@@ -666,7 +666,7 @@
         [sender setTitle:model.LikeNum forState:(UIControlStateNormal)];
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider voicedelete:model.MessageId andUserId:model.UserId andFlg:@"2"];
-        [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack12:"];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"actionCallBack:"];
     }
     
 //    [mainCollectionView reloadData];

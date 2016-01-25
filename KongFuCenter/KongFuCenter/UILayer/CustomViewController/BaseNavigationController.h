@@ -17,7 +17,6 @@ Useage:
  */
 #import <UIKit/UIKit.h>
 #import "Toolkit.h"
-
 //#import "Dialog.h"
 
 @interface BaseNavigationController : UIViewController

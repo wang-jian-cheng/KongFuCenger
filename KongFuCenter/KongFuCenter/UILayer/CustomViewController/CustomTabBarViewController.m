@@ -94,30 +94,30 @@
     KongFuerViewController *HomeView=[[KongFuerViewController alloc]init];
     if ([Toolkit isSystemIOS7]||[Toolkit isSystemIOS8])
         HomeView.automaticallyAdjustsScrollViewInsets = NO;
-    UINavigationController * homeviewnav=[[UINavigationController alloc]initWithRootViewController:HomeView];
+    BaseNavViewController * homeviewnav=[[BaseNavViewController alloc]initWithRootViewController:HomeView];
 //    homePageNavigation.automaticallyAdjustsScrollViewInsets = YES;
     HomeView.hidesBottomBarWhenPushed = YES;
     homeviewnav.navigationBar.hidden=YES;
     
     KongFuUnionViewController *typeView=[[KongFuUnionViewController alloc]init];
-    UINavigationController *typeViewnav = [[UINavigationController alloc] initWithRootViewController:typeView];
+    BaseNavViewController *typeViewnav = [[BaseNavViewController alloc] initWithRootViewController:typeView];
     typeView.hidesBottomBarWhenPushed=YES;
     typeViewnav.navigationBar.hidden=YES;
     
     KongFuPowerViewController *shoplistView=[[KongFuPowerViewController alloc]init];
-    UINavigationController *shoplistViewnav = [[UINavigationController alloc] initWithRootViewController:shoplistView];
+    BaseNavViewController *shoplistViewnav = [[BaseNavViewController alloc] initWithRootViewController:shoplistView];
     shoplistView.hidesBottomBarWhenPushed = YES;
     shoplistViewnav.navigationBarHidden=YES;
     //消息
     
     KongFuStoreViewController *store = [[KongFuStoreViewController alloc] init];
-    UINavigationController *storenav = [[UINavigationController alloc] initWithRootViewController:store];
+    BaseNavViewController *storenav = [[BaseNavViewController alloc] initWithRootViewController:store];
     store.hidesBottomBarWhenPushed=YES;
     storenav.navigationBar.hidden=YES;
     
     
     MoreViewController *ShoppingCart=[[MoreViewController alloc]init];
-    UINavigationController *ShoppingCartnav = [[UINavigationController alloc] initWithRootViewController:ShoppingCart];
+    BaseNavViewController *ShoppingCartnav = [[BaseNavViewController alloc] initWithRootViewController:ShoppingCart];
     ShoppingCart.hidesBottomBarWhenPushed=YES;
     ShoppingCartnav.navigationBar.hidden=YES;
  
@@ -132,7 +132,15 @@
     
 }
 
- 
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return [self.selectedViewController supportedInterfaceOrientations];//UIInterfaceOrientationMaskPortrait;
+}
+
+-(BOOL)shouldAutorotate
+{
+    return [self.selectedViewController shouldAutorotate];
+}
 
 
 //点击tab页时的响应

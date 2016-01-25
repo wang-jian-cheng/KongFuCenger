@@ -32,7 +32,7 @@
     
     for(int i = 0;i<2;i++)
     {
-        SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake((SCREEN_WIDTH - 60), _cellHeight/2)];
+        SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake((SCREEN_WIDTH - 60), 50/2)];
         if (i == 0) {
             roundBtn.selected = YES;
         }
@@ -57,19 +57,27 @@
     UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - 50), SCREEN_WIDTH, 50)];
     btnBackView.backgroundColor = ItemsBaseColor;
     
-    UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH  - 100), 0, 100, 30)];
+    UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH  - 100), 0, 100, btnBackView.frame.size.height)];
     btnRight.backgroundColor = YellowBlock;
     btnRight.titleLabel.font = [UIFont systemFontOfSize:14];
     [btnBackView addSubview:btnRight];
-    btnRight.titleLabel.text = @"确认结算";
-    
-//    UIButton *btnLeft = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80-20-btnRight.frame.size.width),
-//                                                                   10, 80, 30)];
-//    btnLeft.backgroundColor = [UIColor grayColor];
-//    btnLeft.titleLabel.font = [UIFont systemFontOfSize:14];
-//    [btnBackView addSubview:btnLeft];
-    
+    [btnRight setTitle:@"确认结算" forState:UIControlStateNormal];
 
+    UILabel *moneyLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,  btnRight.frame.origin.x - 10, btnBackView.frame.size.height/2)];
+    [btnBackView addSubview:moneyLab];
+    moneyLab.textColor = [UIColor whiteColor];
+    moneyLab.text = @"总金额：¥ 20.00";
+    moneyLab.font = [UIFont systemFontOfSize:14];
+    moneyLab.textAlignment = NSTextAlignmentRight;
+    
+    
+    UILabel *tiplab = [[UILabel alloc] initWithFrame:CGRectMake(0,btnBackView.frame.size.height/2, (btnRight.frame.origin.x - 10), btnBackView.frame.size.height/2)];
+    [btnBackView addSubview:tiplab];
+    tiplab.textColor = [UIColor grayColor];
+    tiplab.text = @"邮费（无）";
+    tiplab.font = [UIFont systemFontOfSize:14];
+    tiplab.textAlignment = NSTextAlignmentRight;
+    
     [self.view addSubview:btnBackView];
     
 }
@@ -78,7 +86,17 @@
 
 -(void)roundBtnClick:(UIButton *)sender
 {
-
+    sender.selected = YES;
+    
+//    PayFlag = sender.tag;
+    
+    for(UIButton *tempBtn in roundBtnArr)
+    {
+        if(tempBtn != sender)
+        {
+            tempBtn.selected = NO;
+        }
+    }
 }
 
 #pragma mark -  tableview  Delegate
@@ -111,6 +129,7 @@
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];;
     cell.backgroundColor = ItemsBaseColor;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     @try {
         
         if (indexPath.section == 0) {
@@ -123,7 +142,7 @@
                                                                          10, SCREEN_WIDTH - (image.frame.size.width+image.frame.origin.x)-5, _cellHeight/2-10)];
             
             infoLab.textColor = [UIColor whiteColor];
-            infoLab.text = [NSString  stringWithFormat:@"收货人%@    %@",@"杨某某",@"15269914187"];
+            infoLab.text = [NSString  stringWithFormat:@"收货人：%@    %@",@"杨某某",@"15269914187"];
             infoLab.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:infoLab];
             

@@ -345,7 +345,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    clickId = searchArr[indexPath.row][@"Id"];
+    clickId = searchArr[indexPath.row][@"MemnerId"];
     
     [self CheckIsFriend:clickId];
     
