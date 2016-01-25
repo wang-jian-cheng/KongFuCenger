@@ -12,6 +12,11 @@
 
 @interface ShopDetailViewController (){
     UITableView *mTableView;
+    UIButton *bg_view;
+    UIView *mView;
+    NSString *selectColor;
+    NSString *selectSize;
+    NSString *selectSpec;
 }
 
 @end
@@ -25,6 +30,10 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"商品详情"];
     [self addLeftButton:@"left"];
+    
+    selectColor = @"";
+    selectSize = @"";
+    selectSpec = @"";
     
     //初始化View
     [self initViews];
@@ -63,6 +72,7 @@
     UIButton *joinShoppingCar = [[UIButton alloc] initWithFrame:CGRectMake(50, 0, (SCREEN_WIDTH - 50) / 2, 50)];
     [joinShoppingCar setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [joinShoppingCar setTitle:@"加入购物车" forState:UIControlStateNormal];
+    [joinShoppingCar addTarget:self action:@selector(joinShoppingCarEvent) forControlEvents:UIControlEventTouchUpInside];
     [mFooterView addSubview:joinShoppingCar];
     
     UIButton *immediatelyBuyBtn = [[UIButton alloc] initWithFrame:CGRectMake(50 + (SCREEN_WIDTH - 50) / 2, 0, (SCREEN_WIDTH - 50) / 2, 50)];
@@ -72,6 +82,139 @@
     [mFooterView addSubview:immediatelyBuyBtn];
     
     [self.view addSubview:mFooterView];
+}
+
+-(void)joinShoppingCarEvent{
+    if ([selectColor isEqual:@""] || [selectSize isEqual:@""]) {
+        [self showCustomView];
+    }else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"加入购物车~" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        [alertView show];
+    }
+}
+
+-(void)showCustomView{
+    if (bg_view) {
+        bg_view.hidden = NO;
+        mView.hidden = NO;
+    }else{
+        bg_view = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 50)];
+        bg_view.backgroundColor = [UIColor grayColor];
+        bg_view.alpha = 0.6;
+        [bg_view addTarget:self action:@selector(backViewEvent) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:bg_view];
+        
+        NSArray *mColorArray = [[NSArray alloc] initWithObjects:@"黑色",@"红色",@"蓝色",@"白色",@"紫色", nil];
+        NSArray *mSizeArray = [[NSArray alloc] initWithObjects:@"S",@"M",@"L",@"H",@"I", nil];
+        int colorRowNum = 0;
+        if (mColorArray.count == 0) {
+            colorRowNum = 0;
+        }else if (mColorArray.count <= 3) {
+            colorRowNum = 1;
+        }else if (mColorArray.count <= 6){
+            colorRowNum = 2;
+        }
+        int sizeRowNum = 0;
+        if (mColorArray.count == 0) {
+            sizeRowNum = 0;
+        }else if (mColorArray.count <= 3) {
+            sizeRowNum = 1;
+        }else if (mColorArray.count <= 6){
+            sizeRowNum = 2;
+        }
+        
+        CGFloat customViewHeight = 240 + (colorRowNum + sizeRowNum) * 35;
+        mView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - customViewHeight, SCREEN_WIDTH, customViewHeight - 50)];
+        mView.backgroundColor = ItemsBaseColor;
+        [self.view addSubview:mView];
+        
+        UIImageView *mHeadIv = [[UIImageView alloc] initWithFrame:CGRectMake(14, -(SCREEN_WIDTH / 3 / 2), SCREEN_WIDTH / 3, SCREEN_WIDTH / 3)];
+        [mHeadIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
+        [mView addSubview:mHeadIv];
+        
+        UILabel *mPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(mHeadIv.frame.origin.x + mHeadIv.frame.size.width + 5, 5, 200, 21)];
+        mPriceLbl.textColor = YellowBlock;
+        mPriceLbl.text = [NSString stringWithFormat:@"¥%@",@"20.00"];
+        [mView addSubview:mPriceLbl];
+        
+        UILabel *mSelectSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(mPriceLbl.frame.origin.x, mPriceLbl.frame.origin.y + mPriceLbl.frame.size.height + 5, 200, 21)];
+        mSelectSpecLbl.textColor = [UIColor grayColor];
+        mSelectSpecLbl.text = @"请选择规格";
+        [mView addSubview:mSelectSpecLbl];
+        
+        UILabel *mColorLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, mHeadIv.frame.origin.y + mHeadIv.frame.size.height + 10, 100, 21)];
+        mColorLbl.textColor = [UIColor grayColor];
+        mColorLbl.text = @"颜色";
+        [mView addSubview:mColorLbl];
+        
+        UIView *mColorView = [[UIView alloc] initWithFrame:CGRectMake(14, mColorLbl.frame.origin.y + mColorLbl.frame.size.height + 5, SCREEN_WIDTH - 28, colorRowNum * 35)];
+        CGFloat mColorWidth = (SCREEN_WIDTH - 28 - 10) / 3;
+        
+        for (int i = 0; i < mColorArray.count; i++) {
+            UIButton *mColorBtn = [[UIButton alloc] initWithFrame:CGRectMake((mColorWidth + 5) * (i % 3), (i / 3) * (35 + 5), mColorWidth, 35)];
+            mColorBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+            mColorBtn.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
+            [mColorBtn setTitle:mColorArray[i] forState:UIControlStateNormal];
+            mColorBtn.tag = 0;
+            [mColorBtn addTarget:self action:@selector(selectSpecEvent:) forControlEvents:UIControlEventTouchUpInside];
+            [mColorView addSubview:mColorBtn];
+        }
+        [mView addSubview:mColorView];
+        
+        UILabel *mSizeLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, mColorView.frame.origin.y + mColorView.frame.size.height + 10, 100, 21)];
+        mSizeLbl.textColor = [UIColor grayColor];
+        mSizeLbl.text = @"尺码";
+        [mView addSubview:mSizeLbl];
+        
+        UIView *mSizeView = [[UIView alloc] initWithFrame:CGRectMake(14, mSizeLbl.frame.origin.y + mSizeLbl.frame.size.height + 5, SCREEN_WIDTH - 28, sizeRowNum * 35)];
+        CGFloat mSizeWidth = (SCREEN_WIDTH - 28 - 10) / 3;
+        
+        for (int i = 0; i < mSizeArray.count; i++) {
+            UIButton *mSizeBtn = [[UIButton alloc] initWithFrame:CGRectMake((mSizeWidth + 5) * (i % 3), (i / 3) * (35 + 5), mSizeWidth, 35)];
+            mSizeBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+            mSizeBtn.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
+            [mSizeBtn setTitle:mSizeArray[i] forState:UIControlStateNormal];
+            mSizeBtn.tag = 1;
+            [mSizeBtn addTarget:self action:@selector(selectSpecEvent:) forControlEvents:UIControlEventTouchUpInside];
+            [mSizeView addSubview:mSizeBtn];
+        }
+        [mView addSubview:mSizeView];
+    }
+}
+
+-(void)hideCustomView{
+    bg_view.hidden = YES;
+    mView.hidden = YES;
+}
+
+-(void)backViewEvent{
+    [self hideCustomView];
+    if (![selectColor isEqual:@""]) {
+        selectSpec = selectColor;
+        if (![selectSize isEqual:@""]) {
+            selectSpec = [NSString stringWithFormat:@"%@,%@",selectSpec,selectSize];
+        }
+    }else{
+        if (![selectSize isEqual:@""]) {
+            selectSpec = selectSize;
+        }else{
+            selectSpec = @"";
+        }
+    }
+    [mTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+-(void)selectSpecEvent:(UIButton *)btn{
+    for (UIButton *item in btn.superview.subviews) {
+        item.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
+    }
+    btn.backgroundColor = YellowBlock;
+    
+    if (btn.tag == 0) {
+        selectColor = btn.titleLabel.text;
+    }else{
+        selectSize = btn.titleLabel.text;
+    }
 }
 
 #pragma mark tableview delegate
@@ -106,12 +249,16 @@
 #pragma mark setting for cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellIdentifier = @"cellIdentifier";
-    if (indexPath.section == 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-            cell.backgroundColor = ItemsBaseColor;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.backgroundColor = ItemsBaseColor;
+    }else{
+        for (UIView *view in cell.subviews) {
+            [view removeFromSuperview];
         }
+    }
+    if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             UIImageView *mIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
             [mIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
@@ -150,14 +297,9 @@
         }
         return cell;
     }else if (indexPath.section == 1){
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-            cell.backgroundColor = ItemsBaseColor;
-        }
         UILabel *mSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, (45 - 21) / 2, 150, 21)];
         mSpecLbl.textColor = [UIColor whiteColor];
-        mSpecLbl.text = @"请选择规格";
+        mSpecLbl.text = [selectSpec isEqual:@""]?@"请选择规格":[NSString stringWithFormat:@"规格:%@",selectSpec];
         [cell addSubview:mSpecLbl];
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -165,11 +307,6 @@
         return cell;
     }else{
         if (indexPath.row == 0) {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-                cell.backgroundColor = ItemsBaseColor;
-            }
             UILabel *userCommentTitle = [[UILabel alloc] initWithFrame:CGRectMake(14, (45 - 21) / 2, 150, 21)];
             userCommentTitle.font = [UIFont systemFontOfSize:16];
             userCommentTitle.textColor = [UIColor whiteColor];
@@ -188,11 +325,6 @@
             
             return cell;
         }else{
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-                cell.backgroundColor = ItemsBaseColor;
-            }
             UserHeadView *userHeadView = [[UserHeadView alloc] initWithFrame:CGRectMake(14, 5, 40, 40) andUrl:nil andNav:self.navigationController];
             [userHeadView makeSelfRound];
             [cell addSubview:userHeadView];
@@ -225,10 +357,9 @@
             mSpecLbl.text = [NSString stringWithFormat:@"规格:%@",@"S/黑色"];
             mSpecLbl.textColor = [UIColor colorWithRed:0.46 green:0.46 blue:0.46 alpha:1];
             [cell addSubview:mSpecLbl];
-            
-            return cell;
         }
     }
+    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -254,7 +385,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.section == 1){
-        
+        [self showCustomView];
     }
 }
 

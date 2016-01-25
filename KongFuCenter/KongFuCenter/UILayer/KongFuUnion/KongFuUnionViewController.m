@@ -88,6 +88,8 @@
     [self updateMessageNum];
     
     [self initNoReadMessageNum];
+    
+    [self SelectNoReadMatch];
 }
 
 -(void)initNoReadMessageNum{
@@ -114,6 +116,19 @@
                 [view removeFromSuperview];
             }
         }
+    }
+}
+
+-(void)SelectNoReadMatch{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"selectNoReadMatchNumCallBack:"];
+    [dataProvider SelectNoReadMatch:get_sp(@"id")];
+}
+
+-(void)selectNoReadMatchNumCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        [userDefault setValue:dict[@"count"] forKey:@"NoReadMatchNum"];
+        [_mainTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:2]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
@@ -307,6 +322,12 @@
     if ([name isEqual:@"武者动态"]) {
         NSLog(@"%@",[userDefault valueForKey:@"noReadMessageNum"]);
         [lbl_name showBadgeWithStyle:WBadgeStyleNumber value:[[userDefault valueForKey:@"noReadMessageNum"] intValue] animationType:WBadgeAnimTypeNone];
+        lbl_name.badge.x = lbl_name.badge.x - 20;
+        lbl_name.badge.y = 8;
+    }
+    
+    if ([name isEqual:@"武者大赛"]) {
+        [lbl_name showBadgeWithStyle:WBadgeStyleNumber value:[[userDefault valueForKey:@"NoReadMatchNum"] intValue] animationType:WBadgeAnimTypeNone];
         lbl_name.badge.x = lbl_name.badge.x - 20;
         lbl_name.badge.y = 8;
     }

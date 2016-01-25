@@ -1023,6 +1023,22 @@
     [self PostRequest:url andpram:prm];
 }
 
+-(void)DeleteNoReadMatch:(NSString *)userId andFlg:(NSString *)flg{
+    if (userId) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/DeleteNoReadMatch",Url];
+        NSDictionary *prm = @{@"userId":userId,@"flg":flg};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)SelectNoReadMatch:(NSString *)userId{
+    if (userId) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectNoReadMatch",Url];
+        NSDictionary *prm = @{@"userId":userId};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 -(void)SelectMatchDetail:(NSString *)matchId anduserId:(NSString *)userId{
     if (matchId&&userId) {
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/SelectMatchDetailWithIsJoin",Url];

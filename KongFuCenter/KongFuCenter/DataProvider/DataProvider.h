@@ -318,6 +318,12 @@
 //获取武者动态未查看数
 -(void)GetNoReadCommentNumByUserId:(NSString *)userid;
 
+//清空未读赛事个数
+-(void)DeleteNoReadMatch:(NSString *)userId andFlg:(NSString *)flg;
+
+//获取未读赛事个数
+-(void)SelectNoReadMatch:(NSString *)userId;
+
 #pragma mark - 战队赛事评论
 -(void)getMatchComment:(NSString *)memberId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
 -(void)commentMatch:(NSString *)memberId andUserID:(NSString *)userId andComment:(NSString *)comment;
