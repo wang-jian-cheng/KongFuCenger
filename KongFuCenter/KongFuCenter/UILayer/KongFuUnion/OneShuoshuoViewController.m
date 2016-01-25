@@ -564,7 +564,8 @@
 -(void)mainCommentCallBack:(id)dict{
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateComment" object:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateComment" object:nil];
+        [replyView updateComment];
     }
 }
 

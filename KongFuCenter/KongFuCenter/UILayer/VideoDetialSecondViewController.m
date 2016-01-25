@@ -666,7 +666,10 @@
             return 2;
             break;
         case OtherVideoSection:
-            return 2;
+            if(otherVideoArray ==nil||otherVideoArray.count ==0 )
+                return 1;
+            else
+                return 2;
             break;
         case CommentSection:
             return 2+videoCommentArray.count;
@@ -772,7 +775,7 @@
                     UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/2 ), 0, SCREEN_WIDTH/2 , _cellHeight)];
                     backView.backgroundColor = cell.backgroundColor;
                     [cell addSubview:backView];
-                    CGFloat btnW = backView.frame.size.width/4 - 5;
+                    CGFloat btnW = backView.frame.size.width/4 - 10;
                     CGFloat btnGap = 5;
                     SupportBtn.frame = CGRectMake(backView.frame.size.width-2*(btnW+10), 5, btnW, backView.frame.size.height-10);
                     [SupportBtn setTitle:@"点赞" forState:UIControlStateNormal];

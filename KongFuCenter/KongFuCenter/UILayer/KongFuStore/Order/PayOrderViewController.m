@@ -32,7 +32,7 @@
     
     for(int i = 0;i<2;i++)
     {
-        SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake((SCREEN_WIDTH - 60), _cellHeight/2)];
+        SelectRoundBtn *roundBtn = [[SelectRoundBtn alloc] initWithCenter:CGPointMake((SCREEN_WIDTH - 60), 50/2)];
         if (i == 0) {
             roundBtn.selected = YES;
         }
@@ -123,7 +123,7 @@
                                                                          10, SCREEN_WIDTH - (image.frame.size.width+image.frame.origin.x)-5, _cellHeight/2-10)];
             
             infoLab.textColor = [UIColor whiteColor];
-            infoLab.text = [NSString  stringWithFormat:@"收货人%@    %@",@"杨某某",@"15269914187"];
+            infoLab.text = [NSString  stringWithFormat:@"收货人：%@    %@",@"杨某某",@"15269914187"];
             infoLab.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:infoLab];
             
