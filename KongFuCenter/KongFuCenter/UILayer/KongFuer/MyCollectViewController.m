@@ -21,6 +21,8 @@
     CGFloat _cellTableHeight;
     UITableView *_mainTableView;
     
+    UITableView *_mainGoodsTableView;
+    
     NSMutableArray *ArticleArr;
 }
 
@@ -220,7 +222,14 @@
 
 -(void)initDatas
 {
-    cateArr = @[@"视频",@"文章"];
+
+    
+    cateArr = @[@"视频",
+        #if COLLECT_GOODS
+                @"商品",
+        #endif
+                @"文章"];
+
     btnArr  = [NSMutableArray array];
     EditMode = NO;
     _cellCollectionCount = self.arr_voiceData.count;
@@ -231,13 +240,14 @@
     for (int i = 0;i< cateArr.count; i++) {
         UIButton *cateBtn = [[UIButton alloc] initWithFrame:CGRectMake(0 + i*(SCREEN_WIDTH/cateArr.count), Header_Height + 10,(SCREEN_WIDTH/cateArr.count) , 60)];
         
-        if(i == 0)
+        if(i != cateArr.count -1)
         {
             UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/cateArr.count)-1, 5, 1, cateBtn.frame.size.height - 5*2)];
             lineView.backgroundColor = BACKGROUND_COLOR;
             [cateBtn addSubview:lineView];
-            cateBtn.selected = YES;
         }
+        if(i==0)
+            cateBtn.selected = YES;
         
         [cateBtn setTitle:cateArr[i] forState:UIControlStateNormal];
         cateBtn.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -323,7 +333,7 @@
 
 -(void)initTableView
 {
-    _cellTableHeight = 80;
+    _cellTableHeight = 90;
     _cellTableCount = 10;
     
     
@@ -335,7 +345,7 @@
     _mainTableView.separatorColor =  Separator_Color;
     _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.scrollEnabled = NO;
-    
+    _mainTableView.tag = ArticleTag;
     _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _cellTableCount*(_cellTableHeight)+60);
     
     __unsafe_unretained __typeof(self) weakSelf = self;
@@ -365,6 +375,44 @@
         //            return;
         [weakSelf getCollectArticle];
         [_mainTableView.mj_footer endRefreshing];
+    }];
+    
+    
+    _mainGoodsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height + 10 +60+10, SCREEN_WIDTH, SCREEN_HEIGHT-( Header_Height + 10 +60+10))];
+    _mainGoodsTableView.backgroundColor = BACKGROUND_COLOR;
+    _mainGoodsTableView.tag = GoodsTag;
+    _mainGoodsTableView.delegate = self;
+    _mainGoodsTableView.dataSource = self;
+    _mainGoodsTableView.separatorColor =  Separator_Color;
+    _mainGoodsTableView.tableFooterView = [[UIView alloc] init];
+    //_mainTableView.scrollEnabled = NO;
+    
+    _mainGoodsTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _cellTableCount*(_cellTableHeight)+60);
+    
+    
+    _mainGoodsTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        pageNo=0;
+        
+        if(ArticleArr !=nil&&ArticleArr.count > 0)
+        {
+            [ArticleArr removeAllObjects];
+        }
+        if( _mainGoodsTableView.mj_footer!=nil)
+        {
+            [_mainGoodsTableView.mj_footer setState:MJRefreshStateIdle];
+        }
+//        [weakSelf getCollectArticle];
+        // 结束刷新
+        [_mainGoodsTableView.mj_header endRefreshing];
+    }];
+    [_mainGoodsTableView.mj_header beginRefreshing];
+    
+    // 上拉刷新
+    _mainGoodsTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+
+//        [weakSelf getCollectArticle];
+        [_mainGoodsTableView.mj_footer endRefreshing];
     }];
     //[self.view addSubview:_mainTableView];
 }
@@ -539,9 +587,14 @@
 {
     sender.selected = YES;
     
-    if(sender.tag == 0)
+    if( [sender.titleLabel.text isEqualToString:@"视频"])
     {
         if(_mainTableView.superview != nil)
+        {
+            [_mainTableView removeFromSuperview];
+        }
+        
+        if(_mainGoodsTableView.superview != nil)
         {
             [_mainTableView removeFromSuperview];
         }
@@ -553,7 +606,28 @@
         _lblRight.hidden = NO;
         mode = CollectionViewMode;
     }
-    else if(sender.tag == 1)
+    else if([sender.titleLabel.text isEqualToString:@"文章"])
+    {
+        mode = TableViewMode;
+        if(mainCollectionView.superview != nil)
+        {
+            [mainCollectionView removeFromSuperview];
+            
+        }
+
+        if(_mainGoodsTableView.superview != nil)
+        {
+            [_mainGoodsTableView removeFromSuperview];
+        }
+        
+        if(_mainTableView.superview == nil)
+        {
+            [self.view addSubview:_mainTableView];
+        }
+        
+        _lblRight.hidden = YES;
+    }
+    else if([sender.titleLabel.text isEqualToString:@"商品"])
     {
         mode = TableViewMode;
         if(mainCollectionView.superview != nil)
@@ -562,9 +636,14 @@
             
         }
         
-        if(_mainTableView.superview == nil)
+        if(_mainTableView.superview != nil)
         {
-            [self.view addSubview:_mainTableView];
+            [_mainTableView removeFromSuperview];
+        }
+        
+        if(_mainGoodsTableView.superview == nil)
+        {
+            [self.view addSubview:_mainGoodsTableView];
         }
         
         _lblRight.hidden = YES;
@@ -612,28 +691,55 @@
     }
 }
 
-- (void)btn_2Action:(UIButton *)sender
+- (void)collectBtnClick:(UIButton *)sender
 {
     NSDictionary *tempDict = ArticleArr[sender.tag/100];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
     
     if (sender.selected == 0)
     {
         sender.selected = 1;
         [sender setImage:[UIImage imageNamed:@"collect_h"] forState:(UIControlStateNormal)];
         
-        int x = [tempDict[@"FavoriteNum"] intValue] + 1;
-//        model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
+        int x = [sender.titleLabel.text intValue] + 1;
+
         [sender setTitle:[NSString stringWithFormat:@"%d",x] forState:(UIControlStateNormal)];
+        [sender setTitle:[NSString stringWithFormat:@"%d",x] forState:(UIControlStateSelected)];
         
+        
+        [dataprovider voiceAction:[NSString stringWithFormat:@"%@",ArticleArr[sender.tag][@"MessageId"]] andUserId:[Toolkit getUserID] andFlg:@"1" andDescription:nil];
     }
     else
     {
         sender.selected = 0;
         [sender setImage:[UIImage imageNamed:@"collect"] forState:(UIControlStateNormal)];
         
-        int x = [tempDict[@"FavoriteNum"] intValue] - 1;
-//        model.FavoriteNum = [NSString stringWithFormat:@"%d",x];
+        int x =  [sender.titleLabel.text intValue];
+        
+        if(x>0)
+        {
+            x--;
+        }
+        else
+        {
+            x=0;
+        }
+
         [sender setTitle:[NSString stringWithFormat:@"%d",x] forState:(UIControlStateNormal)];
+        [sender setTitle:[NSString stringWithFormat:@"%d",x] forState:(UIControlStateSelected)];
+        [dataprovider voicedelete:[NSString stringWithFormat:@"%@",ArticleArr[sender.tag][@"MessageId"]] andUserId:[Toolkit getUserID] andFlg:@"1"];
+    }
+}
+
+-(void)MakeActionCallBack:(id)dict
+{
+    if ([dict[@"code"] intValue]==200) {
+        [SVProgressHUD showSuccessWithStatus:@"操作成功" maskType:SVProgressHUDMaskTypeBlack];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"操作失败" maskType:SVProgressHUDMaskTypeBlack];
     }
 }
 
@@ -822,7 +928,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return ArticleArr.count;
+    if (tableView.tag == ArticleTag) {
+       return ArticleArr.count;
+    }
+    else if (tableView.tag == GoodsTag)
+    {
+        return 3;
+    }
+    else
+    {
+        return 0;
+    }
     
 }
 
@@ -831,72 +947,106 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    static NSString *CellIdentifier = @"mycollectTableCell";
-    MyCollectTableViewCell *cell = (MyCollectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell.contentView.backgroundColor=ItemsBaseColor;
-    cell.layer.masksToBounds=YES;
-    cell.layer.cornerRadius=5;
-    cell.bounds=CGRectMake(0, 0, SCREEN_WIDTH-50, cell.frame.size.height);
-    cell  = [[[NSBundle mainBundle] loadNibNamed:@"MyCollectTableViewCell" owner:self options:nil] lastObject];
-    cell.layer.masksToBounds=YES;
-    cell.frame=CGRectMake(cell.frame.origin.x, cell.frame.origin.y, SCREEN_WIDTH, cell.frame.size.height);
-//    cell.btn_1.backgroundColor = [UIColor orangeColor];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellTableHeight)];
+    cell.backgroundColor = ItemsBaseColor;
     
+    if(tableView.tag == ArticleTag)
+    {
     
-    @try {
-        
+//        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellTableHeight)];
+//        cell.backgroundColor = ItemsBaseColor;
         
         if(ArticleArr == nil || ArticleArr.count == 0 || ArticleArr.count  - 1 < indexPath.row)
         {
             return cell;
         }
-        NSDictionary * tempDict = ArticleArr[indexPath.row];
-        NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"ImagePath"]];
-        [cell.image sd_setImageWithURL:[NSURL URLWithString:url]];
-        cell.name.text = tempDict[@"Title"];
-        cell.detail.text = tempDict[@"Content"];
-        NSRange x = NSMakeRange(5, 5);
-        //    [model.OperateTime substringWithRange:x];
-        cell.date.text = [tempDict[@"OperateTime"] substringWithRange:x];
         
-        
-        
-        [cell.btn_1 setTitle:[NSString stringWithFormat:@"%@",tempDict[@"LikeNum"]] forState:(UIControlStateNormal)];
-        [cell.btn_1 setImage:[UIImage imageNamed:@"support"] forState:(UIControlStateNormal)];
-        [cell.btn_1 addTarget:self action:@selector(btn_1Action:) forControlEvents:(UIControlEventTouchUpInside)];
-        cell.btn_1.tag = indexPath.row * 100;
-        NSString * str_IsLike = [NSString stringWithFormat:@"%@",tempDict[@"IsLike"]];
-        if([str_IsLike isEqualToString:@"1"])
-        {
-            [cell.btn_1 setSelected:YES];
-            [cell.btn_1 setImage:[UIImage imageNamed:@"support_h"] forState:(UIControlStateNormal)];
+        @try {
+            NSDictionary * tempDict = ArticleArr[indexPath.row];
+            
+            
+            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, _cellTableHeight,_cellTableHeight -20 )];
+            [cell.contentView addSubview:imgView];
+            NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"ImagePath"]];
+            [imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"jhstory"]];
+            
+            
+            UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 80), 5,60 , 20)];
+            [cell.contentView addSubview:timeLab];
+            timeLab.font = [UIFont systemFontOfSize:14];
+            timeLab.textColor = [UIColor whiteColor];
+            timeLab.textAlignment = NSTextAlignmentRight;
+            NSRange x = NSMakeRange(5, 5);
+
+            timeLab.text = [tempDict[@"OperateTime"] substringWithRange:x];
+
+            UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((imgView.frame.origin.x + imgView.frame.size.width+10),
+                                                                          5, (timeLab.frame.origin.x - (imgView.frame.origin.x + imgView.frame.size.width+10)), 20)];
+            
+            [cell.contentView addSubview:titleLab];
+            titleLab.textColor = [UIColor whiteColor];
+            titleLab.font = [UIFont systemFontOfSize:14];
+            titleLab.text = tempDict[@"Title"];
+            
+            
+            UILabel *contentLab = [[UILabel alloc] initWithFrame:CGRectMake(titleLab.frame.origin.x,
+                                                                           (titleLab.frame.origin.y+titleLab.frame.size.height),
+                                                                            (SCREEN_WIDTH - titleLab.frame.origin.x), _cellTableHeight- 20 -10 -20)];
+            [cell.contentView addSubview:contentLab];
+            
+            contentLab.text = tempDict[@"Content"];
+            contentLab.textColor = [UIColor whiteColor];
+            contentLab.numberOfLines = 0;
+            contentLab.font = [UIFont systemFontOfSize:14];
+            
+            UIButton *collectBtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 80),
+                                                                              (contentLab.frame.origin.y+contentLab.frame.size.height), 60, 20)];
+            [collectBtn setImage:[UIImage imageNamed:@"collect_h"] forState:UIControlStateNormal];
+            collectBtn.selected = YES;
+            [collectBtn addTarget:self action:@selector(collectBtnClick:) forControlEvents:(UIControlEventTouchUpInside)];
+            [cell.contentView addSubview:collectBtn];
+            [collectBtn setTitle:[NSString stringWithFormat:@"%@",tempDict[@"FavoriteNum"]] forState:(UIControlStateNormal)];
+            collectBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+            collectBtn.tag = indexPath.row;
         }
-        else
-        {
-            [cell.btn_1 setSelected:NO];
-            [cell.btn_1 setImage:[UIImage imageNamed:@"support"] forState:(UIControlStateNormal)];
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            return cell;
+
         }
         
-        [cell.btn_2 setTitle:[NSString stringWithFormat:@"%@",tempDict[@"FavoriteNum"]] forState:(UIControlStateNormal)];
-        [cell.btn_2 setImage:[UIImage imageNamed:@"collect_h"] forState:(UIControlStateNormal)];
-        [cell.btn_2 addTarget:self action:@selector(btn_2Action:) forControlEvents:(UIControlEventTouchUpInside)];
-        cell.btn_2.tag = indexPath.row * 100;
-        cell.btn_2.userInteractionEnabled = NO;
-        
     }
-    @catch (NSException *exception) {
+    else if (tableView.tag == GoodsTag)
+    {
         
-    }
-    @finally {
+        NSString *CellIdentifier = @"ShopCellIdentifier";
         
+        ShopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopTableViewCell" owner:self options:nil] objectAtIndex:0];
+            cell.backgroundColor = ItemsBaseColor;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        [cell.mImageView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
+        cell.mName.text = @"男士哑铃一对10公斤";
+        cell.mPrice.text = [NSString stringWithFormat:@"¥20.00"];
+        cell.watchNum.text = [NSString stringWithFormat:@"%@人",@"1000"];
+        cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",@"1000"];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        return cell;
     }
-   
+
     return cell;
-    
+
 }
 
 //设置cell每行间隔的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if(tableView.tag == GoodsTag)
+        return 70;
     
     return _cellTableHeight ;
 }
@@ -907,14 +1057,21 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
-    UnionNewsDetailViewController *unionNewsDetailViewCtl = [[UnionNewsDetailViewController alloc] init];
-    unionNewsDetailViewCtl.navtitle = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"Title"]];
-    unionNewsDetailViewCtl.webId = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"MessageId"]];
-    unionNewsDetailViewCtl.collectNum =[NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"FavoriteNum"]];
-    unionNewsDetailViewCtl.isFavorite = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"IsFavorite"]];
-    [self.navigationController pushViewController:unionNewsDetailViewCtl animated:YES];
-
+    if (tableView.tag == ArticleTag) {
+        UnionNewsDetailViewController *unionNewsDetailViewCtl = [[UnionNewsDetailViewController alloc] init];
+        unionNewsDetailViewCtl.navtitle = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"Title"]];
+        unionNewsDetailViewCtl.webId = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"MessageId"]];
+        unionNewsDetailViewCtl.collectNum =[NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"FavoriteNum"]];
+        unionNewsDetailViewCtl.isFavorite = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"IsFavorite"]];
+        [self.navigationController pushViewController:unionNewsDetailViewCtl animated:YES];
+    }
     
+    if(tableView.tag == GoodsTag)
+    {
+        ShopDetailViewController *shopDetailViewCtl = [[ShopDetailViewController alloc] init];
+        
+        [self.navigationController pushViewController:shopDetailViewCtl animated:YES];
+    }
 }
 
 

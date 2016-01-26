@@ -108,6 +108,8 @@
 {
     sender.selected = !sender.selected;
     
+    
+    
     for (UIButton *tempBtn in cellBtnArr) {
         tempBtn.selected = sender.selected;
     }
