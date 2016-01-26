@@ -12,6 +12,7 @@
 #import "NewConcernFriendViewController.h"
 #import "AnnouncementViewController.h"
 #import "IntegralExchangeViewController.h"
+#import "VideoZhiBoViewController.h"
 
 @interface KongFuerViewController ()
 {
@@ -685,9 +686,8 @@
     switch (indexPath.section - 2) {
         case 0:
         {
-            ZhiBoViewController *zhiboViewCtl = [[ZhiBoViewController alloc] init];
-            zhiboViewCtl.navtitle = cateGoryV[indexPath.section-2][indexPath.row];
-            [self.navigationController pushViewController:zhiboViewCtl animated:YES];
+            VideoZhiBoViewController *videoZhiBoVC = [[VideoZhiBoViewController alloc] init];
+            [self.navigationController pushViewController:videoZhiBoVC animated:YES];
         }
             break;
         case 1:
