@@ -12,6 +12,7 @@
 @class MyTextView;
 @protocol MyTextViewDelegate <NSObject>
 -(void)myTextViewDidChange:(MyTextView *)textView;
+-(void)myTextViewDidBeginEditing:(MyTextView *)textView;
 @end
 
 @interface MyTextView : UITextView<UITextViewDelegate>
