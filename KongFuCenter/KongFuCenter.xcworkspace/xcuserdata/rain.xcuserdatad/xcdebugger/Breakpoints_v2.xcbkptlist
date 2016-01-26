@@ -7478,9 +7478,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
+            endingLineNumber = "142">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -7494,9 +7492,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
+            endingLineNumber = "160">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -7510,9 +7506,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "149"
-            endingLineNumber = "149"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
+            endingLineNumber = "149">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -7526,9 +7520,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
+            endingLineNumber = "156">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -7542,9 +7534,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
+            endingLineNumber = "146">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -6,8 +6,8 @@
 //  Copyright © 2016年 zykj. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseNavigationController.h"
 
-@interface _VideoZhiBoListViewController : UIViewController
+@interface _VideoZhiBoListViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end
