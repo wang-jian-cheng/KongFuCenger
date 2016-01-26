@@ -33,7 +33,14 @@
     return self;
 }
 
-
+#pragma mark - delegate
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if([self.mydelegate respondsToSelector:@selector(myTextViewDidBeginEditing:)])
+    {
+        [self.mydelegate myTextViewDidBeginEditing:self];
+    }
+}
 
 -(void)textViewDidChange:(UITextView *)textView
 {

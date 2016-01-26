@@ -17,7 +17,7 @@
 #define TabBar_HEIGHT 49
 
 #define Web_path @"http://120.27.115.235/MessageAndImageNews.aspx?id="
-#define Kimg_path @"http:http://120.27.115.235/"
+#define Kimg_path @"http://120.27.115.235/"
 
 #define Header_Height   (NavigationBar_HEIGHT + StatusBar_HEIGHT)
 

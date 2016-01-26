@@ -632,11 +632,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/KongFuerViewController.m"
-            timestampString = "475406605.375322"
+            timestampString = "475465379.945711"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
             landmarkName = "-WeatherBackcall:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1448,11 +1448,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/KongFuerViewController.m"
-            timestampString = "475406605.375322"
+            timestampString = "475465379.945711"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
             landmarkName = "-getUserInfoCallBack:"
             landmarkType = "5">
          </BreakpointContent>

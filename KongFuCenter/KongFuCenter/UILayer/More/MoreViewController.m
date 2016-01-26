@@ -155,13 +155,14 @@
             }
                 break;
             case 1:
-                cell.textLabel.text = @"关于@功夫";
+                cell.textLabel.text = @"关于艾特功夫";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 break;
             default:
                 break;
         }
-    }else if (indexPath.section == 2)
+    }
+    else if (indexPath.section == 2)
     {
         switch (indexPath.row) {
             case 0:

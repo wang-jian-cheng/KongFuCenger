@@ -222,28 +222,51 @@
 }
 
 - (void)WeatherBackcall:(id)dic{
-   // DLog(@"%@",dic);
-    
+    DLog(@"%@",dic);
     
     NSDictionary *baseDic = [dic valueForKey:@"HeWeather data service 3.0"][0];
     @try {
+        if(baseDic == nil)
+        {
+            airNUm.hidden = YES;
+            airQuality.hidden = YES;
+            temp.hidden = YES;
+            return;
+        }
         getWeatherFinish = YES;
         if([[baseDic allKeys] containsObject:@"aqi"])
         {
             airNUm.text =[NSString stringWithFormat:@"PM:%@ug/m³" ,baseDic[@"aqi"][@"city"][@"pm25"]];
             airQuality.text = [NSString stringWithFormat:@"空气质量:%@",baseDic[@"aqi"][@"city"][@"qlty"]];
+            
+            airNUm.hidden = NO;
+            airQuality.hidden = NO;
         }
         else{
-            airNUm.text =[NSString stringWithFormat:@"PM:%@" ,@"无数据"];
-            airQuality.text = [NSString stringWithFormat:@"空气质量:%@",@"无数据"];
+//            airNUm.text =[NSString stringWithFormat:@"PM:%@" ,@"无数据"];
+//            airQuality.text = [NSString stringWithFormat:@"空气质量:%@",@"无数据"];
+            airNUm.hidden = YES;
+            airQuality.hidden = YES;
         }
         //天气图标
 //        weatherImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://files.heweather.com/cond_icon/%@.png",[[[baseDic valueForKey:@"now"] valueForKey:@"cond"] valueForKey:@"code"]]]]];
         
         //实时温度
-        temp.text = [NSString  stringWithFormat:@"%@℃",[[baseDic valueForKey:@"now"] valueForKey:@"tmp"]];
         
-
+        NSString *tempstr = [NSString  stringWithFormat:@"%@℃",[[baseDic valueForKey:@"now"] valueForKey:@"tmp"]];
+        if(tempstr==nil || [tempstr isEqual:[NSNull null]])
+        {
+            temp.hidden = YES;
+        }
+        else if(tempstr.length == 0)
+        {
+            temp.hidden = YES;
+        }
+        else
+        {
+            temp.hidden= NO;
+            temp.text = tempstr;
+        }
     }
     @catch (NSException *exception) {
         
