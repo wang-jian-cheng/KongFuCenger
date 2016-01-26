@@ -11,7 +11,7 @@
 #define GapToLeft   20
 #define kUrlScheme      @"com.zykj.KongFuCenter" // 这个是你定义的 URL Scheme，支付宝、微信支付和测试模式需要。
 #if 1
-#define kUrl            @"http://115.28.67.86:8033/LoginAndRegister.asmx/GetCharge"
+#define kUrl            @"http://120.27.115.235/LoginAndRegister.asmx/GetCharge"
 #else
 #define kUrl            @"http://218.244.151.190/demo/charge"// 你的服务端创建并返回 charge 的 URL 地址，此地址仅供测试用。
 #endif
