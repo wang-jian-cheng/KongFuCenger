@@ -11,7 +11,7 @@
 #import "SelectRoundBtn.h"
 #import "MJRefresh.h"
 #import "UIImageView+WebCache.h"
-#import "VideoDetailViewController.h"
+#import "VideoDetialSecondViewController.h"
 @interface GrowHistoryViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
     int pageNo;

@@ -10,7 +10,7 @@
 #import "MyCollectTableViewCell.h"
 #import "BaseVideoCollectionViewCell.h"
 #import "UITableViewCell+EditMode.h"
-#import "VideoDetailViewController.h"
+//#import "VideoDetailViewController.h"
 #import "UnionNewsDetailViewController.h"
 #import "MJRefresh.h"
 #import "VideoDetialSecondViewController.h"
