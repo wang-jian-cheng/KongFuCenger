@@ -1,5 +1,5 @@
 //
-//  VideoZhiBoListViewController.h
+//  VideoZhiBoList.h
 //  KongFuCenter
 //
 //  Created by Rain on 16/1/26.
@@ -8,6 +8,6 @@
 
 #import "BaseNavigationController.h"
 
-@interface _VideoZhiBoListViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+@interface VideoZhiBoList : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @end
