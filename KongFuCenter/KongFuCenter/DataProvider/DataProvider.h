@@ -147,6 +147,14 @@
  *  @param userid     用户id
  */
 -(NSInteger)getStudyOnlineVideoDetial:(NSString *)videoid andUserId:(NSString *)userid;
+
+#pragma mark - 视频直播
+//分页获取视频直播列表
+-(void)SelectVideoLiveList:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+
+//根据ID获取视频直播
+-(void)SelectVideoLive:(NSString *)userid andvideoLiveId:(NSString *)videoLiveId;
+
 #pragma mark - 支付
 -(void)getPingppCharge:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description andFlg:(NSString *)flg;
 //成为会员
