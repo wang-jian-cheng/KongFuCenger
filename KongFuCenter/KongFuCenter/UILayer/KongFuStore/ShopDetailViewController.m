@@ -268,6 +268,25 @@
             mName.textColor = [UIColor whiteColor];
             mName.text = @"瑜伽球大号一个";
             [cell addSubview:mName];
+            
+//            NSMutableArray *images = [[NSMutableArray alloc] init];
+//            NSArray *sliderArray = [[NSArray alloc] init];//[mDataArray valueForKey:@"rotationAdvertList"];
+//            if (sliderArray.count > 0) {
+//                for (int i=0; i<sliderArray.count; i++) {
+//                    UIImageView * img=[[UIImageView alloc] init];
+//                    //int objtype = sliderArray[i][@"objtype"]?[sliderArray[i][@"objtype"] intValue]:-1;
+//                    //int objid = sliderArray[i][@"objid"]?[sliderArray[i][@"objid"] intValue]:-1;
+//                    //img.tag = objtype * 1000 + objid;
+//                    NSString *imgpath = @"";//sliderArray[i][@"imgpath"]?sliderArray[i][@"imgpath"]:@"";
+//                    NSString *url = [NSString stringWithFormat:@"%@%@",Url,imgpath];
+//                    [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"placeholder"] ];
+//                    [images addObject:img];
+//                }
+//            }
+            // 创建带标题的图片轮播器
+            //_cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, 165) imagesGroup:images ];
+            //_cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+            //_cycleScrollView.delegate = self;
         }else{
             NSString *priceStr = [NSString stringWithFormat:@"¥%@",@"20.00"];
             CGSize priceSize = [priceStr sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f]}];
