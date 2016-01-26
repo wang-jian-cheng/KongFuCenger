@@ -22,7 +22,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="咏春拳公益巡回演出" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nke-JV-gQE">
-                        <rect key="frame" x="96" y="8" width="173" height="21"/>
+                        <rect key="frame" x="96" y="8" width="224" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -70,11 +70,11 @@
                     <constraint firstItem="CpR-n7-nrX" firstAttribute="baseline" secondItem="nke-JV-gQE" secondAttribute="baseline" id="MtR-5B-Jpo"/>
                     <constraint firstItem="CpR-n7-nrX" firstAttribute="top" secondItem="nke-JV-gQE" secondAttribute="top" id="QFa-yL-IgE"/>
                     <constraint firstItem="qM3-IE-mhu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="TRO-wp-prc"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="nke-JV-gQE" secondAttribute="trailing" constant="43" id="cU3-za-Wtb"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="nke-JV-gQE" secondAttribute="trailing" constant="-8" id="cU3-za-Wtb"/>
                     <constraint firstItem="5oI-UF-WQc" firstAttribute="leading" secondItem="Opj-W7-gfv" secondAttribute="leading" id="eJm-Ou-GvT"/>
                     <constraint firstItem="Opj-W7-gfv" firstAttribute="bottom" secondItem="PhK-I1-xWY" secondAttribute="bottom" constant="-4" id="fTf-HE-FZZ"/>
                     <constraint firstItem="PhK-I1-xWY" firstAttribute="trailing" secondItem="CpR-n7-nrX" secondAttribute="trailing" id="j8L-g5-xVk"/>
-                    <constraint firstItem="5oI-UF-WQc" firstAttribute="trailing" secondItem="nke-JV-gQE" secondAttribute="trailing" constant="43" id="m4c-RZ-7HF"/>
+                    <constraint firstItem="5oI-UF-WQc" firstAttribute="trailing" secondItem="nke-JV-gQE" secondAttribute="trailing" constant="-8" id="m4c-RZ-7HF"/>
                     <constraint firstItem="nke-JV-gQE" firstAttribute="leading" secondItem="qM3-IE-mhu" secondAttribute="trailing" constant="8" symbolic="YES" id="nxb-De-M6H"/>
                     <constraint firstItem="PhK-I1-xWY" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="zdG-wN-44m"/>
                 </constraints>

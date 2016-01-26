@@ -10,4 +10,6 @@
 
 @interface VideoZhiBoViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
+@property(nonatomic,strong) NSString *videoLiveID;
+
 @end

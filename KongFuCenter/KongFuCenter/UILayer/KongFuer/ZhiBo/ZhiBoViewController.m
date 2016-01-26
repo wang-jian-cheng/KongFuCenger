@@ -34,7 +34,7 @@
     
     [self.view addSubview:webView];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@zhibo.aspx",Url]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@zhibo.aspx?id=1",Url]];
     NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
     [webView loadRequest:request];
 //    [[UIDevice currentDevice] setValue: [NSNumber numberWithInteger: UIDeviceOrientationLandscapeLeft] forKey:@"orientation"];

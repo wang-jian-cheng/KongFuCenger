@@ -681,7 +681,26 @@
     }
 }
 
+#pragma mark - 视频直播
+-(void)SelectVideoLiveList:(NSString *)userid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows{
+    if (userid) {
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectVideoLiveList",Url];
+        NSDictionary * prm=@{@"userid":userid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
 
+-(void)SelectVideoLive:(NSString *)userid andvideoLiveId:(NSString *)videoLiveId{
+    if (userid) {
+        NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/SelectVideoLive",Url];
+        NSDictionary * prm=@{@"userid":userid,@"videoLiveId":videoLiveId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
 
 #pragma mark - 武馆
 -(void)getWuguanList:(NSString*)areaname andLat:(NSString *)lat andLng:(NSString *)lng andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows

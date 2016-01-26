@@ -13,6 +13,7 @@
 
 @interface VideoZhiBoViewController (){
     UITableView *mTableView;
+    NSDictionary *videoLiveDict;
 }
 
 @end
@@ -28,7 +29,7 @@
     [self addLeftButton:@"left"];
     
     //初始化View
-    [self initViews];
+    [self initData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -37,6 +38,21 @@
 }
 
 #pragma mark 自定义方法
+-(void)initData{
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getVideoZhiInfoCallBack:"];
+    [dataProvider SelectVideoLive:get_sp(@"id") andvideoLiveId:_videoLiveID];
+}
+
+-(void)getVideoZhiInfoCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        videoLiveDict = [[NSDictionary alloc] initWithDictionary:dict[@"data"]];
+        [self initViews];
+    }
+}
+
 -(void)initViews{
     mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
     mTableView.delegate = self;
@@ -95,12 +111,11 @@
     }
     if (indexPath.section == 0) {
         NSMutableArray *images = [[NSMutableArray alloc] init];
-        NSArray *sliderArray = [[NSArray alloc] initWithObjects:@"UpLoad/Dongtai/Image/5da7e68c-51fb-415d-ab57-bf4450193a66.jpg",@"UpLoad/Dongtai/Image/28910553-2b69-4b0f-90d3-081276f4c96f.png", nil];//[mDataArray valueForKey:@"rotationAdvertList"];
+        NSArray *sliderArray = [[NSArray alloc] initWithArray:[videoLiveDict valueForKey:@"ImageList"]];
         if (sliderArray.count > 0) {
             for (int i=0; i<sliderArray.count; i++) {
                 UIImageView * img=[[UIImageView alloc] init];
-                NSString *imgpath = sliderArray[i];//sliderArray[i][@"imgpath"]?sliderArray[i][@"imgpath"]:@"";
-                NSString *url = [NSString stringWithFormat:@"%@%@",Url,imgpath];
+                NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[sliderArray[i] valueForKey:@"ImagePath"]]];
                 [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
                 [images addObject:img];
             }
@@ -111,10 +126,10 @@
         cycleScrollView.autoScrollTimeInterval = 5;
         [cell addSubview:cycleScrollView];
         
-        UILabel *mName = [[UILabel alloc] initWithFrame:CGRectMake(14, cycleScrollView.frame.origin.y + cycleScrollView.frame.size.height + (50 - 21) / 2, 220, 21)];
+        UILabel *mName = [[UILabel alloc] initWithFrame:CGRectMake(14, cycleScrollView.frame.origin.y + cycleScrollView.frame.size.height + (50 - 21) / 2, 250, 21)];
         mName.textColor = [UIColor whiteColor];
-        mName.font = [UIFont systemFontOfSize:19];
-        mName.text = @"临沂第一届国际武术大赛";
+        mName.font = [UIFont systemFontOfSize:18];
+        mName.text = [Toolkit judgeIsNull:[videoLiveDict valueForKey:@"Title"]];
         [cell addSubview:mName];
     }else if (indexPath.section == 1){
         UILabel *startTimeStr = [[UILabel alloc] initWithFrame:CGRectMake(14, 2, 120, 21)];
@@ -126,7 +141,7 @@
         UILabel *startTime = [[UILabel alloc] initWithFrame:CGRectMake(10, startTimeStr.frame.origin.y + startTimeStr.frame.size.height + 2, 140, 21)];
         startTime.font = [UIFont systemFontOfSize:13];
         startTime.textColor = YellowBlock;
-        startTime.text = @"2016-02-06 23:00:00";
+        startTime.text = [Toolkit judgeIsNull:[videoLiveDict valueForKey:@"TimeStart"]];
         [cell addSubview:startTime];
         
         [Toolkit drawLine:SCREEN_WIDTH/2 +20 andSY:0 andEX:SCREEN_WIDTH/2-18 andEY:45 andLW:1 andColor:Separator_Color andView:cell];
@@ -134,13 +149,13 @@
         UILabel *endTimeStr = [[UILabel alloc] initWithFrame:CGRectMake(16 + SCREEN_WIDTH / 2, 2, 120, 21)];
         endTimeStr.textColor = [UIColor whiteColor];
         endTimeStr.font = [UIFont systemFontOfSize:14];
-        endTimeStr.text = @"直播开始时间:";
+        endTimeStr.text = @"直播结束时间:";
         [cell addSubview:endTimeStr];
         
         UILabel *endTime = [[UILabel alloc] initWithFrame:CGRectMake(10 + SCREEN_WIDTH / 2, endTimeStr.frame.origin.y + endTimeStr.frame.size.height + 2, 140, 21)];
         endTime.textColor = YellowBlock;
         endTime.font = [UIFont systemFontOfSize:13];
-        endTime.text = @"2016-02-08 23:00:00";
+        endTime.text = [Toolkit judgeIsNull:[videoLiveDict valueForKey:@"TimeEnd"]];
         [cell addSubview:endTime];
     }else{
         if (indexPath.row == 0) {
@@ -150,7 +165,7 @@
             contentTitle.text = @"内容介绍:";
             [cell addSubview:contentTitle];
             
-            NSString *mContentStr = [NSString stringWithFormat:@"%@%@",@"        ",@"成家班就是五行里的“飞虎队”，勇猛果敢无所不能，成家班就是五行里的“飞虎队”，勇猛果敢无所不能，成家班就是五行里的“飞虎队”，勇猛果敢无所不能，成家班就是五行里的“飞虎队”，勇猛果敢无所不能，成家班就是五行里的“飞虎队”，勇猛果敢无所不能，成家班就是五行里的“飞虎队”，勇猛果敢无所不能。"];
+            NSString *mContentStr = [NSString stringWithFormat:@"%@%@",@"        ",[Toolkit judgeIsNull:[videoLiveDict valueForKey:@"Content"]]];
             CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+5;
             UITextView *contentTv = [[UITextView alloc] initWithFrame:CGRectMake(14, contentTitle.frame.origin.y + contentTitle.frame.size.height, SCREEN_WIDTH - 28, contentHeight)];
             contentTv.editable = NO;
@@ -182,7 +197,7 @@
         return 45;
     }else{
         if (indexPath.row == 0) {
-            NSString *mContentStr = [NSString stringWithFormat:@"%@%@",@"        ",@"成家班就是五行里的“飞虎队”，勇猛果敢无所不能，成家班就是五行里的“飞虎队”，勇猛果敢无所不能，成家班就是五行里的“飞虎队”，勇猛果敢无所不能，成家班就是五行里的“飞虎队”，勇猛果敢无所不能，成家班就是五行里的“飞虎队”，勇猛果敢无所不能，成家班就是五行里的“飞虎队”，勇猛果敢无所不能。"];
+            NSString *mContentStr = [NSString stringWithFormat:@"%@%@",@"        ",[Toolkit judgeIsNull:[videoLiveDict valueForKey:@"Content"]]];
             CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+5;
             return 10 + 21 + 5 + contentHeight + 10;
         }else{
