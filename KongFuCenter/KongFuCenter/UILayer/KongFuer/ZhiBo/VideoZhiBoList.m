@@ -1,12 +1,12 @@
 //
-//  VideoZhiBoListViewController.m
+//  VideoZhiBoList.m
 //  KongFuCenter
 //
 //  Created by Rain on 16/1/26.
 //  Copyright © 2016年 zykj. All rights reserved.
 //
 
-#import "VideoZhiBoListViewController.h"
+#import "VideoZhiBoList.h"
 #import "UIImageView+WebCache.h"
 #import "MJRefresh.h"
 #import "VideoZhiBoViewController.h"
@@ -14,7 +14,7 @@
 
 #define cellIdentifier @"CellIdentifier"
 
-@interface VideoZhiBoListViewController (){
+@interface VideoZhiBoList (){
     UITableView *mTableView;
     int curpage;
     NSArray *videoLiveArray;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation VideoZhiBoListViewController
+@implementation VideoZhiBoList
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -114,7 +114,7 @@
     }else{
         result = [now compare:endDate];
         if (result == -1) {
-            return @"进行中";
+            return @"直播中";
         }else{
             return @"已结束";
         }
@@ -162,7 +162,7 @@
             cell.mEndDate.text = [NSString stringWithFormat:@"开始时间:%@年%@月%@日",year,month,day];
             imageView.image = [UIImage imageNamed:@"weikaishi"];
             cell.tag = 0;
-        }else if([resultState isEqual:@"进行中"]){
+        }else if([resultState isEqual:@"直播中"]){
             cell.mEndDate.text = [NSString stringWithFormat:@"结束时间:%@年%@月%@日",yearend,monthend,dayend];
             imageView.image = [UIImage imageNamed:@"jinxingzhong"];
             cell.tag = 1;
