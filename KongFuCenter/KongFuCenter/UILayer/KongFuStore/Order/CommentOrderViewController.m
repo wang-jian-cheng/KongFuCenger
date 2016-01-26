@@ -59,7 +59,62 @@
     [backView addSubview:uploadBtn];
     [self.view addSubview:backView];
     
+    //    //注册通知,监听键盘弹出事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    //
+    //    //注册通知,监听键盘消失事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHidden) name:UIKeyboardDidHideNotification object:nil];
     
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
+    [self.view addGestureRecognizer:tapGesture];
+    
+}
+
+
+-(void)tapViewAction:(id)sender
+{
+    [self.view endEditing:YES];
+    
+}
+
+
+// 键盘弹出时
+-(void)keyboardDidShow:(NSNotification *)notification
+{
+    
+    //获取键盘高度
+    NSValue *keyboardObject = [[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    CGRect keyboardRect;
+    [keyboardObject getValue:&keyboardRect];
+    
+    
+    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height -Header_Height -keyboardRect.size.height)];
+    
+    [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+
+    
+}
+
+//键盘消失时
+-(void)keyboardDidHidden
+{
+    //定义动画
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+    //设置view的frame，往下平移
+    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height - Header_Height)];
+    //   _cellTextViewHeight = _mainTableView.frame.size.height - 3*_cellHeight;
+    //   [_mainTableView reloadData];
+    [UIView commitAnimations];
+    
+}
+
+#pragma mark - MY text View delegate
+-(void)myTextViewDidBeginEditing:(MyTextView *)textView
+{
+    tempIndexPath = [NSIndexPath indexPathForRow:1 inSection:textView.tag];
 }
 
 #pragma mark - click actions
@@ -138,6 +193,8 @@
             commentTextView.font = [UIFont systemFontOfSize:14];
             commentTextView.backgroundColor = BACKGROUND_COLOR;
             commentTextView.placeHolder.text = @"请输入评论的内容......";
+            commentTextView.tag = indexPath.section;
+            commentTextView.mydelegate = self;
             [cell.contentView addSubview:commentTextView];
         }
     }

@@ -8,6 +8,8 @@
 
 #import "BaseNavigationController.h"
 #import "MyTextView.h"
-@interface CommentOrderViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
-
+@interface CommentOrderViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,MyTextViewDelegate>
+{
+    NSIndexPath *tempIndexPath;
+}
 @end
