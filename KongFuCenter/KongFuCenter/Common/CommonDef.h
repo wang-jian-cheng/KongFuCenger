@@ -10,14 +10,14 @@
 #define BestOne_CommonDef_h
 
 //#define Url @"http://192.168.1.136:8033/"
-#define Url @"http://115.28.67.86:8033/" //外网地址
+#define Url @"http://120.27.115.235/" //外网地址
 
 #define NavigationBar_HEIGHT 44
 #define StatusBar_HEIGHT 20
 #define TabBar_HEIGHT 49
 
-#define Web_path @"http://115.28.67.86:8033/MessageAndImageNews.aspx?id="
-#define Kimg_path @"http://115.28.67.86:8033/"
+#define Web_path @"http://120.27.115.235/MessageAndImageNews.aspx?id="
+#define Kimg_path @"http:http://120.27.115.235/"
 
 #define Header_Height   (NavigationBar_HEIGHT + StatusBar_HEIGHT)
 
