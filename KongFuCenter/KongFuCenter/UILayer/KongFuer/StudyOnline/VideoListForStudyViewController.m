@@ -56,13 +56,14 @@
 -(void)initCollectionView
 {
     UICollectionViewFlowLayout *layout=[[ UICollectionViewFlowLayout alloc ] init ];
-    layout.minimumLineSpacing = 5.0;
+    layout.minimumLineSpacing = 10.0;
     layout.minimumInteritemSpacing = 5.0;
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;//设置collection
     
     //  layout.itemSize = CGSizeMake(318, 286);
     
-    // layout.sectionInset = UIEdgeInsetsMake(5, 0, 5, 0);
+//    layout.sectionInset = UIEdgeInsetsMake(10, 0, 10, 0);
+    
     
     layout.headerReferenceSize = CGSizeMake(320, 200);
     
@@ -414,7 +415,7 @@
 {
     //if()
     
-    return UIEdgeInsetsMake ( 0 , 0 , 10 , 1 );
+    return UIEdgeInsetsMake ( 0 , 0 , 0 , 0 );
     
 }
 

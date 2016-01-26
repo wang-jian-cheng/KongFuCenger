@@ -14,6 +14,15 @@
 #import "UnionNewsDetailViewController.h"
 #import "MJRefresh.h"
 #import "VideoDetialSecondViewController.h"
+#import "ShopTableViewCell.h"
+#import "ShopDetailViewController.h"
+
+#define COLLECT_GOODS   0
+
+
+#define ArticleTag  10
+#define GoodsTag    11
+
 typedef enum _cateMode
 {
     CollectionViewMode,
@@ -34,5 +43,6 @@ typedef enum _cateMode
     CateMode mode;
     
     NSString *videoId;
+    
 }
 @end
