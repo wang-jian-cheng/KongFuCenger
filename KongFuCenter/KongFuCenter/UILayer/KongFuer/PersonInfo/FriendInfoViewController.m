@@ -102,6 +102,16 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)clickLeftButton:(UIButton *)sender{
+    NSString *delFriendState = [userDefault valueForKey:@"addFriendState"];
+    if ([delFriendState isEqual:@"1"]) {
+        [userDefault setValue:@"0" forKey:@"addFriendState"];
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:(self.navigationController.viewControllers.count - 3)] animated:YES];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 -(void)clickRightButton:(UIButton *)sender
 {
     ChatSetViewController *chatSetViewCtl = [[ChatSetViewController alloc] init];

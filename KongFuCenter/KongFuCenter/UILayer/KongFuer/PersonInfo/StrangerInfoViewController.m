@@ -98,8 +98,11 @@
 
 -(void)addFriendCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
-        [SVProgressHUD showSuccessWithStatus:@"关注成功~"];
-        [self.navigationController popViewControllerAnimated:YES];
+        [userDefault setValue:@"1" forKey:@"addFriendState"];
+        FriendInfoViewController *friendInfoViewCtl = [[FriendInfoViewController alloc] init];
+        friendInfoViewCtl.navtitle = @"好友资料";
+        friendInfoViewCtl.userID = _userID;
+        [self.navigationController pushViewController:friendInfoViewCtl animated:YES];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"关注失败~"];
     }
@@ -111,6 +114,15 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)clickLeftButton:(UIButton *)sender{
+    NSString *delFriendState = [userDefault valueForKey:@"delFriendState"];
+    if ([delFriendState isEqual:@"1"]) {
+        [userDefault setValue:@"0" forKey:@"delFriendState"];
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:(self.navigationController.viewControllers.count - 4)] animated:YES];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 #pragma mark -  tableview  Delegate
 
