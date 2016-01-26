@@ -125,8 +125,14 @@ typedef enum _MatchMode
     [dataProvider setDelegateObject:self setBackFunctionName:@"TopRefireshCallBack:"];
     if (matchMode == WuZheMode) {
         [dataProvider SelectMatchPageByPerson:@"0" andmaximumRows:@"10"];
+        //清空个人未读赛事
+        DataProvider *dataProviderDelNoReadNum = [[DataProvider alloc] init];
+        [dataProviderDelNoReadNum DeleteNoReadMatch:get_sp(@"id") andFlg:@"1"];
     }else{
         [dataProvider SelectMatchPageByTeam:@"0" andmaximumRows:@"10"];
+        //清空战队未读赛事
+        DataProvider *dataProviderDelNoReadNum = [[DataProvider alloc] init];
+        [dataProviderDelNoReadNum DeleteNoReadMatch:get_sp(@"id") andFlg:@"0"];
     }
 }
 
