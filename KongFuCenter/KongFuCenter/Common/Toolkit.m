@@ -165,6 +165,70 @@
     return result;
 }
 
+#pragma mark - plist file 
+
++(id)ReadPlist:(NSString*)FileName ForKey:(NSString *)key
+{
+
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *path=[paths objectAtIndex:0];
+    NSLog(@"path = %@",path);
+    NSString *filename=[path stringByAppendingPathComponent:FileName];
+
+    NSDictionary* dic = [NSDictionary dictionaryWithContentsOfFile:filename];
+    NSLog(@"dic is:%@",dic);
+    
+    if(dic == nil)
+    {
+        //1. 创建一个plist文件
+        NSFileManager* fm = [NSFileManager defaultManager];
+        [fm createFileAtPath:filename contents:nil attributes:nil];
+        
+        dic = [NSDictionary dictionaryWithContentsOfFile:filename];
+        return dic[key];
+    }
+    else
+    {
+        return dic[key];
+    }
+
+}
+
+
+
++(void)writePlist:(NSString*)FileName andContent:(id)content andKey:(NSString *)key
+{
+    
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *path=[paths objectAtIndex:0];
+    NSLog(@"path = %@",path);
+    NSString *filename=[path stringByAppendingPathComponent:FileName];
+    
+    NSDictionary* dic = [NSDictionary dictionaryWithContentsOfFile:filename];
+   
+    
+    NSLog(@"dic is:%@",dic);
+    
+    if(dic == nil)
+    {
+        //1. 创建一个plist文件
+        NSFileManager* fm = [NSFileManager defaultManager];
+        [fm createFileAtPath:filename contents:nil attributes:nil];
+        
+        NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
+        [tempDict setObject:content forKey:key];
+        [tempDict writeToFile:filename atomically:YES];
+    }
+    else
+    {
+        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:dic];
+        
+        [tempDict setObject:content forKey:key];
+        [tempDict writeToFile:filename atomically:YES];
+    }
+    
+}
+
 
 
 #pragma mark  - old
@@ -263,5 +327,9 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
      return NO;
      //return [[self getSystemLanguage] isEqualToString:kEnglish] ? YES : NO;
  }
+
+
+
+
 
 @end
