@@ -89,6 +89,7 @@
 		804952231C250B3800F5584A /* WechatShortVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804951FC1C250B3800F5584A /* WechatShortVideoController.xib */; };
 		804952271C2523FA00F5584A /* UploadVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 804952251C2523FA00F5584A /* UploadVideoViewController.m */; };
 		804952281C2523FA00F5584A /* UploadVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804952261C2523FA00F5584A /* UploadVideoViewController.xib */; };
+		805E0E721C58C5BB0035CCCD /* changeDevice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 805E0E711C58C5BB0035CCCD /* changeDevice@2x.png */; };
 		806240621C48842000691D0C /* KongfuStore_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 806240611C48842000691D0C /* KongfuStore_0.png */; };
 		806240661C48936E00691D0C /* SecriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806240641C48936E00691D0C /* SecriteViewController.m */; };
 		806240671C48936E00691D0C /* SecriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806240651C48936E00691D0C /* SecriteViewController.xib */; };
@@ -682,6 +683,7 @@
 		804952241C2523FA00F5584A /* UploadVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadVideoViewController.h; sourceTree = "<group>"; };
 		804952251C2523FA00F5584A /* UploadVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadVideoViewController.m; sourceTree = "<group>"; };
 		804952261C2523FA00F5584A /* UploadVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadVideoViewController.xib; sourceTree = "<group>"; };
+		805E0E711C58C5BB0035CCCD /* changeDevice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "changeDevice@2x.png"; sourceTree = "<group>"; };
 		806240611C48842000691D0C /* KongfuStore_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KongfuStore_0.png; sourceTree = "<group>"; };
 		806240631C48936E00691D0C /* SecriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecriteViewController.h; sourceTree = "<group>"; };
 		806240641C48936E00691D0C /* SecriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecriteViewController.m; sourceTree = "<group>"; };
@@ -3206,6 +3208,7 @@
 		B7E1CD161C4C9594008DFE49 /* KongFuStore */ = {
 			isa = PBXGroup;
 			children = (
+				805E0E711C58C5BB0035CCCD /* changeDevice@2x.png */,
 				B7F0D6391C520C3E002F1EEF /* watchnum.png */,
 				B7F0D6311C51FECA002F1EEF /* shopping_car.png */,
 				B7F0D6321C51FECA002F1EEF /* allclass.png */,
@@ -3403,6 +3406,7 @@
 				804952191C250B3800F5584A /* WechatShortVideo_37x-Checkmark.png in Resources */,
 				B7617E4F1C1C299700CF96E7 /* 03@2x.png in Resources */,
 				B5B737791C3CAAF100DF7437 /* unicode_to_hanyu_pinyin.txt in Resources */,
+				805E0E721C58C5BB0035CCCD /* changeDevice@2x.png in Resources */,
 				B7E4CD221C1FE28500C2E69A /* wdwy.png in Resources */,
 				B7E4CD151C1FE1AE00C2E69A /* jjwz.png in Resources */,
 				B5F13B3E1C1FE6E600155038 /* 120@2x.png in Resources */,
