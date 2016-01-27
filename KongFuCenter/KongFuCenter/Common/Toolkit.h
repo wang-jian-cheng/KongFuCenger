@@ -39,6 +39,7 @@
 #pragma mark Plist
 +(id)ReadPlist:(NSString*)FileName ForKey:(NSString *)key;
 +(void)writePlist:(NSString*)FileName andContent:(id)content andKey:(NSString *)key;
++(void)delPlist:(NSString *)plist;
 #pragma mark - camera
 
 + (BOOL) isCameraAvailable;

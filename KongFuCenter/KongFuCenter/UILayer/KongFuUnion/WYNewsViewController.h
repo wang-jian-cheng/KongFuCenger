@@ -8,6 +8,11 @@
 
 #import "BaseNavigationController.h"
 
-@interface WYNewsViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
+#define WyNewsKey @"WyNews"
+
+@interface WYNewsViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+{
+    NSMutableArray *cacheArrForWrite;
+}
 @end

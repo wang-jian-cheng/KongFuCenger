@@ -23,6 +23,11 @@
 
 #define AppMainColor [UIColor colorWithRed:237/255.0 green:109/255.0 blue:3/255.0 alpha:1]
 
+
+#define NewsCaChePlist  @"NewsCache.plist"
+
+
+
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 #define SAFE_RELEASE(x) [x release];x=nil

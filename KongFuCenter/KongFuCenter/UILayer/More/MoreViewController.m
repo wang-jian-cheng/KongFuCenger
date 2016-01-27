@@ -88,10 +88,15 @@
 {
     set_sp( @"OUTLOGIN",@"YES");
 
+    [self ClearCache];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"loginpage" forKey:@"rootView"]];
     
-    
-    }
+}
+
+-(void)ClearCache
+{
+    [Toolkit delPlist:NewsCaChePlist];
+}
 
 #pragma mark -  tableview  Delegate
 
