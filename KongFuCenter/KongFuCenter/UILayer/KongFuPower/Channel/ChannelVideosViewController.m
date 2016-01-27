@@ -240,19 +240,19 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
-    if (((![dataArr[indexPath.section][@"Id"] isEqual:[NSNull null]])&&[[NSString stringWithFormat:@"%@",dataArr[indexPath.section][@"UserId"]] isEqualToString:@"0"])||([[NSString stringWithFormat:@"%@",[dataArr[indexPath.section][@"uploadType"] isEqual:[NSNull null]]?@"":dataArr[indexPath.section][@"uploadType"]] isEqualToString:@"0"])) {
+//    if (((![dataArr[indexPath.section][@"Id"] isEqual:[NSNull null]])&&[[NSString stringWithFormat:@"%@",dataArr[indexPath.section][@"UserId"]] isEqualToString:@"0"])||([[NSString stringWithFormat:@"%@",[dataArr[indexPath.section][@"uploadType"] isEqual:[NSNull null]]?@"":dataArr[indexPath.section][@"uploadType"]] isEqualToString:@"0"])) {
         VideoDetialSecondViewController *videoDetailViewCtl = [[VideoDetialSecondViewController alloc] init];
         videoDetailViewCtl.navtitle =@"视频";
         videoDetailViewCtl.videoID=[NSString stringWithFormat:@"%@" ,dataArr[indexPath.section][@"Id"]];
         [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
-    }
-    else
-    {
-        VideoDetailViewController *videoDetailViewCtl = [[VideoDetailViewController alloc] init];
-        videoDetailViewCtl.navtitle =@"视频";
-        videoDetailViewCtl.videoID=[NSString stringWithFormat:@"%@" ,dataArr[indexPath.section][@"Id"]];
-        [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
-    }
+//    }
+//    else
+//    {
+//        VideoDetailViewController *videoDetailViewCtl = [[VideoDetailViewController alloc] init];
+//        videoDetailViewCtl.navtitle =@"视频";
+//        videoDetailViewCtl.videoID=[NSString stringWithFormat:@"%@" ,dataArr[indexPath.section][@"Id"]];
+//        [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
+//    }
     
 }
 

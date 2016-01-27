@@ -221,7 +221,7 @@
     if ([dict[@"code"] intValue]==200) {
         
         [SVProgressHUD showSuccessWithStatus:@"发布成功" maskType:SVProgressHUDMaskTypeBlack];
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"uploadVideo_finish" object:nil];
         
 //        [self.navigationController popViewControllerAnimated:YES];
         [self.navigationController popToRootViewControllerAnimated:YES];

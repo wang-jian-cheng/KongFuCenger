@@ -39,6 +39,10 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [self initData];
+}
+
 #pragma mark 自定义方法
 -(void)initData{
     [SVProgressHUD showWithStatus:@"加载中..."];

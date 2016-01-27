@@ -196,18 +196,18 @@
     [SVProgressHUD dismiss];
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
-       if(!([dict[@"data"][@"UserId"] intValue] == 0))
-       {
-           VideoDetailViewController *viewDetailViewCtl = [[VideoDetailViewController alloc] init];
-           viewDetailViewCtl.videoID = [NSString stringWithFormat:@"%@",videoId];
-           [self.navigationController pushViewController:viewDetailViewCtl animated:YES];
-       }
-       else
-       {
+//       if(!([dict[@"data"][@"UserId"] intValue] == 0))
+//       {
+//           VideoDetailViewController *viewDetailViewCtl = [[VideoDetailViewController alloc] init];
+//           viewDetailViewCtl.videoID = [NSString stringWithFormat:@"%@",videoId];
+//           [self.navigationController pushViewController:viewDetailViewCtl animated:YES];
+//       }
+//       else
+//       {
            VideoDetialSecondViewController *viewDetailViewCtl = [[VideoDetialSecondViewController alloc] init];
            viewDetailViewCtl.videoID = [NSString stringWithFormat:@"%@",videoId];
            [self.navigationController pushViewController:viewDetailViewCtl animated:YES];
-       }
+//       }
     }
 }
 

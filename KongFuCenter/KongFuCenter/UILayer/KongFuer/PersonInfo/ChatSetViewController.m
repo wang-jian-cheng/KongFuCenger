@@ -167,9 +167,13 @@
 
 -(void)delFriendCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
-        //[self.navigationController popViewControllerAnimated:YES];
+//        [userDefault setValue:@"1" forKey:@"delFriendState"];
+//        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
         [userDefault setValue:@"1" forKey:@"delFriendState"];
-        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+        StrangerInfoViewController *strangerInfoViewCtl = [[StrangerInfoViewController alloc] init];
+        strangerInfoViewCtl.navtitle = @"陌生人资料";
+        strangerInfoViewCtl.userID = _userID;
+        [self.navigationController pushViewController:strangerInfoViewCtl animated:YES];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"取消失败~"];
     }

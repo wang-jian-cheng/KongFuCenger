@@ -477,7 +477,7 @@
             return;
         
         NSDictionary *tempDict = rebuildGrowArr[indexPath.section][@"growHistory"][indexPath.row];
-        VideoDetailViewController *videoDetailViewCtl = [[VideoDetailViewController alloc] init];
+        VideoDetialSecondViewController *videoDetailViewCtl = [[VideoDetialSecondViewController alloc] init];
         videoDetailViewCtl.videoID = tempDict[@"Id"];
         [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
         
