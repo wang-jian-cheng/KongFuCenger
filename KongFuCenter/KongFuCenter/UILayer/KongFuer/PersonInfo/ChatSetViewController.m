@@ -167,9 +167,8 @@
 
 -(void)delFriendCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
-//        [userDefault setValue:@"1" forKey:@"delFriendState"];
-//        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
         [userDefault setValue:@"1" forKey:@"delFriendState"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMyFriend" object:nil];
         StrangerInfoViewController *strangerInfoViewCtl = [[StrangerInfoViewController alloc] init];
         strangerInfoViewCtl.navtitle = @"陌生人资料";
         strangerInfoViewCtl.userID = _userID;

@@ -8,8 +8,15 @@
 
 #import "BaseNavigationController.h"
 
+typedef enum _videoZhiBoState{
+    Mode_NoStart,
+    Mode_Playing,
+    Mode_End
+}VideoZhiBoState;
+
 @interface VideoZhiBoViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,strong) NSString *videoLiveID;
+@property(nonatomic) VideoZhiBoState videoZhiBoState;
 
 @end

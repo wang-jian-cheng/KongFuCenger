@@ -7,6 +7,9 @@
 //
 
 #import "StrangerInfoViewController.h"
+#import "MyFriendViewController.h"
+#import "NewConcernFriendViewController.h"
+#import "KongFuPowerViewController.h"
 
 @interface StrangerInfoViewController ()
 {
@@ -99,6 +102,7 @@
 -(void)addFriendCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         [userDefault setValue:@"1" forKey:@"addFriendState"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMyFriend" object:nil];
         FriendInfoViewController *friendInfoViewCtl = [[FriendInfoViewController alloc] init];
         friendInfoViewCtl.navtitle = @"好友资料";
         friendInfoViewCtl.userID = _userID;
@@ -118,7 +122,13 @@
     NSString *delFriendState = [userDefault valueForKey:@"delFriendState"];
     if ([delFriendState isEqual:@"1"]) {
         [userDefault setValue:@"0" forKey:@"delFriendState"];
-        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:(self.navigationController.viewControllers.count - 4)] animated:YES];
+        for (UIViewController *temp in self.navigationController.viewControllers) {
+            if ([temp isKindOfClass:[MyFriendViewController class]] || [temp isKindOfClass:[KongFuPowerViewController class]]) {
+                [self.navigationController popToViewController:temp animated:YES];
+                return;
+            }
+        }
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
     }else{
         [self.navigationController popViewControllerAnimated:YES];
     }
