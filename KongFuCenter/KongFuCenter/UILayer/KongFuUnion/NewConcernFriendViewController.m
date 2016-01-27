@@ -45,7 +45,7 @@
 
 #pragma mark 自定义方法
 -(void)initData{
-    [SVProgressHUD showWithStatus:@"加载中..."];
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getNewConcernFriendCallBack:"];
     [dataProvider SelectFriended:get_sp(@"id")];
@@ -70,7 +70,7 @@
 }
 
 -(void)cancelConcernEvent:(UIButton *)btn{
-    [SVProgressHUD showWithStatus:@"加载中..."];
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"deleteFriendCallBack:"];
     [dataProvider DeleteFriend:get_sp(@"id") andfriendid:[NSString stringWithFormat:@"%d",(int)btn.tag]];
@@ -87,7 +87,7 @@
 }
 
 -(void)concernEvent:(UIButton *)btn{
-    [SVProgressHUD showWithStatus:@"加载中..."];
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"addFriendCallBack:"];
     [dataProvider SaveFriend:get_sp(@"id") andFriendid:[NSString stringWithFormat:@"%d",(int)btn.tag]];

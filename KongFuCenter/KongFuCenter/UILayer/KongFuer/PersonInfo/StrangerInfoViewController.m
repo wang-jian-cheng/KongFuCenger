@@ -102,6 +102,7 @@
 -(void)addFriendCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         [userDefault setValue:@"1" forKey:@"addFriendState"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMyFriend" object:nil];
         FriendInfoViewController *friendInfoViewCtl = [[FriendInfoViewController alloc] init];
         friendInfoViewCtl.navtitle = @"好友资料";
         friendInfoViewCtl.userID = _userID;

@@ -13,6 +13,9 @@
 #import "ChatContentViewController.h"
 #import "NewConcernFriendViewController.h"
 
+#define CaChePlist  @"MyFriendCache.plist"
+#define MyFriendKey @"MyFriend"
+
 @interface MyFriendViewController (){
     
     //tableview
@@ -20,7 +23,7 @@
     CGFloat mCellHeight;
     
     //数据
-    NSArray *oFriendArray;
+    NSMutableArray *oFriendArray;
     NSMutableArray *friendArray;
     NSMutableArray *indexArray;
     NSMutableArray *LetterResultArr;
@@ -51,11 +54,11 @@
     
     dataProvider = [[DataProvider alloc] init];
     userDefault = [NSUserDefaults standardUserDefaults];
-    oFriendArray = [[NSArray alloc] init];
+    oFriendArray = [[NSMutableArray alloc] init];
     friendArray = [[NSMutableArray alloc] init];
     
-    //初始化数据
-    //[self initData];
+    //初始化view
+    [self initViews];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -67,35 +70,45 @@
     [searchTxt resignFirstResponder];
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [self initData];
-}
-
 #pragma mark 自定义方法
 -(void)initData{
-    [SVProgressHUD showWithStatus:@"加载中"];
-    [dataProvider setDelegateObject:self setBackFunctionName:@"getFriendCallBack:"];
-    [dataProvider getFriendForKeyValue:[userDefault valueForKey:@"id"]];
+    NSArray *cacheData = [Toolkit ReadPlist:CaChePlist ForKey:MyFriendKey];
+    if (cacheData == nil || cacheData.count == 0) {
+        [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"getFriendCallBack:"];
+        [dataProvider getFriendForKeyValue:[userDefault valueForKey:@"id"]];
+    }else{
+        oFriendArray = [[NSMutableArray alloc] init];
+        [oFriendArray addObjectsFromArray:cacheData];
+        friendArray = [[NSMutableArray alloc] initWithArray:oFriendArray];
+        NSMutableArray * itemmutablearray=[[NSMutableArray alloc] init];
+        for (int i=0; i<friendArray.count; i++) {
+            NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:friendArray[i][@"Value"]];
+            [tempDict setObject:friendArray[i][@"Key"] forKey:@"Key"];
+            [itemmutablearray addObject:tempDict];
+        }
+        indexArray = [ChineseString mIndexArray:[itemmutablearray valueForKey:@"RemarkName"]];
+        LetterResultArr = [ChineseString mLetterSortArray:itemmutablearray];
+        [mTableView reloadData];
+    }
 }
 
 -(void)getFriendCallBack:(id)dict{
-    
-    DLog(@"%@",dict);
-    
-    oFriendArray = dict[@"data"];
-    friendArray = [[NSMutableArray alloc] initWithArray:oFriendArray];
-    NSMutableArray * itemmutablearray=[[NSMutableArray alloc] init];
-    for (int i=0; i<friendArray.count; i++) {
-        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:friendArray[i][@"Value"]];
-        [tempDict setObject:friendArray[i][@"Key"] forKey:@"Key"];
-        [itemmutablearray addObject:tempDict];
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD dismiss];
+        [Toolkit writePlist:CaChePlist andContent:dict[@"data"] andKey:MyFriendKey];
+        oFriendArray = dict[@"data"];
+        friendArray = [[NSMutableArray alloc] initWithArray:oFriendArray];
+        NSMutableArray * itemmutablearray=[[NSMutableArray alloc] init];
+        for (int i=0; i<friendArray.count; i++) {
+            NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:friendArray[i][@"Value"]];
+            [tempDict setObject:friendArray[i][@"Key"] forKey:@"Key"];
+            [itemmutablearray addObject:tempDict];
+        }
+        indexArray = [ChineseString mIndexArray:[itemmutablearray valueForKey:@"RemarkName"]];
+        LetterResultArr = [ChineseString mLetterSortArray:itemmutablearray];
+        [mTableView reloadData];
     }
-    indexArray = [ChineseString mIndexArray:[itemmutablearray valueForKey:@"RemarkName"]];
-    LetterResultArr = [ChineseString mLetterSortArray:itemmutablearray];
-    [SVProgressHUD dismiss];
-    
-    //初始化View
-    [self initViews];
 }
 
 -(void)initViews{
@@ -109,6 +122,24 @@
     [self.view addSubview:mTableView];
     mTableView.sectionIndexBackgroundColor = [UIColor clearColor];
     mTableView.sectionIndexColor = [UIColor whiteColor];
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = mTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf initData];
+        [weakTv.mj_header endRefreshing];
+    }];
+    // 马上进入刷新状态
+    [mTableView.mj_header beginRefreshing];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMyFriend) name:@"updateMyFriend" object:nil];
+}
+
+-(void)updateMyFriend{
+    [Toolkit writePlist:CaChePlist andContent:[[NSArray alloc] init] andKey:MyFriendKey];
+    [mTableView.mj_header beginRefreshing];
 }
 
 -(void)mReloadData:(NSString *)filterStr{
@@ -337,7 +368,7 @@
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showWithStatus:@"删除成功~"];
-        [self initData];
+        [self updateMyFriend];
     }else{
         [SVProgressHUD showWithStatus:@"删除失败~"];
     }

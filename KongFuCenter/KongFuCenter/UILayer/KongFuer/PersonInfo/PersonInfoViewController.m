@@ -401,7 +401,7 @@
 
 -(void)getUserInfo
 {
-    [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"加载中" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
     [dataprovider getUserInfo:[Toolkit getUserID]];
@@ -602,7 +602,7 @@
 -(void)getCityByProvince:(NSString *)ProvinceId
 {
     areaArray = [[NSArray alloc] init];
-    [SVProgressHUD showWithStatus:@"刷新地址" maskType:SVProgressHUDMaskTypeBlack];
+    //[SVProgressHUD showWithStatus:@"刷新地址" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getCityByProvinceCallBack:"];
     [dataprovider getCityByProvinceCode:ProvinceId];
@@ -707,7 +707,7 @@
 
 -(void)getAreaByCity:(NSString *)_cityCode
 {
-    [SVProgressHUD showWithStatus:@"刷新地址" maskType:SVProgressHUDMaskTypeBlack];
+    //[SVProgressHUD showWithStatus:@"刷新地址" maskType:SVProgressHUDMaskTypeBlack];
     
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getAreaByCityCallBack:"];
