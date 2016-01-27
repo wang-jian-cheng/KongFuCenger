@@ -82,7 +82,7 @@
 }
 
 
-#pragma mark - 
+#pragma mark - 退出
 
 -(void)clickOutBtn:(UIButton *)sender
 {
@@ -96,6 +96,7 @@
 -(void)ClearCache
 {
     [Toolkit delPlist:NewsCaChePlist];
+    [Toolkit delPlist:FirendCaChePlist];
 }
 
 #pragma mark -  tableview  Delegate

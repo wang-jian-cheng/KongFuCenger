@@ -973,7 +973,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "789"
             endingLineNumber = "789"
-            landmarkName = "-getPlanInfo:andCateId:andStartRow:andMaxNumRows:"
+            landmarkName = "-updatePlan:andCateId:andTitle:andContent:andPicList:andStartDate:andEndDate:"
             landmarkType = "5">
             <Locations>
                <Location
@@ -1021,7 +1021,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "790"
             endingLineNumber = "790"
-            landmarkName = "-getPlanInfo:andCateId:andStartRow:andMaxNumRows:"
+            landmarkName = "-updatePlan:andCateId:andTitle:andContent:andPicList:andStartDate:andEndDate:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

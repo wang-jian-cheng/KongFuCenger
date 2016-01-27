@@ -1600,7 +1600,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error:%@",error);
         [SVProgressHUD showErrorWithStatus:@"请检查网络或防火墙" maskType:SVProgressHUDMaskTypeBlack];
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
     }];
 }
 

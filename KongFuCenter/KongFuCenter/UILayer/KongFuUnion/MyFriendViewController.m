@@ -13,7 +13,7 @@
 #import "ChatContentViewController.h"
 #import "NewConcernFriendViewController.h"
 
-#define CaChePlist  @"MyFriendCache.plist"
+
 #define MyFriendKey @"MyFriend"
 
 @interface MyFriendViewController (){
@@ -72,7 +72,7 @@
 
 #pragma mark 自定义方法
 -(void)initData{
-    NSArray *cacheData = [Toolkit ReadPlist:CaChePlist ForKey:MyFriendKey];
+    NSArray *cacheData = [Toolkit ReadPlist:FirendCaChePlist ForKey:MyFriendKey];
     if (cacheData == nil || cacheData.count == 0) {
         [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getFriendCallBack:"];
@@ -96,7 +96,7 @@
 -(void)getFriendCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD dismiss];
-        [Toolkit writePlist:CaChePlist andContent:dict[@"data"] andKey:MyFriendKey];
+        [Toolkit writePlist:FirendCaChePlist andContent:dict[@"data"] andKey:MyFriendKey];
         oFriendArray = dict[@"data"];
         friendArray = [[NSMutableArray alloc] initWithArray:oFriendArray];
         NSMutableArray * itemmutablearray=[[NSMutableArray alloc] init];
@@ -138,7 +138,7 @@
 }
 
 -(void)updateMyFriend{
-    [Toolkit writePlist:CaChePlist andContent:[[NSArray alloc] init] andKey:MyFriendKey];
+    [Toolkit writePlist:FirendCaChePlist andContent:[[NSArray alloc] init] andKey:MyFriendKey];
     [mTableView.mj_header beginRefreshing];
 }
 
