@@ -34,6 +34,11 @@
 //显示顶部菊花
 +(UIActivityIndicatorView*)showJuHua;
 
+
+
+#pragma mark Plist
++(id)ReadPlist:(NSString*)FileName ForKey:(NSString *)key;
++(void)writePlist:(NSString*)FileName andContent:(id)content andKey:(NSString *)key;
 #pragma mark - camera
 
 + (BOOL) isCameraAvailable;

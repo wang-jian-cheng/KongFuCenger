@@ -21,6 +21,10 @@
 #import "AnnouncementViewController.h"
 #import "TeamManagerViewController.h"
 
+#define CaChePlist  @"NewsCache.plist"
+#define TeamNewsKey @"TeamNews"
+
+
 #define dataCount 10
 #define kLocationToBottom 20
 #define kAdmin get_sp(@"NicName")//@"小虎-tiger"
@@ -52,6 +56,7 @@
     
     NSMutableDictionary *commentDict;//根据评论内容获取id的字典
     
+    NSMutableArray *cacheArr;
     NSMutableArray *commentArr;//根据评论位置保存和获取id
     NSString *delCommmentId;
     NSString *commentSection;
@@ -67,113 +72,6 @@
 @implementation TeamNewsViewController
 
 
-#pragma mark - 数据源
-- (void)configData:(NSArray *)dongtaiArr
-{
-    
-    if(dongtaiArr== nil || dongtaiArr.count == 0)
-        return;
-    
-    @try {
-        for (int i = 0; i< dongtaiArr.count; i++) {
-            
-            NSDictionary *tempDict = dongtaiArr[i];
-            NSMutableArray *comlist = [NSMutableArray array];
-            [comlist addObjectsFromArray:tempDict[@"ComList"]];
-            NSMutableArray *comlistFromShow = [NSMutableArray array];
-            NSMutableArray *comListFroDel = [NSMutableArray array];
-            [comListFroDel addObject:@"zhanwei"];//加一个占位让每个动态都有数据和index对应
-            for (int j =0; j<comlist.count; j++) {
-                
-                NSDictionary *tempDict = comlist[j];
-                WFReplyBody *body1 = [[WFReplyBody alloc] init];
-                body1.replyUser = tempDict[@"NicName"];
-                
-                body1.repliedUser =[[NSString stringWithFormat:@"%@",[tempDict valueForKey:@"ParentId"]] isEqual:@"0"]?@"":[tempDict valueForKey:@"CommentedNicName"];
-//                if(![tempDict[@"CommentedNicName"] isEqualToString:@""])
-//                {
-//                    body1.repliedUser = tempDict[@"CommentedNicName"];
-//                }
-                body1.replyInfo = tempDict[@"Content"];
-                body1.replyDict = [[NSDictionary alloc] initWithDictionary:tempDict];
-                [comlistFromShow addObject:body1];
-                [comListFroDel addObject:tempDict[@"Id"]];
-                
-                
-               
-                
-//                NSDictionary *tempCommentDict = @{@"CommenterId":tempDict[@"CommenterId"],/*评论人id*/
-//                                                  @"MessageId":tempDict[@"MessageId"],/*动态id*/
-//                                                  @"commentId":tempDict[@"Id"]/*评论id*/};
-//                [commentDict setObject:tempCommentDict forKey:tempDict[@"Content"]];
-            }
-            
-            
-            [commentArr addObject:comListFroDel];//添加每个动态的评论
-
-            
-            WFMessageBody *messBody1 = [[WFMessageBody alloc] init];
-            messBody1.posterContent = tempDict[@"Content"];
-            
-            NSMutableArray *picList = [NSMutableArray array];
-            [picList addObjectsFromArray:tempDict[@"PicList"]];
-            NSMutableArray *picPath = [NSMutableArray array];
-
-            for (int j = 0; j<picList.count; j++) {
-                [picPath addObject:[NSString stringWithFormat:@"%@%@",Kimg_path,picList[j][@"ImagePath"]]];
-            }
-            
-            messBody1.posterPostImage = picPath;
-            messBody1.posterReplies = comlistFromShow;
-            NSString *url;
-            if(self.teamImg!=nil)
-            {
-                url = [NSString stringWithFormat:@"%@%@",Kimg_path ,self.teamImg];
-            }
-            else
-            {
-                url = [NSString stringWithFormat:@"%@%@",Kimg_path ,get_sp(@"TeamImg")];
-            }
-            messBody1.posterImgstr = url;
-            if(self.teamName)
-            {
-                messBody1.posterName = self.teamName;
-            }
-            else
-            {
-                messBody1.posterName = get_sp(@"TeamName");
-            }
-            messBody1.posterIntro = @"";
-            messBody1.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
-            
-            
-            messBody1.isFavour = [tempDict[@"IsLike"] integerValue];
-            messBody1.zanNum = [[tempDict valueForKey:@"LikeNum"] intValue];
-
-            
-            NSMutableArray *videoArray = [[NSMutableArray alloc] init];
-            [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[tempDict valueForKey:@"ImagePath"]]];
-            [videoArray addObject:[tempDict valueForKey:@"VideoPath"]];
-            [videoArray addObject:[tempDict valueForKey:@"VideoDuration"]];
-            messBody1.posterPostVideo = videoArray;
-            
-            [_contentDataSource addObject:messBody1];
-            
-
-        }
-        
-        
-        
-
-    }
-    @catch (NSException *exception) {
-        
-    }
-    @finally {
-        
-    }
-    
-}
 
 - (void)viewDidLoad {
     
@@ -193,17 +91,21 @@
     pageSize = 5;
     wyArray = [NSMutableArray array];
     commentArr = [NSMutableArray array];
-  //  [self configData];
     _tableDataSource = [[NSMutableArray alloc] init];
     _contentDataSource = [[NSMutableArray alloc] init];
+    cacheArr = [NSMutableArray array];
     _replyIndex = -1;//代表是直接评论
 
     [self initTableview];
     
+    
+//
+//    
+//    NSLog(@"read-plist:%@",[Toolkit ReadPlist:CaChePlist ForKey:TeamNewsKey]);
+    
+    
 }
 - (void) initTableview{
-    
-  
     
     mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
     mainTable.backgroundColor = [UIColor clearColor];
@@ -220,6 +122,10 @@
         [wyArray removeAllObjects];
         if(_tableDataSource != nil && _tableDataSource.count > 0)
             [_tableDataSource removeAllObjects];
+        
+        if(cacheArr != nil && cacheArr.count > 0)
+            [cacheArr removeAllObjects];
+        
         [mainTable.mj_footer setState:MJRefreshStateIdle];
         [weakSelf getTeamNews];
         // 结束刷新
@@ -274,10 +180,6 @@
     moreSettingBackView.hidden = YES;
     
     
-   
-    
-
-    
 }
 
 
@@ -285,7 +187,34 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
-    [mainTable.mj_header beginRefreshing];
+
+    
+    NSArray *cacheData = [Toolkit ReadPlist:CaChePlist ForKey:TeamNewsKey];
+    DLog(@"%@",cacheData);
+    if(cacheData != nil||cacheData.count>0 )
+    {
+        if(wyArray !=nil)
+        {
+            [wyArray removeAllObjects];
+            [wyArray addObjectsFromArray:cacheData];
+        }
+        else
+        {
+            wyArray = [NSMutableArray array];
+            [wyArray addObjectsFromArray:cacheData];
+        }
+        
+        
+        
+        [self configData:cacheData];
+        [self loadTextData];
+        
+        pageNo = (int)cacheData.count/5;
+    }
+    else
+    {
+        [mainTable.mj_header beginRefreshing];
+    }
 }
 
 -(void)clickRightButton:(UIButton *)sender
@@ -306,9 +235,116 @@
 
 #pragma mark - self data source
 
+- (void)configData:(NSArray *)dongtaiArr
+{
+    
+    if(dongtaiArr== nil || dongtaiArr.count == 0)
+        return;
+    
+    @try {
+        for (int i = 0; i< dongtaiArr.count; i++) {
+            
+            NSDictionary *tempDict = dongtaiArr[i];
+            NSMutableArray *comlist = [NSMutableArray array];
+            [comlist addObjectsFromArray:tempDict[@"ComList"]];
+            NSMutableArray *comlistFromShow = [NSMutableArray array];
+            NSMutableArray *comListFroDel = [NSMutableArray array];
+            [comListFroDel addObject:@"zhanwei"];//加一个占位让每个动态都有数据和index对应
+            for (int j =0; j<comlist.count; j++) {
+                
+                NSDictionary *tempDict = comlist[j];
+                WFReplyBody *body1 = [[WFReplyBody alloc] init];
+                body1.replyUser = tempDict[@"NicName"];
+                
+                body1.repliedUser =[[NSString stringWithFormat:@"%@",[tempDict valueForKey:@"ParentId"]] isEqual:@"0"]?@"":[tempDict valueForKey:@"CommentedNicName"];
+                //                if(![tempDict[@"CommentedNicName"] isEqualToString:@""])
+                //                {
+                //                    body1.repliedUser = tempDict[@"CommentedNicName"];
+                //                }
+                body1.replyInfo = tempDict[@"Content"];
+                body1.replyDict = [[NSDictionary alloc] initWithDictionary:tempDict];
+                [comlistFromShow addObject:body1];
+                [comListFroDel addObject:tempDict[@"Id"]];
+                
+                
+                
+                
+                //                NSDictionary *tempCommentDict = @{@"CommenterId":tempDict[@"CommenterId"],/*评论人id*/
+                //                                                  @"MessageId":tempDict[@"MessageId"],/*动态id*/
+                //                                                  @"commentId":tempDict[@"Id"]/*评论id*/};
+                //                [commentDict setObject:tempCommentDict forKey:tempDict[@"Content"]];
+            }
+            
+            
+            [commentArr addObject:comListFroDel];//添加每个动态的评论
+            
+            
+            WFMessageBody *messBody1 = [[WFMessageBody alloc] init];
+            messBody1.posterContent = tempDict[@"Content"];
+            
+            NSMutableArray *picList = [NSMutableArray array];
+            [picList addObjectsFromArray:tempDict[@"PicList"]];
+            NSMutableArray *picPath = [NSMutableArray array];
+            
+            for (int j = 0; j<picList.count; j++) {
+                [picPath addObject:[NSString stringWithFormat:@"%@%@",Kimg_path,picList[j][@"ImagePath"]]];
+            }
+            
+            messBody1.posterPostImage = picPath;
+            messBody1.posterReplies = comlistFromShow;
+            NSString *url;
+            if(self.teamImg!=nil)
+            {
+                url = [NSString stringWithFormat:@"%@%@",Kimg_path ,self.teamImg];
+            }
+            else
+            {
+                url = [NSString stringWithFormat:@"%@%@",Kimg_path ,get_sp(@"TeamImg")];
+            }
+            messBody1.posterImgstr = url;
+            if(self.teamName)
+            {
+                messBody1.posterName = self.teamName;
+            }
+            else
+            {
+                messBody1.posterName = get_sp(@"TeamName");
+            }
+            messBody1.posterIntro = @"";
+            messBody1.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
+            
+            
+            messBody1.isFavour = [tempDict[@"IsLike"] integerValue];
+            messBody1.zanNum = [[tempDict valueForKey:@"LikeNum"] intValue];
+            
+            
+            NSMutableArray *videoArray = [[NSMutableArray alloc] init];
+            [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[tempDict valueForKey:@"ImagePath"]]];
+            [videoArray addObject:[tempDict valueForKey:@"VideoPath"]];
+            [videoArray addObject:[tempDict valueForKey:@"VideoDuration"]];
+            messBody1.posterPostVideo = videoArray;
+            
+            [_contentDataSource addObject:messBody1];
+            
+            
+        }
+        
+        
+        
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+    
+}
+
 -(void)getTeamNews
 {
-    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
+//    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
 
     if(self.teamId == nil)
     {
@@ -332,8 +368,6 @@
 -(void)FooterRefresh
 {
     [self getTeamNews];
-    
-    
 }
 
 
@@ -346,11 +380,16 @@
     if ([dict[@"code"] intValue]==200) {
         @try {
             [wyArray addObjectsFromArray:dict[@"data"]];
-
+            [cacheArr addObjectsFromArray:dict[@"data"]];
+            
+            
+            [Toolkit writePlist:CaChePlist andContent:cacheArr andKey:TeamNewsKey];
             pageNo++;
             if(_contentDataSource != nil || _contentDataSource.count>0)
                 [_contentDataSource removeAllObjects];
             [self configData:dict[@"data"]];
+            
+            
             if(_contentDataSource.count == 0 || _contentDataSource==nil)
             {
                 
