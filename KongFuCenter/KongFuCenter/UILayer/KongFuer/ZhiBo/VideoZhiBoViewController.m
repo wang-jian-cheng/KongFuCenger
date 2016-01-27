@@ -180,8 +180,14 @@
             UIButton *viewCourseBtn = [[UIButton alloc] initWithFrame:CGRectMake(14, 10, SCREEN_WIDTH - 28, 45)];
             viewCourseBtn.backgroundColor = ItemsBaseColor;
             [viewCourseBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [viewCourseBtn setTitle:@"查看课程" forState:UIControlStateNormal];
-            [viewCourseBtn addTarget:self action:@selector(viewCourseEvent) forControlEvents:UIControlEventTouchUpInside];
+            if(_videoZhiBoState == Mode_NoStart){
+                [viewCourseBtn setTitle:@"未开始" forState:UIControlStateNormal];
+            }else if (_videoZhiBoState == Mode_Playing){
+                [viewCourseBtn setTitle:@"查看课程" forState:UIControlStateNormal];
+                [viewCourseBtn addTarget:self action:@selector(viewCourseEvent) forControlEvents:UIControlEventTouchUpInside];
+            }else{
+                [viewCourseBtn setTitle:@"已结束" forState:UIControlStateNormal];
+            }
             viewCourseBtn.layer.masksToBounds = YES;
             viewCourseBtn.layer.cornerRadius = 8;
             [cell addSubview:viewCourseBtn];

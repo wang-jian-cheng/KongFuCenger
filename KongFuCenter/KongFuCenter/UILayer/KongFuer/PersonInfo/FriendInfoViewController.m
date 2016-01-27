@@ -8,6 +8,9 @@
 
 #import "FriendInfoViewController.h"
 #import "ChatContentViewController.h"
+#import "MyFriendViewController.h"
+#import "NewConcernFriendViewController.h"
+#import "KongFuPowerViewController.h"
 
 @interface FriendInfoViewController ()
 {
@@ -106,7 +109,13 @@
     NSString *delFriendState = [userDefault valueForKey:@"addFriendState"];
     if ([delFriendState isEqual:@"1"]) {
         [userDefault setValue:@"0" forKey:@"addFriendState"];
-        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:(self.navigationController.viewControllers.count - 3)] animated:YES];
+        for (UIViewController *temp in self.navigationController.viewControllers) {
+            if ([temp isKindOfClass:[MyFriendViewController class]] || [temp isKindOfClass:[KongFuPowerViewController class]]) {
+                [self.navigationController popToViewController:temp animated:YES];
+                return;
+            }
+        }
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
     }else{
         [self.navigationController popViewControllerAnimated:YES];
     }
