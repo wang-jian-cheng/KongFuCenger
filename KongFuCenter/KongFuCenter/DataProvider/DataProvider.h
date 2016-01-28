@@ -394,6 +394,15 @@
 //获取用户信息带备注名称
 -(NSInteger)getUserInfo:(NSString *)userId andfriendid:(NSString *)friendid;
 
+#pragma mark - 核装备
+//获取一级分类
+-(void)SelectBigCategory;
+
+//获取小分类
+-(void)SelectSmallCategory:(NSString *)parentId;
+
+//分页查询商品列表
+-(void)SelectProductBySearch:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andsearch:(NSString *)search andcategoryId:(NSString *)categoryId andisPriceAsc:(NSString *)isPriceAsc andisSalesAsc:(NSString *)isSalesAsc andisCommentAsc:(NSString *)isCommentAsc andisNewAsc:(NSString *)isNewAsc andisCredit:(NSString *)isCredit andisRecommend:(NSString *)isRecommend;
 
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;
