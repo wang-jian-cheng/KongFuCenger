@@ -10,4 +10,6 @@
 
 @interface ShopListViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
+@property(nonatomic,strong) NSString *categoryId;
+
 @end

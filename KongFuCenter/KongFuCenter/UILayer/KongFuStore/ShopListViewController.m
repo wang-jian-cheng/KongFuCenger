@@ -10,9 +10,13 @@
 #import "ShopTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "ShopDetailViewController.h"
+#import "MJRefresh.h"
+#import "UIImageView+WebCache.h"
 
 @interface ShopListViewController (){
     UITableView *mTableView;
+    DataProvider *dataProvider;
+    int curpage;
 }
 
 @end
@@ -27,6 +31,8 @@
     [self setBarTitle:@"商品列表"];
     [self addLeftButton:@"left"];
     
+    dataProvider = [[DataProvider alloc] init];
+    
     //初始化View
     [self initViews];
 }
@@ -37,6 +43,12 @@
 }
 
 #pragma mark 自定义方法
+-(void)initData{
+    curpage = 0;
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListCallBack:"];
+    [dataProvider SelectProductBySearch:@"0" andmaximumRows:@"10" andsearch:@"" andcategoryId:_categoryId andisPriceAsc:@"0" andisSalesAsc:@"2" andisCommentAsc:@"0" andisNewAsc:@"0" andisCredit:@"1" andisRecommend:@"1"];
+}
+
 -(void)initViews{
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 45)];
     headView.backgroundColor = ItemsBaseColor;
@@ -90,6 +102,24 @@
     mTableView.separatorColor = Separator_Color;
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = mTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf initData];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [mTableView.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    mTableView.mj_footer = footer;
 }
 
 #pragma mark tableview delegate

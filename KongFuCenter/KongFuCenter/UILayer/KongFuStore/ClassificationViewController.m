@@ -15,11 +15,13 @@
     UITableView *threeTableView;
     
     NSArray *firstShopArray;
-    NSMutableArray *secondShopArray;
-    NSMutableArray *threeShopArray;
+    NSArray *secondShopArray;
+    NSArray *threeShopArray;
     
     NSIndexPath *firstLastIndexPath;
     NSIndexPath *secondLastIndexPath;
+    
+    DataProvider *dataProvider;
 }
 
 @end
@@ -34,8 +36,10 @@
     [self setBarTitle:@"商品分类"];
     [self addLeftButton:@"left"];
     
+    dataProvider = [[DataProvider alloc] init];
+    
     //初始化View
-    [self initData];
+    [self initFirstData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -44,15 +48,49 @@
 }
 
 #pragma mark 自定义方法
--(void)initData{
+-(void)initFirstData{
     firstLastIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     secondLastIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    firstShopArray = [[NSArray alloc] init];
+    secondShopArray = [[NSArray alloc] init];
+    threeShopArray = [[NSArray alloc] init];
     
-    firstShopArray = [[NSArray alloc] initWithObjects:@"跆拳道系列",@"运动系列",@"特技用品相关",@"体育用品",@"户外鞋帽",@"户外装备",@"垂钓用品",@"游泳用品", nil];
-    secondShopArray = [[NSMutableArray alloc] initWithObjects:@"全部商品", nil];
-    threeShopArray = [[NSMutableArray alloc] initWithObjects:@"全部商品", nil];
-    [self initViews];
-    //initWithObjects:@"全部商品",@"跆拳道服",@"跆拳道鞋",@"跆拳道护具",@"跆拳道练习靶",@"跆拳道周边", nil];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getFirstShopDataCallBack:"];
+    [dataProvider SelectBigCategory];
+}
+
+-(void)getFirstShopDataCallBack:(id)dict{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        firstShopArray = dict[@"data"];
+        [self initViews];
+    }
+}
+
+-(void)getSecondShopData:(NSString *)parentId{
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getSecondShopDataCallBack:"];
+    [dataProvider SelectSmallCategory:parentId];
+}
+
+-(void)getSecondShopDataCallBack:(id)dict{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        secondShopArray = dict[@"data"];
+        [secondTableView reloadData];
+    }
+}
+
+-(void)getThreeShopData:(NSString *)parentId{
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getThreeShopDataCallBack:"];
+    [dataProvider SelectSmallCategory:parentId];
+}
+
+-(void)getThreeShopDataCallBack:(id)dict{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        threeShopArray = dict[@"data"];
+        [threeTableView reloadData];
+    }
 }
 
 -(void)initViews{
@@ -120,7 +158,7 @@
         firstName.font = [UIFont systemFontOfSize:15];
         firstName.textAlignment = NSTextAlignmentCenter;
         firstName.textColor = [UIColor whiteColor];
-        firstName.text = firstShopArray[indexPath.row];
+        firstName.text = [firstShopArray[indexPath.row] valueForKey:@"Name"];
         [cell addSubview:firstName];
     }else if(tableView == secondTableView){
         cell.backgroundColor = [UIColor colorWithRed:0.22 green:0.23 blue:0.25 alpha:1];
@@ -128,7 +166,7 @@
         secondName.font = [UIFont systemFontOfSize:15];
         secondName.textAlignment = NSTextAlignmentCenter;
         secondName.textColor = [UIColor whiteColor];
-        secondName.text = secondShopArray[indexPath.row];
+        secondName.text = [secondShopArray[indexPath.row] valueForKey:@"Name"];
         [cell addSubview:secondName];
     }else{
         cell.backgroundColor = YellowBlock;
@@ -136,7 +174,7 @@
         threeName.font = [UIFont systemFontOfSize:15];
         threeName.textAlignment = NSTextAlignmentCenter;
         threeName.textColor = [UIColor whiteColor];
-        threeName.text = threeShopArray[indexPath.row];
+        threeName.text = [threeShopArray[indexPath.row] valueForKey:@"Name"];
         [cell addSubview:threeName];
     }
     
@@ -157,7 +195,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == firstTableView) {
         [firstTableView deselectRowAtIndexPath:indexPath animated:YES];
-        [secondShopArray removeAllObjects];
+        secondShopArray = [[NSArray alloc] init];
         secondTableView.hidden = NO;
         threeTableView.hidden = YES;
         UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:firstLastIndexPath];
@@ -165,38 +203,21 @@
         UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
         newCell.backgroundColor = [UIColor colorWithRed:0.22 green:0.23 blue:0.25 alpha:1];
         firstLastIndexPath = indexPath;
-        if (indexPath.row == 0) {
-            [secondShopArray addObject:@"第一个"];
-            [secondShopArray addObject:@"第二个"];
-            [secondShopArray addObject:@"第三个"];
-        }else if(indexPath.row == 1){
-            [secondShopArray addObject:@"第四个"];
-            [secondShopArray addObject:@"第五个"];
-            [secondShopArray addObject:@"第六个"];
-        }
-        [secondTableView reloadData];
+        [self getSecondShopData:[firstShopArray[indexPath.row] valueForKey:@"Id"]];
     }else if (tableView == secondTableView){
         [secondTableView deselectRowAtIndexPath:indexPath animated:YES];
-        [threeShopArray removeAllObjects];
+        threeShopArray = [[NSArray alloc] init];
         threeTableView.hidden = NO;
         UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:secondLastIndexPath];
         oldCell.backgroundColor = [UIColor colorWithRed:0.22 green:0.23 blue:0.25 alpha:1];
         UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
         newCell.backgroundColor = YellowBlock;
         secondLastIndexPath = indexPath;
-        if (indexPath.row == 0) {
-            [threeShopArray addObject:@"第一个"];
-            [threeShopArray addObject:@"第二个"];
-            [threeShopArray addObject:@"第三个"];
-        }else if(indexPath.row == 1){
-            [threeShopArray addObject:@"第四个"];
-            [threeShopArray addObject:@"第五个"];
-            [threeShopArray addObject:@"第六个"];
-        }
-        [threeTableView reloadData];
+        [self getThreeShopData:[secondShopArray[indexPath.row] valueForKey:@"Id"]];
     }else{
         [threeTableView deselectRowAtIndexPath:indexPath animated:YES];
         ShopListViewController *shopListVC = [[ShopListViewController alloc] init];
+        shopListVC.categoryId = [threeShopArray[indexPath.row] valueForKey:@"Id"];
         [self.navigationController pushViewController:shopListVC animated:YES];
     }
 }

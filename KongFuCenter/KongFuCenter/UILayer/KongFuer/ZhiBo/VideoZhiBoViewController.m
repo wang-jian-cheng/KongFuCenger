@@ -181,12 +181,12 @@
             viewCourseBtn.backgroundColor = ItemsBaseColor;
             [viewCourseBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             if(_videoZhiBoState == Mode_NoStart){
-                [viewCourseBtn setTitle:@"未开始" forState:UIControlStateNormal];
+                [viewCourseBtn setTitle:@"直播未开始" forState:UIControlStateNormal];
             }else if (_videoZhiBoState == Mode_Playing){
-                [viewCourseBtn setTitle:@"查看课程" forState:UIControlStateNormal];
+                [viewCourseBtn setTitle:@"直播进行中" forState:UIControlStateNormal];
                 [viewCourseBtn addTarget:self action:@selector(viewCourseEvent) forControlEvents:UIControlEventTouchUpInside];
             }else{
-                [viewCourseBtn setTitle:@"已结束" forState:UIControlStateNormal];
+                [viewCourseBtn setTitle:@"直播已结束" forState:UIControlStateNormal];
             }
             viewCourseBtn.layer.masksToBounds = YES;
             viewCourseBtn.layer.cornerRadius = 8;

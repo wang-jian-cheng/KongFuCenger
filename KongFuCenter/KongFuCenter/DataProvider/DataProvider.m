@@ -1484,6 +1484,28 @@
     }
 }
 
+#pragma mark - 核装备
+-(void)SelectBigCategory{
+    NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectBigCategory",Url];
+    [self PostRequest:url andpram:nil];
+}
+
+-(void)SelectSmallCategory:(NSString *)parentId{
+    if (parentId) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectSmallCategory",Url];
+        NSDictionary *prm = @{@"parentId":parentId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)SelectProductBySearch:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andsearch:(NSString *)search andcategoryId:(NSString *)categoryId andisPriceAsc:(NSString *)isPriceAsc andisSalesAsc:(NSString *)isSalesAsc andisCommentAsc:(NSString *)isCommentAsc andisNewAsc:(NSString *)isNewAsc andisCredit:(NSString *)isCredit andisRecommend:(NSString *)isRecommend{
+    NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectProductBySearch",Url];
+    NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"search":search,@"categoryId":categoryId,@"isPriceAsc":isPriceAsc,@"isSalesAsc":isSalesAsc,@"isCommentAsc":isCommentAsc,@"isNewAsc":isNewAsc,@"isCredit":isCredit,@"isRecommend":isRecommend};
+    [self PostRequest:url andpram:prm];
+}
+
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong{
     if (userid && istuisong) {
