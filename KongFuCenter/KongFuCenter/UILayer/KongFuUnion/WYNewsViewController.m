@@ -1155,7 +1155,7 @@
         body.replyInfo = replyText;
         
         //[m.posterReplies addObject:body];
-        [m.posterReplies insertObject:body atIndex:0];
+        [m.posterReplies insertObject:body atIndex:m.posterReplies.count == 0?0:m.posterReplies.count];
         ymData.messageBody = m;
         
     }

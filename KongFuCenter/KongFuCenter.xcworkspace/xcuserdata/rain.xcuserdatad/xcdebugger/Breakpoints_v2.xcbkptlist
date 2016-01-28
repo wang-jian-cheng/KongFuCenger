@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/ShopListViewController.m"
-            timestampString = "475643094.934007"
+            timestampString = "475653867.138937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -255,6 +255,22 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1141"
             endingLineNumber = "1141"
+            landmarkName = "-YMReplyInputWithReply:appendTag:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/WYNewsViewController.m"
+            timestampString = "475653839.99849"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1134"
+            endingLineNumber = "1134"
             landmarkName = "-YMReplyInputWithReply:appendTag:"
             landmarkType = "5">
          </BreakpointContent>
