@@ -469,4 +469,17 @@
     [self showMiddleTipView];
 }
 
+- (IBAction)ChangeDevice:(UIButton *)sender {
+    if (sender.tag!=1) {
+        [_recorder setDevice:AVCaptureDevicePositionFront];
+        sender.tag=1;
+    }
+    else
+    {
+        [_recorder setDevice:AVCaptureDevicePositionBack];
+        sender.tag=0;
+    }
+    
+}
+
 @end
