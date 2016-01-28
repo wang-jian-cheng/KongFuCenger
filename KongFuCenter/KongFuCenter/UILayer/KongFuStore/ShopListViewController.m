@@ -25,6 +25,10 @@
     NSString *isCredit;
     NSString *isRecommend;
     NSArray *shopInfoArray;
+    UIImageView *mIv1;
+    UIImageView *mIvDown2;
+    UIImageView *mIv3;
+    UIImageView *mIv4;
 }
 
 @end
@@ -40,6 +44,7 @@
     [self addLeftButton:@"left"];
     
     dataProvider = [[DataProvider alloc] init];
+    shopInfoArray = [[NSArray alloc] init];
     
     search = @"";
     isPriceAsc = @"0";
@@ -48,7 +53,6 @@
     isNewAsc = @"0";
     isCredit = @"1";
     isRecommend = @"0";
-    shopInfoArray = [[NSArray alloc] init];
     
     //初始化View
     [self initViews];
@@ -102,41 +106,71 @@
     mBtn1.titleLabel.font = [UIFont systemFontOfSize:16];
     [mBtn1 setTitle:@"销量" forState:UIControlStateNormal];
     [mBtn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    mBtn1.tag = 1;
+    [mBtn1 addTarget:self action:@selector(sortReloadDataEvent:) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:mBtn1];
-    UIImageView *mIv1 = [[UIImageView alloc] initWithFrame:CGRectMake(mWidth - 17, (45 - 8) / 2, 15, 8)];
+    mIv1 = [[UIImageView alloc] initWithFrame:CGRectMake(mWidth - 17, (45 - 8) / 2, 15, 8)];
     mIv1.image = [UIImage imageNamed:@"store_shop_selectdown"];
     [headView addSubview:mIv1];
+    UIButton *mIv1Btn = [[UIButton alloc] initWithFrame:mIv1.frame];
+    mIv1Btn.tag = 1;
+    [mIv1Btn addTarget:self action:@selector(sortReloadDataEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [headView addSubview:mIv1Btn];
     UIButton *mBtn2 = [[UIButton alloc] initWithFrame:CGRectMake(mWidth, 0, mWidth, 45)];
     mBtn2.titleLabel.font = [UIFont systemFontOfSize:16];
     [mBtn2 setTitle:@"价格" forState:UIControlStateNormal];
     [mBtn2 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    mBtn2.tag = 2;
+    [mBtn2 addTarget:self action:@selector(sortReloadDataEvent:) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:mBtn2];
-    
+//    mIv2 = [[UIImageView alloc] initWithFrame:CGRectMake(mWidth * 2 - 17, (45 - 8) / 2, 15, 8)];
+//    mIv2.image = [UIImage imageNamed:@"store_shop_down"];
+//    [headView addSubview:mIv2];
+//    UIButton *mIv2Btn = [[UIButton alloc] initWithFrame:mIv2.frame];
+//    mIv2Btn.tag = 2;
+//    [mIv2Btn addTarget:self action:@selector(sortReloadDataEvent:) forControlEvents:UIControlEventTouchUpInside];
+//    [headView addSubview:mIv2Btn];
     UIView *mIvView = [[UIView alloc] initWithFrame:CGRectMake(mWidth * 2 - 17, (45 - 17) / 2, 15, 17)];
     [headView addSubview:mIvView];
     UIImageView *mIvUp2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 8)];
     mIvUp2.image = [UIImage imageNamed:@"store_shop_up"];
     [mIvView addSubview:mIvUp2];
-    UIImageView *mIvDown2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 9, 15, 8)];
+    mIvDown2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 9, 15, 8)];
     mIvDown2.image = [UIImage imageNamed:@"store_shop_down"];
     [mIvView addSubview:mIvDown2];
+    UIButton *mIv2Btn = [[UIButton alloc] initWithFrame:mIvView.frame];
+    mIv2Btn.tag = 2;
+    [mIv2Btn addTarget:self action:@selector(sortReloadDataEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [headView addSubview:mIv2Btn];
     
     UIButton *mBtn3 = [[UIButton alloc] initWithFrame:CGRectMake(mWidth * 2, 0, mWidth, 45)];
     mBtn3.titleLabel.font = [UIFont systemFontOfSize:16];
     [mBtn3 setTitle:@"好评" forState:UIControlStateNormal];
     [mBtn3 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    mBtn3.tag = 3;
+    [mBtn3 addTarget:self action:@selector(sortReloadDataEvent:) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:mBtn3];
-    UIImageView *mIv3 = [[UIImageView alloc] initWithFrame:CGRectMake(mWidth * 3 - 17, (45 - 8) / 2, 15, 8)];
+    mIv3 = [[UIImageView alloc] initWithFrame:CGRectMake(mWidth * 3 - 17, (45 - 8) / 2, 15, 8)];
     mIv3.image = [UIImage imageNamed:@"store_shop_down"];
     [headView addSubview:mIv3];
+    UIButton *mIv3Btn = [[UIButton alloc] initWithFrame:mIv3.frame];
+    mIv3Btn.tag = 3;
+    [mIv3Btn addTarget:self action:@selector(sortReloadDataEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [headView addSubview:mIv3Btn];
     UIButton *mBtn4 = [[UIButton alloc] initWithFrame:CGRectMake(mWidth * 3, 0, mWidth, 45)];
     mBtn4.titleLabel.font = [UIFont systemFontOfSize:16];
     [mBtn4 setTitle:@"最新" forState:UIControlStateNormal];
     [mBtn4 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    mBtn4.tag = 4;
+    [mBtn4 addTarget:self action:@selector(sortReloadDataEvent:) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:mBtn4];
-    UIImageView *mIv4 = [[UIImageView alloc] initWithFrame:CGRectMake(mWidth * 4 - 17, (45 - 8) / 2, 15, 8)];
+    mIv4 = [[UIImageView alloc] initWithFrame:CGRectMake(mWidth * 4 - 17, (45 - 8) / 2, 15, 8)];
     mIv4.image = [UIImage imageNamed:@"store_shop_down"];
     [headView addSubview:mIv4];
+    UIButton *mIv4Btn = [[UIButton alloc] initWithFrame:mIv4.frame];
+    mIv4Btn.tag = 4;
+    [mIv4Btn addTarget:self action:@selector(sortReloadDataEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [headView addSubview:mIv4Btn];
     
     [self.view addSubview:headView];
     
@@ -165,6 +199,55 @@
     footer.automaticallyRefresh = NO;
     // 设置footer
     mTableView.mj_footer = footer;
+}
+
+-(void)sortReloadDataEvent:(UIButton *)btn{
+    switch (btn.tag) {
+        case 1:{
+            if ([isSalesAsc isEqual:@"2"]) {
+                isSalesAsc = @"1";
+                mIv1.image = [UIImage imageNamed:@"store_shop_down"];
+            }else{
+                isSalesAsc = @"2";
+                mIv1.image = [UIImage imageNamed:@"store_shop_selectdown"];
+            }
+        }
+            break;
+        case 2:{
+            if ([isPriceAsc isEqual:@"2"]) {
+                isPriceAsc = @"1";
+                mIvDown2.image = [UIImage imageNamed:@"store_shop_down"];
+            }else{
+                isPriceAsc = @"2";
+                mIvDown2.image = [UIImage imageNamed:@"store_shop_selectdown"];
+            }
+        }
+            break;
+        case 3:{
+            if ([isCommentAsc isEqual:@"2"]) {
+                isCommentAsc = @"1";
+                mIv3.image = [UIImage imageNamed:@"store_shop_down"];
+            }else{
+                isCommentAsc = @"2";
+                mIv3.image = [UIImage imageNamed:@"store_shop_selectdown"];
+            }
+        }
+            break;
+        case 4:{
+            if ([isNewAsc isEqual:@"2"]) {
+                isNewAsc = @"1";
+                mIv4.image = [UIImage imageNamed:@"store_shop_down"];
+            }else{
+                isNewAsc = @"2";
+                mIv4.image = [UIImage imageNamed:@"store_shop_selectdown"];
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+    [mTableView.mj_header beginRefreshing];
 }
 
 #pragma mark tableview delegate
@@ -211,6 +294,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
+    shopDetailVC.goodsId = [Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"Id"]];
     [self.navigationController pushViewController:shopDetailVC animated:YES];
 }
 

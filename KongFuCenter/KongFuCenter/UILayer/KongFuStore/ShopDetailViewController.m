@@ -18,6 +18,8 @@
     NSString *selectColor;
     NSString *selectSize;
     NSString *selectSpec;
+    DataProvider *dataProvider;
+    NSDictionary *goodsInfoDict;
 }
 
 @end
@@ -32,12 +34,18 @@
     [self setBarTitle:@"商品详情"];
     [self addLeftButton:@"left"];
     
+    dataProvider =[[DataProvider alloc] init];
+    goodsInfoDict = [[NSDictionary alloc] init];
+    
     selectColor = @"";
     selectSize = @"";
     selectSpec = @"";
     
     //初始化View
     [self initViews];
+    
+    //初始化数据
+    [self initData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -46,6 +54,19 @@
 }
 
 #pragma mark 自定义方法
+-(void)initData{
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getGoodsDetailCallBack:"];
+    [dataProvider SelectProduct:_goodsId anduserid:get_sp(@"id") andmaximumRows:@"10"];
+}
+
+-(void)getGoodsDetailCallBack:(id)dict{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        goodsInfoDict = dict[@"data"];
+        [mTableView reloadData];
+    }
+}
+
 -(void)initViews{
     mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - 50)];
     mTableView.delegate = self;
@@ -278,12 +299,12 @@
             cycleScrollView.autoScrollTimeInterval = 5;
             [cell addSubview:cycleScrollView];
             
-            UILabel *mName = [[UILabel alloc] initWithFrame:CGRectMake(14, cycleScrollView.frame.origin.y + cycleScrollView.frame.size.height + (45 - 21) / 2, 150, 21)];
+            UILabel *mName = [[UILabel alloc] initWithFrame:CGRectMake(14, cycleScrollView.frame.origin.y + cycleScrollView.frame.size.height + (45 - 21) / 2, 200, 21)];
             mName.textColor = [UIColor whiteColor];
-            mName.text = @"瑜伽球大号一个";
+            mName.text = [Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"Name"]];
             [cell addSubview:mName];
         }else{
-            NSString *priceStr = [NSString stringWithFormat:@"¥%@",@"20.00"];
+            NSString *priceStr = [NSString stringWithFormat:@"¥%@",[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"Price"]]];
             CGSize priceSize = [priceStr sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f]}];
             UILabel *priceLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, 5, priceSize.width, 21)];
             priceLbl.textColor = YellowBlock;
@@ -293,20 +314,19 @@
             UILabel *byLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, priceLbl.frame.origin.y + priceLbl.frame.size.height + 5, SCREEN_WIDTH / 3, 21)];
             byLbl.font = [UIFont systemFontOfSize:15];
             byLbl.textColor = [UIColor colorWithRed:0.45 green:0.45 blue:0.45 alpha:1];
-            byLbl.text = @"包邮";
-            
+            byLbl.text = [[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"LiveryPrice"]] isEqual:@"0"]?@"包邮":[NSString stringWithFormat:@"邮费:%@",[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"LiveryPrice"]]];
             [cell addSubview:byLbl];
             
             UILabel *browseNum = [[UILabel alloc] initWithFrame:CGRectMake(byLbl.frame.origin.x + byLbl.frame.size.width, priceLbl.frame.origin.y + priceLbl.frame.size.height + 5, SCREEN_WIDTH / 3, 21)];
             browseNum.font = [UIFont systemFontOfSize:15];
             browseNum.textColor = [UIColor colorWithRed:0.45 green:0.45 blue:0.45 alpha:1];
-            browseNum.text = [NSString stringWithFormat:@"浏览量:%@",@"1000"];
+            browseNum.text = [NSString stringWithFormat:@"浏览量:%@",[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"VisitNum"]]];
             [cell addSubview:browseNum];
             
             UILabel *Sales = [[UILabel alloc] initWithFrame:CGRectMake(browseNum.frame.origin.x + browseNum.frame.size.width, priceLbl.frame.origin.y + priceLbl.frame.size.height + 5, SCREEN_WIDTH / 3, 21)];
             Sales.font = [UIFont systemFontOfSize:15];
             Sales.textColor = [UIColor colorWithRed:0.45 green:0.45 blue:0.45 alpha:1];
-            Sales.text = [NSString stringWithFormat:@"销量:%@",@"1000"];
+            Sales.text = [NSString stringWithFormat:@"销量:%@",[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"SaleNum"]]];
             [cell addSubview:Sales];
         }
         return cell;

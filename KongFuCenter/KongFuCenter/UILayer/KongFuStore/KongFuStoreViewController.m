@@ -274,6 +274,7 @@
     if (indexPath.section > 0 && indexPath.row > 0) {
         [mTableView deselectRowAtIndexPath:indexPath animated:YES];
         ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
+        //shopDetailVC.goodsId = ;
         [self.navigationController pushViewController:shopDetailVC animated:YES];
     }
 }

@@ -401,7 +401,8 @@
 //获取小分类
 -(void)SelectSmallCategory:(NSString *)parentId;
 
-
+//根据ID查询商品详情和第一页评论
+-(void)SelectProduct:(NSString *)sid anduserid:(NSString *)userid andmaximumRows:(NSString *)maximumRows;
 
 //startRowIndex 开始行索引
 //maximumRows 每页条数

@@ -1527,13 +1527,26 @@
                               @"isNewAsc":isNewAsc,
                               @"isCredit":isCredit,
                               @"startRowIndex":startRowIndex,
-                              @"maximumRows":maximumRows};
+                              @"maximumRows":maximumRows,
+                              @"isRecommend":isRecommend};
         DLog(@"%@",prm);
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];
     }
     
+}
+
+-(void)SelectProduct:(NSString *)sid anduserid:(NSString *)userid andmaximumRows:(NSString *)maximumRows{
+    if (sid && userid && maximumRows) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectProduct",Url];
+        NSDictionary *prm = @{@"id":sid,
+                              @"userid":userid,
+                              @"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
 }
 
 #pragma mark - 更多
