@@ -1500,10 +1500,40 @@
     }
 }
 
+//startRowIndex 开始行索引
+//maximumRows 每页条数
+//search 搜索内容
+//categoryId 类别ID 不按照类别搜索传0
+//isPriceAsc 是否价格升序 0：默认 1：升序 2：降序
+//isSalesAsc 是否销量升序 0：默认 1：升序 2：降序
+//isCommentAsc 是否好评升序 0：默认 1：升序 2：降序
+//isNewAsc 是否最新升序 0：默认 1：升序 2：降序
+//isCredit 是否可以兑换 0：积分兑换 1：购买
+
+
 -(void)SelectProductBySearch:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andsearch:(NSString *)search andcategoryId:(NSString *)categoryId andisPriceAsc:(NSString *)isPriceAsc andisSalesAsc:(NSString *)isSalesAsc andisCommentAsc:(NSString *)isCommentAsc andisNewAsc:(NSString *)isNewAsc andisCredit:(NSString *)isCredit andisRecommend:(NSString *)isRecommend{
-    NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectProductBySearch",Url];
-    NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"search":search,@"categoryId":categoryId,@"isPriceAsc":isPriceAsc,@"isSalesAsc":isSalesAsc,@"isCommentAsc":isCommentAsc,@"isNewAsc":isNewAsc,@"isCredit":isCredit,@"isRecommend":isRecommend};
-    [self PostRequest:url andpram:prm];
+    
+    if (categoryId && search && isPriceAsc&&isSalesAsc
+        && isCommentAsc && isNewAsc && isCredit
+        &&startRowIndex&&maximumRows&&isRecommend
+        )
+    {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectProductBySearch",Url];
+        NSDictionary *prm = @{@"categoryId":categoryId,
+                              @"search":search,
+                              @"isPriceAsc":isPriceAsc,
+                              @"isSalesAsc":isSalesAsc,
+                              @"isCommentAsc":isCommentAsc,
+                              @"isNewAsc":isNewAsc,
+                              @"isCredit":isCredit,
+                              @"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+    
 }
 
 #pragma mark - 更多
@@ -1531,41 +1561,8 @@
 #pragma mark - 商城
 
 
-//startRowIndex 开始行索引
-//maximumRows 每页条数
-//search 搜索内容
-//categoryId 类别ID 不按照类别搜索传0
-//isPriceAsc 是否价格升序 0：默认 1：升序 2：降序
-//isSalesAsc 是否销量升序 0：默认 1：升序 2：降序
-//isCommentAsc 是否好评升序 0：默认 1：升序 2：降序
-//isNewAsc 是否最新升序 0：默认 1：升序 2：降序
-//isCredit 是否可以兑换 0：积分兑换 1：购买
 
--(void) getGoodsList:(NSString *)categoryId andSearch:(NSString *)search andIsPriceAsc:(NSString *)isPriceAsc
-       andIsSalesAsc:(NSString *)isSalesAsc andIsCommentAsc:(NSString *)isCommentAsc andIsNewAsc:(NSString *)isNewAsc
-         andIsCredit:(NSString *)isCredit andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
-{
-    if (categoryId && search && isPriceAsc&&isSalesAsc
-        && isCommentAsc && isNewAsc && isCredit
-        &&startRowIndex&&maximumRows
-        ) {
-        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectProductBySearch",Url];
-        NSDictionary *prm = @{@"categoryId":categoryId,
-                              @"search":search,
-                              @"isPriceAsc":isPriceAsc,
-                              @"isSalesAsc":isSalesAsc,
-                              @"isCommentAsc":isCommentAsc,
-                              @"isNewAsc":isNewAsc,
-                              @"isCredit":isCredit,
-                              @"startRowIndex":startRowIndex,
-                              @"maximumRows":maximumRows};
-        DLog(@"%@",prm);
-        [self PostRequest:url andpram:prm];
-    }else{
-        [SVProgressHUD dismiss];
-    }
-    
-}
+
 
 #pragma mark -  天气
 //获取天气信息

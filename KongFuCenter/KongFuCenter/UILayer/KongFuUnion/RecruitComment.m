@@ -92,6 +92,12 @@
 -(void)GetHezuoListByPageCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         zhInfoArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        
+        if(zhInfoArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
+
         [mTableView reloadData];
     }
 }

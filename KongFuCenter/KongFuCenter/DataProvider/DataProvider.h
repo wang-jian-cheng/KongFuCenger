@@ -401,6 +401,17 @@
 //获取小分类
 -(void)SelectSmallCategory:(NSString *)parentId;
 
+
+
+//startRowIndex 开始行索引
+//maximumRows 每页条数
+//search 搜索内容
+//categoryId 类别ID 不按照类别搜索传0
+//isPriceAsc 是否价格升序 0：默认 1：升序 2：降序
+//isSalesAsc 是否销量升序 0：默认 1：升序 2：降序
+//isCommentAsc 是否好评升序 0：默认 1：升序 2：降序
+//isNewAsc 是否最新升序 0：默认 1：升序 2：降序
+//isCredit 是否可以兑换 0：积分兑换 1：购买
 //分页查询商品列表
 -(void)SelectProductBySearch:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andsearch:(NSString *)search andcategoryId:(NSString *)categoryId andisPriceAsc:(NSString *)isPriceAsc andisSalesAsc:(NSString *)isSalesAsc andisCommentAsc:(NSString *)isCommentAsc andisNewAsc:(NSString *)isNewAsc andisCredit:(NSString *)isCredit andisRecommend:(NSString *)isRecommend;
 
@@ -408,12 +419,6 @@
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;
 -(void)ShieldNewsFriend:(NSString *)userid;
 -(NSDictionary *)getUserInfoByUserID:(NSString *)userID;
-
-#pragma mark - 商城
-
--(void) getGoodsList:(NSString *)categoryId andSearch:(NSString *)search andIsPriceAsc:(NSString *)isPriceAsc
-       andIsSalesAsc:(NSString *)isSalesAsc andIsCommentAsc:(NSString *)isCommentAsc andIsNewAsc:(NSString *)isNewAsc
-         andIsCredit:(NSString *)isCredit andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 
 
 @end
