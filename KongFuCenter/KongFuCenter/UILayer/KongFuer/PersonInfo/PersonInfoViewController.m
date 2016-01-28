@@ -420,7 +420,7 @@
             [[NSUserDefaults standardUserDefaults] setValue:[dict[@"data"] valueForKey:@"NicName"] forKey:@"NicName"];
             NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
             
-            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
+            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
             
             jiFenLab.text = [NSString stringWithFormat:@"积分：%@",tempDict[@"Credit"]];
             userName.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];

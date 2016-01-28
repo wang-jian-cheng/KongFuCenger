@@ -62,7 +62,22 @@
 
 #pragma mark - self data source
 
-
+-(void)getJiFenGoodList
+{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getJiFenGoodListCallBack"];
+    [dataProvider SelectProductBySearch:[NSString stringWithFormat:@"%lu",pageNo]/*页数*/
+                         andmaximumRows:[NSString stringWithFormat:@"%lu",pageNo*pageSize]/*页数x每页条数*/
+                              andsearch:@""/*搜索内容*/
+                          andcategoryId:@"0"/*类别ID 不按照类别搜索传0*/
+                          andisPriceAsc:@"0"/*是否价格升序 0：默认 1：升序 2：降序*/
+                          andisSalesAsc:@"0"/*是否销量升序 0：默认 1：升序 2：降序*/
+                        andisCommentAsc:@"0"/*是否好评升序 0：默认 1：升序 2：降序*/
+                            andisNewAsc:@"0"/*是否最新升序 0：默认 1：升序 2：降序*/
+                            andisCredit:@"0"/*是否可以兑换 0：积分兑换 1：购买*/
+                         andisRecommend:@"0"/*不推荐商品 1：推荐商品*/];
+    
+}
 
 
 

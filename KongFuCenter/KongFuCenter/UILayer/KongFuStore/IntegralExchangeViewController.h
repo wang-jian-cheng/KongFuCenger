@@ -7,7 +7,10 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "DataProvider.h"
 @interface IntegralExchangeViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
-
+{
+    NSUInteger pageNo;
+    NSUInteger pageSize;
+}
 @end
