@@ -73,6 +73,27 @@
     }
 }
 
+-(void)TeamFootRefresh{
+    curpage++;
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListFootCallBack:"];
+    [dataProvider SelectProductBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andsearch:search andcategoryId:_categoryId andisPriceAsc:isPriceAsc andisSalesAsc:isSalesAsc andisCommentAsc:isCommentAsc andisNewAsc:isNewAsc andisCredit:isCredit andisRecommend:isRecommend];
+}
+
+-(void)getShopListFootCallBack:(id)dict{
+    // 结束刷新
+    [mTableView.mj_footer endRefreshing];
+    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:shopInfoArray];
+    if ([dict[@"code"] intValue] == 200) {
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        shopInfoArray=[[NSArray alloc] initWithArray:itemarray];
+    }
+    [mTableView reloadData];
+}
+
 -(void)initViews{
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 45)];
     headView.backgroundColor = ItemsBaseColor;
@@ -173,7 +194,8 @@
         cell.backgroundColor = ItemsBaseColor;
     }
     NSLog(@"%@",shopInfoArray);
-    [cell.mImageView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"ImagePath"]]];
+    [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
     cell.mName.text = [Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"Name"]];
     cell.mPrice.text = [NSString stringWithFormat:@"¥%.02f",[[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"Price"]] floatValue]];
     cell.watchNum.text = [NSString stringWithFormat:@"%@人",[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"VisitNum"]]];

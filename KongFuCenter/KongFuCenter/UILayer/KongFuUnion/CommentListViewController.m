@@ -61,7 +61,6 @@
 }
 
 #pragma mark 自定义方法
-
 -(void)TeamTopRefresh{
     curpage = 0;
     [SVProgressHUD showWithStatus:@"正在加载中..."];
