@@ -652,7 +652,7 @@
             [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
             
             
-            if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0){
+            if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:Url]&&ymData.showVideoArray.count>0){
                 UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoImgEvent:)];
                 cell.videoImg.userInteractionEnabled = YES;
                 NSLog(@"%d",(int)indexPath.row);
@@ -1323,7 +1323,7 @@
         ymData = (YMTextData *)[_tableDataSource objectAtIndex:inputTag];
         WFMessageBody *m = ymData.messageBody;
         //[m.posterReplies addObject:body];
-        [m.posterReplies insertObject:body atIndex:0];
+        [m.posterReplies insertObject:body atIndex:m.posterReplies.count == 0?0:m.posterReplies.count];
         ymData.messageBody = m;
         
     }else{

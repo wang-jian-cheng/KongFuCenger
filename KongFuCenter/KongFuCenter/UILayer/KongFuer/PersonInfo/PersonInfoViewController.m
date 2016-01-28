@@ -84,7 +84,7 @@
     _mainTableView.tableFooterView = [[UIView alloc] init];
     _mainTableView.separatorInset = UIEdgeInsetsZero;
     headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, 10,  2*_cellHeight - 20, 2*_cellHeight - 20)
-                                        andImgName:@"headImg"];
+                                        andImgName:@"me"];
     //_mainTableView.scrollEnabled = NO;
     //设置cell分割线从最左边开始
     if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0 )
