@@ -204,7 +204,10 @@
             [wyArray addObjectsFromArray:cacheData];
         }
         
-        
+        if(_tableDataSource != nil && _tableDataSource.count > 0)
+            [_tableDataSource removeAllObjects];
+        if(_contentDataSource != nil || _contentDataSource.count>0)
+            [_contentDataSource removeAllObjects];
         
         if(cacheArr !=nil)
         {
@@ -254,7 +257,14 @@
         return;
     
     @try {
+        if(commentArr !=nil)
+        {
+            [commentArr removeAllObjects];
+        }
+        
         for (int i = 0; i< dongtaiArr.count; i++) {
+            
+            
             
             NSDictionary *tempDict = dongtaiArr[i];
             NSMutableArray *comlist = [NSMutableArray array];
@@ -1158,6 +1168,17 @@
 
 -(void)sendButton:(id)sender
 {
+     //重新读取缓存
+    NSArray *cacheData = [Toolkit ReadPlist:NewsCaChePlist ForKey:TeamNewsKey];
+    if(cacheArr !=nil)
+    {
+        [cacheArr removeAllObjects];
+    }
+    else
+    {
+        cacheArr = [NSMutableArray array];
+    }
+    [cacheArr addObjectsFromArray:cacheData];
     
     @try {
         if (isComment) {
@@ -1166,12 +1187,83 @@
             [dataProvider MessageComment:[wyArray[selectRow] valueForKey:@"Id"]
                                anduserid:[Toolkit getUserID]
                               andcomment:((UITextView *)sender).text];
+            
+            
+            
+            if(cacheArr!=nil)
+            {
+                
+                NSMutableDictionary *tempNewsDict = [NSMutableDictionary dictionary];
+                //获取当前动态的所有信息
+                tempNewsDict = cacheArr[selectRow];
+                NSMutableArray *tempCommentArr = [NSMutableArray array];
+                //获取当前动态的所有评论
+                [tempCommentArr addObjectsFromArray:tempNewsDict[@"ComList"]];
+                
+                //设置评论的关键信息
+                tempCommentDict = [NSMutableDictionary dictionary];
+                
+                [tempCommentDict setObject:((UITextView *)sender).text forKey:@"Content"];
+                [tempCommentDict setObject:@"" forKey:@"CommentedNicName"];
+                [tempCommentDict setObject:tempNewsDict[@"Id"] forKey:@"ParentId"];
+                [tempCommentDict setObject:kAdmin forKey:@"NicName"];
+                
+                _replyIndex = -1;
+//                //插入到评论列表中
+//                [tempCommentArr addObject:tempCommentDict];
+//                
+//                //重新设置到动态信息中
+//                [tempNewsDict setObject:tempCommentArr forKey:@"ComList"];
+//                
+//                //替换掉原来的缓存数据
+//                [cacheArr replaceObjectAtIndex:selectRow withObject:tempNewsDict];
+//                
+//                //如果评论成功则在callback中重新写入到缓存文件
+                
+                
+            }
+
+            
+            
+            
         }else{
             DataProvider *dataProvider = [[DataProvider alloc] init];
             [dataProvider setDelegateObject:self setBackFunctionName:@"mainCommentCallBack:"];
             [dataProvider CommentComment:[[wyArray[selectRow] valueForKey:@"ComList"][_replyIndex] valueForKey:@"Id"]
                                anduserid:[Toolkit getUserID]
                               andcomment:((UITextView *)sender).text];
+            
+            
+            if(cacheArr!=nil)
+            {
+                
+                NSMutableDictionary *tempNewsDict = [NSMutableDictionary dictionary];
+                //获取当前动态的所有信息
+                tempNewsDict = cacheArr[selectRow];
+                NSMutableArray *tempCommentArr = [NSMutableArray array];
+                //获取当前动态的所有评论
+                [tempCommentArr addObjectsFromArray:tempNewsDict[@"ComList"]];
+                //获取要被评论的评论
+                tempCommentDict = [[NSMutableDictionary alloc] initWithDictionary:tempCommentArr[_replyIndex]];
+                //修改评论的关键信息
+                [tempCommentDict setObject:((UITextView *)sender).text forKey:@"Content"];
+                [tempCommentDict setObject:tempCommentDict[@"NicName"] forKey:@"CommentedNicName"];
+                [tempCommentDict setObject:kAdmin forKey:@"NicName"];
+                
+//                //插入到被评论的评论后面
+//                [tempCommentArr insertObject:tempCommentDict atIndex:(_replyIndex+1)];
+//                
+//                //重新设置到动态信息中
+//                [tempNewsDict setObject:tempCommentArr forKey:@"ComList"];
+//                
+//                //替换掉原来的缓存数据
+//                [cacheArr replaceObjectAtIndex:selectRow withObject:tempNewsDict];
+//                
+//                //如果评论成功则在callback中重新写入到缓存文件
+                
+                
+            }
+            
             
         }
     }
@@ -1194,10 +1286,64 @@
 //                    });
 //        
      //   [[NSNotificationCenter defaultCenter] postNotificationName:@"updateComment" object:nil userInfo:nil];
-        [replyView updateComment];
-        NSMutableArray *tempArr = commentArr[[commentSection intValue]];
-        [tempArr insertObject:dict[@"insertid"] atIndex:1];
         
+        NSMutableArray *tempArr = commentArr[selectRow];
+        if(_replyIndex == -1)
+        {
+            NSMutableDictionary *tempNewsDict = [NSMutableDictionary dictionary];
+            //获取当前动态的所有信息
+            tempNewsDict = cacheArr[selectRow];
+            NSMutableArray *tempCommentArr = [NSMutableArray array];
+            //获取当前动态的所有评论
+            [tempCommentArr addObjectsFromArray:tempNewsDict[@"ComList"]];
+            
+             [tempCommentDict setObject:dict[@"insertid"] forKey:@"Id"];
+            
+            //插入到评论列表中
+            [tempCommentArr addObject:tempCommentDict];
+            
+            //重新设置到动态信息中
+            [tempNewsDict setObject:tempCommentArr forKey:@"ComList"];
+            
+            //替换掉原来的缓存数据
+            [cacheArr replaceObjectAtIndex:selectRow withObject:tempNewsDict];
+            
+            //如果评论成功则在callback中重新写入到缓存文件
+            
+            
+            [tempArr addObject:dict[@"insertid"]];
+        }
+        else
+        {
+        //成功，更新缓存
+            NSMutableDictionary *tempNewsDict = [NSMutableDictionary dictionary];
+            //获取当前动态的所有信息
+            tempNewsDict = cacheArr[selectRow];
+            NSMutableArray *tempCommentArr = [NSMutableArray array];
+            //获取当前动态的所有评论
+            [tempCommentArr addObjectsFromArray:tempNewsDict[@"ComList"]];
+            //获取要被评论的评论
+           
+            //修改评论的关键信息
+            [tempCommentDict setObject:dict[@"insertid"] forKey:@"Id"];
+           
+            
+            //插入到被评论的评论后面
+            [tempCommentArr insertObject:tempCommentDict atIndex:(_replyIndex+1/*多加1跳过占位*/)];
+            
+            //重新设置到动态信息中
+            [tempNewsDict setObject:tempCommentArr forKey:@"ComList"];
+            
+            //替换掉原来的缓存数据
+            [cacheArr replaceObjectAtIndex:selectRow withObject:tempNewsDict];
+            //插入删除记录列表
+            [tempArr insertObject:dict[@"insertid"] atIndex:(_replyIndex+1+1/*多加1跳过占位*/)];
+            
+        }
+        
+        [Toolkit writePlist:NewsCaChePlist andContent:cacheArr andKey:TeamNewsKey];
+        
+        [replyView updateComment];
         //  dict[@"insertid"];
     //    [mainTable.mj_header beginRefreshing];
     }
@@ -1276,8 +1422,9 @@
     
     [self.operationView dismiss];
     
+    selectRow = (int)index;
     _replyIndex = replyIndex;
-    
+    isComment = NO;
     YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:index];
     WFReplyBody *b = [ymData.messageBody.posterReplies objectAtIndex:replyIndex];
     if ([b.replyUser isEqualToString:kAdmin]) {
@@ -1383,15 +1530,46 @@
                 [alertView show];
                 return;
             }
+            
+            if(cacheArr !=nil)
+            {
+                for ( int i =0;i<cacheArr.count;i++) {
+                    
+                    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:cacheArr[i]];
+                    
+                    NSMutableArray *tempComList = [[NSMutableArray alloc] initWithArray:tempDict[@"ComList"]];
+                    for (int j=0;j<tempComList.count; j++) {
+                        NSDictionary *tempComDict = tempComList[j];
+                        NSString *Id = [NSString stringWithFormat:@"%@",tempComDict[@"Id"]];
+                        
+                        if ([Id isEqualToString:delCommmentId]) {
+                            [tempComList removeObjectAtIndex:j];
+                            [tempDict setObject:tempComList forKey:@"ComList"];
+                            
+                            
+                            [cacheArr replaceObjectAtIndex:i withObject:tempDict];
+                            i=cacheArr.count;
+                            break;
+                            
+                        }
+                    }
+                    
+                    
+                }
+            }
+            
+            
+            
             [dataProvider delComment:delCommmentId];
 
 
         }
         @catch (NSException *exception) {
-            
+            [SVProgressHUD dismiss];
+             NSLog(@"pro-crash");
         }
         @finally {
-            
+           
         }
         
         //delete
@@ -1419,7 +1597,9 @@
             ymData.replyHeight = [ymData calculateReplyHeightWithWidth:self.view.frame.size.width];
             [_tableDataSource replaceObjectAtIndex:actionIndex withObject:ymData];
             
-
+            [Toolkit writePlist:NewsCaChePlist andContent:cacheArr andKey:TeamNewsKey];
+            
+            
         }
         @catch (NSException *exception) {
             

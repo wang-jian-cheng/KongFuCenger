@@ -38,6 +38,11 @@ typedef enum _ActionType{
     NSUserDefaults *userDefault;
     
     ActionType actionType;
+    
+    //缓存
+    
+    
+    NSMutableDictionary *tempCommentDict;
 }
 @property(nonatomic)NSString *teamId;//设置则显示其他战队动态
 @property(nonatomic)NSString *teamName;
