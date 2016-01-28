@@ -80,9 +80,18 @@
 }
 
 -(void)getShopListFootCallBack:(id)dict{
+    // 结束刷新
+    [mTableView.mj_footer endRefreshing];
+    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:shopInfoArray];
     if ([dict[@"code"] intValue] == 200) {
-        
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        shopInfoArray=[[NSArray alloc] initWithArray:itemarray];
     }
+    [mTableView reloadData];
 }
 
 -(void)initViews{

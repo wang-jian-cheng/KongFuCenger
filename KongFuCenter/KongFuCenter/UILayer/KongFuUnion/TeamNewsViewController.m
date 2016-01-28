@@ -1337,7 +1337,7 @@
         body.replyInfo = replyText;
         
         //[m.posterReplies addObject:body];
-        [m.posterReplies insertObject:body atIndex:m.posterReplies.count == 0?0:m.posterReplies.count];
+        [m.posterReplies insertObject:body atIndex:_replyIndex + 1];
         ymData.messageBody = m;
         
     }
