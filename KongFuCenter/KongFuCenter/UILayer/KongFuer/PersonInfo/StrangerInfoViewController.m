@@ -227,8 +227,8 @@
         NSString *photoPath = [userInfoArray valueForKey:@"PhotoPath"];
         NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoPath];
         //UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight/2, 2*_cellHeight, 2*_cellHeight) andImgName:@"me"];
-        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight/2, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageNamed:@"headImg"]];
-        [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
+        UserHeadView *headView = [[UserHeadView alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight/2, 2*_cellHeight, 2*_cellHeight) andImg:[UIImage imageNamed:@"me"]];
+        [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
         [headView makeSelfRound];
         [cell addSubview:headView];
         

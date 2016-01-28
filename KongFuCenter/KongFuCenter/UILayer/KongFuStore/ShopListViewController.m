@@ -17,6 +17,14 @@
     UITableView *mTableView;
     DataProvider *dataProvider;
     int curpage;
+    NSString *search;
+    NSString *isPriceAsc;
+    NSString *isSalesAsc;
+    NSString *isCommentAsc;
+    NSString *isNewAsc;
+    NSString *isCredit;
+    NSString *isRecommend;
+    NSArray *shopInfoArray;
 }
 
 @end
@@ -33,6 +41,15 @@
     
     dataProvider = [[DataProvider alloc] init];
     
+    search = @"";
+    isPriceAsc = @"0";
+    isSalesAsc = @"2";
+    isCommentAsc = @"0";
+    isNewAsc = @"0";
+    isCredit = @"1";
+    isRecommend = @"0";
+    shopInfoArray = [[NSArray alloc] init];
+    
     //初始化View
     [self initViews];
 }
@@ -46,7 +63,14 @@
 -(void)initData{
     curpage = 0;
     [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListCallBack:"];
-    [dataProvider SelectProductBySearch:@"0" andmaximumRows:@"10" andsearch:@"" andcategoryId:_categoryId andisPriceAsc:@"0" andisSalesAsc:@"2" andisCommentAsc:@"0" andisNewAsc:@"0" andisCredit:@"1" andisRecommend:@"1"];
+    [dataProvider SelectProductBySearch:@"0" andmaximumRows:@"10" andsearch:search andcategoryId:_categoryId andisPriceAsc:isPriceAsc andisSalesAsc:isSalesAsc andisCommentAsc:isCommentAsc andisNewAsc:isNewAsc andisCredit:isCredit andisRecommend:isRecommend];
+}
+
+-(void)getShopListCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        shopInfoArray = dict[@"data"];
+        [mTableView reloadData];
+    }
 }
 
 -(void)initViews{
@@ -128,7 +152,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 6;
+    return shopInfoArray.count;
 }
 
 #pragma mark setting for section
@@ -148,11 +172,12 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopTableViewCell" owner:self options:nil] objectAtIndex:0];
         cell.backgroundColor = ItemsBaseColor;
     }
+    NSLog(@"%@",shopInfoArray);
     [cell.mImageView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
-    cell.mName.text = @"男士哑铃一对10公斤";
-    cell.mPrice.text = [NSString stringWithFormat:@"¥20.00"];
-    cell.watchNum.text = [NSString stringWithFormat:@"%@人",@"1000"];
-    cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",@"1000"];
+    cell.mName.text = [Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"Name"]];
+    cell.mPrice.text = [NSString stringWithFormat:@"¥%.02f",[[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"Price"]] floatValue]];
+    cell.watchNum.text = [NSString stringWithFormat:@"%@人",[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"VisitNum"]]];
+    cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"SaleNum"]]];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }

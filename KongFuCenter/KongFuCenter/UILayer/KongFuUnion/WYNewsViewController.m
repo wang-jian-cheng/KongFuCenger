@@ -659,7 +659,7 @@
 }
 
 -(BOOL)isExitVideo:(YMTextData *)ymData{
-    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0;
+    return ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:Url]&&ymData.showVideoArray.count>0;
 }
 
 
@@ -1141,7 +1141,7 @@
         ymData = (YMTextData *)[_tableDataSource objectAtIndex:inputTag];
         WFMessageBody *m = ymData.messageBody;
         //[m.posterReplies addObject:body];
-        [m.posterReplies insertObject:body atIndex:0];
+        [m.posterReplies insertObject:body atIndex:m.posterReplies.count == 0?0:m.posterReplies.count];
         ymData.messageBody = m;
         
     }else{
