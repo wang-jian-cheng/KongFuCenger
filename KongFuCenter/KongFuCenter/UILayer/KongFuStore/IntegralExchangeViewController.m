@@ -59,6 +59,13 @@
     [self.navigationController pushViewController:integralExchangeRecordVC animated:YES];
 }
 
+
+#pragma mark - self data source
+
+
+
+
+
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
