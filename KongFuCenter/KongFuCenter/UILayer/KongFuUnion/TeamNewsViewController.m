@@ -191,7 +191,7 @@
     
     NSArray *cacheData = [Toolkit ReadPlist:NewsCaChePlist ForKey:TeamNewsKey];
     DLog(@"%@",cacheData);
-    if(cacheData != nil||cacheData.count>0 )
+    if((cacheData != nil||cacheData.count>0 )&& self.teamId ==nil )
     {
         if(wyArray !=nil)
         {
