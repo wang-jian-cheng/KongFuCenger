@@ -460,7 +460,9 @@ static NSString *kJKAssetsFooterViewIdentifier = @"kJKAssetsFooterViewIdentifier
     if ([indexPath row]<=0) {
         cell.asset = nil;
     }else{
-        ALAsset *asset = self.assetsArray[indexPath.row-1];
+        NSInteger picIndex = self.assetsArray.count - (indexPath.row-1) -1;
+        
+        ALAsset *asset = self.assetsArray[picIndex];
         cell.asset = asset;
         NSURL *assetURL = [asset valueForProperty:ALAssetPropertyAssetURL];
         cell.isSelected = [self assetIsSelected:assetURL];
@@ -546,7 +548,9 @@ static NSString *kJKAssetsFooterViewIdentifier = @"kJKAssetsFooterViewIdentifier
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self browerPhotoes:self.assetsArray page:[indexPath row]-1];
+    
+    NSInteger picIndex = self.assetsArray.count - (indexPath.row-1) -1;
+    [self browerPhotoes:self.assetsArray page:picIndex];
 }
 
 #pragma mark - getter

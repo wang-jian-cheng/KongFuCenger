@@ -408,4 +408,12 @@
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;
 -(void)ShieldNewsFriend:(NSString *)userid;
 -(NSDictionary *)getUserInfoByUserID:(NSString *)userID;
+
+#pragma mark - 商城
+
+-(void) getGoodsList:(NSString *)categoryId andSearch:(NSString *)search andIsPriceAsc:(NSString *)isPriceAsc
+       andIsSalesAsc:(NSString *)isSalesAsc andIsCommentAsc:(NSString *)isCommentAsc andIsNewAsc:(NSString *)isNewAsc
+         andIsCredit:(NSString *)isCredit andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
+
+
 @end

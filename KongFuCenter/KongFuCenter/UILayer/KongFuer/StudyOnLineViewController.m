@@ -65,7 +65,6 @@
     
     [self.view addSubview:viewForBtns];
     
-
     self.collectionViewLayout = [[RAMCollectionViewFlemishBondLayout alloc] init];
     self.collectionViewLayout.delegate = self;
     self.collectionViewLayout.numberOfElements = 3;

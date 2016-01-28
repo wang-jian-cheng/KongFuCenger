@@ -230,6 +230,24 @@
 }
 
 
++(void)delPlist:(NSString *)plist
+{
+    //清除plist文件，可以根据我上面讲的方式进去本地查看plist文件是否被清除
+    NSFileManager *fileMger = [NSFileManager defaultManager];
+    
+    NSString *xiaoXiPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0]stringByAppendingPathComponent:plist];
+    
+    //如果文件路径存在的话
+    BOOL bRet = [fileMger fileExistsAtPath:xiaoXiPath];
+    
+    if (bRet) {
+        
+        NSError *err;
+        
+        [fileMger removeItemAtPath:xiaoXiPath error:&err];
+    }
+}
+
 
 #pragma mark  - old
 

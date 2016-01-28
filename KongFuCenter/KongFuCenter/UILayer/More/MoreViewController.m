@@ -82,16 +82,22 @@
 }
 
 
-#pragma mark - 
+#pragma mark - 退出
 
 -(void)clickOutBtn:(UIButton *)sender
 {
     set_sp( @"OUTLOGIN",@"YES");
 
+    [self ClearCache];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"loginpage" forKey:@"rootView"]];
     
-    
-    }
+}
+
+-(void)ClearCache
+{
+    [Toolkit delPlist:NewsCaChePlist];
+    [Toolkit delPlist:FirendCaChePlist];
+}
 
 #pragma mark -  tableview  Delegate
 

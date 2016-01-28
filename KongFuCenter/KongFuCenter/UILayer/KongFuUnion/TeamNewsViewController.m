@@ -21,7 +21,7 @@
 #import "AnnouncementViewController.h"
 #import "TeamManagerViewController.h"
 
-#define CaChePlist  @"NewsCache.plist"
+
 #define TeamNewsKey @"TeamNews"
 
 
@@ -101,7 +101,7 @@
     
 //
 //    
-//    NSLog(@"read-plist:%@",[Toolkit ReadPlist:CaChePlist ForKey:TeamNewsKey]);
+//    NSLog(@"read-plist:%@",[Toolkit ReadPlist:NewsCaChePlist ForKey:TeamNewsKey]);
     
     
 }
@@ -189,7 +189,7 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 
     
-    NSArray *cacheData = [Toolkit ReadPlist:CaChePlist ForKey:TeamNewsKey];
+    NSArray *cacheData = [Toolkit ReadPlist:NewsCaChePlist ForKey:TeamNewsKey];
     DLog(@"%@",cacheData);
     if(cacheData != nil||cacheData.count>0 )
     {
@@ -204,6 +204,18 @@
             [wyArray addObjectsFromArray:cacheData];
         }
         
+        
+        
+        if(cacheArr !=nil)
+        {
+            [cacheArr removeAllObjects];
+            [cacheArr addObjectsFromArray:cacheData];
+        }
+        else
+        {
+            cacheArr = [NSMutableArray array];
+            [cacheArr addObjectsFromArray:cacheData];
+        }
         
         
         [self configData:cacheData];
@@ -383,7 +395,7 @@
             [cacheArr addObjectsFromArray:dict[@"data"]];
             
             
-            [Toolkit writePlist:CaChePlist andContent:cacheArr andKey:TeamNewsKey];
+            [Toolkit writePlist:NewsCaChePlist andContent:cacheArr andKey:TeamNewsKey];
             pageNo++;
             if(_contentDataSource != nil || _contentDataSource.count>0)
                 [_contentDataSource removeAllObjects];

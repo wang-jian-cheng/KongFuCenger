@@ -137,6 +137,17 @@
                         </mask>
                     </variation>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQd-Av-Pzb">
+                    <rect key="frame" x="320" y="28" width="47" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="47" id="1Wc-ju-Vi1"/>
+                        <constraint firstAttribute="height" constant="45" id="V08-9P-yJd"/>
+                    </constraints>
+                    <state key="normal" image="changeDevice.png"/>
+                    <connections>
+                        <action selector="ChangeDevice:" destination="-1" eventType="touchUpInside" id="PAx-i6-Wzl"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -152,7 +163,9 @@
                 <constraint firstItem="Joy-CF-Qlu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bkQ-kO-Bhi"/>
                 <constraint firstAttribute="bottom" secondItem="N6K-20-dCV" secondAttribute="bottom" id="ev3-ce-JMK"/>
                 <constraint firstAttribute="trailing" secondItem="Joy-CF-Qlu" secondAttribute="trailing" id="hlw-Tk-F5V"/>
+                <constraint firstItem="KQd-Av-Pzb" firstAttribute="leading" secondItem="Joy-CF-Qlu" secondAttribute="trailing" constant="-55" id="kDj-29-ks4"/>
                 <constraint firstAttribute="trailing" secondItem="N6K-20-dCV" secondAttribute="trailing" id="oQI-wL-XEF"/>
+                <constraint firstItem="KQd-Av-Pzb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="umh-78-TrT"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -161,5 +174,6 @@
     </objects>
     <resources>
         <image name="WechatShortVideo_close.png" width="45" height="45"/>
+        <image name="changeDevice.png" width="36" height="36"/>
     </resources>
 </document>

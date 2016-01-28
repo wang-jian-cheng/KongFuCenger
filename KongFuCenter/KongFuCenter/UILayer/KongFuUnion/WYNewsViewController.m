@@ -46,7 +46,7 @@
     UITableView *mainTable;
     
     UIView *popView;
-    
+    NSMutableArray *cacheArr;
     YMReplyInputView *replyView ;
     
     NSInteger _replyIndex;
@@ -98,6 +98,8 @@
     dataProvider = [[DataProvider alloc] init];
     _tableDataSource = [[NSMutableArray alloc] init];
     _contentDataSource = [[NSMutableArray alloc] init];
+    cacheArr = [NSMutableArray array];
+    cacheArrForWrite = [NSMutableArray array];
     _replyIndex = -1;//代表是直接评论
     kAdmin = [userDefault valueForKey:@"NicName"];
     
@@ -109,6 +111,13 @@
 
 -(void)TeamTopRefresh{
     curpage = 0;
+    
+    if(cacheArrForWrite!=nil)
+    {
+        [cacheArrForWrite removeAllObjects];
+    }
+    [mainTable.mj_footer setState:MJRefreshStateIdle];
+    
     [SVProgressHUD showWithStatus:@"加载中"];
     [mainTable.mj_footer setState:MJRefreshStateIdle];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getWYNewsCallBack:"];
@@ -117,11 +126,11 @@
 
 -(void)TeamFootRefresh
 {
-    if ((curpage + 1) * 5 >= sumpage) {
-        [mainTable.mj_footer endRefreshing];
-        return;
-    }
-    curpage++;
+//    if ((curpage + 1) * 5 >= sumpage) {
+//        [mainTable.mj_footer endRefreshing];
+//        return;
+//    }
+    
     dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
     [dataProvider GetDongtaiPageByFriends:[userDefault valueForKey:@"id"] andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 5] andmaximumRows:@"5"];
@@ -191,6 +200,12 @@
         
         //[self initTableview];
         
+        [cacheArrForWrite addObjectsFromArray:dict[@"data"]];
+        [Toolkit writePlist:NewsCaChePlist andContent:cacheArrForWrite andKey:WyNewsKey];
+        
+//        NSArray *tempData = [Toolkit ReadPlist:NewsCaChePlist ForKey:WyNewsKey];
+//        DLog(@"%@",tempData);
+        
         if(_contentDataSource.count == 0){
             [self dataEmptyTip];
         }
@@ -205,6 +220,63 @@
         [SVProgressHUD dismiss];
     }
 }
+-(void)configData:(NSArray *)dongtaiArr
+{
+    if(dongtaiArr== nil || dongtaiArr.count == 0)
+        return;
+    
+    for(NSDictionary *itemDict in dongtaiArr){
+        WFMessageBody *messBody = [[WFMessageBody alloc] init];
+        messBody.posterContent = [itemDict valueForKey:@"Content"];
+        NSArray *picArray =[itemDict valueForKey:@"PicList"];
+        NSMutableArray *imgArray = [[NSMutableArray alloc] init];
+        for (int i = 0; i < picArray.count; i++) {
+            [imgArray addObject:[NSString stringWithFormat:@"%@%@",Url,[picArray[i] valueForKey:@"ImagePath"]]];
+        }
+        messBody.posterPostImage = imgArray;
+        NSArray *ComArray =[itemDict valueForKey:@"ComList"];
+        if (ComArray.count == 0) {
+            WFReplyBody *body = [[WFReplyBody alloc] init];
+            body.replyUser = @"";
+            body.repliedUser = @"";
+            body.replyInfo = @"";
+            messBody.posterReplies = [[NSMutableArray alloc] init];
+        }else{
+            NSMutableArray *commentArray = [[NSMutableArray alloc] init];;
+            for (int i = 0; i < ComArray.count; i++) {
+                WFReplyBody *body = [[WFReplyBody alloc] init];
+                body.cID = [ComArray[i] valueForKey:@"Id"];
+                body.replyUser = [ComArray[i] valueForKey:@"NicName"];
+                body.repliedUser = [[NSString stringWithFormat:@"%@",[ComArray[i] valueForKey:@"ParentId"]] isEqual:@"0"]?@"":[ComArray[i] valueForKey:@"CommentedNicName"];
+                body.replyInfo = [ComArray[i] valueForKey:@"Content"];
+                [commentArray addObject:body];
+            }
+            messBody.posterReplies = commentArray;
+        }
+        NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+        messBody.mID = [itemDict valueForKey:@"Id"];
+        messBody.userID = [itemDict valueForKey:@"UserId"];
+        messBody.posterImgstr = url;//@"mao.jpg";
+        messBody.posterName = [itemDict valueForKey:@"NicName"];
+        messBody.isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
+        messBody.posterIntro = @"";
+        messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
+        messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
+        messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
+        
+        messBody.sendTime = [NSString stringWithFormat:@"%@",[itemDict valueForKey:@"PublishTime"]];
+        
+        NSMutableArray *videoArray = [[NSMutableArray alloc] init];
+        [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[itemDict valueForKey:@"ImagePath"]]];
+        [videoArray addObject:[itemDict valueForKey:@"VideoPath"]];
+        [videoArray addObject:[itemDict valueForKey:@"VideoDuration"]];
+        messBody.posterPostVideo = videoArray;
+        
+        [_contentDataSource addObject:messBody];
+    }
+}
+
 
 -(void)dataEmptyTip{
     UILabel *tipLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, SCREEN_HEIGHT - 10)];
@@ -224,10 +296,11 @@
 //        [_tableDataSource removeAllObjects];
 //    }
     
-    NSLog(@"%@",dict);
+    DLog(@"%@",dict);
     // 结束刷新
     [mainTable.mj_footer endRefreshing];
     if ([dict[@"code"] intValue] == 200) {
+        curpage++;
         NSArray * arrayitem=[[NSArray alloc] init];
         arrayitem=dict[@"data"];
         for(NSDictionary *itemDict in dict[@"data"]){
@@ -278,6 +351,15 @@
             [_contentDataSource addObject:messBody];
         }
         
+        if(cacheArrForWrite.count>=sumpage)
+        {
+            [mainTable.mj_footer setState:MJRefreshStateNoMoreData];
+        }
+        
+        [cacheArrForWrite addObjectsFromArray:dict[@"data"]];
+        
+        [Toolkit writePlist:NewsCaChePlist andContent:cacheArrForWrite andKey:WyNewsKey];
+        
         if(_contentDataSource.count >= [dict[@"recordcount"] intValue])
         {
             [mainTable.mj_footer setState:MJRefreshStateNoMoreData];
@@ -298,13 +380,49 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
     
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     if (sendNewsVC || wechatShortVideoController) {
+        
         [self TeamTopRefresh];
+    }
+    else
+    {
+        NSArray *cacheData = [Toolkit ReadPlist:NewsCaChePlist ForKey:WyNewsKey];
+        DLog(@"%@",cacheData);
+        if(cacheData != nil||cacheData.count>0 )
+        {
+            
+            if(cacheArrForWrite !=nil)
+            {
+                [cacheArrForWrite removeAllObjects];
+                [cacheArrForWrite addObjectsFromArray:cacheData];
+            }
+            else
+            {
+                cacheArrForWrite = [NSMutableArray array];
+                [cacheArrForWrite addObjectsFromArray:cacheData];
+            }
+            [self configData:cacheData];
+            
+            if(_contentDataSource.count == 0){
+                [self dataEmptyTip];
+            }
+            
+            [self loadTextData];
+            
+            curpage = (int)cacheData.count/5;
+        }
+        else
+        {
+            [mainTable.mj_header beginRefreshing];
+        }
+        
+        
+//        [self TeamTopRefresh];
     }
     if (commentListVC || myNewsVC) {
         [self initHeadView];
@@ -437,7 +555,7 @@
     }];
     
     // 马上进入刷新状态
-    [mainTable.mj_header beginRefreshing];
+//    [mainTable.mj_header beginRefreshing];
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
     MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
     // 禁止自动加载
@@ -554,66 +672,77 @@
         cell = [[YMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.backgroundColor = ItemsBaseColor;
     }
-    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:indexPath.row];
-    WFMessageBody *m = ymData.messageBody;
-    cell.stamp = indexPath.row;
-    //cell.replyBtn.appendIndexPath = indexPath;
-    //[cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
-    cell.CommentBtn.tag = indexPath.row;
-    [cell.CommentBtn addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
-    cell.CommentBtnHF.tag = indexPath.row;
-    [cell.CommentBtnHF addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
     
-    NSString *PublishTime = m.sendTime;//[wyArray[indexPath.row] valueForKey:@"PublishTime"];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date = [dateFormatter dateFromString:PublishTime];
     
-    NSString *mChatDateIFlag = [self compareDate:date];
-    NSLog(@"%@",mChatDateIFlag);
-    if ([mChatDateIFlag isEqual:@"今天"]) {
-        [dateFormatter setDateFormat:@"HH:mm"];
-        cell.commentDate.text = [NSString stringWithFormat:@"今天 %@",[dateFormatter stringFromDate:date]];
-    }else if([mChatDateIFlag isEqual:@"昨天"]){
-        [dateFormatter setDateFormat:@"HH:mm"];
-        cell.commentDate.text = [NSString stringWithFormat:@"昨天 %@",[dateFormatter stringFromDate:date]];
-    }else{
-        [dateFormatter setDateFormat:@"MM-dd HH:mm"];
-        cell.commentDate.text = [dateFormatter stringFromDate:date];
-    }
-    //cell.commentDate.text = @"发布时间";//[NSString stringWithFormat:@"%d",(int)indexPath.row];
-    
-    cell.zanBtn.tag = indexPath.row;
-    [cell.zanBtn addTarget:self action:@selector(zanEvent:) forControlEvents:UIControlEventTouchUpInside];
-    if (m.isFavour == YES) {//此时该取消赞
-        [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan"] forState:UIControlStateNormal];
-    }else{
-        [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan_no"] forState:UIControlStateNormal];
-    }
-    cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey:@"LikeNum"]];
-    if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0){
-        if([m.isRepeat isEqual:@"0"]){
-            UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoImgEvent:)];
-            cell.videoImg.userInteractionEnabled = YES;
-            NSLog(@"%d",(int)indexPath.row);
-            [cell.videoImg addGestureRecognizer:clickVideoImg];
-            clickVideoImg.view.tag = indexPath.row;
+    @try {
+        YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:indexPath.row];
+        WFMessageBody *m = ymData.messageBody;
+        cell.stamp = indexPath.row;
+        //cell.replyBtn.appendIndexPath = indexPath;
+        //[cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
+        cell.CommentBtn.tag = indexPath.row;
+        [cell.CommentBtn addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
+        cell.CommentBtnHF.tag = indexPath.row;
+        [cell.CommentBtnHF addTarget:self action:@selector(commentEvent:) forControlEvents:UIControlEventTouchUpInside];
+        
+        NSString *PublishTime = m.sendTime;//[wyArray[indexPath.row] valueForKey:@"PublishTime"];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *date = [dateFormatter dateFromString:PublishTime];
+        
+        NSString *mChatDateIFlag = [self compareDate:date];
+        NSLog(@"%@",mChatDateIFlag);
+        if ([mChatDateIFlag isEqual:@"今天"]) {
+            [dateFormatter setDateFormat:@"HH:mm"];
+            cell.commentDate.text = [NSString stringWithFormat:@"今天 %@",[dateFormatter stringFromDate:date]];
+        }else if([mChatDateIFlag isEqual:@"昨天"]){
+            [dateFormatter setDateFormat:@"HH:mm"];
+            cell.commentDate.text = [NSString stringWithFormat:@"昨天 %@",[dateFormatter stringFromDate:date]];
         }else{
-            UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jumpDetailEvent:)];
-            cell.videoImg.userInteractionEnabled = YES;
-            NSLog(@"%d",(int)indexPath.row);
-            [cell.videoImg addGestureRecognizer:clickVideoImg];
-            clickVideoImg.view.tag = indexPath.row;
+            [dateFormatter setDateFormat:@"MM-dd HH:mm"];
+            cell.commentDate.text = [dateFormatter stringFromDate:date];
         }
+        //cell.commentDate.text = @"发布时间";//[NSString stringWithFormat:@"%d",(int)indexPath.row];
+        
+        cell.zanBtn.tag = indexPath.row;
+        [cell.zanBtn addTarget:self action:@selector(zanEvent:) forControlEvents:UIControlEventTouchUpInside];
+        if (m.isFavour == YES) {//此时该取消赞
+            [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan"] forState:UIControlStateNormal];
+        }else{
+            [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan_no"] forState:UIControlStateNormal];
+        }
+        cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey:@"LikeNum"]];
+        if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0){
+            if([m.isRepeat isEqual:@"0"]){
+                UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoImgEvent:)];
+                cell.videoImg.userInteractionEnabled = YES;
+                NSLog(@"%d",(int)indexPath.row);
+                [cell.videoImg addGestureRecognizer:clickVideoImg];
+                clickVideoImg.view.tag = indexPath.row;
+            }else{
+                UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jumpDetailEvent:)];
+                cell.videoImg.userInteractionEnabled = YES;
+                NSLog(@"%d",(int)indexPath.row);
+                [cell.videoImg addGestureRecognizer:clickVideoImg];
+                clickVideoImg.view.tag = indexPath.row;
+            }
+        }
+        [cell.delIcon addTarget:self action:@selector(delMyInfoEvent:) forControlEvents:UIControlEventTouchUpInside];
+        cell.delegate = self;
+        NSLog(@"%d------%d",(int)indexPath.section,(int)indexPath.row);
+        NSLog(@"%@",[_tableDataSource objectAtIndex:indexPath.row]);
+        [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
+        cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
     }
-    [cell.delIcon addTarget:self action:@selector(delMyInfoEvent:) forControlEvents:UIControlEventTouchUpInside];
-    cell.delegate = self;
-    NSLog(@"%d------%d",(int)indexPath.section,(int)indexPath.row);
-    NSLog(@"%@",[_tableDataSource objectAtIndex:indexPath.row]);
-    [cell setYMViewWith:[_tableDataSource objectAtIndex:indexPath.row]];
-    cell.userNameLbl.frame = CGRectMake(20 + TableHeader + 20, (TableHeader - TableHeader / 2) / 2, screenWidth - 120, TableHeader/2);
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        return cell;
+    }
+   
     
-    return cell;
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
