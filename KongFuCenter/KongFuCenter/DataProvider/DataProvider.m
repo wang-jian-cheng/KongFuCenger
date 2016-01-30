@@ -1512,6 +1512,18 @@
     }
 }
 
+-(void)SaveComment:(NSArray *)commlist
+{
+    if (commlist) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/CommentProduct",Url];
+        NSString *jsonString = [[NSString alloc] initWithData:[self toJSONData:commlist]
+                                                     encoding:NSUTF8StringEncoding];
+        NSDictionary *prm = @{@"comlist":jsonString};
+        [self PostRequest:url andpram:prm];
+
+    }
+}
+
 //startRowIndex 开始行索引
 //maximumRows 每页条数
 //search 搜索内容
@@ -1791,6 +1803,7 @@
 //    FileDetail *file = [FileDetail fileWithName:@"avatar.jpg" data:data];
 //    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
 //                            file,@"FILES",
+    
 //                            @"avatar",@"name",
 //                            key, @"key", nil];
 //    NSDictionary *result = [HttpRequest upload:[NSString stringWithFormat:@"%@index.php?act=member_index&op=avatar_upload",Url] widthParams:params];
@@ -1883,6 +1896,20 @@
     //                            key, @"key", nil];
     //    NSDictionary *result = [HttpRequest upload:[NSString stringWithFormat:@"%@index.php?act=member_index&op=avatar_upload",Url] widthParams:params];
     //    NSLog(@"%@",result);
+}
+// 将字典或者数组转化为JSON串
+- (NSData *)toJSONData:(id)theData{
+    
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theData
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    
+    if ([jsonData length] > 0 && error == nil){
+        return jsonData;
+    }else{
+        return nil;
+    }
 }
 
 @end

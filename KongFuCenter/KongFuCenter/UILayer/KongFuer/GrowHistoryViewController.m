@@ -232,7 +232,7 @@
             }
             
             NSLog(@"rebuildGrowArr = %@",rebuildGrowArr);
-            NSLog(@"rebuildGrowArr count = %ld",rebuildGrowArr.count);
+            NSLog(@"rebuildGrowArr count = %ld",(unsigned long)rebuildGrowArr.count);
             [_mainTableView reloadData];
             
         }
@@ -417,7 +417,7 @@
             roundBtn.backgroundColor = Separator_Color;
             [roundBtn addTarget:self action:@selector(roundBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             roundBtn.tag = indexPath.row | (indexPath.section << 4);
-            NSLog(@"0x%lx",roundBtn.tag);
+            NSLog(@"0x%lx",(long)roundBtn.tag);
             [cell addSubview:roundBtn];
             
             for (int i=0 ; i<delArr.count; i++) {

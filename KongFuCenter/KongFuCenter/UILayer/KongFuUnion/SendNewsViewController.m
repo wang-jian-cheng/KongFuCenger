@@ -433,7 +433,7 @@
     [tempArr addObjectsFromArray:allImgsPicked[PICPICKER_IMGS_KEY]];
     [tempArr addObjectsFromArray:allImgsPicked[PHOTO_IMGS_KEY]];
     [SVProgressHUD dismiss];
-    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"正在保存图片(%ld/%ld)",(long)ImgIndex,tempArr.count] maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"正在保存图片(%ld/%ld)",(long)ImgIndex,(unsigned long)tempArr.count] maskType:SVProgressHUDMaskTypeBlack];
 }
 
 -(void)uploadImgsAllFinishDelegate:(NSArray *)imgPath

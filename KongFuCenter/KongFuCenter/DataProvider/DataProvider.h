@@ -403,6 +403,12 @@
 
 //根据ID查询商品详情和第一页评论
 -(void)SelectProduct:(NSString *)sid anduserid:(NSString *)userid andmaximumRows:(NSString *)maximumRows;
+/**
+ *  保存商品评论
+ *
+ *  @param commlist <#commlist description#>
+ */
+-(void)SaveComment:(NSArray *)commlist;
 
 //startRowIndex 开始行索引
 //maximumRows 每页条数

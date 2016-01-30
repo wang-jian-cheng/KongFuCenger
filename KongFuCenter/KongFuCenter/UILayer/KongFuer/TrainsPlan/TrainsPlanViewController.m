@@ -216,7 +216,7 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"FootergetPlansCallBack:"];
     [dataprovider getPlanInfo:[Toolkit getUserID]
-                    andCateId:[NSString stringWithFormat:@"%ld",cateId]
+                    andCateId:[NSString stringWithFormat:@"%ld",(long)cateId]
                   andStartRow:[NSString stringWithFormat:@"%d",pageNo*pageSize]
                 andMaxNumRows:[NSString stringWithFormat:@"%d",pageSize]];
     
@@ -254,7 +254,7 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getPlansCallBack:"];
     [dataprovider getPlanInfo:[Toolkit getUserID]
-                    andCateId:[NSString stringWithFormat:@"%ld",cateId]
+                    andCateId:[NSString stringWithFormat:@"%ld",(long)cateId]
                   andStartRow:[NSString stringWithFormat:@"%d",pageNo*pageSize]
                 andMaxNumRows:[NSString stringWithFormat:@"%d",pageSize]];
 }
