@@ -1456,7 +1456,7 @@
 {
     if (startRowIndex && maximumRows &&search) {
         NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/YuanchuangVideo",Url];
-        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"search":search};
         [self PostRequest:url andpram:prm];
     }
 }

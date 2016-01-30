@@ -37,7 +37,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addLeftButton:@"left"];
-    
+    [self addRightButton:@"search"];
     
     [self initViews];
 }
@@ -139,6 +139,14 @@
     [dataprovider GetVideoByCategory:[NSString stringWithFormat:@"%d",dataPage*PageSize] andmaximumRows:[NSString stringWithFormat:@"%d",PageSize] andcateid:_cateid andSearch:@""];
 }
 
+
+-(void)clickRightButton:(UIButton *)sender
+{
+    SearchViewController *searchViewCtl = [[SearchViewController alloc] init];
+    searchViewCtl.searchCate = Channel_Search;
+    searchViewCtl.subIDs = @[self.cateid];
+    [self.navigationController pushViewController:searchViewCtl animated:YES];
+}
 
 #pragma mark -  tableview  Delegate
 

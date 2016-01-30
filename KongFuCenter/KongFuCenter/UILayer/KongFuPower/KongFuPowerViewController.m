@@ -79,8 +79,8 @@
 #define NEWEST_BTN      0
 #define HOST_BTN        1
 #define RECOMMEND_BTN   2
-#define ORIGINAL_BTN      3
-#define CHANNEL_BTN      4
+#define ORIGINAL_BTN    3
+#define CHANNEL_BTN     4
 -(void)initDatas
 {
     
@@ -186,8 +186,13 @@
     moreSettingBackView.hidden = YES;
 
     
+    UIButton *searchBtn  = [[UIButton alloc] initWithFrame:CGRectMake(_btnRight.frame.origin.x - 24, 20, 44, 44)];
+    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
+    [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_topView addSubview:searchBtn];
+    
+    
 }
-
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -195,6 +200,40 @@
 }
 
 #pragma mark - Btn click
+
+-(void)searchBtnClick:(UIButton *)sender
+{
+    SearchViewController *searchViewCtl = [[SearchViewController alloc] init];
+    
+    switch (videoType) {
+        case NEWEST_BTN:
+        {
+            searchViewCtl.searchCate = NewsCate_Search;
+        }
+            break;
+            
+        case HOST_BTN:
+        {
+            searchViewCtl.searchCate = Hottest_Search;
+        }
+            break;
+        case RECOMMEND_BTN:
+        {
+            searchViewCtl.searchCate = Suggest_Search;
+        }
+            break;
+        case ORIGINAL_BTN:
+        {
+            searchViewCtl.searchCate = YuanChuang_Search;
+        }
+            break;
+            
+        default:
+            break;
+    }
+
+    [self.navigationController pushViewController:searchViewCtl animated:YES];
+}
 
 -(void)cateBtnClick:(UIButton *)sender
 {

@@ -7,6 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
+#import "SearchViewController.h"
 
 @interface VideoListForStudyViewController : BaseNavigationController
 {

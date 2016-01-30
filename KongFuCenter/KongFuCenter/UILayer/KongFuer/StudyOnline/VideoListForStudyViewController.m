@@ -118,6 +118,15 @@
 //    mainCollectionView.mj_footer.automaticallyRefresh=NO;
     
 }
+-(void)clickRightButton:(UIButton *)sender
+{
+    SearchViewController *searchViewCtl = [[SearchViewController alloc] init];
+    searchViewCtl.searchCate = StudyOnline_Search;
+    searchViewCtl.subIDs = @[self.categoryid];
+    [self.navigationController pushViewController:searchViewCtl animated:YES];
+    
+}
+
 
 #pragma mark - self data source
 

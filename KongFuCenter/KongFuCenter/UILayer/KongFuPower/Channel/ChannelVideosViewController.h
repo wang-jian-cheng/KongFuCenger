@@ -8,6 +8,7 @@
 
 #import "BaseNavigationController.h"
 #import "UserHeadView.h"
+#import "SearchViewController.h"
 //#import "VideoDetailViewController.h"
 @interface ChannelVideosViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic ,strong)NSString * cateid;
