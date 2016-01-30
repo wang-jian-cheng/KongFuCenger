@@ -643,13 +643,16 @@
     }
 }
 
--(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows
+-(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andSearch:(NSString *)search
 {
     if(categoryid != nil&&startRowIndex&&maximumRows)
     {
         
         NSString * url=[NSString stringWithFormat:@"%@Hewuzhe.asmx/GetOnlineStudyListByPage",Url];
-        NSDictionary * prm=@{@"categoryid":categoryid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        NSDictionary * prm=@{@"categoryid":categoryid,
+                             @"startRowIndex":startRowIndex,
+                             @"maximumRows":maximumRows,
+                             @"search":search};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
         
@@ -1419,33 +1422,39 @@
     }
 }
 
--(void)GetNewVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows
+-(void)GetNewVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andSearch:(NSString *)search
 {
-    if (startRowIndex && maximumRows) {
+    if (startRowIndex && maximumRows &&search) {
         NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/NewVideo",Url];
-        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows,
+                              @"search":search};
         [self PostRequest:url andpram:prm];
     }
 }
--(void)GetHotVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows
+-(void)GetHotVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andSearch:(NSString *)search
 {
-    if (startRowIndex && maximumRows) {
+    if (startRowIndex && maximumRows &&search) {
         NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/HotVideo",Url];
-        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows,
+                              @"search":search};
         [self PostRequest:url andpram:prm];
     }
 }
--(void)GetTuiJianVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows
+-(void)GetTuiJianVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andSearch:(NSString *)search
 {
-    if (startRowIndex && maximumRows) {
+    if (startRowIndex && maximumRows &&search) {
         NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/TuijianVideo",Url];
-        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows,
+                              @"search":search};
         [self PostRequest:url andpram:prm];
     }
 }
--(void)GetYuanChuangVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows
+-(void)GetYuanChuangVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andSearch:(NSString *)search
 {
-    if (startRowIndex && maximumRows) {
+    if (startRowIndex && maximumRows &&search) {
         NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/YuanchuangVideo",Url];
         NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
         [self PostRequest:url andpram:prm];
@@ -1467,11 +1476,13 @@
     }
 }
 
--(void)GetVideoByCategory:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andcateid:(NSString *)cateid
-{
-    if (startRowIndex && maximumRows&&cateid) {
+-(void)GetVideoByCategory:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andcateid:(NSString *)cateid andSearch:(NSString *)search{
+    if (startRowIndex && maximumRows&&cateid&&search) {
         NSString *url = [NSString stringWithFormat:@"%@Hedongli.asmx/SelectVideoByCategory",Url];
-        NSDictionary *prm = @{@"startRowIndex":startRowIndex,@"maximumRows":maximumRows,@"cateid":cateid};
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows,
+                              @"cateid":cateid,
+                              @"search":search};
         [self PostRequest:url andpram:prm];
     }
 }

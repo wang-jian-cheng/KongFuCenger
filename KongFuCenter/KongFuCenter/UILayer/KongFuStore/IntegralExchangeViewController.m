@@ -246,13 +246,20 @@
         [photoIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"me"]];
         [cell addSubview:photoIv];
         
-        userName.frame =  CGRectMake(photoIv.frame.origin.x + photoIv.frame.size.width + 5, (150 - 85) / 2, 150, 21);
-        userName.text = @"成龙";
+        photoIv.layer.cornerRadius = photoIv.frame.size.width * 0.5;
+        photoIv.layer.borderWidth = 0.1;
+        photoIv.layer.masksToBounds = YES;
+        
+        userName.frame =  CGRectMake(photoIv.frame.origin.x + photoIv.frame.size.width + 10, (150 - 85) / 2, 150, 21);
+//        userName.text = @"成龙";
         userName.textColor = [UIColor whiteColor];
+        
+        
+        
         [cell addSubview:userName];
         
         mIntegral.frame = CGRectMake(userName.frame.origin.x, userName.frame.origin.y + userName.frame.size.height + 5, 150, 21);
-        mIntegral.text = [NSString stringWithFormat:@"积分:%@个",@"1000"];
+        mIntegral.text = [NSString stringWithFormat:@"积分:%@个",JiFen];
         mIntegral.textColor = [UIColor whiteColor];
         [cell addSubview:mIntegral];
         
@@ -296,7 +303,7 @@
                 [cell.mPhotoIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"me"]];
                 cell.mName.text = tempDict[@"Name"];
                 cell.mDetail1.text = [NSString stringWithFormat:@"%@",tempDict[@"CreditTotal"]];//[NSString stringWithFormat:@"积分兑换:%@",@"500"];
-                cell.mDetail2.text = [NSString stringWithFormat:@"剩余:%@",@"50"];
+                cell.mDetail2.text = [NSString stringWithFormat:@"剩余:%@",JiFen];
                 [cell.mExchange addTarget:self action:@selector(exchangeEvent:) forControlEvents:UIControlEventTouchUpInside];
                 
             }

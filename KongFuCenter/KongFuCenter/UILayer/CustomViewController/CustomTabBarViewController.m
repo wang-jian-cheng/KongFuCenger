@@ -14,8 +14,12 @@
 #import "MoreViewController.h"
 #import "Toolkit.h"
 
-#define tabBarButtonNum 5
 
+#if KONGFU_VER2
+#define tabBarButtonNum 5
+#else
+#define tabBarButtonNum 4
+#endif
 @interface CustomTabBarViewController ()
 {
     NSArray *_arrayImages;
@@ -43,7 +47,11 @@
     self.tabBar.hidden = YES;
     self.hidesBottomBarWhenPushed = YES;
  //    NSArray *arrayImages_H = [[NSArray alloc] initWithObjects:@"home_H@2x.png",@"classes_H@2x.png" ,@"cate_H@2x.png",@"user_H@2x.png", nil];
- 	NSArray *arrayImages = [[NSArray alloc] initWithObjects:@"hewuzhe@2x.png",@"helianmeng@2x.png",@"hedongli@2x.png",@"hezhuangbei@2x.png",@"more@2x.png",  nil];
+ 	NSArray *arrayImages = [[NSArray alloc] initWithObjects:@"hewuzhe@2x.png",@"helianmeng@2x.png",@"hedongli@2x.png",
+#if KONGFU_VER2
+                            @"hezhuangbei@2x.png",
+#endif
+                            @"more@2x.png",  nil];
  
     _tabBarBG = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - TabBar_HEIGHT, SCREEN_WIDTH, TabBar_HEIGHT)];
       _tabBarBG.backgroundColor = navi_bar_bg_color;
@@ -110,11 +118,13 @@
     shoplistViewnav.navigationBarHidden=YES;
     //消息
     
+#if KONGFU_VER2
+    
     KongFuStoreViewController *store = [[KongFuStoreViewController alloc] init];
     BaseNavViewController *storenav = [[BaseNavViewController alloc] initWithRootViewController:store];
     store.hidesBottomBarWhenPushed=YES;
     storenav.navigationBar.hidden=YES;
-    
+#endif
     
     MoreViewController *ShoppingCart=[[MoreViewController alloc]init];
     BaseNavViewController *ShoppingCartnav = [[BaseNavViewController alloc] initWithRootViewController:ShoppingCart];
@@ -124,7 +134,11 @@
 
     //加入到真正的tabbar
     //fix me 商铺选项卡暂时隐藏
-    self.viewControllers=[NSArray arrayWithObjects:homeviewnav,typeViewnav,shoplistViewnav,storenav,ShoppingCartnav,nil];
+    self.viewControllers=[NSArray arrayWithObjects:homeviewnav,typeViewnav,shoplistViewnav,
+#if KONGFU_VER2
+                          storenav,
+#endif
+                          ShoppingCartnav,nil];
     
     UIButton *btnSender = (UIButton *)[self.view viewWithTag:0 + 1000];
     [self onTabButtonPressed:btnSender];

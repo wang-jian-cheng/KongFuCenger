@@ -74,6 +74,8 @@
 
 -(void)tapViewAction:(id)sender
 {
+    
+     [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height - Header_Height - 50)];
     [self.view endEditing:YES];
     
 }
@@ -100,14 +102,9 @@
 //键盘消失时
 -(void)keyboardDidHidden
 {
-    //定义动画
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
+
     //设置view的frame，往下平移
-    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height - Header_Height - 50)];
-    //   _cellTextViewHeight = _mainTableView.frame.size.height - 3*_cellHeight;
-    //   [_mainTableView reloadData];
-    [UIView commitAnimations];
+//    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height - Header_Height - 50)];
     
 }
 

@@ -33,6 +33,7 @@
     videoArray=[[NSArray alloc] init];
     [self initViews];
     [self addLeftButton:@"left"];
+    [self addRightButton:@"search"];
     pageNo=0;
     pageSize=12;
     
@@ -44,7 +45,7 @@
     
     [dataprovider setDelegateObject:self setBackFunctionName:@"TopRefreshCallBack:"];
     
-    [dataprovider getStudyOnlineVideoList:_categoryid andstartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+    [dataprovider getStudyOnlineVideoList:_categoryid andstartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize] andSearch:@""];
 }
 
 -(void)initViews
@@ -236,7 +237,7 @@
     
     [dataprovider setDelegateObject:self setBackFunctionName:@"FooterRefreshCallBack:"];
     
-    [dataprovider getStudyOnlineVideoList:_categoryid andstartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+    [dataprovider getStudyOnlineVideoList:_categoryid andstartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize] andSearch:@""];
 }
 
 -(void)FooterRefreshCallBack:(id)dict

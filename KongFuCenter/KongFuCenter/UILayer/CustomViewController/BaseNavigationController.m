@@ -30,7 +30,7 @@
     
     
  
-    //self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = BACKGROUND_COLOR;
     if ([Toolkit isSystemIOS7]||[Toolkit isSystemIOS8])
         _orginY = 20;
     _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, NavigationBar_HEIGHT + _orginY)];

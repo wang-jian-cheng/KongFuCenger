@@ -136,7 +136,7 @@
     
     [dataprovider setDelegateObject:self setBackFunctionName:dataPage==0?@"TopRefreshCallBack:":@"FooterRefreshCallBack:"];
     
-    [dataprovider GetVideoByCategory:[NSString stringWithFormat:@"%d",dataPage*PageSize] andmaximumRows:[NSString stringWithFormat:@"%d",PageSize] andcateid:_cateid];
+    [dataprovider GetVideoByCategory:[NSString stringWithFormat:@"%d",dataPage*PageSize] andmaximumRows:[NSString stringWithFormat:@"%d",PageSize] andcateid:_cateid andSearch:@""];
 }
 
 
