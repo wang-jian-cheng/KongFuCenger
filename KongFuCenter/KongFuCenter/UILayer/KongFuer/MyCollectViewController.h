@@ -17,8 +17,12 @@
 #import "ShopTableViewCell.h"
 #import "ShopDetailViewController.h"
 
-#define COLLECT_GOODS   0
 
+#if KONGFU_VER2
+#define COLLECT_GOODS   1
+#else
+#define COLLECT_GOODS   0
+#endif
 
 #define ArticleTag  10
 #define GoodsTag    11

@@ -138,7 +138,7 @@
  *  @param categoryid    二级分类id
  *
  */
--(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+-(NSInteger)getStudyOnlineVideoList:(NSString *)categoryid andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andSearch:(NSString *)search;
 
 /**
  *  获取在线学习视频详情
@@ -376,19 +376,19 @@
 - (NSInteger )growCateid:(NSString *)cateid andUserId:(NSString *)userid andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 #pragma mark 核动力
 //获取最新视频列表
--(void)GetNewVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
+-(void)GetNewVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andSearch:(NSString *)search;
 //获取热门视频列表
--(void)GetHotVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
+-(void)GetHotVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andSearch:(NSString *)search;
 //获取推荐视频列表
--(void)GetTuiJianVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
+-(void)GetTuiJianVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andSearch:(NSString *)search;
 //获取原创视频列表
--(void)GetYuanChuangVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
+-(void)GetYuanChuangVideoList:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andSearch:(NSString *)search;
 //获取视频频道
 -(void)GetChinnel:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows;
 //保存视频信息
 -(void)SendVideoInfo:(NSDictionary *)prm;
 //根据视频频道获取视频列表
--(void)GetVideoByCategory:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andcateid:(NSString *)cateid;
+-(void)GetVideoByCategory:(NSString * )startRowIndex andmaximumRows:(NSString *)maximumRows andcateid:(NSString *)cateid andSearch:(NSString *)search;
 //设置备注名
 -(void)SetNickName:(NSString *)userid andfriend:(NSString *)friend andrname:(NSString *)rname;
 //获取用户信息带备注名称
