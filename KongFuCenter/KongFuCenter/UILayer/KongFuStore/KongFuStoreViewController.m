@@ -15,6 +15,9 @@
 
 @interface KongFuStoreViewController (){
     UITableView *mTableView;
+    DataProvider *dataProvider;
+    int curpage;
+    NSArray *shopInfoArray;
 }
 
 @end
@@ -55,6 +58,10 @@
 //    [self.view addSubview:lbl_tishi];
 
     
+    
+    dataProvider = [[DataProvider alloc] init];
+    shopInfoArray = [[NSArray alloc] init];
+    
     //初始化View
     [self initViews];
 }
@@ -73,6 +80,57 @@
     mTableView.separatorColor = Separator_Color;
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = mTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf initData];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [mTableView.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    mTableView.mj_footer = footer;
+}
+
+-(void)initData{
+    curpage = 0;
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListCallBack:"];
+    [dataProvider GetRecomendCategoryAndProduct:@"0" andmaximumRows:@"3" anduserId:get_sp(@"id") andproductNum:@"5"];
+}
+
+-(void)getShopListCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        shopInfoArray = dict[@"data"];
+        [mTableView reloadData];
+    }
+}
+-(void)TeamFootRefresh{
+    curpage++;
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListFootCallBack:"];
+    [dataProvider GetRecomendCategoryAndProduct:[NSString stringWithFormat:@"%d",curpage * 3] andmaximumRows:@"3" anduserId:get_sp(@"id") andproductNum:@"5"];
+}
+
+-(void)getShopListFootCallBack:(id)dict{
+    // 结束刷新
+    [mTableView.mj_footer endRefreshing];
+    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:shopInfoArray];
+    if ([dict[@"code"] intValue] == 200) {
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        shopInfoArray=[[NSArray alloc] initWithArray:itemarray];
+    }
+    [mTableView reloadData];
 }
 
 -(void)jumpPage:(UIButton *)btn{
@@ -106,14 +164,14 @@
 
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1 + 2;
+    return 1 + shopInfoArray.count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if(section == 0){
         return 1;
     }else{
-        return 1 + 3;
+        return 1 + [[NSArray alloc] initWithArray:[shopInfoArray[section - 1] valueForKey:@"ProductList"]].count;
     }
 }
 
@@ -228,14 +286,15 @@
         
         return cell;
     }else{
+        NSLog(@"%@",shopInfoArray);
         if (indexPath.row == 0) {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
             cell.backgroundColor = ItemsBaseColor;
-            UILabel *mLabel = [[UILabel alloc] initWithFrame:CGRectMake(14, 0, 80, cell.frame.size.height)];
-            mLabel.textAlignment = NSTextAlignmentCenter;
+            UILabel *mLabel = [[UILabel alloc] initWithFrame:CGRectMake(14, 0, cell.frame.size.width, cell.frame.size.height)];
+            mLabel.textAlignment = NSTextAlignmentLeft;
             mLabel.font = [UIFont systemFontOfSize:14];
             mLabel.textColor = [UIColor whiteColor];
-            mLabel.text = @"散打护具";
+            mLabel.text = [Toolkit judgeIsNull:[shopInfoArray[indexPath.section - 1] valueForKey:@"Name"]];
             [cell addSubview:mLabel];
             return cell;
         }else{
@@ -246,11 +305,13 @@
                 cell.backgroundColor = ItemsBaseColor;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-            [cell.mImageView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
-            cell.mName.text = @"男士哑铃一对10公斤";
-            cell.mPrice.text = [NSString stringWithFormat:@"¥20.00"];
-            cell.watchNum.text = [NSString stringWithFormat:@"%@人",@"1000"];
-            cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",@"1000"];
+            NSArray *productListArray = [shopInfoArray[indexPath.section - 1] valueForKey:@"ProductList"];
+            NSString *url = [NSString stringWithFormat:@"%@%@",Url,[productListArray[indexPath.row - 1] valueForKey:@"ImagePath"]];
+            [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
+            cell.mName.text = [Toolkit judgeIsNull:[productListArray[indexPath.row - 1] valueForKey:@"Name"]];
+            cell.mPrice.text = [NSString stringWithFormat:@"¥%@",[Toolkit judgeIsNull:[productListArray[indexPath.row - 1] valueForKey:@"Price"]]];
+            cell.watchNum.text = [NSString stringWithFormat:@"%@人",[Toolkit judgeIsNull:[productListArray[indexPath.row - 1] valueForKey:@"VisitNum"]]];
+            cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",[Toolkit judgeIsNull:[productListArray[indexPath.row - 1] valueForKey:@"SaleNum"]]];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         }
@@ -274,7 +335,7 @@
     if (indexPath.section > 0 && indexPath.row > 0) {
         [mTableView deselectRowAtIndexPath:indexPath animated:YES];
         ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
-        //shopDetailVC.goodsId = ;
+        shopDetailVC.goodsId = [[shopInfoArray[indexPath.section - 1] valueForKey:@"ProductList"][indexPath.row - 1] valueForKey:@"Id"];
         [self.navigationController pushViewController:shopDetailVC animated:YES];
     }
 }

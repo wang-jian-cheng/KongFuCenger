@@ -428,6 +428,12 @@
 //加入购物车
 -(void)InsertBasket:(NSString *)productId andnum:(NSString *)num andpriceId:(NSString *)priceId anduserId:(NSString *)userId andprice:(NSString *)price;
 
+//根据商品ID查询商品评论
+-(void)SelectCommentByProductId:(NSString *)productId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+
+//首页查询商品推荐分类并显示推荐商品
+-(void)GetRecomendCategoryAndProduct:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andproductNum:(NSString *)productNum;
+
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;
 -(void)ShieldNewsFriend:(NSString *)userid;

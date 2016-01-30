@@ -32,6 +32,7 @@
     UILabel *collectionLbl;
     NSString *selectPriceId;
     NSString *selectPrice;
+    int curpage;
 }
 
 @end
@@ -57,9 +58,6 @@
     
     //初始化View
     [self initViews];
-    
-    //初始化数据
-    [self initData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -69,6 +67,7 @@
 
 #pragma mark 自定义方法
 -(void)initData{
+    curpage = 0;
     [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getGoodsDetailCallBack:"];
     [dataProvider SelectProduct:_goodsId anduserid:get_sp(@"id") andmaximumRows:@"10"];
@@ -83,6 +82,27 @@
         isFavorite = [Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"isFavorite"]];
         collectionIv.image = [isFavorite isEqual:@"0"]?[UIImage imageNamed:@"store_nocollection"]:[UIImage imageNamed:@"store_collection"];
         collectionLbl.text = [isFavorite isEqual:@"0"]?@"收藏":@"已收藏";
+        [mTableView reloadData];
+    }
+}
+
+-(void)TeamFootRefresh{
+    curpage++;
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListFootCallBack:"];
+    [dataProvider SelectCommentByProductId:_goodsId andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10"];
+}
+
+-(void)getShopListFootCallBack:(id)dict{
+    // 结束刷新
+    [mTableView.mj_footer endRefreshing];
+    if ([dict[@"code"] intValue] == 200) {
+        NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:commentListArray];
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        commentListArray=[[NSArray alloc] initWithArray:itemarray];
         [mTableView reloadData];
     }
 }
@@ -122,8 +142,25 @@
     [immediatelyBuyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
     [immediatelyBuyBtn addTarget:self action:@selector(immediatelyBuyEvent) forControlEvents:UIControlEventTouchUpInside];
     [mFooterView addSubview:immediatelyBuyBtn];
-    
     [self.view addSubview:mFooterView];
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = mTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf initData];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [mTableView.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    mTableView.mj_footer = footer;
 }
 
 -(void)showCustomView{
@@ -167,7 +204,7 @@
         
         mPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(mHeadIv.frame.origin.x + mHeadIv.frame.size.width + 5, 5, 200, 21)];
         mPriceLbl.textColor = YellowBlock;
-        mPriceLbl.text = [NSString stringWithFormat:@"¥%@",@"20.00"];
+        mPriceLbl.text = [NSString stringWithFormat:@"¥%@",];
         [mView addSubview:mPriceLbl];
         
         mSelectSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(mPriceLbl.frame.origin.x, mPriceLbl.frame.origin.y + mPriceLbl.frame.size.height + 5, 200, 21)];

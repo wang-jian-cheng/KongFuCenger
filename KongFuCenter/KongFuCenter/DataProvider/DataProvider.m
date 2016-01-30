@@ -1612,6 +1612,31 @@
     }
 }
 
+-(void)SelectCommentByProductId:(NSString *)productId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows{
+    if (productId && startRowIndex && maximumRows) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectCommentByProductId",Url];
+        NSDictionary *prm = @{@"productId":productId,
+                              @"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)GetRecomendCategoryAndProduct:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andproductNum:(NSString *)productNum{
+    if (startRowIndex && maximumRows && userId && productNum) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/GetRecomendCategoryAndProduct",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows,
+                              @"userId":userId,
+                              @"productNum":productNum};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong{
     if (userid && istuisong) {
