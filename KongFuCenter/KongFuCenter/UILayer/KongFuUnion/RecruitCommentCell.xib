@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -12,12 +12,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oiL-iV-930" id="16F-eU-zrU">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NJQ-ta-prt">
                         <rect key="frame" x="8" y="5" width="80" height="80"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="80" id="Kaq-CV-3oH"/>
                             <constraint firstAttribute="width" constant="80" id="Lnf-63-MYL"/>
                         </constraints>
                     </imageView>
@@ -61,6 +62,11 @@
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.43137254899999999" green="0.43137254899999999" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="M34-Ou-fog"/>
+                            </mask>
+                        </variation>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xin.png" translatesAutoresizingMaskIntoConstraints="NO" id="4NB-CB-xn0">
                         <rect key="frame" x="247" y="70" width="13" height="13"/>
@@ -87,6 +93,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="Z41-6w-Zkk" secondAttribute="trailing" constant="16" id="RkO-3y-iQe"/>
                     <constraint firstAttribute="leadingMargin" secondItem="NJQ-ta-prt" secondAttribute="leading" id="Vrn-GB-9N4"/>
                     <constraint firstAttribute="trailingMargin" secondItem="5UE-SY-TlF" secondAttribute="trailing" constant="65" id="X8h-EJ-ZXx"/>
+                    <constraint firstItem="yRn-L6-ymI" firstAttribute="leading" secondItem="NJQ-ta-prt" secondAttribute="trailing" constant="11" id="Zeg-rD-tKc"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Z41-6w-Zkk" secondAttribute="bottom" constant="-4" id="d4w-8r-LPM"/>
                     <constraint firstAttribute="bottomMargin" secondItem="4NB-CB-xn0" secondAttribute="bottom" constant="-2" id="dWL-0q-wob"/>
                     <constraint firstItem="aQH-7E-3b2" firstAttribute="leading" secondItem="16F-eU-zrU" secondAttribute="leadingMargin" constant="91" id="gPX-Yw-C6F"/>
