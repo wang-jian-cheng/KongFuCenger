@@ -291,7 +291,36 @@
     
 }
 
+-(void)clickRightButton:(UIButton *)sender
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    
+    [dataprovider setDelegateObject:self setBackFunctionName:@"SaveCommentCallBack:"];
+    
+    NSMutableArray * mutableArray=[[NSMutableArray alloc] init];
+    
+    for (int i=1; i<3; i++) {
+        NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"productId",
+                            [NSString stringWithFormat:@"第%d个商品评价",i],@"content",
+                            [NSString stringWithFormat:@"%d",i],@"typeId",
+                            [Toolkit getUserID],@"userId",
+                            [NSString stringWithFormat:@"%d",i],@"productPriceId",
+                            nil];
+        
+        [mutableArray addObject:prm];
+    }
+    
+    
+    if (mutableArray.count>0) {
+        [dataprovider SaveComment:mutableArray];
+    }
+    
+}
 
+-(void)SaveCommentCallBack:(id)dict
+{
+    NSLog(@"%@",dict);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
