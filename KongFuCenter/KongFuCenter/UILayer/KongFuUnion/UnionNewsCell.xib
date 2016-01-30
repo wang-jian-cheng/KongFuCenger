@@ -92,6 +92,7 @@
                     <constraint firstAttribute="bottomMargin" secondItem="Rgu-4B-aEk" secondAttribute="bottom" constant="-4" id="g73-OH-1VT"/>
                     <constraint firstAttribute="bottomMargin" secondItem="nQ9-xm-5iS" secondAttribute="bottom" constant="-2" id="hnm-Wr-Jz4"/>
                     <constraint firstAttribute="topMargin" secondItem="eLH-4Q-JvD" secondAttribute="top" id="koP-cR-qOB"/>
+                    <constraint firstItem="xMR-Pg-J4x" firstAttribute="leading" secondItem="v4l-wR-HcZ" secondAttribute="leadingMargin" constant="91" id="lzh-vv-FWG"/>
                     <constraint firstAttribute="bottomMargin" secondItem="pKe-54-dmZ" secondAttribute="bottom" constant="-4" id="mDA-mh-k6J"/>
                     <constraint firstAttribute="trailingMargin" secondItem="S8c-9v-P2P" secondAttribute="trailing" constant="65" id="yCi-33-qZp"/>
                 </constraints>
@@ -108,7 +109,7 @@
                 <outlet property="mName" destination="eLH-4Q-JvD" id="WU2-Nl-Vnv"/>
                 <outlet property="mReadNum" destination="S8c-9v-P2P" id="Epo-dU-hSG"/>
             </connections>
-            <point key="canvasLocation" x="387" y="235"/>
+            <point key="canvasLocation" x="348" y="220"/>
         </tableViewCell>
     </objects>
     <resources>
