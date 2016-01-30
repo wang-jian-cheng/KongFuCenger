@@ -733,6 +733,17 @@
 #pragma mark - 图片截取
 
 - (void)editPortrait {
+    
+    if(PhotoLimitNum <= ([allImgsPicked[PICPICKER_IMGS_KEY] count]+[allImgsPicked[PHOTO_IMGS_KEY] count]+defaultImgPath.count))
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"最多选择%d张图片",PhotoLimitNum] delegate:self cancelButtonTitle:@"确认" otherButtonTitles: nil];
+        
+        [alertView show];
+        
+        return;
+    }
+    
+    
     if ([Toolkit isCameraAvailable] && [Toolkit doesCameraSupportTakingPhotos]) {
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
         controller.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -886,12 +897,16 @@
 
 - (void)composePicAdd
 {
+//    [tempArr addObjectsFromArray:allImgsPicked[PICPICKER_IMGS_KEY]];
+//    [tempArr addObjectsFromArray:allImgsPicked[PHOTO_IMGS_KEY]];
+//    [tempArr addObjectsFromArray:defaultImgPath];
+    
     JKImagePickerController *imagePickerController = [[JKImagePickerController alloc] init];
     imagePickerController.delegate = self;
     imagePickerController.showsCancelButton = YES;
     imagePickerController.allowsMultipleSelection = YES;
     imagePickerController.minimumNumberOfSelection = 1;
-    imagePickerController.maximumNumberOfSelection = 6;
+    imagePickerController.maximumNumberOfSelection = PhotoLimitNum - ([allImgsPicked[PICPICKER_IMGS_KEY] count]+[allImgsPicked[PHOTO_IMGS_KEY] count]+defaultImgPath.count);
     imagePickerController.selectedAssetArray = self.assetsArray;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:imagePickerController];
     [self presentViewController:navigationController animated:YES completion:NULL];

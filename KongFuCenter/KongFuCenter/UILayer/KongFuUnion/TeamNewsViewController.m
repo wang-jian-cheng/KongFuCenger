@@ -184,6 +184,11 @@
 
 
 
+-(void) setTeamId:(NSString *)teamId
+{
+    _teamId = [NSString stringWithFormat:@"%@",teamId];
+}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
@@ -191,7 +196,7 @@
     
     NSArray *cacheData = [Toolkit ReadPlist:NewsCaChePlist ForKey:TeamNewsKey];
     DLog(@"%@",cacheData);
-    if((cacheData != nil||cacheData.count>0 )&& self.teamId ==nil )
+    if((cacheData != nil||cacheData.count>0 )&& (self.teamId ==nil||[self.teamId isEqualToString:get_sp(@"TeamId")]) )
     {
         if(wyArray !=nil)
         {
@@ -404,8 +409,10 @@
             [wyArray addObjectsFromArray:dict[@"data"]];
             [cacheArr addObjectsFromArray:dict[@"data"]];
             
-            
-            [Toolkit writePlist:NewsCaChePlist andContent:cacheArr andKey:TeamNewsKey];
+            if((self.teamId ==nil||[self.teamId isEqualToString:get_sp(@"TeamId")]))
+            {
+                [Toolkit writePlist:NewsCaChePlist andContent:cacheArr andKey:TeamNewsKey];
+            }
             pageNo++;
             if(_contentDataSource != nil || _contentDataSource.count>0)
                 [_contentDataSource removeAllObjects];
@@ -1340,9 +1347,10 @@
             [tempArr insertObject:dict[@"insertid"] atIndex:(_replyIndex+1+1/*多加1跳过占位*/)];
             
         }
-        
-        [Toolkit writePlist:NewsCaChePlist andContent:cacheArr andKey:TeamNewsKey];
-        
+        if((self.teamId ==nil||[self.teamId isEqualToString:get_sp(@"TeamId")]))
+        {
+            [Toolkit writePlist:NewsCaChePlist andContent:cacheArr andKey:TeamNewsKey];
+        }
         [replyView updateComment];
         //  dict[@"insertid"];
     //    [mainTable.mj_header beginRefreshing];
@@ -1596,9 +1604,10 @@
             
             ymData.replyHeight = [ymData calculateReplyHeightWithWidth:self.view.frame.size.width];
             [_tableDataSource replaceObjectAtIndex:actionIndex withObject:ymData];
-            
-            [Toolkit writePlist:NewsCaChePlist andContent:cacheArr andKey:TeamNewsKey];
-            
+            if((self.teamId ==nil||[self.teamId isEqualToString:get_sp(@"TeamId")]))
+            {
+                [Toolkit writePlist:NewsCaChePlist andContent:cacheArr andKey:TeamNewsKey];
+            }
             
         }
         @catch (NSException *exception) {

@@ -926,6 +926,7 @@
         NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/GetDongtaiPageByFriends",Url];
         NSDictionary *prm = @{@"userid":userid,@"startRowIndex":startRowIndex,@"maximumRows":maximumRows};
         [self PostRequest:url andpram:prm];
+        DLog(@"%@",prm);
     }else{
         [SVProgressHUD dismiss];
     }

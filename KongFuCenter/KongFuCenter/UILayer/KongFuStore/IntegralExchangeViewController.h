@@ -8,9 +8,15 @@
 
 #import "BaseNavigationController.h"
 #import "DataProvider.h"
+#import "MJRefresh.h"
 @interface IntegralExchangeViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
     NSUInteger pageNo;
     NSUInteger pageSize;
+    
+    
+    UILabel *userName;
+    UILabel *mIntegral;
+    UIImageView *photoIv;
 }
 @end

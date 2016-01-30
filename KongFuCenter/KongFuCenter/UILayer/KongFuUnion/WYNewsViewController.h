@@ -14,5 +14,8 @@
 @interface WYNewsViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
     NSMutableArray *cacheArrForWrite;
+    NSMutableDictionary *tempCommentDict;
+    
+    NSString *newMessageId;
 }
 @end

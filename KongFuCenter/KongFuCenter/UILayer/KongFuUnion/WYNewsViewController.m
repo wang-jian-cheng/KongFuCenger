@@ -406,6 +406,12 @@
                 cacheArrForWrite = [NSMutableArray array];
                 [cacheArrForWrite addObjectsFromArray:cacheData];
             }
+            
+            if(_tableDataSource != nil && _tableDataSource.count > 0)
+                [_tableDataSource removeAllObjects];
+            if(_contentDataSource != nil || _contentDataSource.count>0)
+                [_contentDataSource removeAllObjects];
+            
             [self configData:cacheData];
             
             if(_contentDataSource.count == 0){
@@ -841,13 +847,33 @@
 -(void)commentEvent:(UIButton *)sender{
     isComment = YES;
     selectRow = (int)sender.tag;
+    
+    NSDictionary *tempDict = cacheArrForWrite[selectRow];
+    NSArray *comArr = tempDict[@"ComList"];
+    
+    _replyIndex = comArr.count;
     replyView = [[YMReplyInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, screenWidth,44) andAboveView:self.view];
     replyView.delegate = self;
     replyView.replyTag = sender.tag;//_selectedIndexPath.row;
     [self.view addSubview:replyView];
+    
 }
 
 -(void)sendButton:(id)sender{
+    
+    
+    
+    NSArray *cacheData = [Toolkit ReadPlist:NewsCaChePlist ForKey:WyNewsKey];
+    if(cacheArrForWrite !=nil)
+    {
+        [cacheArrForWrite removeAllObjects];
+    }
+    else
+    {
+        cacheArrForWrite = [NSMutableArray array];
+    }
+    [cacheArrForWrite addObjectsFromArray:cacheData];
+    
     YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
     WFMessageBody *m = ymData.messageBody;
     if (isComment) {
@@ -860,13 +886,87 @@
         WFReplyBody *b = [m.posterReplies objectAtIndex:_replyIndex];
         [dataProvider CommentComment:b.cID anduserid:[userDefault valueForKey:@"id"] andcomment:((UITextView *)sender).text];
     }
+    
+    
+    if(cacheArrForWrite!=nil)
+    {
+        
+        NSMutableDictionary *tempNewsDict = [NSMutableDictionary dictionary];
+        //获取当前动态的所有信息
+        tempNewsDict = cacheArrForWrite[selectRow];
+        NSMutableArray *tempCommentArr = [NSMutableArray array];
+        //获取当前动态的所有评论
+        [tempCommentArr addObjectsFromArray:tempNewsDict[@"ComList"]];
+        
+        
+        if(_replyIndex<tempCommentArr.count)//评论 评论
+        {
+            //获取要被评论的评论
+            tempCommentDict = [[NSMutableDictionary alloc] initWithDictionary:tempCommentArr[_replyIndex]];
+            [tempCommentDict setObject:tempCommentDict[@"NicName"] forKey:@"CommentedNicName"];
+        }
+        else//评论动态
+        {
+            tempCommentDict = [[NSMutableDictionary alloc] init];
+            [tempCommentDict setObject:tempNewsDict[@"Id"] forKey:@"ParentId"];
+            [tempCommentDict setObject:@"" forKey:@"CommentedNicName"];
+        }
+        //修改评论的关键信息
+        [tempCommentDict setObject:((UITextView *)sender).text forKey:@"Content"];
+        
+        [tempCommentDict setObject:kAdmin forKey:@"NicName"];
+        
+        
+        //                //插入到被评论的评论后面
+        //                [tempCommentArr insertObject:tempCommentDict atIndex:(_replyIndex+1)];
+        //
+        //                //重新设置到动态信息中
+        //                [tempNewsDict setObject:tempCommentArr forKey:@"ComList"];
+        //
+        //                //替换掉原来的缓存数据
+        //                [cacheArrForWrite replaceObjectAtIndex:selectRow withObject:tempNewsDict];
+        //
+        //                //如果评论成功则在callback中重新写入到缓存文件
+        
+        
+    }
 }
 
 -(void)mainCommentCallBack:(id)dict{
-    NSLog(@"%@",dict);
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateComment" object:nil];//ios7 多次调用会导致崩溃
-    [replyView updateComment];
+        
+        newMessageId = [NSString stringWithFormat:@"%@",dict[@"insertid"]];
+    
+        NSMutableDictionary *tempNewsDict = [NSMutableDictionary dictionary];
+        //获取当前动态的所有信息
+        tempNewsDict = cacheArrForWrite[selectRow];
+        NSMutableArray *tempCommentArr = [NSMutableArray array];
+        //获取当前动态的所有评论
+        [tempCommentArr addObjectsFromArray:tempNewsDict[@"ComList"]];
+        //获取要被评论的评论
+        
+        //修改评论的关键信息
+        [tempCommentDict setObject:dict[@"insertid"] forKey:@"Id"];
+        
+        
+        //插入到被评论的评论后面
+        [tempCommentArr insertObject:tempCommentDict atIndex:(_replyIndex)];
+        
+        //重新设置到动态信息中
+        [tempNewsDict setObject:tempCommentArr forKey:@"ComList"];
+        
+        //替换掉原来的缓存数据
+        [cacheArrForWrite replaceObjectAtIndex:selectRow withObject:tempNewsDict];
+
+    //    if((self.teamId ==nil||[self.teamId isEqualToString:get_sp(@"TeamId")]))
+        {
+            [Toolkit writePlist:NewsCaChePlist andContent:cacheArrForWrite andKey:WyNewsKey];
+        }
+
+        
+        [replyView updateComment];
     }
 }
 
@@ -1131,13 +1231,15 @@
 - (void)YMReplyInputWithReply:(NSString *)replyText appendTag:(NSInteger)inputTag{
     
     YMTextData *ymData = nil;
-    if (_replyIndex == -1) {
+     ymData = (YMTextData *)[_tableDataSource objectAtIndex:inputTag];
+     WFMessageBody *m = ymData.messageBody;
+    if (_replyIndex == -1 || _replyIndex >= (m.posterReplies.count)) {
         
         WFReplyBody *body = [[WFReplyBody alloc] init];
         body.replyUser = kAdmin;
         body.repliedUser = @"";
         body.replyInfo = replyText;
-        
+        body.cID = newMessageId;
         ymData = (YMTextData *)[_tableDataSource objectAtIndex:inputTag];
         WFMessageBody *m = ymData.messageBody;
         //[m.posterReplies addObject:body];
@@ -1153,7 +1255,7 @@
         body.replyUser = kAdmin;
         body.repliedUser = [(WFReplyBody *)[m.posterReplies objectAtIndex:_replyIndex] replyUser];
         body.replyInfo = replyText;
-        
+        body.cID = newMessageId;
         //[m.posterReplies addObject:body];
         [m.posterReplies insertObject:body atIndex:_replyIndex + 1];
         ymData.messageBody = m;
@@ -1192,6 +1294,36 @@
         
         [SVProgressHUD showWithStatus:@"删除中" maskType:SVProgressHUDMaskTypeBlack];
         [dataProvider setDelegateObject:self setBackFunctionName:@"delCommentCallBack:"];
+        
+        
+        
+        
+        if(cacheArrForWrite !=nil)
+        {
+            for ( int i =0;i<cacheArrForWrite.count;i++) {
+                
+                NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:cacheArrForWrite[i]];
+                
+                NSMutableArray *tempComList = [[NSMutableArray alloc] initWithArray:tempDict[@"ComList"]];
+                for (int j=0;j<tempComList.count; j++) {
+                    NSDictionary *tempComDict = tempComList[j];
+                    NSString *Id = [NSString stringWithFormat:@"%@",tempComDict[@"Id"]];
+                    
+                    if ([Id isEqualToString:[NSString stringWithFormat:@"%@",wfbody.cID]]) {
+                        [tempComList removeObjectAtIndex:j];
+                        [tempDict setObject:tempComList forKey:@"ComList"];
+                        
+                        
+                        [cacheArrForWrite replaceObjectAtIndex:i withObject:tempDict];
+                        i=cacheArrForWrite.count;
+                        break;
+                        
+                    }
+                }
+                
+                
+            }
+        }
         [dataProvider delComment:wfbody.cID];
     }else{
         
@@ -1214,6 +1346,7 @@
             [mainTable reloadData];
             
             [SVProgressHUD showSuccessWithStatus:@"删除成功~"];
+            [Toolkit writePlist:NewsCaChePlist andContent:cacheArrForWrite andKey:WyNewsKey];
         }
         @catch (NSException *exception) {
             

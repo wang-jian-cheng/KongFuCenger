@@ -146,7 +146,7 @@
         @finally {
             
             [_mainTableView reloadData];
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
         }
     }
     else
@@ -525,7 +525,7 @@
                     UILabel *dateLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100),
                                                                                  (commentLab.frame.size.height+commentLab.frame.origin.y),
                                                                                  100, 30)];
-                    dateLab.text =[tempDict[@"PublishTime"] substringToIndex:10];
+                    dateLab.text = [Toolkit GettitleForDate:tempDict[@"PublishTime"]];
                     dateLab.font = [UIFont systemFontOfSize:12];
                     dateLab.textColor = [UIColor grayColor];
                     

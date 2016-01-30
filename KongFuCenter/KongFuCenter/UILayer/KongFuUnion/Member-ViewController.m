@@ -155,8 +155,15 @@
                 {
                     NSString *phone;
                     NSDictionary *tempDict = teamMemberArr[i];
-                    phone = [tempDict objectForKey:@"Phone"];
                     
+                    if(tempDict[@"Phone"] == nil||[tempDict[@"Phone"] length] == 0)
+                    {
+                        phone =[NSString stringWithFormat:@"%08d",[tempDict[@"Id"] intValue]];
+                    }
+                    else
+                    {
+                        phone = [tempDict objectForKey:@"Phone"];
+                    }
                     
                     NSRange titleResult=[phone rangeOfString:self.textField.text options:NSCaseInsensitiveSearch];
                     if (titleResult.length>0) {

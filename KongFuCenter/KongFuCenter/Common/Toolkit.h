@@ -51,4 +51,8 @@
 + (BOOL) canUserPickPhotosFromPhotoLibrary;
 + (BOOL) cameraSupportsMedia:(NSString *)paramMediaType sourceType:(UIImagePickerControllerSourceType)paramSourceType;
 
+
+#pragma mark - time 
+
++(NSString *)GettitleForDate:(NSString *)dateStr;
 @end
