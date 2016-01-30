@@ -10,7 +10,6 @@
 #import "ChatLocationViewController.h"
 #import "FriendInfoViewController.h"
 #import "WechatShortVideoController.h"
-#import "MyVideoMessage.h"
 
 @interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate,WechatShortVideoDelegate>{
     UIView *topView;
@@ -65,10 +64,10 @@
     messageCollectionView.backgroundColor = BACKGROUND_COLOR;
     [self scrollToBottomAnimated:YES];
     
-    //自定义面板功能扩展
-    [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"me"]
-                                        title:@"视频"
-                                          tag:101];
+//    //自定义面板功能扩展
+//    [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"me"]
+//                                        title:@"视频"
+//                                          tag:101];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -85,11 +84,11 @@
                 [self.navigationController pushViewController:chatlocationVC animated:YES];
             }
             break;
-        case 101:{
-            WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
-            wechatShortVideoController.delegate = self;
-            [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
-        }
+//        case 101:{
+//            WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
+//            wechatShortVideoController.delegate = self;
+//            [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
+//        }
         default:
             [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
             break;
