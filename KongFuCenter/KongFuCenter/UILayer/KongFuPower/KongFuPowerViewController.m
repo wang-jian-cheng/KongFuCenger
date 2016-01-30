@@ -338,23 +338,23 @@
     switch (videoType) {
         case NEWEST_BTN:
         {
-            [dataprovider GetNewVideoList:[NSString stringWithFormat:@"%d",dataPage*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+            [dataprovider GetNewVideoList:[NSString stringWithFormat:@"%d",dataPage*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize] andSearch:@""];
         }
             break;
             
         case HOST_BTN:
         {
-            [dataprovider GetHotVideoList:[NSString stringWithFormat:@"%d",dataPage*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+            [dataprovider GetHotVideoList:[NSString stringWithFormat:@"%d",dataPage*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize] andSearch:@""];
         }
             break;
         case RECOMMEND_BTN:
         {
-            [dataprovider GetTuiJianVideoList:[NSString stringWithFormat:@"%d",dataPage*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+            [dataprovider GetTuiJianVideoList:[NSString stringWithFormat:@"%d",dataPage*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize] andSearch:@""];
         }
             break;
         case ORIGINAL_BTN:
         {
-            [dataprovider GetYuanChuangVideoList:[NSString stringWithFormat:@"%d",dataPage*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
+            [dataprovider GetYuanChuangVideoList:[NSString stringWithFormat:@"%d",dataPage*pageSize] andmaximumRows:[NSString stringWithFormat:@"%d",pageSize] andSearch:@""];
         }
             break;
             

@@ -35,6 +35,8 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addLeftButton:@"left"];
     
+    
+//    [self addRightButton:@"search"];
     // Do any additional setup after loading the view.
 }
 

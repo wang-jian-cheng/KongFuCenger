@@ -9,6 +9,10 @@
 #ifndef BestOne_CommonDef_h
 #define BestOne_CommonDef_h
 
+
+#define KONGFU_VER2     0
+
+
 //#define Url @"http://192.168.1.136:8033/"
 #define Url @"http://120.27.115.235/" //外网地址
 
