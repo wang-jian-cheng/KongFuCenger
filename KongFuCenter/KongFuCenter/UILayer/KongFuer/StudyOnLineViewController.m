@@ -317,7 +317,7 @@
         [cell.contentView addSubview:cateNameLab];
         
         
-        DLog(@"cell content sub views = %lu indexrow2 = %ld",cell.contentView.subviews.count,indexPath.row);
+        DLog(@"cell content sub views = %lu indexrow2 = %ld",cell.contentView.subviews.count,(long)indexPath.row);
         
     }
     @catch (NSException *exception) {
