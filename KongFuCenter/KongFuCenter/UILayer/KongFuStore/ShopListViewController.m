@@ -51,7 +51,7 @@
     isSalesAsc = @"2";
     isCommentAsc = @"0";
     isNewAsc = @"0";
-    isCredit = @"1";
+    isCredit = @"0";
     isRecommend = @"0";
     
     //初始化View
