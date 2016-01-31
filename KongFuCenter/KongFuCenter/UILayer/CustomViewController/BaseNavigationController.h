@@ -35,6 +35,9 @@ Useage:
 
 @property(nonatomic)NSString *navtitle;
 
+@property(strong,nonatomic)UIWindow *floatWindow;
+@property(strong,nonatomic)UIButton *floatButton;
+
 - (void)setBarTitle:(NSString *)strTitle;
 - (void)addLeftButton:(NSString *)strImage;
 - (void)addRightButton:(NSString *)strImage;
@@ -43,10 +46,13 @@ Useage:
 
 - (void)clickLeftButton:(UIButton *)sender;
 - (void)clickRightButton:(UIButton *)sender;
-
+- (void)clickFloatBtn:(UIButton *)sender;
 //设置左右按钮文字
 - (void)setBarTitleColor:(UIColor *)color;
 
 - (void)addStarToNavigtionBar;
+//悬浮btn
+-(void)showFloatBtn;
+- (void)hiddenFloatnBtn;
 
 @end

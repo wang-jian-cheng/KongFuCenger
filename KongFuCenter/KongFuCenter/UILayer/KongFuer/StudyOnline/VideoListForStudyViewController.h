@@ -13,6 +13,7 @@
 {
     NSString *ServerTime;
     NSString *overTime;
+    VideoShowLayoutType layoutType;
 }
 @property (nonatomic,strong) NSString *categoryid;
 

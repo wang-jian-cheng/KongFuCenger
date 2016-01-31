@@ -10,7 +10,11 @@
 #import "UserHeadView.h"
 #import "SearchViewController.h"
 //#import "VideoDetailViewController.h"
-@interface ChannelVideosViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+@interface ChannelVideosViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+{
+    UICollectionView *mainCollectionView;
+    VideoShowLayoutType layoutType;
+}
 @property (nonatomic ,strong)NSString * cateid;
 
 @end

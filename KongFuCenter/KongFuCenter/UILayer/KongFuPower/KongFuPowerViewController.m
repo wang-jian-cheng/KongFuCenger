@@ -73,7 +73,7 @@
 
 -(void)TopRefresh
 {
-    [_mainTableView.mj_header beginRefreshing];
+    [mainCollectionView.mj_header beginRefreshing];
 }
 
 #define NEWEST_BTN      0
@@ -83,6 +83,8 @@
 #define CHANNEL_BTN     4
 -(void)initDatas
 {
+    layoutType = OneRowMode;
+    
     
     studyCateArr = [NSMutableArray array];
     [studyCateArr addObjectsFromArray:@[@"最新",@"热门",@"推荐",@"原创",@"频道"]];
@@ -126,38 +128,8 @@
     _sectionNum = 3;
     
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height  - TabBar_HEIGHT+6)];
-    _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
-    _mainTableView.delegate = self;
-    _mainTableView.dataSource = self;
-    _mainTableView.separatorColor =  Separator_Color;
-    _mainTableView.tableFooterView = [[UIView alloc] init];
-    //_mainTableView.scrollEnabled = NO;
-    
-//    _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, dataArr.count*(_cellHeight + 20));
-    
-    
-    
-    __unsafe_unretained __typeof(self) weakSelf = self;
-    __weak typeof(UITableView *) weakTv = _mainTableView;
-    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
-    
-    _mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf TeamTopRefresh];
-        [weakTv.mj_header endRefreshing];
-    }];
-    
-    // 马上进入刷新状态
-    [_mainTableView.mj_header beginRefreshing];
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
-    // 禁止自动加载
-    footer.automaticallyRefresh = NO;
-    // 设置footer
-    _mainTableView.mj_footer = footer;
-    
-    [self.view addSubview:_mainTableView];
+    [self initCollectionView];
     
     
     
@@ -194,12 +166,147 @@
     
 }
 
+
+-(void)initCollectionView
+{
+    UICollectionViewFlowLayout *layout=[[ UICollectionViewFlowLayout alloc ] init ];
+    layout.minimumLineSpacing = 10;
+    layout.minimumInteritemSpacing = 0;
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;//设置collection
+    
+    //  layout.itemSize = CGSizeMake(318, 286);
+    
+//    layout.sectionInset = UIEdgeInsetsMake(5, 0, 5, 0);
+    
+    layout.headerReferenceSize = CGSizeMake(320, 200);
+    
+    mainCollectionView = [[UICollectionView alloc]  initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height  - TabBar_HEIGHT+6) collectionViewLayout:layout];
+    
+    [layout setHeaderReferenceSize:CGSizeMake(mainCollectionView.frame.size.width, 0)];//暂不现实时间
+    
+    [mainCollectionView registerClass :[ UICollectionViewCell class ] forCellWithReuseIdentifier : @"BaseVideoCell" ];
+    
+    mainCollectionView.delegate= self;
+    mainCollectionView.dataSource =self;
+    mainCollectionView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*2);
+    mainCollectionView.showsHorizontalScrollIndicator = YES;
+    mainCollectionView.showsVerticalScrollIndicator = NO;
+    mainCollectionView.backgroundColor = BACKGROUND_COLOR;
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    // 下拉刷新
+    mainCollectionView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        [weakSelf TeamTopRefresh];
+//        [weakTv.mj_header endRefreshing];
+        // 结束刷新
+        if(mainCollectionView.mj_footer !=nil)
+        {
+            [mainCollectionView.mj_footer setState:MJRefreshStateIdle];
+        }
+        
+        
+    }];
+    
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    mainCollectionView.mj_footer = footer;
+    
+    
+    
+    // 默认先隐藏footer
+    mainCollectionView.mj_footer.hidden = YES;
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        [self.view addSubview:mainCollectionView];
+    }];
+    
+    [mainCollectionView.mj_header beginRefreshing];
+    
+    
+}
+
+
+
+-(void)initTableView
+{
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height  - TabBar_HEIGHT+6)];
+    _mainTableView.backgroundColor = BACKGROUND_COLOR;
+    
+    _mainTableView.delegate = self;
+    _mainTableView.dataSource = self;
+    _mainTableView.separatorColor =  Separator_Color;
+    _mainTableView.tableFooterView = [[UIView alloc] init];
+    //_mainTableView.scrollEnabled = NO;
+    
+    //    _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, dataArr.count*(_cellHeight + 20));
+    
+    
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = _mainTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    _mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf TeamTopRefresh];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [_mainTableView.mj_header beginRefreshing];
+    
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    _mainTableView.mj_footer = footer;
+    
+    [self.view addSubview:_mainTableView];
+}
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
+    [self showFloatBtn];
+    if (layoutType == OneRowMode) {
+        self.floatButton.selected = YES;
+    }
+    else
+    {
+        self.floatButton.selected = NO;
+    }
+    
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self hiddenFloatnBtn];
 }
 
 #pragma mark - Btn click
+
+
+-(void)clickFloatBtn:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    if(layoutType == DoubleRowMode)
+    {
+        layoutType = OneRowMode;
+    }
+    else
+    {
+        layoutType = DoubleRowMode;
+    }
+    [mainCollectionView reloadData];
+}
+
 
 -(void)searchBtnClick:(UIButton *)sender
 {
@@ -255,7 +362,7 @@
             break;
             
         default:
-            [_mainTableView.mj_header beginRefreshing];
+            [mainCollectionView.mj_header beginRefreshing];
             break;
     }
     [self positionDismissView:moreSettingBackView];
@@ -339,9 +446,10 @@
 -(void)TopRefreshCallBack:(id)dict
 {
     DLog(@"%@",dict);
+    [mainCollectionView.mj_header endRefreshing];
     if ([dict[@"code"] intValue]==200) {
         dataArr=dict[@"data"];
-        if (!_mainTableView) {
+        if (!mainCollectionView) {
             [self initViews];
         }
     }
@@ -349,11 +457,12 @@
     {
         dataArr=[[NSArray alloc] init];
     }
-    [_mainTableView reloadData];
+    [mainCollectionView reloadData];
 }
 -(void)FooterRefreshCallBack:(id)dict
 {
-    NSLog(@"%@",dict);
+    DLog(@"%@",dict);
+    [mainCollectionView.mj_footer endRefreshing];
     if ([dict[@"code"] intValue]==200) {
         NSMutableArray * itemMutableArray=[[NSMutableArray alloc] initWithArray:dataArr];
         NSArray * itemarr=[[NSArray alloc] initWithArray:dict[@"data"]];
@@ -362,9 +471,15 @@
         }
         dataArr=[[NSArray alloc] initWithArray:itemMutableArray];
         
-        [_mainTableView reloadData];
+        [mainCollectionView reloadData];
+        
+        if(dataArr.count >= [dict[@"recordcount"] intValue])
+        {
+            [mainCollectionView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
+        
     }
-    [_mainTableView.mj_footer endRefreshing];
+//    [mainCollectionView.mj_footer endRefreshing];
 }
 
 
@@ -688,5 +803,224 @@
     
     return strHour;
 }
+
+
+
+
+#pragma mark - UICollectionViewDataSource
+
+//定义展示的UICollectionViewCell的个数
+
+-( NSInteger )collectionView:( UICollectionView *)collectionView numberOfItemsInSection:( NSInteger )section
+{
+    return dataArr.count;
+}
+
+//定义展示的Section的个数
+
+-( NSInteger )numberOfSectionsInCollectionView:( UICollectionView *)collectionView
+{
+    return 1 ;
+}
+
+#define GapToLeft   20
+
+//每个UICollectionView展示的内容
+
+-( UICollectionViewCell *)collectionView:( UICollectionView *)collectionView cellForItemAtIndexPath:( NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BaseVideoCell" forIndexPath:indexPath];
+    
+    if(cell != nil)
+    {
+        for (UIView *view in cell.subviews) {
+            [view removeFromSuperview];
+        }
+    }
+    UIView *lineView = [[UIView alloc] init];
+    UILabel *titleLab = [[UILabel alloc] init] ;
+    UIButton *relayBtn = [[UIButton alloc] init];
+    UserHeadView *headView;
+    
+    UILabel *nameLab = [[UILabel alloc] init];
+    UIButton *commentBtn = [[UIButton alloc] init];
+    UIButton *timeBtn = [[UIButton alloc] init];
+    
+    CGFloat fontsize;
+    CGFloat lineHeight;
+    if (layoutType == DoubleRowMode) {
+        fontsize = 12;
+        lineHeight = 40;
+        
+        lineView.frame =  CGRectMake(GapToLeft/2, (cell.frame.size.height - lineHeight), (cell.frame.size.width - GapToLeft/2), 1);
+        lineView.backgroundColor = Separator_Color;
+        [cell addSubview:lineView];
+        //线上
+        titleLab.frame = CGRectMake(GapToLeft/2, (lineView.frame.origin.y - 30), cell.frame.size.width - GapToLeft/2, 30);
+        
+        titleLab.textColor = [UIColor whiteColor];
+        titleLab.font = [UIFont boldSystemFontOfSize:(fontsize)];
+        [cell addSubview:titleLab];
+        
+        //        relayBtn.frame = CGRectMake((cell.frame.size.width - 30 -10), (lineView.frame.origin.y - 30), 30, 30);
+        
+        //        [cell addSubview:relayBtn];
+        
+        //under line
+        headView = [[UserHeadView alloc] initWithFrame:CGRectMake(5, lineView.frame.origin.y+(lineHeight - 25)/2, 25, 25) andImgName:@"me" andNav:(self.navigationController)];
+        
+        nameLab.frame = CGRectMake((headView.frame.origin.x+headView.frame.size.width + 5),
+                                   (headView.frame.size.height/4+headView.frame.origin.y),(cell.frame.size.width - (headView.frame.origin.x+headView.frame.size.width + 5)), headView.frame.size.height/2);
+        
+        nameLab.textColor = [UIColor whiteColor];
+        nameLab.font = [UIFont systemFontOfSize:fontsize];
+        
+        
+    }
+    else
+    {
+        fontsize = 14;
+        lineHeight = 50;
+        lineView.frame =  CGRectMake(GapToLeft/2, (cell.frame.size.height - lineHeight), (SCREEN_WIDTH - GapToLeft/2), 1);
+        lineView.backgroundColor = Separator_Color;
+        [cell addSubview:lineView];
+        //线上
+        titleLab.frame = CGRectMake(GapToLeft, (lineView.frame.origin.y - 30), 200, 30);
+        
+        titleLab.textColor = [UIColor whiteColor];
+        titleLab.font = [UIFont boldSystemFontOfSize:(fontsize+2)];
+        [cell addSubview:titleLab];
+        
+        relayBtn.frame = CGRectMake((SCREEN_WIDTH - 30 -20), (lineView.frame.origin.y - 30), 30, 30);
+        
+        [cell addSubview:relayBtn];
+        
+        //under line
+        headView = [[UserHeadView alloc] initWithFrame:CGRectMake(5, lineView.frame.origin.y+(lineHeight - 35)/2, 35, 35) andImgName:@"80" andNav:(self.navigationController)];
+        
+        nameLab.frame = CGRectMake((headView.frame.origin.x+headView.frame.size.width + 5),
+                                   (headView.frame.size.height/4+headView.frame.origin.y), 100, headView.frame.size.height/2);
+        
+        nameLab.textColor = [UIColor whiteColor];
+        nameLab.font = [UIFont systemFontOfSize:fontsize];
+        
+        commentBtn.frame = CGRectMake(((nameLab.frame.origin.x+nameLab.frame.size.width)),
+                                      (headView.frame.size.height/4+headView.frame.origin.y),
+                                      (SCREEN_WIDTH - (nameLab.frame.origin.x+nameLab.frame.size.width + 10) -10)/2,
+                                      headView.frame.size.height/2);
+        
+        commentBtn.titleLabel.font = [UIFont systemFontOfSize:fontsize];
+        
+        timeBtn = [[UIButton alloc] initWithFrame:CGRectMake(((commentBtn.frame.origin.x+commentBtn.frame.size.width + 5)),
+                                                             (headView.frame.size.height/4+headView.frame.origin.y),
+                                                             commentBtn.frame.size.width+15,//(SCREEN_WIDTH - (nameLab.frame.origin.x+nameLab.frame.size.width + 10) -10)/2,
+                                                             headView.frame.size.height/2)];
+        timeBtn.titleLabel.font = [UIFont systemFontOfSize:fontsize];
+        
+        [cell addSubview:commentBtn];
+        [cell addSubview:timeBtn];
+        
+        
+    }
+    
+    //    NSLog(@"")
+    
+    NSDictionary *tempDict = dataArr[indexPath.row];
+    cell.backgroundColor = ItemsBaseColor;
+    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width , cell.frame.size.height)];
+    
+    [backgroundView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,tempDict[@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@"temp2"]];
+    
+    //    backgroundView.image = [UIImage imageNamed:dataArr[indexPath.section][@""]];
+    cell.backgroundView = backgroundView;
+    {
+        
+        titleLab.text = tempDict[@"Title"];
+        [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
+        
+        //under line
+        headView.userId =[NSString stringWithFormat:@"%@",tempDict[@"UserId"]];
+        if([headView.userId isEqualToString:@"0"])
+        {
+            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,tempDict[@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@"80"]];
+        }else
+        {
+            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,tempDict[@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@"80"]];
+        }
+        [headView makeSelfRound];
+        
+        [cell addSubview:headView];
+        
+        
+        
+        
+        nameLab.text = [tempDict[@"NicName"] isEqual:[NSNull null]]?@"":tempDict[@"NicName"];
+        [cell addSubview:nameLab];
+        
+        
+        
+        
+        [commentBtn setImage:[UIImage imageNamed:@"chat"] forState:UIControlStateNormal];
+        [commentBtn setTitle:[NSString stringWithFormat:@"%@条评论",[tempDict[@"CommentNum"] isEqual:[NSNull null]]?@"0":tempDict[@"CommentNum"]] forState:UIControlStateNormal];
+        
+        
+        
+        [timeBtn setImage:[UIImage imageNamed:@"clock"] forState:UIControlStateNormal];
+        [timeBtn setTitle:[Toolkit GettitleForDate:[tempDict[@"PublishTime"] isEqual:[NSNull null]]?@"0":tempDict[@"PublishTime"]] forState:UIControlStateNormal];
+        
+    }
+    
+    
+    return cell;
+}
+
+
+
+#pragma mark - UICollectionViewDelegate
+
+//UICollectionView被选中时调用的方法
+
+-( void )collectionView:( UICollectionView *)collectionView didSelectItemAtIndexPath:( NSIndexPath *)indexPath
+{
+    VideoDetialSecondViewController *videoDetailViewCtl = [[VideoDetialSecondViewController alloc] init];
+    videoDetailViewCtl.navtitle =@"视频";
+    videoDetailViewCtl.videoID=[NSString stringWithFormat:@"%@" ,dataArr[indexPath.row][@"Id"]];
+    [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
+}
+
+//返回这个UICollectionViewCell是否可以被选择
+
+-( BOOL )collectionView:( UICollectionView *)collectionView shouldSelectItemAtIndexPath:( NSIndexPath *)indexPath
+{
+    return YES ;
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+
+//定义每个UICollectionView 的大小
+
+- ( CGSize )collectionView:( UICollectionView *)collectionView layout:( UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:( NSIndexPath *)indexPath
+{
+    
+    if(layoutType == DoubleRowMode)
+    {
+        return CGSizeMake ( SCREEN_WIDTH/2-10 ,  SCREEN_WIDTH/2-10);
+    }
+    else
+    {
+        return CGSizeMake(SCREEN_WIDTH,(SCREEN_HEIGHT - Header_Height - TabBar_HEIGHT)/2 );
+    }
+}
+
+//定义每个UICollectionView 的边距
+
+-( UIEdgeInsets )collectionView:( UICollectionView *)collectionView layout:( UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:( NSInteger )section
+{
+    //if()
+    
+    return UIEdgeInsetsMake ( 5 , 5 , 5 , 5 );
+    
+}
+
 
 @end

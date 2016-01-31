@@ -8,6 +8,7 @@
 
 #import "BaseNavigationController.h"
 #import "SelectRoundBtn.h"
+
 @interface ShoppingCartViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
     CGFloat _cellHeight;
@@ -15,5 +16,10 @@
     NSMutableArray *cellBtnArr;
     NSMutableArray *delArr;
     NSMutableArray *numLabArr;
+    
+    
+    
+    unsigned int pageNo;
+    unsigned int pageSize;
 }
 @end
