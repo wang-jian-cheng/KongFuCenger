@@ -55,6 +55,7 @@
     selectSize = @"";
     selectSpec = @"";
     isFavorite = @"0";
+    selectPrice = @"";
     
     //初始化View
     [self initViews];
@@ -204,7 +205,7 @@
         
         mPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(mHeadIv.frame.origin.x + mHeadIv.frame.size.width + 5, 5, 200, 21)];
         mPriceLbl.textColor = YellowBlock;
-        mPriceLbl.text = [NSString stringWithFormat:@"¥%@",];
+        mPriceLbl.text = [NSString stringWithFormat:@"¥%@",selectPrice];
         [mView addSubview:mPriceLbl];
         
         mSelectSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(mPriceLbl.frame.origin.x, mPriceLbl.frame.origin.y + mPriceLbl.frame.size.height + 5, 200, 21)];
@@ -446,7 +447,10 @@
             mName.text = [Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"Name"]];
             [cell addSubview:mName];
         }else{
-            NSString *priceStr = [NSString stringWithFormat:@"¥%@",[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"Price"]]];
+            if ([selectPrice isEqual:@""]) {
+                selectPrice = [Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"Price"]];
+            }
+            NSString *priceStr = [NSString stringWithFormat:@"¥%@",selectPrice];
             CGSize priceSize = [priceStr sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f]}];
             UILabel *priceLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, 5, priceSize.width, 21)];
             priceLbl.textColor = YellowBlock;
