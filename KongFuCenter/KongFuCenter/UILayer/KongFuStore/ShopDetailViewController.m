@@ -10,6 +10,7 @@
 #import "UIImageView+WebCache.h"
 #import "UserHeadView.h"
 #import "SDCycleScrollView.h"
+#import "PayOrderViewController.h"
 
 @interface ShopDetailViewController (){
     UITableView *mTableView;
@@ -26,6 +27,12 @@
     UILabel *mSelectSpecLbl;
     UILabel *mPriceLbl;
     UIImageView *mHeadIv;
+    NSString *isFavorite;
+    UIImageView *collectionIv;
+    UILabel *collectionLbl;
+    NSString *selectPriceId;
+    NSString *selectPrice;
+    int curpage;
 }
 
 @end
@@ -47,9 +54,10 @@
     selectColor = @"";
     selectSize = @"";
     selectSpec = @"";
+    isFavorite = @"0";
     
-    //初始化数据
-    [self initData];
+    //初始化View
+    [self initViews];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -59,17 +67,43 @@
 
 #pragma mark 自定义方法
 -(void)initData{
+    curpage = 0;
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getGoodsDetailCallBack:"];
     [dataProvider SelectProduct:_goodsId anduserid:get_sp(@"id") andmaximumRows:@"10"];
 }
 
 -(void)getGoodsDetailCallBack:(id)dict{
     NSLog(@"%@",dict);
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         goodsInfoDict = dict[@"data"];
         commentListArray = [goodsInfoDict valueForKey:@"CommentList"];
-        //初始化View
-        [self initViews];
+        isFavorite = [Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"isFavorite"]];
+        collectionIv.image = [isFavorite isEqual:@"0"]?[UIImage imageNamed:@"store_nocollection"]:[UIImage imageNamed:@"store_collection"];
+        collectionLbl.text = [isFavorite isEqual:@"0"]?@"收藏":@"已收藏";
+        [mTableView reloadData];
+    }
+}
+
+-(void)TeamFootRefresh{
+    curpage++;
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListFootCallBack:"];
+    [dataProvider SelectCommentByProductId:_goodsId andstartRowIndex:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10"];
+}
+
+-(void)getShopListFootCallBack:(id)dict{
+    // 结束刷新
+    [mTableView.mj_footer endRefreshing];
+    if ([dict[@"code"] intValue] == 200) {
+        NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:commentListArray];
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        commentListArray=[[NSArray alloc] initWithArray:itemarray];
+        [mTableView reloadData];
     }
 }
 
@@ -84,41 +118,49 @@
     
     UIView *mFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50)];
     
-    UIButton *collectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    UIButton *collectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 50)];
     collectionBtn.backgroundColor = [UIColor colorWithRed:0.16 green:0.16 blue:0.18 alpha:1];
-    UIImageView *collectionIv = [[UIImageView alloc] initWithFrame:CGRectMake((50 - 25) / 2, 2, 25, 25)];
-    collectionIv.image = [UIImage imageNamed:@"store_nocollection"];
+    [collectionBtn addTarget:self action:@selector(collectionEvent) forControlEvents:UIControlEventTouchUpInside];
+    collectionIv = [[UIImageView alloc] initWithFrame:CGRectMake((80 - 25) / 2, 2, 25, 25)];
     [collectionBtn addSubview:collectionIv];
-    UILabel *collectionLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, collectionIv.frame.origin.y + collectionIv.frame.size.height + 2, 50, 21)];
+    collectionLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, collectionIv.frame.origin.y + collectionIv.frame.size.height + 2, 80, 21)];
     collectionLbl.font = [UIFont systemFontOfSize:14];
     collectionLbl.textColor = [UIColor whiteColor];
     collectionLbl.textAlignment = NSTextAlignmentCenter;
-    collectionLbl.text = @"收藏";
     [collectionBtn addSubview:collectionLbl];
     [mFooterView addSubview:collectionBtn];
     
-    UIButton *joinShoppingCar = [[UIButton alloc] initWithFrame:CGRectMake(50, 0, (SCREEN_WIDTH - 50) / 2, 50)];
+    UIButton *joinShoppingCar = [[UIButton alloc] initWithFrame:CGRectMake(80, 0, (SCREEN_WIDTH - 80) / 2, 50)];
     [joinShoppingCar setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [joinShoppingCar setTitle:@"加入购物车" forState:UIControlStateNormal];
     [joinShoppingCar addTarget:self action:@selector(joinShoppingCarEvent) forControlEvents:UIControlEventTouchUpInside];
     [mFooterView addSubview:joinShoppingCar];
     
-    UIButton *immediatelyBuyBtn = [[UIButton alloc] initWithFrame:CGRectMake(50 + (SCREEN_WIDTH - 50) / 2, 0, (SCREEN_WIDTH - 50) / 2, 50)];
+    UIButton *immediatelyBuyBtn = [[UIButton alloc] initWithFrame:CGRectMake(80 + (SCREEN_WIDTH - 80) / 2, 0, (SCREEN_WIDTH - 80) / 2, 50)];
     immediatelyBuyBtn.backgroundColor = YellowBlock;
     [immediatelyBuyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [immediatelyBuyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
+    [immediatelyBuyBtn addTarget:self action:@selector(immediatelyBuyEvent) forControlEvents:UIControlEventTouchUpInside];
     [mFooterView addSubview:immediatelyBuyBtn];
-    
     [self.view addSubview:mFooterView];
-}
-
--(void)joinShoppingCarEvent{
-    if ([selectColor isEqual:@""] || [selectSize isEqual:@""]) {
-        [self showCustomView];
-    }else{
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"加入购物车~" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-        [alertView show];
-    }
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = mTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf initData];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [mTableView.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    mTableView.mj_footer = footer;
 }
 
 -(void)showCustomView{
@@ -162,7 +204,7 @@
         
         mPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(mHeadIv.frame.origin.x + mHeadIv.frame.size.width + 5, 5, 200, 21)];
         mPriceLbl.textColor = YellowBlock;
-        mPriceLbl.text = [NSString stringWithFormat:@"¥%@",@"20.00"];
+        mPriceLbl.text = [NSString stringWithFormat:@"¥%@",];
         [mView addSubview:mPriceLbl];
         
         mSelectSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(mPriceLbl.frame.origin.x, mPriceLbl.frame.origin.y + mPriceLbl.frame.size.height + 5, 200, 21)];
@@ -217,6 +259,7 @@
 
 -(void)backViewEvent{
     [self hideCustomView];
+    [mTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     [mTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -264,11 +307,74 @@
             if ([[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]] isEqual:selectColorId] && [[Toolkit judgeIsNull:[dict valueForKey:@"SizeId"]] isEqual:selectColorId]) {
                 NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[dict valueForKey:@"ImagePath"]]];
                 [mHeadIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
+                NSLog(@"%@",dict);
                 mPriceLbl.text = [NSString stringWithFormat:@"¥%@",[dict valueForKey:@"Price"]];
+                selectPriceId = [Toolkit judgeIsNull:[dict valueForKey:@"Id"]];
+                selectPrice = [Toolkit judgeIsNull:[dict valueForKey:@"Price"]];
                 break;
             }
         }
     }
+}
+
+-(void)collectionEvent{
+    if ([isFavorite isEqual:@"0"]) {
+        [dataProvider setDelegateObject:self setBackFunctionName:@"collectionCallBack:"];
+        [dataProvider FavoriteProduct:get_sp(@"id") andproductId:_goodsId];
+    }else{
+        [dataProvider setDelegateObject:self setBackFunctionName:@"CancelCollectionCallBack:"];
+        [dataProvider CancleFavoriteProduct:get_sp(@"id") andproductId:_goodsId];
+    }
+}
+
+-(void)collectionCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"收藏成功~" maskType:SVProgressHUDMaskTypeBlack];
+        isFavorite = @"1";
+        collectionIv.image = [UIImage imageNamed:@"store_collection"];
+        collectionLbl.text = @"已收藏";
+    }
+}
+
+-(void)CancelCollectionCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"取消收藏成功~" maskType:SVProgressHUDMaskTypeBlack];
+        isFavorite = @"0";
+        collectionIv.image = [UIImage imageNamed:@"store_nocollection"];
+        collectionLbl.text = @"收藏";
+    }
+}
+
+-(void)joinShoppingCarEvent{
+    if ([selectColor isEqual:@""] || [selectSize isEqual:@""]) {
+        [self showCustomView];
+    }else{
+        [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"joinShoppingCarCallBack:"];
+        [dataProvider InsertBasket:_goodsId andnum:@"1" andpriceId:selectPriceId anduserId:get_sp(@"id") andprice:[mPriceLbl.text substringFromIndex:1]];
+    }
+}
+
+-(void)joinShoppingCarCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"加入购物车成功~" maskType:SVProgressHUDMaskTypeBlack];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:dict[@"data"] maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
+-(void)immediatelyBuyEvent{
+    if ([selectColor isEqual:@""] || [selectSize isEqual:@""]) {
+        [self showCustomView];
+    }else{
+        PayOrderViewController *payOrderVC = [[PayOrderViewController alloc] init];
+        payOrderVC.navtitle = @"确认订单";
+        [self.navigationController pushViewController:payOrderVC animated:YES];
+    }
+    
+//    [dataProvider setDelegateObject:self setBackFunctionName:@"immediatelyBuyCallBack:"];
+//    [dataProvider BuyNow:_goodsId andnum:@"1" andpriceId:selectPriceId anduserId:get_sp(@"id") andprice:mPriceLbl.text anddeliveryId:@""];
 }
 
 #pragma mark tableview delegate
@@ -324,6 +430,10 @@
                     [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
                     [images addObject:img];
                 }
+            }else{
+                UIImageView * img=[[UIImageView alloc] init];
+                img.image = [UIImage imageNamed:@"store_head_bg"];
+                [images addObject:img];
             }
             //创建带标题的图片轮播器
             SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170) imagesGroup:images ];
@@ -367,10 +477,7 @@
         mSpecLbl.textColor = [UIColor whiteColor];
         mSpecLbl.text = [selectSpec isEqual:@""]?@"请选择规格":[NSString stringWithFormat:@"规格:%@",selectSpec];
         [cell addSubview:mSpecLbl];
-        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
-        return cell;
     }else{
         if (indexPath.row == 0) {
             UILabel *userCommentTitle = [[UILabel alloc] initWithFrame:CGRectMake(14, (45 - 21) / 2, 150, 21)];
@@ -388,8 +495,6 @@
             userCommentNum.textColor = [UIColor whiteColor];
             userCommentNum.text = [NSString stringWithFormat:@"共%@条",[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"CommentNum"]]];
             [cell addSubview:userCommentNum];
-            
-            return cell;
         }else{
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"PhotoPath"]]];
             UserHeadView *userHeadView = [[UserHeadView alloc] initWithFrame:CGRectMake(14, 5, 40, 40) andUrl:url andNav:self.navigationController];

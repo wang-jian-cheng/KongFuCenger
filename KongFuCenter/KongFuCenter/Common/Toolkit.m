@@ -105,7 +105,7 @@
 
 +(NSString *)judgeIsNull:(NSString *)str{
     str = [NSString stringWithFormat:@"%@",str];
-    if([str isEqual:@""] || [str isEqual:[NSNull null]]){
+    if([str isEqual:@""] || [str isEqual:[NSNull null]] || [str isEqual:@"(null)"]){
         return @"";
     }
     return str;

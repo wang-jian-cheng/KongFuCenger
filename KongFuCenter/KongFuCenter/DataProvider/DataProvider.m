@@ -1573,6 +1573,82 @@
     }
 }
 
+-(void)FavoriteProduct:(NSString *)userId andproductId:(NSString *)productId{
+    if (userId && productId) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/FavoriteProduct",Url];
+        NSDictionary *prm = @{@"userId":userId,
+                              @"productId":productId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)CancleFavoriteProduct:(NSString *)userId andproductId:(NSString *)productId{
+    if (userId && productId) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/CancleFavoriteProduct",Url];
+        NSDictionary *prm = @{@"userId":userId,
+                              @"productId":productId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)BuyNow:(NSString *)productId andnum:(NSString *)num andpriceId:(NSString *)priceId anduserId:(NSString *)userId andprice:(NSString *)price anddeliveryId:(NSString *)deliveryId{
+    if (productId && num && priceId && userId && price && deliveryId) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/BuyNow",Url];
+        NSDictionary *prm = @{@"productId":productId,
+                              @"num":num,
+                              @"priceId":priceId,
+                              @"userId":userId,
+                              @"price":price,
+                              @"deliveryId":deliveryId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)InsertBasket:(NSString *)productId andnum:(NSString *)num andpriceId:(NSString *)priceId anduserId:(NSString *)userId andprice:(NSString *)price{
+    if (productId && num && priceId && userId && price) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/InsertBasket",Url];
+        NSDictionary *prm = @{@"productId":productId,
+                              @"num":num,
+                              @"priceId":priceId,
+                              @"userId":userId,
+                              @"price":price};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)SelectCommentByProductId:(NSString *)productId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows{
+    if (productId && startRowIndex && maximumRows) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectCommentByProductId",Url];
+        NSDictionary *prm = @{@"productId":productId,
+                              @"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)GetRecomendCategoryAndProduct:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andproductNum:(NSString *)productNum{
+    if (startRowIndex && maximumRows && userId && productNum) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/GetRecomendCategoryAndProduct",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows,
+                              @"userId":userId,
+                              @"productNum":productNum};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong{
     if (userid && istuisong) {

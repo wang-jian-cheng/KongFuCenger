@@ -10,7 +10,7 @@
 #define BestOne_CommonDef_h
 
 
-#define KONGFU_VER2     0
+#define KONGFU_VER2     1
 
 
 //#define Url @"http://192.168.1.136:8033/"
