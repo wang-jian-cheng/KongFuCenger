@@ -1649,6 +1649,44 @@
     }
 }
 
+-(void)SelectAllDeliveryAddress:(NSString *)userId{
+    if (userId) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectAllDeliveryAddress",Url];
+        NSDictionary *prm = @{@"userId":userId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)EditDeliveryAddress:(NSString *)addressId andareaId:(NSString *)areaId andaddress:(NSString *)address andisDefaul:(NSString *)isDefaul anduserId:(NSString *)userId andreceiverName:(NSString *)receiverName andphone:(NSString *)phone andcodeForAddress:(NSString *)codeForAddress{
+    if (addressId && areaId && address && isDefaul && userId && receiverName && phone && codeForAddress) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/EditDeliveryAddress",Url];
+        NSDictionary *prm = @{@"id":addressId,
+                              @"areaId":areaId,
+                              @"address":address,
+                              @"isDefaul":isDefaul,
+                              @"userId":userId,
+                              @"receiverName":receiverName,
+                              @"phone":phone,
+                              @"codeForAddress":codeForAddress};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)DeleteDeliveryAddress:(NSString *)idList anduserId:(NSString *)userId{
+    if (idList && userId) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/DeleteDeliveryAddress",Url];
+        NSDictionary *prm = @{@"idList":idList,
+                              @"userId":userId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong{
     if (userid && istuisong) {

@@ -440,6 +440,15 @@
 //首页查询商品推荐分类并显示推荐商品
 -(void)GetRecomendCategoryAndProduct:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andproductNum:(NSString *)productNum;
 
+//查询全部收货地址
+-(void)SelectAllDeliveryAddress:(NSString *)userId;
+
+//编辑收货地址   addressId:0-添加  其它对应地址id编辑
+-(void)EditDeliveryAddress:(NSString *)addressId andareaId:(NSString *)areaId andaddress:(NSString *)address andisDefaul:(NSString *)isDefaul anduserId:(NSString *)userId andreceiverName:(NSString *)receiverName andphone:(NSString *)phone andcodeForAddress:(NSString *)codeForAddress;
+
+//批量删除收货地址
+-(void)DeleteDeliveryAddress:(NSString *)idList anduserId:(NSString *)userId;
+
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;
 -(void)ShieldNewsFriend:(NSString *)userid;

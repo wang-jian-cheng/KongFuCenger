@@ -10,6 +10,7 @@
 #import "ClearCacheViewController.h"
 #import "IntroViewController.h"
 #import "MessagefankuiViewController.h"
+#import "ReceiveAddressViewController.h"
 @interface MoreViewController ()
 {
 #pragma mark - pram for tableView
@@ -112,7 +113,7 @@
     
     if(section == 1)
     {
-        return 2;
+        return 3;
     }
     else
     {
@@ -164,6 +165,10 @@
                 cell.textLabel.text = @"关于艾特功夫";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 break;
+            case 2:{
+                cell.textLabel.text = @"收货地址";
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
             default:
                 break;
         }
@@ -228,6 +233,9 @@
             [self.navigationController pushViewController:introduceViewController animated:YES];
             //[self showViewController:introduceViewController sender:nil];
             
+        }else{
+            ReceiveAddressViewController *receiveAddressVC = [[ReceiveAddressViewController alloc] init];
+            [self.navigationController pushViewController:receiveAddressVC animated:YES];
         }
     }
     else if (indexPath.section == 2)

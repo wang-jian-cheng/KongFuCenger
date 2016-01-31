@@ -421,6 +421,11 @@
 		B7617E711C1C29A500CF96E7 /* YMShowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E661C1C29A500CF96E7 /* YMShowImageView.m */; };
 		B7617E721C1C29A500CF96E7 /* YMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E681C1C29A500CF96E7 /* YMTableViewCell.m */; };
 		B7617E731C1C29A500CF96E7 /* YMTapGestureRecongnizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B7617E6A1C1C29A500CF96E7 /* YMTapGestureRecongnizer.m */; };
+		B795CC7F1C5D92D90017812D /* ReceiveAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B795CC7E1C5D92D90017812D /* ReceiveAddressViewController.m */; };
+		B795CC831C5D94AE0017812D /* ReceiveAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B795CC811C5D94AE0017812D /* ReceiveAddressTableViewCell.m */; };
+		B795CC841C5D94AE0017812D /* ReceiveAddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B795CC821C5D94AE0017812D /* ReceiveAddressTableViewCell.xib */; };
+		B795CC861C5D9E3C0017812D /* address_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = B795CC851C5D9E3C0017812D /* address_edit.png */; };
+		B795CC891C5DAC210017812D /* AddressManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B795CC881C5DAC210017812D /* AddressManageViewController.m */; };
 		B79B22FC1C4F5BDC00B0BFF7 /* ShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B79B22FB1C4F5BDC00B0BFF7 /* ShopDetailViewController.m */; };
 		B7A18ED21C56FEC9004FF4FB /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A18EC51C56FEC9004FF4FB /* SDCollectionViewCell.m */; };
 		B7A18ED31C56FEC9004FF4FB /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A18EC71C56FEC9004FF4FB /* SDCycleScrollView.m */; };
@@ -1213,6 +1218,14 @@
 		B7617E681C1C29A500CF96E7 /* YMTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMTableViewCell.m; sourceTree = "<group>"; };
 		B7617E691C1C29A500CF96E7 /* YMTapGestureRecongnizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMTapGestureRecongnizer.h; sourceTree = "<group>"; };
 		B7617E6A1C1C29A500CF96E7 /* YMTapGestureRecongnizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMTapGestureRecongnizer.m; sourceTree = "<group>"; };
+		B795CC7D1C5D92D90017812D /* ReceiveAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiveAddressViewController.h; sourceTree = "<group>"; };
+		B795CC7E1C5D92D90017812D /* ReceiveAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiveAddressViewController.m; sourceTree = "<group>"; };
+		B795CC801C5D94AE0017812D /* ReceiveAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiveAddressTableViewCell.h; sourceTree = "<group>"; };
+		B795CC811C5D94AE0017812D /* ReceiveAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiveAddressTableViewCell.m; sourceTree = "<group>"; };
+		B795CC821C5D94AE0017812D /* ReceiveAddressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiveAddressTableViewCell.xib; sourceTree = "<group>"; };
+		B795CC851C5D9E3C0017812D /* address_edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address_edit.png; sourceTree = "<group>"; };
+		B795CC871C5DAC200017812D /* AddressManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressManageViewController.h; sourceTree = "<group>"; };
+		B795CC881C5DAC210017812D /* AddressManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressManageViewController.m; sourceTree = "<group>"; };
 		B79B22FA1C4F5BDC00B0BFF7 /* ShopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailViewController.h; sourceTree = "<group>"; };
 		B79B22FB1C4F5BDC00B0BFF7 /* ShopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailViewController.m; sourceTree = "<group>"; };
 		B7A18EC41C56FEC9004FF4FB /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
@@ -2058,6 +2071,7 @@
 		B53791C21C157CEC00C45BA7 /* KongFuStore */ = {
 			isa = PBXGroup;
 			children = (
+				B795CC7C1C5D922D0017812D /* ReceiveAddress */,
 				B7BED2191C531E430058CBF4 /* IntegralExchange */,
 				B5207D2C1C506E8E00CE729F /* Order */,
 				B51A7B701C4F5DCE00273384 /* ShoppingCart */,
@@ -2979,6 +2993,20 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		B795CC7C1C5D922D0017812D /* ReceiveAddress */ = {
+			isa = PBXGroup;
+			children = (
+				B795CC7D1C5D92D90017812D /* ReceiveAddressViewController.h */,
+				B795CC7E1C5D92D90017812D /* ReceiveAddressViewController.m */,
+				B795CC801C5D94AE0017812D /* ReceiveAddressTableViewCell.h */,
+				B795CC811C5D94AE0017812D /* ReceiveAddressTableViewCell.m */,
+				B795CC821C5D94AE0017812D /* ReceiveAddressTableViewCell.xib */,
+				B795CC871C5DAC200017812D /* AddressManageViewController.h */,
+				B795CC881C5DAC210017812D /* AddressManageViewController.m */,
+			);
+			name = ReceiveAddress;
+			sourceTree = "<group>";
+		};
 		B7A18EC31C56FEC9004FF4FB /* RoundScroll */ = {
 			isa = PBXGroup;
 			children = (
@@ -3213,6 +3241,7 @@
 		B7E1CD161C4C9594008DFE49 /* KongFuStore */ = {
 			isa = PBXGroup;
 			children = (
+				B795CC851C5D9E3C0017812D /* address_edit.png */,
 				805E0E711C58C5BB0035CCCD /* changeDevice@2x.png */,
 				B7F0D6391C520C3E002F1EEF /* watchnum.png */,
 				B7F0D6311C51FECA002F1EEF /* shopping_car.png */,
@@ -3350,7 +3379,7 @@
 				TargetAttributes = {
 					B59408C31C0FC9E8003DC15D = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 7X578356T4;
+						DevelopmentTeam = M7YC435M3S;
 					};
 					B59408DC1C0FC9E9003DC15D = {
 						CreatedOnToolsVersion = 7.1;
@@ -3432,6 +3461,7 @@
 				B7A6FC8F1C51D6AD00B6D665 /* store_shop_selectdown.png in Resources */,
 				B5AF706A1C18032B00C041AF /* VipViewController.xib in Resources */,
 				B5F90ADA1C194FCA00D7879D /* clock@2x.png in Resources */,
+				B795CC841C5D94AE0017812D /* ReceiveAddressTableViewCell.xib in Resources */,
 				B5D345BD1C28E97E00D39891 /* JKImagePickerController.strings in Resources */,
 				B7E4CD001C1FA1F200C2E69A /* zdgg.png in Resources */,
 				802118E71C1AFAE100DCEE73 /* yinliangda.png in Resources */,
@@ -3545,6 +3575,7 @@
 				B5F13B2C1C1FBAAC00155038 /* ShareSDKUI.bundle in Resources */,
 				B5905E0B1C1BC2CF00ECA9BA /* xin.png in Resources */,
 				8021E8F91C2799A0005C7539 /* LaunchScreen.xib in Resources */,
+				B795CC861C5D9E3C0017812D /* address_edit.png in Resources */,
 				8026D0F71C1BC6BE00D9CD44 /* ErWeiMaViewController.xib in Resources */,
 				B7E4CD0D1C1FE10E00C2E69A /* chat_icon.png in Resources */,
 				B59408D41C0FC9E8003DC15D /* big.xcassets in Resources */,
@@ -3793,12 +3824,14 @@
 				7BA38E991C215E62000996EE /* AnnouncementViewController.m in Sources */,
 				806240661C48936E00691D0C /* SecriteViewController.m in Sources */,
 				B577E2321C1A9A6C006695F1 /* SetNoticeViewController.m in Sources */,
+				B795CC891C5DAC210017812D /* AddressManageViewController.m in Sources */,
 				B5F4E3A61C1EBBB6001F81F0 /* StrangerInfoViewController.m in Sources */,
 				804952071C250B3800F5584A /* SCImageView.m in Sources */,
 				8049520D1C250B3800F5584A /* SCRecorder.m in Sources */,
 				B5B737741C3CAAF100DF7437 /* HanyuPinyinOutputFormat.m in Sources */,
 				B7D8464B1C22AB7500718E9E /* MJRefreshBackGifFooter.m in Sources */,
 				B7D846541C22AB7500718E9E /* UIScrollView+MJRefresh.m in Sources */,
+				B795CC7F1C5D92D90017812D /* ReceiveAddressViewController.m in Sources */,
 				B7D8464F1C22AB7500718E9E /* MJRefreshNormalHeader.m in Sources */,
 				B5B737761C3CAAF100DF7437 /* PinyinFormatter.m in Sources */,
 				B5F90AE11C19702400D7879D /* ChannelVideosViewController.m in Sources */,
@@ -3842,6 +3875,7 @@
 				B53E73851C166FCB009E7878 /* JiFenViewController.m in Sources */,
 				B5D345C11C28E97E00D39891 /* JKAssetsGroupCell.m in Sources */,
 				804952161C250B3800F5584A /* SCVideoPlayerView.m in Sources */,
+				B795CC831C5D94AE0017812D /* ReceiveAddressTableViewCell.m in Sources */,
 				B5D345C71C28E97E00D39891 /* JKPhotoBrowserCell.m in Sources */,
 				B5B737C41C3E3D0100DF7437 /* AddressMapViewController.m in Sources */,
 				B5D345C51C28E97E00D39891 /* JKImagePickerController.m in Sources */,
@@ -4076,7 +4110,7 @@
 				);
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4111,7 +4145,7 @@
 					"\"SVProgressHUD\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.HeWuZheForDistribution;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/KongFuCenter/ThirdFramework/JPush";
@@ -4140,7 +4174,7 @@
 				);
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4182,7 +4216,7 @@
 					"\"SVProgressHUD\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.HeWuZheForDistribution;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/KongFuCenter/ThirdFramework/JPush";
