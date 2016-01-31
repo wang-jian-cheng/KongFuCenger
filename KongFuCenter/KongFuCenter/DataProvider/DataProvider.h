@@ -440,6 +440,11 @@
 //首页查询商品推荐分类并显示推荐商品
 -(void)GetRecomendCategoryAndProduct:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andproductNum:(NSString *)productNum;
 
+/**
+ 获取购物车列表
+ */
+-(void)getShoppingCartList:(NSString *)userId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;
 -(void)ShieldNewsFriend:(NSString *)userid;

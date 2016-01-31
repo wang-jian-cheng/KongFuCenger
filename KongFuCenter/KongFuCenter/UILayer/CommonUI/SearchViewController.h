@@ -12,6 +12,8 @@
 #import "UIImageView+WebCache.h"
 #import "VideoDetialSecondViewController.h"
 
+#import "UserHeadView.h"
+
 typedef enum _SearchCate
 {
     StudyOnline_Search  =0,
@@ -32,12 +34,13 @@ typedef enum _SearchCate
     UITextField *searchTxt;
     UITableView *_mainTableView;
     UICollectionView *mainCollectionView;
-    
-    
+
     int pageNo;
     int pageSize;
     
     CGFloat _cellTableHeight;
+    
+
     
 }
 //@property(nonatomic) NSString *searchStr;

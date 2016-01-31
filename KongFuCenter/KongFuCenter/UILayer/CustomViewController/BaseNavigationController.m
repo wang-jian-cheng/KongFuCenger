@@ -101,6 +101,9 @@
     _btnRight.backgroundColor = [UIColor clearColor];
     [_btnRight addTarget:self action:@selector(clickRightButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_btnRight];
+    
+    
+//    [self createButton];
 }
 
 
@@ -190,6 +193,53 @@
     imageView.center = CGPointMake(imageView.center.x, _imgLeft.center.y);
     [self.view addSubview:imageView];
 }
+
+
+
+#pragma mark - 悬浮按钮
+
+
+
+-(void)createButton
+{
+    self.floatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [self.floatButton setTitle:@"悬浮按钮" forState:UIControlStateNormal];
+    self.floatButton.frame = CGRectMake(0, 0, 40, 40);
+    [self.floatButton addTarget:self action:@selector(clickFloatBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.floatButton setImage:[UIImage imageNamed:@"onerow"] forState:UIControlStateNormal];
+    [self.floatButton setImage:[UIImage imageNamed:@"doublerow"] forState:UIControlStateSelected];
+//    self.floatButton.contentMode = UIViewContentModeScaleAspectFit;
+    self.floatButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    self.floatWindow = [[UIWindow alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , SCREEN_HEIGHT-100, 40, 40)];
+    self.floatWindow.windowLevel = UIWindowLevelAlert+1;
+    self.floatWindow.backgroundColor = ItemsBaseColor;
+    self.floatWindow.layer.cornerRadius = self.floatWindow.frame.size.width/2;
+    self.floatWindow.layer.masksToBounds = YES;
+    [self.floatWindow addSubview:self.floatButton];
+}
+
+-(void)clickFloatBtn:(UIButton*)sender
+{
+    NSLog(@"Click Float Btn");
+}
+
+-(void)showFloatBtn
+{
+    [self createButton];
+    [self.floatWindow makeKeyAndVisible];//关键语句,显示window
+}
+
+/**
+ *  关闭悬浮的window
+ */
+- (void)hiddenFloatnBtn
+{
+    [self.floatWindow resignKeyWindow];
+    self.floatWindow = nil;
+}
+
 
 - (void)didReceiveMemoryWarning
 {

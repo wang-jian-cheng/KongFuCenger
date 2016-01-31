@@ -283,7 +283,7 @@
                         if ([nowDate compare:[[othersecond addTimeInterval:a_day] addTimeInterval:a_day] ]==NSOrderedDescending) {
                             [dateFormatter setDateFormat:@"MM月dd日"];
                             NSString *strHour = [dateFormatter stringFromDate:date];
-                            return [NSString stringWithFormat:@"%@发布",strHour];
+                            return [NSString stringWithFormat:@"%@",strHour];
                         }
                         else
                         {
@@ -299,7 +299,7 @@
                 {
                     [dateFormatter setDateFormat:@"HH:mm"];
                     NSString *strHour = [dateFormatter stringFromDate:date];
-                    return [NSString stringWithFormat:@"%@发布",strHour];
+                    return [NSString stringWithFormat:@"%@",strHour];
                 }
             }
             else

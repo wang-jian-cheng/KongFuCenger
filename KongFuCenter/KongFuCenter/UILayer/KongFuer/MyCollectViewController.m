@@ -1202,7 +1202,7 @@
     cell.lbl_content.text = model.Content;
 //    cell.img_logo.image = [UIImage imageNamed:model.ImagePath];
     NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,model.ImagePath];
-    [cell.img_logo sd_setImageWithURL:[NSURL URLWithString:url]];
+    [cell.img_logo sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"temp2"]];
     
     NSRange x = NSMakeRange(5, 5);
 //    [model.OperateTime substringWithRange:x];

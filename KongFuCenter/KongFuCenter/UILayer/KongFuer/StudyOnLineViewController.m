@@ -61,6 +61,8 @@
 
 -(void)initViews
 {
+   
+    
     viewForBtns = [[UIView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, 44)];
     btnImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btnFlag"]];
     btnImgView.contentMode = UIViewContentModeScaleAspectFit;

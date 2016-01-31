@@ -11,8 +11,10 @@
 #import "ChannelViewController.h"
 #import "SearchViewController.h"
 //#import "VideoDetailViewController.h"
-@interface KongFuPowerViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+@interface KongFuPowerViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 {
     UIView *moreSettingBackView;
+    UICollectionView *mainCollectionView;
+    VideoShowLayoutType layoutType;
 }
 @end

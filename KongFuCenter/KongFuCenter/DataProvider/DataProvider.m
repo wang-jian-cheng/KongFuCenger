@@ -1649,6 +1649,23 @@
     }
 }
 
+#pragma mark -  购物车
+
+-(void)getShoppingCartList:(NSString *)userId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows
+{
+    if (startRowIndex && maximumRows && userId ) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectBasketProduct",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows,
+                              @"userId":userId};
+        NSLog(@"%@",prm);
+        
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong{
     if (userid && istuisong) {
@@ -1671,7 +1688,7 @@
 }
 
 
-#pragma mark - 商城
+
 
 
 

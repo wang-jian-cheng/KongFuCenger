@@ -20,17 +20,26 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     [self addRightbuttontitle:@"删除"];
-    cellBtnArr = [NSMutableArray array];
-    delArr  = [NSMutableArray array];
-    numLabArr = [NSMutableArray array];
+    [self initData];
     [self initViews];
     // Do any additional setup after loading the view.
 }
 
 
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
+-(void)initData
+{
+    cellBtnArr = [NSMutableArray array];
+    delArr  = [NSMutableArray array];
+    numLabArr = [NSMutableArray array];
+    pageSize = 0xFFFFFFFF;
+    pageNo = 0;
 }
 
 -(void)initViews
@@ -80,6 +89,31 @@
 
     [self.view addSubview:payView];
     [self.view bringSubviewToFront:payView];
+    
+    [self getShoppingCartList];
+}
+
+#pragma mark - self data source
+
+-(void)getShoppingCartList
+{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getShoppingCartListCallBack:"];
+    [dataProvider getShoppingCartList:[Toolkit getUserID] andstartRowIndex:NSStringFromFormat(@"%u",pageNo*pageSize) andmaximumRows:NSStringFromFormat(@"%u",pageSize)];
+}
+
+-(void)getShoppingCartListCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if([dict[@"code"] intValue] == 200)
+    {
+        [SVProgressHUD dismiss];
+        
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:dict[@"data"] maskType:SVProgressHUDMaskTypeBlack];
+    }
 }
 
 

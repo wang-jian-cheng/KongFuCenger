@@ -10,35 +10,19 @@
 #define BestOne_CommonDef_h
 
 
-#define KONGFU_VER2     1
+#pragma mark - user custom define
+
+#define KONGFU_VER2     0
+//视频布局模式
+typedef enum _VideoShowLayoutType
+{
+    DoubleRowMode,
+    OneRowMode
+}VideoShowLayoutType;
 
 
-//#define Url @"http://192.168.1.136:8033/"
-#define Url @"http://120.27.115.235/" //外网地址
-
-#define NavigationBar_HEIGHT 44
-#define StatusBar_HEIGHT 20
-#define TabBar_HEIGHT 49
-
-#define Web_path @"http://120.27.115.235/MessageAndImageNews.aspx?id="
-#define Kimg_path @"http://120.27.115.235/"
-
-#define Header_Height   (NavigationBar_HEIGHT + StatusBar_HEIGHT)
-
-#define AppMainColor [UIColor colorWithRed:237/255.0 green:109/255.0 blue:3/255.0 alpha:1]
-
-#pragma mark - 缓存plist
-#define NewsCaChePlist  @"NewsCache.plist"
-#define FirendCaChePlist  @"MyFriendCache.plist"
-
-
-#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
-#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
-#define SAFE_RELEASE(x) [x release];x=nil
-#define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
-#define CurrentSystemVersion ([[UIDevice currentDevice] systemVersion])
-#define CurrentLanguage ([[NSLocale preferredLanguages] objectAtIndex:0])
-
+//工具 api 封装
+#define NSStringFromFormat(fmt,...)     [NSString stringWithFormat:fmt,##__VA_ARGS__]
 
 #define remove_sp(a) [[NSUserDefaults standardUserDefaults] removeObjectForKey:a]
 #define get_sp(a) [[NSUserDefaults standardUserDefaults] objectForKey:a]
@@ -48,8 +32,41 @@
 #define img(a) [UIImage imageNamed:a]
 #define _app_ ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
+
+#pragma mark - Error code Define
+#define OK          0
+#define Param_err   -1
+
+
+//字符 define
 #define USER_ID @"id"
 #define TEAM_ID @"TeamId"
+//#define Url @"http://192.168.1.136:8033/"
+#define Url @"http://120.27.115.235/" //外网地址
+
+#define Web_path @"http://120.27.115.235/MessageAndImageNews.aspx?id="
+#define Kimg_path @"http://120.27.115.235/"
+
+#pragma mark - 缓存plist
+#define NewsCaChePlist  @"NewsCache.plist"
+#define FirendCaChePlist  @"MyFriendCache.plist"
+
+
+
+// define for UI
+#define NavigationBar_HEIGHT 44
+#define StatusBar_HEIGHT 20
+#define TabBar_HEIGHT 49
+#define Header_Height   (NavigationBar_HEIGHT + StatusBar_HEIGHT)
+
+#define AppMainColor [UIColor colorWithRed:237/255.0 green:109/255.0 blue:3/255.0 alpha:1]
+
+#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+#define SAFE_RELEASE(x) [x release];x=nil
+#define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
+#define CurrentSystemVersion ([[UIDevice currentDevice] systemVersion])
+#define CurrentLanguage ([[NSLocale preferredLanguages] objectAtIndex:0])
 
 #define navi_bar_bg_color   [UIColor colorWithRed:0x1e/255.0 green:0x1d/255.0 blue:0x22/255.0 alpha:1.0]
 #define BACKGROUND_COLOR [UIColor colorWithRed:0x3e/255.0 green:0x3e/255.0 blue:0x40/255.0 alpha:1.0]
@@ -60,9 +77,14 @@
 #define RGB(a, b, c) [UIColor colorWithRed:(a) / 255.0 green:(b) / 255.0 blue:(c) / 255.0 alpha:1.0]
 
 
+
+
+#pragma mark - system layer define
+
 #ifndef DEBUG
 #define DEBUG  //开启debug
 #endif
+
 
 
 //use dlog to print while in debug model
@@ -76,17 +98,6 @@
 #define isRetina ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-
-
-
-#pragma mark - Error code Define 
-#define OK          0
-#define Param_err   -1
-
-
-
-
-
 
 
 #if TARGET_OS_IPHONE
