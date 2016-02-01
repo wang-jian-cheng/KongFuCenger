@@ -1649,6 +1649,30 @@
     }
 }
 
+-(void)SelectFavoriteByUserIdAndSearch:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andsearch:(NSString *)search{
+    if (startRowIndex && maximumRows && userId && search) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectFavoriteByUserIdAndSearch",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows,
+                              @"userId":userId,
+                              @"search":search};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)SetDefaultDeliveryAddress:(NSString *)goodsId anduserId:(NSString *)userId{
+    if (goodsId && userId) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SetDefaultDeliveryAddress",Url];
+        NSDictionary *prm = @{@"id":goodsId,
+                              @"userId":userId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark -  购物车
 
 -(void)getShoppingCartList:(NSString *)userId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows

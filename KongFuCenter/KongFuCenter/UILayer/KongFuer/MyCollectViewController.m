@@ -24,6 +24,8 @@
     UITableView *_mainGoodsTableView;
     
     NSMutableArray *ArticleArr;
+    NSArray *goodsArray;
+    int curpage;
 }
 
 @property (nonatomic, strong) NSMutableArray * arr_voiceData;
@@ -48,6 +50,7 @@
     pageSize = 10;
     pageVideoSize  = 10;
     ArticleArr = [NSMutableArray array];
+    goodsArray = [[NSArray alloc] init];
     
     [self initDatas];
     [self initViews];
@@ -402,7 +405,7 @@
         {
             [_mainGoodsTableView.mj_footer setState:MJRefreshStateIdle];
         }
-//        [weakSelf getCollectArticle];
+        [weakSelf getGoodsData];
         // 结束刷新
         [_mainGoodsTableView.mj_header endRefreshing];
     }];
@@ -417,6 +420,42 @@
     //[self.view addSubview:_mainTableView];
 }
 
+-(void)getGoodsData{
+    curpage = 0;
+    goodsArray = [[NSArray alloc] init];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getGoodsDataCallBack:"];
+    [dataProvider SelectFavoriteByUserIdAndSearch:@"0" andmaximumRows:@"10" anduserId:get_sp(@"id") andsearch:@""];
+}
+
+-(void)getGoodsDataCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        goodsArray = dict[@"data"];
+        [_mainGoodsTableView reloadData];
+    }
+}
+
+-(void)TeamFootRefresh{
+    curpage++;
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListFootCallBack:"];
+    [dataProvider SelectFavoriteByUserIdAndSearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" anduserId:get_sp(@"id") andsearch:@""];
+}
+
+-(void)getShopListFootCallBack:(id)dict{
+    // 结束刷新
+    [_mainTableView.mj_footer endRefreshing];
+    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:goodsArray];
+    if ([dict[@"code"] intValue] == 200) {
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        goodsArray=[[NSArray alloc] initWithArray:itemarray];
+    }
+    [_mainTableView reloadData];
+}
 
 #pragma mark - btn Click
 
@@ -933,7 +972,7 @@
     }
     else if (tableView.tag == GoodsTag)
     {
-        return 3;
+        return goodsArray.count;
     }
     else
     {
@@ -1020,7 +1059,7 @@
     }
     else if (tableView.tag == GoodsTag)
     {
-        
+        NSLog(@"%@",goodsArray);
         NSString *CellIdentifier = @"ShopCellIdentifier";
         
         ShopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -1029,11 +1068,12 @@
             cell.backgroundColor = ItemsBaseColor;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        [cell.mImageView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
-        cell.mName.text = @"男士哑铃一对10公斤";
-        cell.mPrice.text = [NSString stringWithFormat:@"¥20.00"];
-        cell.watchNum.text = [NSString stringWithFormat:@"%@人",@"1000"];
-        cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",@"1000"];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"ImagePath"]]];
+        [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
+        cell.mName.text = [Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"ProductName"]];
+        cell.mPrice.text = [NSString stringWithFormat:@"¥%@",[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"Price"]]];
+        cell.watchNum.text = [NSString stringWithFormat:@"%@人",[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"VisitNum"]]];
+        cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"SaleNum"]]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }
@@ -1069,7 +1109,7 @@
     if(tableView.tag == GoodsTag)
     {
         ShopDetailViewController *shopDetailViewCtl = [[ShopDetailViewController alloc] init];
-        
+        shopDetailViewCtl.goodsId = [goodsArray[indexPath.row] valueForKey:@"Id"];
         [self.navigationController pushViewController:shopDetailViewCtl animated:YES];
     }
 }

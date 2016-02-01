@@ -98,17 +98,19 @@
     [self.navigationController pushViewController:addressManageVC animated:YES];
 }
 
--(void)editAddressEvent:(UIButton *)btn{
-    AddressManageViewController *addressManageVC = [[AddressManageViewController alloc] init];
-    [addressManageVC setAddressManage:Mode_Edit];
-    addressManageVC.addressId = [receiveArray[btn.tag] valueForKey:@"Id"];
-    addressManageVC.receiveName = [receiveArray[btn.tag] valueForKey:@"ReceiverName"];
-    addressManageVC.phone = [receiveArray[btn.tag] valueForKey:@"Phone"];
-    addressManageVC.areaId = [receiveArray[btn.tag] valueForKey:@"AreaId"];
-    addressManageVC.area = [receiveArray[btn.tag] valueForKey:@"Area"];
-    addressManageVC.address = [receiveArray[btn.tag] valueForKey:@"Address"];
-    addressManageVC.code = [receiveArray[btn.tag] valueForKey:@"Code"];
-    [self.navigationController pushViewController:addressManageVC animated:YES];
+-(void)setDefaultAddress:(UIButton *)btn{
+    [dataProvider setDelegateObject:self setBackFunctionName:@"setDefaultAddressCallBack:"];
+    [dataProvider SetDefaultDeliveryAddress:[receiveArray[btn.tag] valueForKey:@"Id"] anduserId:get_sp(@"id")];
+}
+
+-(void)setDefaultAddressCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"设置成功~" maskType:SVProgressHUDMaskTypeBlack];
+        [mTableView.mj_header beginRefreshing];
+    }else{
+        UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
+        [alertView show];
+    }
 }
 
 #pragma mark tableview delegate
@@ -133,8 +135,14 @@
     cell.mNameLbl.text = [Toolkit judgeIsNull:[receiveArray[indexPath.row] valueForKey:@"ReceiverName"]];
     cell.mPhoneLbl.text = [Toolkit judgeIsNull:[receiveArray[indexPath.row] valueForKey:@"Phone"]];
     cell.mAddressLbl.text = [NSString stringWithFormat:@"%@%@",[[Toolkit judgeIsNull:[receiveArray[indexPath.row] valueForKey:@"Area"]] stringByReplacingOccurrencesOfString:@"/" withString:@""],[Toolkit judgeIsNull:[receiveArray[indexPath.row] valueForKey:@"Address"]]];
-    cell.mEditAddressBtn.tag = indexPath.row;
-    [cell.mEditAddressBtn addTarget:self action:@selector(editAddressEvent:) forControlEvents:UIControlEventTouchUpInside];
+    NSString *isDefaultAddress = [Toolkit judgeIsNull:[receiveArray[indexPath.row] valueForKey:@"IsDefault"]];
+    if ([isDefaultAddress isEqual:@"0"]) {
+        [cell.isDefaultAddressBtn setImage:[UIImage imageNamed:@"adress_choose_normal"] forState:UIControlStateNormal];
+    }else{
+        [cell.isDefaultAddressBtn setImage:[UIImage imageNamed:@"adress_choose"] forState:UIControlStateNormal];
+    }
+    cell.isDefaultAddressBtn.tag = indexPath.row;
+    [cell.isDefaultAddressBtn addTarget:self action:@selector(setDefaultAddress:) forControlEvents:UIControlEventTouchUpInside];
     
     if([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0)
     {
@@ -152,6 +160,16 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
+    AddressManageViewController *addressManageVC = [[AddressManageViewController alloc] init];
+    [addressManageVC setAddressManage:Mode_Edit];
+    addressManageVC.addressId = [receiveArray[indexPath.row] valueForKey:@"Id"];
+    addressManageVC.receiveName = [receiveArray[indexPath.row] valueForKey:@"ReceiverName"];
+    addressManageVC.phone = [receiveArray[indexPath.row] valueForKey:@"Phone"];
+    addressManageVC.areaId = [receiveArray[indexPath.row] valueForKey:@"AreaId"];
+    addressManageVC.area = [receiveArray[indexPath.row] valueForKey:@"Area"];
+    addressManageVC.address = [receiveArray[indexPath.row] valueForKey:@"Address"];
+    addressManageVC.code = [receiveArray[indexPath.row] valueForKey:@"Code"];
+    [self.navigationController pushViewController:addressManageVC animated:YES];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
