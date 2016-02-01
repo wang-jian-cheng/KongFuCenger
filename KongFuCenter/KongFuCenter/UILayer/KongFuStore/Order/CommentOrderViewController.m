@@ -7,12 +7,17 @@
 //
 
 #import "CommentOrderViewController.h"
+#import "FL_Button.h"
 
 @interface CommentOrderViewController ()
 {
     CGFloat _cellHeight;
     UITableView *_mainTableView;
 //    UITextView *commentTextView;
+    
+    NSMutableDictionary *mutableDict;//评价
+    
+    NSMutableDictionary * mutableDictText;//评论内容
     
 }
 @end
@@ -21,8 +26,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    mutableDict=[[NSMutableDictionary alloc] init];
+    mutableDictText=[[NSMutableDictionary alloc] init];
     [self addLeftButton:@"left"];
-    [self addRightbuttontitle:@"确定"];
+//    [self addRightbuttontitle:@"确定"];
     [self initViews];
     // Do any additional setup after loading the view.
 }
@@ -44,19 +51,29 @@
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
+    
     _mainTableView.dataSource = self;
+    
     _mainTableView.separatorColor =  Separator_Color;
+    
     _mainTableView.tableFooterView = [[UIView alloc] init];
+    
     [self.view addSubview:_mainTableView];
+    
     UIView *backView  = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50)];
+    
     backView.backgroundColor = ItemsBaseColor;
     
     UIButton *uploadBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, (SCREEN_WIDTH - 100), 40)];
+    
     uploadBtn.center = CGPointMake(SCREEN_WIDTH/2, backView.frame.size.height/2);
+    
     uploadBtn.backgroundColor = YellowBlock;
+    
     [uploadBtn setTitle:@"提交评论" forState:UIControlStateNormal];
     
     [backView addSubview:uploadBtn];
+    
     [self.view addSubview:backView];
     
     //    //注册通知,监听键盘弹出事件
@@ -65,17 +82,42 @@
     //    //注册通知,监听键盘消失事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHidden) name:UIKeyboardDidHideNotification object:nil];
     
-    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
+    
     [self.view addGestureRecognizer:tapGesture];
     
 }
 
+-(void)UploadComment:(UIButton *)sender
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    
+    [dataprovider setDelegateObject:self setBackFunctionName:@"SaveCommentCallBack:"];
+    
+    NSMutableArray * mutableArray=[[NSMutableArray alloc] init];
+    
+    for (int i=1; i<3; i++) {
+        NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"productId",
+                            [NSString stringWithFormat:@"第%d个商品评价",i],@"content",
+                            [NSString stringWithFormat:@"%d",i],@"typeId",
+                            [Toolkit getUserID],@"userId",
+                            [NSString stringWithFormat:@"%d",i],@"productPriceId",
+                            nil];
+        
+        [mutableArray addObject:prm];
+    }
+    
+    
+    if (mutableArray.count>0) {
+        [dataprovider SaveComment:mutableArray];
+    }
+}
 
 -(void)tapViewAction:(id)sender
 {
     
      [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height - Header_Height - 50)];
+    
     [self.view endEditing:YES];
     
 }
@@ -129,7 +171,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 2;
+    return 3;
     
 }
 
@@ -183,13 +225,80 @@
             titleLab.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:titleLab];
         }
-        else if(indexPath.row == 1)
+        else if (indexPath.row==1)
+        {
+            FL_Button *btn_new  = [FL_Button fl_shareButton];
+            NSString * strid=mutableDict[[NSString stringWithFormat:@"%ld",(long)indexPath.section]];
+            if (![strid isEqualToString:@"0"]) {
+                [btn_new setImage:[UIImage imageNamed:@"point"] forState:UIControlStateNormal];
+            }
+            else
+            {
+                [btn_new setImage:[UIImage imageNamed:@"selectRound"] forState:UIControlStateNormal];
+            }
+            [btn_new addTarget:self action:@selector(selectPingjia:) forControlEvents:UIControlEventTouchUpInside];
+            [btn_new setTitle:@"差评" forState:UIControlStateNormal];
+            [btn_new setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            btn_new.backgroundColor=[UIColor clearColor];
+            btn_new.tag=indexPath.section*10;
+            btn_new.status = FLAlignmentStatusNormal;
+            btn_new.titleLabel.font = [UIFont systemFontOfSize:14];
+            btn_new.frame=CGRectMake((SCREEN_WIDTH-240)/4, 0, 80, 44);
+            [cell.contentView addSubview:btn_new];
+            FL_Button *btn_midle  = [FL_Button fl_shareButton];
+            NSLog(@"45456456%@",mutableDict[[NSString stringWithFormat:@"%ld",(long)indexPath.section]]);
+            strid=mutableDict[[NSString stringWithFormat:@"%ld",(long)indexPath.section]];
+            if (![strid isEqualToString:@"1"]) {
+                [btn_midle setImage:[UIImage imageNamed:@"point"] forState:UIControlStateNormal];
+            }
+            else
+            {
+                [btn_midle setImage:[UIImage imageNamed:@"selectRound"] forState:UIControlStateNormal];
+            }
+            [btn_midle addTarget:self action:@selector(selectPingjia:) forControlEvents:UIControlEventTouchUpInside];
+            [btn_midle setTitle:@"中评" forState:UIControlStateNormal];
+            [btn_midle setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            btn_midle.backgroundColor=[UIColor clearColor];
+            btn_midle.status = FLAlignmentStatusNormal;
+            btn_midle.tag=indexPath.section*10+1;
+            btn_midle.frame=CGRectMake((SCREEN_WIDTH-240)/4*2+80, 0, 80, 44);
+            btn_midle.titleLabel.font = [UIFont systemFontOfSize:14];
+            [cell.contentView addSubview:btn_midle];
+            FL_Button *btn_best  = [FL_Button fl_shareButton];
+            strid=mutableDict[[NSString stringWithFormat:@"%ld",(long)indexPath.section]];
+            if (![strid isEqualToString:@"2"]) {
+                [btn_best setImage:[UIImage imageNamed:@"point"] forState:UIControlStateNormal];
+            }
+            else
+            {
+                [btn_best setImage:[UIImage imageNamed:@"selectRound"] forState:UIControlStateNormal];
+            }
+//            [btn_best setImage:[UIImage imageNamed:@"selectRound"] forState:UIControlStateNormal];
+            [btn_best addTarget:self action:@selector(selectPingjia:) forControlEvents:UIControlEventTouchUpInside];
+            [btn_best setTitle:@"好评" forState:UIControlStateNormal];
+            [btn_best setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            btn_best.backgroundColor=[UIColor clearColor];
+            btn_best.status = FLAlignmentStatusNormal;
+            btn_best.tag=indexPath.section*10+2;
+            btn_best.frame=CGRectMake((SCREEN_WIDTH-240)/4*3+160, 0, 80, 44);
+            btn_best.titleLabel.font = [UIFont systemFontOfSize:14];
+            [cell.contentView addSubview:btn_best];
+        }
+        else if(indexPath.row == 2)
         {
             MyTextView *commentTextView = [[MyTextView alloc] initWithFrame:CGRectMake(GapToLeft,5,SCREEN_WIDTH - 2*GapToLeft , _cellHeight-10)];
             commentTextView.textColor = [UIColor whiteColor];
             commentTextView.font = [UIFont systemFontOfSize:14];
             commentTextView.backgroundColor = BACKGROUND_COLOR;
-            commentTextView.placeHolder.text = @"请输入评论的内容......";
+            NSString *strid=mutableDictText[[NSString stringWithFormat:@"%ld",indexPath.section]];
+            if (strid!=nil&&strid.length>0) {
+                commentTextView.text = strid;
+            }
+            else
+            {
+                commentTextView.placeHolder.text = @"请输入评论的内容......";
+            }
+            
             commentTextView.tag = indexPath.section;
             commentTextView.mydelegate = self;
             [cell.contentView addSubview:commentTextView];
@@ -209,7 +318,9 @@
 
 //设置cell每行间隔的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (indexPath.row==1) {
+        return 44;
+    }
     return _cellHeight;
 }
 
@@ -288,30 +399,26 @@
     
 }
 
--(void)clickRightButton:(UIButton *)sender
+
+
+
+-(void)mytextViewDidEndEditing:(UITextView *)textView
 {
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    
-    [dataprovider setDelegateObject:self setBackFunctionName:@"SaveCommentCallBack:"];
-    
-    NSMutableArray * mutableArray=[[NSMutableArray alloc] init];
-    
-    for (int i=1; i<3; i++) {
-        NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"productId",
-                            [NSString stringWithFormat:@"第%d个商品评价",i],@"content",
-                            [NSString stringWithFormat:@"%d",i],@"typeId",
-                            [Toolkit getUserID],@"userId",
-                            [NSString stringWithFormat:@"%d",i],@"productPriceId",
-                            nil];
-        
-        [mutableArray addObject:prm];
-    }
-    
-    
-    if (mutableArray.count>0) {
-        [dataprovider SaveComment:mutableArray];
-    }
-    
+    NSLog(@"%@",textView.text);
+    [mutableDictText setObject:textView.text forKey:[NSString stringWithFormat:@"%ld",textView.tag]];
+}
+
+
+
+
+-(void)selectPingjia:(UIButton *)sender
+{
+    UITableViewCell *cell = (UITableViewCell *)[[sender superview] superview];
+    NSIndexPath *indexPath = [_mainTableView indexPathForCell:cell];
+    NSLog(@"indexPath is = %li",(long)indexPath.row);
+    [mutableDict setObject:[NSString stringWithFormat:@"%ld",sender.tag%10] forKey:[NSString stringWithFormat:@"%ld",sender.tag/10]];
+    NSArray * array=[[NSArray alloc] initWithObjects:indexPath, nil];
+    [_mainTableView reloadRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationNone];
 }
 
 -(void)SaveCommentCallBack:(id)dict
@@ -324,14 +431,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

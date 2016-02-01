@@ -61,6 +61,13 @@
     }
 }
 
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([self.mydelegate respondsToSelector:@selector(mytextViewDidEndEditing:)]) {
+        [self.mydelegate mytextViewDidEndEditing:self];
+    }
+}
+
 -(void)setFrame:(CGRect)frame
 {
     super.frame = frame;

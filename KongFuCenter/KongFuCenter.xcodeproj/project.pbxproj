@@ -89,6 +89,7 @@
 		804952231C250B3800F5584A /* WechatShortVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804951FC1C250B3800F5584A /* WechatShortVideoController.xib */; };
 		804952271C2523FA00F5584A /* UploadVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 804952251C2523FA00F5584A /* UploadVideoViewController.m */; };
 		804952281C2523FA00F5584A /* UploadVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804952261C2523FA00F5584A /* UploadVideoViewController.xib */; };
+		804BD1091C5F322200FAB8FC /* FL_Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 804BD1081C5F322200FAB8FC /* FL_Button.m */; };
 		805E0E721C58C5BB0035CCCD /* changeDevice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 805E0E711C58C5BB0035CCCD /* changeDevice@2x.png */; };
 		806240621C48842000691D0C /* KongfuStore_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 806240611C48842000691D0C /* KongfuStore_0.png */; };
 		806240661C48936E00691D0C /* SecriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806240641C48936E00691D0C /* SecriteViewController.m */; };
@@ -694,6 +695,8 @@
 		804952241C2523FA00F5584A /* UploadVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadVideoViewController.h; sourceTree = "<group>"; };
 		804952251C2523FA00F5584A /* UploadVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadVideoViewController.m; sourceTree = "<group>"; };
 		804952261C2523FA00F5584A /* UploadVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadVideoViewController.xib; sourceTree = "<group>"; };
+		804BD1071C5F322200FAB8FC /* FL_Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FL_Button.h; sourceTree = "<group>"; };
+		804BD1081C5F322200FAB8FC /* FL_Button.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FL_Button.m; sourceTree = "<group>"; };
 		805E0E711C58C5BB0035CCCD /* changeDevice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "changeDevice@2x.png"; sourceTree = "<group>"; };
 		806240611C48842000691D0C /* KongfuStore_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KongfuStore_0.png; sourceTree = "<group>"; };
 		806240631C48936E00691D0C /* SecriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecriteViewController.h; sourceTree = "<group>"; };
@@ -1821,6 +1824,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		804BD1061C5F322200FAB8FC /* CostomButton */ = {
+			isa = PBXGroup;
+			children = (
+				804BD1071C5F322200FAB8FC /* FL_Button.h */,
+				804BD1081C5F322200FAB8FC /* FL_Button.m */,
+			);
+			path = CostomButton;
+			sourceTree = "<group>";
+		};
 		80CE42BA1C3CB23100B027CC /* Vitamio-online */ = {
 			isa = PBXGroup;
 			children = (
@@ -2448,6 +2460,7 @@
 		B5AF704F1C17C20600C041AF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				804BD1061C5F322200FAB8FC /* CostomButton */,
 				B5207D781C51BF9C00CE729F /* RCLabel */,
 				8045582E1C3E4A0000166DAC /* libpolyvSDK */,
 				80CE42BA1C3CB23100B027CC /* Vitamio-online */,
@@ -3863,6 +3876,7 @@
 				B7D8464D1C22AB7500718E9E /* MJRefreshBackStateFooter.m in Sources */,
 				B5D345C31C28E97E00D39891 /* JKAssetsThumbnailView.m in Sources */,
 				B7D846441C22AB7500718E9E /* MJRefreshBackFooter.m in Sources */,
+				804BD1091C5F322200FAB8FC /* FL_Button.m in Sources */,
 				8026D0FE1C1C0A1300D9CD44 /* XMLElement.m in Sources */,
 				B7617E3D1C1C298F00CF96E7 /* NSString+NSString_ILExtension.m in Sources */,
 				804952131C250B3800F5584A /* SCSampleBufferHolder.m in Sources */,
