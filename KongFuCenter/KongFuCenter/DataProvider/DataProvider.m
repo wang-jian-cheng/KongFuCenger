@@ -1666,6 +1666,45 @@
     }
 }
 
+
+-(void)delShopCartGoods:(NSString *)userId andIdList:(NSString *)idList
+{
+    if (idList && userId ) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/DeleteBasketProduct",Url];
+        NSDictionary *prm = @{@"idList":idList,
+                              @"userId":userId};
+        DLog(@"%@",prm);
+        
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+
+#pragma mark - 订单
+//startRowIndex 开始行索引
+//maximumRows 每页条数
+//userId 用户ID
+//state 订单状态 1：未付款 2：代发货 3：已发货 4：已签收 5：买家已评价 6：卖家已评价 7：已过期 8：全部 9:申请取消订单 10：已取消订单
+//proNum 每个订单下显示商品个数
+-(void)getOrderList:(NSString *)userId andState:(NSString *)state andProNum:(NSString *)proNum andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows
+{
+    if (state && userId  && proNum &&startRowIndex && maximumRows) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectPageBillByUserId",Url];
+        NSDictionary *prm = @{@"state":state,
+                              @"userId":userId,
+                              @"proNum":proNum,
+                              @"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows};
+        DLog(@"%@",prm);
+        
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 -(void)SelectAllDeliveryAddress:(NSString *)userId{
     if (userId) {
         NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectAllDeliveryAddress",Url];

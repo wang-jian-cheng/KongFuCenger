@@ -440,11 +440,21 @@
 //首页查询商品推荐分类并显示推荐商品
 -(void)GetRecomendCategoryAndProduct:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andproductNum:(NSString *)productNum;
 
-
+#pragma mark - 购物车
 /**
  获取购物车列表
  */
 -(void)getShoppingCartList:(NSString *)userId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
+/**
+ 批量删除
+ */
+-(void)delShopCartGoods:(NSString *)userId andIdList:(NSString *)idList;
+
+#pragma mark - 订单
+/**
+ 获取订单列表
+ */
+-(void)getOrderList:(NSString *)userId andState:(NSString *)state andProNum:(NSString *)proNum andStartRowIndex:(NSString *)startRowIndex andMaximumRows:(NSString *)maximumRows;
 
 //查询全部收货地址
 -(void)SelectAllDeliveryAddress:(NSString *)userId;

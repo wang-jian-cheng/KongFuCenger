@@ -12,7 +12,7 @@
 
 #pragma mark - user custom define
 
-#define KONGFU_VER2     0
+#define KONGFU_VER2     1
 //视频布局模式
 typedef enum _VideoShowLayoutType
 {
@@ -23,6 +23,7 @@ typedef enum _VideoShowLayoutType
 
 //工具 api 封装
 #define NSStringFromFormat(fmt,...)     [NSString stringWithFormat:fmt,##__VA_ARGS__]
+#define ZY_NSStringFromFormat(fmt,...)     [NSString stringWithFormat:fmt,##__VA_ARGS__]
 
 #define remove_sp(a) [[NSUserDefaults standardUserDefaults] removeObjectForKey:a]
 #define get_sp(a) [[NSUserDefaults standardUserDefaults] objectForKey:a]

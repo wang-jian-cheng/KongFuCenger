@@ -21,6 +21,7 @@
     
     OrderMode orderMode;
 }
+
 @end
 
 @implementation OrderMainViewController
@@ -85,14 +86,15 @@
 
         pageNo=0;
         // 结束刷新
-        [_mainTableView.mj_header endRefreshing];
+        [weakSelf getOrderlist];
+        
     }];
     [_mainTableView.mj_header beginRefreshing];
     
     // 上拉刷新
     _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-//        [weakSelf FooterRefresh];
-        [_mainTableView.mj_footer endRefreshing];
+        [weakSelf getOrderlist];
+        
     }];
 
     [self.view addSubview:_mainTableView];
@@ -112,9 +114,28 @@
             ((UIButton *)btnArr[i]).selected = NO;
         }
     }
+    
+    switch (sender.tag) {
+        case 0:
+            orderType = OrderTypeNeedPay;
+            break;
+        case 1:
+            orderType = OrderTypeNeedSend;
+            break;
+        case 2:
+            orderType = OrderTypeAlreadySend;
+            break;
+        case 3:
+            orderType = OrderTypeAlReadyReceive;
+            break;
+            
+        default:
+            break;
+    }
+    
     //更新数据
     [_mainTableView.mj_header beginRefreshing];
-    [_mainTableView reloadData];
+//    [_mainTableView reloadData];
 }
 
 -(void)rightBtnClick:(UIButton *)sender
@@ -133,11 +154,52 @@
     }
 }
 
+#pragma mark - self property
+-(NSMutableArray *) orderArr
+{
+    if(_orderArr == nil)
+    {
+        _orderArr = [NSMutableArray array];
+    }
+    
+    return _orderArr;
+}
+#pragma mark - self data source
+
+-(void)getOrderlist
+{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getOrderlistCallBack:"];
+    [dataProvider getOrderList:[Toolkit getUserID] andState:ZY_NSStringFromFormat(@"%d",orderType) andProNum:ZY_NSStringFromFormat(@"%u",10000) andStartRowIndex:ZY_NSStringFromFormat(@"%d",pageNo*pageSize) andMaximumRows:ZY_NSStringFromFormat(@"%d",pageSize)];
+}
+
+
+-(void)getOrderlistCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    [_mainTableView.mj_header endRefreshing];
+    [_mainTableView.mj_footer endRefreshing];
+    if([dict[@"code"] intValue] == 200)
+    {
+        [SVProgressHUD dismiss];
+        pageNo ++;
+        
+        
+        
+        [_mainTableView reloadData];
+
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:dict[@"data"] maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
 #pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 2;//self.orderArr.count;
     
 }
 

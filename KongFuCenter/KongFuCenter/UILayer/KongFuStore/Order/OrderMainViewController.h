@@ -10,9 +10,14 @@
 #import "MJRefresh.h"
 #import "OrderDetailViewController.h"
 #import "PayOrderViewController.h"
+#import "OrderDefine.h"
 @interface OrderMainViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
     int pageNo;
     int pageSize;
+    
+    
+    OrderType orderType;
 }
+@property(nonatomic) NSMutableArray *orderArr;
 @end
