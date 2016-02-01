@@ -465,6 +465,12 @@
 //批量删除收货地址
 -(void)DeleteDeliveryAddress:(NSString *)idList anduserId:(NSString *)userId;
 
+//分页查询收藏商品
+-(void)SelectFavoriteByUserIdAndSearch:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andsearch:(NSString *)search;
+
+//根据地址ID设置默认收货地址
+-(void)SetDefaultDeliveryAddress:(NSString *)goodsId anduserId:(NSString *)userId;
+
 
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;

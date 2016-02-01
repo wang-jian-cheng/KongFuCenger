@@ -84,6 +84,9 @@
         collectionIv.image = [isFavorite isEqual:@"0"]?[UIImage imageNamed:@"store_nocollection"]:[UIImage imageNamed:@"store_collection"];
         collectionLbl.text = [isFavorite isEqual:@"0"]?@"收藏":@"已收藏";
         [mTableView reloadData];
+    }else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
+        [alertView show];
     }
 }
 
