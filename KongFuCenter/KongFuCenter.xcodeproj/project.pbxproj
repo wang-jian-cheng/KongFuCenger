@@ -204,6 +204,7 @@
 		B57584A71C5C6869005EF831 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57584A61C5C6869005EF831 /* SearchViewController.m */; };
 		B57584AE1C5DF52C005EF831 /* doublerow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B57584AC1C5DF52C005EF831 /* doublerow@2x.png */; };
 		B57584AF1C5DF52C005EF831 /* onerow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B57584AD1C5DF52C005EF831 /* onerow@2x.png */; };
+		B57584B21C5EF3C6005EF831 /* CartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B57584B11C5EF3C6005EF831 /* CartModel.m */; };
 		B577E2321C1A9A6C006695F1 /* SetNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B577E2311C1A9A6C006695F1 /* SetNoticeViewController.m */; };
 		B577E2361C1AA7C2006695F1 /* DataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = B577E2351C1AA7C2006695F1 /* DataProvider.m */; };
 		B5905DF81C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5905DF71C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m */; };
@@ -862,6 +863,7 @@
 		B5451CCC1C27970E001BB39F /* CCLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLocationManager.h; sourceTree = "<group>"; };
 		B5451CCD1C27970E001BB39F /* CCLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLocationManager.m; sourceTree = "<group>"; };
 		B54F13881C46283B001EABE5 /* del@2x.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "del@2x.PNG"; sourceTree = "<group>"; };
+		B55103511C5F40AE005D9917 /* OrderDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDefine.h; sourceTree = "<group>"; };
 		B569DB8A1C126BC600325CFA /* BaseVideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVideoCollectionViewCell.h; sourceTree = "<group>"; };
 		B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVideoCollectionViewCell.m; sourceTree = "<group>"; };
 		B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseVideoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -875,6 +877,8 @@
 		B57584A61C5C6869005EF831 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = CommonUI/SearchViewController.m; sourceTree = "<group>"; };
 		B57584AC1C5DF52C005EF831 /* doublerow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doublerow@2x.png"; sourceTree = "<group>"; };
 		B57584AD1C5DF52C005EF831 /* onerow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onerow@2x.png"; sourceTree = "<group>"; };
+		B57584B01C5EF3C6005EF831 /* CartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartModel.h; sourceTree = "<group>"; };
+		B57584B11C5EF3C6005EF831 /* CartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartModel.m; sourceTree = "<group>"; };
 		B577E2301C1A9A6C006695F1 /* SetNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetNoticeViewController.h; sourceTree = "<group>"; };
 		B577E2311C1A9A6C006695F1 /* SetNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetNoticeViewController.m; sourceTree = "<group>"; };
 		B577E2341C1AA7C2006695F1 /* DataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataProvider.h; sourceTree = "<group>"; };
@@ -1919,6 +1923,8 @@
 			children = (
 				B51A7B711C4F5E0100273384 /* ShoppingCartViewController.h */,
 				B51A7B721C4F5E0100273384 /* ShoppingCartViewController.m */,
+				B57584B01C5EF3C6005EF831 /* CartModel.h */,
+				B57584B11C5EF3C6005EF831 /* CartModel.m */,
 			);
 			path = ShoppingCart;
 			sourceTree = "<group>";
@@ -1936,6 +1942,7 @@
 				B50122651C55C5460087E920 /* CommentOrderViewController.m */,
 				B50122671C55D1F70087E920 /* MyTextView.h */,
 				B50122681C55D1F70087E920 /* MyTextView.m */,
+				B55103511C5F40AE005D9917 /* OrderDefine.h */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -3895,6 +3902,7 @@
 				B7A18ED81C56FEC9004FF4FB /* UIView+SDExtension.m in Sources */,
 				B59409161C0FD669003DC15D /* UIImage+NSBundle.m in Sources */,
 				B7617E731C1C29A500CF96E7 /* YMTapGestureRecongnizer.m in Sources */,
+				B57584B21C5EF3C6005EF831 /* CartModel.m in Sources */,
 				B7617E3F1C1C298F00CF96E7 /* WFReplyBody.m in Sources */,
 				B7BED2271C5330590058CBF4 /* IntegralExchangeRecordViewController.m in Sources */,
 				80CE42D71C3CB26C00B027CC /* VSegmentSlider.m in Sources */,

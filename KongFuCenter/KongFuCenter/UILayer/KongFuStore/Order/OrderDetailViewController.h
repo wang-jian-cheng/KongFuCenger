@@ -9,6 +9,7 @@
 #import "BaseNavigationController.h"
 #import "PayOrderViewController.h"
 #import "CommentOrderViewController.h"
+#import "OrderDefine.h"
 typedef enum _orderMode{
     orderNeedPay,
     orderNeedSend,

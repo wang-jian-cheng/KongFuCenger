@@ -8,7 +8,8 @@
 
 #import "BaseNavigationController.h"
 #import "SelectRoundBtn.h"
-
+#import "OrderDefine.h"
+#import "OrderDefine.h"
 @interface PayOrderViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
 {
     int pageNo;

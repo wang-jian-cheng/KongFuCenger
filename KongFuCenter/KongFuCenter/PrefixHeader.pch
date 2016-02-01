@@ -10,6 +10,7 @@
 #define PrefixHeader_pch
 
 #import "CommonDef.h"
+#import "Dialog.h"
 #import "AppDelegate.h"
 #include <QuartzCore/QuartzCore.h>
 // Include any system framework and library headers here that should be included in all compilation units.

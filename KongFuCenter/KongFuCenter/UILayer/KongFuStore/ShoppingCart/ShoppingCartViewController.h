@@ -8,18 +8,26 @@
 
 #import "BaseNavigationController.h"
 #import "SelectRoundBtn.h"
-
+#import "UIImageView+WebCache.h"
+#import "CartModel.h"
 @interface ShoppingCartViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
     CGFloat _cellHeight;
     UITableView *_mainTableView;
     NSMutableArray *cellBtnArr;
-    NSMutableArray *delArr;
+    
     NSMutableArray *numLabArr;
     
     
     
     unsigned int pageNo;
     unsigned int pageSize;
+    UILabel * priceLab ;
+    
+    BOOL EditMode;
+    
+    SelectRoundBtn *selectAllBtn;
+    UIButton *actionBtn;
 }
+@property(nonatomic) CGFloat moneySum;
 @end
