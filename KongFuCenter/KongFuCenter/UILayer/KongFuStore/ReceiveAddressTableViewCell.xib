@@ -42,7 +42,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="21" id="9cp-LU-6IU"/>
                         </constraints>
-                        <state key="normal" image="address_edit.png"/>
+                        <state key="normal" image="adress_choose_normal.png"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -63,8 +63,8 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="isDefaultAddressBtn" destination="uVs-DA-uHJ" id="hGd-XL-NhD"/>
                 <outlet property="mAddressLbl" destination="2ts-Rw-Dh1" id="GXr-gG-Wf9"/>
-                <outlet property="mEditAddressBtn" destination="uVs-DA-uHJ" id="5Qc-eG-oax"/>
                 <outlet property="mNameLbl" destination="fxj-JS-wlB" id="ubK-De-Ane"/>
                 <outlet property="mPhoneLbl" destination="4Oy-2E-Vuu" id="Emz-eB-hc9"/>
             </connections>
@@ -72,6 +72,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="address_edit.png" width="80" height="80"/>
+        <image name="adress_choose_normal.png" width="40" height="40"/>
     </resources>
 </document>

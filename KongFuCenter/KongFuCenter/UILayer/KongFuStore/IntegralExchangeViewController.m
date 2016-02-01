@@ -162,7 +162,7 @@
                           andisSalesAsc:@"0"/*是否销量升序 0：默认 1：升序 2：降序*/
                         andisCommentAsc:@"0"/*是否好评升序 0：默认 1：升序 2：降序*/
                             andisNewAsc:@"0"/*是否最新升序 0：默认 1：升序 2：降序*/
-                            andisCredit:@"0"/*是否可以兑换 0：积分兑换 1：购买*/
+                            andisCredit:@"1"/*是否可以兑换 0：积分兑换 1：购买*/
                          andisRecommend:@"0"/*不推荐商品 1：推荐商品*/];
     
 }
@@ -176,6 +176,7 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
+            pageNo++;
             [self.goodList addObjectsFromArray:dict[@"data"]];
             
             if(self.goodList.count >= [dict[@"recordcount"] intValue] )

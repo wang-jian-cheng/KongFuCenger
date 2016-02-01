@@ -156,18 +156,26 @@
             [provinceArray addObject:itemArray[i]];
         }
         NSInteger mIndex;
-        if (_addressManage == Mode_Add) {
-            mIndex = 0;
-        }else{
-            mIndex = [[provinceArray valueForKey:@"Name"] indexOfObject:provinceTxt];
+        @try {
+            if (_addressManage == Mode_Add) {
+                mIndex = 0;
+            }else{
+                mIndex = [[provinceArray valueForKey:@"Name"] indexOfObject:provinceTxt];
+            }
+            provinceId = [provinceArray[mIndex] valueForKey:@"Id"];
+            provinceCode = [provinceArray[mIndex] valueForKey:@"Code"];
+            provinceTxt = [provinceArray[mIndex] valueForKey:@"Name"];
+            
+            dataProvider = [[DataProvider alloc] init];
+            [dataProvider setDelegateObject:self setBackFunctionName:@"getInitCityCallBack:"];
+            [dataProvider getCityByProvinceCode:[NSString stringWithFormat:@"%@",provinceCode]];
         }
-        provinceId = [provinceArray[mIndex] valueForKey:@"Id"];
-        provinceCode = [provinceArray[mIndex] valueForKey:@"Code"];
-        provinceTxt = [provinceArray[mIndex] valueForKey:@"Name"];
-        
-        dataProvider = [[DataProvider alloc] init];
-        [dataProvider setDelegateObject:self setBackFunctionName:@"getInitCityCallBack:"];
-        [dataProvider getCityByProvinceCode:[NSString stringWithFormat:@"%@",provinceCode]];
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
     }
 }
 

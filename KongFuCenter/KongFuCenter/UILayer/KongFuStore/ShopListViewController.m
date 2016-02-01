@@ -26,6 +26,7 @@
     NSString *isRecommend;
     NSArray *shopInfoArray;
     UIImageView *mIv1;
+    UIImageView *mIvUp2;
     UIImageView *mIvDown2;
     UIImageView *mIv3;
     UIImageView *mIv4;
@@ -132,7 +133,7 @@
 //    [headView addSubview:mIv2Btn];
     UIView *mIvView = [[UIView alloc] initWithFrame:CGRectMake(mWidth * 2 - 17, (45 - 17) / 2, 15, 17)];
     [headView addSubview:mIvView];
-    UIImageView *mIvUp2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 8)];
+    mIvUp2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 8)];
     mIvUp2.image = [UIImage imageNamed:@"store_shop_up"];
     [mIvView addSubview:mIvUp2];
     mIvDown2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 9, 15, 8)];
@@ -216,9 +217,11 @@
         case 2:{
             if ([isPriceAsc isEqual:@"2"]) {
                 isPriceAsc = @"1";
+                mIvUp2.image = [UIImage imageNamed:@"store_shop_selectup"];
                 mIvDown2.image = [UIImage imageNamed:@"store_shop_down"];
             }else{
                 isPriceAsc = @"2";
+                mIvUp2.image = [UIImage imageNamed:@"store_shop_up"];
                 mIvDown2.image = [UIImage imageNamed:@"store_shop_selectdown"];
             }
         }
