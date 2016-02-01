@@ -149,7 +149,7 @@
                                                                          10, SCREEN_WIDTH - (image.frame.size.width+image.frame.origin.x)-5, _cellHeight/2-10)];
             
             infoLab.textColor = [UIColor whiteColor];
-            infoLab.text = [NSString  stringWithFormat:@"收货人%@    %@",@"杨某某",@"15269914187"];
+            infoLab.text = [NSString  stringWithFormat:@"收货人%@    %@",@"　XXX",@"15269914187"];
             infoLab.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:infoLab];
             
