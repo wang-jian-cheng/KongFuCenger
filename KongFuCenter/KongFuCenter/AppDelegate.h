@@ -16,6 +16,6 @@
 
 - (void)showTabBar;
 - (void)hiddenTabBar;
-
+-(void)setTagandAlias;
 @end
 

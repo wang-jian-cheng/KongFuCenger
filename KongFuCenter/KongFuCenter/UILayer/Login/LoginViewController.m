@@ -689,6 +689,8 @@
         [self setLoginValue:itemdict];
         //设置通知
         [self setNotificate];
+        
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] setTagandAlias];
 
     }
     else
