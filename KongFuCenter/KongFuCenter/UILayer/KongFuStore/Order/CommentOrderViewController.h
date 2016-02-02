@@ -12,5 +12,7 @@
 @interface CommentOrderViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,MyTextViewDelegate>
 {
     NSIndexPath *tempIndexPath;
+    
 }
+@property (nonatomic,strong) NSArray * GoodsArray;//接收传过来的商品数组
 @end
