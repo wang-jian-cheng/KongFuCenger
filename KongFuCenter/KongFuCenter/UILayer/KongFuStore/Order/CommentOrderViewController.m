@@ -8,6 +8,7 @@
 
 #import "CommentOrderViewController.h"
 #import "FL_Button.h"
+#import "UIImageView+WebCache.h"
 
 @interface CommentOrderViewController ()
 {
@@ -94,22 +95,32 @@
     
     [dataprovider setDelegateObject:self setBackFunctionName:@"SaveCommentCallBack:"];
     
-    NSMutableArray * mutableArray=[[NSMutableArray alloc] init];
-    
-    for (int i=1; i<3; i++) {
-        NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"productId",
-                            [NSString stringWithFormat:@"第%d个商品评价",i],@"content",
-                            [NSString stringWithFormat:@"%d",i],@"typeId",
-                            [Toolkit getUserID],@"userId",
-                            [NSString stringWithFormat:@"%d",i],@"productPriceId",
-                            nil];
+    @try {
+        NSMutableArray * mutableArray=[[NSMutableArray alloc] init];
         
-        [mutableArray addObject:prm];
+        for (int i=0; i<_GoodsArray.count; i++) {
+            NSString * strid=mutableDict[[NSString stringWithFormat:@"%d",i]];
+            NSString * strComment=mutableDictText[[NSString stringWithFormat:@"%d",i]];
+            NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:_GoodsArray[i][@"Id"],@"productId",
+                                strComment==nil?@"":strComment,@"content",
+                                strid==nil?@"1":strid,@"typeId",
+                                [Toolkit getUserID],@"userId",
+                                [_GoodsArray[i][@"ProductPriceId"] isEqual:[NSNull null]]?@"0":_GoodsArray[i][@"ProductPriceId"],@"productPriceId",
+                                nil];
+            
+            [mutableArray addObject:prm];
+        }
+        
+        
+        if (mutableArray.count>0) {
+            [dataprovider SaveComment:mutableArray];
+        }
     }
-    
-    
-    if (mutableArray.count>0) {
-        [dataprovider SaveComment:mutableArray];
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
     }
 }
 
@@ -163,7 +174,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 3;
+    return _GoodsArray.count;
     
 }
 
@@ -189,12 +200,13 @@
         if(indexPath.row == 0)
         {
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 10, _cellHeight, _cellHeight - 20)];
-            imgView.image = [UIImage imageNamed:@"KongFuStoreProduct"];
+//            imgView.image = [UIImage imageNamed:@"KongFuStoreProduct"];
+            [imgView sd_setImageWithURL:[NSURL URLWithString: [NSString stringWithFormat:@"%@%@",Url,[_GoodsArray[indexPath.section][@"MiddleImagePath"] isEqual:[NSNull null]]?@"":_GoodsArray[indexPath.section][@"MiddleImagePath"]]] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
             [cell.contentView addSubview:imgView];
             
             UILabel *nowPriceLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 10 - 80), 10, 80, 30)];
             nowPriceLab.textColor = Separator_Color;
-            nowPriceLab.text = @"¥20.00";
+            nowPriceLab.text = [_GoodsArray[indexPath.section][@"ProductPriceTotalPrice"] isEqual:[NSNull null]]?@"":_GoodsArray[indexPath.section][@"ProductPriceTotalPrice"];
             nowPriceLab.textAlignment = NSTextAlignmentRight;
             nowPriceLab.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:nowPriceLab];
@@ -203,7 +215,7 @@
                                                                              (nowPriceLab.frame.origin.y+nowPriceLab.frame.size.height),
                                                                              nowPriceLab.frame.size.width, 20)];
             oldPriceLab.textColor = Separator_Color;
-            oldPriceLab.text = @"¥20.00";
+            oldPriceLab.text = @"";
             oldPriceLab.textAlignment = NSTextAlignmentRight;
             oldPriceLab.font = [UIFont systemFontOfSize:12];
             [cell.contentView addSubview:oldPriceLab];
@@ -212,14 +224,14 @@
                                                                         (oldPriceLab.frame.origin.y+oldPriceLab.frame.size.height),
                                                                         oldPriceLab.frame.size.width, 20)];
             numLab.textColor = Separator_Color;
-            numLab.text = @"x1";
+            numLab.text = [_GoodsArray[indexPath.section][@"Number"] isEqual:[NSNull null]]?@"X1":[NSString stringWithFormat:@"X%@",_GoodsArray[indexPath.section][@"Number"]];
             numLab.textAlignment = NSTextAlignmentRight;
             numLab.font = [UIFont systemFontOfSize:12];
             [cell.contentView addSubview:numLab];
             
             UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((imgView.frame.origin.x + imgView.frame.size.width)+5,
                                                                           10, (SCREEN_WIDTH), 30)];
-            titleLab.text = @"男士哑铃一对10公斤";
+            titleLab.text = [_GoodsArray[indexPath.section][@"ProductName"] isEqual:[NSNull null]]?@"":_GoodsArray[indexPath.section][@"ProductName"];
             titleLab.textColor = [UIColor whiteColor];
             
             titleLab.font = [UIFont systemFontOfSize:14];
@@ -405,7 +417,8 @@
 -(void)mytextViewDidEndEditing:(UITextView *)textView
 {
     NSLog(@"%@",textView.text);
-    [mutableDictText setObject:textView.text forKey:[NSString stringWithFormat:@"%ld",textView.tag]];
+    
+    [mutableDictText setObject:textView.text forKey:[NSString stringWithFormat:@"%ld",(long)textView.tag]];
 }
 
 
@@ -414,10 +427,15 @@
 -(void)selectPingjia:(UIButton *)sender
 {
     UITableViewCell *cell = (UITableViewCell *)[[sender superview] superview];
+    
     NSIndexPath *indexPath = [_mainTableView indexPathForCell:cell];
+    
     NSLog(@"indexPath is = %li",(long)indexPath.row);
+    
     [mutableDict setObject:[NSString stringWithFormat:@"%ld",sender.tag%10] forKey:[NSString stringWithFormat:@"%ld",sender.tag/10]];
+    
     NSArray * array=[[NSArray alloc] initWithObjects:indexPath, nil];
+    
     [_mainTableView reloadRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationNone];
 }
 
