@@ -471,6 +471,11 @@
 //根据地址ID设置默认收货地址
 -(void)SetDefaultDeliveryAddress:(NSString *)goodsId anduserId:(NSString *)userId;
 
+//根据用户ID分页查询兑换记录
+-(void)SelectPageChangeBillByUserId:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andstate:(NSString *)state andproNum:(NSString *)proNum;
+
+//兑换详情
+-(void)ChangeDetail:(NSString *)productId anduserId:(NSString *)userId;
 
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;

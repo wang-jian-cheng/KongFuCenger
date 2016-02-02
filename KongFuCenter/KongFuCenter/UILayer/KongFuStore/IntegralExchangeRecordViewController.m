@@ -10,9 +10,13 @@
 #import "IntegralExchangeRecordTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "ExchangeDetailViewController.h"
+#import "MJRefresh.h"
 
 @interface IntegralExchangeRecordViewController (){
     UITableView *mTableView;
+    NSMutableArray *goodsArray;
+    int curpage;
+    DataProvider *dataProvider;
 }
 
 @end
@@ -26,6 +30,9 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"兑换记录"];
     [self addLeftButton:@"left"];
+    
+    goodsArray = [[NSMutableArray alloc] init];
+    dataProvider = [[DataProvider alloc] init];
     
     //初始化View
     [self initViews];
@@ -45,6 +52,44 @@
     mTableView.separatorColor = Separator_Color;
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
+    
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak typeof(UITableView *) weakTv = mTableView;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+    
+    mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        curpage = 0;
+        [goodsArray removeAllObjects];
+        [weakSelf initData];
+        [weakTv.mj_header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+    [mTableView.mj_header beginRefreshing];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(initData)];
+    // 禁止自动加载
+    footer.automaticallyRefresh = NO;
+    // 设置footer
+    mTableView.mj_footer = footer;
+}
+
+-(void)initData{
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getGoodsCallBack:"];
+    [dataProvider SelectPageChangeBillByUserId:[NSString stringWithFormat:@"%d",curpage * 15] andmaximumRows:@"15" anduserId:get_sp(@"id") andstate:@"2" andproNum:@"1"];
+}
+
+-(void)getGoodsCallBack:(id)dict{
+    // 结束刷新
+    [mTableView.mj_footer endRefreshing];
+    if ([dict[@"code"] intValue] == 200) {
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [goodsArray addObject:item];
+        }
+    }
+    [mTableView reloadData];
 }
 
 #pragma mark tableview delegate
@@ -53,7 +98,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 6;
+    return goodsArray.count;
 }
 
 #pragma mark setting for section
@@ -74,6 +119,7 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"IntegralExchangeRecordTableViewCell" owner:self options:nil] objectAtIndex:0];
         cell.backgroundColor = ItemsBaseColor;
     }
+    NSLog(@"%@",goodsArray);
     [cell.mPhotoIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
     cell.mName.text = @"男士哑铃一对10公斤";
     cell.mIntegral.text = [NSString stringWithFormat:@"%@积分",@"1500"];

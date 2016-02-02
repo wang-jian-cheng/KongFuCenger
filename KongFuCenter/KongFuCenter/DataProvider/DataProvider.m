@@ -1673,11 +1673,30 @@
     }
 }
 
-//-(void)SelectPageChangeBillByUserId:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andstate:(NSString *)state andproNum:(NSString *)proNum{
-//    if (startRowIndex && maximumRows && userId && state && proNum) {
-//        
-//    }
-//}
+-(void)SelectPageChangeBillByUserId:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andstate:(NSString *)state andproNum:(NSString *)proNum{
+    if (startRowIndex && maximumRows && userId && state && proNum) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectPageChangeBillByUserId",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows,
+                              @"userId":userId,
+                              @"state":state,
+                              @"proNum":proNum};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)ChangeDetail:(NSString *)productId anduserId:(NSString *)userId{
+    if (productId && userId) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/ChangeDetail",Url];
+        NSDictionary *prm = @{@"productId":productId,
+                              @"userId":userId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
 
 #pragma mark -  购物车
 
