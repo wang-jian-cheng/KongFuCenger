@@ -10,6 +10,8 @@
 #import "SelectRoundBtn.h"
 #import "UIImageView+WebCache.h"
 #import "CartModel.h"
+#import "PayOrderViewController.h"
+
 @interface ShoppingCartViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
     CGFloat _cellHeight;
@@ -17,8 +19,6 @@
     NSMutableArray *cellBtnArr;
     
     NSMutableArray *numLabArr;
-    
-    
     
     unsigned int pageNo;
     unsigned int pageSize;

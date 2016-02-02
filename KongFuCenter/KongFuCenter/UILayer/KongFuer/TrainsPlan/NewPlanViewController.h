@@ -21,7 +21,7 @@
 #define PHOTO_IMGS_KEY          @"photoPicker"
 
 
-#define PhotoLimitNum          6
+#define PhotoLimitNum          9
 @protocol  NewPlanDelegate<NSObject>
 
 -(void)endOfEdit;

@@ -157,10 +157,13 @@
     /***************************************极光推送结束*********************************************/
     [self initUI];
     
-    [APService setTags:[NSSet setWithObject:[NSString stringWithFormat:@"TeamId_%@",get_sp(@"TeamId")]] alias:[NSString stringWithFormat:@"alias_%@",[Toolkit getUserID]] callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:nil];
+    [self setTagandAlias];
     return YES;
 }
-
+-(void)setTagandAlias
+{
+    [APService setTags:[NSSet setWithObject:[NSString stringWithFormat:@"TeamId_%@",get_sp(@"TeamId")]] alias:[NSString stringWithFormat:@"alias_%@",[Toolkit getUserID]] callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:nil];
+}
 
 
 #pragma mark - 支付返回

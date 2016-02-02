@@ -51,7 +51,7 @@
     
     self.detail = [[UILabel alloc] init];
 //    self.detail.backgroundColor = [UIColor orangeColor];
-    self.detail.text = @"测试数据,测试数据,测试数据,测试数据,测试数据,测试数据,测试数据,测试数据,测试数据";
+//    self.detail.text = @"测试数据,测试数据,测试数据,测试数据,测试数据,测试数据,测试数据,测试数据,测试数据";
     self.detail.textColor = Separator_Color;
     self.detail.font = [UIFont systemFontOfSize:15];
     [self.contentView addSubview:self.detail];
