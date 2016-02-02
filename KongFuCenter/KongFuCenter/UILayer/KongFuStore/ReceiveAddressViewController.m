@@ -46,6 +46,10 @@
         [mUserDefault setValue:@"0" forKey:@"UpdateAddressFlag"];
         [mTableView.mj_header beginRefreshing];
     }
+    if ([[mUserDefault valueForKey:@"setDefaultAddress"] isEqual:@"1"]) {
+        [mUserDefault setValue:@"0" forKey:@"setDefaultAddress"];
+        [mTableView.mj_header beginRefreshing];
+    }
 }
 
 #pragma mark 自定义方法
@@ -99,8 +103,19 @@
 }
 
 -(void)setDefaultAddress:(UIButton *)btn{
-    [dataProvider setDelegateObject:self setBackFunctionName:@"setDefaultAddressCallBack:"];
-    [dataProvider SetDefaultDeliveryAddress:[receiveArray[btn.tag] valueForKey:@"Id"] anduserId:get_sp(@"id")];
+    if(_receiveAddressType == Mode_SelectAddress){
+        if ([self.delegate respondsToSelector:@selector(getReceiveAddress:)]) {
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+            [dict setValue:[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"Id"]] forKey:@"id"];
+            [dict setValue:[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"ReceiverName"]] forKey:@"name"];
+            [dict setValue:[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"Phone"]] forKey:@"phone"];
+            [dict setValue:[NSString stringWithFormat:@"%@%@",[[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"Area"]] stringByReplacingOccurrencesOfString:@"/" withString:@""],[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"Address"]]] forKey:@"address"];
+            [self.delegate getReceiveAddress:dict];
+        }
+    }else{
+        [dataProvider setDelegateObject:self setBackFunctionName:@"setDefaultAddressCallBack:"];
+        [dataProvider SetDefaultDeliveryAddress:[receiveArray[btn.tag] valueForKey:@"Id"] anduserId:get_sp(@"id")];
+    }
 }
 
 -(void)setDefaultAddressCallBack:(id)dict{
@@ -169,6 +184,7 @@
     addressManageVC.area = [receiveArray[indexPath.row] valueForKey:@"Area"];
     addressManageVC.address = [receiveArray[indexPath.row] valueForKey:@"Address"];
     addressManageVC.code = [receiveArray[indexPath.row] valueForKey:@"Code"];
+    addressManageVC.isDefaultAddressFlag = [Toolkit judgeIsNull:[receiveArray[indexPath.row] valueForKey:@"IsDefault"]];
     [self.navigationController pushViewController:addressManageVC animated:YES];
 }
 

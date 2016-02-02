@@ -790,7 +790,7 @@
     imagePickerController.showsCancelButton = YES;
     imagePickerController.allowsMultipleSelection = YES;
     imagePickerController.minimumNumberOfSelection = 1;
-    imagePickerController.maximumNumberOfSelection = 6;
+    imagePickerController.maximumNumberOfSelection = 9;
     imagePickerController.selectedAssetArray = self.assetsArray;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:imagePickerController];
     [self presentViewController:navigationController animated:YES completion:NULL];

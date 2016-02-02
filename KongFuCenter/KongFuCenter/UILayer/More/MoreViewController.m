@@ -235,6 +235,7 @@
             
         }else{
             ReceiveAddressViewController *receiveAddressVC = [[ReceiveAddressViewController alloc] init];
+            [receiveAddressVC setReceiveAddressType:Mode_AddressManage];
             [self.navigationController pushViewController:receiveAddressVC animated:YES];
         }
     }

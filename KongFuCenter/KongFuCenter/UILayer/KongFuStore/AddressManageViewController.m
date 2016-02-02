@@ -90,7 +90,7 @@
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
     
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 60)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 60 + 40 + 10)];
     mTableView.tableFooterView = footerView;
     UIButton *addReceiveAddressBtn = [[UIButton alloc] initWithFrame:CGRectMake(14, 20, footerView.frame.size.width - 28, 40)];
     if(_addressManage == Mode_Add){
@@ -102,6 +102,15 @@
     [addReceiveAddressBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [addReceiveAddressBtn addTarget:self action:@selector(addReceiveAddressEvent) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:addReceiveAddressBtn];
+    
+    UIButton *setDefaultAddressBtn = [[UIButton alloc] initWithFrame:CGRectMake(14, addReceiveAddressBtn.frame.origin.y + addReceiveAddressBtn.frame.size.height + 10, addReceiveAddressBtn.frame.size.width, 40)];
+    [setDefaultAddressBtn setTitle:@"设为默认地址" forState:UIControlStateNormal];
+    setDefaultAddressBtn.backgroundColor = YellowBlock;
+    [setDefaultAddressBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [setDefaultAddressBtn addTarget:self action:@selector(setDefaultAddressEvent) forControlEvents:UIControlEventTouchUpInside];
+    if(_addressManage == Mode_Edit && [_isDefaultAddressFlag isEqual:@"0"]){
+        [footerView addSubview:setDefaultAddressBtn];
+    }
     
     addressPickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 200, SCREEN_WIDTH, 200)];
     addressPickView.delegate = self;
@@ -123,6 +132,22 @@
     [BackView addSubview:btn_sure];
     [BackView addSubview:btn_cancel];
     [BackView addSubview:fenge];
+}
+
+-(void)setDefaultAddressEvent{
+    [dataProvider setDelegateObject:self setBackFunctionName:@"setDefaultAddressCallBack:"];
+    [dataProvider SetDefaultDeliveryAddress:_addressId anduserId:get_sp(@"id")];
+}
+
+-(void)setDefaultAddressCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"设置成功~" maskType:SVProgressHUDMaskTypeBlack];
+        [mUserDefault setValue:@"1" forKey:@"setDefaultAddress"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
+        [alertView show];
+    }
 }
 
 -(void)initAddressData{
@@ -275,7 +300,7 @@
 -(void)addReceiveAddressCallBack:(id)dict{
     [SVProgressHUD dismiss];
     if([dict[@"code"] intValue] == 200){
-        [SVProgressHUD showSuccessWithStatus:@"添加成功~" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showSuccessWithStatus:@"保存成功~" maskType:SVProgressHUDMaskTypeBlack];
         [mUserDefault setValue:@"1" forKey:@"UpdateAddressFlag"];
         [self.navigationController popViewControllerAnimated:YES];
     }else{

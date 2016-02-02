@@ -12,7 +12,6 @@
 #import "YMButton.h"
 #import "MoviePlayer.h"
 
-
 @protocol cellDelegate <NSObject>
 
 - (void)changeFoldState:(YMTextData *)ymD onCellRow:(NSInteger) cellStamp;

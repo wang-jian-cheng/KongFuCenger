@@ -23,5 +23,6 @@ typedef enum _addressManage{
 @property(nonatomic,strong) NSString *area;
 @property(nonatomic,strong) NSString *address;
 @property(nonatomic,strong) NSString *code;
+@property(nonatomic,strong) NSString *isDefaultAddressFlag;
 
 @end
