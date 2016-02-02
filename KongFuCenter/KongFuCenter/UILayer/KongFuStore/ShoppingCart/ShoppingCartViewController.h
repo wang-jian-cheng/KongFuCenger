@@ -28,6 +28,9 @@
     
     SelectRoundBtn *selectAllBtn;
     UIButton *actionBtn;
+    
+    NSUInteger updateNum;
 }
 @property(nonatomic) CGFloat moneySum;
+
 @end

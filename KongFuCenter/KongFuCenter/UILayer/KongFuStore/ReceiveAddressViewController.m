@@ -106,11 +106,13 @@
     if(_receiveAddressType == Mode_SelectAddress){
         if ([self.delegate respondsToSelector:@selector(getReceiveAddress:)]) {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-            [dict setValue:[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"Id"]] forKey:@"id"];
-            [dict setValue:[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"ReceiverName"]] forKey:@"name"];
-            [dict setValue:[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"Phone"]] forKey:@"phone"];
-            [dict setValue:[NSString stringWithFormat:@"%@%@",[[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"Area"]] stringByReplacingOccurrencesOfString:@"/" withString:@""],[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"Address"]]] forKey:@"address"];
+            [dict setValue:[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"Id"]] forKey:@"Id"];
+            [dict setValue:[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"ReceiverName"]] forKey:@"ReceiverName"];
+            [dict setValue:[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"Phone"]] forKey:@"Phone"];
+            [dict setValue:[NSString stringWithFormat:@"%@%@",[[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"Area"]] stringByReplacingOccurrencesOfString:@"/" withString:@""],[Toolkit judgeIsNull:[receiveArray[btn.tag] valueForKey:@"Address"]]] forKey:@"TotaleAddress"];
             [self.delegate getReceiveAddress:dict];
+            [self.navigationController popViewControllerAnimated:YES];
+            
         }
     }else{
         [dataProvider setDelegateObject:self setBackFunctionName:@"setDefaultAddressCallBack:"];

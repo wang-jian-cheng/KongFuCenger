@@ -21,9 +21,12 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     
+//    addressDict = [NSMutableDictionary dictionary];
+    
     self.navtitle = @"确认订单";
     roundBtnArr = [NSMutableArray array];
     [self initViews];
+    [self getDefaultAddress];
     // Do any additional setup after loading the view.
 }
 
@@ -67,7 +70,7 @@
     [btnBackView addSubview:btnRight];
     [btnRight setTitle:@"确认结算" forState:UIControlStateNormal];
 
-    moneyLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,  btnRight.frame.origin.x - 10, btnBackView.frame.size.height)];
+    moneyLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,  btnRight.frame.origin.x - 10, btnBackView.frame.size.height/2)];
     [btnBackView addSubview:moneyLab];
     moneyLab.textColor = [UIColor whiteColor];
     moneyLab.text =ZY_NSStringFromFormat(@"总金额：¥ %.02f",totalMoney);
@@ -75,18 +78,64 @@
     moneyLab.textAlignment = NSTextAlignmentRight;
     
     
-//    UILabel *tiplab = [[UILabel alloc] initWithFrame:CGRectMake(0,btnBackView.frame.size.height/2, (btnRight.frame.origin.x - 10), btnBackView.frame.size.height/2)];
-//    [btnBackView addSubview:tiplab];
-//    tiplab.textColor = [UIColor grayColor];
-//    tiplab.text = @"邮费（无）";
-//    tiplab.font = [UIFont systemFontOfSize:14];
-//    tiplab.textAlignment = NSTextAlignmentRight;
-//    
+    tiplab = [[UILabel alloc] initWithFrame:CGRectMake(0,btnBackView.frame.size.height/2, (btnRight.frame.origin.x - 10), btnBackView.frame.size.height/2)];
+    [btnBackView addSubview:tiplab];
+    tiplab.textColor = [UIColor grayColor];
+    if(_postage == -1)
+    {
+        tiplab.text = ZY_NSStringFromFormat(@"邮费（%@）",@"到付");
+    }
+    else if(_postage > 0)
+    {
+        tiplab.text = ZY_NSStringFromFormat(@"邮费（%.02f）",self.postage);
+        
+    }
+    tiplab.font = [UIFont systemFontOfSize:14];
+    tiplab.textAlignment = NSTextAlignmentRight;
+    
     [self.view addSubview:btnBackView];
     
 }
 
 #pragma mark - self property
+
+-(void)setPostage:(CGFloat)postage
+{
+    _postage = postage;
+    
+    if(_postage == -1)
+    {
+        tiplab.text = ZY_NSStringFromFormat(@"邮费（%@）",@"到付");
+    }
+    else if(_postage > 0)
+    {
+        tiplab.text = ZY_NSStringFromFormat(@"邮费（%.02f）",self.postage);
+        
+        totalMoney += self.postage;
+    }
+    
+    
+}
+
+-(void)setGoodDicts:(NSArray *)goodDicts
+{
+    _goodDicts = goodDicts;
+    
+    NSMutableArray *tempArr = [NSMutableArray array];
+    
+    for (int i =0; i<_goodDicts.count; i++) {
+        
+        CartModel *tempModel = [[CartModel alloc] init];
+        
+        NSDictionary *tempdict =_goodDicts[i];
+        [tempModel setValuesForKeysWithDictionary:tempdict];
+        [tempArr addObject:tempModel];
+    }
+    
+    self.goodsArr = tempArr;
+    moneyLab.text = ZY_NSStringFromFormat(@"总金额：¥ %.02f",totalMoney);
+}
+
 
 -(void)setGoodsArr:(NSMutableArray<CartModel *> *)goodsArr
 {
@@ -99,7 +148,7 @@
     totalMoney = 0;
     
     for (CartModel *tempModel in goodsArr) {
-        totalMoney += [tempModel.ProductPriceTotalPrice floatValue];
+        totalMoney += ([tempModel.ProductPriceTotalPrice floatValue] * [tempModel.Number floatValue]);
     }
     
     moneyLab.text = ZY_NSStringFromFormat(@"总金额：¥ %.02f",totalMoney);
@@ -117,6 +166,29 @@
     return _goodsArr;
 }
 
+#pragma mark - self delegate
+-(void)getDefaultAddress
+{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getDefaultAddressCallBack:"];
+    [dataProvider getDefaultAddress:[Toolkit getUserID]];
+}
+-(void)getDefaultAddressCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if([dict[@"code"] intValue] == 200)
+    {
+        NSDictionary *tempDict = dict[@"data"];
+        addressDict = [[NSMutableDictionary alloc] initWithDictionary:dict[@"data"]];
+        
+        [addressDict setValue:[NSString stringWithFormat:@"%@%@",[[Toolkit judgeIsNull:[tempDict valueForKey:@"Area"]] stringByReplacingOccurrencesOfString:@"/" withString:@""],[Toolkit judgeIsNull:[tempDict valueForKey:@"Address"]]] forKey:@"TotaleAddress"];
+        [_mainTableView reloadData];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:ZY_NSStringFromFormat(@"%@",dict[@"data"]) maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
 
 #pragma mark - click action
 
@@ -135,6 +207,13 @@
     }
 }
 
+#pragma mark - address picker delegate
+- (void)getReceiveAddress:(NSMutableDictionary *)receiveAddressDict
+{
+    addressDict = [[NSMutableDictionary alloc] initWithDictionary:receiveAddressDict];
+    [_mainTableView reloadData];
+}
+
 #pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -148,7 +227,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (section == 1) {
-        return self.goodsArr.count+2;
+        return self.goodsArr.count+3;
     }
     if(section == 2)
         return 3;
@@ -178,13 +257,13 @@
                                                                          10, SCREEN_WIDTH - (image.frame.size.width+image.frame.origin.x)-5, _cellHeight/2-10)];
             
             infoLab.textColor = [UIColor whiteColor];
-            infoLab.text = [NSString  stringWithFormat:@"收货人：%@    %@",@"杨某某",@"15269914187"];
+            infoLab.text = [NSString  stringWithFormat:@"收货人：%@    %@",addressDict[@"ReceiverName"],addressDict[@"Phone"]];
             infoLab.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:infoLab];
             
             UILabel *addrLab = [[UILabel alloc] initWithFrame:CGRectMake(infoLab.frame.origin.x,
                                                                          _cellHeight/2,infoLab.frame.size.width , _cellHeight/2-10)];
-            addrLab.text = [NSString stringWithFormat:@"收货地址：%@",@"山东省临沂市兰山区通达路10号北园路城建时代广场10楼"];
+            addrLab.text = [NSString stringWithFormat:@"收货地址：%@",addressDict[@"TotaleAddress"]];
             addrLab.numberOfLines = 0;
             addrLab.textColor = [UIColor whiteColor];
             addrLab.font = [UIFont systemFontOfSize:14];
@@ -248,20 +327,29 @@
                 
                 
             }
-//            else if(indexPath.row == self.goodsArr.count+1)
-//            {
-//                cell.textLabel.textColor = [UIColor whiteColor];
-//                cell.textLabel.text = @"卖家包邮";
-//                cell.textLabel.font = [UIFont systemFontOfSize:15];
-//                
-//                UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 60-20), 0, 60, 50)];
-//                tipLab.text = @"不包邮";
-//                tipLab.font = [UIFont systemFontOfSize:15];
-//                tipLab.textColor = [UIColor whiteColor];
-//                tipLab.textAlignment = NSTextAlignmentRight;
-//                [cell.contentView addSubview:tipLab];
-//            }
             else if(indexPath.row == self.goodsArr.count+1)
+            {
+                cell.textLabel.textColor = [UIColor whiteColor];
+                cell.textLabel.text = @"卖家包邮";
+                cell.textLabel.font = [UIFont systemFontOfSize:15];
+                
+                UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -160-20), 0, 160, 50)];
+                
+                if(self.postage == -1)
+                {
+                    tipLab.text = ZY_NSStringFromFormat(@"邮费（%@）",@"到付");
+                }
+                else
+                {
+                    tipLab.text = ZY_NSStringFromFormat(@"邮费（%.02f）",self.postage);
+                }
+                
+                tipLab.font = [UIFont systemFontOfSize:15];
+                tipLab.textColor = [UIColor whiteColor];
+                tipLab.textAlignment = NSTextAlignmentRight;
+                [cell.contentView addSubview:tipLab];
+            }
+            else if(indexPath.row == self.goodsArr.count+2)
             {
                 cell.textLabel.textColor = [UIColor whiteColor];
                 cell.textLabel.text = ZY_NSStringFromFormat(@"共%ld件商品",self.goodsArr.count);
@@ -325,7 +413,7 @@
     
     if(indexPath.section == 1)
     {
-        if(indexPath.row == 0||indexPath.row == (self.goodsArr.count+1)/*||indexPath.row == (self.goodsArr.count +2)*/)
+        if(indexPath.row == 0||indexPath.row == (self.goodsArr.count+1)||indexPath.row == (self.goodsArr.count +2))
         {
             return 50;
         }
@@ -346,7 +434,8 @@
     if(indexPath.section == 0)
     {
         ReceiveAddressViewController *receiveAddressViewCtl = [[ReceiveAddressViewController alloc] init];
-        
+        receiveAddressViewCtl.receiveAddressType = Mode_SelectAddress;
+        receiveAddressViewCtl.delegate = self;
         [self.navigationController pushViewController:receiveAddressViewCtl animated:YES];
     }
 }

@@ -1730,6 +1730,35 @@
     }
 }
 
+-(void)changeCartGoodNum:(NSString *)userId andGoodId:(NSString *)Id andNum:(NSString *)num
+{
+    if (Id && userId && num) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/ChangeBasketProductNum",Url];
+        NSDictionary *prm = @{@"id":Id,
+                              @"userId":userId,
+                              @"num":num};
+        DLog(@"%@",prm);
+        
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+
+-(void)getPostage:(NSString *)userId andGoodIds:(NSString *)idList
+{
+    if (userId && idList) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/GetPostage",Url];
+        NSDictionary *prm = @{@"idList":idList,
+                              @"userId":userId};
+        DLog(@"%@",prm);
+        
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
 
 #pragma mark - 订单
 //startRowIndex 开始行索引
@@ -1749,6 +1778,18 @@
         DLog(@"%@",prm);
         
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)getDefaultAddress:(NSString *)userId
+{
+    if (userId) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectDefaultDeliveryAddress",Url];
+        NSDictionary *prm = @{@"userId":userId};
+        [self PostRequest:url andpram:prm];
+        DLog(@"%@",prm);
     }else{
         [SVProgressHUD dismiss];
     }
