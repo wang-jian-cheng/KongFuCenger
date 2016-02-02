@@ -312,7 +312,7 @@
                 [cell.mPhotoIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"me"]];
                 cell.mName.text = tempDict[@"Name"];
                 cell.mDetail1.text = [NSString stringWithFormat:@"积分兑换:%@",tempDict[@"CreditTotal"]];//[NSString stringWithFormat:@"积分兑换:%@",@"500"];
-                cell.mDetail2.text = [NSString stringWithFormat:@"剩余:%@",JiFen];
+                cell.mDetail2.text = [NSString stringWithFormat:@"剩余:%@",[Toolkit judgeIsNull:tempDict[@"StockNum"]]];
                 cell.mExchange.tag = indexPath.row;
                 [cell.mExchange addTarget:self action:@selector(exchangeEvent:) forControlEvents:UIControlEventTouchUpInside];
                 

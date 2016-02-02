@@ -449,7 +449,14 @@
  批量删除
  */
 -(void)delShopCartGoods:(NSString *)userId andIdList:(NSString *)idList;
-
+/**
+ 修改商品数量
+ */
+-(void)changeCartGoodNum:(NSString *)userId andGoodId:(NSString *)Id andNum:(NSString *)num;
+/**
+ 获取邮费
+ */
+-(void)getPostage:(NSString *)userId andGoodIds:(NSString *)idList;
 #pragma mark - 订单
 /**
  获取订单列表
@@ -462,6 +469,10 @@
 //编辑收货地址   addressId:0-添加  其它对应地址id编辑
 -(void)EditDeliveryAddress:(NSString *)addressId andareaId:(NSString *)areaId andaddress:(NSString *)address andisDefaul:(NSString *)isDefaul anduserId:(NSString *)userId andreceiverName:(NSString *)receiverName andphone:(NSString *)phone andcodeForAddress:(NSString *)codeForAddress;
 
+/**
+ 获取默认地址
+ */
+-(void)getDefaultAddress:(NSString *)userId;
 //批量删除收货地址
 -(void)DeleteDeliveryAddress:(NSString *)idList anduserId:(NSString *)userId;
 

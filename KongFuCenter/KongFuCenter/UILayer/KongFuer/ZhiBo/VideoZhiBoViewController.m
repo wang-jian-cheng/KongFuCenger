@@ -166,7 +166,7 @@
             [cell addSubview:contentTitle];
             
             NSString *mContentStr = [NSString stringWithFormat:@"%@%@",@"        ",[Toolkit judgeIsNull:[videoLiveDict valueForKey:@"Content"]]];
-            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+5;
+            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+15;
             UITextView *contentTv = [[UITextView alloc] initWithFrame:CGRectMake(14, contentTitle.frame.origin.y + contentTitle.frame.size.height, SCREEN_WIDTH - 28, contentHeight)];
             contentTv.editable = NO;
             contentTv.scrollEnabled = NO;
@@ -204,7 +204,7 @@
     }else{
         if (indexPath.row == 0) {
             NSString *mContentStr = [NSString stringWithFormat:@"%@%@",@"        ",[Toolkit judgeIsNull:[videoLiveDict valueForKey:@"Content"]]];
-            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+5;
+            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+15;
             return 10 + 21 + 5 + contentHeight + 10;
         }else{
             return 65;

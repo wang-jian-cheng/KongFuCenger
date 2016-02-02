@@ -14,6 +14,8 @@
 @property(nonatomic) NSString *Number;
 @property(nonatomic) NSString *ProductColorName;
 @property(nonatomic) NSString *ProductName;
+@property(nonatomic) NSString *ProductPriceId;
 @property(nonatomic) NSString *ProductPriceTotalPrice;
 @property(nonatomic) NSString *ProductSizeName;
+
 @end
