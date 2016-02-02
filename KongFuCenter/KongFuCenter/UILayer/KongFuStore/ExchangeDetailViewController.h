@@ -17,5 +17,6 @@ typedef enum _exchangeDetail{
 @interface ExchangeDetailViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic) ExchangeDetail exchangeDetail;
+@property(nonatomic,strong) NSString *goodsId;
 
 @end

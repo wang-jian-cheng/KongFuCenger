@@ -168,7 +168,7 @@
                           andisSalesAsc:@"0"/*是否销量升序 0：默认 1：升序 2：降序*/
                         andisCommentAsc:@"0"/*是否好评升序 0：默认 1：升序 2：降序*/
                             andisNewAsc:@"0"/*是否最新升序 0：默认 1：升序 2：降序*/
-                            andisCredit:@"1"/*是否可以兑换 0：积分兑换 1：购买*/
+                            andisCredit:@"1"/*是否可以兑换 1：积分兑换 0：购买*/
                          andisRecommend:@"0"/*不推荐商品 1：推荐商品*/];
     
 }
@@ -289,6 +289,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
                 cell.backgroundColor = ItemsBaseColor;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             cell.textLabel.text = @"积分兑换商品";
             cell.textLabel.font = [UIFont systemFontOfSize:17];
@@ -342,6 +343,7 @@
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 1 && indexPath.row > 0) {
         ExchangeDetailViewController *exchangeDetailVC = [[ExchangeDetailViewController alloc] init];
+        exchangeDetailVC.goodsId = [_goodList[indexPath.row - 1] valueForKey:@"Id"];
         int creditTotal = [[_goodList[indexPath.row - 1] valueForKey:@"CreditTotal"] intValue];
         if ([JiFen intValue] >= creditTotal) {
             [exchangeDetailVC setExchangeDetail:Mode_ImmeExchange];
