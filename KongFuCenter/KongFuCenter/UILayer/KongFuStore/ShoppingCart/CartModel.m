@@ -25,4 +25,9 @@
     _ProductPriceTotalPrice = NSStringFromFormat(@"%@",ProductPriceTotalPrice);
 }
 
+-(void)setProductPriceId:(NSString *)ProductPriceId
+{
+    _ProductPriceId = ZY_NSStringFromFormat(@"%@",ProductPriceId);
+}
+
 @end

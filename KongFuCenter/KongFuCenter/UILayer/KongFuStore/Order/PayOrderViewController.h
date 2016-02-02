@@ -13,7 +13,7 @@
 #import "UIImageView+WebCache.h"
 #import "ReceiveAddressViewController.h"
 
-@interface PayOrderViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
+@interface PayOrderViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,ReceiveAddressDelegate>
 {
     int pageNo;
     int pageSize;
@@ -24,9 +24,13 @@
     UITableView *_mainTableView;
     NSMutableArray *roundBtnArr;
     
-    
+    UILabel *tiplab;
     UILabel *moneyLab;
+    
+    NSMutableDictionary *addressDict;
 }
 
 @property(nonatomic) NSMutableArray<CartModel *>* goodsArr;
+@property(nonatomic) NSArray *goodDicts;
+@property(nonatomic) CGFloat postage;
 @end

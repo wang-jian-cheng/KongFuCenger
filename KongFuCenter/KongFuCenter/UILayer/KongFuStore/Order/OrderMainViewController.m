@@ -149,12 +149,14 @@
     {
         PayOrderViewController *payOrderViewCtl = [[PayOrderViewController alloc] init];
         payOrderViewCtl.navtitle = @"确认订单";
+        payOrderViewCtl.goodDicts = self.orderArr[sender.tag][@"ProList"];
         [self.navigationController pushViewController:payOrderViewCtl animated:YES];
     }
     else if([sender.titleLabel.text isEqualToString:@"评价商品"])
     {
         CommentOrderViewController *commentOrderViewCtl = [[CommentOrderViewController alloc] init];
         commentOrderViewCtl.navtitle = @"评价订单";
+        commentOrderViewCtl.GoodsArray = self.orderArr[sender.tag][@"ProList"];
         [self.navigationController pushViewController:commentOrderViewCtl animated:YES];
     }
 }
@@ -242,6 +244,7 @@
             UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80), 10, 80, 30)];
             btnRight.backgroundColor = YellowBlock;
             btnRight.titleLabel.font = [UIFont systemFontOfSize:14];
+            btnRight.tag = indexPath.section;
             [cell addSubview:btnRight];
             [btnRight addTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             

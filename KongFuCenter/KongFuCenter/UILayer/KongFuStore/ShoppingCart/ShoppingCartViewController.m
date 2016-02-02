@@ -134,6 +134,82 @@
 
 #pragma mark - self data source
 
+-(void)getPostage
+{
+    [SVProgressHUD showWithStatus:@"请稍候"];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getPostageCallBack:"];
+    if(self.selectArr.count == 0)
+    {
+        [SVProgressHUD showInfoWithStatus:@"选点啥呗"];
+        return;
+    }
+    NSString *ids = self.selectArr[0].Id;
+    for (int i=1; i<self.selectArr.count; i++) {
+        ids = ZY_NSStringFromFormat(@"%@&%@",ids,self.selectArr[i].Id);
+    }
+    
+    [dataProvider getPostage:[Toolkit getUserID] andGoodIds:ids];
+}
+
+-(void)getPostageCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if([dict[@"code"] intValue] == 200)
+    {
+        [SVProgressHUD dismiss];
+        
+        PayOrderViewController *payOrderViewCtl = [[PayOrderViewController alloc] init];
+        payOrderViewCtl.goodsArr = self.selectArr;
+        payOrderViewCtl.postage = [dict[@"data"][@"result"] floatValue];
+        [self.navigationController pushViewController:payOrderViewCtl animated:YES];
+        
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:ZY_NSStringFromFormat(@"错误：%@",dict[@"data"]) maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
+
+-(void)updateGoodsNum:(NSString *)goodId andNum:(NSString *)num
+{
+    
+    [SVProgressHUD showWithStatus:@"更新中"];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"updateGoodsNumCallBack:"];
+    [dataProvider changeCartGoodNum:[Toolkit getUserID] andGoodId:goodId andNum:num];
+    
+}
+
+-(void)updateGoodsNumCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if([dict[@"code"] intValue] == 200)
+    {
+//        [SVProgressHUD dismiss];
+        
+        updateNum++;
+        if(updateNum < self.goodsArr.count)
+        {
+            CartModel *tempModel = self.goodsArr[updateNum];
+            [self updateGoodsNum:tempModel.Id andNum:tempModel.Number];
+        }
+        else
+        {
+            [SVProgressHUD showInfoWithStatus:@"完成" maskType:SVProgressHUDMaskTypeBlack];
+            
+            [self getShoppingCartList];
+        }
+        
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:ZY_NSStringFromFormat(@"错误：%@",dict[@"data"]) maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
+
 -(void)delCartGoods
 {
     
@@ -218,9 +294,7 @@
     }
     if([sender.titleLabel.text isEqualToString:@"结算"])
     {
-        PayOrderViewController *payOrderViewCtl = [[PayOrderViewController alloc] init];
-        payOrderViewCtl.goodsArr = self.selectArr;
-        [self.navigationController pushViewController:payOrderViewCtl animated:YES];
+        [self getPostage];
     }
 }
 
@@ -239,6 +313,11 @@
         _lblRight.text = @"编辑";
         [actionBtn setTitle:@"结算" forState:UIControlStateNormal];
         EditMode = NO;
+        
+        updateNum = 0;
+        CartModel *tempModel = self.goodsArr[updateNum];
+        [self updateGoodsNum:tempModel.Id andNum:tempModel.Number];
+        
     }
     [_mainTableView reloadData];
 }
@@ -375,7 +454,7 @@
             
             UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(5+productImgView.frame.size.width+productImgView.frame.origin.x,
                                                                          10,
-                                                                          (SCREEN_WIDTH-(productImgView.frame.size.width+productImgView.frame.origin.x)), 20)];
+                                                                          (SCREEN_WIDTH-(productImgView.frame.size.width+productImgView.frame.origin.x))-80, 20)];
             titleLab.text = tempDict.ProductName;
             titleLab.font = [UIFont systemFontOfSize:14];
             titleLab.textColor = [UIColor whiteColor];
@@ -387,7 +466,7 @@
                                                                         (titleLab.frame.origin.y+titleLab.frame.size.height),
                                                                          titleLab.frame.size.width - 100, 40)];
             
-            infoLab.text = NSStringFromFormat(@"颜色:%@;尺寸:%@",tempDict.ProductColorName,tempDict.ProductSizeName);
+            infoLab.text = NSStringFromFormat(@"规格:%@/%@",tempDict.ProductColorName,tempDict.ProductSizeName);
             infoLab.font = [UIFont systemFontOfSize:12];
             infoLab.textColor = [UIColor whiteColor];
             infoLab.numberOfLines = 0;
@@ -443,27 +522,27 @@
             
             
             UILabel *newPrice = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -180),
-                                                                         (titleLab.frame.origin.y+titleLab.frame.size.height),
-                                                                         180,
+                                                                         (titleLab.frame.origin.y),
+                                                                         80,
                                                                           20)];
             newPrice.textAlignment = NSTextAlignmentRight;
             newPrice.textColor = YellowBlock;
             newPrice.font = [UIFont systemFontOfSize:14];
             
-            CGFloat totalePrice =[tempDict.Number intValue] * [tempDict.ProductPriceTotalPrice floatValue];
+//            CGFloat totalePrice =[tempDict.Number intValue] * [tempDict.ProductPriceTotalPrice floatValue];
             
-            newPrice.text = NSStringFromFormat(@"¥%.02f",totalePrice);
+            newPrice.text = NSStringFromFormat(@"¥%.02f",[tempDict.ProductPriceTotalPrice floatValue]);
             [cell addSubview:newPrice];
             
             
             
-            UILabel *oldPrice = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -180),
-                                                                          (newPrice.frame.origin.y+newPrice.frame.size.height), 180, 20)];
-            oldPrice.textAlignment = NSTextAlignmentRight;
-            oldPrice.textColor = [UIColor grayColor];
-            oldPrice.font = [UIFont systemFontOfSize:12];
-            oldPrice.text = @"¥ 200.00";
-            [cell addSubview:oldPrice];
+//            UILabel *oldPrice = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -180),
+//                                                                          (newPrice.frame.origin.y+newPrice.frame.size.height), 180, 20)];
+//            oldPrice.textAlignment = NSTextAlignmentRight;
+//            oldPrice.textColor = [UIColor grayColor];
+//            oldPrice.font = [UIFont systemFontOfSize:12];
+//            oldPrice.text = @"¥ 200.00";
+//            [cell addSubview:oldPrice];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             if(indexPath.section ==0 && indexPath.row == 0)
