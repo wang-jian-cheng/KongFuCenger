@@ -1834,6 +1834,20 @@
     }
 }
 
+-(void)CancleOrderWithOrderID:(NSString *)orderid andUserId:(NSString *)userid
+{
+    if (orderid&&userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/CancleProduct",Url];
+        NSDictionary *prm = @{@"billId":orderid,
+                              @"userId":userid};
+        
+        [self PostRequest:url andpram:prm];
+    }
+    else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong{
     if (userid && istuisong) {

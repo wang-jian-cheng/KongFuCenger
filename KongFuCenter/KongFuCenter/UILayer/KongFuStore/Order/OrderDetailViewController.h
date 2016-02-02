@@ -30,4 +30,5 @@ typedef enum _orderMode{
 }
 
 @property(nonatomic)OrderMode orderMode;
+@property (nonatomic,strong) NSDictionary * OrderDict;
 @end

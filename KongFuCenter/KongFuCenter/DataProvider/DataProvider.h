@@ -487,6 +487,13 @@
 
 //兑换详情
 -(void)ChangeDetail:(NSString *)productId anduserId:(NSString *)userId;
+/**
+ *  取消订单
+ *
+ *  @param orderid 订单id
+ *  @param userid  userid
+ */
+-(void)CancleOrderWithOrderID:(NSString *)orderid andUserId:(NSString *)userid;
 
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;

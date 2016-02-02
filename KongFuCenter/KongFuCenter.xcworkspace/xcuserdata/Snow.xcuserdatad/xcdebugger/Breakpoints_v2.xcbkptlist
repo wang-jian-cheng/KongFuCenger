@@ -751,7 +751,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "471"
             endingLineNumber = "471"
-            landmarkName = "-changeRootView:"
+            landmarkName = "-setNotificate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -959,7 +959,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "514"
             endingLineNumber = "514"
-            landmarkName = "-application:didRegisterForRemoteNotificationsWithDeviceToken:"
+            landmarkName = "-hiddenTabBar"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -975,7 +975,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "504"
             endingLineNumber = "504"
-            landmarkName = "-getTabBar"
+            landmarkName = "-changeRootView1:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1130,7 +1130,7 @@
                   moduleName = "KongFuCenter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Volumes/WorkSpace/KongFuCenter/KongFuCenter/KongFuCenter/UILayer/More/SetNoticeViewController.m"
-                  timestampString = "476095300.861676"
+                  timestampString = "476110347.179114"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "165"
@@ -1145,7 +1145,7 @@
                   moduleName = "KongFuCenter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Volumes/WorkSpace/KongFuCenter/KongFuCenter/KongFuCenter/UILayer/More/SetNoticeViewController.m"
-                  timestampString = "476095300.862018"
+                  timestampString = "476110347.179271"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "165"
@@ -1199,7 +1199,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "516"
             endingLineNumber = "516"
-            landmarkName = "-application:didRegisterForRemoteNotificationsWithDeviceToken:"
+            landmarkName = "-hiddenTabBar"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1327,7 +1327,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "498"
             endingLineNumber = "498"
-            landmarkName = "-showTabBar"
+            landmarkName = "-changeRootView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1610,7 +1610,7 @@
                   moduleName = "KongFuCenter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Volumes/WorkSpace/KongFuCenter/KongFuCenter/Utils/PhoneVideo/WechatShortVideo/WechatShortVideoController.m"
-                  timestampString = "476095300.866184"
+                  timestampString = "476110347.181301"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "432"
@@ -1625,7 +1625,7 @@
                   moduleName = "KongFuCenter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Volumes/WorkSpace/KongFuCenter/KongFuCenter/Utils/PhoneVideo/WechatShortVideo/WechatShortVideoController.m"
-                  timestampString = "476095300.866482"
+                  timestampString = "476110347.181463"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "432"
@@ -1743,7 +1743,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1672"
             endingLineNumber = "1672"
-            landmarkName = "-PostRequest:andpram:"
+            landmarkName = "-SetDefaultDeliveryAddress:anduserId:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1759,7 +1759,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1673"
             endingLineNumber = "1673"
-            landmarkName = "-PostRequest:andpram:"
+            landmarkName = "-SetDefaultDeliveryAddress:anduserId:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1872,6 +1872,38 @@
             startingLineNumber = "435"
             endingLineNumber = "435"
             landmarkName = "-selectPingjia:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuStore/Order/OrderMainViewController.m"
+            timestampString = "476106019.675181"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "-rightBtnClick:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuStore/Order/PayOrderViewController.m"
+            timestampString = "476106107.176952"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-initViews"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
