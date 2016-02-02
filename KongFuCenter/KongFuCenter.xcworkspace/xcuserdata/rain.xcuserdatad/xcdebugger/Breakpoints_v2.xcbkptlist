@@ -255,7 +255,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1141"
             endingLineNumber = "1141"
-            landmarkName = "-YMReplyInputWithReply:appendTag:"
+            landmarkName = "-replyMessage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -271,7 +271,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1134"
             endingLineNumber = "1134"
-            landmarkName = "-YMReplyInputWithReply:appendTag:"
+            landmarkName = "-replyMessage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -319,8 +319,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1153"
             endingLineNumber = "1153"
-            landmarkName = "-YMReplyInputWithReply:appendTag:"
-            landmarkType = "5">
+            landmarkName = "@implementation WYNewsViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -383,7 +383,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1193"
             endingLineNumber = "1193"
-            landmarkName = "-actionSheet:clickedButtonAtIndex:"
+            landmarkName = "-longClickRichText:replyIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -399,7 +399,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "866"
             endingLineNumber = "866"
-            landmarkName = "-mainCommentCallBack:"
+            landmarkName = "-sendButton:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -422,22 +422,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/ChatContentViewController.m"
-            timestampString = "475816007.200713"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -448,70 +432,6 @@
             startingLineNumber = "57"
             endingLineNumber = "57"
             landmarkName = "-InitAllView"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/ChatContentViewController.m"
-            timestampString = "475816007.200713"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/ChatContentViewController.m"
-            timestampString = "475816007.200713"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/ChatContentViewController.m"
-            timestampString = "475816007.200713"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/ChatContentViewController.m"
-            timestampString = "475816007.200713"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "-finishWechatShortVideoCapture:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1082,11 +1002,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/ReceiveAddressViewController.m"
-            timestampString = "475990800.311775"
+            timestampString = "476084765.46044"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1098,11 +1018,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/ReceiveAddressViewController.m"
-            timestampString = "475916844.248902"
+            timestampString = "476084765.46044"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "-initData"
             landmarkType = "5">
          </BreakpointContent>
@@ -1114,11 +1034,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/ReceiveAddressViewController.m"
-            timestampString = "475916844.248902"
+            timestampString = "476084765.46044"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "-receiveAddressCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1130,11 +1050,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/ReceiveAddressViewController.m"
-            timestampString = "475990800.311775"
+            timestampString = "476084765.46044"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
             landmarkName = "@implementation ReceiveAddressViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1146,11 +1066,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475992267.384819"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "358"
-            endingLineNumber = "358"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1162,11 +1082,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475923174.820986"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "-getInitProvinceCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1178,11 +1098,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475992267.384819"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "449"
-            endingLineNumber = "449"
+            startingLineNumber = "474"
+            endingLineNumber = "474"
             landmarkName = "-pickerView:numberOfRowsInComponent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1194,11 +1114,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475992267.384819"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
             landmarkName = "-getCityCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1210,11 +1130,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475992267.384819"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "-addReceiveAddressCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1258,11 +1178,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475992267.384819"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
             landmarkName = "-addReceiveAddressCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1290,11 +1210,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475992267.384819"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
             landmarkName = "-sureForSelect:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1306,11 +1226,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475923174.820986"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
             landmarkName = "-initAddressData"
             landmarkType = "5">
          </BreakpointContent>
@@ -1322,11 +1242,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475992267.384819"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
+            startingLineNumber = "387"
+            endingLineNumber = "387"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1338,11 +1258,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475992267.384819"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
             landmarkName = "-addReceiveAddressEvent"
             landmarkType = "5">
          </BreakpointContent>
@@ -1354,11 +1274,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475923174.820986"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "-initAddressData"
             landmarkType = "5">
          </BreakpointContent>
@@ -1370,11 +1290,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475992267.384819"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "-getInitCountryCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1386,11 +1306,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475992267.384819"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
             landmarkName = "-getInitCountryCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1402,11 +1322,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/ReceiveAddressViewController.m"
-            timestampString = "475992085.344284"
+            timestampString = "476084969.446143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
             landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1418,11 +1338,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/ReceiveAddressViewController.m"
-            timestampString = "475992085.344284"
+            timestampString = "476084969.446143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1439,7 +1359,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1704"
             endingLineNumber = "1704"
-            landmarkName = "-EditDeliveryAddress:andareaId:andaddress:andisDefaul:anduserId:andreceiverName:andphone:andcodeForAddress:"
+            landmarkName = "-delShopCartGoods:andIdList:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1450,11 +1370,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/MyCollectViewController.m"
-            timestampString = "475983252.903918"
+            timestampString = "476070926.166816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1062"
-            endingLineNumber = "1062"
+            startingLineNumber = "1076"
+            endingLineNumber = "1076"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1482,11 +1402,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/ReceiveAddressViewController.m"
-            timestampString = "475992085.344284"
+            timestampString = "476084765.46044"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1498,11 +1418,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475992267.384819"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "-getInitProvinceCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1514,11 +1434,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
-            timestampString = "475992109.346994"
+            timestampString = "476086134.425753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "-initAddressData"
             landmarkType = "5">
          </BreakpointContent>
@@ -1530,11 +1450,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/ReceiveAddressViewController.m"
-            timestampString = "475992245.256946"
+            timestampString = "476084765.46044"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "-setDefaultAddress:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1542,7 +1462,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
@@ -1562,12 +1482,124 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuStore/ReceiveAddressViewController.m"
-            timestampString = "475992295.715026"
+            timestampString = "476084765.46044"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "-setDefaultAddressCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuer/MyCollectViewController.m"
+            timestampString = "476070926.166816"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "554"
+            endingLineNumber = "554"
+            landmarkName = "-alertView:clickedButtonAtIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/DataProvider/DataProvider.m"
+            timestampString = "476070373.477184"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1588"
+            endingLineNumber = "1588"
+            landmarkName = "-CancleFavoriteProduct:andproductId:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuer/MyCollectViewController.m"
+            timestampString = "476070926.166816"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "560"
+            endingLineNumber = "560"
+            landmarkName = "-CancelCollectionCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuStore/IntegralExchangeViewController.m"
+            timestampString = "476074279.168849"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
+            timestampString = "476085119.374725"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "-initViews"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
+            timestampString = "476086134.425753"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "-initViews"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuStore/AddressManageViewController.m"
+            timestampString = "476086134.425753"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "-setDefaultAddressEvent"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

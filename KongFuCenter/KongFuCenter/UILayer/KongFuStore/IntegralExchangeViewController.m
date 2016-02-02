@@ -86,6 +86,12 @@
 -(void)exchangeEvent:(UIButton *)btn{
     ExchangeDetailViewController *exchangeDetailVC = [[ExchangeDetailViewController alloc] init];
     [exchangeDetailVC setExchangeDetail:Mode_ImmeExchange];
+    int creditTotal = [[_goodList[btn.tag - 1] valueForKey:@"CreditTotal"] intValue];
+    if ([JiFen intValue] >= creditTotal) {
+        [exchangeDetailVC setExchangeDetail:Mode_ImmeExchange];
+    }else{
+        [exchangeDetailVC setExchangeDetail:Mode_IntegralLack];
+    }
     [self.navigationController pushViewController:exchangeDetailVC animated:YES];
 }
 
@@ -237,6 +243,7 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             cell.backgroundColor = ItemsBaseColor;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }else{
             for (UIView *view in cell.subviews) {
                 [view removeFromSuperview];
@@ -303,8 +310,9 @@
                 
                 [cell.mPhotoIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"me"]];
                 cell.mName.text = tempDict[@"Name"];
-                cell.mDetail1.text = [NSString stringWithFormat:@"%@",tempDict[@"CreditTotal"]];//[NSString stringWithFormat:@"积分兑换:%@",@"500"];
+                cell.mDetail1.text = [NSString stringWithFormat:@"积分兑换:%@",tempDict[@"CreditTotal"]];//[NSString stringWithFormat:@"积分兑换:%@",@"500"];
                 cell.mDetail2.text = [NSString stringWithFormat:@"剩余:%@",JiFen];
+                cell.mExchange.tag = indexPath.row;
                 [cell.mExchange addTarget:self action:@selector(exchangeEvent:) forControlEvents:UIControlEventTouchUpInside];
                 
             }
@@ -332,6 +340,16 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 1 && indexPath.row > 0) {
+        ExchangeDetailViewController *exchangeDetailVC = [[ExchangeDetailViewController alloc] init];
+        int creditTotal = [[_goodList[indexPath.row - 1] valueForKey:@"CreditTotal"] intValue];
+        if ([JiFen intValue] >= creditTotal) {
+            [exchangeDetailVC setExchangeDetail:Mode_ImmeExchange];
+        }else{
+            [exchangeDetailVC setExchangeDetail:Mode_IntegralLack];
+        }
+        [self.navigationController pushViewController:exchangeDetailVC animated:YES];
+    }
 }
 
 @end

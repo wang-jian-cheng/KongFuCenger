@@ -546,8 +546,22 @@
     else if(buttonIndex == 0)
     {
         DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider voicedelete:ArticleArr[alertView.tag - 2016-1][@"MessageId"] andUserId:[Toolkit getUserID] andFlg:@"1"];
-        [dataprovider setDelegateObject:self setBackFunctionName:@"delArticleCallBack:"];
+        if (alertView.tag == 2016 + 1) {
+            [dataprovider voicedelete:ArticleArr[alertView.tag - 2016-1][@"MessageId"] andUserId:[Toolkit getUserID] andFlg:@"1"];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"delArticleCallBack:"];
+        }else{
+            [dataprovider setDelegateObject:self setBackFunctionName:@"CancelCollectionCallBack:"];
+            [dataprovider CancleFavoriteProduct:get_sp(@"id") andproductId:[goodsArray[alertView.tag - 2016 - 2] valueForKey:@"ProductId"]];
+        }
+    }
+}
+
+-(void)CancelCollectionCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        [_mainGoodsTableView.mj_header beginRefreshing];
+    }else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
+        [alertView show];
     }
 }
 
@@ -1146,13 +1160,13 @@
 //        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationLeft)];
 //        //            [tableView reloadData];
 //
-    
-    
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否删除？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
-    alertView.tag = 2016+1+indexPath.row;
+    if(tableView == _mainGoodsTableView){
+        alertView.tag = 2016 + 2 + indexPath.row;
+    }else{
+        alertView.tag = 2016 + 1 + indexPath.row;
+    }
     [alertView show];
-    
-    
 }
 
 
