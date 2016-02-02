@@ -10,11 +10,13 @@
 #import "ChatLocationViewController.h"
 #import "FriendInfoViewController.h"
 #import "WechatShortVideoController.h"
+#import "BigImageShowViewController.h"
 
 @interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate,WechatShortVideoDelegate>{
     UIView *topView;
     NSUserDefaults *userDefault;
     NSString *friendID;
+    UIImage *selectImage;
 }
 
 @end
@@ -64,6 +66,8 @@
     messageCollectionView.backgroundColor = BACKGROUND_COLOR;
     [self scrollToBottomAnimated:YES];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveImage) name:@"saveImage" object:nil];
+    
 //    //自定义面板功能扩展
 //    [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"me"]
 //                                        title:@"视频"
@@ -109,19 +113,45 @@
     
 }
 
-- (void)didTapCellPortrait:(NSString *)userId{
-    if ([userId isEqual:[userDefault valueForKey:@"id"]]) {
-        PersonInfoViewController *personInfoViewCtl = [[PersonInfoViewController alloc] init];
-        personInfoViewCtl.navtitle = @"个人资料";
-        [self.navigationController pushViewController:personInfoViewCtl animated:YES];
-            
-    }else{
-        friendID = userId;
-        DataProvider *dataProvider = [[DataProvider alloc] init];
-        [dataProvider setDelegateObject:self setBackFunctionName:@"isFriendCallBack:"];
-        [dataProvider IsWuyou:[userDefault valueForKey:@"id"] andfriendid:userId];
-    }
+- (void)presentImagePreviewController:(RCMessageModel *)model{
+    BigImageShowViewController *bigImageShowVC = [[BigImageShowViewController alloc] init];
+    bigImageShowVC.imgUrl = ((RCImageMessage *)model.content).imageUrl;
+    selectImage = [UIImage imageWithData:[NSData dataWithContentsOfFile:((RCImageMessage *)model.content).imageUrl]];
+    [self.navigationController pushViewController:bigImageShowVC animated:YES];
 }
+
+- (void)saveNewPhotoToLocalSystemAfterSendingSuccess:(UIImage *)newImage{
+    UIImageWriteToSavedPhotosAlbum(selectImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    [SVProgressHUD showSuccessWithStatus:@"保存成功~" maskType:SVProgressHUDMaskTypeBlack];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+    
+    if (error == nil) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已存入手机相册" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        [alert show];
+        
+    }else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"保存失败" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        [alert show];
+    }
+    
+}
+
+//- (void)didTapCellPortrait:(NSString *)userId{
+//    if ([userId isEqual:[userDefault valueForKey:@"id"]]) {
+//        PersonInfoViewController *personInfoViewCtl = [[PersonInfoViewController alloc] init];
+//        personInfoViewCtl.navtitle = @"个人资料";
+//        [self.navigationController pushViewController:personInfoViewCtl animated:YES];
+//    }else{
+//        friendID = userId;
+//        DataProvider *dataProvider = [[DataProvider alloc] init];
+//        [dataProvider setDelegateObject:self setBackFunctionName:@"isFriendCallBack:"];
+//        [dataProvider IsWuyou:[userDefault valueForKey:@"id"] andfriendid:userId];
+//    }
+//}
 
 -(void)isFriendCallBack:(id)dict{
     NSLog(@"%@",dict);

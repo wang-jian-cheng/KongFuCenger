@@ -443,6 +443,8 @@
 		B7A18ED81C56FEC9004FF4FB /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A18ED11C56FEC9004FF4FB /* UIView+SDExtension.m */; };
 		B7A18EDB1C5704F4004FF4FB /* VideoZhiBoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A18EDA1C5704F4004FF4FB /* VideoZhiBoViewController.m */; };
 		B7A18EE71C57672B004FF4FB /* VideoZhiBoList.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A18EE61C57672B004FF4FB /* VideoZhiBoList.m */; };
+		B7A4C0381C60B8DD00B695D7 /* BigImageShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4C0371C60B8DD00B695D7 /* BigImageShowViewController.m */; };
+		B7A4C03B1C60E55400B695D7 /* XHPicView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4C03A1C60E55400B695D7 /* XHPicView.m */; };
 		B7A6FC7F1C51C41B00B6D665 /* UIBarButtonItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A6FC731C51C41B00B6D665 /* UIBarButtonItem+WZLBadge.m */; };
 		B7A6FC801C51C41B00B6D665 /* UITabBarItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A6FC751C51C41B00B6D665 /* UITabBarItem+WZLBadge.m */; };
 		B7A6FC811C51C41B00B6D665 /* CAAnimation+WAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A6FC781C51C41B00B6D665 /* CAAnimation+WAnimation.m */; };
@@ -1263,6 +1265,10 @@
 		B7A18EDA1C5704F4004FF4FB /* VideoZhiBoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoZhiBoViewController.m; sourceTree = "<group>"; };
 		B7A18EE51C57672B004FF4FB /* VideoZhiBoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoZhiBoList.h; sourceTree = "<group>"; };
 		B7A18EE61C57672B004FF4FB /* VideoZhiBoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoZhiBoList.m; sourceTree = "<group>"; };
+		B7A4C0361C60B8DD00B695D7 /* BigImageShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigImageShowViewController.h; sourceTree = "<group>"; };
+		B7A4C0371C60B8DD00B695D7 /* BigImageShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigImageShowViewController.m; sourceTree = "<group>"; };
+		B7A4C0391C60E55400B695D7 /* XHPicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHPicView.h; sourceTree = "<group>"; };
+		B7A4C03A1C60E55400B695D7 /* XHPicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHPicView.m; sourceTree = "<group>"; };
 		B7A6FC721C51C41B00B6D665 /* UIBarButtonItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WZLBadge.h"; sourceTree = "<group>"; };
 		B7A6FC731C51C41B00B6D665 /* UIBarButtonItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WZLBadge.m"; sourceTree = "<group>"; };
 		B7A6FC741C51C41B00B6D665 /* UITabBarItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+WZLBadge.h"; sourceTree = "<group>"; };
@@ -2000,6 +2006,8 @@
 		B53791A91C1525CD00C45BA7 /* CommonUI */ = {
 			isa = PBXGroup;
 			children = (
+				B7A4C0391C60E55400B695D7 /* XHPicView.h */,
+				B7A4C03A1C60E55400B695D7 /* XHPicView.m */,
 				B5B737C21C3E3D0100DF7437 /* AddressMapViewController.h */,
 				B5B737C31C3E3D0100DF7437 /* AddressMapViewController.m */,
 				8074B0961C4376D60029C8B1 /* PlayerController.h */,
@@ -3322,6 +3330,8 @@
 				B7CCA2E21C211F5F00B7AC8C /* ChatContentViewController.m */,
 				B7CCA2D21C21036300B7AC8C /* ChatLocationViewController.h */,
 				B7CCA2D31C21036400B7AC8C /* ChatLocationViewController.m */,
+				B7A4C0361C60B8DD00B695D7 /* BigImageShowViewController.h */,
+				B7A4C0371C60B8DD00B695D7 /* BigImageShowViewController.m */,
 			);
 			name = ChatList;
 			sourceTree = "<group>";
@@ -3814,6 +3824,7 @@
 				B7A6FC821C51C41B00B6D665 /* UIView+WZLBadge.m in Sources */,
 				B7A6FC891C51CCB800B6D665 /* ShopListViewController.m in Sources */,
 				B7A18ED31C56FEC9004FF4FB /* SDCycleScrollView.m in Sources */,
+				B7A4C03B1C60E55400B695D7 /* XHPicView.m in Sources */,
 				B5207D2F1C506F3400CE729F /* OrderMainViewController.m in Sources */,
 				804951FF1C250B3800F5584A /* README.md in Sources */,
 				B7D8464C1C22AB7500718E9E /* MJRefreshBackNormalFooter.m in Sources */,
@@ -3934,6 +3945,7 @@
 				B5D345C91C28E97E00D39891 /* JKUtil.m in Sources */,
 				B5AF705A1C17C21400C041AF /* MBProgressHUD.m in Sources */,
 				B5B738171C451AB300DF7437 /* JvbaoView.m in Sources */,
+				B7A4C0381C60B8DD00B695D7 /* BigImageShowViewController.m in Sources */,
 				7BA38E961C215CFB000996EE /* IntroduceViewController.m in Sources */,
 				B5B737771C3CAAF100DF7437 /* PinYinForObjc.m in Sources */,
 				B5451CC21C279656001BB39F /* AutoLocationViewController.m in Sources */,

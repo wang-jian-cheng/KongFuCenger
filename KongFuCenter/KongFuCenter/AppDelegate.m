@@ -159,18 +159,6 @@
     
     [self setTagandAlias];
     
-    //统一导航条样式
-    UIFont *font = [UIFont systemFontOfSize:19.f];
-    NSDictionary *textAttributes = @{
-                                     NSFontAttributeName : font,
-                                     NSForegroundColorAttributeName : [UIColor whiteColor]
-                                     };
-    [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance]
-     setBarTintColor:[UIColor clearColor]];
-    [[UINavigationBar appearance] setAlpha:100];
-    
     return YES;
 }
 -(void)setTagandAlias
