@@ -13,7 +13,7 @@
 @interface ShoppingCartViewController ()
 
 @property(nonatomic) NSMutableArray<CartModel *> *goodsArr;
-@property(nonatomic) NSMutableArray *selectArr;
+@property(nonatomic) NSMutableArray<CartModel *> *selectArr;
 @end
 
 @implementation ShoppingCartViewController
@@ -140,9 +140,9 @@
     if(self.selectArr.count == 0)
         return;
     
-    NSString *delIds = self.selectArr[0];
+    NSString *delIds = self.selectArr[0].Id;
     for (int i=1; i<self.selectArr.count; i++) {
-        delIds = ZY_NSStringFromFormat(@"%@&%@",delIds,self.selectArr[i]);
+        delIds = ZY_NSStringFromFormat(@"%@&%@",delIds,self.selectArr[i].Id);
     }
     
     [self delCartGoodsAction:delIds];
@@ -216,6 +216,12 @@
     {
         [self delCartGoods];
     }
+    if([sender.titleLabel.text isEqualToString:@"结算"])
+    {
+        PayOrderViewController *payOrderViewCtl = [[PayOrderViewController alloc] init];
+        payOrderViewCtl.goodsArr = self.selectArr;
+        [self.navigationController pushViewController:payOrderViewCtl animated:YES];
+    }
 }
 
 -(void)clickRightButton:(UIButton *)sender
@@ -281,11 +287,14 @@
     
     if(sender.selected == YES)
     {
-        for(int i=0 ;i < self.goodsArr.count ;i++)
-        {
-            CartModel *tempModel = self.goodsArr[i];
-            [self.selectArr addObject:tempModel.Id];
-        }
+//        for(int i=0 ;i < self.goodsArr.count ;i++)
+//        {
+//            CartModel *tempModel = self.goodsArr[i];
+//            [self.selectArr addObject:tempModel.Id];
+//        }
+        
+//        CartModel *tempModel = self.goodsArr[i];
+        [self.selectArr addObjectsFromArray:self.goodsArr];
     
     }
     
@@ -304,7 +313,7 @@
     {
         CartModel *tempModel = self.goodsArr[sender.tag-1];
         
-        [self.selectArr addObject:tempModel.Id];
+        [self.selectArr addObject:tempModel];
         
         if(self.selectArr.count >= self.goodsArr.count)
         {
@@ -317,7 +326,7 @@
         
         for (int i = 0; i <self.selectArr.count; i++) {
             CartModel *tempModel = self.goodsArr[i];
-            if([tempModel.Id isEqual:self.selectArr[i]])
+            if([tempModel.Id isEqual:self.selectArr[i].Id])
             {
                 [self.selectArr removeObjectAtIndex:i];
             }
@@ -475,7 +484,7 @@
             roundBtn.tag = indexPath.row;
             [cell addSubview:roundBtn];
             for (int i=0 ; i<self.selectArr.count; i++) {
-                if ([tempDict.Id isEqual:self.selectArr[i]]) {
+                if ([tempDict.Id isEqual:self.selectArr[i].Id]) {
                     roundBtn.selected = YES;
                 }
             }

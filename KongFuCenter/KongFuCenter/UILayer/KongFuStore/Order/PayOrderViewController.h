@@ -9,7 +9,10 @@
 #import "BaseNavigationController.h"
 #import "SelectRoundBtn.h"
 #import "OrderDefine.h"
-#import "OrderDefine.h"
+#import "CartModel.h"
+#import "UIImageView+WebCache.h"
+#import "ReceiveAddressViewController.h"
+
 @interface PayOrderViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
 {
     int pageNo;
@@ -21,5 +24,9 @@
     UITableView *_mainTableView;
     NSMutableArray *roundBtnArr;
     
+    
+    UILabel *moneyLab;
 }
+
+@property(nonatomic) NSMutableArray<CartModel *>* goodsArr;
 @end
