@@ -8,6 +8,7 @@
 
 #import "ExchangeDetailViewController.h"
 #import "UIImageView+WebCache.h"
+#import "PayOrderViewController.h"
 
 @interface ExchangeDetailViewController (){
     UITableView *mTableView;
@@ -43,6 +44,23 @@
     mTableView.separatorColor = Separator_Color;
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
+}
+
+-(void)btnEvent:(UIButton *)btn{
+    switch (btn.tag) {
+        case 1:{
+            
+        }
+            break;
+        case 2:{
+            PayOrderViewController *payOrderVC = [[PayOrderViewController alloc] init];
+            payOrderVC.navtitle = @"确认订单";
+            [self.navigationController pushViewController:payOrderVC animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark tableview delegate
@@ -143,17 +161,21 @@
         [cell addSubview:mExchangeDate];
         
         UIButton *mViewLogistics = [[UIButton alloc] initWithFrame:CGRectMake(20, mExchangeDate.frame.origin.y + mExchangeDate.frame.size.height + 10, SCREEN_WIDTH - 40, 45)];
+        [mViewLogistics addTarget:self action:@selector(btnEvent:) forControlEvents:UIControlEventTouchUpInside];
         if (_exchangeDetail == Mode_Detail) {
             mViewLogistics.backgroundColor = YellowBlock;
             [mViewLogistics setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            mViewLogistics.tag = 1;
             [mViewLogistics setTitle:@"查看物流" forState:UIControlStateNormal];
         }else if (_exchangeDetail == Mode_ImmeExchange){
             mViewLogistics.backgroundColor = YellowBlock;
             [mViewLogistics setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            mViewLogistics.tag = 2;
             [mViewLogistics setTitle:@"立即兑换" forState:UIControlStateNormal];
         }else if(_exchangeDetail == Mode_IntegralLack){
             mViewLogistics.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
             [mViewLogistics setTitleColor:[UIColor colorWithRed:0.45 green:0.45 blue:0.45 alpha:1] forState:UIControlStateNormal];
+            mViewLogistics.tag = 3;
             [mViewLogistics setTitle:@"积分不足" forState:UIControlStateNormal];
         }
         [cell addSubview:mViewLogistics];

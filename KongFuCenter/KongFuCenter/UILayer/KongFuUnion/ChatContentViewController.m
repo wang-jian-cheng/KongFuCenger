@@ -149,48 +149,48 @@
 }
 
 #pragma mark - WechatShortVideoDelegate
-- (void)finishWechatShortVideoCapture:(NSURL *)filePath {
-    NSLog(@"filePath is %@", filePath);
-    RCImageMessage *imageMsg = [RCImageMessage messageWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"]]]];
-    [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:[self targetId] content:imageMsg pushContent:nil success:nil error:nil];
-}
+//- (void)finishWechatShortVideoCapture:(NSURL *)filePath {
+//    NSLog(@"filePath is %@", filePath);
+//    RCImageMessage *imageMsg = [RCImageMessage messageWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"]]]];
+//    [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:[self targetId] content:imageMsg pushContent:nil success:nil error:nil];
+//}
 
 #pragma mark - 相册的代理
-- (void)imagePickerController:(UIImagePickerController *)picker   didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-    
-    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-    
-    if([mediaType isEqualToString:@"public.movie"])
-    {
-        
-        RCImageMessage *imageMsg = [RCImageMessage messageWithImageURI:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"];
-//        imageMsg.thumbnailImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"]]];
-//        imageMsg.imageUrl = @"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg";
-//        imageMsg.originalImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"]]];
-//        MyVideoMessage *myVideoMessage = [[MyVideoMessage alloc] init];
-//        myVideoMessage.videoData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://120.27.115.235/UpLoad/Video/902e869c-b934-495b-9862-7359fae9f9ea.mov"]];
+//- (void)imagePickerController:(UIImagePickerController *)picker   didFinishPickingMediaWithInfo:(NSDictionary *)info
+//{
+//    [self dismissViewControllerAnimated:YES completion:^{
 //        
-//        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:txtMsg];
-//        RCMessageContent *content = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:[self targetId] content:imageMsg pushContent:nil success:nil error:nil];
-        
-//        self.defaultInputType = RCChatSessionInputBarInputExtention;
-//        RCInformationNotificationMessage *warningMsg = [RCInformationNotificationMessage notificationWithMessage:@"请不要轻易给陌生人汇钱！" extra:nil];
-//        BOOL saveToDB = NO;  //是否保存到数据库中
-//        RCMessage *savedMsg ;
-//        if (saveToDB) {
-//            savedMsg = [[RCIMClient sharedRCIMClient] insertMessage:self.conversationType targetId:self.targetId senderUserId:[RCIMClient sharedRCIMClient].currentUserInfo.userId sendStatus:SentStatus_SENT content:warningMsg];
-//        } else {
-//            savedMsg =[[RCMessage alloc] initWithType:self.conversationType targetId:self.targetId direction:MessageDirection_SEND messageId:-1 content:warningMsg];//注意messageId要设置为－1
-//        }
-//        [self appendAndDisplayMessage:savedMsg];
-        
-        
-    }
-}
+//    }];
+//    
+//    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+//    
+//    if([mediaType isEqualToString:@"public.movie"])
+//    {
+//        
+//        RCImageMessage *imageMsg = [RCImageMessage messageWithImageURI:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"];
+////        imageMsg.thumbnailImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"]]];
+////        imageMsg.imageUrl = @"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg";
+////        imageMsg.originalImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"]]];
+////        MyVideoMessage *myVideoMessage = [[MyVideoMessage alloc] init];
+////        myVideoMessage.videoData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://120.27.115.235/UpLoad/Video/902e869c-b934-495b-9862-7359fae9f9ea.mov"]];
+////        
+////        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:txtMsg];
+////        RCMessageContent *content = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//        [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:[self targetId] content:imageMsg pushContent:nil success:nil error:nil];
+//        
+////        self.defaultInputType = RCChatSessionInputBarInputExtention;
+////        RCInformationNotificationMessage *warningMsg = [RCInformationNotificationMessage notificationWithMessage:@"请不要轻易给陌生人汇钱！" extra:nil];
+////        BOOL saveToDB = NO;  //是否保存到数据库中
+////        RCMessage *savedMsg ;
+////        if (saveToDB) {
+////            savedMsg = [[RCIMClient sharedRCIMClient] insertMessage:self.conversationType targetId:self.targetId senderUserId:[RCIMClient sharedRCIMClient].currentUserInfo.userId sendStatus:SentStatus_SENT content:warningMsg];
+////        } else {
+////            savedMsg =[[RCMessage alloc] initWithType:self.conversationType targetId:self.targetId direction:MessageDirection_SEND messageId:-1 content:warningMsg];//注意messageId要设置为－1
+////        }
+////        [self appendAndDisplayMessage:savedMsg];
+//        
+//        
+//    }
+//}
 
 @end

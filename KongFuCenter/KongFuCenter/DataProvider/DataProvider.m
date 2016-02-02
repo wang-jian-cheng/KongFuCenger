@@ -1673,6 +1673,12 @@
     }
 }
 
+//-(void)SelectPageChangeBillByUserId:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andstate:(NSString *)state andproNum:(NSString *)proNum{
+//    if (startRowIndex && maximumRows && userId && state && proNum) {
+//        
+//    }
+//}
+
 #pragma mark -  购物车
 
 -(void)getShoppingCartList:(NSString *)userId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows
