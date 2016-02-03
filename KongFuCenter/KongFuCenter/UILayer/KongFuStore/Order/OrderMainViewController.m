@@ -159,6 +159,20 @@
         commentOrderViewCtl.GoodsArray = self.orderArr[sender.tag][@"ProList"];
         [self.navigationController pushViewController:commentOrderViewCtl animated:YES];
     }
+    else if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
+        [self CancleOrder:sender];
+    }
+    else if([sender.titleLabel.text isEqualToString:@"确认收货"])
+    {
+        [self SureForOrder:sender];
+    }
+}
+
+-(void)leftBtnClick:(UIButton *)sender
+{
+    if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
+        [self CancleOrder:sender];
+    }
 }
 
 #pragma mark - self property
@@ -208,6 +222,85 @@
     }
 }
 
+/**
+ *  取消订单
+ *
+ *  @param sender
+ */
+-(void)CancleOrder:(UIButton *)sender
+{
+    
+    UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"是否取消该订单" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+    alert.delegate=self;
+    alert.tag=1*100000+sender.tag;
+    [alert show];
+}
+-(void)CancleOrderCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        [SVProgressHUD showSuccessWithStatus:@"订单取消成功" maskType:SVProgressHUDMaskTypeBlack];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"订单取消出错" maskType:SVProgressHUDMaskTypeBlack];
+    }
+    
+    [_mainTableView.mj_header beginRefreshing];
+}
+/**
+ *  确认收货
+ *
+ *  @param sender
+ */
+-(void)SureForOrder:(UIButton *)sender
+{
+    UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"确认收货？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    alert.delegate=self;
+    alert.tag=2*100000+sender.tag;
+    [alert show];
+}
+-(void)SureForOrderCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        [SVProgressHUD showSuccessWithStatus:@"订单确认成功" maskType:SVProgressHUDMaskTypeBlack];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"订单确认出错" maskType:SVProgressHUDMaskTypeBlack];
+    }
+    [_mainTableView.mj_header beginRefreshing];
+}
+
+#pragma mark - alert delegate
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1) {//取消订单
+        if ((alertView.tag/100000)==1) {
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            
+            [dataprovider setDelegateObject:self setBackFunctionName:@"CancleOrderCallBack:"];
+            
+            [dataprovider CancleOrderWithOrderID:self.orderArr[alertView.tag%100000][@"Id"] andUserId:[Toolkit getUserID]];
+            
+        }
+        else
+        {//确认收货
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            
+            [dataprovider setDelegateObject:self setBackFunctionName:@"SureForOrderCallBack:"];
+            
+            
+            
+        }
+    }
+}
+
+
+
 #pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -253,6 +346,7 @@
             btnLeft.backgroundColor = [UIColor grayColor];
             btnLeft.titleLabel.font = [UIFont systemFontOfSize:14];
             btnLeft.tag=indexPath.section;
+            [btnLeft addTarget:self action:@selector(leftBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:btnLeft];
             
             switch (orderMode) {
@@ -384,78 +478,6 @@
     [self.navigationController pushViewController:orderDetailViewCtl animated:YES];
     
 }
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex==1) {//取消订单
-        if ((alertView.tag/100000)==1) {
-            DataProvider * dataprovider=[[DataProvider alloc] init];
-            
-            [dataprovider setDelegateObject:self setBackFunctionName:@"CancleOrderCallBack:"];
-            
-            [dataprovider CancleOrderWithOrderID:self.orderArr[alertView.tag%100000][@"Id"] andUserId:[Toolkit getUserID]];
-
-        }
-        else
-        {//确认收货
-            DataProvider * dataprovider=[[DataProvider alloc] init];
-            
-            [dataprovider setDelegateObject:self setBackFunctionName:@"SureForOrderCallBack:"];
-            
-            
-
-        }
-    }
-}
-
-/**
- *  取消订单
- *
- *  @param sender <#sender description#>
- */
--(void)CancleOrder:(UIButton *)sender
-{
-    
-    UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"是否取消该订单" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
-    alert.delegate=self;
-    alert.tag=1*100000+sender.tag;
-    [alert show];
-}
--(void)CancleOrderCallBack:(id)dict
-{
-    NSLog(@"%@",dict);
-    if ([dict[@"Code"] intValue]==200) {
-        [SVProgressHUD showSuccessWithStatus:@"订单取消成功" maskType:SVProgressHUDMaskTypeBlack];
-    }
-    else
-    {
-        [SVProgressHUD showErrorWithStatus:@"订单取消出错" maskType:SVProgressHUDMaskTypeBlack];
-    }
-}
-/**
- *  确认收货
- *
- *  @param sender <#sender description#>
- */
--(void)SureForOrder:(UIButton *)sender
-{
-    UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"确认收货？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-    alert.delegate=self;
-    alert.tag=2*100000+sender.tag;
-    [alert show];
-}
--(void)SureForOrderCallBack:(id)dict
-{
-    NSLog(@"%@",dict);
-    if ([dict[@"Code"] intValue]==200) {
-        [SVProgressHUD showSuccessWithStatus:@"订单取消成功" maskType:SVProgressHUDMaskTypeBlack];
-    }
-    else
-    {
-        [SVProgressHUD showErrorWithStatus:@"订单取消出错" maskType:SVProgressHUDMaskTypeBlack];
-    }
-}
-
 
 //设置划动cell是否出现del按钮，可供删除数据里进行处理
 

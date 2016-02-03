@@ -8,10 +8,15 @@
 
 #import "PayOrderViewController.h"
 
+#define WxPay   @"wx"
+#define Alipay  @"alipay"
+#define kUrlScheme      @"com.zykj.KongFuCenter" // 这个是你定义的 URL Scheme，支付宝、微信支付和测试模式需要。
+
 @interface PayOrderViewController ()
 {
     CGFloat totalMoney;
 }
+
 @end
 
 @implementation PayOrderViewController
@@ -22,7 +27,7 @@
     [self addLeftButton:@"left"];
     
 //    addressDict = [NSMutableDictionary dictionary];
-    
+    payFlag = Alipay;
     self.navtitle = @"确认订单";
     roundBtnArr = [NSMutableArray array];
     [self initViews];
@@ -68,6 +73,7 @@
     btnRight.backgroundColor = YellowBlock;
     btnRight.titleLabel.font = [UIFont systemFontOfSize:14];
     [btnBackView addSubview:btnRight];
+    [btnRight addTarget:self action:@selector(payOrderBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [btnRight setTitle:@"确认结算" forState:UIControlStateNormal];
 
     moneyLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,  btnRight.frame.origin.x - 10, btnBackView.frame.size.height/2)];
@@ -98,6 +104,11 @@
 }
 
 #pragma mark - self property
+
+-(void)setPayOrderId:(NSString *)payOrderId
+{
+    _payOrderId = ZY_NSStringFromFormat(@"%@",payOrderId);
+}
 
 -(void)setPostage:(CGFloat)postage
 {
@@ -166,7 +177,117 @@
     return _goodsArr;
 }
 
-#pragma mark - self delegate
+#pragma mark - self data source
+
+
+-(void)payImmediately
+{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"payImmediatelyCallBack:"];
+    [dataProvider BuyNow:self.goodsArr[0].Id
+                  andnum:@"1"
+              andpriceId:self.goodsArr[0].ProductPriceId
+               anduserId:[Toolkit getUserID]
+                andprice:self.goodsArr[0].ProductPriceTotalPrice
+           anddeliveryId:addressDict[@"Id"]];
+}
+
+-(void)payImmediatelyCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if([dict[@"code"] intValue] == 200)
+    {
+        self.payOrderId = dict[@"data"][@"id"];
+        [self getCharge:self.payOrderId];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:ZY_NSStringFromFormat(@"%@",dict[@"data"]) maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
+-(void)getCharge:(NSString *)BillId
+{
+    
+    if(!([payFlag isEqualToString:WxPay] || [payFlag isEqualToString:Alipay]))
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"支付方式错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
+    
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getChargeCallBack:"];
+    [dataProvider getChargeForShopping:[Toolkit getUserID] andChannel:payFlag andAmount:ZY_NSStringFromFormat(@"%ld",(unsigned long)(totalMoney*100)) andDescription:@"" andFlg:@"1"/*0：充值会员 1：购买商品*/ andBillId:BillId];
+}
+
+-(void)getChargeCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    @try {
+        
+        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+        NSString* charge = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSLog(@"str_data:%@",charge);
+        
+        //            NSString* charge = [[NSString alloc] initWithData:    data encoding:NSUTF8StringEncoding];
+        //            NSLog(@"charge = %@", charge);
+        dispatch_async(dispatch_get_main_queue(),
+                       ^{
+                           [Pingpp createPayment:charge viewController:self appURLScheme:kUrlScheme withCompletion:^(NSString *result, PingppError *error) {
+                               NSLog(@"completion block: %@", result);
+                               if (error == nil) {
+                                   NSLog(@"PingppError is nil");
+                               } else {
+                                   NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+                               }
+                               [SVProgressHUD showInfoWithStatus:result];
+                           }];
+                       });
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+
+}
+
+-(void)goShoppingCartPayOrder
+{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"goShoppingCartPayOrderCallBack:"];
+    
+    if(self.goodsArr.count == 0)
+    {
+        [SVProgressHUD showInfoWithStatus:@"没有商品可供支付"];
+        
+        return;
+    }
+    NSString *payIds = self.goodsArr[0].Id;
+    for (int i=1; i<self.goodsArr.count; i++) {
+        payIds = ZY_NSStringFromFormat(@"%@&%@",payIds,self.goodsArr[i].Id);
+    }
+    
+    [dataProvider buyInShoppingCart:[Toolkit getUserID] andDeliveryId:addressDict[@"Id"] andDescription:@"" andBasketDeatilIdList:payIds];
+}
+
+-(void)goShoppingCartPayOrderCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if([dict[@"code"] intValue] == 200)
+    {
+        self.payOrderId = dict[@"data"][@"id"];
+        [self getCharge:self.payOrderId];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:ZY_NSStringFromFormat(@"%@",dict[@"data"]) maskType:SVProgressHUDMaskTypeBlack];
+    }
+
+}
+
 -(void)getDefaultAddress
 {
     DataProvider *dataProvider = [[DataProvider alloc] init];
@@ -192,11 +313,35 @@
 
 #pragma mark - click action
 
+-(void)payOrderBtnClick:(UIButton *)sender
+{
+    switch (self.paytype) {
+        case PayByShoppingCart:
+        {
+            [self goShoppingCartPayOrder];
+        }
+            break;
+        case PayByImmediately:
+            break;
+        default:
+            break;
+    }
+}
+
 -(void)roundBtnClick:(UIButton *)sender
 {
     sender.selected = YES;
     
 //    PayFlag = sender.tag;
+    
+    if(sender.tag == 1000)
+    {
+        payFlag = Alipay;
+    }
+    else if(sender.tag == 1001)
+    {
+        payFlag = WxPay;
+    }
     
     for(UIButton *tempBtn in roundBtnArr)
     {

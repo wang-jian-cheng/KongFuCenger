@@ -237,18 +237,20 @@
         getWeatherFinish = YES;
         if([[baseDic allKeys] containsObject:@"aqi"])
         {
-            airNUm.text =[NSString stringWithFormat:@"PM:%@ug/m³" ,baseDic[@"aqi"][@"city"][@"pm25"]];
-            airQuality.text = [NSString stringWithFormat:@"空气质量:%@",baseDic[@"aqi"][@"city"][@"qlty"]];
-            
-            airNUm.hidden = NO;
-            airQuality.hidden = NO;
+//            airNUm.text =[NSString stringWithFormat:@"PM:%@ug/m³" ,baseDic[@"aqi"][@"city"][@"pm25"]];
+//            airQuality.text = [NSString stringWithFormat:@"空气质量:%@",baseDic[@"aqi"][@"city"][@"qlty"]];
+//            
+//            airNUm.hidden = NO;
+//            airQuality.hidden = NO;
         }
         else{
 //            airNUm.text =[NSString stringWithFormat:@"PM:%@" ,@"无数据"];
 //            airQuality.text = [NSString stringWithFormat:@"空气质量:%@",@"无数据"];
-            airNUm.hidden = YES;
-            airQuality.hidden = YES;
+//            airNUm.hidden = YES;
+//            airQuality.hidden = YES;
         }
+        airQuality.text = baseDic[@"now"][@"cond"][@"txt"];
+        
         //天气图标
 //        weatherImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://files.heweather.com/cond_icon/%@.png",[[[baseDic valueForKey:@"now"] valueForKey:@"cond"] valueForKey:@"code"]]]]];
         

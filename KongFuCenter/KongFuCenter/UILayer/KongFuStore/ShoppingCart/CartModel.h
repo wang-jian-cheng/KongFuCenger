@@ -17,5 +17,4 @@
 @property(nonatomic) NSString *ProductPriceId;
 @property(nonatomic) NSString *ProductPriceTotalPrice;
 @property(nonatomic) NSString *ProductSizeName;
-
 @end

@@ -13,6 +13,15 @@
 #import "UIImageView+WebCache.h"
 #import "ReceiveAddressViewController.h"
 
+
+typedef enum _payType
+{
+    PayByShoppingCart,
+    PayByImmediately,
+    PayByJiFen,
+    PayByOrderId
+}PayType;
+
 @interface PayOrderViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,ReceiveAddressDelegate>
 {
     int pageNo;
@@ -27,10 +36,15 @@
     UILabel *tiplab;
     UILabel *moneyLab;
     
+    NSString *payFlag;
+    
     NSMutableDictionary *addressDict;
 }
 
 @property(nonatomic) NSMutableArray<CartModel *>* goodsArr;
 @property(nonatomic) NSArray *goodDicts;
 @property(nonatomic) CGFloat postage;
+@property(nonatomic) PayType paytype;
+@property(nonatomic) NSString *payOrderId;
+
 @end
