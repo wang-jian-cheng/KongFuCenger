@@ -151,6 +151,8 @@
         payOrderViewCtl.navtitle = @"确认订单";
         payOrderViewCtl.goodDicts = self.orderArr[sender.tag][@"ProList"];
         payOrderViewCtl.payOrderId = self.orderArr[sender.tag][@"Id"];
+        payOrderViewCtl.postage = [self.orderArr[sender.tag][@"Postage"] floatValue];
+        payOrderViewCtl.paytype = PayByOrderId;
         [self.navigationController pushViewController:payOrderViewCtl animated:YES];
     }
     else if([sender.titleLabel.text isEqualToString:@"评价商品"])

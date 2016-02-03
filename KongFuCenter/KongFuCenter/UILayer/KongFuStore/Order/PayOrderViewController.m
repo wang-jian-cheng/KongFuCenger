@@ -326,6 +326,11 @@
             [self payImmediately];
         }
             break;
+        case PayByOrderId:
+        {
+            [self goShoppingCartPayOrder];
+        }
+            break;
         default:
             break;
     }
