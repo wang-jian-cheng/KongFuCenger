@@ -361,6 +361,7 @@
 {
     if(buttonIndex == 0&&alertView.tag >=2016)
     {
+        [moviePlayerview stopPlayer];
         self.videoID = otherVideoArray[alertView.tag-2016][@"Id"];
         [self getData];
     }

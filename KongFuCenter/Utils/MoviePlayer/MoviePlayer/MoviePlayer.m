@@ -284,6 +284,7 @@
 {
     // 关闭定时器
     [self.timer invalidate];
+    [self.activity stopAnimating];
     // 移除通知
     [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMovieDurationAvailableNotification object:nil];
     // 暂停视屏播放

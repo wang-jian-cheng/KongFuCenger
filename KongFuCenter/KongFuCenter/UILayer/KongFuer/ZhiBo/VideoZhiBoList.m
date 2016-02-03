@@ -194,11 +194,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     VideoZhiBoViewController *videoZhiBoVC = [[VideoZhiBoViewController alloc] init];
     videoZhiBoVC.videoLiveID = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"Id"]];
+    
     MushaMatchCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    NSString *mState = cell.mState.titleLabel.text;
-    if ([mState isEqual:@"未开始"]) {
+    NSInteger mState = cell.tag;
+    if (mState == 0) {
         [videoZhiBoVC setVideoZhiBoState:Mode_NoStart];
-    }else if([mState isEqual:@"直播中"]){
+    }else if(mState == 1){
        [videoZhiBoVC setVideoZhiBoState:Mode_Playing];
     }else{
         [videoZhiBoVC setVideoZhiBoState:Mode_End];
