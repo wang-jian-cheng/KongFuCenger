@@ -516,6 +516,10 @@
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;
 -(void)ShieldNewsFriend:(NSString *)userid;
 -(NSDictionary *)getUserInfoByUserID:(NSString *)userID;
+/**
+ *  获取关于我们
+ */
+-(void)GetAboutUs;
 
 
 @end

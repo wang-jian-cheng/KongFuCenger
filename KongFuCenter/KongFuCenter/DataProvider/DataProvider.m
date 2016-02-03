@@ -1909,7 +1909,12 @@ else{
 }
 
 
-
+-(void)GetAboutUs
+{
+    NSString *url = [NSString stringWithFormat:@"%@AboutUs.asmx/GetAuoutUs",Url];
+//    NSDictionary *prm = @{@"userid":userid};
+    [self PostRequest:url andpram:nil];
+}
 
 
 
