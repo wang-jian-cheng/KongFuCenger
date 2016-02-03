@@ -150,17 +150,17 @@
     jiFenNumLab.textAlignment = NSTextAlignmentCenter;
     
     locationLab = [[UILabel alloc] init];
-    locationLab.textAlignment = NSTextAlignmentRight;
+    locationLab.textAlignment = NSTextAlignmentLeft;
     locationLab.textColor =[UIColor whiteColor];
     locationLab.font = [UIFont systemFontOfSize:14];
     
     airNUm = [[UILabel alloc] init];
-    airNUm.textAlignment = NSTextAlignmentLeft;
+    airNUm.textAlignment = NSTextAlignmentRight;
     airNUm.textColor =[UIColor whiteColor];
     airNUm.font = [UIFont systemFontOfSize:14];
     
     airQuality = [[UILabel alloc] init];
-    airQuality.textAlignment = NSTextAlignmentLeft;
+    airQuality.textAlignment = NSTextAlignmentRight;
     airQuality.textColor =[UIColor whiteColor];
     airQuality.font = [UIFont systemFontOfSize:14];
     
@@ -269,7 +269,7 @@
         airQuality.text = baseDic[@"now"][@"cond"][@"txt"];
         
         //天气图标
-//        weatherImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://files.heweather.com/cond_icon/%@.png",[[[baseDic valueForKey:@"now"] valueForKey:@"cond"] valueForKey:@"code"]]]]];
+        [weatherImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://files.heweather.com/cond_icon/%@.png",[[[baseDic valueForKey:@"now"] valueForKey:@"cond"] valueForKey:@"code"]]] placeholderImage:nil ];
         
         //实时温度
         
@@ -585,19 +585,22 @@
         if(indexPath.row == 0)
         {
             {//天气
-//                weatherImg = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 80, 80)];
-//                [cell addSubview:weatherImg];
                 
-                airQuality.frame = CGRectMake(10, 0, SCREEN_WIDTH/2, 20);
-                airNUm.frame = CGRectMake(10, airQuality.frame.size.height, SCREEN_WIDTH/2, 20);
                 
-                [cell addSubview:airNUm];
+                airQuality.frame = CGRectMake(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/2-10, 20);
+                airNUm.frame =CGRectMake(airQuality.frame.origin.x, airQuality.frame.size.height, SCREEN_WIDTH/2 -10, 20);
+                
+                weatherImg = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 10 - 80),0, 50, 50)];
+                weatherImg.contentMode = UIViewContentModeScaleAspectFit;
+                [cell addSubview:weatherImg];
+                
+//                [cell addSubview:airNUm];
                 [cell addSubview:airQuality];
                 
-                locationLab.frame = CGRectMake(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/2-10, 20);
+                locationLab.frame = CGRectMake(10, 0, SCREEN_WIDTH/2, 20);
                 [cell addSubview:locationLab];
-                temp = [[UILabel alloc] initWithFrame:CGRectMake(locationLab.frame.origin.x, locationLab.frame.size.height, SCREEN_WIDTH/2 -10, 20)];
-                temp.textAlignment = NSTextAlignmentRight;
+                temp = [[UILabel alloc] initWithFrame:CGRectMake(10, airQuality.frame.size.height, SCREEN_WIDTH/2, 20)];
+                temp.textAlignment = NSTextAlignmentLeft;
                 temp.font = [UIFont systemFontOfSize:14];
                 temp.textColor = [UIColor whiteColor];
                 [cell addSubview:temp];

@@ -69,6 +69,8 @@
 
 @end
 
+
+#define  PAGESIZE   5
 @implementation TeamNewsViewController
 
 
@@ -88,7 +90,7 @@
     {
             [self addRightButton:@"moreNoword"];
     }
-    pageSize = 5;
+    pageSize = PAGESIZE;
     wyArray = [NSMutableArray array];
     commentArr = [NSMutableArray array];
     _tableDataSource = [[NSMutableArray alloc] init];
@@ -225,11 +227,28 @@
             [cacheArr addObjectsFromArray:cacheData];
         }
         
+        pageNo = (int)cacheData.count/PAGESIZE;
         
-        [self configData:cacheData];
-        [self loadTextData];
-        
-        pageNo = (int)cacheData.count/5;
+        //动态少于5条不缓存
+        if(pageNo >= 1)
+        {
+            int num = cacheData.count%PAGESIZE;
+    //        NSMutableArray *tempArr = [NSMutableArray array];
+    //
+    //        for (int i = 0; i< cacheData.count - num; i++) {
+    //            tempArr addObject:<#(nonnull id)#>
+    //        }
+            NSRange tempRange;
+            tempRange.length = cacheData.count - num;
+            tempRange.location = 0;
+            
+            [self configData:[cacheData subarrayWithRange:tempRange]];
+            [self loadTextData];
+        }
+        else
+        {
+            [mainTable.mj_header beginRefreshing];
+        }
     }
     else
     {
@@ -355,10 +374,7 @@
             
             
         }
-        
-        
-        
-        
+
     }
     @catch (NSException *exception) {
         
@@ -403,6 +419,8 @@
 {
     
     [SVProgressHUD dismiss];
+    [mainTable.mj_header endRefreshing];
+    [mainTable.mj_footer endRefreshing];
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
@@ -419,7 +437,7 @@
             [self configData:dict[@"data"]];
             
             
-            if(_contentDataSource.count == 0 || _contentDataSource==nil)
+            if(_tableDataSource.count == 0 || _tableDataSource==nil)
             {
                 
                 label = [[UILabel alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
@@ -430,7 +448,7 @@
                 label.numberOfLines = 0;
                 label.textAlignment = NSTextAlignmentCenter;
                 label.textColor = [UIColor whiteColor];
-                
+                [self.view sendSubviewToBack:label];
                 label.hidden = NO;
             }
             else
@@ -439,7 +457,7 @@
             }
             
             
-            if(_contentDataSource.count >= [dict[@"recordcount"] intValue])
+            if(_tableDataSource.count >= [dict[@"recordcount"] intValue])
             {
                 [mainTable.mj_footer setState:MJRefreshStateNoMoreData];
             }
@@ -452,8 +470,7 @@
             
         }
         @finally {
-            [mainTable.mj_header endRefreshing];
-            [mainTable.mj_footer endRefreshing];
+           
             [mainTable reloadData];
         }
     }

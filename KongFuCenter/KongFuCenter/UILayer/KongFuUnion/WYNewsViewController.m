@@ -412,15 +412,34 @@
             if(_contentDataSource != nil || _contentDataSource.count>0)
                 [_contentDataSource removeAllObjects];
             
-            [self configData:cacheData];
+            curpage = (int)cacheData.count/5;
             
-            if(_contentDataSource.count == 0){
-                [self dataEmptyTip];
+            
+            if(curpage >= 1)
+            {
+                int num = cacheData.count%5;
+
+                NSRange tempRange;
+                tempRange.length = cacheData.count - num;
+                tempRange.location = 0;
+                
+                [self configData:[cacheData subarrayWithRange:tempRange]];
+                if(_contentDataSource.count == 0){
+                    [self dataEmptyTip];
+                }
+                
+                [self loadTextData];
+            }
+            else
+            {
+                [mainTable.mj_header beginRefreshing];
             }
             
-            [self loadTextData];
+        
             
-            curpage = (int)cacheData.count/5;
+            
+            
+            
         }
         else
         {
