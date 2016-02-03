@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/MyCollectViewController.m"
-            timestampString = "475483894.801754"
+            timestampString = "476176004.823864"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "340"
-            endingLineNumber = "340"
+            startingLineNumber = "342"
+            endingLineNumber = "342"
             landmarkName = "-initTableView"
             landmarkType = "5">
          </BreakpointContent>
@@ -1304,11 +1304,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/TeamNewsViewController.m"
-            timestampString = "475723490.072148"
+            timestampString = "476179879.959356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "474"
-            endingLineNumber = "474"
+            startingLineNumber = "491"
+            endingLineNumber = "491"
             landmarkName = "-loadTextData"
             landmarkType = "5">
          </BreakpointContent>
@@ -1320,11 +1320,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/TeamNewsViewController.m"
-            timestampString = "475723490.072148"
+            timestampString = "476179879.959356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "479"
-            endingLineNumber = "479"
+            startingLineNumber = "496"
+            endingLineNumber = "496"
             landmarkName = "-loadTextData"
             landmarkType = "5">
          </BreakpointContent>
@@ -1336,11 +1336,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/WYNewsViewController.m"
-            timestampString = "475723490.072148"
+            timestampString = "476179879.959356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "816"
-            endingLineNumber = "816"
+            startingLineNumber = "835"
+            endingLineNumber = "835"
             landmarkName = "-zanEvent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1352,11 +1352,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/WYNewsViewController.m"
-            timestampString = "475723490.072148"
+            timestampString = "476179879.959356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "650"
-            endingLineNumber = "650"
+            startingLineNumber = "669"
+            endingLineNumber = "669"
             landmarkName = "-viewSetHidden:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1368,11 +1368,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/WYNewsViewController.m"
-            timestampString = "475723490.072148"
+            timestampString = "476179879.959356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "641"
-            endingLineNumber = "641"
+            startingLineNumber = "660"
+            endingLineNumber = "660"
             landmarkName = "-positionDismissView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1400,11 +1400,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/TeamNewsViewController.m"
-            timestampString = "475723490.072148"
+            timestampString = "476179879.959356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "405"
-            endingLineNumber = "405"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
             landmarkName = "-getSelfTeamNewsCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1437,7 +1437,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "385"
             endingLineNumber = "385"
-            landmarkName = "-getUserInfoCallBack:"
+            landmarkName = "-closeVipCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1480,11 +1480,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/TeamNewsViewController.m"
-            timestampString = "475723490.072148"
+            timestampString = "476179879.959356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1526"
-            endingLineNumber = "1526"
+            startingLineNumber = "1543"
+            endingLineNumber = "1543"
             landmarkName = "-actionSheet:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1496,13 +1496,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/TeamNewsViewController.m"
-            timestampString = "475723490.072148"
+            timestampString = "476179879.959356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1428"
-            endingLineNumber = "1428"
-            landmarkName = "-clickRichText:replyIndex:"
-            landmarkType = "5">
+            startingLineNumber = "1445"
+            endingLineNumber = "1445"
+            landmarkName = "@implementation TeamNewsViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1640,11 +1640,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/TeamNewsViewController.m"
-            timestampString = "475723490.072148"
+            timestampString = "476179879.959356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1554"
-            endingLineNumber = "1554"
+            startingLineNumber = "1571"
+            endingLineNumber = "1571"
             landmarkName = "-actionSheet:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>

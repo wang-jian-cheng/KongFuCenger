@@ -79,6 +79,8 @@
 
 -(void)getCollectVideoCallBack:(id)dict
 {
+    
+     [mainCollectionView.mj_header endRefreshing];
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try
@@ -313,7 +315,7 @@
             [mainCollectionView.mj_footer setState:MJRefreshStateIdle];
         }
         
-        [mainCollectionView.mj_header endRefreshing];
+       
     }];
     [mainCollectionView.mj_header beginRefreshing];
     
@@ -468,11 +470,14 @@
         {
             [self addRightbuttontitle:@"确定"];
             self.isDelete = 1;
+            EditMode = YES;
             
-            for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
-                UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
-                btn_select.hidden = NO;
-            }
+            [mainCollectionView reloadData];
+//            for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
+//                UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
+//                btn_select.hidden = NO;
+//                btn_select.selected = NO;
+//            }
         }
         else
         {
@@ -480,11 +485,13 @@
             {
                 [self addRightbuttontitle:@"删除"];
                 self.isDelete = 0;
+                EditMode = NO;
                 
-                for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
-                    UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
-                    btn_select.hidden = YES;
-                }
+                [mainCollectionView reloadData];
+//                for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
+//                    UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
+//                    btn_select.hidden = YES;
+//                }
                 return;
             }
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认删除？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
@@ -504,41 +511,28 @@
 {
     if(buttonIndex == 0&&alertView.tag == 2016+0)//确认
     {
-        [self addRightbuttontitle:@"删除"];
-        self.isDelete = 0;
+//        [self addRightbuttontitle:@"删除"];
+//        self.isDelete = 0;
         for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
             UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
             btn_select.hidden = YES;
         }
         
-        if(self.arr_deleteVoice.count == 1)
-        {
 
-        }
-        else
-        {
-            for(int i = 0; i < self.arr_deleteVoice.count ; i ++)
-            {
-                for (int j = 0; j < self.arr_deleteVoice.count - 1 - i; j ++)
-                {
-                   if([self.arr_deleteVoice[j] integerValue] < [self.arr_deleteVoice[j + 1] integerValue])
-                   {
-                       [self.arr_deleteVoice exchangeObjectAtIndex:j withObjectAtIndex:j+1];
-                   }
-                }
-            }
-        }
         for (int i = 0 ; i < self.arr_voiceData.count; i ++) {
             UIButton * btn_select = [mainCollectionView viewWithTag:(i + 1) * 1000];
             btn_select.hidden = YES;
         }
         delcount = 0;
-        
-        NSString *str =self.arr_deleteVoice[delcount];
-        model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
+//        
+//        NSString *str =self.arr_deleteVoice[delcount];
+//        model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
+        [SVProgressHUD showWithStatus:@"删除中"];
         
         DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
+        [dataprovider voicedelete:self.arr_deleteVoice[delcount]
+                        andUserId:[Toolkit getUserID]
+                           andFlg:@"1"];
         [dataprovider setDelegateObject:self setBackFunctionName:@"delCollectionCallBack:"];
             
 
@@ -573,46 +567,50 @@
         @try
         {
             delcount++;
-            if(self.arr_deleteVoice.count == 1)
-            {
-                
-            }
-            else
-            {
-                
-                for(int i = 0; i < self.arr_deleteVoice.count ; i ++)
-                {
-                    for (int j = 0; j < self.arr_deleteVoice.count - 1 - i; j ++)
-                    {
-                        if([self.arr_deleteVoice[j] integerValue] < [self.arr_deleteVoice[j + 1] integerValue])
-                        {
-                            [self.arr_deleteVoice exchangeObjectAtIndex:j withObjectAtIndex:j+1];
-                        }
-                    }
-                }
-            }
-            
+//            if(self.arr_deleteVoice.count == 1)
+//            {
+//                
+//            }
+//            else
+//            {
+//                
+//                for(int i = 0; i < self.arr_deleteVoice.count ; i ++)
+//                {
+//                    for (int j = 0; j < self.arr_deleteVoice.count - 1 - i; j ++)
+//                    {
+//                        if([self.arr_deleteVoice[j] integerValue] < [self.arr_deleteVoice[j + 1] integerValue])
+//                        {
+//                            [self.arr_deleteVoice exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+//                        }
+//                    }
+//                }
+//            }
+//            
  
             
             
             if(delcount >=self.arr_deleteVoice.count)
             {
-                for (NSString * str in self.arr_deleteVoice) {
-                    [self.arr_voiceData removeObjectAtIndex:[str integerValue]];
-                    [mainCollectionView reloadData];
-                    [mainCollectionView.mj_header beginRefreshing];
-                }
+//                for (NSString * str in self.arr_deleteVoice) {
+////                    [self.arr_voiceData removeObjectAtIndex:[str integerValue]];
+//                    [mainCollectionView reloadData];
+//                    [mainCollectionView.mj_header beginRefreshing];
+//                }
                 
+                [SVProgressHUD showSuccessWithStatus:@"删除完成"];
+                [mainCollectionView.mj_header beginRefreshing];
                 self.arr_deleteVoice = nil;
-                [mainCollectionView reloadData];
+//                [mainCollectionView reloadData];
             }
             else
             {
-                NSString *str =self.arr_deleteVoice[delcount];
-                model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
+//                NSString *str =self.arr_deleteVoice[delcount];
+//                model_collect * model = [self.arr_voiceData objectAtIndex:[str integerValue]];
                 
                 DataProvider * dataprovider=[[DataProvider alloc] init];
-                [dataprovider voicedelete:model.MessageId andUserId:[Toolkit getUserID] andFlg:@"1"];
+                [dataprovider voicedelete:self.arr_deleteVoice[delcount]
+                                andUserId:[Toolkit getUserID]
+                                   andFlg:@"1"];
                 [dataprovider setDelegateObject:self setBackFunctionName:@"delCollectionCallBack:"];
 
             }
@@ -629,8 +627,10 @@
     }
     else
     {
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
-        [alert show];
+        
+        [SVProgressHUD showSuccessWithStatus:dict[@"data"]];
+//        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+//        [alert show];
         
     }
 
@@ -932,16 +932,16 @@
 //
 - (void)cell_selectAction:(UIButton *)sender
 {
-    if (sender.selected == 0)
+    if (sender.selected == NO)
     {
         sender.selected = 1;
         [sender setImage:[UIImage imageNamed:@"selectRound"] forState:(UIControlStateNormal)];
         
         long x = sender.tag / 1000 - 1;
+        model_collect * model = self.arr_voiceData[x];
+//        NSString * str = [NSString stringWithFormat:@"%ld",x];
         
-        NSString * str = [NSString stringWithFormat:@"%ld",x];
-        
-        [self.arr_deleteVoice addObject:str];
+        [self.arr_deleteVoice addObject:model.MessageId];
         
 //        NSLog(@"%ld",self.arr_deleteVoice.count);
         
@@ -1278,10 +1278,19 @@
 //    cell.select.layer.cornerRadius = 8;
 //    cell.select.backgroundColor = [UIColor orangeColor];
     
-    cell.select.hidden = YES;
+    
     cell.select.tag = (indexPath.item + 1) * 1000;
     [cell.select addTarget:self action:@selector(cell_selectAction:) forControlEvents:(UIControlEventTouchUpInside)];
 
+    if(EditMode == YES)
+    {
+        cell.select.hidden = NO;
+    }
+    else
+    {
+        cell.select.hidden = YES;
+    }
+    
     [cell.btn_first setTitle:[NSString stringWithFormat:@"%@",model.LikeNum] forState:(UIControlStateNormal)];
     [cell.btn_first setImage:[UIImage imageNamed:@"support"] forState:(UIControlStateNormal)];
     [cell.btn_first addTarget:self action:@selector(btn_firstAction:) forControlEvents:(UIControlEventTouchUpInside)];
