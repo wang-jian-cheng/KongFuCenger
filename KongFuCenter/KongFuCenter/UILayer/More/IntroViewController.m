@@ -7,6 +7,7 @@
 //
 
 #import "IntroViewController.h"
+#import "UIImageView+WebCache.h"
 
 @interface IntroViewController ()
 
@@ -18,6 +19,10 @@
 //文字详情
 @property (nonatomic, strong) UILabel * detail;
 
+@property (nonatomic,strong) NSDictionary *aboutUsDict;
+
+
+
 @end
 
 @implementation IntroViewController
@@ -26,9 +31,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    _aboutUsDict=[[NSDictionary alloc] init];
+    
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetAboutUsCallBack:"];
+    
+    [dataprovider GetAboutUs];
+    
     [self p_navigation];
     
-    [self p_scrollView];
+    
+    
+}
+
+-(void)GetAboutUsCallBack:(id)dict
+{
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        _aboutUsDict=dict[@"data"];
+        [self p_scrollView];
+    }
+    
     
 }
 
@@ -45,7 +69,7 @@
 - (void)p_navigation
 {
     self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"关于@功夫"];
+    [self setBarTitle:@"关于艾特功夫"];
     [self addLeftButton:@"left"];
 }
 
@@ -57,7 +81,7 @@
     self.scrollView.showsVerticalScrollIndicator = NO;
     
     //需要先得到文字的内容判断frame
-    NSString * str = @"艾特·功夫（iKungfu）是专为武术，功夫，格斗等爱好者打造的一款集在线学习，视频教程，直播课堂，名师讲堂，即时通讯，互动交流，在线购物，行业资讯等服务为一体的平台！@功夫学校 新校区完善使用，5800平方米超大豪华综合型培训学院，空翻、花技、战舞、格斗、养生、斗秀、影武、冷兵，学院配有宿舍食堂，校区配有卫生间，洗澡间，电视，空调，健身房，全校覆盖Wi-Fi，等，来学习的朋友们，到临沂后打电话给我们，会有专车接送，前来学校参观，试学满意后再报名学习。武林同盟统一咨询方式：全国免费电话400－0539－782，周红星教练手机号：18669905848，18653553001，企业QQ：4000539782，周红星教练个人QQ：876612345，报名招生QQ：1339732050，1586834517，网站：www.wulintongmeng.com，百度视频搜索“武林同盟”，全方面了解武林同盟，周红星总教练及教练团队手把手教学，包教包会。另有跆拳道教练班、极限武术研修班、影视武打演员班、终极武道特训班等多种课程可以选择学习，敬请关注！";
+    NSString * str = @"艾特·功夫（iKungfu）是专为武术，功夫，格斗等爱好者打造的一款集在线学习，视频教程，直播课堂，名师讲堂，即时通讯，互动交流，在线购物，行业资讯等服务为一体的平台！艾特功夫学校 新校区完善使用，5800平方米超大豪华综合型培训学院，空翻、花技、战舞、格斗、养生、斗秀、影武、冷兵，学院配有宿舍食堂，校区配有卫生间，洗澡间，电视，空调，健身房，全校覆盖Wi-Fi，等，来学习的朋友们，到临沂后打电话给我们，会有专车接送，前来学校参观，试学满意后再报名学习。";
     CGFloat H = [str boundingRectWithSize:CGSizeMake(self.scrollView.frame.size.width - 20, 2000) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:18]} context:nil].size.height;
     
     
@@ -70,19 +94,19 @@
     
     self.image = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.text_introduce.frame) + 10 , self.scrollView.frame.size.width, self.scrollView.frame.size.width * 0.7)];
     self.image.backgroundColor = [UIColor orangeColor];
-    self.image.image = [UIImage imageNamed:@"store_head_bg"];
+    [self.image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,_aboutUsDict[@"DreamImage"]]] placeholderImage:[UIImage imageNamed:@"personal_showBac"]];
     [self.scrollView addSubview:self.image];
     
-//    
-//    self.detail = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.image.frame) + 10, self.scrollView.frame.size.width - 20, H)];
-//    self.detail.textColor = [UIColor whiteColor];
-//    self.detail.text = str;
-//    self.detail.numberOfLines = 0;
-//    self.detail.font = [UIFont systemFontOfSize:18];
-//    [self.scrollView addSubview:self.detail];
+    
+    self.detail = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.image.frame) + 10, self.scrollView.frame.size.width - 20, H)];
+    self.detail.textColor = [UIColor whiteColor];
+    self.detail.text = @"武林同盟统一咨询方式：全国免费电话400－0539－782，周红星教练手机号：18669905848，18653553001，企业QQ：4000539782，周红星教练个人QQ：876612345，报名招生QQ：1339732050，1586834517，网站：www.wulintongmeng.com，百度视频搜索“武林同盟”，全方面了解武林同盟，周红星总教练及教练团队手把手教学，包教包会。另有跆拳道教练班、极限武术研修班、影视武打演员班、终极武道特训班等多种课程可以选择学习，敬请关注！";
+    self.detail.numberOfLines = 0;
+    self.detail.font = [UIFont systemFontOfSize:18];
+    [self.scrollView addSubview:self.detail];
     
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, CGRectGetMaxY(self.image.frame) + 15);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, CGRectGetMaxY(self.detail.frame) + 15);
     [self.view addSubview:self.scrollView];
 }
 

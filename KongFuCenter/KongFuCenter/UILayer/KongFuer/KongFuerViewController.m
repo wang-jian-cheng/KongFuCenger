@@ -23,6 +23,8 @@
     UITableView *_mainTableView;
 #pragma mark - datas
     
+    UIImageView *imgView;
+    
     NSMutableArray *cateGoryH;//水平;
     
     NSMutableArray *cateGoryV;
@@ -41,6 +43,8 @@
     UserHeadView *headView;
     
     NSUserDefaults *mUserDefault;
+    
+    NSDictionary * AboutUsDict;
 }
 @end
 
@@ -53,6 +57,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToWYNews) name:@"JumpToWYNews" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToAttention) name:@"JumpAttention" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToTeamgonggao) name:@"JumpToTeamgonggao" object:nil];
+    AboutUsDict=[[NSDictionary alloc] init];
     _sectionNum = 5;
     _cellHeight = SCREEN_HEIGHT / 12;
     [self setBarTitle:@"功夫派"];
@@ -77,6 +82,18 @@
                                      @[@"训练计划",@"成长记录"],
                                      @[@"积分兑换"]]
                                     ];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetAboutUsCallBack:"];
+    
+    [dataprovider GetAboutUs];
+}
+-(void)GetAboutUsCallBack:(id)dict
+{
+    if ([dict[@"code"] intValue]==200) {
+        AboutUsDict=dict[@"data"];
+        [imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,AboutUsDict[@"IndexImage"]]] placeholderImage:[UIImage imageNamed:@"showimg"]];
+    }
 }
 
 
@@ -237,18 +254,20 @@
         getWeatherFinish = YES;
         if([[baseDic allKeys] containsObject:@"aqi"])
         {
-            airNUm.text =[NSString stringWithFormat:@"PM:%@ug/m³" ,baseDic[@"aqi"][@"city"][@"pm25"]];
-            airQuality.text = [NSString stringWithFormat:@"空气质量:%@",baseDic[@"aqi"][@"city"][@"qlty"]];
-            
-            airNUm.hidden = NO;
-            airQuality.hidden = NO;
+//            airNUm.text =[NSString stringWithFormat:@"PM:%@ug/m³" ,baseDic[@"aqi"][@"city"][@"pm25"]];
+//            airQuality.text = [NSString stringWithFormat:@"空气质量:%@",baseDic[@"aqi"][@"city"][@"qlty"]];
+//            
+//            airNUm.hidden = NO;
+//            airQuality.hidden = NO;
         }
         else{
 //            airNUm.text =[NSString stringWithFormat:@"PM:%@" ,@"无数据"];
 //            airQuality.text = [NSString stringWithFormat:@"空气质量:%@",@"无数据"];
-            airNUm.hidden = YES;
-            airQuality.hidden = YES;
+//            airNUm.hidden = YES;
+//            airQuality.hidden = YES;
         }
+        airQuality.text = baseDic[@"now"][@"cond"][@"txt"];
+        
         //天气图标
 //        weatherImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://files.heweather.com/cond_icon/%@.png",[[[baseDic valueForKey:@"now"] valueForKey:@"cond"] valueForKey:@"code"]]]]];
         
@@ -658,9 +677,13 @@
     {
         if(indexPath.row == 0)
         {
-            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
-            imgView.image = [UIImage imageNamed:@"showimg"];
+            imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
+            [imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,AboutUsDict[@"IndexImage"]]] placeholderImage:[UIImage imageNamed:@"showimg"]];
             [cell addSubview:imgView];
+            
+            UIButton * btn_jump=[[UIButton alloc] initWithFrame:imgView.frame];
+            [btn_jump addTarget:self action:@selector(JumptoWebBrowser) forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:btn_jump];
         }
     }
     
@@ -841,6 +864,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+-(void)JumptoWebBrowser
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:AboutUsDict[@"ImageUrl"]]];
+}
 -(void)JumpToTeamNews
 {
     TeamNewsViewController *teamNewsVC = [[TeamNewsViewController alloc] init];

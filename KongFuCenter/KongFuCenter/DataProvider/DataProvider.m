@@ -1841,12 +1841,51 @@
         NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/CancleProduct",Url];
         NSDictionary *prm = @{@"billId":orderid,
                               @"userId":userid};
-        
+        DLog(@"%@",prm);
         [self PostRequest:url andpram:prm];
     }
     else{
         [SVProgressHUD dismiss];
     }
+}
+//userId 用户ID
+//deliveryId 收货地址ID
+//description 订单备注
+//basketDeatilIdList 购物车明细ID
+
+-(void)buyInShoppingCart:(NSString *)userId andDeliveryId:(NSString *)deliveryId andDescription:(NSString *)description andBasketDeatilIdList:(NSString *)basketDeatilIdList
+{
+    if (userId &&deliveryId&&description&&basketDeatilIdList) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SubmitBasket",Url];
+        NSDictionary *prm = @{@"userId":userId,
+                              @"deliveryId":deliveryId,
+                              @"description":description,
+                              @"basketDeatilIdList":basketDeatilIdList};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)getChargeForShopping:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description andFlg:(NSString *)flg andBillId:(NSString *)billId
+{
+    if (userid &&channel&&amount&&description&&flg) {
+    NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/GetCharge",Url];
+    NSDictionary *prm = @{@"userid":userid,
+                          @"channel":channel,
+                          @"amount":amount,
+                          @"description":description,
+                          @"flg":flg,
+                          @"billId":billId};
+    DLog(@"%@",prm);
+    [self PostRequest:url andpram:prm];
+}
+else{
+    [SVProgressHUD dismiss];
+}
+    
 }
 
 #pragma mark - 更多
@@ -1871,7 +1910,12 @@
 }
 
 
-
+-(void)GetAboutUs
+{
+    NSString *url = [NSString stringWithFormat:@"%@AboutUs.asmx/GetAuoutUs",Url];
+//    NSDictionary *prm = @{@"userid":userid};
+    [self PostRequest:url andpram:nil];
+}
 
 
 

@@ -162,6 +162,7 @@
         PayOrderViewController *payOrderViewCtl = [[PayOrderViewController alloc] init];
         payOrderViewCtl.goodsArr = self.selectArr;
         payOrderViewCtl.postage = [dict[@"data"][@"result"] floatValue];
+        payOrderViewCtl.paytype = PayByShoppingCart;
         [self.navigationController pushViewController:payOrderViewCtl animated:YES];
         
     }
@@ -271,7 +272,7 @@
             [tempModel setValuesForKeysWithDictionary:dict[@"data"][i]];
             [self.goodsArr addObject:tempModel];
             
-            self.moneySum += [tempModel.Number intValue] * [tempModel.ProductPriceTotalPrice floatValue];
+//            self.moneySum += [tempModel.Number intValue] * [tempModel.ProductPriceTotalPrice floatValue];
             
         }
         
@@ -326,9 +327,9 @@
 -(void)plusBtnClick:(UIButton*)sender
 {
     UILabel *tempLab = numLabArr[sender.tag-1];
-    NSInteger num = [tempLab.text intValue];
+    NSInteger num = [[tempLab.text substringFromIndex:1] intValue];
     num++;
-    tempLab.text = [NSString stringWithFormat:@"%ld",(long)num];
+    tempLab.text = [NSString stringWithFormat:@"x%ld",(long)num];
     
     
     CartModel *tempModel = self.goodsArr[sender.tag - 1];
@@ -340,11 +341,11 @@
 -(void)delBtnClick:(UIButton*)sender
 {
     UILabel *tempLab = numLabArr[sender.tag-1];
-    NSInteger num = [tempLab.text intValue];
+    NSInteger num = [[tempLab.text substringFromIndex:1] intValue];
     if(num>1)
     {
         num--;
-        tempLab.text = [NSString stringWithFormat:@"%ld",(long)num];
+        tempLab.text = [NSString stringWithFormat:@"x%ld",(long)num];
         CartModel *tempModel = self.goodsArr[sender.tag - 1];
         tempModel.Number = NSStringFromFormat(@"%ld",(long)num);
         self.moneySum -=[tempModel.ProductPriceTotalPrice floatValue];
@@ -380,6 +381,13 @@
     for (UIButton *tempBtn in cellBtnArr) {
         tempBtn.selected = sender.selected;
     }
+    
+    self.moneySum  = 0;
+    for (int i =0; i<self.selectArr.count; i++) {
+        
+        CartModel * tempModel = self.selectArr[i];
+        self.moneySum += [tempModel.Number intValue] * [tempModel.ProductPriceTotalPrice floatValue];
+    }
 }
 
 
@@ -402,14 +410,20 @@
     else
     {
         selectAllBtn.selected = NO;
-        
+        CartModel *tempModel = self.goodsArr[sender.tag-1];
         for (int i = 0; i <self.selectArr.count; i++) {
-            CartModel *tempModel = self.goodsArr[i];
+            
             if([tempModel.Id isEqual:self.selectArr[i].Id])
             {
                 [self.selectArr removeObjectAtIndex:i];
             }
         }
+    }
+    self.moneySum  = 0;
+    for (int i =0; i<self.selectArr.count; i++) {
+        
+        CartModel * tempModel = self.selectArr[i];
+        self.moneySum += [tempModel.Number intValue] * [tempModel.ProductPriceTotalPrice floatValue];
     }
 }
 
@@ -464,12 +478,13 @@
             
             UILabel *infoLab = [[UILabel alloc] initWithFrame:CGRectMake(titleLab.frame.origin.x,
                                                                         (titleLab.frame.origin.y+titleLab.frame.size.height),
-                                                                         titleLab.frame.size.width - 100, 40)];
+                                                                         titleLab.frame.size.width, 40)];
             
             infoLab.text = NSStringFromFormat(@"规格:%@/%@",tempDict.ProductColorName,tempDict.ProductSizeName);
             infoLab.font = [UIFont systemFontOfSize:12];
             infoLab.textColor = [UIColor whiteColor];
             infoLab.numberOfLines = 0;
+            infoLab.textAlignment = NSTextAlignmentLeft;
             [cell addSubview:infoLab];
         
             
@@ -496,7 +511,7 @@
                 numLab.backgroundColor = ItemsBaseColor;
             }
             
-            numLab.text =NSStringFromFormat(@"%@",tempDict.Number);
+            numLab.text =NSStringFromFormat(@"x%@",tempDict.Number);
             numLab.textColor = [UIColor whiteColor];
             numLab.textAlignment = NSTextAlignmentCenter;
             numLab.tag = indexPath.row;
@@ -521,7 +536,7 @@
             [cell addSubview:delBtn];
             
             
-            UILabel *newPrice = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -180),
+            UILabel *newPrice = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80),
                                                                          (titleLab.frame.origin.y),
                                                                          80,
                                                                           20)];

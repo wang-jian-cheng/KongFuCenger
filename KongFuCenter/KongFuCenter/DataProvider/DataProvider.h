@@ -468,6 +468,23 @@
 
 //编辑收货地址   addressId:0-添加  其它对应地址id编辑
 -(void)EditDeliveryAddress:(NSString *)addressId andareaId:(NSString *)areaId andaddress:(NSString *)address andisDefaul:(NSString *)isDefaul anduserId:(NSString *)userId andreceiverName:(NSString *)receiverName andphone:(NSString *)phone andcodeForAddress:(NSString *)codeForAddress;
+/**
+    购物车结算
+ */
+-(void)buyInShoppingCart:(NSString *)userId andDeliveryId:(NSString *)deliveryId andDescription:(NSString *)description andBasketDeatilIdList:(NSString *)basketDeatilIdList;
+
+/**
+ 获取charge
+ 
+ userid 用户ID
+ channel 支付方式
+ amount 金额
+ description 描述
+ flg 类型 0：充值会员 1：购买商品
+ billId 订单号
+ 
+ */
+-(void)getChargeForShopping:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description andFlg:(NSString *)flg andBillId:(NSString *)billId;
 
 /**
  获取默认地址
@@ -499,6 +516,10 @@
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;
 -(void)ShieldNewsFriend:(NSString *)userid;
 -(NSDictionary *)getUserInfoByUserID:(NSString *)userID;
+/**
+ *  获取关于我们
+ */
+-(void)GetAboutUs;
 
 
 @end
