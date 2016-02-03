@@ -218,7 +218,7 @@
     
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getChargeCallBack:"];
-    [dataProvider getChargeForShopping:[Toolkit getUserID] andChannel:payFlag andAmount:ZY_NSStringFromFormat(@"%ld",(unsigned long)(totalMoney*100)) andDescription:@"" andFlg:@"1"/*0：充值会员 1：购买商品*/ andBillId:BillId];
+    [dataProvider getChargeForShopping:[Toolkit getUserID] andChannel:payFlag andAmount:ZY_NSStringFromFormat(@"%ld",(unsigned long)(totalMoney*100)) andDescription:@"购买商品" andFlg:@"1"/*0：充值会员 1：购买商品*/ andBillId:BillId];
 }
 
 -(void)getChargeCallBack:(id)dict
@@ -322,6 +322,9 @@
         }
             break;
         case PayByImmediately:
+        {
+            [self payImmediately];
+        }
             break;
         default:
             break;

@@ -150,6 +150,7 @@
         PayOrderViewController *payOrderViewCtl = [[PayOrderViewController alloc] init];
         payOrderViewCtl.navtitle = @"确认订单";
         payOrderViewCtl.goodDicts = self.orderArr[sender.tag][@"ProList"];
+        payOrderViewCtl.payOrderId = self.orderArr[sender.tag][@"Id"];
         [self.navigationController pushViewController:payOrderViewCtl animated:YES];
     }
     else if([sender.titleLabel.text isEqualToString:@"评价商品"])
