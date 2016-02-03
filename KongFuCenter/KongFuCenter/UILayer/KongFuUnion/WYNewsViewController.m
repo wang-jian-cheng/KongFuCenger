@@ -814,6 +814,7 @@
     selectRow = (int)sender.tag;
     YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
     WFMessageBody *m = ymData.messageBody;
+    [SVProgressHUD showWithStatus:@"请稍等..." maskType:SVProgressHUDMaskTypeBlack];
     if (m.isFavour == YES) {//此时该取消赞
         dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"zanCallBack:"];
@@ -826,6 +827,7 @@
 }
 
 -(void)zanCallBack:(id)dict{
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:selectRow];
         WFMessageBody *m = ymData.messageBody;

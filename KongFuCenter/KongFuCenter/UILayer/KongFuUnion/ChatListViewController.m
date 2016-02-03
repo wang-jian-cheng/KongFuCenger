@@ -166,6 +166,7 @@
     emptyView.backgroundColor = BACKGROUND_COLOR;
     self.emptyConversationView = emptyView;
     
+    
 }
 
 -(void)clickLeftBtn{

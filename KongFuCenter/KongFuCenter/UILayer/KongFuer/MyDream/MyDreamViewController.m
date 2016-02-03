@@ -358,7 +358,8 @@
             
             myDream.frame = CGRectMake((titlelab.frame.origin.x+titlelab.frame.size.width),
                                                                                10, (SCREEN_WIDTH - (titlelab.frame.origin.x+titlelab.frame.size.width) -10 ), _cellHeight -2*10);
-
+            myDream.textColor = [UIColor whiteColor];
+            myDream.font = [UIFont systemFontOfSize:13];
             myDream.backgroundColor = BACKGROUND_COLOR;
             myDream.tag =0;
             [cell addSubview:myDream];
@@ -374,6 +375,8 @@
             
             myPlan.frame =  CGRectMake((titlelab.frame.origin.x+titlelab.frame.size.width),
                                                                                10, (SCREEN_WIDTH - (titlelab.frame.origin.x+titlelab.frame.size.width) -10 ), 2*_cellHeight -2*10);
+            myPlan.textColor = [UIColor whiteColor];
+            myPlan.font = [UIFont systemFontOfSize:13];
             myPlan.backgroundColor = BACKGROUND_COLOR;
             myPlan.tag = 1;
 

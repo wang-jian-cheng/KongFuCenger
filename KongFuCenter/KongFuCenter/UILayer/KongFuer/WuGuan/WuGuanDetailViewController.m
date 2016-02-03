@@ -214,7 +214,7 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
-            
+            [SVProgressHUD showSuccessWithStatus:@"成功转发到武者动态~" maskType:SVProgressHUDMaskTypeBlack];
         }
         @catch (NSException *exception) {
             

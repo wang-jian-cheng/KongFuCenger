@@ -379,7 +379,7 @@
         tempModel.Id = _goodsId;
         tempModel.Number = @"1";
         tempModel.ProductPriceId = selectPriceId;
-        tempModel.ProductPriceTotalPrice = mPriceLbl.text;
+        tempModel.ProductPriceTotalPrice = [mPriceLbl.text substringFromIndex:1];
         NSMutableArray *goodsArray = [[NSMutableArray alloc] init];
         [goodsArray addObject:tempModel];
         payOrderVC.goodsArr = goodsArray;

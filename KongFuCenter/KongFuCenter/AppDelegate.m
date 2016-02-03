@@ -126,7 +126,7 @@
     [self ShareSdkInit];
     
     //集成融云App Key
-    [[RCIM sharedRCIM] initWithAppKey:@"3argexb6r2qhe"];
+    [[RCIM sharedRCIM] initWithAppKey:@"ik1qhw091ul4p"];
 }
 
 
@@ -274,17 +274,12 @@
     NSString *token = [mUserDefault valueForKey:@"token"];
     [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {
         NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+        connectServerIFlag = 0;
         
         //获取好友信息
         DataProvider *dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getFriendBackCall:"];
         [dataProvider getFriendForKeyValue:userId];
-        
-        //获取战队信息
-        [SVProgressHUD showWithStatus:nil];
-        DataProvider *dataProvider1 = [[DataProvider alloc] init];
-        [dataProvider1 setDelegateObject:self setBackFunctionName:@"getTeamBackCall:"];
-        [dataProvider1 SelectTeam:[mUserDefault valueForKey:@"TeamId"]];
     } error:^(RCConnectErrorCode status) {
         NSLog(@"登陆的错误码为:%ld", (long)status);
         [SVProgressHUD dismiss];
@@ -303,6 +298,13 @@
         friendArray = dict[@"data"];
         [mUserDefault setValue:friendArray forKey:@"friendData"];
         [[RCIM sharedRCIM] setUserInfoDataSource:self];
+        
+        //获取战队信息
+        DataProvider *dataProvider1 = [[DataProvider alloc] init];
+        [dataProvider1 setDelegateObject:self setBackFunctionName:@"getTeamBackCall:"];
+        [dataProvider1 SelectTeam:[mUserDefault valueForKey:@"TeamId"]];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -454,6 +456,7 @@
     //设置显示/隐藏tabbar
     [[NSNotificationCenter defaultCenter] postNotificationName:@"tabbar" object:nil];
     
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
     //连接融云服务器
     [[NSNotificationCenter defaultCenter] postNotificationName:@"connectServer" object:nil];
 
