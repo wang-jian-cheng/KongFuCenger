@@ -52,6 +52,8 @@
     
     UIButton *btnLeft = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80-20-btnRight.frame.size.width),
                                                                    10, 80, 30)];
+    [btnLeft addTarget:self action:@selector(leftBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     btnLeft.backgroundColor = [UIColor grayColor];
     btnLeft.titleLabel.font = [UIFont systemFontOfSize:14];
     [btnBackView addSubview:btnLeft];
