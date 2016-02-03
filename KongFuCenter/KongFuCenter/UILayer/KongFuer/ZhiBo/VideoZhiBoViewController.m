@@ -67,6 +67,7 @@
 -(void)viewCourseEvent{
     ZhiBoViewController *zhiboViewCtl = [[ZhiBoViewController alloc] init];
     zhiboViewCtl.navtitle = @"视频直播";
+    zhiboViewCtl.videoLiveID = _videoLiveID;
     [self.navigationController pushViewController:zhiboViewCtl animated:YES];
 }
 
