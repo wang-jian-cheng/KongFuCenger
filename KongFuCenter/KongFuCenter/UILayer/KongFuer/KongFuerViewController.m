@@ -588,10 +588,12 @@
                 
                 
                 airQuality.frame = CGRectMake(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/2-10, 20);
+                
                 airNUm.frame =CGRectMake(airQuality.frame.origin.x, airQuality.frame.size.height, SCREEN_WIDTH/2 -10, 20);
                 
                 weatherImg = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 10 - 80),0, 50, 50)];
                 weatherImg.contentMode = UIViewContentModeScaleAspectFit;
+                airQuality.center = CGPointMake(airQuality.frame.size.width/2+airQuality.frame.origin.x, weatherImg.frame.size.height/2);
                 [cell addSubview:weatherImg];
                 
 //                [cell addSubview:airNUm];
