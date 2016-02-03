@@ -119,10 +119,10 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"IntegralExchangeRecordTableViewCell" owner:self options:nil] objectAtIndex:0];
         cell.backgroundColor = ItemsBaseColor;
     }
-    NSLog(@"%@",goodsArray);
-    [cell.mPhotoIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
-    cell.mName.text = @"男士哑铃一对10公斤";
-    cell.mIntegral.text = [NSString stringWithFormat:@"%@积分",@"1500"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"ImagePath"]]];
+    [cell.mPhotoIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
+    cell.mName.text = [Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"Name"]];
+    cell.mIntegral.text = [NSString stringWithFormat:@"%@积分",[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"CreditTotal"]]];
     cell.mExchangeState.text = @"兑换成功";
     return cell;
 }
@@ -135,6 +135,8 @@
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     ExchangeDetailViewController *exchangeDetailVC = [[ExchangeDetailViewController alloc] init];
     [exchangeDetailVC setExchangeDetail:Mode_Detail];
+    exchangeDetailVC.goodsId = [Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"ProductId"]];
+    exchangeDetailVC.billDetailId = [Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"Id"]];
     [self.navigationController pushViewController:exchangeDetailVC animated:YES];
 }
 

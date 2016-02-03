@@ -85,7 +85,8 @@
 
 -(void)exchangeEvent:(UIButton *)btn{
     ExchangeDetailViewController *exchangeDetailVC = [[ExchangeDetailViewController alloc] init];
-    [exchangeDetailVC setExchangeDetail:Mode_ImmeExchange];
+    exchangeDetailVC.goodsId = [_goodList[btn.tag - 1] valueForKey:@"Id"];
+    exchangeDetailVC.billDetailId = @"0";
     int creditTotal = [[_goodList[btn.tag - 1] valueForKey:@"CreditTotal"] intValue];
     if ([JiFen intValue] >= creditTotal) {
         [exchangeDetailVC setExchangeDetail:Mode_ImmeExchange];
@@ -312,7 +313,7 @@
                 [cell.mPhotoIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"me"]];
                 cell.mName.text = tempDict[@"Name"];
                 cell.mDetail1.text = [NSString stringWithFormat:@"积分兑换:%@",tempDict[@"CreditTotal"]];//[NSString stringWithFormat:@"积分兑换:%@",@"500"];
-                cell.mDetail2.text = [NSString stringWithFormat:@"剩余:%@",[Toolkit judgeIsNull:tempDict[@"StockNum"]]];
+                cell.mDetail2.text = [NSString stringWithFormat:@"剩余库存:%@",[Toolkit judgeIsNull:tempDict[@"StockNum"]]];
                 cell.mExchange.tag = indexPath.row;
                 [cell.mExchange addTarget:self action:@selector(exchangeEvent:) forControlEvents:UIControlEventTouchUpInside];
                 
@@ -344,6 +345,7 @@
     if (indexPath.section == 1 && indexPath.row > 0) {
         ExchangeDetailViewController *exchangeDetailVC = [[ExchangeDetailViewController alloc] init];
         exchangeDetailVC.goodsId = [_goodList[indexPath.row - 1] valueForKey:@"Id"];
+        exchangeDetailVC.billDetailId = @"0";
         int creditTotal = [[_goodList[indexPath.row - 1] valueForKey:@"CreditTotal"] intValue];
         if ([JiFen intValue] >= creditTotal) {
             [exchangeDetailVC setExchangeDetail:Mode_ImmeExchange];

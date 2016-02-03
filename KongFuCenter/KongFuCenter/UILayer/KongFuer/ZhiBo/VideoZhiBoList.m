@@ -144,7 +144,7 @@
         [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"jhstory"]];
         cell.mName.frame = CGRectMake(cell.mName.frame.origin.x, cell.mName.frame.origin.y,20, 21);
         cell.mName.text = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"Title"]];//@"永春拳公益巡回演出";
-        cell.mDetail.text = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"Content"]];//@"咏春拳是最快的制敌拳法,公益巡回演出,让大家更好的理解咏春拳";
+        //cell.mDetail.text = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"Content"]];//@"咏春拳是最快的制敌拳法,公益巡回演出,让大家更好的理解咏春拳";
         NSString *startDate = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"TimeStart"]];
         NSString *year = [startDate substringToIndex:4];
         NSString *month = [startDate substringWithRange:NSMakeRange(5, 2)];
@@ -159,15 +159,18 @@
         NSString *resultState = [self matchState:startDate andEndDate:endDate];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.mState.frame.size.width, cell.mState.frame.size.height)];
         if ([resultState isEqual:@"未开始"]) {
-            cell.mEndDate.text = [NSString stringWithFormat:@"开始时间:%@年%@月%@日",year,month,day];
+            cell.mEndDate.text = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"Content"]];;//[NSString stringWithFormat:@"开始时间:%@年%@月%@日",year,month,day];
+            cell.mDetail.text = [NSString stringWithFormat:@"开始时间:%@",startDate];
             imageView.image = [UIImage imageNamed:@"weikaishi"];
             cell.tag = 0;
         }else if([resultState isEqual:@"直播中"]){
-            cell.mEndDate.text = [NSString stringWithFormat:@"结束时间:%@年%@月%@日",yearend,monthend,dayend];
+            cell.mEndDate.text = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"Content"]];;//[NSString stringWithFormat:@"结束时间:%@年%@月%@日",yearend,monthend,dayend];
+            cell.mDetail.text = [NSString stringWithFormat:@"结束时间:%@",endDate];
             imageView.image = [UIImage imageNamed:@"jinxingzhong"];
             cell.tag = 1;
         }else{
-            cell.mEndDate.text = [NSString stringWithFormat:@"结束时间:%@年%@月%@日",yearend,monthend,dayend];
+            cell.mEndDate.text = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"Content"]];;//[NSString stringWithFormat:@"结束时间:%@年%@月%@日",yearend,monthend,dayend];
+            cell.mDetail.text = [NSString stringWithFormat:@"结束时间:%@",endDate];
             imageView.image = [UIImage imageNamed:@"yijieshu"];
             cell.tag = 2;
         }
