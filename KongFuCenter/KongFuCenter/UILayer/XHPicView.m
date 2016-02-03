@@ -87,8 +87,12 @@
     for (UIView *view in [cell.contentView subviews]) {
         [view removeFromSuperview];
     }
+    if ([[self.dataArr1[indexPath.item] substringToIndex:4] isEqual:@"http"]) {
+        [cell createUIWithImage:nil ImgUrl:self.dataArr1[indexPath.item]];
+    }else{
+        [cell createUIWithImage:[UIImage imageWithData:[NSData dataWithContentsOfFile:self.dataArr1[indexPath.item]]] ImgUrl:nil];
+    }
     
-    [cell createUIWithImage:[UIImage imageWithData:[NSData dataWithContentsOfFile:self.dataArr1[indexPath.item]]] ImgUrl:self.dataArr[indexPath.item]];
     
     cell.myBlock = ^(NSString *event){
         if (_eventBlock) {
