@@ -513,7 +513,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     YMTextData *ym = [_tableDataSource objectAtIndex:indexPath.row];
     BOOL unfold = ym.foldOrNot;
-    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance) + (![self isExitVideo:ym]?30:127);
+    NSInteger imageCount = (ym.showImageArray.count/3)+(ym.showImageArray.count%3==0?0:1);
+    return TableHeader + kLocationToBottom + ym.replyHeight + (ym.showImageHeight + 30) * imageCount  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance) + (![self isExitVideo:ym]?30:127);
 }
 
 -(BOOL)isExitVideo:(YMTextData *)ymData{

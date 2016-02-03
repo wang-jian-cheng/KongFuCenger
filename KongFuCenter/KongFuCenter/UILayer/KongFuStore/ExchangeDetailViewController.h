@@ -18,5 +18,6 @@ typedef enum _exchangeDetail{
 
 @property(nonatomic) ExchangeDetail exchangeDetail;
 @property(nonatomic,strong) NSString *goodsId;
+@property(nonatomic,strong) NSString *billDetailId;
 
 @end

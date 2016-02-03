@@ -55,7 +55,7 @@
 -(void)initData{
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getChangeDetailCallBack:"];
-    [dataProvider ChangeDetail:_goodsId anduserId:get_sp(@"id")];
+    [dataProvider ChangeDetail:_goodsId anduserId:get_sp(@"id") andbillDetailId:_billDetailId];
 }
 
 -(void)getChangeDetailCallBack:(id)dict{
@@ -204,7 +204,7 @@
     }else{
         UILabel *mExchangeDate = [[UILabel alloc] initWithFrame:CGRectMake(14, 10, SCREEN_WIDTH - 28, 21)];
         mExchangeDate.textColor = [UIColor colorWithRed:0.45 green:0.45 blue:0.45 alpha:1];
-        mExchangeDate.text = [NSString stringWithFormat:@"兑换时间:%@",@"2016年01月20日 10:38:00"];
+        mExchangeDate.text = [NSString stringWithFormat:@"兑换时间:%@",[Toolkit judgeIsNull:[exchangeDetailArray valueForKey:@"OperateTime"]]];
         
         UIButton *mViewLogistics = [[UIButton alloc] initWithFrame:CGRectMake(20, mExchangeDate.frame.origin.y + mExchangeDate.frame.size.height + 10, SCREEN_WIDTH - 40, 45)];
         [mViewLogistics addTarget:self action:@selector(btnEvent:) forControlEvents:UIControlEventTouchUpInside];

@@ -374,11 +374,15 @@
     }else{
         PayOrderViewController *payOrderVC = [[PayOrderViewController alloc] init];
         payOrderVC.navtitle = @"确认订单";
+        payOrderVC.paytype = PayByImmediately;
+        CartModel *tempModel = [[CartModel alloc] init];
+        tempModel.Id = _goodsId;
+        tempModel.Number = @"1";
+        tempModel.ProductPriceId = selectPriceId;
+        tempModel.ProductPriceTotalPrice = mPriceLbl.text;
+        payOrderVC.postage = [[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"LiveryPrice"]] floatValue];
         [self.navigationController pushViewController:payOrderVC animated:YES];
     }
-    
-//    [dataProvider setDelegateObject:self setBackFunctionName:@"immediatelyBuyCallBack:"];
-//    [dataProvider BuyNow:_goodsId andnum:@"1" andpriceId:selectPriceId anduserId:get_sp(@"id") andprice:mPriceLbl.text anddeliveryId:@""];
 }
 
 #pragma mark tableview delegate

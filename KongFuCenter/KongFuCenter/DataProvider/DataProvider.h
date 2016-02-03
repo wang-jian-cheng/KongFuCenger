@@ -503,7 +503,7 @@
 -(void)SelectPageChangeBillByUserId:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andstate:(NSString *)state andproNum:(NSString *)proNum;
 
 //兑换详情
--(void)ChangeDetail:(NSString *)productId anduserId:(NSString *)userId;
+-(void)ChangeDetail:(NSString *)productId anduserId:(NSString *)userId andbillDetailId:(NSString *)billDetailId;
 /**
  *  取消订单
  *

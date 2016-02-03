@@ -1687,11 +1687,12 @@
     }
 }
 
--(void)ChangeDetail:(NSString *)productId anduserId:(NSString *)userId{
-    if (productId && userId) {
+-(void)ChangeDetail:(NSString *)productId anduserId:(NSString *)userId andbillDetailId:(NSString *)billDetailId{
+    if (productId && userId && billDetailId) {
         NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/ChangeDetail",Url];
         NSDictionary *prm = @{@"productId":productId,
-                              @"userId":userId};
+                              @"userId":userId,
+                              @"billDetailId":billDetailId};
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];
