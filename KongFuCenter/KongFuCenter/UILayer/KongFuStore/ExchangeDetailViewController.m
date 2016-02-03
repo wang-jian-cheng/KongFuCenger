@@ -71,12 +71,20 @@
 -(void)btnEvent:(UIButton *)btn{
     switch (btn.tag) {
         case 1:{
-            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.kuaidi100.com/index_all.html?type=%@&postid=%@",_liveryType,_liveryNo]]];
         }
             break;
         case 2:{
             PayOrderViewController *payOrderVC = [[PayOrderViewController alloc] init];
             payOrderVC.navtitle = @"确认订单";
+            payOrderVC.paytype = PayByJiFen;
+            CartModel *tempModel = [[CartModel alloc] init];
+            tempModel.Id = _goodsId;
+            tempModel.ProductPriceTotalPrice = [Toolkit judgeIsNull:[exchangeDetailArray valueForKey:@"CreditTotal"]];
+            tempModel.Number = @"1";
+            NSMutableArray *goodsArray = [[NSMutableArray alloc] init];
+            [goodsArray addObject:tempModel];
+            payOrderVC.goodsArr = goodsArray;
             [self.navigationController pushViewController:payOrderVC animated:YES];
         }
             break;

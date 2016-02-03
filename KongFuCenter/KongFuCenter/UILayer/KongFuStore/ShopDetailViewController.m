@@ -380,6 +380,9 @@
         tempModel.Number = @"1";
         tempModel.ProductPriceId = selectPriceId;
         tempModel.ProductPriceTotalPrice = mPriceLbl.text;
+        NSMutableArray *goodsArray = [[NSMutableArray alloc] init];
+        [goodsArray addObject:tempModel];
+        payOrderVC.goodsArr = goodsArray;
         payOrderVC.postage = [[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"LiveryPrice"]] floatValue];
         [self.navigationController pushViewController:payOrderVC animated:YES];
     }

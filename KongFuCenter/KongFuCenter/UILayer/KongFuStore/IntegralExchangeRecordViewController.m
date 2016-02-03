@@ -76,7 +76,7 @@
 
 -(void)initData{
     [dataProvider setDelegateObject:self setBackFunctionName:@"getGoodsCallBack:"];
-    [dataProvider SelectPageChangeBillByUserId:[NSString stringWithFormat:@"%d",curpage * 15] andmaximumRows:@"15" anduserId:get_sp(@"id") andstate:@"2" andproNum:@"1"];
+    [dataProvider SelectPageChangeBillByUserId:[NSString stringWithFormat:@"%d",curpage * 15] andmaximumRows:@"15" anduserId:get_sp(@"id") andstate:@"3" andproNum:@"1"];
 }
 
 -(void)getGoodsCallBack:(id)dict{
@@ -137,6 +137,8 @@
     [exchangeDetailVC setExchangeDetail:Mode_Detail];
     exchangeDetailVC.goodsId = [Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"ProductId"]];
     exchangeDetailVC.billDetailId = [Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"Id"]];
+    exchangeDetailVC.liveryType = [Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"LiveryType"]];
+    exchangeDetailVC.liveryNo = [Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"LiveryNo"]];
     [self.navigationController pushViewController:exchangeDetailVC animated:YES];
 }
 
