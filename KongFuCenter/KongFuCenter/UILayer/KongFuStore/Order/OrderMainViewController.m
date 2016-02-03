@@ -176,6 +176,10 @@
     if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
         [self CancleOrder:sender];
     }
+    else if ([sender.titleLabel.text isEqualToString:@"查看物流"])
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.kuaidi100.com/index_all.html?type=%@&postid=%@",self.orderArr[sender.tag][@"LiveryType"],self.orderArr[sender.tag][@"LiveryNo"]]]];
+    }
 }
 
 #pragma mark - self property

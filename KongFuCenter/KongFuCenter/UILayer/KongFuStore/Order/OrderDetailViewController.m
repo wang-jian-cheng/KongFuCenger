@@ -52,6 +52,8 @@
     
     UIButton *btnLeft = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80-20-btnRight.frame.size.width),
                                                                    10, 80, 30)];
+    [btnLeft addTarget:self action:@selector(leftBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     btnLeft.backgroundColor = [UIColor grayColor];
     btnLeft.titleLabel.font = [UIFont systemFontOfSize:14];
     [btnBackView addSubview:btnLeft];
@@ -105,9 +107,105 @@
         CommentOrderViewController *commentOrderViewCtl = [[CommentOrderViewController alloc] init];
         commentOrderViewCtl.navtitle = @"评价订单";
         [self.navigationController pushViewController:commentOrderViewCtl animated:YES];
+    }else if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
+        [self CancleOrder:sender];
+    }
+    else if([sender.titleLabel.text isEqualToString:@"确认收货"])
+    {
+        [self SureForOrder:sender];
     }
     
 }
+
+-(void)leftBtnClick:(UIButton *)sender
+{
+    if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
+        [self CancleOrder:sender];
+    }
+    else if ([sender.titleLabel.text isEqualToString:@"查看物流"])
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.kuaidi100.com/index_all.html?type=%@&postid=%@",self.OrderDict[@"LiveryType"],self.OrderDict[@"LiveryNo"]]]];
+    }
+}
+
+
+/**
+ *  取消订单
+ *
+ *  @param sender
+ */
+-(void)CancleOrder:(UIButton *)sender
+{
+    
+    UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"是否取消该订单" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+    alert.delegate=self;
+    alert.tag=1*100000+sender.tag;
+    [alert show];
+}
+-(void)CancleOrderCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        [SVProgressHUD showSuccessWithStatus:@"订单取消成功" maskType:SVProgressHUDMaskTypeBlack];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"订单取消出错" maskType:SVProgressHUDMaskTypeBlack];
+    }
+    
+}
+/**
+ *  确认收货
+ *
+ *  @param sender
+ */
+-(void)SureForOrder:(UIButton *)sender
+{
+    UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"确认收货？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    alert.delegate=self;
+    alert.tag=2*100000+sender.tag;
+    [alert show];
+}
+-(void)SureForOrderCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        [SVProgressHUD showSuccessWithStatus:@"订单确认成功" maskType:SVProgressHUDMaskTypeBlack];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"订单确认出错" maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
+#pragma mark - alert delegate
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1) {//取消订单
+        if ((alertView.tag/100000)==1) {
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            
+            [dataprovider setDelegateObject:self setBackFunctionName:@"CancleOrderCallBack:"];
+            
+            [dataprovider CancleOrderWithOrderID:self.OrderDict[@"Id"] andUserId:[Toolkit getUserID]];
+            
+        }
+        else
+        {//确认收货
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            
+            [dataprovider setDelegateObject:self setBackFunctionName:@"SureForOrderCallBack:"];
+            
+            
+            
+        }
+    }
+}
+
+
+
 
 #pragma mark - tableview  Delegate
 
