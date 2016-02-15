@@ -230,7 +230,6 @@
         else
         {
             self.window.rootViewController = _tabBarViewCol;
-            
             [self TryLoginFun];
             
         }
@@ -471,7 +470,7 @@
     if([viewName isEqualToString:@"mainpage"])
     {
         self.window.rootViewController=_tabBarViewCol;
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"setSelectTableBarIndex" object:nil userInfo:[NSDictionary dictionaryWithObject:@"0" forKey:@"index"]];
         return;
     }
     

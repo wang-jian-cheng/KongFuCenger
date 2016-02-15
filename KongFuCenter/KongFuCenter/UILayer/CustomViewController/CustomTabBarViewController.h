@@ -18,7 +18,8 @@
 //    JSBadgeView * jsbChat;
 //    JSBadgeView *jsbwhoviewme;
 }
- 
+
+@property (strong, nonatomic) UIButton *leftBtn;
  
 #pragma mark -
 #pragma mark CustomTabbar

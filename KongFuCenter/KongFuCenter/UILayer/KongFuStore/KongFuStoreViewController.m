@@ -12,6 +12,7 @@
 #import "ShopDetailViewController.h"
 #import "ClassificationViewController.h"
 #import "RecommendGoodsViewController.h"
+#import "ShopListViewController.h"
 
 @interface KongFuStoreViewController (){
     UITableView *mTableView;
@@ -29,6 +30,7 @@
     //初始化参数
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"功夫库"];
+    [self addRightButton:@"search"];
     
 #if (!KONGFU_VER2)
 
@@ -71,6 +73,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
+}
+
+-(void)clickRightButton:(UIButton *)sender{
+    ShopListViewController *shopListVC = [[ShopListViewController alloc] init];
+    shopListVC.categoryId = @"0";
+    [self.navigationController pushViewController:shopListVC animated:YES];
 }
 
 #pragma mark 自定义方法

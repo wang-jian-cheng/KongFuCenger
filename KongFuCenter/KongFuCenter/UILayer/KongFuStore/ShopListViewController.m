@@ -25,11 +25,14 @@
     NSString *isCredit;
     NSString *isRecommend;
     NSArray *shopInfoArray;
+    NSMutableArray *shopInfoArrayCopy;
+    UITextField *searchTxt;
     UIImageView *mIv1;
     UIImageView *mIvUp2;
     UIImageView *mIvDown2;
     UIImageView *mIv3;
     UIImageView *mIv4;
+    BOOL searchFlag;
 }
 
 @end
@@ -45,7 +48,6 @@
     [self addLeftButton:@"left"];
     
     dataProvider = [[DataProvider alloc] init];
-    shopInfoArray = [[NSArray alloc] init];
     
     search = @"";
     isPriceAsc = @"0";
@@ -64,9 +66,16 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [searchTxt resignFirstResponder];
+}
+
 #pragma mark 自定义方法
 -(void)initData{
     curpage = 0;
+    shopInfoArray = [[NSArray alloc] init];
+    searchFlag = NO;
+    searchTxt.text = @"";
     [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListCallBack:"];
     [dataProvider SelectProductBySearch:@"0" andmaximumRows:@"10" andsearch:search andcategoryId:_categoryId andisPriceAsc:isPriceAsc andisSalesAsc:isSalesAsc andisCommentAsc:isCommentAsc andisNewAsc:isNewAsc andisCredit:isCredit andisRecommend:isRecommend];
 }
@@ -80,6 +89,8 @@
 
 -(void)TeamFootRefresh{
     curpage++;
+    searchFlag = NO;
+    searchTxt.text = @"";
     [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListFootCallBack:"];
     [dataProvider SelectProductBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andsearch:search andcategoryId:_categoryId andisPriceAsc:isPriceAsc andisSalesAsc:isSalesAsc andisCommentAsc:isCommentAsc andisNewAsc:isNewAsc andisCredit:isCredit andisRecommend:isRecommend];
 }
@@ -100,9 +111,24 @@
 }
 
 -(void)initViews{
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 45)];
+    UIView *searchView = [[UIView alloc] initWithFrame:CGRectMake(0, 64 + 8, SCREEN_WIDTH, 45)];
+    searchView.backgroundColor = ItemsBaseColor;
+    [self.view addSubview:searchView];
+    searchTxt = [[UITextField alloc] initWithFrame:CGRectMake(14, 0, SCREEN_WIDTH - 28, 45)];
+    searchTxt.returnKeyType = UIReturnKeySearch;
+    searchTxt.delegate = self;
+    searchTxt.textColor = [UIColor whiteColor];
+    searchTxt.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入产品名称" attributes:@{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.44 green:0.43 blue:0.44 alpha:1]}];
+    UIImageView *searchIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 20)];
+    searchIv.contentMode = UIViewContentModeScaleAspectFit;
+    searchIv.image = [UIImage imageNamed:@"search"];
+    searchTxt.leftView = searchIv;
+    searchTxt.leftViewMode = UITextFieldViewModeAlways;
+    [searchView addSubview:searchTxt];
+    
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, searchView.frame.origin.y + searchView.frame.size.height + 5, SCREEN_WIDTH, 45)];
     headView.backgroundColor = ItemsBaseColor;
-    CGFloat mWidth = SCREEN_WIDTH / 4;
+    CGFloat mWidth = SCREEN_WIDTH / 4 - 5;
     UIButton *mBtn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, mWidth, 45)];
     mBtn1.titleLabel.font = [UIFont systemFontOfSize:16];
     [mBtn1 setTitle:@"销量" forState:UIControlStateNormal];
@@ -175,7 +201,7 @@
     
     [self.view addSubview:headView];
     
-    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height + 45, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
+    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, headView.frame.origin.y + headView.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
     mTableView.delegate = self;
     mTableView.dataSource = self;
     mTableView.backgroundColor = BACKGROUND_COLOR;
@@ -253,13 +279,31 @@
     [mTableView.mj_header beginRefreshing];
 }
 
+-(void)searchData:(NSString *)searchStr{
+    NSLog(@"%@",shopInfoArray);
+    shopInfoArrayCopy = [[NSMutableArray alloc] init];
+    if (![searchStr isEqual:@""]) {
+        searchFlag = YES;
+        for (int i = 0; i < shopInfoArray.count; i++) {
+            if ([[shopInfoArray[i] valueForKey:@"Name"] containsString:searchStr]) {
+                [shopInfoArrayCopy addObject:shopInfoArray[i]];
+            }
+        }
+        [mTableView reloadData];
+    }
+}
+
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return shopInfoArray.count;
+    if (!searchFlag) {
+        return shopInfoArray.count;
+    }else{
+        return shopInfoArrayCopy.count;
+    }
 }
 
 #pragma mark setting for section
@@ -279,14 +323,24 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopTableViewCell" owner:self options:nil] objectAtIndex:0];
         cell.backgroundColor = ItemsBaseColor;
     }
-    NSLog(@"%@",shopInfoArray);
-    NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"ImagePath"]]];
-    [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
-    cell.mName.text = [Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"Name"]];
-    cell.mPrice.text = [NSString stringWithFormat:@"¥%.02f",[[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"Price"]] floatValue]];
-    cell.watchNum.text = [NSString stringWithFormat:@"%@人",[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"VisitNum"]]];
-    cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"SaleNum"]]];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (!searchFlag) {
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"ImagePath"]]];
+        [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
+        cell.mName.text = [Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"Name"]];
+        cell.mPrice.text = [NSString stringWithFormat:@"¥%.02f",[[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"Price"]] floatValue]];
+        cell.watchNum.text = [NSString stringWithFormat:@"%@人",[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"VisitNum"]]];
+        cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"SaleNum"]]];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }else{
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"ImagePath"]]];
+        [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
+        cell.mName.text = [Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"Name"]];
+        cell.mPrice.text = [NSString stringWithFormat:@"¥%.02f",[[Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"Price"]] floatValue]];
+        cell.watchNum.text = [NSString stringWithFormat:@"%@人",[Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"VisitNum"]]];
+        cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",[Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"SaleNum"]]];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
     return cell;
 }
 
@@ -299,6 +353,22 @@
     ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
     shopDetailVC.goodsId = [Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"Id"]];
     [self.navigationController pushViewController:shopDetailVC animated:YES];
+}
+
+#pragma mark - textfield delegate
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+//    provinceCode = @"0";
+//    cityCode = @"0";
+//    countryCode = @"0";
+//    selectAge = 0;
+//    selectSex = 0;
+//    [self TeamTopRefresh];
+    [self searchData:searchTxt.text];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

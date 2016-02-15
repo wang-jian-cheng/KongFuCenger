@@ -8,7 +8,7 @@
 
 #import "BaseNavigationController.h"
 
-@interface ShopListViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+@interface ShopListViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 @property(nonatomic,strong) NSString *categoryId;
 

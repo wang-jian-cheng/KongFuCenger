@@ -46,6 +46,9 @@
     //隐藏系统tabbar
     self.tabBar.hidden = YES;
     self.hidesBottomBarWhenPushed = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSelectTableBarIndex:) name:@"setSelectTableBarIndex" object:nil];
+    
  //    NSArray *arrayImages_H = [[NSArray alloc] initWithObjects:@"home_H@2x.png",@"classes_H@2x.png" ,@"cate_H@2x.png",@"user_H@2x.png", nil];
  	NSArray *arrayImages = [[NSArray alloc] initWithObjects:@"hewuzhe@2x.png",@"helianmeng@2x.png",@"hedongli@2x.png",
 #if KONGFU_VER2
@@ -188,6 +191,29 @@
         return ;
     UIButton *btnSender = (UIButton *)[self.view viewWithTag:index + 1000];
     [self onTabButtonPressed:btnSender];
+}
+
+-(void)setSelectTableBarIndex:(id)sender
+{
+    
+    NSInteger index = [[[sender userInfo]objectForKey:@"index"] integerValue];
+    [self onTabButtonPressed:[btnArr objectAtIndex:index]];
+    //UIButton *tempBtn;
+    //self.leftBtn.hidden = NO;
+    
+//    for (int i; i<btnArr.count; i++) {
+//        tempBtn = [btnArr objectAtIndex:i];
+//        if(i != index)
+//        {
+//            tempBtn.selected = NO;
+//        }
+//        else
+//        {
+//            //tempBtn.selected = YES;
+//            //_btnSelected = tempBtn;
+//        }
+//    }
+    [self setSelectedIndex:index];
 }
 
 //隐藏tabbar
