@@ -16,7 +16,7 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
 #import "WXApi.h"
-#import "WeiboSDK.h"
+//#import "WeiboSDK.h"
 #import "FirstScrollController.h"
 #import "APService.h"
 #import <AudioToolbox/AudioToolbox.h>
@@ -73,7 +73,7 @@
                  [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
                  break;
              case SSDKPlatformTypeSinaWeibo:
-                 [ShareSDKConnector connectWeibo:[WeiboSDK class]];
+//                 [ShareSDKConnector connectWeibo:[WeiboSDK class]];
                  break;
                  
              default:
