@@ -26,10 +26,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-#if (!KONGFU_VER2)
     //初始化参数
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"功夫库"];
+    
+#if (!KONGFU_VER2)
 
     UIImageView * img_back=[[UIImageView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-49)];
     
