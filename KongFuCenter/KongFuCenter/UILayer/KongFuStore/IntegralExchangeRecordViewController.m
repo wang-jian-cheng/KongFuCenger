@@ -54,14 +54,12 @@
     [self.view addSubview:mTableView];
     
     __unsafe_unretained __typeof(self) weakSelf = self;
-    __weak typeof(UITableView *) weakTv = mTableView;
     // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
     
     mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         curpage = 0;
-        [goodsArray removeAllObjects];
+        goodsArray = [[NSMutableArray alloc] init];
         [weakSelf initData];
-        [weakTv.mj_header endRefreshing];
     }];
     
     // 马上进入刷新状态
@@ -81,8 +79,10 @@
 
 -(void)getGoodsCallBack:(id)dict{
     // 结束刷新
+    [mTableView.mj_header endRefreshing];
     [mTableView.mj_footer endRefreshing];
     if ([dict[@"code"] intValue] == 200) {
+        curpage++;
         NSArray * arrayitem=[[NSArray alloc] init];
         arrayitem=dict[@"data"];
         for (id item in arrayitem) {
