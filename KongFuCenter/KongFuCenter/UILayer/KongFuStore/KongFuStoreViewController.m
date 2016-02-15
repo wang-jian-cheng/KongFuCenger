@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+#if (!KONGFU_VER2)
     //初始化参数
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"功夫库"];
@@ -56,14 +56,15 @@
     lbl_tishi.center=CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
     
     [self.view addSubview:lbl_tishi];
-
+#else
     
     
-//    dataProvider = [[DataProvider alloc] init];
-//    shopInfoArray = [[NSArray alloc] init];
-//    
-//    //初始化View
-//    [self initViews];
+    dataProvider = [[DataProvider alloc] init];
+    shopInfoArray = [[NSArray alloc] init];
+    
+    //初始化View
+    [self initViews];
+#endif
 }
 
 -(void)viewWillAppear:(BOOL)animated
