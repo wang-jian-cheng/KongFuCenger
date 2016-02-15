@@ -12,7 +12,7 @@
 #import "CartModel.h"
 #import "UIImageView+WebCache.h"
 #import "ReceiveAddressViewController.h"
-
+#import "MyTextView.h"
 
 typedef enum _payType
 {
@@ -22,7 +22,7 @@ typedef enum _payType
     PayByOrderId
 }PayType;
 
-@interface PayOrderViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,ReceiveAddressDelegate>
+@interface PayOrderViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,ReceiveAddressDelegate,UIGestureRecognizerDelegate>
 {
     int pageNo;
     int pageSize;
@@ -36,7 +36,11 @@ typedef enum _payType
     UILabel *tiplab;
     UILabel *moneyLab;
     
+    MyTextView *DescriptionTextView;
+    NSIndexPath *tempIndexPath;
     NSString *payFlag;
+    
+    NSUInteger jiFenTotal;
     
     NSMutableDictionary *addressDict;
 }

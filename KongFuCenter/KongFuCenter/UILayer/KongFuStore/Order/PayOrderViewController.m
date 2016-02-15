@@ -79,7 +79,15 @@
     moneyLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,  btnRight.frame.origin.x - 10, btnBackView.frame.size.height/2)];
     [btnBackView addSubview:moneyLab];
     moneyLab.textColor = [UIColor whiteColor];
-    moneyLab.text =ZY_NSStringFromFormat(@"总金额：¥ %.02f",totalMoney);
+    
+    if(self.paytype == PayByJiFen)
+    {
+        moneyLab.text =ZY_NSStringFromFormat(@"合计 %.02f积分",totalMoney);
+    }
+    else
+    {
+        moneyLab.text =ZY_NSStringFromFormat(@"总金额：¥ %.02f",totalMoney);
+    }
     moneyLab.font = [UIFont systemFontOfSize:14];
     moneyLab.textAlignment = NSTextAlignmentRight;
     
@@ -100,8 +108,83 @@
     tiplab.textAlignment = NSTextAlignmentRight;
     
     [self.view addSubview:btnBackView];
+    DescriptionTextView = [[MyTextView alloc] init];
+    DescriptionTextView.placeHolder.text = @"请输入备注";
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
+    tapGesture.delegate = self;
+    [self.view addGestureRecognizer:tapGesture];
+    //    //注册通知,监听键盘弹出事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    //
+    //    //注册通知,监听键盘消失事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHidden) name:UIKeyboardDidHideNotification object:nil];
+    [self getUserInfo];
     
 }
+
+
+
+// 键盘弹出时
+-(void)keyboardDidShow:(NSNotification *)notification
+{
+    
+    //获取键盘高度
+    NSValue *keyboardObject = [[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    CGRect keyboardRect;
+    [keyboardObject getValue:&keyboardRect];
+    
+    
+    //调整放置有textView的view的位置
+    
+    //设置动画
+    [UIView beginAnimations:nil context:nil];
+    
+    //定义动画时间
+    [UIView setAnimationDuration:0.5];
+    //               CGRectMake(0, self.view.frame.size.height-keyboardRect.size.height-kViewHeight, 320, kViewHeight)]
+    //设置view的frame，往上平移
+    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height -Header_Height -keyboardRect.size.height)];
+    
+    [_mainTableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+    
+    //    _cellTextViewHeight = _mainTableView.frame.size.height - 3*_cellHeight;
+    //    [_mainTableView reloadData];
+    [UIView commitAnimations];
+    
+}
+
+//键盘消失时
+-(void)keyboardDidHidden
+{
+    //定义动画
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+    //设置view的frame，往下平移
+    [_mainTableView setFrame:CGRectMake(0, Header_Height, self.view.frame.size.width,self.view.frame.size.height - Header_Height)];
+    //   _cellTextViewHeight = _mainTableView.frame.size.height - 3*_cellHeight;
+    //   [_mainTableView reloadData];
+    [UIView commitAnimations];
+    
+}
+
+
+//设置点在某个view时部触发事件
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    // 输出点击的view的类名
+    NSLog(@"-%@", NSStringFromClass([touch.view class]));
+    
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]||[NSStringFromClass([touch.view class]) isEqualToString:@"UIButton"])
+    {
+        return NO;
+    }
+    //  NSLog(@"return YES");
+    return  YES;
+}
+
 
 #pragma mark - self property
 
@@ -144,7 +227,14 @@
     }
     
     self.goodsArr = tempArr;
-    moneyLab.text = ZY_NSStringFromFormat(@"总金额：¥ %.02f",totalMoney);
+    if(self.paytype == PayByJiFen)
+    {
+        moneyLab.text = ZY_NSStringFromFormat(@"合计 %.02f积分",totalMoney);
+    }
+    else
+    {
+        moneyLab.text = ZY_NSStringFromFormat(@"总金额：¥ %.02f",totalMoney);
+    }
 }
 
 
@@ -178,6 +268,73 @@
 }
 
 #pragma mark - self data source
+
+
+
+
+-(void)getUserInfo
+{
+    [SVProgressHUD showWithStatus:@"刷新中" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
+    [dataprovider getUserInfo:[Toolkit getUserID]];
+    
+}
+
+
+-(void)getUserInfoCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue]==200) {
+        @try {
+            NSDictionary *tempDict = dict[@"data"];
+            
+            jiFenTotal = [[NSString stringWithFormat:@"%@",tempDict[@"Credit"]] integerValue];
+            
+            [_mainTableView reloadData];
+
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+}
+
+
+-(void)payByJifen
+{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"payJifenCallBack:"];
+    [dataProvider payByjiFen:[Toolkit getUserID] andProductId:self.goodsArr[0].Id andNum:@"1" andDeliveryId:addressDict[@"Id"] andDescription:DescriptionTextView.text];
+    
+}
+
+-(void)payJifenCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if([dict[@"code"] intValue] == 200)
+    {
+//        self.payOrderId = dict[@"data"][@"id"];
+//        [self getCharge:self.payOrderId];
+        [SVProgressHUD showSuccessWithStatus:@"兑换成功"];
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:ZY_NSStringFromFormat(@"%@",dict[@"data"]) maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
 
 
 -(void)payImmediately
@@ -218,7 +375,7 @@
     
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getChargeCallBack:"];
-    [dataProvider getChargeForShopping:[Toolkit getUserID] andChannel:payFlag andAmount:ZY_NSStringFromFormat(@"%ld",(unsigned long)(totalMoney*100)) andDescription:@"购买商品" andFlg:@"1"/*0：充值会员 1：购买商品*/ andBillId:BillId];
+    [dataProvider getChargeForShopping:[Toolkit getUserID] andChannel:payFlag andAmount:ZY_NSStringFromFormat(@"%ld",(unsigned long)(totalMoney*100)) andDescription:DescriptionTextView.text andFlg:@"1"/*0：充值会员 1：购买商品*/ andBillId:BillId];
 }
 
 -(void)getChargeCallBack:(id)dict
@@ -270,7 +427,7 @@
         payIds = ZY_NSStringFromFormat(@"%@&%@",payIds,self.goodsArr[i].Id);
     }
     
-    [dataProvider buyInShoppingCart:[Toolkit getUserID] andDeliveryId:addressDict[@"Id"] andDescription:@"" andBasketDeatilIdList:payIds];
+    [dataProvider buyInShoppingCart:[Toolkit getUserID] andDeliveryId:addressDict[@"Id"] andDescription:DescriptionTextView.text andBasketDeatilIdList:payIds];
 }
 
 -(void)goShoppingCartPayOrderCallBack:(id)dict
@@ -313,6 +470,11 @@
 
 #pragma mark - click action
 
+-(void)tapViewAction:(id)sender
+{
+    [self.view endEditing:YES];
+}
+
 -(void)payOrderBtnClick:(UIButton *)sender
 {
     switch (self.paytype) {
@@ -329,6 +491,11 @@
         case PayByOrderId:
         {
             [self goShoppingCartPayOrder];
+        }
+            break;
+        case PayByJiFen:
+        {
+            [self payByJifen];
         }
             break;
         default:
@@ -371,7 +538,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 3;
+    return 4;
     
 }
 
@@ -383,7 +550,13 @@
         return self.goodsArr.count+3;
     }
     if(section == 2)
+    {
+        if(self.paytype == PayByJiFen)
+            return 2;
         return 3;
+    }
+    if(section == 3)
+        return 2;
     return 1;
     
 }
@@ -447,7 +620,15 @@
                 
                 UILabel *nowPriceLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 10 - 80), 10, 80, 30)];
                 nowPriceLab.textColor = Separator_Color;
-                nowPriceLab.text = ZY_NSStringFromFormat(@"¥%@",tempModel.ProductPriceTotalPrice);//   @"¥20.00";
+                
+                if(self.paytype == PayByJiFen)
+                {
+                    nowPriceLab.text = ZY_NSStringFromFormat(@"%@积分",tempModel.ProductPriceTotalPrice);
+                }
+                else
+                {
+                    nowPriceLab.text = ZY_NSStringFromFormat(@"¥%@",tempModel.ProductPriceTotalPrice);//   @"¥20.00";
+                }
                 nowPriceLab.textAlignment = NSTextAlignmentRight;
                 nowPriceLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:nowPriceLab];
@@ -482,9 +663,9 @@
             }
             else if(indexPath.row == self.goodsArr.count+1)
             {
-                cell.textLabel.textColor = [UIColor whiteColor];
-                cell.textLabel.text = @"卖家包邮";
-                cell.textLabel.font = [UIFont systemFontOfSize:15];
+//                cell.textLabel.textColor = [UIColor whiteColor];
+//                cell.textLabel.text = @"邮费";
+//                cell.textLabel.font = [UIFont systemFontOfSize:15];
                 
                 UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -160-20), 0, 160, 50)];
                 
@@ -509,7 +690,14 @@
                 cell.textLabel.font = [UIFont systemFontOfSize:15];
                 
                 UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 160-20), 0, 160, 50)];
-                tipLab.text = ZY_NSStringFromFormat(@"合计¥ %.02f",totalMoney);
+                if(self.paytype == PayByJiFen)
+                {
+                    tipLab.text = ZY_NSStringFromFormat(@"合计 %.02f积分",totalMoney);
+                }
+                else
+                {
+                    tipLab.text = ZY_NSStringFromFormat(@"合计¥ %.02f",totalMoney);
+                }
                 tipLab.font = [UIFont systemFontOfSize:15];
                 tipLab.textColor = [UIColor orangeColor];
                 tipLab.textAlignment = NSTextAlignmentRight;
@@ -519,34 +707,77 @@
         
         if(indexPath.section == 2)
         {
-            if(indexPath.row == 0)
+            if(self.paytype == PayByJiFen)
             {
-                cell.textLabel.text = @"支付方式";
-                cell.textLabel.textColor = [UIColor whiteColor];
-                cell.textLabel.font = [UIFont systemFontOfSize:16];
+                if(indexPath.row == 0)
+                {
+                    cell.textLabel.text = @"积分支付";
+                    cell.textLabel.textColor = [UIColor whiteColor];
+                    cell.textLabel.font = [UIFont systemFontOfSize:16];
+                }
+                else if(indexPath.row == 1)
+                {
+                    cell.textLabel.text = @"当前积分";
+                    cell.textLabel.textColor = [UIColor whiteColor];
+                    cell.textLabel.font = [UIFont systemFontOfSize:16];
+                    
+                    UILabel *jifenLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 160-20), 0, 160, 50)];
+                    jifenLab.text = ZY_NSStringFromFormat(@"%lu积分",(unsigned long)jiFenTotal);
+                    jifenLab.textColor = [UIColor whiteColor];
+                    jifenLab.textAlignment = NSTextAlignmentRight;
+                    jifenLab.font = [UIFont systemFontOfSize:14];
+                    [cell addSubview:jifenLab];
+                    
+                }
             }
-            else if(indexPath.row == 1)
+            else
             {
-                cell.imageView.image = [UIImage imageNamed:@"zhifubao"];
-                cell.textLabel.text = @"支付宝支付";
-                cell.textLabel.textColor = [UIColor whiteColor];
-                cell.textLabel.font = [UIFont systemFontOfSize:14];
-                
-                [cell addSubview:roundBtnArr[indexPath.row - 1]];
-                
-                
-            }
-            else if(indexPath.row == 2)
-            {
-                cell.imageView.image = [UIImage imageNamed:@"weixin"];
-                cell.textLabel.text = @"微信支付";
-                cell.textLabel.textColor = [UIColor whiteColor];
-                cell.textLabel.font = [UIFont systemFontOfSize:14];
-                
-                [cell addSubview:roundBtnArr[indexPath.row - 1]];
-            }
-
             
+                if(indexPath.row == 0)
+                {
+                    cell.textLabel.text = @"支付方式";
+                    cell.textLabel.textColor = [UIColor whiteColor];
+                    cell.textLabel.font = [UIFont systemFontOfSize:16];
+                }
+                else if(indexPath.row == 1)
+                {
+                    cell.imageView.image = [UIImage imageNamed:@"zhifubao"];
+                    cell.textLabel.text = @"支付宝支付";
+                    cell.textLabel.textColor = [UIColor whiteColor];
+                    cell.textLabel.font = [UIFont systemFontOfSize:14];
+                    
+                    [cell addSubview:roundBtnArr[indexPath.row - 1]];
+                }
+                else if(indexPath.row == 2)
+                {
+                    cell.imageView.image = [UIImage imageNamed:@"weixin"];
+                    cell.textLabel.text = @"微信支付";
+                    cell.textLabel.textColor = [UIColor whiteColor];
+                    cell.textLabel.font = [UIFont systemFontOfSize:14];
+                    
+                    [cell addSubview:roundBtnArr[indexPath.row - 1]];
+                }
+
+            }
+        }
+        
+        if(indexPath.section == 3)
+        {
+            if(indexPath.row==0)
+            {
+                cell.textLabel.text = @"备注";
+                cell.textLabel.textColor = [UIColor whiteColor];
+                cell.textLabel.font = [UIFont systemFontOfSize:14];
+            }
+            else
+            {
+                tempIndexPath = indexPath;
+                DescriptionTextView.frame = CGRectMake(20, 10,SCREEN_WIDTH- 40 , 50 *2-20);
+                DescriptionTextView.backgroundColor = BACKGROUND_COLOR;
+                DescriptionTextView.textColor = [UIColor whiteColor];
+                DescriptionTextView.font = [UIFont systemFontOfSize:14];
+                [cell.contentView addSubview:DescriptionTextView];
+            }
         }
     }
     @catch (NSException *exception) {
@@ -573,6 +804,16 @@
     }
     if(indexPath.section == 2)
         return 50;
+    
+    if(indexPath.section == 3)
+    {
+        if(indexPath.row == 0)
+            return 50;
+        else if(indexPath.row == 1)
+        {
+            return 50*2;
+        }
+    }
     
     return _cellHeight;
 }
