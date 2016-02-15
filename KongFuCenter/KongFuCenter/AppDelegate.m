@@ -20,6 +20,7 @@
 #import "FirstScrollController.h"
 #import "APService.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "SimpleMessage.h"
 
 
 #define LogIn_UserID_key    @"mAccountID"
@@ -127,6 +128,9 @@
     
     //集成融云App Key
     [[RCIM sharedRCIM] initWithAppKey:@"ik1qhw091ul4p"];
+    
+    //SDK 初始化方法 initWithAppKey 之后后注册消息类型
+    [[RCIMClient sharedRCIMClient] registerMessageType:[SimpleMessage class]];
 }
 
 
@@ -230,7 +234,6 @@
         else
         {
             self.window.rootViewController = _tabBarViewCol;
-            
             [self TryLoginFun];
             
         }
@@ -471,7 +474,7 @@
     if([viewName isEqualToString:@"mainpage"])
     {
         self.window.rootViewController=_tabBarViewCol;
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"setSelectTableBarIndex" object:nil userInfo:[NSDictionary dictionaryWithObject:@"0" forKey:@"index"]];
         return;
     }
     

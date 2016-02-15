@@ -80,8 +80,10 @@
             payOrderVC.paytype = PayByJiFen;
             CartModel *tempModel = [[CartModel alloc] init];
             tempModel.Id = _goodsId;
+            tempModel.ProductName = [Toolkit judgeIsNull:[exchangeDetailArray valueForKey:@"Name"]];
             tempModel.ProductPriceTotalPrice = [Toolkit judgeIsNull:[exchangeDetailArray valueForKey:@"CreditTotal"]];
             tempModel.Number = @"1";
+            payOrderVC.postage = -1;//到付
             NSMutableArray *goodsArray = [[NSMutableArray alloc] init];
             [goodsArray addObject:tempModel];
             payOrderVC.goodsArr = goodsArray;

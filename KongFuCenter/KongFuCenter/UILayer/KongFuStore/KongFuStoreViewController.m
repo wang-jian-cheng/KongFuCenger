@@ -12,6 +12,7 @@
 #import "ShopDetailViewController.h"
 #import "ClassificationViewController.h"
 #import "RecommendGoodsViewController.h"
+#import "ShopListViewController.h"
 
 @interface KongFuStoreViewController (){
     UITableView *mTableView;
@@ -26,10 +27,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     //初始化参数
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"功夫库"];
+    [self addRightButton:@"search"];
+    
+#if (!KONGFU_VER2)
 
     UIImageView * img_back=[[UIImageView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-49)];
     
@@ -56,19 +59,26 @@
     lbl_tishi.center=CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
     
     [self.view addSubview:lbl_tishi];
-
+#else
     
     
-//    dataProvider = [[DataProvider alloc] init];
-//    shopInfoArray = [[NSArray alloc] init];
-//    
-//    //初始化View
-//    [self initViews];
+    dataProvider = [[DataProvider alloc] init];
+    shopInfoArray = [[NSArray alloc] init];
+    
+    //初始化View
+    [self initViews];
+#endif
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
+}
+
+-(void)clickRightButton:(UIButton *)sender{
+    ShopListViewController *shopListVC = [[ShopListViewController alloc] init];
+    shopListVC.categoryId = @"0";
+    [self.navigationController pushViewController:shopListVC animated:YES];
 }
 
 #pragma mark 自定义方法

@@ -50,6 +50,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    
     [self hiddenFloatnBtn];
 }
 
@@ -57,13 +58,13 @@
 // 键盘弹出时
 -(void)keyboardDidShow:(NSNotification *)notification
 {
-    [self hiddenFloatnBtn];
+    [self hiddenFloatnWindow];
 }
 
 //键盘消失时
 -(void)keyboardDidHidden
 {
-    [self showFloatBtn];
+    [self showFloatBtnWindow];
 
 }
 

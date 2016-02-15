@@ -113,7 +113,9 @@
 -(void)initView{
     NSString *chatListLoadFlag = [userDefault valueForKey:@"chatListLoadFlag"];
     NSLog(@"------------------------------------%@",chatListLoadFlag);
-    if (!chatListLoadFlag) {
+    NSLog(@"%d",[self isShowNetworkIndicatorView]);
+    NSLog(@"%lu",(unsigned long)[self conversationListDataSource].count);
+    if (!chatListLoadFlag && [self conversationListDataSource].count > 0) {
         [userDefault setValue:@"1" forKey:@"chatListLoadFlag"];
         [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeClear];
     }

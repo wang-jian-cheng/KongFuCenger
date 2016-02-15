@@ -440,6 +440,11 @@
 //首页查询商品推荐分类并显示推荐商品
 -(void)GetRecomendCategoryAndProduct:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows anduserId:(NSString *)userId andproductNum:(NSString *)productNum;
 
+/**
+ * 积分兑换
+ */
+-(void)payByjiFen:(NSString *)userId andProductId:(NSString *)productId andNum:(NSString *)num andDeliveryId:(NSString *)deliveryId andDescription:(NSString *)description;
+
 #pragma mark - 购物车
 /**
  获取购物车列表

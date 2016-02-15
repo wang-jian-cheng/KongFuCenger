@@ -471,6 +471,8 @@
 		B7CE7F431C16C61E0035D8CA /* JoinTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CE7F421C16C61E0035D8CA /* JoinTeamViewController.m */; };
 		B7CE7F471C16C6F30035D8CA /* JoinTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CE7F451C16C6F30035D8CA /* JoinTeamCell.m */; };
 		B7CE7F481C16C6F30035D8CA /* JoinTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7CE7F461C16C6F30035D8CA /* JoinTeamCell.xib */; };
+		B7D1DB151C71B64900D3E3EF /* SimpleMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D1DB141C71B64900D3E3EF /* SimpleMessage.m */; };
+		B7D1DB191C71B83800D3E3EF /* SimpleMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D1DB181C71B83800D3E3EF /* SimpleMessageCell.m */; };
 		B7D846431C22AB7500718E9E /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D846191C22AB7500718E9E /* MJRefreshAutoFooter.m */; };
 		B7D846441C22AB7500718E9E /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D8461B1C22AB7500718E9E /* MJRefreshBackFooter.m */; };
 		B7D846451C22AB7500718E9E /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D8461D1C22AB7500718E9E /* MJRefreshComponent.m */; };
@@ -1306,6 +1308,10 @@
 		B7CE7F441C16C6F30035D8CA /* JoinTeamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinTeamCell.h; sourceTree = "<group>"; };
 		B7CE7F451C16C6F30035D8CA /* JoinTeamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinTeamCell.m; sourceTree = "<group>"; };
 		B7CE7F461C16C6F30035D8CA /* JoinTeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JoinTeamCell.xib; sourceTree = "<group>"; };
+		B7D1DB131C71B64900D3E3EF /* SimpleMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleMessage.h; sourceTree = "<group>"; };
+		B7D1DB141C71B64900D3E3EF /* SimpleMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleMessage.m; sourceTree = "<group>"; };
+		B7D1DB171C71B83800D3E3EF /* SimpleMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleMessageCell.h; sourceTree = "<group>"; };
+		B7D1DB181C71B83800D3E3EF /* SimpleMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleMessageCell.m; sourceTree = "<group>"; };
 		B7D846181C22AB7500718E9E /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		B7D846191C22AB7500718E9E /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
 		B7D8461A1C22AB7500718E9E /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
@@ -3145,6 +3151,17 @@
 			name = JoinTeam;
 			sourceTree = "<group>";
 		};
+		B7D1DB161C71B7F200D3E3EF /* customChatMessage */ = {
+			isa = PBXGroup;
+			children = (
+				B7D1DB131C71B64900D3E3EF /* SimpleMessage.h */,
+				B7D1DB141C71B64900D3E3EF /* SimpleMessage.m */,
+				B7D1DB171C71B83800D3E3EF /* SimpleMessageCell.h */,
+				B7D1DB181C71B83800D3E3EF /* SimpleMessageCell.m */,
+			);
+			name = customChatMessage;
+			sourceTree = "<group>";
+		};
 		B7D846161C22AB7500718E9E /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -3285,6 +3302,7 @@
 		B7E4CD081C1FBF2D00C2E69A /* ChatList */ = {
 			isa = PBXGroup;
 			children = (
+				B7D1DB161C71B7F200D3E3EF /* customChatMessage */,
 				B7CCA2DD1C2118C000B7AC8C /* ChatListViewController.h */,
 				B7CCA2DE1C2118C000B7AC8C /* ChatListViewController.m */,
 				B7CCA2E31C211F5F00B7AC8C /* ChatContentViewController.h */,
@@ -3729,6 +3747,7 @@
 				B7A6FC811C51C41B00B6D665 /* CAAnimation+WAnimation.m in Sources */,
 				80CE42D61C3CB26C00B027CC /* VAppInfo.m in Sources */,
 				B712CC981C2CDC9D00B1A2E8 /* SendNewsViewController.m in Sources */,
+				B7D1DB151C71B64900D3E3EF /* SimpleMessage.m in Sources */,
 				B7A18ED51C56FEC9004FF4FB /* TAAnimatedDotView.m in Sources */,
 				7BA38E901C214305000996EE /* MemberTableViewCell.m in Sources */,
 				B5AF706D1C180CCE00C041AF /* PayForVipViewController.m in Sources */,
@@ -3943,6 +3962,7 @@
 				80DB84621C23D3A6008CA670 /* NSData+ImageContentType.m in Sources */,
 				80DB846A1C23D3A6008CA670 /* UIButton+WebCache.m in Sources */,
 				B7617E271C1C289E00CF96E7 /* UnionNewsCell.m in Sources */,
+				B7D1DB191C71B83800D3E3EF /* SimpleMessageCell.m in Sources */,
 				80DB84651C23D3A6008CA670 /* SDWebImageDecoder.m in Sources */,
 				804952061C250B3800F5584A /* SCFilterSelectorView.m in Sources */,
 				8049520E1C250B3800F5584A /* SCRecorderFocusTargetView.m in Sources */,

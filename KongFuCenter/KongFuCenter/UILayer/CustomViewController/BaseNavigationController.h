@@ -55,4 +55,7 @@ Useage:
 -(void)showFloatBtn;
 - (void)hiddenFloatnBtn;
 
+- (void)showFloatBtnWindow;
+- (void)hiddenFloatnWindow;
+
 @end

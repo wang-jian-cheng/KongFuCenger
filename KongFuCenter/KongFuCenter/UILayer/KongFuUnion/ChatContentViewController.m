@@ -11,8 +11,10 @@
 #import "FriendInfoViewController.h"
 #import "WechatShortVideoController.h"
 #import "BigImageShowViewController.h"
+#import "SimpleMessage.h"
+#import "SimpleMessageCell.h"
 
-@interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate,WechatShortVideoDelegate>{
+@interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate,WechatShortVideoDelegate,RCConversationCellDelegate>{
     UIView *topView;
     NSUserDefaults *userDefault;
     NSString *friendID;
@@ -66,13 +68,34 @@
     messageCollectionView.backgroundColor = BACKGROUND_COLOR;
     [self scrollToBottomAnimated:YES];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveImage) name:@"saveImage" object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveImage) name:@"saveImage" object:nil];
     
-//    //自定义面板功能扩展
+    //会话页面注册 UI
+    [self registerClass:[SimpleMessageCell class] forCellWithReuseIdentifier:@"SimpleMessageCell"];
+    
+    //自定义面板功能扩展
 //    [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"me"]
 //                                        title:@"视频"
 //                                          tag:101];
 }
+
+#pragma mark - 重写方法实现自定义消息的显示
+//-(RCMessageBaseCell *)rcConversationCollectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    RCMessageModel *model = self.conversationDataRepository[indexPath.row];
+//    NSString * cellIndentifier=@"SimpleMessageCell";
+//    RCMessageBaseCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIndentifier           forIndexPath:indexPath];
+//    [cell setDataModel:model];
+//    return cell;
+//}
+//
+//-(CGSize)rcConversationCollectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    //返回自定义cell的实际高度
+//    return CGSizeMake(300, 60);
+//}
+
+
 
 -(void)viewDidAppear:(BOOL)animated{
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
@@ -181,8 +204,13 @@
 #pragma mark - WechatShortVideoDelegate
 //- (void)finishWechatShortVideoCapture:(NSURL *)filePath {
 //    NSLog(@"filePath is %@", filePath);
-//    RCImageMessage *imageMsg = [RCImageMessage messageWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"]]]];
-//    [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:[self targetId] content:imageMsg pushContent:nil success:nil error:nil];
+//    //RCMessageContent *content = [[RCMessageContent alloc] init];
+//    //RCHandShakeMessage* textMsg = [[RCHandShakeMessage alloc] init];
+//    //RCImageMessage *imageMsg = [RCImageMessage messageWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"]]]];
+//    //[[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:[self targetId] content:textMsg pushContent:nil success:nil error:nil];
+//    //RCTextMessage *textMsg = [RCTextMessage messageWithContent:@"你好"];
+//    SimpleMessage *simpleMsg = [SimpleMessage messageWithContent:@"Hello World"];
+//    [self sendMessage:simpleMsg pushContent:@"Hello World"];
 //}
 
 #pragma mark - 相册的代理

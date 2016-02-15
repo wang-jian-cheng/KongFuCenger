@@ -1113,7 +1113,7 @@
     
     if (tableView.tag == ArticleTag) {
         UnionNewsDetailViewController *unionNewsDetailViewCtl = [[UnionNewsDetailViewController alloc] init];
-        unionNewsDetailViewCtl.navtitle = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"Title"]];
+        unionNewsDetailViewCtl.navtitle = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"MessageCame"]];
         unionNewsDetailViewCtl.webId = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"MessageId"]];
         unionNewsDetailViewCtl.collectNum =[NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"FavoriteNum"]];
         unionNewsDetailViewCtl.isFavorite = [NSString stringWithFormat:@"%@", ArticleArr[indexPath.row][@"IsFavorite"]];
