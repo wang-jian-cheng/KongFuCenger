@@ -1872,19 +1872,42 @@
 -(void)getChargeForShopping:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description andFlg:(NSString *)flg andBillId:(NSString *)billId
 {
     if (userid &&channel&&amount&&description&&flg) {
-    NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/GetCharge",Url];
-    NSDictionary *prm = @{@"userid":userid,
-                          @"channel":channel,
-                          @"amount":amount,
-                          @"description":description,
-                          @"flg":flg,
-                          @"billId":billId};
-    DLog(@"%@",prm);
-    [self PostRequest:url andpram:prm];
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/GetCharge",Url];
+        NSDictionary *prm = @{@"userid":userid,
+                              @"channel":channel,
+                              @"amount":amount,
+                              @"description":description,
+                              @"flg":flg,
+                              @"billId":billId};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else{
+        [SVProgressHUD dismiss];
+    }
+        
 }
-else{
-    [SVProgressHUD dismiss];
-}
+//Hezhuangbei.asmx/ChangeNow
+//productId 产品ID
+//num 兑换个数
+//userId 用户ID
+//deliveryId 收货地址ID
+//description 订单备注
+-(void)payByjiFen:(NSString *)userId andProductId:(NSString *)productId andNum:(NSString *)num andDeliveryId:(NSString *)deliveryId andDescription:(NSString *)description
+{
+    if (userId &&productId&&num&&deliveryId&&description) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/ChangeNow",Url];
+        NSDictionary *prm = @{@"userId":userId,
+                              @"productId":productId,
+                              @"num":num,
+                              @"deliveryId":deliveryId,
+                              @"description":description};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else{
+        [SVProgressHUD dismiss];
+    }
     
 }
 

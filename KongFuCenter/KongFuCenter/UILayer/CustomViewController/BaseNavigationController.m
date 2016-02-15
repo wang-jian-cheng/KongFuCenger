@@ -162,6 +162,8 @@
 
 - (void)clickLeftButton:(UIButton *)sender
 {
+    
+    [self hiddenFloatnBtn];
     NSLog(@"left button click");
     UIViewController *aa = [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"aa:%@",aa);
@@ -236,8 +238,30 @@
  */
 - (void)hiddenFloatnBtn
 {
-    [self.floatWindow resignKeyWindow];
-    self.floatWindow = nil;
+    
+    if(self.floatWindow!=nil)
+    {
+        [self.floatWindow resignKeyWindow];
+        self.floatWindow = nil;
+    }
+}
+- (void)showFloatBtnWindow
+{
+    
+    if(self.floatWindow!=nil)
+    {
+        [self.floatWindow makeKeyAndVisible];
+        self.floatWindow.hidden = NO;
+    }
+}
+- (void)hiddenFloatnWindow
+{
+    
+    if(self.floatWindow!=nil)
+    {
+        [self.floatWindow resignKeyWindow];
+        self.floatWindow.hidden = YES;
+    }
 }
 
 
