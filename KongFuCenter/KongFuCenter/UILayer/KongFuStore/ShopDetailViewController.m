@@ -106,6 +106,10 @@
         for (id item in arrayitem) {
             [itemarray addObject:item];
         }
+        if(commentListArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
         commentListArray=[[NSArray alloc] initWithArray:itemarray];
         [mTableView reloadData];
     }
@@ -116,7 +120,7 @@
     mTableView.delegate = self;
     mTableView.dataSource = self;
     mTableView.backgroundColor = BACKGROUND_COLOR;
-    mTableView.separatorColor = Separator_Color;
+    mTableView.separatorColor = BACKGROUND_COLOR;
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
     
@@ -159,12 +163,12 @@
     
     // 马上进入刷新状态
     [mTableView.mj_header beginRefreshing];
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
-    // 禁止自动加载
-    footer.automaticallyRefresh = NO;
-    // 设置footer
-    mTableView.mj_footer = footer;
+    
+    // 上拉刷新
+    mTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [weakSelf TeamFootRefresh];
+        [mTableView.mj_footer endRefreshing];
+    }];
 }
 
 -(void)showCustomView{
@@ -390,7 +394,7 @@
 
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 4;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -398,6 +402,8 @@
         return 2;
     }else if (section == 1){
         return 1;
+    }else if(section == 2){
+        return 2;
     }else{
         return 1 + commentListArray.count;
     }
@@ -405,7 +411,7 @@
 
 #pragma mark setting for section
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 1 || section == 2) {
+    if (section == 1 || section == 2 || section == 3) {
         return 4;
     }else{
         return 0;
@@ -426,7 +432,9 @@
         cell.backgroundColor = ItemsBaseColor;
     }else{
         for (UIView *view in cell.subviews) {
-            [view removeFromSuperview];
+            if ([view isKindOfClass:[UILabel class]]) {
+                [view removeFromSuperview];
+            }
         }
     }
     if (indexPath.section == 0) {
@@ -492,6 +500,25 @@
         mSpecLbl.text = [selectSpec isEqual:@""]?@"请选择规格":[NSString stringWithFormat:@"规格:%@",selectSpec];
         [cell addSubview:mSpecLbl];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }else if(indexPath.section == 2){
+        if (indexPath.row == 0) {
+            UILabel *userCommentTitle = [[UILabel alloc] initWithFrame:CGRectMake(14, (45 - 21) / 2, 150, 21)];
+            userCommentTitle.font = [UIFont systemFontOfSize:16];
+            userCommentTitle.textColor = [UIColor whiteColor];
+            userCommentTitle.text = @"产品介绍";
+            [cell addSubview:userCommentTitle];
+        }else{
+            NSString *mContentStr = [Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"Content"]];
+            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-28]+10;
+            UITextView *mContent = [[UITextView alloc] initWithFrame:CGRectMake(14, 2, SCREEN_WIDTH - 28, contentHeight)];
+            mContent.textColor = [UIColor whiteColor];
+            mContent.editable = NO;
+            mContent.scrollEnabled = NO;
+            mContent.font = [UIFont systemFontOfSize:12];
+            mContent.backgroundColor = ItemsBaseColor;
+            mContent.text = mContentStr;
+            [cell addSubview:mContent];
+        }
     }else{
         if (indexPath.row == 0) {
             UILabel *userCommentTitle = [[UILabel alloc] initWithFrame:CGRectMake(14, (45 - 21) / 2, 150, 21)];
@@ -522,7 +549,7 @@
             [cell addSubview:mName];
             
             NSString *mContentStr = [Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"Content"]];//@"东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.";
-            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+10;
+            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-28]+10;
             UITextView *mContent = [[UITextView alloc] initWithFrame:CGRectMake(mName.frame.origin.x, mName.frame.origin.y + mName.frame.size.height + 2, SCREEN_WIDTH - mName.frame.origin.x - 10, contentHeight)];
             mContent.textColor = [UIColor whiteColor];
             mContent.editable = NO;
@@ -557,13 +584,21 @@
         }
     }else if (indexPath.section == 1){
         return 45;
+    }else if(indexPath.section == 2){
+        if (indexPath.row == 0) {
+            return 45;
+        }else{
+            NSString *mContentStr = [Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"Content"]];
+            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-28]+10;
+            return 5 + contentHeight;
+        }
     }else{
         if (indexPath.row == 0) {
             return 45;
         }else{
             NSString *mContentStr = [Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"Content"]];//@"东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.";
-            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+5;
-            return 5 + (40 - 21) / 2 + 23 + contentHeight + 31;
+            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-28]+10;
+            return 5 + (40 - 21) / 2 + 23 + contentHeight + 40 + 2;
         }
     }
 }
