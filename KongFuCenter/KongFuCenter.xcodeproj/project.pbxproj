@@ -195,6 +195,7 @@
 		B5451CCA1C2796B6001BB39F /* pinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = B5451CC81C2796B6001BB39F /* pinyin.m */; };
 		B5451CCE1C27970E001BB39F /* CCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5451CCD1C27970E001BB39F /* CCLocationManager.m */; };
 		B54F13891C46283B001EABE5 /* del@2x.PNG in Resources */ = {isa = PBXBuildFile; fileRef = B54F13881C46283B001EABE5 /* del@2x.PNG */; };
+		B55103541C72F0F0005D9917 /* GoodsCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B55103531C72F0F0005D9917 /* GoodsCommentViewController.m */; };
 		B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */; };
 		B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */; };
 		B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B569DB901C126F1C00325CFA /* temp2@2x.png */; };
@@ -865,6 +866,8 @@
 		B5451CCD1C27970E001BB39F /* CCLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLocationManager.m; sourceTree = "<group>"; };
 		B54F13881C46283B001EABE5 /* del@2x.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "del@2x.PNG"; sourceTree = "<group>"; };
 		B55103511C5F40AE005D9917 /* OrderDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDefine.h; sourceTree = "<group>"; };
+		B55103521C72F0F0005D9917 /* GoodsCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsCommentViewController.h; sourceTree = "<group>"; };
+		B55103531C72F0F0005D9917 /* GoodsCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsCommentViewController.m; sourceTree = "<group>"; };
 		B569DB8A1C126BC600325CFA /* BaseVideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVideoCollectionViewCell.h; sourceTree = "<group>"; };
 		B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVideoCollectionViewCell.m; sourceTree = "<group>"; };
 		B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseVideoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -2113,6 +2116,8 @@
 				B7A6FC881C51CCB700B6D665 /* ShopListViewController.m */,
 				B7BED2161C531C280058CBF4 /* RecommendGoodsViewController.h */,
 				B7BED2171C531C280058CBF4 /* RecommendGoodsViewController.m */,
+				B55103521C72F0F0005D9917 /* GoodsCommentViewController.h */,
+				B55103531C72F0F0005D9917 /* GoodsCommentViewController.m */,
 			);
 			path = KongFuStore;
 			sourceTree = "<group>";
@@ -3403,7 +3408,7 @@
 				TargetAttributes = {
 					B59408C31C0FC9E8003DC15D = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 7X578356T4;
+						DevelopmentTeam = M7YC435M3S;
 					};
 					B59408DC1C0FC9E9003DC15D = {
 						CreatedOnToolsVersion = 7.1;
@@ -3823,6 +3828,7 @@
 				804952111C250B3800F5584A /* SCRecordSession.m in Sources */,
 				804952051C250B3800F5584A /* SCFilterAnimation.m in Sources */,
 				B5D89A041C11641000F55BFA /* WuGuanTableViewCell.m in Sources */,
+				B55103541C72F0F0005D9917 /* GoodsCommentViewController.m in Sources */,
 				80DB84631C23D3A6008CA670 /* SDImageCache.m in Sources */,
 				B7A18ED21C56FEC9004FF4FB /* SDCollectionViewCell.m in Sources */,
 				80DB846D1C23D3A6008CA670 /* UIImage+WebP.m in Sources */,

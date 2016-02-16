@@ -490,7 +490,14 @@
  
  */
 -(void)getChargeForShopping:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description andFlg:(NSString *)flg andBillId:(NSString *)billId;
-
+/**
+ 根据id获取收货地址
+ */
+-(void)getAddrById:(NSString *)Id;
+/**
+ 确认收货
+ */
+-(void)sureForOrder:(NSString *)userId andBillId:(NSString *)billId;
 /**
  获取默认地址
  */

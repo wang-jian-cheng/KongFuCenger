@@ -375,11 +375,12 @@
     
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getChargeCallBack:"];
-    [dataProvider getChargeForShopping:[Toolkit getUserID] andChannel:payFlag andAmount:ZY_NSStringFromFormat(@"%ld",(unsigned long)(totalMoney*100)) andDescription:DescriptionTextView.text andFlg:@"1"/*0：充值会员 1：购买商品*/ andBillId:BillId];
+    [dataProvider getChargeForShopping:[Toolkit getUserID] andChannel:payFlag andAmount:ZY_NSStringFromFormat(@"%ld",(unsigned long)(totalMoney*100)) andDescription:@"购买商品" andFlg:@"1"/*0：充值会员 1：购买商品*/ andBillId:BillId];
 }
 
 -(void)getChargeCallBack:(id)dict
 {
+    [SVProgressHUD dismiss];
     DLog(@"%@",dict);
     @try {
         
@@ -477,6 +478,9 @@
 
 -(void)payOrderBtnClick:(UIButton *)sender
 {
+    
+    [SVProgressHUD showWithStatus:@"请稍后..."];
+    
     switch (self.paytype) {
         case PayByShoppingCart:
         {
@@ -572,30 +576,42 @@
     cell.backgroundColor = ItemsBaseColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     @try {
-        
+
         if (indexPath.section == 0) {
-            UIImageView * image = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 15, cell.frame.size.height - 30 , cell.frame.size.height - 30)];
-            image.image = [UIImage imageNamed:@"dingwei"];
-            image.center = CGPointMake(GapToLeft+10, _cellHeight/2);
-            [cell.contentView addSubview:image];
-            
-            UILabel *infoLab = [[UILabel alloc] initWithFrame:CGRectMake((image.frame.size.width+image.frame.origin.x)+5,
-                                                                         10, SCREEN_WIDTH - (image.frame.size.width+image.frame.origin.x)-5, _cellHeight/2-10)];
-            
-            infoLab.textColor = [UIColor whiteColor];
-            infoLab.text = [NSString  stringWithFormat:@"收货人：%@    %@",addressDict[@"ReceiverName"],addressDict[@"Phone"]];
-            infoLab.font = [UIFont systemFontOfSize:14];
-            [cell.contentView addSubview:infoLab];
-            
-            UILabel *addrLab = [[UILabel alloc] initWithFrame:CGRectMake(infoLab.frame.origin.x,
-                                                                         _cellHeight/2,infoLab.frame.size.width , _cellHeight/2-10)];
-            addrLab.text = [NSString stringWithFormat:@"收货地址：%@",addressDict[@"TotaleAddress"]];
-            addrLab.numberOfLines = 0;
-            addrLab.textColor = [UIColor whiteColor];
-            addrLab.font = [UIFont systemFontOfSize:14];
-            [cell.contentView addSubview:addrLab];
-            
+            if(addressDict == nil)
+            {
+                UILabel *tempLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
+                
+                tempLab.textColor = [UIColor whiteColor];
+                tempLab.textAlignment = NSTextAlignmentCenter;
+                tempLab.text = @"请设置收货地址";
+                [cell addSubview:tempLab];
+            }
+            else
+            {
+                UIImageView * image = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 15, cell.frame.size.height - 30 , cell.frame.size.height - 30)];
+                image.image = [UIImage imageNamed:@"dingwei"];
+                image.center = CGPointMake(GapToLeft+10, _cellHeight/2);
+                [cell.contentView addSubview:image];
+                
+                UILabel *infoLab = [[UILabel alloc] initWithFrame:CGRectMake((image.frame.size.width+image.frame.origin.x)+5,
+                                                                             10, SCREEN_WIDTH - (image.frame.size.width+image.frame.origin.x)-5, _cellHeight/2-10)];
+                
+                infoLab.textColor = [UIColor whiteColor];
+                infoLab.text = [NSString  stringWithFormat:@"收货人：%@    %@",addressDict[@"ReceiverName"],addressDict[@"Phone"]];
+                infoLab.font = [UIFont systemFontOfSize:14];
+                [cell.contentView addSubview:infoLab];
+                
+                UILabel *addrLab = [[UILabel alloc] initWithFrame:CGRectMake(infoLab.frame.origin.x,
+                                                                             _cellHeight/2,infoLab.frame.size.width , _cellHeight/2-10)];
+                addrLab.text = [NSString stringWithFormat:@"收货地址：%@",addressDict[@"TotaleAddress"]];
+                addrLab.numberOfLines = 0;
+                addrLab.textColor = [UIColor whiteColor];
+                addrLab.font = [UIFont systemFontOfSize:14];
+                [cell.contentView addSubview:addrLab];
+            }
         }
+        
         
         if(indexPath.section == 1)
         {

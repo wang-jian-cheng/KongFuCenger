@@ -75,7 +75,7 @@
 }
 
 -(void)getGoodsDetailCallBack:(id)dict{
-    NSLog(@"%@",dict);
+    DLog(@"%@",dict);
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         goodsInfoDict = dict[@"data"];
@@ -148,23 +148,25 @@
     [mFooterView addSubview:immediatelyBuyBtn];
     [self.view addSubview:mFooterView];
     
-    __unsafe_unretained __typeof(self) weakSelf = self;
-    __weak typeof(UITableView *) weakTv = mTableView;
-    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
-    
-    mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf initData];
-        [weakTv.mj_header endRefreshing];
-    }];
-    
-    // 马上进入刷新状态
-    [mTableView.mj_header beginRefreshing];
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
-    // 禁止自动加载
-    footer.automaticallyRefresh = NO;
-    // 设置footer
-    mTableView.mj_footer = footer;
+    [self initData];
+//    
+//    __unsafe_unretained __typeof(self) weakSelf = self;
+//    __weak typeof(UITableView *) weakTv = mTableView;
+//    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+//    
+//    mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        [weakSelf initData];
+//        [weakTv.mj_header endRefreshing];
+//    }];
+//    
+//    // 马上进入刷新状态
+//    [mTableView.mj_header beginRefreshing];
+//    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+//    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
+//    // 禁止自动加载
+//    footer.automaticallyRefresh = NO;
+//    // 设置footer
+//    mTableView.mj_footer = footer;
 }
 
 -(void)showCustomView{
@@ -504,6 +506,13 @@
             lineView.backgroundColor = [UIColor colorWithRed:0.25 green:0.26 blue:0.27 alpha:1];
             [cell addSubview:lineView];
             
+            UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake(lineView.frame.origin.x - 150, lineView.frame.origin.y, 145, lineView.frame.size.height)];
+            tipLab.text = @"点击查看更多";
+            tipLab.textColor = [UIColor whiteColor];
+            tipLab.font = [UIFont systemFontOfSize:14];
+            tipLab.textAlignment = NSTextAlignmentRight;
+            [cell addSubview:tipLab];
+            
             UILabel *userCommentNum = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60, (45 - 21) / 2, 60, 21)];
             userCommentNum.font = [UIFont systemFontOfSize:14];
             userCommentNum.textColor = [UIColor whiteColor];
@@ -572,6 +581,12 @@
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.section == 1){
         [self showCustomView];
+    }
+    else if(indexPath.section == 2)
+    {
+        GoodsCommentViewController *goodsCommentViewCtl = [[GoodsCommentViewController alloc] init];
+        goodsCommentViewCtl.goodId = self.goodsId;
+        [self.navigationController pushViewController:goodsCommentViewCtl animated:YES];
     }
 }
 

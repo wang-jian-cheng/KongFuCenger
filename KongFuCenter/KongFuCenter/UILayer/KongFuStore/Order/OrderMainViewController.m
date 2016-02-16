@@ -20,6 +20,10 @@
     UITableView *_mainTableView;
     
     OrderMode orderMode;
+    
+    UIButton *selectBtn;
+    BOOL loading;
+    BOOL headLoading;
 }
 
 @end
@@ -28,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    headLoading = YES;
     cateArr = @[@"待付款",@"待发货",@"待收货",@"已收货"];
     btnArr = [NSMutableArray array];
     orderType = OrderTypeNeedPay;
@@ -68,10 +72,10 @@
     [self.view addSubview:viewForBtns];
     
     _cellHeight = 100;
-    pageSize = 10;
+    pageSize = 5;
     
 //    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height ) style:UITableViewStyleGrouped];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - 44 ) style:UITableViewStyleGrouped];
     _mainTableView.backgroundColor = BACKGROUND_COLOR;
     
     _mainTableView.delegate = self;
@@ -88,6 +92,8 @@
         pageNo=0;
         // 结束刷新
         [_mainTableView.mj_footer setState:MJRefreshStateIdle];
+        headLoading = YES;
+        
         [weakSelf getOrderlist];
         
     }];
@@ -95,6 +101,7 @@
     
     // 上拉刷新
     _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        headLoading = NO;
         [weakSelf getOrderlist];
         
     }];
@@ -107,11 +114,23 @@
 
 -(void)cateBtnClick:(UIButton *)sender
 {
+    
+    
+    if(loading == YES)
+        return;
+    
+    
+    if(selectBtn != sender)
+    {
+        [self.orderArr removeAllObjects];
+        [_mainTableView reloadData];
+    }
+    selectBtn = sender;
+    sender.selected = YES;
     orderMode = (OrderMode)sender.tag;
     
 //    [self.orderArr removeAllObjects];
-    self.orderArr=[NSMutableArray array];;
-    sender.selected = YES;
+    
     for(int i =0;i<btnArr.count;i++)
     {
         if(i != sender.tag)
@@ -199,11 +218,14 @@
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getOrderlistCallBack:"];
     [dataProvider getOrderList:[Toolkit getUserID] andState:ZY_NSStringFromFormat(@"%d",orderType) andProNum:ZY_NSStringFromFormat(@"%u",10000) andStartRowIndex:ZY_NSStringFromFormat(@"%d",pageNo*pageSize) andMaximumRows:ZY_NSStringFromFormat(@"%d",pageSize)];
+    
+    loading = YES;
 }
 
 
 -(void)getOrderlistCallBack:(id)dict
 {
+    loading = NO;
     DLog(@"%@",dict);
     [_mainTableView.mj_header endRefreshing];
     [_mainTableView.mj_footer endRefreshing];
@@ -211,8 +233,11 @@
     {
         [SVProgressHUD dismiss];
         pageNo ++;
-        
-        self.orderArr =dict[@"data"];
+        if(headLoading == YES)
+        {
+            [self.orderArr removeAllObjects];
+        }
+        [self.orderArr addObjectsFromArray:dict[@"data"]];
         
         
         
@@ -300,7 +325,7 @@
             
             [dataprovider setDelegateObject:self setBackFunctionName:@"SureForOrderCallBack:"];
             
-            
+            [dataprovider sureForOrder:[Toolkit getUserID] andBillId:self.orderArr[alertView.tag%200000][@"Id"]];
             
         }
     }
@@ -479,9 +504,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
+    if(self.orderArr==nil || self.orderArr.count ==0 || self.orderArr.count-1<indexPath.section)
+    {
+        return;
+    }
     OrderDetailViewController *orderDetailViewCtl = [[OrderDetailViewController alloc] init];
     orderDetailViewCtl.orderMode = orderMode;
     orderDetailViewCtl.navtitle = @"订单详情";
+    orderDetailViewCtl.OrderDict = self.orderArr[indexPath.section];
     [self.navigationController pushViewController:orderDetailViewCtl animated:YES];
     
 }
