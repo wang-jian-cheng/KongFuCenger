@@ -297,8 +297,11 @@
                 [shopInfoArrayCopy addObject:shopInfoArray[i]];
             }
         }
-        [mTableView reloadData];
+    }else{
+        searchFlag = YES;
+        shopInfoArrayCopy = [[NSMutableArray alloc] initWithArray:shopInfoArray];
     }
+    [mTableView reloadData];
 }
 
 #pragma mark tableview delegate

@@ -44,6 +44,10 @@
 @property(nonatomic, strong) NSString *objectName;
 /** 消息内容 */
 @property(nonatomic, strong) RCMessageContent *content;
+
+/** 图片地址内容 */
+@property(nonatomic, strong) NSString *imgUrl;
+
 /** 附加字段 */
 @property(nonatomic, strong) NSString *extra;
 /** 保存的cell高度值，避免重复计算 */

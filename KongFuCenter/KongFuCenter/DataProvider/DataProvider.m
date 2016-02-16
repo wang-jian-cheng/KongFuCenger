@@ -1419,6 +1419,8 @@
         NSDictionary *prm = @{@"fileName":@"video.mov",@"filestream":imagebase64};
         [self PostRequest:url andpram:prm];
         //        [self uploadVideoWithFilePath:videoPath andurl:url andprm:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 

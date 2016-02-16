@@ -33,7 +33,6 @@
  * 根据参数创建文本消息对象
  * @param content 文本消息内容
  */
-+(instancetype)messageWithContent:(NSString *)content;
 
 +(instancetype)messageWithContent:(NSString *)content imageUrl:(NSString*)imageUrl url:(NSString*)url;
 @end

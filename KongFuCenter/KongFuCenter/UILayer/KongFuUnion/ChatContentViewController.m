@@ -13,12 +13,15 @@
 #import "BigImageShowViewController.h"
 #import "SimpleMessage.h"
 #import "SimpleMessageCell.h"
+#import "MoviePlayer.h"
 
-@interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate,WechatShortVideoDelegate,RCConversationCellDelegate>{
+@interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate,WechatShortVideoDelegate,RCConversationCellDelegate,ClickImgDelegate>{
     UIView *topView;
     NSUserDefaults *userDefault;
     NSString *friendID;
     UIImage *selectImage;
+    UIButton *videoView;
+    UIButton *leftBtn;
 }
 
 @end
@@ -80,20 +83,26 @@
 }
 
 #pragma mark - 重写方法实现自定义消息的显示
-//-(RCMessageBaseCell *)rcConversationCollectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    RCMessageModel *model = self.conversationDataRepository[indexPath.row];
-//    NSString * cellIndentifier=@"SimpleMessageCell";
-//    RCMessageBaseCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIndentifier           forIndexPath:indexPath];
-//    [cell setDataModel:model];
-//    return cell;
-//}
-//
-//-(CGSize)rcConversationCollectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    //返回自定义cell的实际高度
-//    return CGSizeMake(300, 60);
-//}
+-(RCMessageBaseCell *)rcConversationCollectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    RCMessageModel *model = self.conversationDataRepository[indexPath.row];
+    NSString * cellIndentifier=@"SimpleMessageCell";
+    SimpleMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIndentifier           forIndexPath:indexPath];
+    cell.customDelegate = self;
+    [cell setDataModel:model];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,@"UpLoad/Video/b584d41b-82fe-4677-a492-dd9f3791105d.mp4"];
+    url = [url stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
+    //MoviePlayer *player = [[MoviePlayer alloc] initWithFrame:CGRectMake(0,0,SCREEN_WIDTH - 50, 210) URL:[NSURL URLWithString:url]];
+    //[cell addSubview:player];
+    return cell;
+}
+
+-(CGSize)rcConversationCollectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    //返回自定义cell的实际高度
+    NSLog(@"%f",SCREEN_WIDTH);
+    return CGSizeMake(SCREEN_WIDTH + 20, 210);
+}
 
 
 
@@ -111,11 +120,12 @@
                 [self.navigationController pushViewController:chatlocationVC animated:YES];
             }
             break;
-//        case 101:{
-//            WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
-//            wechatShortVideoController.delegate = self;
-//            [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
-//        }
+        case 101:{
+            WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
+            wechatShortVideoController.delegate = self;
+            [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
+        }
+            break;
         default:
             [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
             break;
@@ -202,16 +212,46 @@
 }
 
 #pragma mark - WechatShortVideoDelegate
-//- (void)finishWechatShortVideoCapture:(NSURL *)filePath {
-//    NSLog(@"filePath is %@", filePath);
-//    //RCMessageContent *content = [[RCMessageContent alloc] init];
-//    //RCHandShakeMessage* textMsg = [[RCHandShakeMessage alloc] init];
-//    //RCImageMessage *imageMsg = [RCImageMessage messageWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"]]]];
-//    //[[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:[self targetId] content:textMsg pushContent:nil success:nil error:nil];
-//    //RCTextMessage *textMsg = [RCTextMessage messageWithContent:@"你好"];
-//    SimpleMessage *simpleMsg = [SimpleMessage messageWithContent:@"Hello World" imageUrl:@"http://img.zcool.cn/community/03320dd554c75c700000158fce17209.jpg@600w_1l_2o" url:@"http://img.zcool.cn/community/03320dd554c75c700000158fce17209.jpg@600w_1l_2o"];
-//    [self sendMessage:simpleMsg pushContent:@"Hello World"];
-//}
+- (void)finishWechatShortVideoCapture:(NSURL *)filePath {
+    NSLog(@"filePath is %@", filePath);
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    
+    [dataprovider setDelegateObject:self setBackFunctionName:@"sendVideoCallBack:"];
+    
+    [dataprovider uploadVideoWithPath:filePath];
+    [SVProgressHUD showWithStatus:nil maskType:SVProgressHUDMaskTypeBlack];
+}
+
+-(void)sendVideoCallBack:(id)dict
+{
+    [SVProgressHUD dismiss];
+    NSLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        //SimpleMessage *simpleMsg = [SimpleMessage messageWithContent:[NSString stringWithFormat:@"%@;%@",@"http://img.ivsky.com/img/tupian/pre/201312/04/nelumbo_nucifera-009.jpg",[NSString stringWithFormat:@"%@%@",Url,@"UpLoad/Video/b584d41b-82fe-4677-a492-dd9f3791105d.mp4"]] imageUrl:@"" url:@""];
+        SimpleMessage *simpleMsg = [SimpleMessage messageWithContent:[NSString stringWithFormat:@"%@;%@",[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"] valueForKey:@"ImageName"]],[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"] valueForKey:@"VideoName"]]] imageUrl:@"" url:@""];
+        [self sendMessage:simpleMsg pushContent:@"Hello World"];
+    }
+}
+
+-(void)clickImgEvent:(NSString *)videoUrl{
+    videoView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    videoView.backgroundColor = [UIColor grayColor];
+    //videoView.alpha = 0.6;
+    MoviePlayer *player = [[MoviePlayer alloc] initWithFrame:CGRectMake(0,0,SCREEN_WIDTH, SCREEN_HEIGHT) URL:[NSURL URLWithString:videoUrl]];
+    [videoView addSubview:player];
+    [self.view addSubview:videoView];
+    
+    //添加退出按钮
+    leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 60, 60)];
+    [leftBtn setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(backViewEvent) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:leftBtn];
+}
+
+-(void)backViewEvent{
+    [videoView removeFromSuperview];
+    [leftBtn removeFromSuperview];
+}
 
 #pragma mark - 相册的代理
 //- (void)imagePickerController:(UIImagePickerController *)picker   didFinishPickingMediaWithInfo:(NSDictionary *)info
