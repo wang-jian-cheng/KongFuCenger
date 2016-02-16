@@ -10,7 +10,14 @@
 
 #import "SimpleMessage.h"
 
-@interface SimpleMessageCell : RCMessageBaseCell
+@protocol ClickImgDelegate <NSObject>
+
+- (void)clickImgEvent:(NSString *) videoUrl;
+
+@end
+
+@interface SimpleMessageCell : RCMessageCell
+
 /**
  * 消息显示Label
  */
@@ -31,4 +38,6 @@
  * @param model 消息数据模型
  */
 - (void)setDataModel:(RCMessageModel *)model;
+
+@property (nonatomic,assign) id<ClickImgDelegate> customDelegate;
 @end

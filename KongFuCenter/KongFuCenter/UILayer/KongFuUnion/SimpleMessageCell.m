@@ -12,7 +12,9 @@
 
 #define Test_Message_Font_Size 20
 
-@interface SimpleMessageCell ()
+@interface SimpleMessageCell (){
+    UIButton *mImgBtn;
+}
 
 - (void)initialize;
 
@@ -72,14 +74,18 @@
     [self.textLabel setTextColor:[UIColor blackColor]];
     //[self.textLabel setBackgroundColor:[UIColor yellowColor]];
     self.bgimage = [[UIImageView alloc]initWithFrame:CGRectZero];
-    NSString * urlstring = @"http://a.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=7d55e3d378899e516c83324623ceb256/500fd9f9d72a60596d82d1342b34349b033bba09.jpg";
+    RCTextMessage *_textMessage = (RCTextMessage *)self.model.content;
+    NSArray *mVideoArray = [_textMessage.content componentsSeparatedByString:@";"];
+    NSString * urlstring = mVideoArray[0];//@"http://img.zcool.cn/community/03320dd554c75c700000158fce17209.jpg@600w_1l_2o";
     [self.bgimage sd_setImageWithURL:[NSURL URLWithString:urlstring]];
     self.bgimage.backgroundColor = [UIColor greenColor];
-    
-    self.bgimage.frame = CGRectMake(20, 0, [UIScreen mainScreen].bounds.size.width-40, 200);
+    self.bgimage.frame = CGRectMake(0, 5, SCREEN_WIDTH - 50, 200);
     [self.bubbleBackgroundView addSubview:self.bgimage];
     
-    [self.bgimage addSubview:self.textLabel];
+    mImgBtn = [[UIButton alloc] initWithFrame:self.bgimage.frame];
+    [self.bubbleBackgroundView addSubview:mImgBtn];
+    
+    //[self.bgimage addSubview:self.textLabel];
     
     self.bubbleBackgroundView.userInteractionEnabled = YES;
     UILongPressGestureRecognizer *longPress =
@@ -98,15 +104,22 @@
         [self.delegate didTapMessageCell:self.model];
     }
 }
-
+-(void)mImgBtnEvent:(UIButton *)imgBtn{
+    if([self.customDelegate respondsToSelector:@selector(clickImgEvent:)]){
+        [self.customDelegate clickImgEvent:imgBtn.titleLabel.text];
+    }
+}
 
 
 - (void)setAutoLayout {
     RCTextMessage *_textMessage = (RCTextMessage *)self.model.content;
     if (_textMessage) {
-        self.textLabel.text = _textMessage.content;
-        self.bgimage = [[UIImageView alloc]init];
+        //self.textLabel.text = _textMessage.content;
+        NSArray *mimgArray = [_textMessage.content componentsSeparatedByString:@";"];
+        [self.bgimage sd_setImageWithURL:[NSURL URLWithString:mimgArray[0]]];
         
+        mImgBtn.titleLabel.text = [NSString stringWithFormat:@"%@",mimgArray[1]];
+        [mImgBtn addTarget:self action:@selector(mImgBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         //DebugLog(@”[RongIMKit]: RCMessageModel.content is NOT RCTextMessage object”);
     }
