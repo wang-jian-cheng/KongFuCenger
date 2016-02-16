@@ -74,9 +74,9 @@
     [self registerClass:[SimpleMessageCell class] forCellWithReuseIdentifier:@"SimpleMessageCell"];
     
     //自定义面板功能扩展
-//    [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"me"]
-//                                        title:@"视频"
-//                                          tag:101];
+    [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"me"]
+                                        title:@"视频"
+                                          tag:101];
 }
 
 #pragma mark - 重写方法实现自定义消息的显示
@@ -163,18 +163,18 @@
     
 }
 
-//- (void)didTapCellPortrait:(NSString *)userId{
-//    if ([userId isEqual:[userDefault valueForKey:@"id"]]) {
-//        PersonInfoViewController *personInfoViewCtl = [[PersonInfoViewController alloc] init];
-//        personInfoViewCtl.navtitle = @"个人资料";
-//        [self.navigationController pushViewController:personInfoViewCtl animated:YES];
-//    }else{
-//        friendID = userId;
-//        DataProvider *dataProvider = [[DataProvider alloc] init];
-//        [dataProvider setDelegateObject:self setBackFunctionName:@"isFriendCallBack:"];
-//        [dataProvider IsWuyou:[userDefault valueForKey:@"id"] andfriendid:userId];
-//    }
-//}
+- (void)didTapCellPortrait:(NSString *)userId{
+    if ([userId isEqual:[userDefault valueForKey:@"id"]]) {
+        PersonInfoViewController *personInfoViewCtl = [[PersonInfoViewController alloc] init];
+        personInfoViewCtl.navtitle = @"个人资料";
+        [self.navigationController pushViewController:personInfoViewCtl animated:YES];
+    }else{
+        friendID = userId;
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"isFriendCallBack:"];
+        [dataProvider IsWuyou:[userDefault valueForKey:@"id"] andfriendid:userId];
+    }
+}
 
 -(void)isFriendCallBack:(id)dict{
     NSLog(@"%@",dict);
@@ -209,7 +209,7 @@
 //    //RCImageMessage *imageMsg = [RCImageMessage messageWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"]]]];
 //    //[[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:[self targetId] content:textMsg pushContent:nil success:nil error:nil];
 //    //RCTextMessage *textMsg = [RCTextMessage messageWithContent:@"你好"];
-//    SimpleMessage *simpleMsg = [SimpleMessage messageWithContent:@"Hello World"];
+//    SimpleMessage *simpleMsg = [SimpleMessage messageWithContent:@"Hello World" imageUrl:@"http://img.zcool.cn/community/03320dd554c75c700000158fce17209.jpg@600w_1l_2o" url:@"http://img.zcool.cn/community/03320dd554c75c700000158fce17209.jpg@600w_1l_2o"];
 //    [self sendMessage:simpleMsg pushContent:@"Hello World"];
 //}
 

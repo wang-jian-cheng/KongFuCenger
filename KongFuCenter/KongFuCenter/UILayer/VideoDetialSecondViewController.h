@@ -13,8 +13,9 @@
 #import <ShareSDKInterfaceAdapter/ISSContainer.h>
 #import "VipViewController.h"
 #import "JvbaoView.h"
+#import "ZhuanFaView.h"
 
-@interface VideoDetialSecondViewController : BaseNavigationController<UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,JvbaoDelegate,UIAlertViewDelegate>
+@interface VideoDetialSecondViewController : BaseNavigationController<UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,JvbaoDelegate,UIAlertViewDelegate,ZhuanFaDelegate>
 {
     CGFloat _keyHeight;
     NSIndexPath *tempIndexPath;

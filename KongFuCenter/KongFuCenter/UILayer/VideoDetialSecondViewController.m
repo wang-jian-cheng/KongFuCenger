@@ -513,22 +513,32 @@
             break;
         case 3:
         {
-            if(sender.selected == NO)
-            {
-                actionType = setZhuanfa;
-                sender.selected = YES;
-                NSLog(@"转发");
-                [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"0" andDescription:nil];
-            }
-            else
-            {
-                sender.selected = NO;
-            }
+            
+            ZhuanFaView *zhuanFaView = [[ZhuanFaView alloc] initWithTip:@"发往武友动态" andTitle:VideoDict[@"Title"]  andContent:VideoDict[@"Content"]  andMainImg:[UIImage imageNamed:@"80"]];
+            zhuanFaView.delegate = self;
+            NSString *url = ZY_NSStringFromFormat(@"%@%@",Kimg_path,VideoDict[@"ImagePath"]);
+            [zhuanFaView.mainImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"80"]];
+            [zhuanFaView show];
+            
+//            if(sender.selected == NO)
+//            {
+//                actionType = setZhuanfa;
+//                sender.selected = YES;
+//                NSLog(@"转发");
+//                [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"0" andDescription:nil];
+//            }
+//            else
+//            {
+//                sender.selected = NO;
+//            }
         }
             break;
         case 4:
         {
-            
+            actionType = setZhuanfa;
+            //                sender.selected = YES;
+            //                NSLog(@"转发");
+            //                [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"0" andDescription:nil];
         }
         default:
             break;
@@ -536,6 +546,14 @@
     
 }
 
+
+-(void)ZhuanFaSureBtnClick:(NSString *)content
+{
+    actionType = setZhuanfa;
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"MakeActionCallBack:"];
+    [dataprovider voiceAction:_videoID andUserId:[Toolkit getUserID] andFlg:@"0" andDescription:content];
+}
 
 
 -(void)MakeActionCallBack:(id)dict

@@ -1,12 +1,16 @@
 //
 //  SimpleMessageCell.m
-//  KongFuCenter
+//  rongyun
 //
-//  Created by Rain on 16/2/15.
-//  Copyright © 2016年 zykj. All rights reserved.
+//  Created by 王明辉 on 16/1/20.
+//  Copyright © 2016年 王明辉. All rights reserved.
 //
 
 #import "SimpleMessageCell.h"
+#import "UIImageView+WebCache.h"
+
+
+#define Test_Message_Font_Size 20
 
 @interface SimpleMessageCell ()
 
@@ -15,7 +19,6 @@
 @end
 
 @implementation SimpleMessageCell
-
 - (NSDictionary *)attributeDictionary {
     if (self.messageDirection == MessageDirection_SEND) {
         return @{
@@ -49,13 +52,18 @@
     }
     return self;
 }
+
+
 - (void)initialize {
     self.bubbleBackgroundView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [self.messageContentView addSubview:self.bubbleBackgroundView];
+    [self.baseContentView addSubview:self.bubbleBackgroundView];
+    
     
     self.textLabel = [[RCAttributedLabel alloc] initWithFrame:CGRectZero];
-    self.textLabel.attributeDictionary = [self attributeDictionary];
-    self.textLabel.highlightedAttributeDictionary = [self highlightedAttributeDictionary];
+    self.textLabel.backgroundColor = [UIColor whiteColor];
+    
+//    self.textLabel.attributeDictionary = [self attributeDictionary];
+//    self.textLabel.highlightedAttributeDictionary = [self highlightedAttributeDictionary];
     [self.textLabel setFont:[UIFont systemFontOfSize:Text_Message_Font_Size]];
     
     self.textLabel.numberOfLines = 0;
@@ -63,8 +71,16 @@
     [self.textLabel setTextAlignment:NSTextAlignmentLeft];
     [self.textLabel setTextColor:[UIColor blackColor]];
     //[self.textLabel setBackgroundColor:[UIColor yellowColor]];
+    self.bgimage = [[UIImageView alloc]initWithFrame:CGRectZero];
+    NSString * urlstring = @"http://a.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=7d55e3d378899e516c83324623ceb256/500fd9f9d72a60596d82d1342b34349b033bba09.jpg";
+    [self.bgimage sd_setImageWithURL:[NSURL URLWithString:urlstring]];
+    self.bgimage.backgroundColor = [UIColor greenColor];
     
-    [self.bubbleBackgroundView addSubview:self.textLabel];
+    self.bgimage.frame = CGRectMake(20, 0, [UIScreen mainScreen].bounds.size.width-40, 200);
+    [self.bubbleBackgroundView addSubview:self.bgimage];
+    
+    [self.bgimage addSubview:self.textLabel];
+    
     self.bubbleBackgroundView.userInteractionEnabled = YES;
     UILongPressGestureRecognizer *longPress =
     [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
@@ -76,19 +92,31 @@
     
     [self setAutoLayout];
 }
+
+- (void)tapTextMessage:(UIGestureRecognizer *)gestureRecognizer {
+    if ([self.delegate respondsToSelector:@selector(didTapMessageCell:)]) {
+        [self.delegate didTapMessageCell:self.model];
+    }
+}
+
+
+
 - (void)setAutoLayout {
     RCTextMessage *_textMessage = (RCTextMessage *)self.model.content;
     if (_textMessage) {
         self.textLabel.text = _textMessage.content;
+        self.bgimage = [[UIImageView alloc]init];
+        
     } else {
         //DebugLog(@”[RongIMKit]: RCMessageModel.content is NOT RCTextMessage object”);
     }
     // ios 7
     CGSize __textSize =
+    //self.baseContentView.bounds.size.width -
+//    (10 + [RCIM sharedRCIM].globalMessagePortraitSize.width + 10) * 2 - 5 -
+//    35
     [_textMessage.content
-     boundingRectWithSize:CGSizeMake(self.baseContentView.bounds.size.width -
-                                     (10 + [[RCIM sharedRCIM] globalMessagePortraitSize].width + 10) * 2 - 5 -
-                                     35,
+     boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-40,
                                      MAXFLOAT)
      options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin |
      NSStringDrawingUsesFontLeading
@@ -99,21 +127,24 @@
     __textSize = CGSizeMake(ceilf(__textSize.width), ceilf(__textSize.height));
     CGSize __labelSize = CGSizeMake(__textSize.width + 5, __textSize.height + 5);
     
-    CGFloat __bubbleWidth = __labelSize.width + 15 + 20 < 50 ? 50 : (__labelSize.width + 15 + 20);
-    CGFloat __bubbleHeight = __labelSize.height + 5 + 5 < 35 ? 35 : (__labelSize.height + 5 + 5);
-    
+//    CGFloat __bubbleWidth = __labelSize.width + 15 + 20 < 50 ? 50 : (__labelSize.width + 15 + 20);
+    CGFloat __bubbleWidth = [UIScreen mainScreen].bounds.size.width-40;
+//    CGFloat __bubbleHeight = __labelSize.height + 5 + 5 < 35 ? 35 : (__labelSize.height + 5 + 5);
+    CGFloat __bubbleHeight = 200;
     CGSize __bubbleSize = CGSizeMake(__bubbleWidth, __bubbleHeight);
     
-    CGRect messageContentViewRect = self.messageContentView.frame;
+    CGRect messageContentViewRect = self.baseContentView.frame;
     
     if (MessageDirection_RECEIVE == self.messageDirection) {
         messageContentViewRect.size.width = __bubbleSize.width;
-        self.messageContentView.frame = messageContentViewRect;
+//        messageContentViewRect.size.width = [UIScreen mainScreen].bounds.size.width-40;
+        
+        self.baseContentView.frame = messageContentViewRect;
         
         self.bubbleBackgroundView.frame = CGRectMake(0, 0, __bubbleSize.width, __bubbleSize.height);
         
-        self.textLabel.frame = CGRectMake(20, 5, __labelSize.width, __labelSize.height);
-        self.bubbleBackgroundView.image = [self imageNamed:@"chat_from_bg_normal" ofBundle:@"RongCloud.bundle"];
+        self.textLabel.frame = CGRectMake(0, 5, __labelSize.width, __labelSize.height);
+//        self.bubbleBackgroundView.image = [RCKitUtility imageNamed:@"chat_from_bg_normal" ofBundle:@"RongCloud.bundle"];
         UIImage *image = self.bubbleBackgroundView.image;
         self.bubbleBackgroundView.image = [self.bubbleBackgroundView.image
                                            resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height * 0.8, image.size.width * 0.8,
@@ -121,14 +152,17 @@
     } else {
         messageContentViewRect.size.width = __bubbleSize.width;
         messageContentViewRect.origin.x =
-        self.baseContentView.bounds.size.width - (messageContentViewRect.size.width + 10 + [[RCIM sharedRCIM] globalMessagePortraitSize].width); //globalMessagePortraitSize.width + 10);
-        self.messageContentView.frame = messageContentViewRect;
+        self.baseContentView.bounds.size.width -
+        (messageContentViewRect.size.width + 10 + [RCIM sharedRCIM].globalMessagePortraitSize.width + 10);
+        self.baseContentView.frame = messageContentViewRect;
         
         self.bubbleBackgroundView.frame = CGRectMake(0, 0, __bubbleSize.width, __bubbleSize.height);
         
         self.textLabel.frame = CGRectMake(15, 5, __labelSize.width, __labelSize.height);
         
-        self.bubbleBackgroundView.image = [self imageNamed:@"chat_to_bg_normal" ofBundle:@"RongCloud.bundle"];
+//        self.bubbleBackgroundView.image = [RCKitUtility imageNamed:@"chat_to_bg_normal" ofBundle:@"RongCloud.bundle"];
+//        self.bubbleBackgroundView.image = [UIImage imageNamed:@"empty-document"];
+        
         UIImage *image = self.bubbleBackgroundView.image;
         self.bubbleBackgroundView.image = [self.bubbleBackgroundView.image
                                            resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height * 0.8, image.size.width * 0.2,
@@ -138,15 +172,14 @@
 }
 - (UIImage *)imageNamed:(NSString *)name ofBundle:(NSString *)bundleName {
     UIImage *image = nil;
-    NSString *image_name = [NSString stringWithFormat:@"%@.png", name];
-    NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
-    NSString *bundlePath = [resourcePath stringByAppendingPathComponent:bundleName];
-    NSString *image_path = [bundlePath stringByAppendingPathComponent:image_name];
-    image = [[UIImage alloc] initWithContentsOfFile:image_path];
+//    NSString *image_name = [NSString stringWithFormat:@"%@.png", name];
+//    NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+//    NSString *bundlePath = [resourcePath stringByAppendingPathComponent:bundleName];
+//    NSString *image_path = [bundlePath stringByAppendingPathComponent:image_name];
+//    image = [[UIImage alloc] initWithContentsOfFile:image_path];
     
     return image;
 }
-
 - (void)longPressed:(id)sender {
     UILongPressGestureRecognizer *press = (UILongPressGestureRecognizer *)sender;
     if (press.state == UIGestureRecognizerStateEnded) {
@@ -156,5 +189,43 @@
         [self.delegate didLongTouchMessageCell:self.model inView:self.bubbleBackgroundView];
     }
 }
+
+//+ (CGSize)getTextLabelSize:(SimpleMessage *)message {
+//    if ([message.content length] > 0) {
+//        float maxWidth = [UIScreen mainScreen].bounds.size.width -(10 + [RCIM sharedRCIM].globalMessagePortraitSize.width + 10) * 2 - 5 - 35;
+//        CGRect textRect = [message.content
+//                           boundingRectWithSize:CGSizeMake(maxWidth, 8000)
+//                           options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+//                           attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:Test_Message_Font_Size]}
+//                           context:nil];
+//        textRect.size.height = ceilf(textRect.size.height);
+//        textRect.size.width = ceilf(textRect.size.width);
+//        return CGSizeMake(textRect.size.width + 5, textRect.size.height + 5);
+//    } else {
+//        return CGSizeZero;
+//    }
+//}
+//
+//+ (CGSize)getBubbleSize:(CGSize)textLabelSize {
+//    CGSize bubbleSize = CGSizeMake(textLabelSize.width, textLabelSize.height);
+//    
+//    if (bubbleSize.width + 12 + 20 > 50) {
+//        bubbleSize.width = bubbleSize.width + 12 + 20;
+//    } else {
+//        bubbleSize.width = 50;
+//    }
+//    if (bubbleSize.height + 5 + 5 > 35) {
+//        bubbleSize.height = bubbleSize.height + 5 + 5;
+//    } else {
+//        bubbleSize.height = 35;
+//    }
+//    
+//    return bubbleSize;
+//}
+//
+//+ (CGSize)getBubbleBackgroundViewSize:(SimpleMessage *)message {
+//    CGSize textLabelSize = [[self class] getTextLabelSize:message];
+//    return [[self class] getBubbleSize:textLabelSize];
+//}
 
 @end

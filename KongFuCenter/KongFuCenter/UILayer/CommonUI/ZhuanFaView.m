@@ -1,17 +1,39 @@
 //
-//  JvbaoView.m
+//  ZhuanFaView.m
 //  KongFuCenter
 //
-//  Created by Wangjc on 16/1/12.
+//  Created by Wangjc on 16/2/16.
 //  Copyright © 2016年 zykj. All rights reserved.
 //
 
-#import "JvbaoView.h"
+#import "ZhuanFaView.h"
 
-#define ViewHeight  200
-#define ViewWidth   (SCREEN_WIDTH - 40)
+#define ViewHeight  240
+#define ViewWidth   (300)
 
-@implementation JvbaoView
+#define GapToLeft   20
+
+@interface ZhuanFaView ()
+{
+    UILabel *tipLab;
+    UILabel *titleLab;
+    UILabel *contentLab;
+   
+    
+    
+    UIButton *cancelBtn;
+    UIButton *sureBtn;
+    
+    UIView *coverView;
+    UIView *showView;
+}
+@property(nonatomic)UITextView *contentTextView;
+@property(nonatomic)UILabel *holderLab;
+
+@end
+
+@implementation ZhuanFaView
+
 
 - (instancetype)init{
     self = [super init];
@@ -21,6 +43,20 @@
     }
     return self;
 }
+
+- (instancetype)initWithTip:(NSString *)tip andTitle:(NSString *)title andContent:(NSString *)content andMainImg:(UIImage *)mainImg
+{
+    self = [super init];
+    if (self) {
+        _tip = tip;
+        _title = title;
+        _content = content;
+        _mainImg = mainImg;
+        [self buildViews];
+    }
+    return self;
+}
+
 
 -(void)buildViews
 {
@@ -34,15 +70,43 @@
     showView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ViewWidth, ViewHeight)];
     showView.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     showView.layer.masksToBounds = YES;
+    showView.layer.cornerRadius = 5;
     showView.backgroundColor = BACKGROUND_COLOR;
     [self addSubview:showView];
     
+    tipLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, ViewWidth - GapToLeft*2, 50)];
+    tipLab.text = self.tip;
+    tipLab.textColor = [UIColor whiteColor];
+    tipLab.font = [UIFont boldSystemFontOfSize:16];
     
-    titleLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, showView.frame.size.width, 45)];
-    titleLab.text = @"举报事由";
+    [showView addSubview:tipLab];
+    
+    self.mainImgView = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft,
+                                                               (tipLab.frame.size.height + tipLab.frame.origin.y),
+                                                                80, 80)];
+    self.mainImgView.image = self.mainImg;
+    
+    [showView addSubview:self.mainImgView];
+    
+    titleLab = [[UILabel alloc] initWithFrame:CGRectMake(self.mainImgView.frame.size.width+self.mainImgView.frame.origin.x+10,
+                                                        self.mainImgView.frame.origin.y,
+                                                        ViewWidth - (self.mainImgView.frame.size.width+self.mainImgView.frame.origin.x) - GapToLeft,
+                                                         self.mainImgView.frame.size.height/4)];
     titleLab.textColor = [UIColor whiteColor];
-    titleLab.textAlignment = NSTextAlignmentCenter;
+    titleLab.text = self.title;
+    titleLab.font = [UIFont systemFontOfSize:14];
     [showView addSubview:titleLab];
+    
+    contentLab = [[UILabel alloc] initWithFrame:CGRectMake(titleLab.frame.origin.x,
+                                                          titleLab.frame.origin.y+titleLab.frame.size.height,
+                                                          titleLab.frame.size.width,
+                                                           self.mainImgView.frame.size.height/4*3)];
+    contentLab.numberOfLines = 0;
+    contentLab.font = [UIFont systemFontOfSize:14];
+    contentLab.text = self.content;
+    contentLab.textColor = [UIColor whiteColor];
+    [showView addSubview:contentLab];
+    
     
     
     cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, ViewHeight-44, ViewWidth/2, 44)];
@@ -60,22 +124,54 @@
     [sureBtn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
     [showView addSubview:sureBtn];
     
-    self.contentTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 45,
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(cancelBtn.frame.size.width, cancelBtn.frame.origin.y, 1, cancelBtn.frame.size.height)];
+    lineView.backgroundColor = BACKGROUND_COLOR;
+    [showView addSubview:lineView];
+    
+    self.contentTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, sureBtn.frame.origin.y - 40 -10,
                                                                         ViewWidth - 20*2,
-                                                                        ViewHeight - sureBtn.frame.size.height - titleLab.frame.size.height - 10)];
+                                                                        40)];
     
     self.contentTextView.delegate = self;
     self.contentTextView.backgroundColor = [UIColor grayColor];
+    self.contentTextView.font = [UIFont systemFontOfSize:14];
     [showView addSubview:self.contentTextView];
     
-    self.holderLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.contentTextView.frame.size.width, 30)];
-    self.holderLab.text = @"请输入举报内容";
+    self.holderLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, self.contentTextView.frame.size.width,self.contentTextView.frame.size.height)];
+    self.holderLab.text = @"来，讲两句！";
+    self.holderLab.font = [UIFont systemFontOfSize:14];
     [self.contentTextView addSubview:self.holderLab];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
     [self addGestureRecognizer:tapGesture];
-
+    
 }
+
+#pragma mark - self property
+-(void)setTip:(NSString *)tip
+{
+    _tip = tip;
+    
+    tipLab.text = _tip;
+}
+
+-(void)setTitle:(NSString *)title
+{
+    _title = title;
+    titleLab.text = _title;
+}
+
+-(void)setContent:(NSString *)content
+{
+    _content = content;
+    contentLab.text = content;
+}
+-(void)setMainImg:(UIImage *)mainImg
+{
+    _mainImg = mainImg;
+    self.mainImgView.image = _mainImg;
+}
+
 
 -(void)tapViewAction:(id)sender
 {
@@ -107,7 +203,7 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-//    self.holderLab.hidden = YES;
+    //    self.holderLab.hidden = YES;
     
     return YES;
 }
@@ -119,9 +215,9 @@
         sureBtn.backgroundColor = YellowBlock;
         cancelBtn.backgroundColor = ItemsBaseColor;
         
-        if([self.delegate respondsToSelector:@selector(JvbaoSureBtnClick:)])
+        if([self.delegate respondsToSelector:@selector(ZhuanFaSureBtnClick:)])
         {
-            [self.delegate JvbaoSureBtnClick:self.contentTextView.text];
+            [self.delegate ZhuanFaSureBtnClick:self.contentTextView.text];
         }
         
     }
@@ -171,7 +267,7 @@
 }
 
 - (void)hideAnimation{
-    [UIView animateWithDuration:0.4 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         coverView.alpha = 0.0;
         showView.alpha = 0.0;
         
@@ -181,7 +277,6 @@
     
     
 }
-
 
 /*
 // Only override drawRect: if you perform custom drawing.

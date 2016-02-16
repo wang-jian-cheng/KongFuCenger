@@ -18,7 +18,8 @@
     UITableView *mTableView;
     DataProvider *dataProvider;
     int curpage;
-    NSArray *shopInfoArray;
+    NSMutableArray *shopInfoArray;
+    int allGoodsNum;
 }
 
 @end
@@ -63,7 +64,7 @@
     
     
     dataProvider = [[DataProvider alloc] init];
-    shopInfoArray = [[NSArray alloc] init];
+    allGoodsNum = 0;
     
     //初始化View
     [self initViews];
@@ -92,53 +93,70 @@
     [self.view addSubview:mTableView];
     
     __unsafe_unretained __typeof(self) weakSelf = self;
-    __weak typeof(UITableView *) weakTv = mTableView;
     // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
     
     mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        curpage = 0;
+        allGoodsNum = 0;
+        shopInfoArray = [[NSMutableArray alloc] init];
         [weakSelf initData];
-        [weakTv.mj_header endRefreshing];
     }];
     
     // 马上进入刷新状态
     [mTableView.mj_header beginRefreshing];
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
-    // 禁止自动加载
-    footer.automaticallyRefresh = NO;
-    // 设置footer
-    mTableView.mj_footer = footer;
+    
+    // 上拉刷新
+    mTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [weakSelf initData];
+        [mTableView.mj_footer endRefreshing];
+    }];
 }
 
+//-(void)initData{
+//    [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListCallBack:"];
+//    [dataProvider GetRecomendCategoryAndProduct:@"0" andmaximumRows:@"3" anduserId:get_sp(@"id") andproductNum:@"5"];
+//}
+//
+//-(void)getShopListCallBack:(id)dict{
+//    //[mTableView.mj_header endRefreshing];
+//    if ([dict[@"code"] intValue] == 200) {
+//        NSArray *tempGoodsArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+//        for (int i = 0; i < tempGoodsArray.count; i++) {
+//            NSArray *goodsArrayList = [[NSArray alloc] initWithArray:[tempGoodsArray[i] valueForKey:@"ProductList"]];
+//            if (goodsArrayList.count > 0) {
+//                [shopInfoArray addObject:tempGoodsArray[i]];
+//            }else{
+//                allGoodsNum++;
+//            }
+//        }
+//        [mTableView reloadData];
+//    }
+//}
 -(void)initData{
-    curpage = 0;
-    [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListCallBack:"];
-    [dataProvider GetRecomendCategoryAndProduct:@"0" andmaximumRows:@"3" anduserId:get_sp(@"id") andproductNum:@"5"];
-}
-
--(void)getShopListCallBack:(id)dict{
-    if ([dict[@"code"] intValue] == 200) {
-        shopInfoArray = dict[@"data"];
-        [mTableView reloadData];
-    }
-}
--(void)TeamFootRefresh{
-    curpage++;
     [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListFootCallBack:"];
     [dataProvider GetRecomendCategoryAndProduct:[NSString stringWithFormat:@"%d",curpage * 3] andmaximumRows:@"3" anduserId:get_sp(@"id") andproductNum:@"5"];
 }
 
 -(void)getShopListFootCallBack:(id)dict{
     // 结束刷新
+    [mTableView.mj_header endRefreshing];
     [mTableView.mj_footer endRefreshing];
-    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:shopInfoArray];
     if ([dict[@"code"] intValue] == 200) {
+        curpage++;
         NSArray * arrayitem=[[NSArray alloc] init];
         arrayitem=dict[@"data"];
         for (id item in arrayitem) {
-            [itemarray addObject:item];
+            NSArray *goodsArrayList = [[NSArray alloc] initWithArray:[item valueForKey:@"ProductList"]];
+            if (goodsArrayList.count > 0) {
+                [shopInfoArray addObject:item];
+            }else{
+                allGoodsNum++;
+            }
         }
-        shopInfoArray=[[NSArray alloc] initWithArray:itemarray];
+        if(shopInfoArray.count >= ([dict[@"recordcount"] intValue] - allGoodsNum) )
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
     }
     [mTableView reloadData];
 }
@@ -297,6 +315,10 @@
         return cell;
     }else{
         NSLog(@"%@",shopInfoArray);
+        if (!shopInfoArray || shopInfoArray.count <= 0) {
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
+            return cell;
+        }
         if (indexPath.row == 0) {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
             cell.backgroundColor = ItemsBaseColor;
