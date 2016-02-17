@@ -44,7 +44,7 @@
         [_slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:_slider];
         
-        
+        _slider.minimumTrackTintColor=[UIColor orangeColor];
         // 给centerX初始值
         centerX = 0;
         

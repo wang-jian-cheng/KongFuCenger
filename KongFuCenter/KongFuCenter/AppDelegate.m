@@ -21,6 +21,7 @@
 #import "APService.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "SimpleMessage.h"
+#import <ALBBQuPaiPlugin/ALBBQuPaiPlugin.h>
 
 
 #define LogIn_UserID_key    @"mAccountID"
@@ -49,6 +50,8 @@
 #define SHARESDK_AppKey @"d556d5fed22cf3dd4e950e773deba55c79dc"
 #define SHARESDK_Secret @"e3e9c5157e8f547ddcc6979d49c6e61f"
 
+#define kQPAppKey @"2052a8cb76e5aa7"
+#define kQPAppSecret @"9788da8ec0ce45f4935bcad6dccf20e4"
 
 
 -(void)ShareSdkInit
@@ -111,6 +114,14 @@
 
 }
 
+
+
+
+
+
+
+
+
 #pragma mark - Mob sms
 
 #define MOB_SMS_AppKey  @"d5572cbfc8b7"
@@ -159,6 +170,16 @@
     
     
     /***************************************极光推送结束*********************************************/
+    
+    
+    
+    //注册趣拍
+    [[QupaiSDK shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:@"space" success:^(NSString *accessToken) {
+        [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"accessToken"];
+    } failure:^(NSError *error) {
+        
+    }];
+    
     [self initUI];
     
     [self setTagandAlias];

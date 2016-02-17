@@ -105,7 +105,7 @@
         
         
         // 缓冲条背景颜色
-        self.progress.cacheColor = [UIColor greenColor];
+        self.progress.cacheColor = [UIColor whiteColor];
         [_sliderView addSubview:_end];
         
         
@@ -160,6 +160,7 @@
         
         // 创建自己的音量条
         self.volume = [[UISlider alloc]initWithFrame:CGRectMake(0, 0, frame.size.height / 2.8, 30)]; // 先让slider横放
+        self.volume.minimumTrackTintColor=[UIColor orangeColor];
         self.volume.center = CGPointMake(40, frame.size.height / 2);
         [self.volume setThumbImage:[UIImage imageNamed:@"nil"] forState:UIControlStateNormal]; // 给滑块一个空白的图片
         // 把slider旋转90度

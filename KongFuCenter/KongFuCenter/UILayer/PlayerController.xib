@@ -64,6 +64,8 @@
                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="9" customClass="VSegmentSlider">
                                     <rect key="frame" x="98" y="42" width="122" height="29"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                    <color key="tintColor" red="0.96078431369999995" green="0.31764705879999999" blue="0.054901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="minimumTrackTintColor" red="0.96078431369999995" green="0.31764705879999999" blue="0.054901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <connections>
                                         <action selector="dragProgressSliderAction:" destination="-1" eventType="valueChanged" id="59"/>
                                         <action selector="progressSliderDownAction:" destination="-1" eventType="touchDown" id="57"/>

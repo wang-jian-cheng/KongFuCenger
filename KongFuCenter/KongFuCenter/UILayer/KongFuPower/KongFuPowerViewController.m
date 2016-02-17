@@ -12,8 +12,9 @@
 #import "MJRefresh.h"
 #import "UIImageView+WebCache.h"
 #import "VideoDetialSecondViewController.h"
+#import <ALBBQuPaiPlugin/ALBBQuPaiPlugin.h>
 
-@interface KongFuPowerViewController ()<WechatShortVideoDelegate ,UIImagePickerControllerDelegate ,UINavigationControllerDelegate>
+@interface KongFuPowerViewController ()<WechatShortVideoDelegate ,UIImagePickerControllerDelegate ,UINavigationControllerDelegate,QupaiSDKDelegate>
 {
     UIImageView *btnImgView;
 #pragma mark - pram for tableView
@@ -33,6 +34,7 @@
     
     BOOL isLocalHostVideo;
     
+    UIViewController *recordController;
     
 }
 @end
@@ -407,15 +409,57 @@
     }
     else  if(sender.tag == Take_BtnTag)
     {
-        WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
+//        WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
+//        
+//        wechatShortVideoController.delegate = self;
+//        
+//        [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
         
-        wechatShortVideoController.delegate = self;
+        QupaiSDK *sdkqupai = [QupaiSDK shared];
+        [sdkqupai setDelegte:(id<QupaiSDKDelegate>)self];
         
-        [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
+        /*可选设置*/
+        sdkqupai.thumbnailCompressionQuality =0.3;
+        sdkqupai.combine = YES;
+        sdkqupai.progressIndicatorEnabled = NO;
+        sdkqupai.beautySwitchEnabled = NO;
+        sdkqupai.flashSwitchEnabled = NO;
+        sdkqupai.tintColor = [UIColor orangeColor];
+        sdkqupai.localizableFileUrl = [[NSBundle mainBundle] URLForResource:@"QPLocalizable_en" withExtension:@"plist"];
+        sdkqupai.bottomPanelHeight = 120;
+        sdkqupai.recordGuideEnabled = YES;
+        
+        /*基本设置*/
+        CGSize videoSize = CGSizeMake(320, 240);
+        recordController = [sdkqupai createRecordViewControllerWithMinDuration:2
+                                                                                maxDuration:20
+                                                                                    bitRate:500000
+                                                                                  videoSize:videoSize];
+        [self presentViewController:recordController animated:YES completion:nil];
     }
 }
 
 
+//趣拍取消
+-(void)qupaiSDKCancel:(QupaiSDK *)sdk
+{
+    [recordController dismissViewControllerAnimated:YES completion:nil];
+}
+//
+-(void)qupaiSDK:(QupaiSDK *)sdk compeleteVideoPath:(NSString *)videoPath thumbnailPath:(NSString *)thumbnailPath
+{
+    NSLog(@"%@",videoPath);
+    
+    [recordController dismissViewControllerAnimated:YES completion:nil];
+    
+    UploadVideoViewController * uploadVideoVC=[[UploadVideoViewController alloc] initWithNibName:@"UploadVideoViewController" bundle:[NSBundle mainBundle]];
+    
+    uploadVideoVC.VideoFilePath=[NSURL fileURLWithPath:videoPath];
+    
+    uploadVideoVC.uploadType=@"1";
+    
+    [self.navigationController pushViewController:uploadVideoVC animated:YES];
+}
 
 -(void)clickRightButton:(UIButton *)sender
 {

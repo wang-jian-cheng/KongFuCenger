@@ -103,6 +103,9 @@
 		8074B0A21C4380BB0029C8B1 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8074B0A11C4380BB0029C8B1 /* libiconv.tbd */; };
 		8074B0A41C4380E30029C8B1 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8074B0A31C4380E30029C8B1 /* libbz2.tbd */; };
 		807871621C33C03C007BCC53 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807871611C33C03C007BCC53 /* MediaPlayer.framework */; };
+		8082B4D31C7465550024EAD3 /* ALBBQuPaiPlugin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8082B4D11C7465550024EAD3 /* ALBBQuPaiPlugin.bundle */; };
+		8082B4D41C7465550024EAD3 /* ALBBQuPaiPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8082B4D21C7465550024EAD3 /* ALBBQuPaiPlugin.framework */; };
+		8082B4D61C7466550024EAD3 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8082B4D51C7466550024EAD3 /* CoreMotion.framework */; };
 		80CE42A51C3CB0F500B027CC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80CE42A41C3CB0F500B027CC /* AVFoundation.framework */; };
 		80CE42A71C3CB12800B027CC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80CE42A61C3CB12800B027CC /* AudioToolbox.framework */; };
 		80CE42A91C3CB16500B027CC /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80CE42A81C3CB16500B027CC /* CoreMedia.framework */; };
@@ -717,6 +720,9 @@
 		8074B0A11C4380BB0029C8B1 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		8074B0A31C4380E30029C8B1 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		807871611C33C03C007BCC53 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		8082B4D11C7465550024EAD3 /* ALBBQuPaiPlugin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ALBBQuPaiPlugin.bundle; sourceTree = "<group>"; };
+		8082B4D21C7465550024EAD3 /* ALBBQuPaiPlugin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ALBBQuPaiPlugin.framework; sourceTree = "<group>"; };
+		8082B4D51C7466550024EAD3 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		80CE42A41C3CB0F500B027CC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		80CE42A61C3CB12800B027CC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		80CE42A81C3CB16500B027CC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -1402,6 +1408,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8082B4D61C7466550024EAD3 /* CoreMotion.framework in Frameworks */,
 				8074B0A41C4380E30029C8B1 /* libbz2.tbd in Frameworks */,
 				8074B0A21C4380BB0029C8B1 /* libiconv.tbd in Frameworks */,
 				8074B09E1C437FEF0029C8B1 /* libffmpeg.a in Frameworks */,
@@ -1426,6 +1433,7 @@
 				8074B09F1C437FEF0029C8B1 /* libopenssl.a in Frameworks */,
 				B5F2B37A1C20F765003383AE /* Security.framework in Frameworks */,
 				B5F2B3781C20F753003383AE /* SystemConfiguration.framework in Frameworks */,
+				8082B4D41C7465550024EAD3 /* ALBBQuPaiPlugin.framework in Frameworks */,
 				B5F2B3761C20F6ED003383AE /* CFNetwork.framework in Frameworks */,
 				B5F13B331C1FBCD500155038 /* libsqlite3.tbd in Frameworks */,
 				B5F13B2F1C1FBCBD00155038 /* ImageIO.framework in Frameworks */,
@@ -1477,6 +1485,7 @@
 		6530A98924EC80D772FCF134 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8082B4D51C7466550024EAD3 /* CoreMotion.framework */,
 				8074B0A31C4380E30029C8B1 /* libbz2.tbd */,
 				8074B0A11C4380BB0029C8B1 /* libiconv.tbd */,
 				804558431C3E4A3A00166DAC /* MobileCoreServices.framework */,
@@ -1837,6 +1846,15 @@
 				804BD1081C5F322200FAB8FC /* FL_Button.m */,
 			);
 			path = CostomButton;
+			sourceTree = "<group>";
+		};
+		8082B4D01C7465550024EAD3 /* QuPai_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				8082B4D11C7465550024EAD3 /* ALBBQuPaiPlugin.bundle */,
+				8082B4D21C7465550024EAD3 /* ALBBQuPaiPlugin.framework */,
+			);
+			path = QuPai_SDK;
 			sourceTree = "<group>";
 		};
 		80CE42BA1C3CB23100B027CC /* Vitamio-online */ = {
@@ -2697,6 +2715,7 @@
 		B5F13A901C1FA75100155038 /* ThirdFramework */ = {
 			isa = PBXGroup;
 			children = (
+				8082B4D01C7465550024EAD3 /* QuPai_SDK */,
 				B7A18EC31C56FEC9004FF4FB /* RoundScroll */,
 				B7A6FC701C51C41B00B6D665 /* WZLBadge */,
 				B5B737561C3CAAF100DF7437 /* Search */,
@@ -3506,6 +3525,7 @@
 				B7617E4E1C1C299700CF96E7 /* 02@2x.png in Resources */,
 				804952281C2523FA00F5584A /* UploadVideoViewController.xib in Resources */,
 				B5905E091C1BC2CF00ECA9BA /* search@2x.png in Resources */,
+				8082B4D31C7465550024EAD3 /* ALBBQuPaiPlugin.bundle in Resources */,
 				B7BED2211C531F520058CBF4 /* IntegralExchangeTableViewCell.xib in Resources */,
 				B53E739A1C16E1EF009E7878 /* pointH@2x.png in Resources */,
 				B53E738C1C1673B3009E7878 /* tip@2x.png in Resources */,
@@ -4157,6 +4177,7 @@
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/QQSDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Alipay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/QuPai_SDK",
 				);
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
@@ -4221,6 +4242,7 @@
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries/extends/QQSDK",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/ShareSdk/libraries",
 					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/Pingpp/lib/Channels/Alipay",
+					"$(PROJECT_DIR)/KongFuCenter/ThirdFramework/QuPai_SDK",
 				);
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
