@@ -12,7 +12,7 @@
 
 #pragma mark - user custom define
 
-#define KONGFU_VER2     0
+#define KONGFU_VER2     1
 //视频布局模式
 typedef enum _VideoShowLayoutType
 {
