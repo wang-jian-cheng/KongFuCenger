@@ -1,30 +1,36 @@
 //
 //  SimpleMessageCell.h
-//  KongFuCenter
+//  rongyun
 //
-//  Created by Rain on 16/2/15.
-//  Copyright © 2016年 zykj. All rights reserved.
+//  Created by 王明辉 on 16/1/20.
+//  Copyright © 2016年 王明辉. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <RongIMKit/RongIMKit.h>
-#import <RongIMKit/RCMessageCell.h>
-#import <RongIMKit/RCAttributedLabel.h>
 
-/**
- * 文本消息Cell
- */
+#import "SimpleMessage.h"
+
+@protocol ClickImgDelegate <NSObject>
+
+- (void)clickImgEvent:(NSString *) videoUrl;
+
+@end
+
 @interface SimpleMessageCell : RCMessageCell
 
 /**
  * 消息显示Label
  */
-@property(strong, nonatomic) RCAttributedLabel *textLabel;
+@property(strong, nonatomic) UILabel *textLabel;
+
+@property(strong,nonatomic)UIImageView * bgimage;
+
 
 /**
  * 消息背景
  */
 @property(nonatomic, strong) UIImageView *bubbleBackgroundView;
+
 
 /**
  * 设置消息数据模型
@@ -32,4 +38,6 @@
  * @param model 消息数据模型
  */
 - (void)setDataModel:(RCMessageModel *)model;
+
+@property (nonatomic,assign) id<ClickImgDelegate> customDelegate;
 @end

@@ -83,6 +83,10 @@
 -(void)getShopListCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
         shopInfoArray = dict[@"data"];
+        if(shopInfoArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
         [mTableView reloadData];
     }
 }
@@ -104,6 +108,10 @@
         arrayitem=dict[@"data"];
         for (id item in arrayitem) {
             [itemarray addObject:item];
+        }
+        if(shopInfoArray.count >= [dict[@"recordcount"] intValue])
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
         }
         shopInfoArray=[[NSArray alloc] initWithArray:itemarray];
     }
@@ -220,12 +228,12 @@
     
     // 马上进入刷新状态
     [mTableView.mj_header beginRefreshing];
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(TeamFootRefresh)];
-    // 禁止自动加载
-    footer.automaticallyRefresh = NO;
-    // 设置footer
-    mTableView.mj_footer = footer;
+    
+    // 上拉刷新
+    mTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [weakSelf TeamFootRefresh];
+        [mTableView.mj_footer endRefreshing];
+    }];
 }
 
 -(void)sortReloadDataEvent:(UIButton *)btn{
@@ -289,8 +297,11 @@
                 [shopInfoArrayCopy addObject:shopInfoArray[i]];
             }
         }
-        [mTableView reloadData];
+    }else{
+        searchFlag = YES;
+        shopInfoArrayCopy = [[NSMutableArray alloc] initWithArray:shopInfoArray];
     }
+    [mTableView reloadData];
 }
 
 #pragma mark tableview delegate

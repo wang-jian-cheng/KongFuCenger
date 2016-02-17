@@ -10,6 +10,7 @@
 #import "CustomButton.h"
 #import "RCLabel.h"
 #import "UserHeadView.h"
+#import "ZhuanFaView.h"
 @interface UnionNewsDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate>
 {
     CGFloat _keyHeight;

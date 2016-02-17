@@ -27,8 +27,14 @@ typedef enum _orderMode{
     CGFloat _cellHeight;
     UITableView *_mainTableView;
     
+    NSArray *proList;
+    
+    CGFloat totalMoney;
+    NSDictionary *addressDict;
+    
 }
 
 @property(nonatomic)OrderMode orderMode;
 @property (nonatomic,strong) NSDictionary * OrderDict;
+
 @end

@@ -17,4 +17,7 @@
 @property(nonatomic) NSString *ProductPriceId;
 @property(nonatomic) NSString *ProductPriceTotalPrice;
 @property(nonatomic) NSString *ProductSizeName;
+
+-(instancetype)initWithDict:(NSDictionary *)dict;
++(instancetype)CartModelWithDict:(NSDictionary *)dict;
 @end

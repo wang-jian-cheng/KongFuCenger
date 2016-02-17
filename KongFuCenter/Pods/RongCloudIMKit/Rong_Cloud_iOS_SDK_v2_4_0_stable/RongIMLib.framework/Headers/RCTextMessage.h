@@ -19,6 +19,9 @@
 /** 文本消息内容 */
 @property(nonatomic, strong) NSString *content;
 
+/** 图片地址内容 */
+@property(nonatomic, strong) NSString *imgUrl;
+
 /**
  *  附加信息
  */

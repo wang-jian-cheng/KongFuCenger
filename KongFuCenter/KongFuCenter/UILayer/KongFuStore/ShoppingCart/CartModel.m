@@ -10,6 +10,21 @@
 
 @implementation CartModel
 
+-(instancetype)initWithDict:(NSDictionary *)dict
+{
+    self = [super init];
+    if(self)
+    {
+        [self setValuesForKeysWithDictionary:dict];
+    }
+    return self;
+}
+
++(instancetype)CartModelWithDict:(NSDictionary *)dict
+{
+    return [[self alloc] initWithDict:dict];
+}
+
 -(void)setId:(NSString *)Id
 {
     _Id = NSStringFromFormat(@"%@",Id);

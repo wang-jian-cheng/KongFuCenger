@@ -192,8 +192,12 @@
         [SVProgressHUD showErrorWithStatus:@"该武馆没有提供号码呦～" maskType:SVProgressHUDMaskTypeBlack];
         return;
     }
+    
+    telStr = [telStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+    telStr = [telStr stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",telStr];
-    //            NSLog(@"str======%@",str);
+    NSLog(@"str======%@",str);
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     
 }
@@ -395,18 +399,18 @@
                     if(wuGuanDetailDict ==nil)
                         return cell;
                     
-                    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 5, SCREEN_WIDTH/2 , _cellHeight - 10)];
+                    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 5, SCREEN_WIDTH , _cellHeight - 10)];
                     nameLab.text = wuGuanDetailDict[@"Title"];
                     nameLab.textColor = [UIColor whiteColor];
                     [cell addSubview:nameLab];
-                    
+                     /*
                     UIView *backView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/3 *2), 0, SCREEN_WIDTH/3 , _cellHeight)];
                     backView.backgroundColor = cell.backgroundColor;
                     [cell addSubview:backView];
                     CGFloat btnW = backView.frame.size.width/3 - 5;
                     CGFloat btnGap = 5;
                     
-                    
+                   
                     CustomButton *shareBtn = [[CustomButton alloc] initWithFrame:CGRectMake((btnW+btnGap)*1, 5, btnW, backView.frame.size.height-10)];
                     [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
                     shareBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
@@ -428,6 +432,7 @@
                     relayBtn.tag = 3;
                     [relayBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                     [backView addSubview:relayBtn];
+                     */
                 }
                 @catch (NSException *exception) {
                     

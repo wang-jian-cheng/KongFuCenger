@@ -83,7 +83,7 @@ typedef enum _VideoShowLayoutType
 #pragma mark - system layer define
 
 #ifndef DEBUG
-#define DEBUG  //开启debug
+//#define DEBUG  //开启debug
 #endif
 
 

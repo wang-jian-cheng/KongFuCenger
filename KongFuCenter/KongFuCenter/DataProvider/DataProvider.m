@@ -1419,6 +1419,8 @@
         NSDictionary *prm = @{@"fileName":@"video.mov",@"filestream":imagebase64};
         [self PostRequest:url andpram:prm];
         //        [self uploadVideoWithFilePath:videoPath andurl:url andprm:prm];
+    }else{
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -1630,6 +1632,8 @@
         NSDictionary *prm = @{@"productId":productId,
                               @"startRowIndex":startRowIndex,
                               @"maximumRows":maximumRows};
+        
+        DLog(@"%@",prm);
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];
@@ -1779,6 +1783,32 @@
         DLog(@"%@",prm);
         
         [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)getAddrById:(NSString *)Id
+{
+
+    if (Id) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/GetDeliveryAddressById",Url];
+        NSDictionary *prm = @{@"Id":Id};
+        [self PostRequest:url andpram:prm];
+        DLog(@"%@",prm);
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)sureForOrder:(NSString *)userId andBillId:(NSString *)billId
+{
+    if (userId&&billId) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/Acceptance",Url];
+        NSDictionary *prm = @{@"userId":userId,
+                              @"billId":billId};
+        [self PostRequest:url andpram:prm];
+        DLog(@"%@",prm);
     }else{
         [SVProgressHUD dismiss];
     }
