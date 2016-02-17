@@ -61,8 +61,9 @@
     
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
-    _mainTableView.separatorColor =  Separator_Color;
+    _mainTableView.separatorColor = [UIColor clearColor];
     _mainTableView.tableFooterView = [[UIView alloc] init];
+    _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //_mainTableView.scrollEnabled = NO;
     
    // _mainTableView.contentSize = CGSizeMake(SCREEN_HEIGHT, _sectionNum*(_cellHeight + 20));
@@ -112,6 +113,8 @@
     imgView.image = [UIImage imageNamed:@"upsanjiao"];
     imgView.contentMode = UIViewContentModeScaleAspectFit;
     [placeBtn addSubview:imgView];
+    
+    
     
 //    [self loadWuguanList:cityID];
     
@@ -341,8 +344,8 @@
         cell.describeLab.text = tempDict[@"Content"];
         cell.titleLab.text = tempDict[@"Title"];
         cell.phoneLab.text = [NSString stringWithFormat:@"电话:%@",tempDict[@"TelePhone"]];
-        cell.addressLab.text = [NSString stringWithFormat:@"地址:%@",[onlyCityName substringToIndex:(onlyCityName.length-1)]];
-        
+//        cell.addressLab.text = [NSString stringWithFormat:@"地址:%@",[onlyCityName substringToIndex:(onlyCityName.length-1)]];
+        cell.addressLab.text = [NSString stringWithFormat:@"地址:%@",tempDict[@"Address"]];
         NSString *url = [NSString stringWithFormat:@"%@%@",Url,tempDict[@"ImagePath"]];
         [cell.mainImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
     }
@@ -352,7 +355,7 @@
     @finally {
         
     }
-    
+//    cell.backgroundView  = [[UIView alloc] init];
     
     return cell;
     

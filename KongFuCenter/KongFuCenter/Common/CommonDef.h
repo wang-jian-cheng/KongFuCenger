@@ -82,17 +82,17 @@ typedef enum _VideoShowLayoutType
 
 #pragma mark - system layer define
 
-#ifndef DEBUG
-//#define DEBUG  //开启debug
+#ifndef ZYDEBUG
+#define ZYDEBUG  //开启debug
 #endif
 
 
 
 //use dlog to print while in debug model
-#ifdef DEBUG
-#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#ifdef ZYDEBUG
+    #define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 #else
-#   define DLog(...)
+    #define DLog(...)
 #endif
 
 

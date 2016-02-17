@@ -748,7 +748,7 @@
                     
                     NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,VideoDict[@"PhotoPath"]];
                     
-                    [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
+                    [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"80"]];
                     
                     headView.userId = VideoDict[@"UserId"];
                     
