@@ -327,8 +327,10 @@
 //        self.payOrderId = dict[@"data"][@"id"];
 //        [self getCharge:self.payOrderId];
         [SVProgressHUD showSuccessWithStatus:@"兑换成功"];
-        [self.navigationController popViewControllerAnimated:YES];
-        
+        NSUserDefaults *mUserDefault = [NSUserDefaults standardUserDefaults];
+        [mUserDefault setValue:@"1" forKey:@"IntegralExchangeFlag"];
+        //[self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
     }
     else
     {
@@ -458,10 +460,18 @@
     if([dict[@"code"] intValue] == 200)
     {
         NSDictionary *tempDict = dict[@"data"];
-        addressDict = [[NSMutableDictionary alloc] initWithDictionary:dict[@"data"]];
-        
-        [addressDict setValue:[NSString stringWithFormat:@"%@%@",[[Toolkit judgeIsNull:[tempDict valueForKey:@"Area"]] stringByReplacingOccurrencesOfString:@"/" withString:@""],[Toolkit judgeIsNull:[tempDict valueForKey:@"Address"]]] forKey:@"TotaleAddress"];
-        [_mainTableView reloadData];
+        @try {
+            addressDict = [[NSMutableDictionary alloc] initWithDictionary:dict[@"data"]];
+            
+            [addressDict setValue:[NSString stringWithFormat:@"%@%@",[[Toolkit judgeIsNull:[tempDict valueForKey:@"Area"]] stringByReplacingOccurrencesOfString:@"/" withString:@""],[Toolkit judgeIsNull:[tempDict valueForKey:@"Address"]]] forKey:@"TotaleAddress"];
+            [_mainTableView reloadData];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
     }
     else
     {

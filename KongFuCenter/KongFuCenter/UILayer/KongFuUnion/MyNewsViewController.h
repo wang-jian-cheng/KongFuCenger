@@ -9,7 +9,6 @@
 #import "BaseNavigationController.h"
 #import "UserHeadView.h"
 
-
 @interface MyNewsViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 {
     UILabel *name_lbl;

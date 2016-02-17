@@ -14,7 +14,6 @@
 
 @interface IntegralExchangeViewController (){
     UITableView *mTableView;
-    
     NSString *JiFen;
 }
 
@@ -40,13 +39,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+    NSUserDefaults *mUserDefault = [NSUserDefaults standardUserDefaults];
+    NSString *integralExchangeFlag = [mUserDefault valueForKey:@"IntegralExchangeFlag"];
+    if ([integralExchangeFlag isEqual:@"1"]) {
+        [mUserDefault setValue:@"0" forKey:@"IntegralExchangeFlag"];
+        [mTableView.mj_header beginRefreshing];
+    }
 }
 
 #pragma mark 自定义方法
 -(void)initViews{
-    
-    [self getUserInfo];
-    
     mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
     mTableView.delegate = self;
     mTableView.dataSource = self;
@@ -159,6 +161,7 @@
 
 -(void)getJiFenGoodList
 {
+    
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getJiFenGoodListCallBack:"];
     [dataProvider SelectProductBySearch:[NSString stringWithFormat:@"%lu",(unsigned long)pageNo*pageSize]/*页数*/
@@ -178,6 +181,7 @@
 -(void)getJiFenGoodListCallBack:(id)dict
 {
     [SVProgressHUD dismiss];
+    [self getUserInfo];
     [mTableView.mj_header endRefreshing];
     [mTableView.mj_footer endRefreshing];
     DLog(@"%@",dict);

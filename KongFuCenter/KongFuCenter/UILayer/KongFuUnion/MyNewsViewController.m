@@ -83,7 +83,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     
-    [self setBarTitle:@"个人动态"];
+    //[self setBarTitle:@"个人动态"];
     [self addLeftButton:@"left"];
     if([self.UserID isEqualToString:[Toolkit getUserID]])
     {
@@ -97,10 +97,30 @@
     kAdmin = [userDefault valueForKey:@"NicName"];
     
     //[self configData];
+    [self getUserInfoById];
     [self initTableview];
     //[self loadTextData];
     
     //[self initData];
+}
+
+-(void)getUserInfoById{
+    DataProvider *dataUserInfo = [[DataProvider alloc] init];
+    [dataUserInfo setDelegateObject:self setBackFunctionName:@"getUserInfoCallBack:"];
+    [dataUserInfo getUserInfo:_UserID];
+}
+
+-(void)getUserInfoCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        NSLog(@"%@",dict);
+        userPhotoPath = [Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"PhotoPath"]];
+        _userName = [Toolkit judgeIsNull:[dict[@"data"] valueForKey:@"NicName"]];
+        if (name_lbl && headImg) {
+            name_lbl.text = _userName;
+            NSString *url = [NSString stringWithFormat:@"%@%@",Url,userPhotoPath];
+            [headImg.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+        }
+    }
 }
 
 -(void)setUserID:(NSString *)UserID
@@ -131,7 +151,7 @@
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             if ([isRepeat isEqual:@"1"]) {
-                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[itemDict valueForKey:@"Description"],[itemDict valueForKey:@"Content"]);
+                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
             }else{
                 messBody.posterContent = [itemDict valueForKey:@"Content"];
             }
@@ -161,16 +181,16 @@
                 messBody.posterReplies = commentArray;
             }
             NSString *PhotoPath = [itemDict valueForKey:@"PhotoPath"];
-            userPhotoPath = PhotoPath;
+            //userPhotoPath = PhotoPath;
             NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
-            [headImg.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+            
             messBody.mID = [itemDict valueForKey:@"Id"];
             messBody.userID = [itemDict valueForKey:@"UserId"];
             messBody.posterImgstr = url;//@"mao.jpg";
             messBody.posterName = [itemDict valueForKey:@"NicName"];
             messBody.isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
-            _userName =messBody.posterName;
-            name_lbl.text = _userName;
+            //_userName =messBody.posterName;
+            //name_lbl.text = _userName;
             messBody.posterIntro = @"";
             messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
             messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
@@ -383,7 +403,7 @@
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             if ([isRepeat isEqual:@"1"]) {
-                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[itemDict valueForKey:@"Description"],[itemDict valueForKey:@"Content"]);
+                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
             }else{
                 messBody.posterContent = [itemDict valueForKey:@"Content"];
             }
@@ -431,8 +451,6 @@
             
             [_contentDataSource addObject:messBody];
         }
-        
-        //[self initTableview];
         
         [self loadTextData];
     }
@@ -576,13 +594,22 @@
     }else{
         [cell.zanBtn setImage:[UIImage imageNamed:@"wyzan_no"] forState:UIControlStateNormal];
     }
-    cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];//[NSString stringWithFormat:@"%@",[wyArray[indexPath.row] valueForKey:@"LikeNum"]];
-    if( ymData.showVideoArray !=nil&&![ymData.showVideoArray[0] isEqual:@""]&&ymData.showVideoArray.count>0){
-        UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoImgEvent:)];
-        cell.videoImg.userInteractionEnabled = YES;
-        NSLog(@"%d",(int)indexPath.row);
-        [cell.videoImg addGestureRecognizer:clickVideoImg];
-        clickVideoImg.view.tag = indexPath.row;
+    cell.zanNum.text = [NSString stringWithFormat:@"%d",m.zanNum];
+    
+    if([self isExitVideo:ymData]){
+        if([m.isRepeat isEqual:@"0"]){
+            UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoImgEvent:)];
+            cell.videoImg.userInteractionEnabled = YES;
+            NSLog(@"%d",(int)indexPath.row);
+            [cell.videoImg addGestureRecognizer:clickVideoImg];
+            clickVideoImg.view.tag = indexPath.row;
+        }else{
+            UITapGestureRecognizer *clickVideoImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jumpDetailEvent:)];
+            cell.videoImg.userInteractionEnabled = YES;
+            NSLog(@"%d",(int)indexPath.row);
+            [cell.videoImg addGestureRecognizer:clickVideoImg];
+            clickVideoImg.view.tag = indexPath.row;
+        }
     }
     [cell.delIcon addTarget:self action:@selector(delMyInfoEvent:) forControlEvents:UIControlEventTouchUpInside];
     cell.delegate = self;
@@ -608,6 +635,17 @@
     PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
     playVideoVC.videoPath = ymData.showVideoArray[1];
     [self.navigationController pushViewController:playVideoVC animated:YES];
+}
+
+-(void)jumpDetailEvent:(id)sender{
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer*)sender;
+    UIView *views = (UIView*) tap.view;
+    NSLog(@"%d",(int)views.tag);
+    OneShuoshuoViewController *oneShuoshuoVC = [[OneShuoshuoViewController alloc] init];
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:views.tag];
+    WFMessageBody *m = ymData.messageBody;
+    oneShuoshuoVC.shuoshuoID = m.mID;
+    [self.navigationController pushViewController:oneShuoshuoVC animated:YES];
 }
 
 -(void)delMyInfoEvent:(UIButton *)btn{
@@ -764,12 +802,10 @@
     [headView addSubview:headBackgroundIv];
     
     UIView *headImgView = [[UIView alloc] initWithFrame:CGRectMake(0, headView.frame.size.height - 50 - 10, SCREEN_WIDTH, 60)];
-//    UIImageView *headImg = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50)];
-    NSString *photoPath =userPhotoPath; // [userDefault valueForKey:@"PhotoPath"];
+    NSString *photoPath =userPhotoPath;
     NSString *url = [NSString stringWithFormat:@"%@%@",Url,photoPath];
-//    headImg.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
-    //UserHeadView *headImg = [[UserHeadView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50) andurl:url];
     headImg = [[UserHeadView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60 , 0, 50, 50) andUrl:url andNav:self.navigationController];
+    headImg.userId = _UserID;
     [headImgView addSubview:headImg];
     name_lbl = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - headImg.frame.size.width - 10 - 120 - 5, (headImg.frame.size.height - 21) / 2, 120, 21)];
     name_lbl.textColor = [UIColor whiteColor];
