@@ -144,7 +144,7 @@
 
 -(void)getUserInfoCallBack:(id)dict
 {
-    DLog(@"%@",dict)
+    DLog(@"%@",dict);
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue]==200) {
         NSDictionary *tempDict = dict[@"data"];
