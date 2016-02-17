@@ -151,7 +151,7 @@
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             if ([isRepeat isEqual:@"1"]) {
-                messBody.posterContent = [itemDict valueForKey:@"Description"];
+                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[itemDict valueForKey:@"Description"],[itemDict valueForKey:@"Content"]);
             }else{
                 messBody.posterContent = [itemDict valueForKey:@"Content"];
             }
@@ -232,7 +232,12 @@
     
     for(NSDictionary *itemDict in dongtaiArr){
         WFMessageBody *messBody = [[WFMessageBody alloc] init];
-        messBody.posterContent = [itemDict valueForKey:@"Content"];
+        NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
+        if ([isRepeat isEqual:@"1"]) {
+            messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[itemDict valueForKey:@"Description"],[itemDict valueForKey:@"Content"]);
+        }else{
+            messBody.posterContent = [itemDict valueForKey:@"Content"];
+        }
         NSArray *picArray =[itemDict valueForKey:@"PicList"];
         NSMutableArray *imgArray = [[NSMutableArray alloc] init];
         for (int i = 0; i < picArray.count; i++) {
@@ -310,7 +315,12 @@
         arrayitem=dict[@"data"];
         for(NSDictionary *itemDict in dict[@"data"]){
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
-            messBody.posterContent = [itemDict valueForKey:@"Content"];
+            NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
+            if ([isRepeat isEqual:@"1"]) {
+                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[itemDict valueForKey:@"Description"],[itemDict valueForKey:@"Content"]);
+            }else{
+                messBody.posterContent = [itemDict valueForKey:@"Content"];
+            }
             NSArray *picArray =[itemDict valueForKey:@"PicList"];
             NSMutableArray *imgArray = [[NSMutableArray alloc] init];
             for (int i = 0; i < picArray.count; i++) {
