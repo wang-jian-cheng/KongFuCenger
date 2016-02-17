@@ -68,7 +68,7 @@
     [[self topView] addSubview:coverView];
     
     showView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ViewWidth, ViewHeight)];
-    showView.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    showView.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 50);
     showView.layer.masksToBounds = YES;
     showView.layer.cornerRadius = 5;
     showView.backgroundColor = BACKGROUND_COLOR;

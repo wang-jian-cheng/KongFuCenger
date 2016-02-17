@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -12,38 +12,41 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wuguanimg.png" translatesAutoresizingMaskIntoConstraints="NO" id="ErP-Dx-7bU">
                         <rect key="frame" x="8" y="8" width="78" height="82"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="78" id="zVN-UY-nYs"/>
+                            <constraint firstAttribute="width" constant="78" id="Had-0Z-UOI"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="临沂核武者" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBh-Qn-F6O">
-                        <rect key="frame" x="113" y="8" width="207" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="临沂核武者" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBh-Qn-F6O">
+                        <rect key="frame" x="103" y="8" width="217" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="创建与1991年，在全国开了数座" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wkc-Xm-Qpr">
-                        <rect key="frame" x="113" y="31" width="199" height="21"/>
+                        <rect key="frame" x="103" y="31" width="217" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="s5i-aw-ECN"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：临沂市兰山区" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebw-dp-WFC">
-                        <rect key="frame" x="113" y="69" width="56" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电话：0539-12345678" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhy-Tw-exZ">
+                        <rect key="frame" x="103" y="53" width="217" height="19"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19" id="HzG-pc-LhP"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电话：0539-12345678" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhy-Tw-exZ">
-                        <rect key="frame" x="187" y="69" width="125" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="125" id="PwK-mL-tKa"/>
-                        </constraints>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：临沂市兰山区" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebw-dp-WFC">
+                        <rect key="frame" x="103" y="70" width="217" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -51,25 +54,41 @@
                 </subviews>
                 <color key="backgroundColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstAttribute="leadingMargin" secondItem="ErP-Dx-7bU" secondAttribute="leading" id="4HW-VE-CKf"/>
-                    <constraint firstItem="wkc-Xm-Qpr" firstAttribute="leading" secondItem="ErP-Dx-7bU" secondAttribute="trailing" constant="27" id="AJZ-SG-lsT"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="ebw-dp-WFC" secondAttribute="bottom" constant="1" id="AKD-MZ-2Uh"/>
+                    <constraint firstItem="ErP-Dx-7bU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="0l9-z0-dDH"/>
+                    <constraint firstItem="ebw-dp-WFC" firstAttribute="top" secondItem="wkc-Xm-Qpr" secondAttribute="bottom" constant="18" id="AVh-Kg-bFG"/>
                     <constraint firstItem="jhy-Tw-exZ" firstAttribute="top" secondItem="wkc-Xm-Qpr" secondAttribute="bottom" constant="17" id="DrJ-EX-7Wz"/>
-                    <constraint firstItem="ebw-dp-WFC" firstAttribute="leading" secondItem="ErP-Dx-7bU" secondAttribute="trailing" constant="27" id="G1N-UL-wTo"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="jhy-Tw-exZ" secondAttribute="trailing" id="Ifd-fY-pM2"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="ebw-dp-WFC" secondAttribute="bottom" constant="1" id="Ihi-wk-JZ6"/>
-                    <constraint firstAttribute="topMargin" secondItem="ErP-Dx-7bU" secondAttribute="top" id="M39-Bv-q0f"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="ErP-Dx-7bU" secondAttribute="bottom" constant="1" id="UUR-qr-NTE"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="wkc-Xm-Qpr" secondAttribute="trailing" id="Z85-Sd-v2E"/>
-                    <constraint firstItem="ebw-dp-WFC" firstAttribute="top" secondItem="wkc-Xm-Qpr" secondAttribute="bottom" constant="17" id="aNG-YU-mnA"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="wkc-Xm-Qpr" secondAttribute="bottom" constant="39" id="cZD-a7-HLX"/>
-                    <constraint firstItem="wkc-Xm-Qpr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="23" id="jVI-Mf-028"/>
+                    <constraint firstItem="wkc-Xm-Qpr" firstAttribute="trailing" secondItem="jhy-Tw-exZ" secondAttribute="trailing" id="Fju-Ka-lr0"/>
+                    <constraint firstItem="ErP-Dx-7bU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="VUR-XJ-mci"/>
+                    <constraint firstItem="uBh-Qn-F6O" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="WtV-ld-zgx"/>
+                    <constraint firstItem="jhy-Tw-exZ" firstAttribute="top" secondItem="wkc-Xm-Qpr" secondAttribute="bottom" constant="1" id="Y96-mQ-oZu"/>
+                    <constraint firstItem="jhy-Tw-exZ" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="8" id="YH2-aw-1dm"/>
+                    <constraint firstItem="uBh-Qn-F6O" firstAttribute="top" secondItem="ErP-Dx-7bU" secondAttribute="top" id="ac5-nz-rqL"/>
+                    <constraint firstItem="jhy-Tw-exZ" firstAttribute="leading" secondItem="ebw-dp-WFC" secondAttribute="leading" id="agO-U3-SRQ"/>
+                    <constraint firstItem="wkc-Xm-Qpr" firstAttribute="leading" secondItem="jhy-Tw-exZ" secondAttribute="leading" id="bYg-la-Ub7"/>
+                    <constraint firstItem="jhy-Tw-exZ" firstAttribute="trailing" secondItem="ebw-dp-WFC" secondAttribute="trailing" id="eas-zt-M3d"/>
+                    <constraint firstItem="uBh-Qn-F6O" firstAttribute="leading" secondItem="wkc-Xm-Qpr" secondAttribute="leading" id="hCl-PG-cR3"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="jhy-Tw-exZ" secondAttribute="bottom" constant="19.5" id="jB1-dt-YMB"/>
+                    <constraint firstItem="uBh-Qn-F6O" firstAttribute="leading" secondItem="ErP-Dx-7bU" secondAttribute="trailing" constant="17" id="jcJ-nH-XeK"/>
+                    <constraint firstItem="wkc-Xm-Qpr" firstAttribute="top" secondItem="uBh-Qn-F6O" secondAttribute="bottom" constant="2" id="lxU-AJ-Ll7"/>
+                    <constraint firstAttribute="trailing" secondItem="uBh-Qn-F6O" secondAttribute="trailing" id="mTv-r6-TMS"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="ebw-dp-WFC" secondAttribute="bottom" constant="-0.5" id="rGe-G6-K5d"/>
                     <constraint firstItem="jhy-Tw-exZ" firstAttribute="leading" secondItem="ebw-dp-WFC" secondAttribute="trailing" constant="18" id="z4T-Nm-E59"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="DrJ-EX-7Wz"/>
+                        <exclude reference="z4T-Nm-E59"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="jhy-Tw-exZ" secondAttribute="bottom" constant="10" id="orQ-4W-ucz"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="orQ-4W-ucz"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="addressLab" destination="ebw-dp-WFC" id="par-aE-tFn"/>
                 <outlet property="describeLab" destination="wkc-Xm-Qpr" id="FCx-Kh-GgQ"/>
