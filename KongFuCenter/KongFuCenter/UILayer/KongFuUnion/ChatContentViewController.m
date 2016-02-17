@@ -15,13 +15,15 @@
 #import "SimpleMessageCell.h"
 #import "MoviePlayer.h"
 
-@interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate,WechatShortVideoDelegate,RCConversationCellDelegate,ClickImgDelegate>{
+@interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate,WechatShortVideoDelegate,RCConversationCellDelegate,ClickImgDelegate,JvbaoDelegate>{
     UIView *topView;
     NSUserDefaults *userDefault;
     NSString *friendID;
     UIImage *selectImage;
     UIButton *videoView;
+    MoviePlayer *player;
     UIButton *leftBtn;
+    //UIView *coverView;
 }
 
 @end
@@ -77,7 +79,7 @@
     [self registerClass:[SimpleMessageCell class] forCellWithReuseIdentifier:@"SimpleMessageCell"];
     
     //自定义面板功能扩展
-    [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"me"]
+    [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"sendVideo"]
                                         title:@"视频"
                                           tag:101];
 }
@@ -90,8 +92,8 @@
     SimpleMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIndentifier           forIndexPath:indexPath];
     cell.customDelegate = self;
     [cell setDataModel:model];
-    NSString *url = [NSString stringWithFormat:@"%@%@",Url,@"UpLoad/Video/b584d41b-82fe-4677-a492-dd9f3791105d.mp4"];
-    url = [url stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
+    //NSString *url = [NSString stringWithFormat:@"%@%@",Url,@"UpLoad/Video/b584d41b-82fe-4677-a492-dd9f3791105d.mp4"];
+    //url = [url stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
     //MoviePlayer *player = [[MoviePlayer alloc] initWithFrame:CGRectMake(0,0,SCREEN_WIDTH - 50, 210) URL:[NSURL URLWithString:url]];
     //[cell addSubview:player];
     return cell;
@@ -234,12 +236,20 @@
 }
 
 -(void)clickImgEvent:(NSString *)videoUrl{
+//    coverView =  [[UIView alloc]initWithFrame:[self topView].frame];
+//    coverView.backgroundColor = [UIColor blackColor];
+//    coverView.alpha = 0;
+//    coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    //[self.view addSubview:coverView];
+    
     videoView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     videoView.backgroundColor = [UIColor grayColor];
     //videoView.alpha = 0.6;
-    MoviePlayer *player = [[MoviePlayer alloc] initWithFrame:CGRectMake(0,0,SCREEN_WIDTH, SCREEN_HEIGHT) URL:[NSURL URLWithString:videoUrl]];
+    player = [[MoviePlayer alloc] initWithFrame:CGRectMake(0,0,SCREEN_WIDTH, SCREEN_HEIGHT) URL:[NSURL URLWithString:videoUrl]];
     [videoView addSubview:player];
     [self.view addSubview:videoView];
+    
+    [self show];
     
     //添加退出按钮
     leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 60, 60)];
@@ -251,44 +261,62 @@
 -(void)backViewEvent{
     [videoView removeFromSuperview];
     [leftBtn removeFromSuperview];
+    [self dismiss];
 }
 
-#pragma mark - 相册的代理
-//- (void)imagePickerController:(UIImagePickerController *)picker   didFinishPickingMediaWithInfo:(NSDictionary *)info
-//{
-//    [self dismissViewControllerAnimated:YES completion:^{
+-(UIView*)topView{
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    return  window.subviews[0];
+}
+
+- (void)show {
+//    [UIView animateWithDuration:0.5 animations:^{
+//        //coverView.alpha = 0.5;
+//        
+//    } completion:^(BOOL finished) {
 //        
 //    }];
-//    
-//    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-//    
-//    if([mediaType isEqualToString:@"public.movie"])
-//    {
+    
+    //[[self topView] addSubview:self.view];
+    [self showAnimation];
+}
+
+- (void)dismiss {
+    [self hideAnimation];
+    [self.view endEditing:YES];
+}
+
+- (void)showAnimation {
+//    player.bounds = CGRectMake(0, 0, 100, 100);
+//    player.center = CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+//    [UIView animateWithDuration:1.0 animations:^{
+//        player.bounds = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//    } completion:^(BOOL finished) {
 //        
-//        RCImageMessage *imageMsg = [RCImageMessage messageWithImageURI:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"];
-////        imageMsg.thumbnailImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"]]];
-////        imageMsg.imageUrl = @"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg";
-////        imageMsg.originalImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://img4.imgtn.bdimg.com/it/u=128811874,840272376&fm=21&gp=0.jpg"]]];
-////        MyVideoMessage *myVideoMessage = [[MyVideoMessage alloc] init];
-////        myVideoMessage.videoData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://120.27.115.235/UpLoad/Video/902e869c-b934-495b-9862-7359fae9f9ea.mov"]];
-////        
-////        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:txtMsg];
-////        RCMessageContent *content = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-//        [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:[self targetId] content:imageMsg pushContent:nil success:nil error:nil];
-//        
-////        self.defaultInputType = RCChatSessionInputBarInputExtention;
-////        RCInformationNotificationMessage *warningMsg = [RCInformationNotificationMessage notificationWithMessage:@"请不要轻易给陌生人汇钱！" extra:nil];
-////        BOOL saveToDB = NO;  //是否保存到数据库中
-////        RCMessage *savedMsg ;
-////        if (saveToDB) {
-////            savedMsg = [[RCIMClient sharedRCIMClient] insertMessage:self.conversationType targetId:self.targetId senderUserId:[RCIMClient sharedRCIMClient].currentUserInfo.userId sendStatus:SentStatus_SENT content:warningMsg];
-////        } else {
-////            savedMsg =[[RCMessage alloc] initWithType:self.conversationType targetId:self.targetId direction:MessageDirection_SEND messageId:-1 content:warningMsg];//注意messageId要设置为－1
-////        }
-////        [self appendAndDisplayMessage:savedMsg];
-//        
-//        
-//    }
-//}
+//    }];
+    
+    
+    CAKeyframeAnimation *popAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    popAnimation.duration = 1.0;
+    popAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.2f, 0.2f, 1.0f)],
+                            [NSValue valueWithCATransform3D:CATransform3DIdentity]];
+    popAnimation.keyTimes = @[@0.0f, @1.0f];
+    popAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                     [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                     [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [videoView.layer addAnimation:popAnimation forKey:nil];
+}
+
+- (void)hideAnimation{
+    [UIView animateWithDuration:0.4 animations:^{
+        //coverView.alpha = 0.0;
+        videoView.alpha = 0.0;
+        
+    } completion:^(BOOL finished) {
+        [videoView removeFromSuperview];
+    }];
+    
+    
+}
 
 @end

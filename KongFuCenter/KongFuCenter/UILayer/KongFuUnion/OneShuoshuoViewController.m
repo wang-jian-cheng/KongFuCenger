@@ -187,9 +187,11 @@
         [SVProgressHUD dismiss];
         
     }else if([dict[@"code"] intValue] == 201){
+        [SVProgressHUD dismiss];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"原视频已删除~" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
         alertView.delegate = self;
         [alertView show];
+        [self.navigationController popViewControllerAnimated:YES];
     }
     else{
         [SVProgressHUD dismiss];
