@@ -281,7 +281,13 @@
     {
         MyNewsViewController *friendNews = [[MyNewsViewController alloc] init];
         friendNews.UserID = userInfoArray[@"Id"];
-        friendNews.navtitle = userInfoArray[@"NicName"];
+//        NSString *ssName = [Toolkit judgeIsNull:userInfoArray[@"NicName"]];
+//        if ([ssName isEqual:@""]) {
+//            friendNews.navtitle = @"陌生人的动态";
+//        }else{
+//            friendNews.navtitle = [NSString stringWithFormat:@"%@的动态",ssName];
+//        }
+        friendNews.navtitle = @"陌生人的动态";
         [self.navigationController pushViewController:friendNews animated:YES];
     }
     else if (indexPath.row== 1 && indexPath.section == 1)

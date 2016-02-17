@@ -151,7 +151,7 @@
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             if ([isRepeat isEqual:@"1"]) {
-                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[itemDict valueForKey:@"Description"],[itemDict valueForKey:@"Content"]);
+                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
             }else{
                 messBody.posterContent = [itemDict valueForKey:@"Content"];
             }
@@ -234,7 +234,7 @@
         WFMessageBody *messBody = [[WFMessageBody alloc] init];
         NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
         if ([isRepeat isEqual:@"1"]) {
-            messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[itemDict valueForKey:@"Description"],[itemDict valueForKey:@"Content"]);
+            messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
         }else{
             messBody.posterContent = [itemDict valueForKey:@"Content"];
         }
@@ -317,7 +317,7 @@
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             if ([isRepeat isEqual:@"1"]) {
-                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[itemDict valueForKey:@"Description"],[itemDict valueForKey:@"Content"]);
+                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
             }else{
                 messBody.posterContent = [itemDict valueForKey:@"Content"];
             }
@@ -807,6 +807,7 @@
 -(void)tapPhotoImg{
     myNewsVC = [[MyNewsViewController alloc] init];
     myNewsVC.UserID = get_sp(@"id");
+    myNewsVC.navtitle = @"个人动态";
     [self.navigationController pushViewController:myNewsVC animated:YES];
 }
 

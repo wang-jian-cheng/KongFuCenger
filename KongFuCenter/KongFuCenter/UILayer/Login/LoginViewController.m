@@ -683,7 +683,6 @@
     if ([dict[@"code"] intValue]==200 ) {
 
         NSDictionary * itemdict=dict[@"data"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
             
         //设置默认值
         [self setLoginValue:itemdict];
@@ -712,6 +711,8 @@
                 [mUserDefault setValue:passWordText.text forKey:LogIn_UserPass_key];//上次登录的账户
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"Id"]] forKey:@"id"];
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"Token"]] forKey:@"token"];
+//        UIAlertView *alerrtv = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"%@",[dict valueForKey:@"Id"]] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        [alerrtv show];
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"NicName"]] forKey:@"NicName"];
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"PhotoPath"]] forKey:@"PhotoPath"];
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"TeamId"]] forKey:@"TeamId"];
@@ -772,7 +773,7 @@
         
     }
     @finally {
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootView" object:nil userInfo:[NSDictionary dictionaryWithObject:@"mainpage" forKey:@"rootView"]];
     }
     
 }

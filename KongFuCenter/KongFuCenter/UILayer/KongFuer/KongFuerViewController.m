@@ -165,7 +165,7 @@
     airQuality.font = [UIFont systemFontOfSize:14];
     
     headView = [[UserHeadView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -80)/2 ,_cellHeight/2, 80, 80)
-                                                      andImgName:@"headImg"
+                                                      andImgName:@"me"
                                                           andNav:self.navigationController];
     
     
@@ -435,7 +435,7 @@
             }
 //            IdLab.text = [NSString stringWithFormat:@"ID:%08d",[[Toolkit getUserID] intValue]];
             NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
-            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headImg"]];
+            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
             
         }
         @catch (NSException *exception) {

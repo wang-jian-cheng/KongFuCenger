@@ -11,6 +11,7 @@
 #import "UserHeadView.h"
 #import "SDCycleScrollView.h"
 #import "PayOrderViewController.h"
+#import "ShoppingCart/ShoppingCartViewController.h"
 
 @interface ShopDetailViewController (){
     UITableView *mTableView;
@@ -46,6 +47,7 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"商品详情"];
     [self addLeftButton:@"left"];
+    [self addRightButton:@"shoppingcar_img"];
     
     dataProvider =[[DataProvider alloc] init];
     goodsInfoDict = [[NSDictionary alloc] init];
@@ -64,6 +66,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
+-(void)clickRightButton:(UIButton *)sender{
+    ShoppingCartViewController *shoppingCart = [[ShoppingCartViewController alloc] init];
+    shoppingCart.navtitle = @"购物车";
+    [self.navigationController pushViewController:shoppingCart animated:YES];
 }
 
 #pragma mark 自定义方法
@@ -371,6 +379,7 @@
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showSuccessWithStatus:@"加入购物车成功~" maskType:SVProgressHUDMaskTypeBlack];
+        [self backViewEvent];
     }else{
         [SVProgressHUD showSuccessWithStatus:dict[@"data"] maskType:SVProgressHUDMaskTypeBlack];
     }

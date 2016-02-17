@@ -254,12 +254,14 @@
     self.moneySum = 0;
     [self.goodsArr removeAllObjects];
     DataProvider *dataProvider = [[DataProvider alloc] init];
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getShoppingCartListCallBack:"];
     [dataProvider getShoppingCartList:[Toolkit getUserID] andstartRowIndex:NSStringFromFormat(@"%u",pageNo*pageSize) andmaximumRows:NSStringFromFormat(@"%u",pageSize)];
 }
 
 -(void)getShoppingCartListCallBack:(id)dict
 {
+    [SVProgressHUD dismiss];
     DLog(@"%@",dict);
     if([dict[@"code"] intValue] == 200)
     {

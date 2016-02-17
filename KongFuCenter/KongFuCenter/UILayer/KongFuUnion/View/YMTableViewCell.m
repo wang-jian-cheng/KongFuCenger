@@ -241,7 +241,7 @@
         image.tag = kImageTag + i;
         //image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[ymData.showImageArray objectAtIndex:i]]];
         //image.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[ymData.showImageArray objectAtIndex:i]]]];
-        [image sd_setImageWithURL:[NSURL URLWithString:[ymData.showImageArray objectAtIndex:i]] placeholderImage:[UIImage imageNamed:@"me"]];
+        [image sd_setImageWithURL:[NSURL URLWithString:[ymData.showImageArray objectAtIndex:i]] placeholderImage:nil];
         [self.contentView addSubview:image];
         [_imageArray addObject:image];
         

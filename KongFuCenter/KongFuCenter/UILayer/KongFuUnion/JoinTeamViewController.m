@@ -421,13 +421,11 @@
         remove_sp(@"TeamId");
         remove_sp(@"TeamImg");
         remove_sp(@"TeamName");
+        [SVProgressHUD showSuccessWithStatus:@"成功退出战队~" maskType:SVProgressHUDMaskTypeBlack];
         [mTableView.mj_header beginRefreshing];
-
     }else{
-        
         UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
         [alert show];
-        
     }
 
 }
