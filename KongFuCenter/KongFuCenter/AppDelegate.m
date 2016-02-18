@@ -299,7 +299,7 @@
     [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {
         NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
         connectServerIFlag = 0;
-        [SVProgressHUD showWithStatus:nil maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
         //获取好友信息
         DataProvider *dataProvider = [[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getFriendBackCall:"];

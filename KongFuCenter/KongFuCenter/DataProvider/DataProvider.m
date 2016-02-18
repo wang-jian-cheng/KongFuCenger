@@ -1597,15 +1597,16 @@
     }
 }
 
--(void)BuyNow:(NSString *)productId andnum:(NSString *)num andpriceId:(NSString *)priceId anduserId:(NSString *)userId andprice:(NSString *)price anddeliveryId:(NSString *)deliveryId{
-    if (productId && num && priceId && userId && price && deliveryId) {
+-(void)BuyNow:(NSString *)productId andnum:(NSString *)num andpriceId:(NSString *)priceId anduserId:(NSString *)userId andprice:(NSString *)price anddeliveryId:(NSString *)deliveryId anddescription:(NSString *)description{
+    if (productId && num && priceId && userId && price && deliveryId && description) {
         NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/BuyNow",Url];
         NSDictionary *prm = @{@"productId":productId,
                               @"num":num,
                               @"priceId":priceId,
                               @"userId":userId,
                               @"price":price,
-                              @"deliveryId":deliveryId};
+                              @"deliveryId":deliveryId,
+                              @"description":description};
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];

@@ -348,7 +348,8 @@
               andpriceId:self.goodsArr[0].ProductPriceId
                anduserId:[Toolkit getUserID]
                 andprice:self.goodsArr[0].ProductPriceTotalPrice
-           anddeliveryId:addressDict[@"Id"]];
+           anddeliveryId:addressDict[@"Id"]
+     anddescription:DescriptionTextView.text];
 }
 
 -(void)payImmediatelyCallBack:(id)dict
@@ -377,8 +378,8 @@
     
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getChargeCallBack:"];
-    [dataProvider getChargeForShopping:[Toolkit getUserID] andChannel:payFlag andAmount:ZY_NSStringFromFormat(@"%ld",(unsigned long)(totalMoney*100)) andDescription:@"购买商品" andFlg:@"1"/*0：充值会员 1：购买商品*/ andBillId:BillId];
-}
+    [dataProvider getChargeForShopping:[Toolkit getUserID] andChannel:payFlag andAmount:ZY_NSStringFromFormat(@"%.0f",[[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%.2f",totalMoney]] floatValue] * 100) andDescription:@"购买商品" andFlg:@"1"/*0：充值会员 1：购买商品*/ andBillId:BillId];
+}//[[NSDecimalNumber decimalNumberWithString:@"3.45"]floatValue] ;
 
 -(void)getChargeCallBack:(id)dict
 {

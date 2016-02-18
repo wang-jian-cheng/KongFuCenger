@@ -429,7 +429,7 @@
 -(void)CancleFavoriteProduct:(NSString *)userId andproductId:(NSString *)productId;
 
 //立即购买
--(void)BuyNow:(NSString *)productId andnum:(NSString *)num andpriceId:(NSString *)priceId anduserId:(NSString *)userId andprice:(NSString *)price anddeliveryId:(NSString *)deliveryId;
+-(void)BuyNow:(NSString *)productId andnum:(NSString *)num andpriceId:(NSString *)priceId anduserId:(NSString *)userId andprice:(NSString *)price anddeliveryId:(NSString *)deliveryId anddescription:(NSString *)description;
 
 //加入购物车
 -(void)InsertBasket:(NSString *)productId andnum:(NSString *)num andpriceId:(NSString *)priceId anduserId:(NSString *)userId andprice:(NSString *)price;

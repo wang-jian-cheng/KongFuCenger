@@ -228,6 +228,7 @@
         [mView addSubview:mPriceLbl];
         
         mSelectSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(mPriceLbl.frame.origin.x, mPriceLbl.frame.origin.y + mPriceLbl.frame.size.height + 5, 200, 21)];
+        mSelectSpecLbl.font = [UIFont systemFontOfSize:14];
         mSelectSpecLbl.textColor = [UIColor grayColor];
         mSelectSpecLbl.text = @"请选择规格";
         [mView addSubview:mSelectSpecLbl];
@@ -445,7 +446,7 @@
         cell.backgroundColor = ItemsBaseColor;
     }else{
         for (UIView *view in cell.subviews) {
-            if ([view isKindOfClass:[UILabel class]]) {
+            if ([view isKindOfClass:[UILabel class]] || [view isKindOfClass:[SDCycleScrollView class]]) {
                 [view removeFromSuperview];
             }
         }
@@ -508,7 +509,8 @@
         }
         return cell;
     }else if (indexPath.section == 1){
-        UILabel *mSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, (45 - 21) / 2, 150, 21)];
+        UILabel *mSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, (45 - 21) / 2, SCREEN_WIDTH - 14, 21)];
+        mSpecLbl.font = [UIFont systemFontOfSize:14];
         mSpecLbl.textColor = [UIColor whiteColor];
         mSpecLbl.text = [selectSpec isEqual:@""]?@"请选择规格":[NSString stringWithFormat:@"规格:%@",selectSpec];
         [cell addSubview:mSpecLbl];
@@ -628,7 +630,7 @@
     if(indexPath.section == 1){
         [self showCustomView];
     }
-    else if(indexPath.section == 2)
+    else if(indexPath.section == 3)
     {
         GoodsCommentViewController *goodsCommentViewCtl = [[GoodsCommentViewController alloc] init];
         goodsCommentViewCtl.goodId = self.goodsId;
