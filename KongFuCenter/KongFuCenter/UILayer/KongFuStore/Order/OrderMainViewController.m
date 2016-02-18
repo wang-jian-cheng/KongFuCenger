@@ -178,6 +178,7 @@
     {
         CommentOrderViewController *commentOrderViewCtl = [[CommentOrderViewController alloc] init];
         commentOrderViewCtl.navtitle = @"评价订单";
+        NSLog(@"%@",self.orderArr[sender.tag][@"ProList"]);
         commentOrderViewCtl.GoodsArray = self.orderArr[sender.tag][@"ProList"];
         [self.navigationController pushViewController:commentOrderViewCtl animated:YES];
     }

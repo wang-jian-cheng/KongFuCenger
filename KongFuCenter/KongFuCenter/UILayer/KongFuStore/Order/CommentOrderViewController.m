@@ -73,6 +73,8 @@
     
     [uploadBtn setTitle:@"提交评论" forState:UIControlStateNormal];
     
+    [uploadBtn addTarget:self action:@selector(UploadComment:) forControlEvents:UIControlEventTouchUpInside];
+    
     [backView addSubview:uploadBtn];
     
     [self.view addSubview:backView];
@@ -101,7 +103,7 @@
         for (int i=0; i<_GoodsArray.count; i++) {
             NSString * strid=mutableDict[[NSString stringWithFormat:@"%d",i]];
             NSString * strComment=mutableDictText[[NSString stringWithFormat:@"%d",i]];
-            NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:_GoodsArray[i][@"Id"],@"productId",
+            NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:_GoodsArray[i][@"ProductId"],@"productId",
                                 strComment==nil?@"":strComment,@"content",
                                 strid==nil?@"1":strid,@"typeId",
                                 [Toolkit getUserID],@"userId",
@@ -442,6 +444,7 @@
 -(void)SaveCommentCallBack:(id)dict
 {
     NSLog(@"%@",dict);
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

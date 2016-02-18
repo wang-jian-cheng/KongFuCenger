@@ -156,6 +156,10 @@
         if(shopInfoArray.count >= ([dict[@"recordcount"] intValue] - allGoodsNum) )
         {
             [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }else{
+            if (shopInfoArray.count != 3) {
+                [mTableView.mj_footer beginRefreshing];
+            }
         }
     }
     [mTableView reloadData];

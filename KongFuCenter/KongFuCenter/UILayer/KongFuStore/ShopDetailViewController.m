@@ -325,7 +325,7 @@
     if (![selectColor isEqual:@""] && ![selectSize isEqual:@""]) {
         NSArray *priceListArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"PriceList"]];
         for (NSDictionary *dict in priceListArray) {
-            if ([[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]] isEqual:selectColorId] && [[Toolkit judgeIsNull:[dict valueForKey:@"SizeId"]] isEqual:selectColorId]) {
+            if ([[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]] isEqual:selectColorId] && [[Toolkit judgeIsNull:[dict valueForKey:@"SizeId"]] isEqual:selectSizeId]) {
                 NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[dict valueForKey:@"ImagePath"]]];
                 [mHeadIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
                 NSLog(@"%@",dict);
@@ -439,18 +439,22 @@
 
 #pragma mark setting for cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier = @"cellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.backgroundColor = ItemsBaseColor;
-    }else{
-        for (UIView *view in cell.subviews) {
-            if ([view isKindOfClass:[UILabel class]] || [view isKindOfClass:[SDCycleScrollView class]]) {
-                [view removeFromSuperview];
-            }
-        }
-    }
+//    static NSString *cellIdentifier = @"cellIdentifier";
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+//        cell.backgroundColor = ItemsBaseColor;
+//    }else{
+//        for (UIView *view in cell.subviews) {
+//            if ([view isKindOfClass:[UILabel class]] || [view isKindOfClass:[SDCycleScrollView class]]) {
+//                [view removeFromSuperview];
+//            }
+//        }
+//    }
+    
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
+    cell.backgroundColor = ItemsBaseColor;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             NSMutableArray *images = [[NSMutableArray alloc] init];
@@ -587,9 +591,11 @@
             mDate.textColor = [UIColor colorWithRed:0.46 green:0.46 blue:0.46 alpha:1];
             [cell addSubview:mDate];
             
-            UILabel *mSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(mDate.frame.origin.x + mDate.frame.size.width, mName.frame.origin.y + mName.frame.size.height + 2 + contentHeight + 5, 200, 21)];
+            NSString *mSpecStr = [NSString stringWithFormat:@"规格:%@",[Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"ColorAndSize"]]];//@"东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.";
+            CGFloat specHeight = [Toolkit heightWithString:mSpecStr fontSize:12 width:SCREEN_WIDTH-(14 + 40 + 5 + 14)]+10;
+            UILabel *mSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(mDate.frame.origin.x, mDate.frame.origin.y + mDate.frame.size.height, SCREEN_WIDTH - (14 + 40 + 5), specHeight)];
             mSpecLbl.font = [UIFont systemFontOfSize:12];
-            mSpecLbl.text = [NSString stringWithFormat:@"规格:%@",[Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"ColorAndSize"]]];
+            mSpecLbl.text = mSpecStr;
             mSpecLbl.textColor = [UIColor colorWithRed:0.46 green:0.46 blue:0.46 alpha:1];
             [cell addSubview:mSpecLbl];
         }
@@ -620,7 +626,10 @@
         }else{
             NSString *mContentStr = [Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"Content"]];//@"东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.";
             CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-28]+10;
-            return 5 + (40 - 21) / 2 + 23 + contentHeight + 40 + 2;
+            
+            NSString *mSpecStr = [Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"ColorAndSize"]];
+            CGFloat specHeight = [Toolkit heightWithString:mSpecStr fontSize:12 width:SCREEN_WIDTH-(14 + 40 + 5)]+10;
+            return 5 + (40 - 21) / 2 + 23 + contentHeight + 25 + specHeight;
         }
     }
 }
@@ -630,7 +639,7 @@
     if(indexPath.section == 1){
         [self showCustomView];
     }
-    else if(indexPath.section == 3)
+    else if(indexPath.section >= 3)
     {
         GoodsCommentViewController *goodsCommentViewCtl = [[GoodsCommentViewController alloc] init];
         goodsCommentViewCtl.goodId = self.goodsId;
