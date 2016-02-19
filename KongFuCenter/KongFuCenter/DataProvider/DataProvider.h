@@ -524,6 +524,9 @@
  */
 -(void)CancleOrderWithOrderID:(NSString *)orderid andUserId:(NSString *)userid;
 
+//删除订单
+-(void)DeleteBill:(NSString *)orderid andUserId:(NSString *)userid;
+
 #pragma mark - 更多
 -(void)ChangeTuiSong:(NSString *)userid andistuisong:(NSString *)istuisong;
 -(void)ShieldNewsFriend:(NSString *)userid;

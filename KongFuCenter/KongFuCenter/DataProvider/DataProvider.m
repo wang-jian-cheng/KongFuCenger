@@ -1879,6 +1879,19 @@
         [SVProgressHUD dismiss];
     }
 }
+-(void)DeleteBill:(NSString *)orderid andUserId:(NSString *)userid
+{
+    if (orderid&&userid) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/DeleteBill",Url];
+        NSDictionary *prm = @{@"billId":orderid,
+                              @"userId":userid};
+        DLog(@"%@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else{
+        [SVProgressHUD dismiss];
+    }
+}
 //userId 用户ID
 //deliveryId 收货地址ID
 //description 订单备注

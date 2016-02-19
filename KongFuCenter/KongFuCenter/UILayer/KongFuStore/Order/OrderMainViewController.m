@@ -196,11 +196,14 @@
         NSLog(@"%@",self.orderArr[sender.tag][@"ProList"]);
         commentOrderViewCtl.billId = [self.orderArr[sender.tag] valueForKey:@"Id"];
         commentOrderViewCtl.GoodsArray = self.orderArr[sender.tag][@"ProList"];
-        commentOrderViewCtl.billId = @"0";
         [self.navigationController pushViewController:commentOrderViewCtl animated:YES];
     }
     else if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
-        [self CancleOrder:sender];
+        if (orderType == OrderTypeNeedPay) {
+            [self delOrder:sender];
+        }else{
+            [self CancleOrder:sender];
+        }
     }
     else if([sender.titleLabel.text isEqualToString:@"确认收货"])
     {
@@ -211,7 +214,11 @@
 -(void)leftBtnClick:(UIButton *)sender
 {
     if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
-        [self CancleOrder:sender];
+        if (orderType == OrderTypeNeedPay) {
+            [self delOrder:sender];
+        }else{
+            [self CancleOrder:sender];
+        }
     }
     else if ([sender.titleLabel.text isEqualToString:@"查看物流"])
     {
@@ -285,6 +292,12 @@
     alert.tag=1*100000+sender.tag;
     [alert show];
 }
+-(void)delOrder:(UIButton *)sender{
+    UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"是否取消该订单" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+    alert.delegate=self;
+    alert.tag=2*100000+sender.tag;
+    [alert show];
+}
 -(void)CancleOrderCallBack:(id)dict
 {
     DLog(@"%@",dict);
@@ -336,9 +349,11 @@
             
             [dataprovider CancleOrderWithOrderID:self.orderArr[alertView.tag%100000][@"Id"] andUserId:[Toolkit getUserID]];
             
-        }
-        else
-        {//确认收货
+        }else if ((alertView.tag/100000)==2){
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"delOrderCallBack:"];
+            [dataprovider DeleteBill:self.orderArr[alertView.tag%100000][@"Id"] andUserId:get_sp(@"id")];
+        }else{//确认收货
             DataProvider * dataprovider=[[DataProvider alloc] init];
             
             [dataprovider setDelegateObject:self setBackFunctionName:@"SureForOrderCallBack:"];
@@ -349,7 +364,14 @@
     }
 }
 
-
+-(void)delOrderCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showSuccessWithStatus:@"订单取消成功~" maskType:SVProgressHUDMaskTypeBlack];
+        [_mainTableView.mj_header beginRefreshing];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:@"订单取消失败~" maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
 
 #pragma mark -  tableview  Delegate
 
@@ -409,7 +431,14 @@
                     break;
                 case orderNeedSend:
                 {
-                    [btnRight setTitle:@"取消订单" forState:UIControlStateNormal];
+                    NSString *isCancleState = [Toolkit judgeIsNull:[self.orderArr[indexPath.section] valueForKey:@"IsCancle"]];
+                    if ([isCancleState isEqual:@"1"]) {
+                        btnRight.backgroundColor = [UIColor grayColor];
+                        [btnRight removeTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                        [btnRight setTitle:@"取消中..." forState:UIControlStateNormal];
+                    }else{
+                        [btnRight setTitle:@"取消订单" forState:UIControlStateNormal];
+                    }
                     btnLeft.hidden = YES;
                 }
                     break;
@@ -422,7 +451,6 @@
                     break;
                 case orderFinish:
                 {
-                    NSLog(@"%d",(int)indexPath.row);
                     NSString *commentState = [Toolkit judgeIsNull:[self.orderArr[indexPath.section] valueForKey:@"State"]];
                     if (![commentState isEqual:@"5"]) {
                         [btnRight setTitle:@"评价商品" forState:UIControlStateNormal];

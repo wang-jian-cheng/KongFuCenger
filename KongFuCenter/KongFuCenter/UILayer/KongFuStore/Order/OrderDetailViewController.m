@@ -69,7 +69,14 @@
             break;
         case orderNeedSend:
         {
-            [btnRight setTitle:@"取消订单" forState:UIControlStateNormal];
+            NSString *isCancleState = [Toolkit judgeIsNull:[self.OrderDict valueForKey:@"IsCancle"]];
+            if ([isCancleState isEqual:@"1"]) {
+                btnRight.backgroundColor = [UIColor grayColor];
+                [btnRight removeTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                [btnRight setTitle:@"取消中..." forState:UIControlStateNormal];
+            }else{
+                [btnRight setTitle:@"取消订单" forState:UIControlStateNormal];
+            }
             btnLeft.hidden = YES;
         }
             break;
@@ -188,7 +195,7 @@
 -(void)leftBtnClick:(UIButton *)sender
 {
     if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
-        [self CancleOrder:sender];
+        [self delOrder:sender];
     }
     else if ([sender.titleLabel.text isEqualToString:@"查看物流"])
     {
@@ -196,6 +203,12 @@
     }
 }
 
+-(void)delOrder:(UIButton *)sender{
+    UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"是否取消该订单" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+    alert.delegate=self;
+    alert.tag=2*100000+sender.tag;
+    [alert show];
+}
 
 /**
  *  取消订单
@@ -214,7 +227,7 @@
 {
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
-        [SVProgressHUD showSuccessWithStatus:@"订单取消成功" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showSuccessWithStatus:@"提交成功~" maskType:SVProgressHUDMaskTypeBlack];
         if([self.delegate respondsToSelector:@selector(cancelOrder)]){
             [self.delegate cancelOrder];
         }
@@ -263,8 +276,11 @@
             
             [dataprovider CancleOrderWithOrderID:self.OrderDict[@"Id"] andUserId:[Toolkit getUserID]];
             
-        }
-        else
+        }else if ((alertView.tag/100000)==2){
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"CancleOrderCallBack:"];
+            [dataprovider DeleteBill:self.OrderDict[@"Id"] andUserId:get_sp(@"id")];
+        }else
         {//确认收货
             DataProvider * dataprovider=[[DataProvider alloc] init];
             
