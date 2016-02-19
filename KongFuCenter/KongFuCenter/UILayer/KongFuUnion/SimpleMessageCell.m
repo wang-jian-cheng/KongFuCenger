@@ -79,7 +79,7 @@
     NSString * urlstring = mVideoArray[0];//@"http://img.zcool.cn/community/03320dd554c75c700000158fce17209.jpg@600w_1l_2o";
     [self.bgimage sd_setImageWithURL:[NSURL URLWithString:urlstring]];
     self.bgimage.backgroundColor = [UIColor greenColor];
-    self.bgimage.frame = CGRectMake(0, 5, SCREEN_WIDTH - 50, 200);
+    self.bgimage.frame = CGRectMake(70, 5, SCREEN_WIDTH - 120, 150);
     [self.bubbleBackgroundView addSubview:self.bgimage];
     
     mImgBtn = [[UIButton alloc] initWithFrame:self.bgimage.frame];

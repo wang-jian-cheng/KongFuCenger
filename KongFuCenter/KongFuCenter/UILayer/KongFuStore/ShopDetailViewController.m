@@ -36,6 +36,8 @@
     NSString *selectPrice;
     int curpage;
     UILabel *goodsNum;
+    UILabel *mName;
+    NSString *selectImage;
 }
 
 @end
@@ -201,7 +203,13 @@
         [self.view addSubview:mView];
         
         mHeadIv = [[UIImageView alloc] initWithFrame:CGRectMake(14, -(SCREEN_WIDTH / 3 / 2), SCREEN_WIDTH / 3, SCREEN_WIDTH / 3)];
-        [mHeadIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
+        NSArray *sliderArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"PicList"]];
+        NSString *url;
+        if (sliderArray && sliderArray.count > 0) {
+            NSString *imgpath = [sliderArray[0] valueForKey:@"Path"];
+            url = [NSString stringWithFormat:@"%@%@",Url,imgpath];
+        }
+        [mHeadIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
         [mView addSubview:mHeadIv];
         
         mPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(mHeadIv.frame.origin.x + mHeadIv.frame.size.width + 5, 5, 200, 21)];
@@ -286,6 +294,7 @@
         CGFloat mScrollHeight = mView.frame.size.height - (SCREEN_WIDTH / 3 / 2) - 50;
         scrollView.frame = CGRectMake(14, mHeadIv.frame.origin.y + mHeadIv.frame.size.height + 10, SCREEN_WIDTH - 28, (mColorLbl.frame.size.height + tagList.frame.size.height + mSizeLbl.frame.size.height + 10) > mScrollHeight ?mScrollHeight:(mColorLbl.frame.size.height + tagList.frame.size.height + mSizeLbl.frame.size.height + 10 + tagList1.frame.size.height + addBtn.frame.size.height + 20));
         scrollView.contentSize = CGSizeMake(0, mColorLbl.frame.size.height + tagList.frame.size.height + mSizeLbl.frame.size.height + 10 + tagList1.frame.size.height + addBtn.frame.size.height + 20);
+        mView.frame = CGRectMake(0, SCREEN_HEIGHT - (SCREEN_WIDTH / 3 / 2 + 5 + scrollView.frame.size.height + 20 + 50), SCREEN_WIDTH, SCREEN_WIDTH / 3 / 2 + 5 + scrollView.frame.size.height + 20);
     }
 }
 
@@ -357,7 +366,8 @@
         NSArray *priceListArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"PriceList"]];
         for (NSDictionary *dict in priceListArray) {
             if ([[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]] isEqual:selectColorId] && [[Toolkit judgeIsNull:[dict valueForKey:@"SizeId"]] isEqual:selectSizeId]) {
-                NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[dict valueForKey:@"ImagePath"]]];
+                selectImage = [Toolkit judgeIsNull:[dict valueForKey:@"ImagePath"]];
+                NSString *url = [NSString stringWithFormat:@"%@%@",Url,selectImage];
                 [mHeadIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
                 NSLog(@"%@",dict);
                 mPriceLbl.text = [NSString stringWithFormat:@"¥%@",[dict valueForKey:@"Price"]];
@@ -427,6 +437,8 @@
         payOrderVC.paytype = PayByImmediately;
         CartModel *tempModel = [[CartModel alloc] init];
         tempModel.Id = _goodsId;
+        tempModel.ProductName = mName.text;
+        tempModel.MiddleImagePath = selectImage;
         tempModel.Number = [goodsNum.text substringFromIndex:1];
         tempModel.ProductPriceId = selectPriceId;
         tempModel.ProductPriceTotalPrice = [mPriceLbl.text substringFromIndex:1];
@@ -509,7 +521,7 @@
             cycleScrollView.autoScrollTimeInterval = 5;
             [cell addSubview:cycleScrollView];
             
-            UILabel *mName = [[UILabel alloc] initWithFrame:CGRectMake(14, cycleScrollView.frame.origin.y + cycleScrollView.frame.size.height + (45 - 21) / 2, 200, 21)];
+            mName = [[UILabel alloc] initWithFrame:CGRectMake(14, cycleScrollView.frame.origin.y + cycleScrollView.frame.size.height + (45 - 21) / 2, 200, 21)];
             mName.textColor = [UIColor whiteColor];
             mName.text = [Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"Name"]];
             [cell addSubview:mName];

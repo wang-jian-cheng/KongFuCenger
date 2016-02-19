@@ -81,6 +81,7 @@
             CartModel *tempModel = [[CartModel alloc] init];
             tempModel.Id = _goodsId;
             tempModel.ProductName = [Toolkit judgeIsNull:[exchangeDetailArray valueForKey:@"Name"]];
+            tempModel.MiddleImagePath = [Toolkit judgeIsNull:[exchangeDetailArray valueForKey:@"MiddleImagePath"]];
             tempModel.ProductPriceTotalPrice = [Toolkit judgeIsNull:[exchangeDetailArray valueForKey:@"CreditTotal"]];
             tempModel.Number = @"1";
             payOrderVC.postage = -1;//到付

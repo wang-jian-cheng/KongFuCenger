@@ -103,7 +103,7 @@
 {
     //返回自定义cell的实际高度
     NSLog(@"%f",SCREEN_WIDTH);
-    return CGSizeMake(SCREEN_WIDTH + 20, 210);
+    return CGSizeMake(SCREEN_WIDTH + 20, 160);
 }
 
 

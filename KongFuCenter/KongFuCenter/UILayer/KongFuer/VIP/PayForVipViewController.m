@@ -125,8 +125,7 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         @try {
-
-            
+            [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:0] animated:YES];
         }
         @catch (NSException *exception) {
             
@@ -323,6 +322,8 @@
 -(void)payBtnClick:(UIButton *)sender
 {
 
+    NSUserDefaults *mPayType = [NSUserDefaults standardUserDefaults];
+    [mPayType setValue:@"1" forKey:@"PayType"];
     if(PayFlag == 1000)
     {
 //        [self normalPayAction:@"alipay"];

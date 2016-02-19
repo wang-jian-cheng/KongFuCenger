@@ -35,13 +35,17 @@
     headLoading = YES;
     cateArr = @[@"待付款",@"待发货",@"待收货",@"已收货"];
     btnArr = [NSMutableArray array];
+    [self addLeftButton:@"left"];
+    [self initViews];
     if (_billType == Mode_Normal) {
         orderType = OrderTypeNeedPay;
     }else if(_billType == Mode_PaySuccess){
         orderType = OrderTypeNeedSend;
+        UIButton *mmmbtn = [[UIButton alloc] init];
+        mmmbtn.tag = 1;
+        ((UIButton *)btnArr[1]).selected = YES;
+        [self cateBtnClick:mmmbtn];
     }
-    [self addLeftButton:@"left"];
-    [self initViews];
     // Do any additional setup after loading the view.
 }
 
@@ -122,6 +126,10 @@
 
     [self.view addSubview:_mainTableView];
     
+}
+
+-(void)clickLeftButton:(UIButton *)sender{
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:0] animated:YES];
 }
 
 #pragma mark - click actions
@@ -214,10 +222,10 @@
 -(void)leftBtnClick:(UIButton *)sender
 {
     if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
-        if (orderType == OrderTypeNeedPay) {
-            [self delOrder:sender];
-        }else{
+        if (orderType == OrderTypeNeedSend) {
             [self CancleOrder:sender];
+        }else{
+            [self delOrder:sender];
         }
     }
     else if ([sender.titleLabel.text isEqualToString:@"查看物流"])
@@ -459,7 +467,7 @@
                         btnRight.backgroundColor = [UIColor grayColor];
                         [btnRight setTitle:@"已评价" forState:UIControlStateNormal];
                     }
-                    btnLeft.hidden = YES;
+                    [btnLeft setTitle:@"取消订单" forState:UIControlStateNormal];
                 }
                     break;
                 default:

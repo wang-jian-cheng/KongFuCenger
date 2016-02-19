@@ -59,7 +59,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     if (unionNewsViewCtl) {
-        [self initData];
+        [mTableView.mj_header beginRefreshing];
     }
 }
 

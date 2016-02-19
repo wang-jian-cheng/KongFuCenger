@@ -313,8 +313,8 @@
                 
                 NSDictionary *tempDict = self.goodList[indexPath.row -1];
                 
-                
-                [cell.mPhotoIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"me"]];
+                NSString *url = [NSString stringWithFormat:@"%@%@",Url,[tempDict valueForKey:@"ImagePath"]];
+                [cell.mPhotoIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
                 cell.mName.text = tempDict[@"Name"];
                 cell.mDetail1.text = [NSString stringWithFormat:@"积分兑换:%@",tempDict[@"CreditTotal"]];//[NSString stringWithFormat:@"积分兑换:%@",@"500"];
                 cell.mDetail2.text = [NSString stringWithFormat:@"剩余库存:%@",[Toolkit judgeIsNull:tempDict[@"StockNum"]]];

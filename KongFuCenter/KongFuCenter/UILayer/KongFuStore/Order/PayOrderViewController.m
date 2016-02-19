@@ -36,9 +36,24 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)PaySuccessFun{
+    OrderMainViewController *orderListVC = [[OrderMainViewController alloc] init];
+    [orderListVC setBillType:Mode_PaySuccess];
+    orderListVC.navtitle = @"订单";
+    [self.navigationController pushViewController:orderListVC animated:YES];
+}
+
+-(void)PayFailFun{
+    OrderMainViewController *orderListVC = [[OrderMainViewController alloc] init];
+    [orderListVC setBillType:Mode_Normal];
+    orderListVC.navtitle = @"订单";
+    [self.navigationController pushViewController:orderListVC animated:YES];
+}
 
 -(void)initViews
 {
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(PaySuccessFun) name:@"PaySuccessFun" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(PayFailFun) name:@"PayFailFun" object:nil];
     
     _cellHeight = 100;
     pageSize = 10;
@@ -503,7 +518,8 @@
 
 -(void)payOrderBtnClick:(UIButton *)sender
 {
-    
+    NSUserDefaults *mUserDefault = [NSUserDefaults standardUserDefaults];
+    [mUserDefault setValue:@"2" forKey:@"PayType"];
     [SVProgressHUD showWithStatus:@"请稍后..."];
     
     switch (self.paytype) {
@@ -649,9 +665,12 @@
             }
             if(indexPath.row > 0 && indexPath.row < self.goodsArr.count+1)
             {
-                
-                CartModel *tempModel = self.goodsArr[indexPath.row - 1];
-                
+                CartModel *tempModel;
+                if(self.paytype == PayByImmediately){
+                    tempModel =_goodsArr[0];
+                }else{
+                    tempModel = self.goodsArr[indexPath.row - 1];
+                }
                 
                 
                 UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 10, _cellHeight, _cellHeight - 20)];

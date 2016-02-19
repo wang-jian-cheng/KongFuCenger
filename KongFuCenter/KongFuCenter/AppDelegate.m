@@ -22,6 +22,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "SimpleMessage.h"
 #import <ALBBQuPaiPlugin/ALBBQuPaiPlugin.h>
+#import "OrderMainViewController.h"
 
 
 #define LogIn_UserID_key    @"mAccountID"
@@ -231,13 +232,16 @@
                                    if ([result isEqualToString:@"success"]) {
                                        // 支付成功
                                        NSLog(@"支付成功，准备跳转");
-                                       UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"支付成功，请重新登录" delegate:self cancelButtonTitle:@"确认" otherButtonTitles: nil];
-                                       [alertView show];
-                                       [[NSNotificationCenter defaultCenter] postNotificationName:@"OrderPay_success" object:nil];
+                                       mUserDefault = [NSUserDefaults standardUserDefaults];
+                                       NSString *mPayType = [mUserDefault valueForKey:@"PayType"];
+                                       if ([mPayType isEqual:@"1"]) {
+                                           [[NSNotificationCenter defaultCenter] postNotificationName:@"OrderPay_success" object:nil];
+                                       }else{
+                                           [[NSNotificationCenter defaultCenter] postNotificationName:@"PaySuccessFun" object:nil];
+                                       }
                                    } else {
                                        // 支付失败或取消
-                                       UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"支付失败" delegate:self cancelButtonTitle:@"确认" otherButtonTitles: nil];
-                                       [alertView show];
+                                       [[NSNotificationCenter defaultCenter] postNotificationName:@"PayFailFun" object:nil];
                                        // NSLog(@"Error: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
                                    }
                                }];

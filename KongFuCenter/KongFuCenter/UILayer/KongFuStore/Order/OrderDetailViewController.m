@@ -99,7 +99,7 @@
                 btnRight.backgroundColor = [UIColor grayColor];
                 [btnRight setTitle:@"已评价" forState:UIControlStateNormal];
             }
-            btnLeft.hidden = YES;
+            [btnLeft setTitle:@"取消订单" forState:UIControlStateNormal];
         }
             break;
         default:
