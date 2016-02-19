@@ -10,12 +10,19 @@
 #import "PayOrderViewController.h"
 #import "CommentOrderViewController.h"
 #import "OrderDefine.h"
+
 typedef enum _orderMode{
     orderNeedPay,
     orderNeedSend,
     orderNeedReceive,
     orderFinish
 }OrderMode;
+
+@protocol OrderDetailDelegate <NSObject>
+
+- (void)cancelOrder;
+
+@end
 
 @interface OrderDetailViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
 {
@@ -36,5 +43,6 @@ typedef enum _orderMode{
 
 @property(nonatomic)OrderMode orderMode;
 @property (nonatomic,strong) NSDictionary * OrderDict;
+@property (assign, nonatomic) id<OrderDetailDelegate>delegate;
 
 @end

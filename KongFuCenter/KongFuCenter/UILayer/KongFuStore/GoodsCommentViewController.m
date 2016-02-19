@@ -169,13 +169,16 @@
         mContent.text = mContentStr;
         [cell addSubview:mContent];
         
-        UILabel *mDate = [[UILabel alloc] initWithFrame:CGRectMake(mName.frame.origin.x, mName.frame.origin.y + mName.frame.size.height + 2 + contentHeight + 5, 150, 21)];
+        UILabel *mDate = [[UILabel alloc] initWithFrame:CGRectMake(mName.frame.origin.x, mName.frame.origin.y + mName.frame.size.height + 2 + contentHeight + 5, 150, 17)];
         mDate.font = [UIFont systemFontOfSize:12];
         mDate.text = [Toolkit judgeIsNull:[self.commentArr[indexPath.row] valueForKey:@"PublishTime"]];
         mDate.textColor = [UIColor colorWithRed:0.46 green:0.46 blue:0.46 alpha:1];
         [cell addSubview:mDate];
         
-        UILabel *mSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(mDate.frame.origin.x + mDate.frame.size.width, mName.frame.origin.y + mName.frame.size.height + 2 + contentHeight + 5, 200, 21)];
+        NSString *mSpecStr = [NSString stringWithFormat:@"规格:%@",[Toolkit judgeIsNull:[self.commentArr[indexPath.row] valueForKey:@"ColorAndSize"]]];
+        CGFloat specHeight = [Toolkit heightWithString:mSpecStr fontSize:12 width:SCREEN_WIDTH-(14 + 40 + 5 + 5)]+10;
+        UITextView *mSpecLbl = [[UITextView alloc] initWithFrame:CGRectMake(mDate.frame.origin.x, mDate.frame.origin.y + mDate.frame.size.height, SCREEN_WIDTH - (14 + 40 + 5 + 5), specHeight)];
+        mSpecLbl.backgroundColor = ItemsBaseColor;
         mSpecLbl.font = [UIFont systemFontOfSize:12];
         mSpecLbl.text = [NSString stringWithFormat:@"规格:%@",[Toolkit judgeIsNull:[self.commentArr[indexPath.row] valueForKey:@"ColorAndSize"]]];
         mSpecLbl.textColor = [UIColor colorWithRed:0.46 green:0.46 blue:0.46 alpha:1];
@@ -198,7 +201,11 @@
 
     NSString *mContentStr = [Toolkit judgeIsNull:[self.commentArr[indexPath.row] valueForKey:@"Content"]];//@"东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.";
     CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+5;
-    return 5 + (40 - 21) / 2 + 23 + contentHeight + 31;;
+    
+    NSString *mSpecStr = [NSString stringWithFormat:@"规格:%@",[Toolkit judgeIsNull:[self.commentArr[indexPath.row] valueForKey:@"ColorAndSize"]]];
+    CGFloat specHeight = [Toolkit heightWithString:mSpecStr fontSize:12 width:SCREEN_WIDTH-(14 + 40 + 5 + 5)]+10;
+    
+    return 5 + (40 - 21) / 2 + 23 + contentHeight + 25 + specHeight + 5;
 }
 
 

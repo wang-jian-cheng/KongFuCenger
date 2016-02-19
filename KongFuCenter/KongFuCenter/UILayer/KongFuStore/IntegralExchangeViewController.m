@@ -272,7 +272,7 @@
         [cell addSubview:userName];
         
         mIntegral.frame = CGRectMake(userName.frame.origin.x, userName.frame.origin.y + userName.frame.size.height + 5, 150, 21);
-        mIntegral.text = [NSString stringWithFormat:@"积分:%@个",JiFen];
+        mIntegral.text = [NSString stringWithFormat:@"积分:%@个",[Toolkit judgeIsNull:JiFen]];
         mIntegral.textColor = [UIColor whiteColor];
         [cell addSubview:mIntegral];
         

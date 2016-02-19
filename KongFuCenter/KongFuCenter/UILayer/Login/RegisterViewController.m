@@ -516,7 +516,7 @@
 -(void)ChangePwdCallBack:(id)dict{
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
-        [SVProgressHUD showSuccessWithStatus:@"修改密码成功~"];
+        [SVProgressHUD showSuccessWithStatus:@"修改密码成功~" maskType:SVProgressHUDMaskTypeBlack];
         [self.navigationController popViewControllerAnimated:YES];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"修改密码失败~"];

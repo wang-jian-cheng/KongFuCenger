@@ -10,7 +10,7 @@
 
 
 
-@interface OrderMainViewController ()<UIAlertViewDelegate>
+@interface OrderMainViewController ()<UIAlertViewDelegate,OrderDetailDelegate>
 {
     NSArray *cateArr;
     NSMutableArray *btnArr;
@@ -35,7 +35,11 @@
     headLoading = YES;
     cateArr = @[@"待付款",@"待发货",@"待收货",@"已收货"];
     btnArr = [NSMutableArray array];
-    orderType = OrderTypeNeedPay;
+    if (_billType == Mode_Normal) {
+        orderType = OrderTypeNeedPay;
+    }else if(_billType == Mode_PaySuccess){
+        orderType = OrderTypeNeedSend;
+    }
     [self addLeftButton:@"left"];
     [self initViews];
     // Do any additional setup after loading the view.
@@ -44,6 +48,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+    NSUserDefaults *mUserDefault = [NSUserDefaults standardUserDefaults];
+    if ([[NSString stringWithFormat:@"%@",[mUserDefault valueForKey:@"saveCommentFlag"]] isEqual:@"1"]) {
+        [mUserDefault setValue:@"0" forKey:@"saveCommentFlag"];
+        [_mainTableView.mj_header beginRefreshing];
+    }
+    //[_mainTableView.mj_header beginRefreshing];
+}
+
+-(void)cancelOrder{
+    [_mainTableView.mj_header beginRefreshing];
 }
 
 -(void)initViews
@@ -166,9 +180,10 @@
 {
     if([sender.titleLabel.text isEqualToString:@"去付款"])
     {
+        NSLog(@"%@",self.orderArr);
         PayOrderViewController *payOrderViewCtl = [[PayOrderViewController alloc] init];
         payOrderViewCtl.navtitle = @"确认订单";
-        payOrderViewCtl.goodDicts = self.orderArr[sender.tag][@"ProList"];
+        payOrderViewCtl.goodDicts = [self.orderArr[sender.tag] valueForKey:@"ProList"];
         payOrderViewCtl.payOrderId = self.orderArr[sender.tag][@"Id"];
         payOrderViewCtl.postage = [self.orderArr[sender.tag][@"Postage"] floatValue];
         payOrderViewCtl.paytype = PayByOrderId;
@@ -179,7 +194,9 @@
         CommentOrderViewController *commentOrderViewCtl = [[CommentOrderViewController alloc] init];
         commentOrderViewCtl.navtitle = @"评价订单";
         NSLog(@"%@",self.orderArr[sender.tag][@"ProList"]);
+        commentOrderViewCtl.billId = [self.orderArr[sender.tag] valueForKey:@"Id"];
         commentOrderViewCtl.GoodsArray = self.orderArr[sender.tag][@"ProList"];
+        commentOrderViewCtl.billId = @"0";
         [self.navigationController pushViewController:commentOrderViewCtl animated:YES];
     }
     else if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
@@ -401,12 +418,19 @@
                     [btnRight setTitle:@"确认收货" forState:UIControlStateNormal];
                     [btnLeft setTitle:@"查看物流" forState:UIControlStateNormal];
                     btnLeft.hidden = NO;
-
                 }
                     break;
                 case orderFinish:
                 {
-                    [btnRight setTitle:@"评价商品" forState:UIControlStateNormal];
+                    NSLog(@"%d",(int)indexPath.row);
+                    NSString *commentState = [Toolkit judgeIsNull:[self.orderArr[indexPath.section] valueForKey:@"State"]];
+                    if (![commentState isEqual:@"5"]) {
+                        [btnRight setTitle:@"评价商品" forState:UIControlStateNormal];
+                    }else{
+                        [btnRight removeTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                        btnRight.backgroundColor = [UIColor grayColor];
+                        [btnRight setTitle:@"已评价" forState:UIControlStateNormal];
+                    }
                     btnLeft.hidden = YES;
                 }
                     break;
@@ -446,13 +470,13 @@
                                                                              (nowPriceLab.frame.origin.y+nowPriceLab.frame.size.height),
                                                                              nowPriceLab.frame.size.width, 20)];
             numLab.textColor = Separator_Color;
-            numLab.text = ZY_NSStringFromFormat(@"x%ld",[tempDict[@"Number"] integerValue]);
+            numLab.text = ZY_NSStringFromFormat(@"x%d",[tempDict[@"Number"] intValue]);
             numLab.textAlignment = NSTextAlignmentRight;
             numLab.font = [UIFont systemFontOfSize:12];
             [cell addSubview:numLab];
             
             UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((imgView.frame.origin.x + imgView.frame.size.width)+5,
-                                                                          10, (nowPriceLab.frame.origin.x - ((imgView.frame.origin.x + imgView.frame.size.width)+5)), 30)];
+                                                                          10, (SCREEN_WIDTH - ((imgView.frame.origin.x + imgView.frame.size.width)+ 40)), 30)];
             titleLab.text = tempDict[@"ProductName"];
             titleLab.textColor = [UIColor whiteColor];
             
@@ -511,6 +535,7 @@
     }
     OrderDetailViewController *orderDetailViewCtl = [[OrderDetailViewController alloc] init];
     orderDetailViewCtl.orderMode = orderMode;
+    orderDetailViewCtl.delegate = self;
     orderDetailViewCtl.navtitle = @"订单详情";
     orderDetailViewCtl.OrderDict = self.orderArr[indexPath.section];
     [self.navigationController pushViewController:orderDetailViewCtl animated:YES];

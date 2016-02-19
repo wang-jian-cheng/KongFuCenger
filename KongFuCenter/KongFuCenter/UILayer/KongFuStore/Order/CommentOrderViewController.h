@@ -15,4 +15,6 @@
     
 }
 @property (nonatomic,strong) NSArray * GoodsArray;//接收传过来的商品数组
+@property (nonatomic,strong) NSString *billId;
+@property (nonatomic,strong) NSString *billDetail;
 @end

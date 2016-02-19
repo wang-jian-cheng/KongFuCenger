@@ -408,7 +408,7 @@
  *
  *  @param commlist <#commlist description#>
  */
--(void)SaveComment:(NSArray *)commlist;
+-(void)SaveComment:(NSArray *)commlist andbillid:(NSString *)billid;
 
 //startRowIndex 开始行索引
 //maximumRows 每页条数

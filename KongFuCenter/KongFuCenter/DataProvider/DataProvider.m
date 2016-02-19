@@ -1514,13 +1514,13 @@
     }
 }
 
--(void)SaveComment:(NSArray *)commlist
+-(void)SaveComment:(NSArray *)commlist andbillid:(NSString *)billid
 {
-    if (commlist) {
+    if (commlist && billid) {
         NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/CommentProduct",Url];
         NSString *jsonString = [[NSString alloc] initWithData:[self toJSONData:commlist]
                                                      encoding:NSUTF8StringEncoding];
-        NSDictionary *prm = @{@"comlist":jsonString};
+        NSDictionary *prm = @{@"comlist":jsonString,@"billid":billid};
         [self PostRequest:url andpram:prm];
 
     }
@@ -2069,7 +2069,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error:%@",error);
-        [SVProgressHUD showErrorWithStatus:@"请检查网络或防火墙" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showErrorWithStatus:@"请检查网络" maskType:SVProgressHUDMaskTypeBlack];
 //        [SVProgressHUD dismiss];
     }];
 }

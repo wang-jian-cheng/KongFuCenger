@@ -7,6 +7,7 @@
 //
 
 #import "PayOrderViewController.h"
+#import "OrderMainViewController.h"
 
 #define WxPay   @"wx"
 #define Alipay  @"alipay"
@@ -344,7 +345,7 @@
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"payImmediatelyCallBack:"];
     [dataProvider BuyNow:self.goodsArr[0].Id
-                  andnum:@"1"
+                  andnum:self.goodsArr[0].Number
               andpriceId:self.goodsArr[0].ProductPriceId
                anduserId:[Toolkit getUserID]
                 andprice:self.goodsArr[0].ProductPriceTotalPrice
@@ -393,14 +394,23 @@
         
         //            NSString* charge = [[NSString alloc] initWithData:    data encoding:NSUTF8StringEncoding];
         //            NSLog(@"charge = %@", charge);
+        
         dispatch_async(dispatch_get_main_queue(),
                        ^{
                            [Pingpp createPayment:charge viewController:self appURLScheme:kUrlScheme withCompletion:^(NSString *result, PingppError *error) {
                                NSLog(@"completion block: %@", result);
                                if (error == nil) {
                                    NSLog(@"PingppError is nil");
+                                   // 支付成功
+                                   OrderMainViewController *orderListVC = [[OrderMainViewController alloc] init];
+                                   [orderListVC setBillType:Mode_PaySuccess];
+                                   [self.navigationController pushViewController:orderListVC animated:YES];
                                } else {
                                    NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+                                   // 支付失败或取消
+                                   OrderMainViewController *orderListVC = [[OrderMainViewController alloc] init];
+                                   [orderListVC setBillType:Mode_Normal];
+                                   [self.navigationController pushViewController:orderListVC animated:YES];
                                }
                                [SVProgressHUD showInfoWithStatus:result];
                            }];
@@ -447,6 +457,10 @@
         [SVProgressHUD showErrorWithStatus:ZY_NSStringFromFormat(@"%@",dict[@"data"]) maskType:SVProgressHUDMaskTypeBlack];
     }
 
+}
+
+-(void)goPay{
+    [self getCharge:_payOrderId];
 }
 
 -(void)getDefaultAddress
@@ -505,7 +519,7 @@
             break;
         case PayByOrderId:
         {
-            [self goShoppingCartPayOrder];
+            [self goPay];
         }
             break;
         case PayByJiFen:

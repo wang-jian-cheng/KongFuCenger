@@ -12,6 +12,7 @@
 #import "SDCycleScrollView.h"
 #import "PayOrderViewController.h"
 #import "ShoppingCart/ShoppingCartViewController.h"
+#import "VOTagList.h"
 
 @interface ShopDetailViewController (){
     UITableView *mTableView;
@@ -34,6 +35,7 @@
     NSString *selectPriceId;
     NSString *selectPrice;
     int curpage;
+    UILabel *goodsNum;
 }
 
 @end
@@ -194,27 +196,7 @@
         [bg_view addTarget:self action:@selector(backViewEvent) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:bg_view];
         
-        NSArray *mColorArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"ColorList"]];//[[NSArray alloc] initWithObjects:@"黑色",@"红色",@"蓝色",@"白色",@"紫色", nil];
-        NSArray *mSizeArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"SizeList"]];//[[NSArray alloc] initWithObjects:@"S",@"M",@"L",@"H",@"I", nil];
-        int colorRowNum = 0;
-        if (mColorArray.count == 0) {
-            colorRowNum = 0;
-        }else if (mColorArray.count <= 3) {
-            colorRowNum = 1;
-        }else if (mColorArray.count <= 6){
-            colorRowNum = 2;
-        }
-        int sizeRowNum = 0;
-        if (mColorArray.count == 0) {
-            sizeRowNum = 0;
-        }else if (mColorArray.count <= 3) {
-            sizeRowNum = 1;
-        }else if (mColorArray.count <= 6){
-            sizeRowNum = 2;
-        }
-        
-        CGFloat customViewHeight = 240 + (colorRowNum + sizeRowNum) * 35;
-        mView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - customViewHeight, SCREEN_WIDTH, customViewHeight - 50)];
+        mView = [[UIView alloc] initWithFrame:CGRectMake(0, 100, SCREEN_WIDTH, SCREEN_HEIGHT - 100 - 50)];
         mView.backgroundColor = ItemsBaseColor;
         [self.view addSubview:mView];
         
@@ -232,45 +214,102 @@
         mSelectSpecLbl.textColor = [UIColor grayColor];
         mSelectSpecLbl.text = @"请选择规格";
         [mView addSubview:mSelectSpecLbl];
+
+        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(14, mHeadIv.frame.origin.y + mHeadIv.frame.size.height + 10, SCREEN_WIDTH - 28, 100)];
+        //scrollView.backgroundColor = [UIColor whiteColor];
         
-        UILabel *mColorLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, mHeadIv.frame.origin.y + mHeadIv.frame.size.height + 10, 100, 21)];
+        [mView addSubview:scrollView];
+        
+        UILabel *mColorLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, scrollView.frame.size.width, 21)];
         mColorLbl.textColor = [UIColor grayColor];
         mColorLbl.text = [Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"ProductColorName"]];
-        [mView addSubview:mColorLbl];
+        [scrollView addSubview:mColorLbl];
         
-        UIView *mColorView = [[UIView alloc] initWithFrame:CGRectMake(14, mColorLbl.frame.origin.y + mColorLbl.frame.size.height + 5, SCREEN_WIDTH - 28, colorRowNum * 35)];
-        CGFloat mColorWidth = (SCREEN_WIDTH - 28 - 10) / 3;
+        NSArray *tags = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"ColorList"]];
+        VOTagList *tagList = [[VOTagList alloc] initWithTags:[tags valueForKey:@"Name"]];
         
-        for (int i = 0; i < mColorArray.count; i++) {
-            UIButton *mColorBtn = [[UIButton alloc] initWithFrame:CGRectMake((mColorWidth + 5) * (i % 3), (i / 3) * (35 + 5), mColorWidth, 35)];
-            mColorBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-            mColorBtn.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
-            [mColorBtn setTitle:[mColorArray[i] valueForKey:@"Name"] forState:UIControlStateNormal];
-            mColorBtn.tag = [[Toolkit judgeIsNull:[mColorArray[i] valueForKey:@"Id"]] intValue];
-            [mColorBtn addTarget:self action:@selector(selectColorSpecEvent:) forControlEvents:UIControlEventTouchUpInside];
-            [mColorView addSubview:mColorBtn];
-        }
-        [mView addSubview:mColorView];
+        tagList.frame = CGRectMake(10, mColorLbl.frame.size.height + 5, scrollView.frame.size.width - 10, [self getHeight:[tags valueForKey:@"Name"] andHoriWidth:scrollView.frame.size.width - 10]);
+        tagList.multiLine = YES;
+        tagList.multiSelect = NO;
+        tagList.allowNoSelection = NO;
+        tagList.vertSpacing = 10;
+        tagList.horiSpacing = 10;
+        tagList.font = [UIFont systemFontOfSize:13];
+        tagList.textColor = [UIColor whiteColor];
+        tagList.selectedTextColor = [UIColor whiteColor];
+        tagList.tagBackgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
+        tagList.selectedTagBackgroundColor = [UIColor colorWithRed:0.94 green:0.61 blue:0 alpha:1];
+        tagList.tagCornerRadius = 3;
+        tagList.tagEdge = UIEdgeInsetsMake(8, 8, 8, 8);
+        [tagList addTarget:self action:@selector(selectColorSpecEvent:) forControlEvents:UIControlEventValueChanged];
+        [scrollView addSubview:tagList];
         
-        UILabel *mSizeLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, mColorView.frame.origin.y + mColorView.frame.size.height + 10, 100, 21)];
+        UILabel *mSizeLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, tagList.frame.origin.y + tagList.frame.size.height + 5, scrollView.frame.size.width, 21)];
         mSizeLbl.textColor = [UIColor grayColor];
         mSizeLbl.text = [Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"ProductSizeName"]];
-        [mView addSubview:mSizeLbl];
+        [scrollView addSubview:mSizeLbl];
+
+        NSArray *tags1 = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"SizeList"]];
+        VOTagList *tagList1 = [[VOTagList alloc] initWithTags:[tags1 valueForKey:@"Name"]];
         
-        UIView *mSizeView = [[UIView alloc] initWithFrame:CGRectMake(14, mSizeLbl.frame.origin.y + mSizeLbl.frame.size.height + 5, SCREEN_WIDTH - 28, sizeRowNum * 35)];
-        CGFloat mSizeWidth = (SCREEN_WIDTH - 28 - 10) / 3;
+        tagList1.frame = CGRectMake(10, mSizeLbl.frame.origin.y + mSizeLbl.frame.size.height + 5, scrollView.frame.size.width - 10, [self getHeight:[tags1 valueForKey:@"Name"] andHoriWidth:scrollView.frame.size.width - 10]);
+        tagList1.multiLine = YES;
+        tagList1.multiSelect = NO;
+        tagList1.allowNoSelection = NO;
+        tagList1.vertSpacing = 10;
+        tagList1.horiSpacing = 10;
+        tagList1.font = [UIFont systemFontOfSize:13];
+        tagList1.textColor = [UIColor whiteColor];
+        tagList1.selectedTextColor = [UIColor whiteColor];
+        tagList1.tagBackgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
+        tagList1.selectedTagBackgroundColor = [UIColor colorWithRed:0.94 green:0.61 blue:0 alpha:1];
+        tagList1.tagCornerRadius = 3;
+        tagList1.tagEdge = UIEdgeInsetsMake(8, 8, 8, 8);
+        [tagList1 addTarget:self action:@selector(selectSizeSpecEvent:) forControlEvents:UIControlEventValueChanged];
+        [scrollView addSubview:tagList1];
         
-        for (int i = 0; i < mSizeArray.count; i++) {
-            UIButton *mSizeBtn = [[UIButton alloc] initWithFrame:CGRectMake((mSizeWidth + 5) * (i % 3), (i / 3) * (35 + 5), mSizeWidth, 35)];
-            mSizeBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-            mSizeBtn.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
-            [mSizeBtn setTitle:[mSizeArray[i] valueForKey:@"Name"] forState:UIControlStateNormal];
-            mSizeBtn.tag = [[Toolkit judgeIsNull:[mSizeArray[i] valueForKey:@"Id"]] intValue];
-            [mSizeBtn addTarget:self action:@selector(selectSizeSpecEvent:) forControlEvents:UIControlEventTouchUpInside];
-            [mSizeView addSubview:mSizeBtn];
-        }
-        [mView addSubview:mSizeView];
+        UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(scrollView.frame.size.width - 50, tagList1.frame.origin.y + tagList1.frame.size.height + 15, 35, 35)];
+        [addBtn addTarget:self action:@selector(addBtnEvent) forControlEvents:UIControlEventTouchUpInside];
+        [addBtn setImage:[UIImage imageNamed:@"KongFuStoreAdd"] forState:UIControlStateNormal];
+        [scrollView addSubview:addBtn];
+        
+        goodsNum = [[UILabel alloc] initWithFrame:CGRectMake(scrollView.frame.size.width - (35 + 20 + 20), tagList1.frame.origin.y + tagList1.frame.size.height + 20, 25, 25)];
+        goodsNum.text = [NSString stringWithFormat:@"%@",@"×1"];
+        goodsNum.textColor = [UIColor whiteColor];
+        [scrollView addSubview:goodsNum];
+        
+        UIButton *delBtn = [[UIButton alloc] initWithFrame:CGRectMake(scrollView.frame.size.width - (35 + 5 + 20 + 5 + 20 + 35), tagList1.frame.origin.y + tagList1.frame.size.height + 15, 35, 35)];
+        [delBtn addTarget:self action:@selector(delBtnEvent) forControlEvents:UIControlEventTouchUpInside];
+        [delBtn setImage:[UIImage imageNamed:@"KongFuStoreDel"] forState:UIControlStateNormal];
+        [scrollView addSubview:delBtn];
+        
+        CGFloat mScrollHeight = mView.frame.size.height - (SCREEN_WIDTH / 3 / 2) - 50;
+        scrollView.frame = CGRectMake(14, mHeadIv.frame.origin.y + mHeadIv.frame.size.height + 10, SCREEN_WIDTH - 28, (mColorLbl.frame.size.height + tagList.frame.size.height + mSizeLbl.frame.size.height + 10) > mScrollHeight ?mScrollHeight:(mColorLbl.frame.size.height + tagList.frame.size.height + mSizeLbl.frame.size.height + 10 + tagList1.frame.size.height + addBtn.frame.size.height + 20));
+        scrollView.contentSize = CGSizeMake(0, mColorLbl.frame.size.height + tagList.frame.size.height + mSizeLbl.frame.size.height + 10 + tagList1.frame.size.height + addBtn.frame.size.height + 20);
     }
+}
+
+-(CGFloat)getHeight:(NSArray *) mArray andHoriWidth:(CGFloat) horiWith{
+    CGFloat mWidth = 0.0;
+    for (int i = 0; i < mArray.count; i++) {
+        CGSize size = [mArray[i] sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13.0f]}];
+        mWidth += (size.width > horiWith?horiWith:size.width + 10);
+    }
+    int lineNum = ceil(mWidth / horiWith);
+    return 5 + lineNum * (10 + 27);
+}
+
+-(void)addBtnEvent{
+    int mNum = [[goodsNum.text substringFromIndex:1] intValue];
+    goodsNum.text = [NSString stringWithFormat:@"×%d",++mNum];
+}
+
+-(void)delBtnEvent{
+    int mNum = [[goodsNum.text substringFromIndex:1] intValue];
+    if (mNum <= 1) {
+        return;
+    }
+    goodsNum.text = [NSString stringWithFormat:@"×%d",--mNum];
 }
 
 -(void)hideCustomView{
@@ -284,14 +323,10 @@
     [mTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
--(void)selectColorSpecEvent:(UIButton *)btn{
-    for (UIButton *item in btn.superview.subviews) {
-        item.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
-    }
-    btn.backgroundColor = YellowBlock;
-    
-    selectColorId = [NSString stringWithFormat:@"%d",(int)btn.tag];
-    selectColor = btn.titleLabel.text;
+-(void)selectColorSpecEvent:(VOTagList *)tagList{
+    NSArray *colorArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"ColorList"]];
+    selectColorId = [NSString stringWithFormat:@"%@",[colorArray[tagList.selectedIndexSet.firstIndex] valueForKey:@"Id"]];
+    selectColor = [NSString stringWithFormat:@"%@",[colorArray[tagList.selectedIndexSet.firstIndex] valueForKey:@"Name"]];
     
     selectSpec = selectColor;
     if (![selectSize isEqual:@""]) {
@@ -302,14 +337,10 @@
     [self updateImgAndPrice];
 }
 
--(void)selectSizeSpecEvent:(UIButton *)btn{
-    for (UIButton *item in btn.superview.subviews) {
-        item.backgroundColor = [UIColor colorWithRed:0.24 green:0.24 blue:0.25 alpha:1];
-    }
-    btn.backgroundColor = YellowBlock;
-    
-    selectSizeId = [NSString stringWithFormat:@"%d",(int)btn.tag];
-    selectSize = btn.titleLabel.text;
+-(void)selectSizeSpecEvent:(VOTagList *)tagList{
+    NSArray *sizeArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"SizeList"]];
+    selectSizeId = [NSString stringWithFormat:@"%@",[sizeArray[tagList.selectedIndexSet.firstIndex] valueForKey:@"Id"]];
+    selectSize = [NSString stringWithFormat:@"%@",[sizeArray[tagList.selectedIndexSet.firstIndex] valueForKey:@"Name"]];
     
     if (![selectColor isEqual:@""]) {
         selectSpec = [NSString stringWithFormat:@"%@/%@",selectColor,selectSize];
@@ -372,7 +403,7 @@
     }else{
         [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
         [dataProvider setDelegateObject:self setBackFunctionName:@"joinShoppingCarCallBack:"];
-        [dataProvider InsertBasket:_goodsId andnum:@"1" andpriceId:selectPriceId anduserId:get_sp(@"id") andprice:[mPriceLbl.text substringFromIndex:1]];
+        [dataProvider InsertBasket:_goodsId andnum:[goodsNum.text substringFromIndex:1] andpriceId:selectPriceId anduserId:get_sp(@"id") andprice:[mPriceLbl.text substringFromIndex:1]];
     }
 }
 
@@ -390,12 +421,13 @@
     if ([selectColor isEqual:@""] || [selectSize isEqual:@""]) {
         [self showCustomView];
     }else{
+        [self backViewEvent];
         PayOrderViewController *payOrderVC = [[PayOrderViewController alloc] init];
         payOrderVC.navtitle = @"确认订单";
         payOrderVC.paytype = PayByImmediately;
         CartModel *tempModel = [[CartModel alloc] init];
         tempModel.Id = _goodsId;
-        tempModel.Number = @"1";
+        tempModel.Number = [goodsNum.text substringFromIndex:1];
         tempModel.ProductPriceId = selectPriceId;
         tempModel.ProductPriceTotalPrice = [mPriceLbl.text substringFromIndex:1];
         NSMutableArray *goodsArray = [[NSMutableArray alloc] init];
@@ -451,7 +483,6 @@
 //            }
 //        }
 //    }
-    
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
     cell.backgroundColor = ItemsBaseColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -585,16 +616,17 @@
             mContent.text = mContentStr;
             [cell addSubview:mContent];
             
-            UILabel *mDate = [[UILabel alloc] initWithFrame:CGRectMake(mName.frame.origin.x, mName.frame.origin.y + mName.frame.size.height + 2 + contentHeight + 5, 150, 21)];
+            UILabel *mDate = [[UILabel alloc] initWithFrame:CGRectMake(mName.frame.origin.x, mName.frame.origin.y + mName.frame.size.height + 2 + contentHeight + 5, 150, 17)];
             mDate.font = [UIFont systemFontOfSize:12];
             mDate.text = [Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"PublishTime"]];
             mDate.textColor = [UIColor colorWithRed:0.46 green:0.46 blue:0.46 alpha:1];
             [cell addSubview:mDate];
             
-            NSString *mSpecStr = [NSString stringWithFormat:@"规格:%@",[Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"ColorAndSize"]]];//@"东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.";
-            CGFloat specHeight = [Toolkit heightWithString:mSpecStr fontSize:12 width:SCREEN_WIDTH-(14 + 40 + 5 + 14)]+10;
-            UILabel *mSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(mDate.frame.origin.x, mDate.frame.origin.y + mDate.frame.size.height, SCREEN_WIDTH - (14 + 40 + 5), specHeight)];
+            NSString *mSpecStr = [NSString stringWithFormat:@"规格:%@",[Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"ColorAndSize"]]];
+            CGFloat specHeight = [Toolkit heightWithString:mSpecStr fontSize:12 width:SCREEN_WIDTH-(14 + 40 + 5 + 5)]+10;
+            UITextView *mSpecLbl = [[UITextView alloc] initWithFrame:CGRectMake(mDate.frame.origin.x, mDate.frame.origin.y + mDate.frame.size.height, SCREEN_WIDTH - mDate.frame.origin.x, specHeight)];
             mSpecLbl.font = [UIFont systemFontOfSize:12];
+            mSpecLbl.backgroundColor = ItemsBaseColor;
             mSpecLbl.text = mSpecStr;
             mSpecLbl.textColor = [UIColor colorWithRed:0.46 green:0.46 blue:0.46 alpha:1];
             [cell addSubview:mSpecLbl];
@@ -627,9 +659,9 @@
             NSString *mContentStr = [Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"Content"]];//@"东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.";
             CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-28]+10;
             
-            NSString *mSpecStr = [Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"ColorAndSize"]];
-            CGFloat specHeight = [Toolkit heightWithString:mSpecStr fontSize:12 width:SCREEN_WIDTH-(14 + 40 + 5)]+10;
-            return 5 + (40 - 21) / 2 + 23 + contentHeight + 25 + specHeight;
+            NSString *mSpecStr = [NSString stringWithFormat:@"规格:%@",[Toolkit judgeIsNull:[commentListArray[indexPath.row - 1] valueForKey:@"ColorAndSize"]]];
+            CGFloat specHeight = [Toolkit heightWithString:mSpecStr fontSize:12 width:SCREEN_WIDTH-(14 + 40 + 5 + 5)]+10;
+            return 5 + (40 - 21) / 2 + 23 + contentHeight + 25 + specHeight + 5;
         }
     }
 }

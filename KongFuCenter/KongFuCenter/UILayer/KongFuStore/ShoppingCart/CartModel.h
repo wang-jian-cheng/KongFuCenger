@@ -13,6 +13,7 @@
 @property(nonatomic) NSString *MiddleImagePath;
 @property(nonatomic) NSString *Number;
 @property(nonatomic) NSString *ProductColorName;
+@property(nonatomic) NSString *ProductId;
 @property(nonatomic) NSString *ProductName;
 @property(nonatomic) NSString *ProductPriceId;
 @property(nonatomic) NSString *ProductPriceTotalPrice;
