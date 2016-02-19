@@ -421,7 +421,7 @@
         /*可选设置*/
         sdkqupai.thumbnailCompressionQuality =0.3;
         sdkqupai.combine = YES;
-        sdkqupai.progressIndicatorEnabled = NO;
+        sdkqupai.progressIndicatorEnabled = YES;
         sdkqupai.beautySwitchEnabled = NO;
         sdkqupai.flashSwitchEnabled = NO;
         sdkqupai.tintColor = [UIColor orangeColor];
