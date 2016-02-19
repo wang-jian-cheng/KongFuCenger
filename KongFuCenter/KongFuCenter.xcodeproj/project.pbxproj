@@ -496,6 +496,7 @@
 		B7D846531C22AB7500718E9E /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D8463E1C22AB7500718E9E /* UIScrollView+MJExtension.m */; };
 		B7D846541C22AB7500718E9E /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D846401C22AB7500718E9E /* UIScrollView+MJRefresh.m */; };
 		B7D846551C22AB7500718E9E /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D846421C22AB7500718E9E /* UIView+MJExtension.m */; };
+		B7DFDA2F1C75F1250096C300 /* VOTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = B7DFDA2E1C75F1250096C300 /* VOTagList.m */; };
 		B7E07B9B1C3A4B8C004FAC42 /* CommentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E07B9A1C3A4B8C004FAC42 /* CommentListViewController.m */; };
 		B7E07B9F1C3A4CD8004FAC42 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E07B9D1C3A4CD8004FAC42 /* CommentTableViewCell.m */; };
 		B7E07BA01C3A4CD8004FAC42 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7E07B9E1C3A4CD8004FAC42 /* CommentTableViewCell.xib */; };
@@ -1362,6 +1363,8 @@
 		B7D846401C22AB7500718E9E /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		B7D846411C22AB7500718E9E /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		B7D846421C22AB7500718E9E /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		B7DFDA2D1C75F1250096C300 /* VOTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOTagList.h; sourceTree = "<group>"; };
+		B7DFDA2E1C75F1250096C300 /* VOTagList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOTagList.m; sourceTree = "<group>"; };
 		B7E07B991C3A4B8C004FAC42 /* CommentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentListViewController.h; sourceTree = "<group>"; };
 		B7E07B9A1C3A4B8C004FAC42 /* CommentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentListViewController.m; sourceTree = "<group>"; };
 		B7E07B9C1C3A4CD8004FAC42 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
@@ -2714,6 +2717,7 @@
 		B5F13A901C1FA75100155038 /* ThirdFramework */ = {
 			isa = PBXGroup;
 			children = (
+				B7DFDA2C1C75F10F0096C300 /* VOTagList */,
 				8082B4D01C7465550024EAD3 /* QuPai_SDK */,
 				B7A18EC31C56FEC9004FF4FB /* RoundScroll */,
 				B7A6FC701C51C41B00B6D665 /* WZLBadge */,
@@ -3287,6 +3291,15 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		B7DFDA2C1C75F10F0096C300 /* VOTagList */ = {
+			isa = PBXGroup;
+			children = (
+				B7DFDA2D1C75F1250096C300 /* VOTagList.h */,
+				B7DFDA2E1C75F1250096C300 /* VOTagList.m */,
+			);
+			name = VOTagList;
+			sourceTree = "<group>";
+		};
 		B7E1CD161C4C9594008DFE49 /* KongFuStore */ = {
 			isa = PBXGroup;
 			children = (
@@ -3843,6 +3856,7 @@
 				B7D8464C1C22AB7500718E9E /* MJRefreshBackNormalFooter.m in Sources */,
 				B7CE7F471C16C6F30035D8CA /* JoinTeamCell.m in Sources */,
 				B7A18ED61C56FEC9004FF4FB /* TADotView.m in Sources */,
+				B7DFDA2F1C75F1250096C300 /* VOTagList.m in Sources */,
 				80CE42E41C3CE1E900B027CC /* VImVideoViewController.m in Sources */,
 				804952081C250B3800F5584A /* SCIOPixelBuffers.m in Sources */,
 				B7BED2241C5322BF0058CBF4 /* ExchangeDetailViewController.m in Sources */,

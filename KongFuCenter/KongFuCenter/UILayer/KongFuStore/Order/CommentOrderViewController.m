@@ -115,7 +115,7 @@
         
         
         if (mutableArray.count>0) {
-            [dataprovider SaveComment:mutableArray];
+            [dataprovider SaveComment:mutableArray andbillid:_billId];
         }
     }
     @catch (NSException *exception) {
@@ -444,7 +444,17 @@
 -(void)SaveCommentCallBack:(id)dict
 {
     NSLog(@"%@",dict);
-    [self.navigationController popViewControllerAnimated:YES];
+    if([dict[@"code"] intValue] == 200){
+        NSUserDefaults *mUserDefault = [NSUserDefaults standardUserDefaults];
+        [mUserDefault setValue:@"1" forKey:@"saveCommentFlag"];
+        if ([_billDetail isEqual:@"1"]) {
+            [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+        }else{
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }else{
+        [SVProgressHUD showErrorWithStatus:@"操作失败~" maskType:SVProgressHUDMaskTypeBlack];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

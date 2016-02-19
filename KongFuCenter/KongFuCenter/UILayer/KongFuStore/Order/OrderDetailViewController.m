@@ -83,7 +83,15 @@
             break;
         case orderFinish:
         {
-            [btnRight setTitle:@"评价商品" forState:UIControlStateNormal];
+            NSLog(@"%@",_OrderDict);
+            NSString *commentState = [Toolkit judgeIsNull:[self.OrderDict valueForKey:@"State"]];
+            if (![commentState isEqual:@"5"]) {
+                [btnRight setTitle:@"评价商品" forState:UIControlStateNormal];
+            }else{
+                [btnRight removeTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                btnRight.backgroundColor = [UIColor grayColor];
+                [btnRight setTitle:@"已评价" forState:UIControlStateNormal];
+            }
             btnLeft.hidden = YES;
         }
             break;
@@ -163,6 +171,9 @@
     {
         CommentOrderViewController *commentOrderViewCtl = [[CommentOrderViewController alloc] init];
         commentOrderViewCtl.navtitle = @"评价订单";
+        commentOrderViewCtl.billId = [self.OrderDict valueForKey:@"Id"];
+        commentOrderViewCtl.GoodsArray = self.OrderDict[@"ProList"];
+        commentOrderViewCtl.billDetail = @"1";
         [self.navigationController pushViewController:commentOrderViewCtl animated:YES];
     }else if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
         [self CancleOrder:sender];
@@ -204,6 +215,10 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         [SVProgressHUD showSuccessWithStatus:@"订单取消成功" maskType:SVProgressHUDMaskTypeBlack];
+        if([self.delegate respondsToSelector:@selector(cancelOrder)]){
+            [self.delegate cancelOrder];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
     }
     else
     {

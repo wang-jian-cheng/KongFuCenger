@@ -462,7 +462,7 @@
         {
             CartModel *tempDict = self.goodsArr[indexPath.row-1];
             
-            UIImageView *productImgView = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 10, (_cellHeight+10), (_cellHeight-10*2))];
+            UIImageView *productImgView = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 10, (_cellHeight), (_cellHeight-10))];
 //            productImgView.image = [UIImage imageNamed:@"KongFuStoreProduct"];
             NSString *url = NSStringFromFormat(@"%@%@",Kimg_path,tempDict.MiddleImagePath);
             [productImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
@@ -480,7 +480,7 @@
             
             UILabel *infoLab = [[UILabel alloc] initWithFrame:CGRectMake(titleLab.frame.origin.x,
                                                                         (titleLab.frame.origin.y+titleLab.frame.size.height),
-                                                                         titleLab.frame.size.width, 40)];
+                                                                         titleLab.frame.size.width + 70, 40)];
             
             infoLab.text = NSStringFromFormat(@"规格:%@/%@",tempDict.ProductColorName,tempDict.ProductSizeName);
             infoLab.font = [UIFont systemFontOfSize:12];

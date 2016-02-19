@@ -147,7 +147,8 @@
     if (indexPath.section == 0) {
         NSLog(@"%@",exchangeDetailArray);
         UIImageView *mHeadBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
-        [mHeadBg sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[exchangeDetailArray valueForKey:@"MiddleImagePath"]]];
+        [mHeadBg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
         [cell addSubview:mHeadBg];
         
         NSString *contentStr = [Toolkit judgeIsNull:[exchangeDetailArray valueForKey:@"Name"]];//@"玩悦计划2015小黄人卑鄙的我扭蛋神偷奶爸小摆件套装大眼萌热销";
