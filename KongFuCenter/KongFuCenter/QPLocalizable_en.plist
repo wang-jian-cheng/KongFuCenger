@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>guide_start</key>
+	<string>开始</string>
+	<key>guide_pause</key>
+	<string>暂停</string>
+	<key>guide_continue</key>
+	<string>继续</string>
+	<key>guide_beauty_on</key>
+	<string>美颜开启</string>
+	<key>guide_beauty_off</key>
+	<string>美颜关闭</string>
+	<key>guide_second</key>
+	<string>s</string>
+	<key>close_abort</key>
+	<string>放弃录制</string>
+	<key>close_again</key>
+	<string>重新录制</string>
+	<key>close_cancel</key>
+	<string>取消</string>
+	<key>alert_microphone</key>
+	<string>Can&apos;t use microphone</string>
+	<key>alert_camera</key>
+	<string>Can&apos;t use camera</string>
+	<key>alert_submit</key>
+	<string>确定</string>
+</dict>
+</plist>

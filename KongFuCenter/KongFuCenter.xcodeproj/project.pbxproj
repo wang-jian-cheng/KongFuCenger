@@ -95,6 +95,9 @@
 		806240661C48936E00691D0C /* SecriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806240641C48936E00691D0C /* SecriteViewController.m */; };
 		806240671C48936E00691D0C /* SecriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806240651C48936E00691D0C /* SecriteViewController.xib */; };
 		806240691C4893AF00691D0C /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 806240681C4893AF00691D0C /* index.html */; };
+		8072E59C1C76E76D00566D4C /* ALBBQuPaiPlugin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8072E59A1C76E76D00566D4C /* ALBBQuPaiPlugin.bundle */; };
+		8072E59D1C76E76D00566D4C /* ALBBQuPaiPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8072E59B1C76E76D00566D4C /* ALBBQuPaiPlugin.framework */; };
+		8072E59F1C76E85700566D4C /* QPLocalizable_en.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8072E59E1C76E85700566D4C /* QPLocalizable_en.plist */; };
 		8074B0991C4376D60029C8B1 /* PlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8074B0971C4376D60029C8B1 /* PlayerController.m */; };
 		8074B09A1C4376D60029C8B1 /* PlayerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8074B0981C4376D60029C8B1 /* PlayerController.xib */; };
 		8074B09E1C437FEF0029C8B1 /* libffmpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8074B09B1C437FEF0029C8B1 /* libffmpeg.a */; };
@@ -103,8 +106,6 @@
 		8074B0A21C4380BB0029C8B1 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8074B0A11C4380BB0029C8B1 /* libiconv.tbd */; };
 		8074B0A41C4380E30029C8B1 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8074B0A31C4380E30029C8B1 /* libbz2.tbd */; };
 		807871621C33C03C007BCC53 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807871611C33C03C007BCC53 /* MediaPlayer.framework */; };
-		8082B4D31C7465550024EAD3 /* ALBBQuPaiPlugin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8082B4D11C7465550024EAD3 /* ALBBQuPaiPlugin.bundle */; };
-		8082B4D41C7465550024EAD3 /* ALBBQuPaiPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8082B4D21C7465550024EAD3 /* ALBBQuPaiPlugin.framework */; };
 		8082B4D61C7466550024EAD3 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8082B4D51C7466550024EAD3 /* CoreMotion.framework */; };
 		80CE42A51C3CB0F500B027CC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80CE42A41C3CB0F500B027CC /* AVFoundation.framework */; };
 		80CE42A71C3CB12800B027CC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80CE42A61C3CB12800B027CC /* AudioToolbox.framework */; };
@@ -712,6 +713,9 @@
 		806240641C48936E00691D0C /* SecriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecriteViewController.m; sourceTree = "<group>"; };
 		806240651C48936E00691D0C /* SecriteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecriteViewController.xib; sourceTree = "<group>"; };
 		806240681C4893AF00691D0C /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		8072E59A1C76E76D00566D4C /* ALBBQuPaiPlugin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ALBBQuPaiPlugin.bundle; sourceTree = "<group>"; };
+		8072E59B1C76E76D00566D4C /* ALBBQuPaiPlugin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ALBBQuPaiPlugin.framework; sourceTree = "<group>"; };
+		8072E59E1C76E85700566D4C /* QPLocalizable_en.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QPLocalizable_en.plist; sourceTree = "<group>"; };
 		8074B0961C4376D60029C8B1 /* PlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerController.h; sourceTree = "<group>"; };
 		8074B0971C4376D60029C8B1 /* PlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerController.m; sourceTree = "<group>"; };
 		8074B0981C4376D60029C8B1 /* PlayerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerController.xib; sourceTree = "<group>"; };
@@ -721,8 +725,6 @@
 		8074B0A11C4380BB0029C8B1 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		8074B0A31C4380E30029C8B1 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		807871611C33C03C007BCC53 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		8082B4D11C7465550024EAD3 /* ALBBQuPaiPlugin.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ALBBQuPaiPlugin.bundle; sourceTree = "<group>"; };
-		8082B4D21C7465550024EAD3 /* ALBBQuPaiPlugin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ALBBQuPaiPlugin.framework; sourceTree = "<group>"; };
 		8082B4D51C7466550024EAD3 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		80CE42A41C3CB0F500B027CC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		80CE42A61C3CB12800B027CC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -1420,6 +1422,7 @@
 				8074B0A01C437FEF0029C8B1 /* libVitamio.a in Frameworks */,
 				80CE42AF1C3CB1A300B027CC /* OpenGLES.framework in Frameworks */,
 				80CE42AD1C3CB18900B027CC /* CoreVideo.framework in Frameworks */,
+				8072E59D1C76E76D00566D4C /* ALBBQuPaiPlugin.framework in Frameworks */,
 				80CE42A91C3CB16500B027CC /* CoreMedia.framework in Frameworks */,
 				80CE42A71C3CB12800B027CC /* AudioToolbox.framework in Frameworks */,
 				B5B737551C3BA61D00DF7437 /* CoreLocation.framework in Frameworks */,
@@ -1436,7 +1439,6 @@
 				8074B09F1C437FEF0029C8B1 /* libopenssl.a in Frameworks */,
 				B5F2B37A1C20F765003383AE /* Security.framework in Frameworks */,
 				B5F2B3781C20F753003383AE /* SystemConfiguration.framework in Frameworks */,
-				8082B4D41C7465550024EAD3 /* ALBBQuPaiPlugin.framework in Frameworks */,
 				B5F2B3761C20F6ED003383AE /* CFNetwork.framework in Frameworks */,
 				B5F13B331C1FBCD500155038 /* libsqlite3.tbd in Frameworks */,
 				B5F13B2F1C1FBCBD00155038 /* ImageIO.framework in Frameworks */,
@@ -1854,8 +1856,8 @@
 		8082B4D01C7465550024EAD3 /* QuPai_SDK */ = {
 			isa = PBXGroup;
 			children = (
-				8082B4D11C7465550024EAD3 /* ALBBQuPaiPlugin.bundle */,
-				8082B4D21C7465550024EAD3 /* ALBBQuPaiPlugin.framework */,
+				8072E59A1C76E76D00566D4C /* ALBBQuPaiPlugin.bundle */,
+				8072E59B1C76E76D00566D4C /* ALBBQuPaiPlugin.framework */,
 			);
 			path = QuPai_SDK;
 			sourceTree = "<group>";
@@ -2317,6 +2319,7 @@
 		B59408C71C0FC9E8003DC15D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8072E59E1C76E85700566D4C /* QPLocalizable_en.plist */,
 				806240681C4893AF00691D0C /* index.html */,
 				B59408D01C0FC9E8003DC15D /* Main.storyboard */,
 				B59408D31C0FC9E8003DC15D /* big.xcassets */,
@@ -3538,11 +3541,12 @@
 				B7617E4E1C1C299700CF96E7 /* 02@2x.png in Resources */,
 				804952281C2523FA00F5584A /* UploadVideoViewController.xib in Resources */,
 				B5905E091C1BC2CF00ECA9BA /* search@2x.png in Resources */,
-				8082B4D31C7465550024EAD3 /* ALBBQuPaiPlugin.bundle in Resources */,
+				8072E59C1C76E76D00566D4C /* ALBBQuPaiPlugin.bundle in Resources */,
 				B7BED2211C531F520058CBF4 /* IntegralExchangeTableViewCell.xib in Resources */,
 				B53E739A1C16E1EF009E7878 /* pointH@2x.png in Resources */,
 				B53E738C1C1673B3009E7878 /* tip@2x.png in Resources */,
 				B5F90AFC1C1985A100D7879D /* LoginAccount@2x.png in Resources */,
+				8072E59F1C76E85700566D4C /* QPLocalizable_en.plist in Resources */,
 				B7E4CD1F1C1FE24600C2E69A /* sys.png in Resources */,
 				B5F90AFE1C1985A100D7879D /* LoginQQ@2x.png in Resources */,
 				B7E096D61C1E5F1000E0E73B /* head_bg.png in Resources */,

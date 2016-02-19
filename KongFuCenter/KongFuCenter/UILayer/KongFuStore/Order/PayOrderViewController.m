@@ -399,7 +399,7 @@
                        ^{
                            [Pingpp createPayment:charge viewController:self appURLScheme:kUrlScheme withCompletion:^(NSString *result, PingppError *error) {
                                NSLog(@"completion block: %@", result);
-                               if (error == nil) {
+                               if ([result isEqualToString:@"success"]) {
                                    NSLog(@"PingppError is nil");
                                    // 支付成功
                                    OrderMainViewController *orderListVC = [[OrderMainViewController alloc] init];
