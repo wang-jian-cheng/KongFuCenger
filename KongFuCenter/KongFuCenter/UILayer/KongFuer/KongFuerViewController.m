@@ -79,7 +79,7 @@
     
     cateGoryV = [NSMutableArray array];
     [cateGoryV addObjectsFromArray:@[@[@"视频直播"],
-                                     @[@"训练计划",@"成长记录"],
+                                     @[@"训练计划",@"我的视频"],
                                      @[@"积分兑换"]]
                                     ];
     DataProvider * dataprovider=[[DataProvider alloc] init];

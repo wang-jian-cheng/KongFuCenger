@@ -328,7 +328,7 @@
 {
     UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"确认收货？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     alert.delegate=self;
-    alert.tag=2*100000+sender.tag;
+    alert.tag=3*100000+sender.tag;
     [alert show];
 }
 -(void)SureForOrderCallBack:(id)dict
@@ -360,13 +360,13 @@
         }else if ((alertView.tag/100000)==2){
             DataProvider * dataprovider=[[DataProvider alloc] init];
             [dataprovider setDelegateObject:self setBackFunctionName:@"delOrderCallBack:"];
-            [dataprovider DeleteBill:self.orderArr[alertView.tag%100000][@"Id"] andUserId:get_sp(@"id")];
+            [dataprovider DeleteBill:self.orderArr[alertView.tag%200000][@"Id"] andUserId:get_sp(@"id")];
         }else{//确认收货
             DataProvider * dataprovider=[[DataProvider alloc] init];
             
             [dataprovider setDelegateObject:self setBackFunctionName:@"SureForOrderCallBack:"];
             
-            [dataprovider sureForOrder:[Toolkit getUserID] andBillId:self.orderArr[alertView.tag%200000][@"Id"]];
+            [dataprovider sureForOrder:[Toolkit getUserID] andBillId:self.orderArr[alertView.tag%300000][@"Id"]];
             
         }
     }

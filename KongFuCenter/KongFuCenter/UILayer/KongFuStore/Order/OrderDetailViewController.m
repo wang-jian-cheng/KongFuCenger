@@ -248,7 +248,7 @@
 {
     UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"确认收货？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     alert.delegate=self;
-    alert.tag=2*100000+sender.tag;
+    alert.tag=3*100000+sender.tag;
     [alert show];
 }
 -(void)SureForOrderCallBack:(id)dict
@@ -256,6 +256,10 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         [SVProgressHUD showSuccessWithStatus:@"订单确认成功" maskType:SVProgressHUDMaskTypeBlack];
+        if([self.delegate respondsToSelector:@selector(cancelOrder)]){
+            [self.delegate cancelOrder];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
     }
     else
     {

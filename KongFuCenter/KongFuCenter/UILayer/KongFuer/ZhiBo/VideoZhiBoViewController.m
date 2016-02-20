@@ -10,10 +10,14 @@
 #import "UIImageView+WebCache.h"
 #import "SDCycleScrollView.h"
 #import "ZhiBoViewController.h"
+#import "MoviePlayer.h"
 
 @interface VideoZhiBoViewController (){
     UITableView *mTableView;
     NSDictionary *videoLiveDict;
+    UIButton *videoView;
+    MoviePlayer *player;
+    UIButton *leftBtn;
 }
 
 @end
@@ -71,6 +75,57 @@
     [self.navigationController pushViewController:zhiboViewCtl animated:YES];
 }
 
+-(void)selectVideoLiveEvent{
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[videoLiveDict valueForKey:@"LiveBack"]]];
+    videoView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    videoView.backgroundColor = [UIColor grayColor];
+    player = [[MoviePlayer alloc] initWithFrame:CGRectMake(0,0,SCREEN_WIDTH, SCREEN_HEIGHT) URL:[NSURL URLWithString:url]];
+    [videoView addSubview:player];
+    [self.view addSubview:videoView];
+    [self showAnimation];
+    
+    //添加退出按钮
+    leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 60, 60)];
+    [leftBtn setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(backViewEvent) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:leftBtn];
+}
+
+- (void)showAnimation {
+    CAKeyframeAnimation *popAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    popAnimation.duration = 1.0;
+    popAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.2f, 0.2f, 1.0f)],
+                            [NSValue valueWithCATransform3D:CATransform3DIdentity]];
+    popAnimation.keyTimes = @[@0.0f, @1.0f];
+    popAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                     [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                     [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [videoView.layer addAnimation:popAnimation forKey:nil];
+}
+
+-(void)backViewEvent{
+    [videoView removeFromSuperview];
+    [leftBtn removeFromSuperview];
+    [self dismiss];
+}
+
+- (void)dismiss {
+    [self hideAnimation];
+    [self.view endEditing:YES];
+}
+
+- (void)hideAnimation{
+    [UIView animateWithDuration:0.4 animations:^{
+        //coverView.alpha = 0.0;
+        videoView.alpha = 0.0;
+        
+    } completion:^(BOOL finished) {
+        [videoView removeFromSuperview];
+    }];
+    
+    
+}
+
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
@@ -120,6 +175,10 @@
                 [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
                 [images addObject:img];
             }
+        }else{
+            UIImageView * img=[[UIImageView alloc] init];
+            [img sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
+            [images addObject:img];
         }
         //创建带标题的图片轮播器
         SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170) imagesGroup:images ];
@@ -187,7 +246,13 @@
                 [viewCourseBtn setTitle:@"正在直播" forState:UIControlStateNormal];
                 [viewCourseBtn addTarget:self action:@selector(viewCourseEvent) forControlEvents:UIControlEventTouchUpInside];
             }else{
-                [viewCourseBtn setTitle:@"直播已结束" forState:UIControlStateNormal];
+                NSString *liveBack = [Toolkit judgeIsNull:[NSString stringWithFormat:@"%@%@",Url,[videoLiveDict valueForKey:@"LiveBack"]]];
+                if ([liveBack isEqual:@""]) {
+                    [viewCourseBtn setTitle:@"直播已结束" forState:UIControlStateNormal];
+                }else{
+                    [viewCourseBtn setTitle:@"查看直播回放" forState:UIControlStateNormal];
+                    [viewCourseBtn addTarget:self action:@selector(selectVideoLiveEvent) forControlEvents:UIControlEventTouchUpInside];
+                }
             }
             viewCourseBtn.layer.masksToBounds = YES;
             viewCourseBtn.layer.cornerRadius = 8;
