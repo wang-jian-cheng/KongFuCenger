@@ -395,7 +395,7 @@
     
     NSArray *tempArr = self.orderArr[section][@"ProList"];
     
-    return tempArr.count+1;
+    return tempArr.count+2;
     
 }
 
@@ -411,10 +411,27 @@
     @try {
         
         NSArray *tempArr = self.orderArr[indexPath.section][@"ProList"];
-        
-        if(indexPath.row == tempArr.count)
+        if (indexPath.row == 0) {
+            UILabel *mBillNoLbl = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 10, SCREEN_WIDTH - 2 * GapToLeft, 21)];
+            mBillNoLbl.font = [UIFont systemFontOfSize:14];
+            mBillNoLbl.textColor = [UIColor whiteColor];
+            mBillNoLbl.text = [NSString stringWithFormat:@"订单编号:%@",[Toolkit judgeIsNull:[self.orderArr[indexPath.section] valueForKey:@"BillNo"]]];
+            [cell addSubview:mBillNoLbl];
+        }else if(indexPath.row == tempArr.count + 1)
         {
-            UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80), 10, 80, 30)];
+            UILabel *goodsPrice = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 - 100, 10, 100, 21)];
+            goodsPrice.text = [NSString stringWithFormat:@"合计:¥%@",[Toolkit judgeIsNull:[self.orderArr[indexPath.section] valueForKey:@"Price"]]];
+            goodsPrice.font = [UIFont systemFontOfSize:14];
+            goodsPrice.textColor = [UIColor colorWithRed:0.48 green:0.48 blue:0.48 alpha:1];
+            [cell addSubview:goodsPrice];
+            
+            UILabel *goodsNum = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - goodsPrice.frame.size.width - 10 - 100, 10, 100, 21)];
+            goodsNum.text = [NSString stringWithFormat:@"共计%@件商品",[Toolkit judgeIsNull:[self.orderArr[indexPath.section] valueForKey:@"Count"]]];
+            goodsNum.font = [UIFont systemFontOfSize:14];
+            goodsNum.textColor = [UIColor colorWithRed:0.48 green:0.48 blue:0.48 alpha:1];
+            [cell addSubview:goodsNum];
+            
+            UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80), goodsPrice.frame.origin.y + goodsPrice.frame.size.height + 5, 80, 30)];
             btnRight.backgroundColor = YellowBlock;
             btnRight.titleLabel.font = [UIFont systemFontOfSize:14];
             btnRight.tag = indexPath.section;
@@ -422,7 +439,7 @@
             [btnRight addTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             
             UIButton *btnLeft = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 - 80-20-btnRight.frame.size.width),
-                                                                           10, 80, 30)];
+                                                                           goodsPrice.frame.origin.y + goodsPrice.frame.size.height + 5, 80, 30)];
             btnLeft.backgroundColor = [UIColor grayColor];
             btnLeft.titleLabel.font = [UIFont systemFontOfSize:14];
             btnLeft.tag=indexPath.section;
@@ -477,7 +494,7 @@
         else
         {
             
-            NSDictionary *tempDict = tempArr[indexPath.row];
+            NSDictionary *tempDict = tempArr[indexPath.row - 1];
             
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 10, _cellHeight, _cellHeight - 20)];
 //            imgView.image = [UIImage imageNamed:@"KongFuStoreProduct"];
@@ -549,10 +566,11 @@
     
     
     NSArray *tempArr = self.orderArr[indexPath.section][@"ProList"];
-    
-    if(indexPath.row == tempArr.count)
+    if (indexPath.row == 0) {
+        return 40;
+    }else if(indexPath.row == tempArr.count + 1)
     {
-        return 50;
+        return 10 + 21 + 5 + 30 + 5;
     }
     
     
@@ -573,7 +591,8 @@
     orderDetailViewCtl.orderMode = orderMode;
     orderDetailViewCtl.delegate = self;
     orderDetailViewCtl.navtitle = @"订单详情";
-    orderDetailViewCtl.OrderDict = self.orderArr[indexPath.section];
+    orderDetailViewCtl.orderId = [Toolkit judgeIsNull:[self.orderArr[indexPath.section] valueForKey:@"Id"]];
+    //orderDetailViewCtl.OrderDict = self.orderArr[indexPath.section];
     [self.navigationController pushViewController:orderDetailViewCtl animated:YES];
     
 }

@@ -1704,6 +1704,18 @@
     }
 }
 
+-(void)SelectBillProduct:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andbillId:(NSString *)billId{
+    if(startRowIndex && maximumRows && billId){
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectBillProduct",Url];
+        NSDictionary *prm = @{@"startRowIndex":startRowIndex,
+                              @"maximumRows":maximumRows,
+                              @"billId":billId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark -  购物车
 
 -(void)getShoppingCartList:(NSString *)userId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows

@@ -445,6 +445,9 @@
  */
 -(void)payByjiFen:(NSString *)userId andProductId:(NSString *)productId andNum:(NSString *)num andDeliveryId:(NSString *)deliveryId andDescription:(NSString *)description;
 
+//根据订单ID获取订单详情
+-(void)SelectBillProduct:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andbillId:(NSString *)billId;
+
 #pragma mark - 购物车
 /**
  获取购物车列表

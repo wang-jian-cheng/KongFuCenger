@@ -206,9 +206,9 @@
             [imgView sd_setImageWithURL:[NSURL URLWithString: [NSString stringWithFormat:@"%@%@",Url,[_GoodsArray[indexPath.section][@"MiddleImagePath"] isEqual:[NSNull null]]?@"":_GoodsArray[indexPath.section][@"MiddleImagePath"]]] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
             [cell.contentView addSubview:imgView];
             
-            UILabel *nowPriceLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 10 - 80), 10, 80, 30)];
+            UILabel *nowPriceLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 15 - 80), 10, 80, 30)];
             nowPriceLab.textColor = Separator_Color;
-            nowPriceLab.text = [_GoodsArray[indexPath.section][@"ProductPriceTotalPrice"] isEqual:[NSNull null]]?@"":_GoodsArray[indexPath.section][@"ProductPriceTotalPrice"];
+            nowPriceLab.text = [Toolkit judgeIsNull:_GoodsArray[indexPath.section][@"ProductPriceTotalPrice"]];
             nowPriceLab.textAlignment = NSTextAlignmentRight;
             nowPriceLab.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:nowPriceLab];
@@ -226,13 +226,13 @@
                                                                         (oldPriceLab.frame.origin.y+oldPriceLab.frame.size.height),
                                                                         oldPriceLab.frame.size.width, 20)];
             numLab.textColor = Separator_Color;
-            numLab.text = [_GoodsArray[indexPath.section][@"Number"] isEqual:[NSNull null]]?@"X1":[NSString stringWithFormat:@"X%@",_GoodsArray[indexPath.section][@"Number"]];
+            numLab.text = [Toolkit judgeIsNull:[NSString stringWithFormat:@"X%@",_GoodsArray[indexPath.section][@"Number"]]];
             numLab.textAlignment = NSTextAlignmentRight;
             numLab.font = [UIFont systemFontOfSize:12];
             [cell.contentView addSubview:numLab];
             
             UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((imgView.frame.origin.x + imgView.frame.size.width)+5,
-                                                                          10, (SCREEN_WIDTH), 30)];
+                                                                          (_cellHeight - 30) / 2, (SCREEN_WIDTH), 30)];
             titleLab.text = [_GoodsArray[indexPath.section][@"ProductName"] isEqual:[NSNull null]]?@"":_GoodsArray[indexPath.section][@"ProductName"];
             titleLab.textColor = [UIColor whiteColor];
             

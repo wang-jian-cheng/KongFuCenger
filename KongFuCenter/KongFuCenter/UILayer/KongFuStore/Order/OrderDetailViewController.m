@@ -8,7 +8,9 @@
 
 #import "OrderDetailViewController.h"
 
-@interface OrderDetailViewController ()
+@interface OrderDetailViewController (){
+    NSArray *orderDetailArray;
+}
 @property(nonatomic)UILabel *moneyLab;
 @end
 
@@ -18,10 +20,24 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
 //    addressDict = [[NSMutableDictionary alloc] init];
-    [self initViews];
+    [self initData];
     // Do any additional setup after loading the view.
 }
 
+-(void)initData{
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getOrderDetailCallBack:"];
+    [dataProvider SelectBillProduct:@"0" andmaximumRows:@"10000" andbillId:_orderId];
+}
+
+-(void)getOrderDetailCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        orderDetailArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        [self initViews];
+    }
+}
 
 -(void)initViews
 {
@@ -133,24 +149,24 @@
 }
 
 #pragma mark - self property
--(void)setOrderDict:(NSDictionary *)OrderDict
-{
-    _OrderDict = OrderDict;
-    proList = _OrderDict[@"ProList"];
-    
-    
-    totalMoney = 0;
-    
-    for (NSDictionary *tempModel in proList) {
-        totalMoney += ([tempModel[@"ProductPriceTotalPrice"] floatValue] * [tempModel[@"Number"] floatValue]);
-    }
-    
-    self.moneyLab.text = ZY_NSStringFromFormat(@"总金额：¥ %.02f",totalMoney);
-    
-    [self getAddrById:_OrderDict[@"AreaId"]];
-    
-    DLog(@"%@",_OrderDict);
-}
+//-(void)setOrderDict:(NSDictionary *)OrderDict
+//{
+//    _OrderDict = OrderDict;
+//    proList = _OrderDict[@"ProList"];
+//    
+//    
+//    totalMoney = 0;
+//    
+//    for (NSDictionary *tempModel in proList) {
+//        totalMoney += ([tempModel[@"ProductPriceTotalPrice"] floatValue] * [tempModel[@"Number"] floatValue]);
+//    }
+//    
+//    self.moneyLab.text = ZY_NSStringFromFormat(@"总金额：¥ %.02f",totalMoney);
+//    
+//    [self getAddrById:_OrderDict[@"AreaId"]];
+//    
+//    DLog(@"%@",_OrderDict);
+//}
 -(UILabel *)moneyLab
 {
     if(_moneyLab == nil)
@@ -312,7 +328,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (section == 1) {
-        return 3+proList.count;
+        return 3+orderDetailArray.count;
     }
     return 1;
     
@@ -328,29 +344,29 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];;
     cell.backgroundColor = ItemsBaseColor;
     @try {
-        
+        NSLog(@"%@",orderDetailArray);
         if (indexPath.section == 0) {
             UIImageView * image = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 15, cell.frame.size.height - 30 , cell.frame.size.height - 30)];
             image.image = [UIImage imageNamed:@"dingwei"];
             image.center = CGPointMake(GapToLeft+10, _cellHeight/2);
             [cell.contentView addSubview:image];
             
-            if(addressDict == nil)
-                return cell;
+//            if(addressDict == nil)
+//                return cell;
             
             
             UILabel *infoLab = [[UILabel alloc] initWithFrame:CGRectMake((image.frame.size.width+image.frame.origin.x)+5,
                                                                          10, SCREEN_WIDTH - (image.frame.size.width+image.frame.origin.x)-5, _cellHeight/2-10)];
             
             infoLab.textColor = [UIColor whiteColor];
-            infoLab.text = [NSString  stringWithFormat:@"收货人：%@    %@",addressDict[@"ReceiverName"],addressDict[@"Phone"]];
+            infoLab.text = [NSString  stringWithFormat:@"收货人：%@    %@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"ReceiverName"]],[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"Phone"]]];
             infoLab.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:infoLab];
             
             UILabel *addrLab = [[UILabel alloc] initWithFrame:CGRectMake(infoLab.frame.origin.x,
                                                                          _cellHeight/2,infoLab.frame.size.width , _cellHeight/2-10)];
             
-            addrLab.text = [NSString stringWithFormat:@"收货地址：%@",[NSString stringWithFormat:@"%@%@",[[Toolkit judgeIsNull:[addressDict valueForKey:@"Area"]] stringByReplacingOccurrencesOfString:@"/" withString:@""],[Toolkit judgeIsNull:[addressDict valueForKey:@"Address"]]]];
+            addrLab.text = [NSString stringWithFormat:@"收货地址：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"AreaName"]]];
             addrLab.numberOfLines = 0;
             addrLab.textColor = [UIColor whiteColor];
             addrLab.font = [UIFont systemFontOfSize:14];
@@ -367,18 +383,16 @@
                 cell.textLabel.font = [UIFont systemFontOfSize:14];
                 
             }
-            if(indexPath.row >= 1 && indexPath.row <= proList.count)
+            if(indexPath.row >= 1 && indexPath.row <= orderDetailArray.count)
             {
-                NSDictionary *tempDict = proList[indexPath.row - 1];
-                
                 UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 10, _cellHeight, _cellHeight - 20)];
-                NSString *url = ZY_NSStringFromFormat(@"%@%@",Kimg_path,tempDict[@"MiddleImagePath"]);
+                NSString *url = ZY_NSStringFromFormat(@"%@%@",Kimg_path,[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 1] valueForKey:@"MiddleImagePath"]]);
                 [imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
                 [cell addSubview:imgView];
                 
                 UILabel *nowPriceLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 10 - 80), 10, 80, 30)];
                 nowPriceLab.textColor = Separator_Color;
-                nowPriceLab.text = ZY_NSStringFromFormat(@"%@",tempDict[@"ProductPriceTotalPrice"]);
+                nowPriceLab.text = ZY_NSStringFromFormat(@"%@",[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 1] valueForKey:@"DetailTotalPrice"]]);
                 nowPriceLab.textAlignment = NSTextAlignmentRight;
                 nowPriceLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:nowPriceLab];
@@ -396,20 +410,20 @@
                                                                             (nowPriceLab.frame.origin.y+nowPriceLab.frame.size.height),
                                                                             nowPriceLab.frame.size.width, 20)];
                 numLab.textColor = Separator_Color;
-                numLab.text =ZY_NSStringFromFormat(@"x%@",tempDict[@"Number"]) ;
+                numLab.text =ZY_NSStringFromFormat(@"x%@",[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 1] valueForKey:@"Number"]]) ;
                 numLab.textAlignment = NSTextAlignmentRight;
                 numLab.font = [UIFont systemFontOfSize:12];
                 [cell addSubview:numLab];
                 
                 UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((imgView.frame.origin.x + imgView.frame.size.width)+5,
                                                                               10, (SCREEN_WIDTH), 30)];
-                titleLab.text = tempDict[@"ProductName"];
+                titleLab.text = [Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 1] valueForKey:@"ProductName"]];
                 titleLab.textColor = [UIColor whiteColor];
                 
                 titleLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titleLab];
             }
-            else if(indexPath.row == proList.count+1)
+            else if(indexPath.row == orderDetailArray.count+1)
             {
 //                cell.textLabel.textColor = [UIColor whiteColor];
 //                cell.textLabel.text = @"卖家包邮";
@@ -432,14 +446,14 @@
                 tipLab.textAlignment = NSTextAlignmentRight;
                 [cell.contentView addSubview:tipLab];
             }
-            else if(indexPath.row == proList.count+2)
+            else if(indexPath.row == orderDetailArray.count+2)
             {
                 cell.textLabel.textColor = [UIColor whiteColor];
-                cell.textLabel.text = @"合计价格";
+                cell.textLabel.text = [NSString stringWithFormat:@"共%lu件商品",(unsigned long)orderDetailArray.count];
                 cell.textLabel.font = [UIFont systemFontOfSize:15];
                 
                 self.moneyLab.frame = CGRectMake((SCREEN_WIDTH - 160-20), 0, 160, 50);
-                self.moneyLab.text = ZY_NSStringFromFormat(@"总金额：¥ %.02f",totalMoney);
+                self.moneyLab.text = ZY_NSStringFromFormat(@"总金额：¥ %.02f",[[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"BillPrice"]] floatValue]);
                 self.moneyLab.font = [UIFont systemFontOfSize:15];
                 self.moneyLab.textColor = [UIColor whiteColor];
                 self.moneyLab.textAlignment = NSTextAlignmentRight;
@@ -453,7 +467,7 @@
                                                                          10, SCREEN_WIDTH,
                                                                           (_cellHeight-10*2)/3)];
             orderNum.textColor = [UIColor whiteColor];
-            orderNum.text = [NSString stringWithFormat:@"订单编号：%@",self.OrderDict[@"BillNo"]];
+            orderNum.text = [NSString stringWithFormat:@"订单编号：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"BillNo"]]];
             orderNum.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:orderNum];
             
@@ -468,13 +482,13 @@
                     
                     break;
                 case orderNeedSend:
-                    paytimeLab.text = [NSString stringWithFormat:@"付款时间：%@",self.OrderDict[@"PayTime"]];
+                    paytimeLab.text = [NSString stringWithFormat:@"付款时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"PayTime"]]];
                     break;
                 case orderNeedReceive:
-                    paytimeLab.text = [NSString stringWithFormat:@"发货时间：%@",self.OrderDict[@"SendTime"]];
+                    paytimeLab.text = [NSString stringWithFormat:@"发货时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"SendTime"]]];
                     break;
                 case orderFinish:
-                    paytimeLab.text = [NSString stringWithFormat:@"收货时间：%@",self.OrderDict[@"PayTime"]];
+                    paytimeLab.text = [NSString stringWithFormat:@"收货时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"ReceiveTime"]]];
                     break;
                 default:
                     break;
@@ -488,7 +502,7 @@
                                                                                SCREEN_WIDTH,
                                                                             (_cellHeight-10*2)/3)];
             createtimeLab.textColor = [UIColor whiteColor];
-            createtimeLab.text = [NSString stringWithFormat:@"创建订单：%@",self.OrderDict[@"BuildTime"]];
+            createtimeLab.text = [NSString stringWithFormat:@"创建订单：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"BuildTime"]]];
             createtimeLab.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:createtimeLab];
             
@@ -511,7 +525,7 @@
     
     if(indexPath.section == 1)
     {
-        if(indexPath.row == 0||indexPath.row > proList.count)
+        if(indexPath.row == 0||indexPath.row > orderDetailArray.count)
         {
             return 50;
         }

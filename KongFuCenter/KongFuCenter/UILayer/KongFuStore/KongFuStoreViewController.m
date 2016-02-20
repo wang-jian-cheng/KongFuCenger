@@ -209,8 +209,8 @@
 }
 
 #pragma mark setting for section
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    if (section == 0) {
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section > 0) {
         UIView *mView = [[UIView alloc] init];
         mView.backgroundColor = BACKGROUND_COLOR;
         return mView;
@@ -219,8 +219,8 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (section == 0) {
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section > 0) {
         return 4;
     }else{
         return 0;
