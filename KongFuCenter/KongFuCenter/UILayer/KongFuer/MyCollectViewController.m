@@ -1082,7 +1082,7 @@
             cell.backgroundColor = ItemsBaseColor;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"ImagePath"]]];
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"MiddleImagePath"]]];
         [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
         cell.mName.text = [Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"ProductName"]];
         cell.mPrice.text = [NSString stringWithFormat:@"¥%@",[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"Price"]]];
@@ -1123,7 +1123,7 @@
     if(tableView.tag == GoodsTag)
     {
         ShopDetailViewController *shopDetailViewCtl = [[ShopDetailViewController alloc] init];
-        shopDetailViewCtl.goodsId = [goodsArray[indexPath.row] valueForKey:@"Id"];
+        shopDetailViewCtl.goodsId = [goodsArray[indexPath.row] valueForKey:@"ProductId"];
         [self.navigationController pushViewController:shopDetailViewCtl animated:YES];
     }
 }
