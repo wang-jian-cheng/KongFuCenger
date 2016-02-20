@@ -247,7 +247,7 @@
                 [viewCourseBtn addTarget:self action:@selector(viewCourseEvent) forControlEvents:UIControlEventTouchUpInside];
             }else{
                 NSString *liveBack = [Toolkit judgeIsNull:[NSString stringWithFormat:@"%@%@",Url,[videoLiveDict valueForKey:@"LiveBack"]]];
-                if ([liveBack isEqual:@""]) {
+                if ([liveBack isEqual:Url]) {
                     [viewCourseBtn setTitle:@"直播已结束" forState:UIControlStateNormal];
                 }else{
                     [viewCourseBtn setTitle:@"查看直播回放" forState:UIControlStateNormal];
