@@ -2061,6 +2061,7 @@
 
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {
+    NSLog(@"----------------------------------------%f",[NSDate timeIntervalSinceReferenceDate]);
     AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];
     manage.responseSerializer=[AFHTTPResponseSerializer serializer];
     manage.requestSerializer=[AFHTTPRequestSerializer serializer];

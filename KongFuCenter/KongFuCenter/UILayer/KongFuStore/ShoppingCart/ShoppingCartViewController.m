@@ -145,6 +145,7 @@
         return;
     }
     NSString *ids = self.selectArr[0].Id;
+    NSLog(@"%@",self.selectArr[0]);
     for (int i=1; i<self.selectArr.count; i++) {
         ids = ZY_NSStringFromFormat(@"%@&%@",ids,self.selectArr[i].Id);
     }
@@ -303,6 +304,9 @@
 
 -(void)clickRightButton:(UIButton *)sender
 {
+    if (self.goodsArr.count == 0) {
+        return;
+    }
     [self.selectArr removeAllObjects];
     selectAllBtn.selected = NO;
     if([_lblRight.text isEqualToString:@"编辑"])

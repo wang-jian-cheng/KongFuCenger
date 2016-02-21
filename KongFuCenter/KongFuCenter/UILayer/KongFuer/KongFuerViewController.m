@@ -75,12 +75,12 @@
     categoryVIndex = 0;
     application = [UIApplication sharedApplication];
     cateGoryH = [NSMutableArray array];
-    [cateGoryH addObjectsFromArray:@[@"放飞梦想",@"在线学习",@"武馆推荐",@"我的收藏"]];
+    [cateGoryH addObjectsFromArray:@[@"梦想",@"学习",@"场馆",@"收藏"]];
     
     cateGoryV = [NSMutableArray array];
-    [cateGoryV addObjectsFromArray:@[@[@"视频直播"],
-                                     @[@"训练计划",@"我的视频"],
-                                     @[@"积分兑换"]]
+    [cateGoryV addObjectsFromArray:@[@[@"直播"],
+                                     @[@"课程",@"记录"],
+                                     @[@"兑换"]]
                                     ];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     

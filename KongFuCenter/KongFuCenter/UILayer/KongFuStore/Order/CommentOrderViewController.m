@@ -103,12 +103,28 @@
         for (int i=0; i<_GoodsArray.count; i++) {
             NSString * strid=mutableDict[[NSString stringWithFormat:@"%d",i]];
             NSString * strComment=mutableDictText[[NSString stringWithFormat:@"%d",i]];
-            NSDictionary * prm=[[NSDictionary alloc] initWithObjectsAndKeys:_GoodsArray[i][@"ProductId"],@"productId",
-                                strComment==nil?@"":strComment,@"content",
-                                strid==nil?@"1":strid,@"typeId",
-                                [Toolkit getUserID],@"userId",
-                                [_GoodsArray[i][@"ProductPriceId"] isEqual:[NSNull null]]?@"0":_GoodsArray[i][@"ProductPriceId"],@"productPriceId",
-                                nil];
+            if (strid == nil || strComment == nil) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请完善评论信息~" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alertView show];
+                return;
+            }
+            NSDictionary *prm;
+            if ([_billDetail isEqual:@"1"]) {
+                prm=[[NSDictionary alloc] initWithObjectsAndKeys:_GoodsArray[i][@"ProductId"],@"productId",
+                                    strComment==nil?@"":strComment,@"content",
+                                    strid==nil?@"1":strid,@"typeId",
+                                    [Toolkit getUserID],@"userId",
+                                    [_GoodsArray[i][@"ProductPriceId"] isEqual:[NSNull null]]?@"0":_GoodsArray[i][@"ProductPriceId"],@"productPriceId",
+                                    nil];
+            }else{
+                prm=[[NSDictionary alloc] initWithObjectsAndKeys:_GoodsArray[i][@"ProductId"],@"productId",
+                                    strComment==nil?@"":strComment,@"content",
+                                    strid==nil?@"1":strid,@"typeId",
+                                    [Toolkit getUserID],@"userId",
+                                    [_GoodsArray[i][@"ProductPriceId"] isEqual:[NSNull null]]?@"0":_GoodsArray[i][@"ProductPriceId"],@"productPriceId",
+                                    nil];
+            }
+            
             
             [mutableArray addObject:prm];
         }
@@ -208,7 +224,11 @@
             
             UILabel *nowPriceLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 15 - 80), 10, 80, 30)];
             nowPriceLab.textColor = Separator_Color;
-            nowPriceLab.text = [Toolkit judgeIsNull:_GoodsArray[indexPath.section][@"ProductPriceTotalPrice"]];
+            if ([_billDetail isEqual:@"1"]) {
+                nowPriceLab.text = [Toolkit judgeIsNull:_GoodsArray[indexPath.section][@"DetailPrice"]];
+            }else{
+                nowPriceLab.text = [Toolkit judgeIsNull:_GoodsArray[indexPath.section][@"ProductPriceTotalPrice"]];
+            }
             nowPriceLab.textAlignment = NSTextAlignmentRight;
             nowPriceLab.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:nowPriceLab];

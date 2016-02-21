@@ -47,27 +47,25 @@
     //    _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _mainTableView.tableFooterView = [[UIView alloc] init];
     //_mainTableView.scrollEnabled = NO;
+    [self.view addSubview:_mainTableView];
     
     __unsafe_unretained __typeof(self) weakSelf = self;
+    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
     
-    _mainTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
-        pageNo=0;
-        // 结束刷新
-        [self.commentArr removeAllObjects];
-        [_mainTableView.mj_footer setState:MJRefreshStateIdle];
+    _mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        pageNo = 0;
+        self.commentArr = [[NSMutableArray alloc] init];
         [weakSelf getGoodComment];
-        
     }];
+    
+    // 马上进入刷新状态
     [_mainTableView.mj_header beginRefreshing];
     
     // 上拉刷新
     _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
         [weakSelf getGoodComment];
+        [_mainTableView.mj_footer endRefreshing];
     }];
-    
-    [self.view addSubview:_mainTableView];
     
 }
 #pragma mark - self property
@@ -101,16 +99,22 @@
     // 结束刷新
     
     DLog(@"%@",dict);
-    [_mainTableView.mj_header endRefreshing];
-    [_mainTableView.mj_footer endRefreshing];
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD dismiss];
         pageNo ++;
-        
-        [self.commentArr addObjectsFromArray:dict[@"data"]];
-        
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [self.commentArr addObject:item];
+        }
+        NSLog(@"%@------%d",self.commentArr,(int)self.commentArr.count);
+        [_mainTableView.mj_header endRefreshing];
+        [_mainTableView.mj_footer endRefreshing];
+        if(self.commentArr.count >= [dict[@"recordcount"] intValue] )
+        {
+            [_mainTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
         [_mainTableView reloadData];
-        
     }
     else
     {
@@ -159,7 +163,7 @@
         [cell addSubview:mName];
         
         NSString *mContentStr = [Toolkit judgeIsNull:[self.commentArr[indexPath.row] valueForKey:@"Content"]];//@"东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.";
-        CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+10;
+        CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-28]+10;
         UITextView *mContent = [[UITextView alloc] initWithFrame:CGRectMake(mName.frame.origin.x, mName.frame.origin.y + mName.frame.size.height + 2, SCREEN_WIDTH - mName.frame.origin.x - 10, contentHeight)];
         mContent.textColor = [UIColor whiteColor];
         mContent.editable = NO;
@@ -179,6 +183,8 @@
         CGFloat specHeight = [Toolkit heightWithString:mSpecStr fontSize:12 width:SCREEN_WIDTH-(14 + 40 + 5 + 5)]+10;
         UITextView *mSpecLbl = [[UITextView alloc] initWithFrame:CGRectMake(mDate.frame.origin.x, mDate.frame.origin.y + mDate.frame.size.height, SCREEN_WIDTH - (14 + 40 + 5 + 5), specHeight)];
         mSpecLbl.backgroundColor = ItemsBaseColor;
+        mSpecLbl.editable = NO;
+        mSpecLbl.scrollEnabled = NO;
         mSpecLbl.font = [UIFont systemFontOfSize:12];
         mSpecLbl.text = [NSString stringWithFormat:@"规格:%@",[Toolkit judgeIsNull:[self.commentArr[indexPath.row] valueForKey:@"ColorAndSize"]]];
         mSpecLbl.textColor = [UIColor colorWithRed:0.46 green:0.46 blue:0.46 alpha:1];
@@ -198,7 +204,7 @@
 //设置cell每行间隔的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-
+    NSLog(@"%@",self.commentArr[indexPath.row]);
     NSString *mContentStr = [Toolkit judgeIsNull:[self.commentArr[indexPath.row] valueForKey:@"Content"]];//@"东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.";
     CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+5;
     
