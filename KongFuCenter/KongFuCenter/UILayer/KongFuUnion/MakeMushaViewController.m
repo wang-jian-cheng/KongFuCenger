@@ -412,6 +412,7 @@
 -(void)addFriendCallBack:(id)dict{
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMyFriend" object:nil];
         [SVProgressHUD showSuccessWithStatus:@"关注成功~"];
         [self TeamTopRefresh];
     }else if ([dict[@"code"] intValue] == 50){

@@ -67,22 +67,44 @@
     
     // 上拉刷新
     mTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [weakSelf initData];
+        [weakSelf initFooterData];
         [mTableView.mj_footer endRefreshing];
     }];
 }
 
 -(void)initData{
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getGoodsCallBack:"];
     [dataProvider SelectPageChangeBillByUserId:[NSString stringWithFormat:@"%d",curpage * 15] andmaximumRows:@"15" anduserId:get_sp(@"id") andstate:@"3" andproNum:@"1"];
 }
 
 -(void)getGoodsCallBack:(id)dict{
-    // 结束刷新
-    [mTableView.mj_header endRefreshing];
-    [mTableView.mj_footer endRefreshing];
+    [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
-        curpage++;
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [goodsArray addObject:item];
+        }
+        [mTableView.mj_header endRefreshing];
+        if(goodsArray.count >= [dict[@"recordcount"] intValue] )
+        {
+            [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
+        [mTableView reloadData];
+    }
+}
+
+-(void)initFooterData{
+    curpage++;
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getGoodsFooterCallBack:"];
+    [dataProvider SelectPageChangeBillByUserId:[NSString stringWithFormat:@"%d",curpage * 15] andmaximumRows:@"15" anduserId:get_sp(@"id") andstate:@"3" andproNum:@"1"];
+}
+
+-(void)getGoodsFooterCallBack:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
         NSArray * arrayitem=[[NSArray alloc] init];
         arrayitem=dict[@"data"];
         for (id item in arrayitem) {
@@ -123,11 +145,19 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"IntegralExchangeRecordTableViewCell" owner:self options:nil] objectAtIndex:0];
         cell.backgroundColor = ItemsBaseColor;
     }
-    NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"ImagePath"]]];
-    [cell.mPhotoIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
-    cell.mName.text = [Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"Name"]];
-    cell.mIntegral.text = [NSString stringWithFormat:@"%@积分",[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"CreditTotal"]]];
-    cell.mExchangeState.text = @"兑换成功";
+    @try {
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"ImagePath"]]];
+        [cell.mPhotoIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
+        cell.mName.text = [Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"Name"]];
+        cell.mIntegral.text = [NSString stringWithFormat:@"%@积分",[Toolkit judgeIsNull:[goodsArray[indexPath.row] valueForKey:@"CreditTotal"]]];
+        cell.mExchangeState.text = @"兑换成功";
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        return cell;
+    }
     return cell;
 }
 

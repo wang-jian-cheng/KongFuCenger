@@ -238,7 +238,16 @@
         CartModel *tempModel = [[CartModel alloc] init];
         
         NSDictionary *tempdict =_goodDicts[i];
-        [tempModel setValuesForKeysWithDictionary:tempdict];
+        if(_paytype == PayByOrderId){
+            tempModel.MiddleImagePath = [tempdict valueForKey:@"MiddleImagePath"];
+            tempModel.ProductName = [tempdict valueForKey:@"ProductName"];
+            tempModel.ProductColorName = [tempdict valueForKey:@"ProductColorName"];
+            tempModel.ProductSizeName = [tempdict valueForKey:@"ProductSizeName"];
+            tempModel.ProductPriceTotalPrice = [tempdict valueForKey:@"DetailPrice"];
+            tempModel.Number = [tempdict valueForKey:@"Number"];
+        }else{
+            [tempModel setValuesForKeysWithDictionary:tempdict];
+        }
         [tempArr addObject:tempModel];
     }
     
@@ -703,7 +712,7 @@
 //                [cell addSubview:oldPriceLab];
                 
                 UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake(nowPriceLab.frame.origin.x,
-                                                                            (nowPriceLab.frame.origin.y+nowPriceLab.frame.size.height),
+                                                                            (nowPriceLab.frame.origin.y+nowPriceLab.frame.size.height + 5),
                                                                             nowPriceLab.frame.size.width, 20)];
                 numLab.textColor = Separator_Color;
                 numLab.text = ZY_NSStringFromFormat(@"x%@",tempModel.Number);
@@ -712,14 +721,17 @@
                 [cell addSubview:numLab];
                 
                 UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((imgView.frame.origin.x + imgView.frame.size.width)+5,
-                                                                              10, (SCREEN_WIDTH), 30)];
+                                                                              10, SCREEN_WIDTH - imgView.frame.origin.x - imgView.frame.size.width - nowPriceLab.frame.size.width, 30)];
                 titleLab.text = tempModel.ProductName;
                 titleLab.textColor = [UIColor whiteColor];
-                
                 titleLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titleLab];
                 
-                
+                UILabel *specLbl = [[UILabel alloc] initWithFrame:CGRectMake(titleLab.frame.origin.x, titleLab.frame.origin.y + titleLab.frame.size.height + 5, SCREEN_WIDTH - imgView.frame.origin.x - imgView.frame.size.width - 30, 21)];
+                specLbl.text = [NSString stringWithFormat:@"规格:%@/%@",tempModel.ProductColorName,tempModel.ProductSizeName];
+                specLbl.textColor = Separator_Color;
+                specLbl.font = [UIFont systemFontOfSize:14];
+                [cell addSubview:specLbl];
             }
             else if(indexPath.row == self.goodsArr.count+1)
             {
@@ -731,11 +743,11 @@
                 
                 if(self.postage == -1)
                 {
-                    tipLab.text = ZY_NSStringFromFormat(@"邮费（%@）",@"到付");
+                    tipLab.text = ZY_NSStringFromFormat(@"邮费:(%@)",@"到付");
                 }
                 else
                 {
-                    tipLab.text = ZY_NSStringFromFormat(@"邮费（%.02f）",self.postage);
+                    tipLab.text = ZY_NSStringFromFormat(@"邮费:(%.02f)",self.postage);
                 }
                 
                 tipLab.font = [UIFont systemFontOfSize:15];
@@ -746,17 +758,17 @@
             else if(indexPath.row == self.goodsArr.count+2)
             {
                 cell.textLabel.textColor = [UIColor whiteColor];
-                cell.textLabel.text = ZY_NSStringFromFormat(@"共%ld件商品",self.goodsArr.count);
+                cell.textLabel.text = ZY_NSStringFromFormat(@"共%d件商品",(int)self.goodsArr.count);
                 cell.textLabel.font = [UIFont systemFontOfSize:15];
                 
                 UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 160-20), 0, 160, 50)];
                 if(self.paytype == PayByJiFen)
                 {
-                    tipLab.text = ZY_NSStringFromFormat(@"合计 %.02f积分",totalMoney);
+                    tipLab.text = ZY_NSStringFromFormat(@"合计:%.02f积分",totalMoney);
                 }
                 else
                 {
-                    tipLab.text = ZY_NSStringFromFormat(@"合计¥ %.02f",totalMoney);
+                    tipLab.text = ZY_NSStringFromFormat(@"合计:¥%.02f",totalMoney);
                 }
                 tipLab.font = [UIFont systemFontOfSize:15];
                 tipLab.textColor = [UIColor orangeColor];

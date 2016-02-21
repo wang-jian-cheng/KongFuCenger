@@ -80,6 +80,7 @@
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showSuccessWithStatus:@"取消关注成功~"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMyFriend" object:nil];
         [self initData];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"取消关注失败~"];
@@ -97,6 +98,7 @@
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         [SVProgressHUD showSuccessWithStatus:@"关注成功~"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMyFriend" object:nil];
         [self initData];
     }else{
         [SVProgressHUD showSuccessWithStatus:@"关注失败~"];

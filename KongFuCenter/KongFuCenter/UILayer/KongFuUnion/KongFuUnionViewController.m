@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _cellHeight = SCREEN_HEIGHT / 12;
-    [self setBarTitle:@"功夫圈"];
+    [self setBarTitle:@"发现"];
     [self addLeftButton:@"wdwy"];
     [self addRightButton:@"chat_icon"];
     userDefault = [NSUserDefaults standardUserDefaults];
@@ -169,28 +169,28 @@
     cell.backgroundColor = ItemsBaseColor;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            [self setCell:cell andImg:@"wydt" andName:@"武者动态"];
+            [self setCell:cell andImg:@"wydt" andName:@"动态"];
         }else if(indexPath.row == 1){
-            [self setCell:cell andImg:@"zddt" andName:@"战队动态"];
+            [self setCell:cell andImg:@"zddt" andName:@"群聊"];
         }else{
-            [self setCell:cell andImg:@"lmdt" andName:@"联盟动态"];
+            [self setCell:cell andImg:@"lmdt" andName:@"话题"];
         }
     }else if(indexPath.section == 1){
         if (indexPath.row == 0) {
-            [self setCell:cell andImg:@"jjwz" andName:@"结交武者"];
+            [self setCell:cell andImg:@"jjwz" andName:@"交友"];
         }else{
-            [self setCell:cell andImg:@"jrzd" andName:@"加入战队"];
+            [self setCell:cell andImg:@"jrzd" andName:@"同城"];
         }
     }else if(indexPath.section == 2){
         if (indexPath.row == 0) {
-            [self setCell:cell andImg:@"wzss" andName:@"武者大赛"];
+            [self setCell:cell andImg:@"wzss" andName:@"赛事"];
         }else if(indexPath.row == 1){
-            [self setCell:cell andImg:@"jhgs" andName:@"行业资讯"];
+            [self setCell:cell andImg:@"jhgs" andName:@"资讯"];
         }else{
-            [self setCell:cell andImg:@"zphz" andName:@"招聘合作"];
+            [self setCell:cell andImg:@"zphz" andName:@"创业"];
         }
     }else{
-        [self setCell:cell andImg:@"sys" andName:@"扫一扫"];
+        [self setCell:cell andImg:@"sys" andName:@"扫码"];
     }
     return cell;
     

@@ -42,7 +42,7 @@ typedef enum _orderMode{
 }
 
 @property(nonatomic)OrderMode orderMode;
-@property (nonatomic,strong) NSDictionary * OrderDict;
+//@property (nonatomic,strong) NSDictionary * OrderDict;
 @property (assign, nonatomic) id<OrderDetailDelegate>delegate;
 @property(nonatomic,strong) NSString *orderId;
 

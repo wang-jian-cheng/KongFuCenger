@@ -60,7 +60,7 @@
     AboutUsDict=[[NSDictionary alloc] init];
     _sectionNum = 5;
     _cellHeight = SCREEN_HEIGHT / 12;
-    [self setBarTitle:@"功夫派"];
+    [self setBarTitle:@"功夫"];
     mUserDefault = [NSUserDefaults standardUserDefaults];
     [self initDatas];
     [self initViews];
@@ -75,12 +75,12 @@
     categoryVIndex = 0;
     application = [UIApplication sharedApplication];
     cateGoryH = [NSMutableArray array];
-    [cateGoryH addObjectsFromArray:@[@"放飞梦想",@"在线学习",@"武馆推荐",@"我的收藏"]];
+    [cateGoryH addObjectsFromArray:@[@"梦想",@"学习",@"场馆",@"收藏"]];
     
     cateGoryV = [NSMutableArray array];
-    [cateGoryV addObjectsFromArray:@[@[@"视频直播"],
-                                     @[@"训练计划",@"我的视频"],
-                                     @[@"积分兑换"]]
+    [cateGoryV addObjectsFromArray:@[@[@"直播"],
+                                     @[@"课程",@"记录"],
+                                     @[@"兑换"]]
                                     ];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     
@@ -697,7 +697,7 @@
         if(categoryVIndex > cateGoryV.count - 1)
             return cell;
         
-        UILabel *gategoryNameLab = [[UILabel alloc ] initWithFrame:CGRectMake(10, 0, 100, _cellHeight)];
+        UILabel *gategoryNameLab = [[UILabel alloc ] initWithFrame:CGRectMake(10, 0, 40, _cellHeight)];
         
         gategoryNameLab.center = CGPointMake(SCREEN_WIDTH/2, _cellHeight/2);
         gategoryNameLab.text =cateGoryV[indexPath.section-2][indexPath.row];

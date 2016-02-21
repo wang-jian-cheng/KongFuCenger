@@ -30,7 +30,7 @@
     [super viewDidLoad];
     //初始化参数
     self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"功夫库"];
+    [self setBarTitle:@"购物"];
     [self addRightButton:@"search"];
     
 #if (!KONGFU_VER2)

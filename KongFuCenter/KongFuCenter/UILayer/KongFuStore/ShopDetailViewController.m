@@ -83,7 +83,7 @@
     curpage = 0;
     [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getGoodsDetailCallBack:"];
-    [dataProvider SelectProduct:_goodsId anduserid:get_sp(@"id") andmaximumRows:@"10"];
+    [dataProvider SelectProduct:_goodsId anduserid:get_sp(@"id") andmaximumRows:@"5"];
 }
 
 -(void)getGoodsDetailCallBack:(id)dict{
@@ -281,12 +281,12 @@
         [addBtn setImage:[UIImage imageNamed:@"KongFuStoreAdd"] forState:UIControlStateNormal];
         [scrollView addSubview:addBtn];
         
-        goodsNum = [[UILabel alloc] initWithFrame:CGRectMake(scrollView.frame.size.width - (35 + 20 + 20), tagList1.frame.origin.y + tagList1.frame.size.height + 20, 25, 25)];
+        goodsNum = [[UILabel alloc] initWithFrame:CGRectMake(scrollView.frame.size.width - (35 + 22 + 20), tagList1.frame.origin.y + tagList1.frame.size.height + 20, 35, 25)];
         goodsNum.text = [NSString stringWithFormat:@"%@",@"×1"];
         goodsNum.textColor = [UIColor whiteColor];
         [scrollView addSubview:goodsNum];
         
-        UIButton *delBtn = [[UIButton alloc] initWithFrame:CGRectMake(scrollView.frame.size.width - (35 + 5 + 20 + 5 + 20 + 35), tagList1.frame.origin.y + tagList1.frame.size.height + 15, 35, 35)];
+        UIButton *delBtn = [[UIButton alloc] initWithFrame:CGRectMake(scrollView.frame.size.width - (35 + 5 + 20 + 20 + 35), tagList1.frame.origin.y + tagList1.frame.size.height + 15, 35, 35)];
         [delBtn addTarget:self action:@selector(delBtnEvent) forControlEvents:UIControlEventTouchUpInside];
         [delBtn setImage:[UIImage imageNamed:@"KongFuStoreDel"] forState:UIControlStateNormal];
         [scrollView addSubview:delBtn];
@@ -611,7 +611,7 @@
             [userHeadView makeSelfRound];
             [cell addSubview:userHeadView];
             
-            UILabel *mName = [[UILabel alloc] initWithFrame:CGRectMake(userHeadView.frame.origin.x + userHeadView.frame.size.width + 5, 5 + (40 - 21) / 2, 150, 21)];
+            mName = [[UILabel alloc] initWithFrame:CGRectMake(userHeadView.frame.origin.x + userHeadView.frame.size.width + 5, 5 + (40 - 21) / 2, 150, 21)];
             mName.font = [UIFont systemFontOfSize:15];
             mName.textColor = [UIColor whiteColor];
             mName.text = [commentListArray[indexPath.row - 1] valueForKey:@"UserName"];

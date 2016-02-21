@@ -31,6 +31,7 @@
 @implementation OrderMainViewController
 
 - (void)viewDidLoad {
+    NSLog(@"----------------------------------------%f",[NSDate timeIntervalSinceReferenceDate]);
     [super viewDidLoad];
     headLoading = YES;
     cateArr = @[@"待付款",@"待发货",@"待收货",@"已收货"];
@@ -245,12 +246,12 @@
     return _orderArr;
 }
 #pragma mark - self data source
-
+ 
 -(void)getOrderlist
 {
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getOrderlistCallBack:"];
-    [dataProvider getOrderList:[Toolkit getUserID] andState:ZY_NSStringFromFormat(@"%d",orderType) andProNum:ZY_NSStringFromFormat(@"%u",10000) andStartRowIndex:ZY_NSStringFromFormat(@"%d",pageNo*pageSize) andMaximumRows:ZY_NSStringFromFormat(@"%d",pageSize)];
+    [dataProvider getOrderList:[Toolkit getUserID] andState:ZY_NSStringFromFormat(@"%d",orderType) andProNum:ZY_NSStringFromFormat(@"%u",2) andStartRowIndex:ZY_NSStringFromFormat(@"%d",pageNo*pageSize) andMaximumRows:ZY_NSStringFromFormat(@"%d",pageSize)];
     
     loading = YES;
 }
@@ -259,7 +260,8 @@
 -(void)getOrderlistCallBack:(id)dict
 {
     loading = NO;
-    DLog(@"%@",dict);
+    NSLog(@"----------------------------------------%f",[NSDate timeIntervalSinceReferenceDate]);
+    //DLog(@"%@",dict);
     [_mainTableView.mj_header endRefreshing];
     [_mainTableView.mj_footer endRefreshing];
     if([dict[@"code"] intValue] == 200)
@@ -285,6 +287,7 @@
     {
         [SVProgressHUD showErrorWithStatus:dict[@"data"] maskType:SVProgressHUDMaskTypeBlack];
     }
+    NSLog(@"----------------------------------------%f",[NSDate timeIntervalSinceReferenceDate]);
 }
 
 /**
@@ -543,7 +546,7 @@
             infolab.textColor = [UIColor grayColor];
             infolab.font = [UIFont systemFontOfSize:14];
             infolab.numberOfLines = 0;
-            infolab.text = ZY_NSStringFromFormat(@"规格:%@/%@",tempDict[@"ProductSizeName"],tempDict[@"ProductColorName"]);
+            infolab.text = ZY_NSStringFromFormat(@"规格:%@/%@",tempDict[@"ProductColorName"],tempDict[@"ProductSizeName"]);
             [cell addSubview:infolab];
             
             

@@ -85,7 +85,7 @@
             break;
         case orderNeedSend:
         {
-            NSString *isCancleState = [Toolkit judgeIsNull:[self.OrderDict valueForKey:@"IsCancle"]];
+            NSString *isCancleState = [Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"IsCancle"]];
             if ([isCancleState isEqual:@"1"]) {
                 btnRight.backgroundColor = [UIColor grayColor];
                 [btnRight removeTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -106,8 +106,7 @@
             break;
         case orderFinish:
         {
-            NSLog(@"%@",_OrderDict);
-            NSString *commentState = [Toolkit judgeIsNull:[self.OrderDict valueForKey:@"State"]];
+            NSString *commentState = [Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"State"]];
             if (![commentState isEqual:@"5"]) {
                 [btnRight setTitle:@"评价商品" forState:UIControlStateNormal];
             }else{
@@ -184,18 +183,18 @@
     {
         PayOrderViewController *payOrderViewCtl = [[PayOrderViewController alloc] init];
         payOrderViewCtl.navtitle = @"确认订单";
-        payOrderViewCtl.goodDicts = self.OrderDict[@"ProList"];
-        payOrderViewCtl.payOrderId = self.OrderDict[@"Id"];
-        payOrderViewCtl.postage = [self.OrderDict[@"Postage"] floatValue];
         payOrderViewCtl.paytype = PayByOrderId;
+        payOrderViewCtl.goodDicts = orderDetailArray;
+        payOrderViewCtl.payOrderId = _orderId;
+        payOrderViewCtl.postage = [[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"Postage"]] intValue];
         [self.navigationController pushViewController:payOrderViewCtl animated:YES];
     }
     else if([sender.titleLabel.text isEqualToString:@"评价商品"])
     {
         CommentOrderViewController *commentOrderViewCtl = [[CommentOrderViewController alloc] init];
         commentOrderViewCtl.navtitle = @"评价订单";
-        commentOrderViewCtl.billId = [self.OrderDict valueForKey:@"Id"];
-        commentOrderViewCtl.GoodsArray = self.OrderDict[@"ProList"];
+        commentOrderViewCtl.billId = _orderId;
+        commentOrderViewCtl.GoodsArray = orderDetailArray;
         commentOrderViewCtl.billDetail = @"1";
         [self.navigationController pushViewController:commentOrderViewCtl animated:YES];
     }else if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
@@ -215,7 +214,7 @@
     }
     else if ([sender.titleLabel.text isEqualToString:@"查看物流"])
     {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.kuaidi100.com/index_all.html?type=%@&postid=%@",self.OrderDict[@"LiveryType"],self.OrderDict[@"LiveryNo"]]]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.kuaidi100.com/index_all.html?type=%@&postid=%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"KuaidiType"]],[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"LiveryNo"]]]]];
     }
 }
 
@@ -294,19 +293,19 @@
             
             [dataprovider setDelegateObject:self setBackFunctionName:@"CancleOrderCallBack:"];
             
-            [dataprovider CancleOrderWithOrderID:self.OrderDict[@"Id"] andUserId:[Toolkit getUserID]];
+            [dataprovider CancleOrderWithOrderID:_orderId andUserId:[Toolkit getUserID]];
             
         }else if ((alertView.tag/100000)==2){
             DataProvider * dataprovider=[[DataProvider alloc] init];
             [dataprovider setDelegateObject:self setBackFunctionName:@"CancleOrderCallBack:"];
-            [dataprovider DeleteBill:self.OrderDict[@"Id"] andUserId:get_sp(@"id")];
+            [dataprovider DeleteBill:_orderId andUserId:get_sp(@"id")];
         }else
         {//确认收货
             DataProvider * dataprovider=[[DataProvider alloc] init];
             
             [dataprovider setDelegateObject:self setBackFunctionName:@"SureForOrderCallBack:"];
             
-            [dataprovider sureForOrder:[Toolkit getUserID] andBillId:self.OrderDict[@"Id"]];
+            [dataprovider sureForOrder:[Toolkit getUserID] andBillId:_orderId];
             
         }
     }
@@ -392,7 +391,7 @@
                 
                 UILabel *nowPriceLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 10 - 80), 10, 80, 30)];
                 nowPriceLab.textColor = Separator_Color;
-                nowPriceLab.text = ZY_NSStringFromFormat(@"%@",[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 1] valueForKey:@"DetailTotalPrice"]]);
+                nowPriceLab.text = ZY_NSStringFromFormat(@"%@",[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 1] valueForKey:@"DetailPrice"]]);
                 nowPriceLab.textAlignment = NSTextAlignmentRight;
                 nowPriceLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:nowPriceLab];
@@ -416,12 +415,17 @@
                 [cell addSubview:numLab];
                 
                 UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((imgView.frame.origin.x + imgView.frame.size.width)+5,
-                                                                              10, (SCREEN_WIDTH), 30)];
+                                                                              10, (SCREEN_WIDTH - imgView.frame.origin.x + imgView.frame.size.width - nowPriceLab.frame.size.width - 10), 30)];
                 titleLab.text = [Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 1] valueForKey:@"ProductName"]];
                 titleLab.textColor = [UIColor whiteColor];
-                
                 titleLab.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:titleLab];
+                
+                UILabel *specLbl = [[UILabel alloc] initWithFrame:CGRectMake(titleLab.frame.origin.x, titleLab.frame.origin.y + titleLab.frame.size.height + 5, titleLab.frame.size.width, 21)];
+                specLbl.textColor = Separator_Color;
+                specLbl.font = [UIFont systemFontOfSize:14];
+                specLbl.text = [NSString stringWithFormat:@"%@/%@",[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 1] valueForKey:@"ProductColorName"]],[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 1] valueForKey:@"ProductSizeName"]]];
+                [cell addSubview:specLbl];
             }
             else if(indexPath.row == orderDetailArray.count+1)
             {
@@ -430,15 +434,14 @@
 //                cell.textLabel.font = [UIFont systemFontOfSize:15];
 //                
                 UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 160-20), 0, 160, 50)];
-                tipLab.text = @"不包邮";
-                
-                if([self.OrderDict[@"Postage"] floatValue]== -1)
+                if([[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 2] valueForKey:@"Postage"]] isEqual:@"-1"])
                 {
-                    tipLab.text = ZY_NSStringFromFormat(@"邮费（%@）",@"到付");
-                }
-                else
+                    tipLab.text = ZY_NSStringFromFormat(@"邮费:(%@)",@"到付");
+                }else if([[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 2] valueForKey:@"Postage"]] isEqual:@"-1"]){
+                    tipLab.text = ZY_NSStringFromFormat(@"邮费:(%@)",@"卖家包邮");
+                }else
                 {
-                    tipLab.text = ZY_NSStringFromFormat(@"邮费（%.02f）",[self.OrderDict[@"Postage"]floatValue]);
+                    tipLab.text = ZY_NSStringFromFormat(@"邮费:(%.02f)",[[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 2] valueForKey:@"Postage"]] floatValue]);
                 }
                 
                 tipLab.font = [UIFont systemFontOfSize:15];
@@ -453,7 +456,7 @@
                 cell.textLabel.font = [UIFont systemFontOfSize:15];
                 
                 self.moneyLab.frame = CGRectMake((SCREEN_WIDTH - 160-20), 0, 160, 50);
-                self.moneyLab.text = ZY_NSStringFromFormat(@"总金额：¥ %.02f",[[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"BillPrice"]] floatValue]);
+                self.moneyLab.text = ZY_NSStringFromFormat(@"总金额:¥ %.02f",[[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"BillPrice"]] floatValue]);
                 self.moneyLab.font = [UIFont systemFontOfSize:15];
                 self.moneyLab.textColor = [UIColor whiteColor];
                 self.moneyLab.textAlignment = NSTextAlignmentRight;
