@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _cellHeight = SCREEN_HEIGHT / 12;
-    [self setBarTitle:@"功夫圈"];
+    [self setBarTitle:@"发现"];
     [self addLeftButton:@"wdwy"];
     [self addRightButton:@"chat_icon"];
     userDefault = [NSUserDefaults standardUserDefaults];

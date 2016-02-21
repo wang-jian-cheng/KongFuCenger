@@ -51,7 +51,7 @@
     
      self.view.backgroundColor = BACKGROUND_COLOR;
     
-    [self setBarTitle:@"功夫汇"];
+    [self setBarTitle:@"视界"];
     
     [self addRightButton:@"photo"];
     

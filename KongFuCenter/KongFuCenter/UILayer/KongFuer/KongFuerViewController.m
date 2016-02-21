@@ -60,7 +60,7 @@
     AboutUsDict=[[NSDictionary alloc] init];
     _sectionNum = 5;
     _cellHeight = SCREEN_HEIGHT / 12;
-    [self setBarTitle:@"功夫派"];
+    [self setBarTitle:@"功夫"];
     mUserDefault = [NSUserDefaults standardUserDefaults];
     [self initDatas];
     [self initViews];
@@ -697,7 +697,7 @@
         if(categoryVIndex > cateGoryV.count - 1)
             return cell;
         
-        UILabel *gategoryNameLab = [[UILabel alloc ] initWithFrame:CGRectMake(10, 0, 100, _cellHeight)];
+        UILabel *gategoryNameLab = [[UILabel alloc ] initWithFrame:CGRectMake(10, 0, 40, _cellHeight)];
         
         gategoryNameLab.center = CGPointMake(SCREEN_WIDTH/2, _cellHeight/2);
         gategoryNameLab.text =cateGoryV[indexPath.section-2][indexPath.row];
