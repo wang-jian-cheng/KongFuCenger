@@ -79,7 +79,7 @@
             payOrderVC.navtitle = @"确认订单";
             payOrderVC.paytype = PayByJiFen;
             CartModel *tempModel = [[CartModel alloc] init];
-            tempModel.Id = _goodsId;
+            tempModel.ProductId = _goodsId;
             tempModel.ProductName = [Toolkit judgeIsNull:[exchangeDetailArray valueForKey:@"Name"]];
             tempModel.MiddleImagePath = [Toolkit judgeIsNull:[exchangeDetailArray valueForKey:@"MiddleImagePath"]];
             tempModel.ProductPriceTotalPrice = [Toolkit judgeIsNull:[exchangeDetailArray valueForKey:@"CreditTotal"]];

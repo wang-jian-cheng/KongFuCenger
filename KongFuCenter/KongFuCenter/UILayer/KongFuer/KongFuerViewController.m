@@ -754,6 +754,7 @@
                 case 1://成长记录
                 {
                     GrowHistoryViewController *growHistoryViewCtl= [[GrowHistoryViewController alloc] init];
+                    growHistoryViewCtl.userId = get_sp(@"id");
                     growHistoryViewCtl.navtitle = cateGoryV[indexPath.section-2][indexPath.row];
                     [self.navigationController pushViewController:growHistoryViewCtl animated:YES];
                 }

@@ -40,7 +40,7 @@
     delArr = [NSMutableArray array];
     [self initViews];
     
-    [self getDatas];
+    //[self getDatas];
     // Do any additional setup after loading the view.
 }
 
@@ -178,7 +178,7 @@
     [SVProgressHUD showWithStatus:@"刷新" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getGrowHistoryCallBack:"];
-    [dataprovider getGrowHistory:[Toolkit getUserID]
+    [dataprovider getGrowHistory:_userId
                 andstartRowIndex:[NSString stringWithFormat:@"%d",pageNo*pageSize]
                   andmaximumRows:[NSString stringWithFormat:@"%d",pageSize]];
 }

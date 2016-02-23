@@ -82,6 +82,10 @@
     self.bgimage.frame = CGRectMake(70, 5, SCREEN_WIDTH - 120, 150);
     [self.bubbleBackgroundView addSubview:self.bgimage];
     
+    UIImageView *playIv = [[UIImageView alloc] initWithFrame:CGRectMake(70 + (SCREEN_WIDTH - 120 - 15) / 2, 5 + (150 - 15) / 2, 15, 15)];
+    playIv.image = [UIImage imageNamed:@"play"];
+    [self.bubbleBackgroundView addSubview:playIv];
+    
     mImgBtn = [[UIButton alloc] initWithFrame:self.bgimage.frame];
     [self.bubbleBackgroundView addSubview:mImgBtn];
     

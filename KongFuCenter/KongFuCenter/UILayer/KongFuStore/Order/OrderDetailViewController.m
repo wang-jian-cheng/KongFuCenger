@@ -7,6 +7,7 @@
 //
 
 #import "OrderDetailViewController.h"
+#import "ShopDetailViewController.h"
 
 @interface OrderDetailViewController (){
     NSArray *orderDetailArray;
@@ -437,7 +438,7 @@
                 if([[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 2] valueForKey:@"Postage"]] isEqual:@"-1"])
                 {
                     tipLab.text = ZY_NSStringFromFormat(@"邮费:(%@)",@"到付");
-                }else if([[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 2] valueForKey:@"Postage"]] isEqual:@"-1"]){
+                }else if([[Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 2] valueForKey:@"Postage"]] isEqual:@"0"]){
                     tipLab.text = ZY_NSStringFromFormat(@"邮费:(%@)",@"卖家包邮");
                 }else
                 {
@@ -542,6 +543,12 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
+    NSLog(@"%d",(int)indexPath.row);
+    if (indexPath.section == 1 && indexPath.row >= 1 && indexPath.row <= orderDetailArray.count) {
+        ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
+        shopDetailVC.goodsId = [Toolkit judgeIsNull:[orderDetailArray[indexPath.row - 1] valueForKey:@"ProductId"]];
+        [self.navigationController pushViewController:shopDetailVC animated:YES];
+    }
 }
 
 

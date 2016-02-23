@@ -8,6 +8,7 @@
 
 #import "PayOrderViewController.h"
 #import "OrderMainViewController.h"
+#import "ShopDetailViewController.h"
 
 #define WxPay   @"wx"
 #define Alipay  @"alipay"
@@ -239,6 +240,7 @@
         
         NSDictionary *tempdict =_goodDicts[i];
         if(_paytype == PayByOrderId){
+            tempModel.ProductId = [tempdict valueForKey:@"ProductId"];
             tempModel.MiddleImagePath = [tempdict valueForKey:@"MiddleImagePath"];
             tempModel.ProductName = [tempdict valueForKey:@"ProductName"];
             tempModel.ProductColorName = [tempdict valueForKey:@"ProductColorName"];
@@ -728,7 +730,11 @@
                 [cell addSubview:titleLab];
                 
                 UILabel *specLbl = [[UILabel alloc] initWithFrame:CGRectMake(titleLab.frame.origin.x, titleLab.frame.origin.y + titleLab.frame.size.height + 5, SCREEN_WIDTH - imgView.frame.origin.x - imgView.frame.size.width - 30, 21)];
-                specLbl.text = [NSString stringWithFormat:@"规格:%@/%@",tempModel.ProductColorName,tempModel.ProductSizeName];
+                if ([[Toolkit judgeIsNull:tempModel.ProductColorName] isEqual:@""]) {
+                    specLbl.text = @"";
+                }else{
+                    specLbl.text = [NSString stringWithFormat:@"规格:%@/%@",[Toolkit judgeIsNull:tempModel.ProductColorName],[Toolkit judgeIsNull:tempModel.ProductSizeName]];
+                }
                 specLbl.textColor = Separator_Color;
                 specLbl.font = [UIFont systemFontOfSize:14];
                 [cell addSubview:specLbl];
@@ -744,8 +750,9 @@
                 if(self.postage == -1)
                 {
                     tipLab.text = ZY_NSStringFromFormat(@"邮费:(%@)",@"到付");
-                }
-                else
+                }else if(self.postage == 0){
+                    tipLab.text = ZY_NSStringFromFormat(@"邮费:(%@)",@"卖家包邮");
+                }else
                 {
                     tipLab.text = ZY_NSStringFromFormat(@"邮费:(%.02f)",self.postage);
                 }
@@ -903,6 +910,11 @@
         receiveAddressViewCtl.receiveAddressType = Mode_SelectAddress;
         receiveAddressViewCtl.delegate = self;
         [self.navigationController pushViewController:receiveAddressViewCtl animated:YES];
+    }else if (indexPath.section == 1 && indexPath.row >= 1 && indexPath.row <= self.goodsArr.count) {
+        ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
+        CartModel *cartModel = _goodsArr[indexPath.row - 1];
+        shopDetailVC.goodsId = cartModel.ProductId;
+        [self.navigationController pushViewController:shopDetailVC animated:YES];
     }
 }
 
