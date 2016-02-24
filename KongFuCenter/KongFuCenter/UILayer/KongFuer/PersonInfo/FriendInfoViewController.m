@@ -12,6 +12,7 @@
 #import "NewConcernFriendViewController.h"
 #import "KongFuPowerViewController.h"
 #import "GrowHistoryViewController.h"
+#import "YMShowImageView.h"
 
 @interface FriendInfoViewController ()
 {
@@ -130,6 +131,28 @@
     [self.navigationController pushViewController:chatSetViewCtl animated:YES];
 }
 
+-(void)headViewTap{
+    UIView *maskview = [[UIView alloc] initWithFrame:self.view.bounds];
+    maskview.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:maskview];
+    NSMutableArray *imageViews = [[NSMutableArray alloc] init];
+    NSString *PhotoPath = [userInfoArray valueForKey:@"PhotoPath"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,PhotoPath];
+    [imageViews addObject:url];
+    YMShowImageView *ymImageV = [[YMShowImageView alloc] initWithFrame:self.view.bounds byClick:9999 appendArray:imageViews];
+    [ymImageV show:maskview didFinish:^(){
+        
+        [UIView animateWithDuration:0.5f animations:^{
+            
+            ymImageV.alpha = 0.0f;
+            maskview.alpha = 0.0f;
+            
+        } completion:^(BOOL finished) {
+            [ymImageV removeFromSuperview];
+            [maskview removeFromSuperview];
+        }];
+    }];
+}
 
 
 #pragma mark -  tableview  Delegate
@@ -183,6 +206,9 @@
             headView.layer.borderWidth = 1;
             headView.layer.borderColor = [[UIColor blackColor] CGColor];
             [cell addSubview:headView];
+            UIButton *headViewBtn = [[UIButton alloc] initWithFrame:headView.frame];
+            [headViewBtn addTarget:self action:@selector(headViewTap) forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:headViewBtn];
             
             
             

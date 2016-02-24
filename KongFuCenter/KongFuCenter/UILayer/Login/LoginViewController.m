@@ -694,7 +694,7 @@
     }
     else
     {
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"用户或密码错误~" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
         [alert show];
     }
     printf("[%s] end\r\n",__FUNCTION__);

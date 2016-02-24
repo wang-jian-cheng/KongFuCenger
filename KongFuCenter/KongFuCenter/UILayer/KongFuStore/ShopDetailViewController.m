@@ -13,6 +13,9 @@
 #import "PayOrderViewController.h"
 #import "ShoppingCart/ShoppingCartViewController.h"
 #import "VOTagList.h"
+#import "YMShowImageView.h"
+#import "WZLBadgeImport.h"
+#import "UIView+Frame.h"
 
 @interface ShopDetailViewController (){
     UITableView *mTableView;
@@ -63,6 +66,9 @@
     isFavorite = @"0";
     selectPrice = @"";
     
+    //初始化购物车数量
+    [self initShoppingCarNum];
+    
     //初始化View
     [self initViews];
 }
@@ -79,6 +85,20 @@
 }
 
 #pragma mark 自定义方法
+-(void)initShoppingCarNum{
+    dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"getShoppingCarNumCallBack:"];
+    //dataProvider
+}
+
+-(void)getShoppingCarNumCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        [_btnRight showBadgeWithStyle:WBadgeStyleNumber value:0 animationType:WBadgeAnimTypeNone];
+        _btnRight.badge.x = _btnRight.badge.x - 10;
+        _btnRight.badge.y = 6;
+    }
+}
+
 -(void)initData{
     curpage = 0;
     [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
@@ -208,6 +228,9 @@
         if (sliderArray && sliderArray.count > 0) {
             NSString *imgpath = [sliderArray[0] valueForKey:@"Path"];
             url = [NSString stringWithFormat:@"%@%@",Url,imgpath];
+            UITapGestureRecognizer *headIvTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headViewTap)];
+            mHeadIv.userInteractionEnabled = YES;
+            [mHeadIv addGestureRecognizer:headIvTap];
         }
         [mHeadIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
         [mView addSubview:mHeadIv];
@@ -450,6 +473,28 @@
         payOrderVC.postage = [[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"LiveryPrice"]] floatValue];
         [self.navigationController pushViewController:payOrderVC animated:YES];
     }
+}
+
+-(void)headViewTap{
+    UIView *maskview = [[UIView alloc] initWithFrame:self.view.bounds];
+    maskview.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:maskview];
+    NSMutableArray *imageViews = [[NSMutableArray alloc] init];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,selectImage];
+    [imageViews addObject:url];
+    YMShowImageView *ymImageV = [[YMShowImageView alloc] initWithFrame:self.view.bounds byClick:9999 appendArray:imageViews];
+    [ymImageV show:maskview didFinish:^(){
+        
+        [UIView animateWithDuration:0.5f animations:^{
+            
+            ymImageV.alpha = 0.0f;
+            maskview.alpha = 0.0f;
+            
+        } completion:^(BOOL finished) {
+            [ymImageV removeFromSuperview];
+            [maskview removeFromSuperview];
+        }];
+    }];
 }
 
 #pragma mark tableview delegate
