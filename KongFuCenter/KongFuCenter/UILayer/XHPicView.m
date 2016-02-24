@@ -161,7 +161,7 @@
     //添加手势
     
     //一个手指
-    UITapGestureRecognizer *singleClickDog = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singliDogTap:)];
+    UITapGestureRecognizer *singleClickDog = [[UITapGestureRecognizer alloc]initWithTarget:self action:nil];
     UITapGestureRecognizer *doubleClickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
     //两个手指
     UITapGestureRecognizer *twoFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handelTwoFingerTap:)];
@@ -189,16 +189,16 @@
     [scrollView setZoomScale:scale animated:NO];
 }
 #pragma mark - 事件处理
--(void)singliDogTap:(UITapGestureRecognizer *)gestureRecognizer
-{
-    if (_myBlock) {
-        _myBlock(@"单击");
-    }
-    if (gestureRecognizer.numberOfTapsRequired == 1)
-    {
-        
-    }
-}
+//-(void)singliDogTap:(UITapGestureRecognizer *)gestureRecognizer
+//{
+//    if (_myBlock) {
+//        _myBlock(@"单击");
+//    }
+//    if (gestureRecognizer.numberOfTapsRequired == 1)
+//    {
+//        
+//    }
+//}
 -(void)handleDoubleTap:(UITapGestureRecognizer *)gestureRecognizer{
     if (_myBlock) {
         _myBlock(@"双击");

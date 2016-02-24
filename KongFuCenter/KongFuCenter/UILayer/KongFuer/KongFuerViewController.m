@@ -58,7 +58,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToAttention) name:@"JumpAttention" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToTeamgonggao) name:@"JumpToTeamgonggao" object:nil];
     AboutUsDict=[[NSDictionary alloc] init];
-    _sectionNum = 5;
+    _sectionNum = 3;
     _cellHeight = SCREEN_HEIGHT / 12;
     [self setBarTitle:@"功夫"];
     mUserDefault = [NSUserDefaults standardUserDefaults];
@@ -78,9 +78,9 @@
     [cateGoryH addObjectsFromArray:@[@"梦想",@"学习",@"场馆",@"收藏"]];
     
     cateGoryV = [NSMutableArray array];
-    [cateGoryV addObjectsFromArray:@[@[@"直播"],
-                                     @[@"课程",@"记录"],
-                                     @[@"兑换"]]
+    [cateGoryV addObjectsFromArray:@[@"直播",
+                                     @"课程",@"记录",
+                                     @"兑换"]
                                     ];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     
@@ -534,13 +534,7 @@
             return 1;
             break;
         case 2:
-            return 1;
-            break;
-        case 3:
-            return 2;
-            break;
-        case 4:
-            return 1;
+            return 4;
             break;
         default:
             return 1;
@@ -700,7 +694,7 @@
         UILabel *gategoryNameLab = [[UILabel alloc ] initWithFrame:CGRectMake(10, 0, 40, _cellHeight)];
         
         gategoryNameLab.center = CGPointMake(SCREEN_WIDTH/2, _cellHeight/2);
-        gategoryNameLab.text =cateGoryV[indexPath.section-2][indexPath.row];
+        gategoryNameLab.text =cateGoryV[indexPath.row];
         gategoryNameLab.textColor  = [UIColor whiteColor];
         
         gategoryNameLab.font = [UIFont systemFontOfSize:16];
@@ -733,50 +727,24 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
-    
-    switch (indexPath.section - 2) {
-        case 0:
-        {
+    if(indexPath.section == 2){
+        if (indexPath.row == 0) {
             VideoZhiBoList *videoZhiBoList = [[VideoZhiBoList alloc] init];
             [self.navigationController pushViewController:videoZhiBoList animated:YES];
-        }
-            break;
-        case 1:
-        {
-            switch (indexPath.row) {
-                case 0://训练计划
-                {
-                    TrainsPlanViewController *trainsPlanViewCtl = [[TrainsPlanViewController alloc] init];
-                    trainsPlanViewCtl.navtitle = cateGoryV[indexPath.section-2][indexPath.row];
-                    [self.navigationController pushViewController:trainsPlanViewCtl animated:YES];
-                }
-                    break;
-                case 1://成长记录
-                {
-                    GrowHistoryViewController *growHistoryViewCtl= [[GrowHistoryViewController alloc] init];
-                    growHistoryViewCtl.navtitle = cateGoryV[indexPath.section-2][indexPath.row];
-                    [self.navigationController pushViewController:growHistoryViewCtl animated:YES];
-                }
-                    break;
-                default:
-                    break;
-            }
-        }
-            break;
-        case 2://积分
-        {
-//            JiFenViewController *jiFenViewCtl = [[JiFenViewController alloc] init];
-//            jiFenViewCtl.navtitle = cateGoryV[indexPath.section-2][indexPath.row];
-//            [self.navigationController pushViewController:jiFenViewCtl animated:YES];
+        }else if(indexPath.row == 1){
+            TrainsPlanViewController *trainsPlanViewCtl = [[TrainsPlanViewController alloc] init];
+            trainsPlanViewCtl.navtitle = cateGoryV[indexPath.row];
+            [self.navigationController pushViewController:trainsPlanViewCtl animated:YES];
+        }else if (indexPath.row == 2){
+            GrowHistoryViewController *growHistoryViewCtl= [[GrowHistoryViewController alloc] init];
+            growHistoryViewCtl.userId = get_sp(@"id");
+            growHistoryViewCtl.navtitle = cateGoryV[indexPath.row];
+            [self.navigationController pushViewController:growHistoryViewCtl animated:YES];
+        }else if (indexPath.row == 3){
             IntegralExchangeViewController *integralExchangeVC = [[IntegralExchangeViewController alloc] init];
             [self.navigationController pushViewController:integralExchangeVC animated:YES];
-            
         }
-            break;
-        default:
-            break;
     }
-    
 }
 
 

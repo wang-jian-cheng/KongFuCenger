@@ -19,4 +19,7 @@
     NSMutableArray *delArr;
     NSInteger deleCount;
 }
+
+@property(nonatomic,strong) NSString *userId;
+
 @end

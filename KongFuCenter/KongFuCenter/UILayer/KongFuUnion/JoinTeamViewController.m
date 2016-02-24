@@ -52,7 +52,7 @@
     
     //初始化参数
     mCellHeight = 70;
-    [self setBarTitle:@"加入战队"];
+    [self setBarTitle:@"同城"];
     [self addLeftButton:@"left"];
     
     teamArray = [[NSArray alloc] init];

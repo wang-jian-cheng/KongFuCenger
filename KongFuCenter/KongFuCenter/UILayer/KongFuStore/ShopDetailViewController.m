@@ -302,7 +302,7 @@
     CGFloat mWidth = 0.0;
     for (int i = 0; i < mArray.count; i++) {
         CGSize size = [mArray[i] sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13.0f]}];
-        mWidth += (size.width > horiWith?horiWith:size.width + 10);
+        mWidth += (size.width > horiWith?horiWith:size.width + 16 + 10);
     }
     int lineNum = ceil(mWidth / horiWith);
     return 5 + lineNum * (10 + 27);
@@ -436,12 +436,14 @@
         payOrderVC.navtitle = @"确认订单";
         payOrderVC.paytype = PayByImmediately;
         CartModel *tempModel = [[CartModel alloc] init];
-        tempModel.Id = _goodsId;
+        tempModel.ProductId = _goodsId;
         tempModel.ProductName = mName.text;
         tempModel.MiddleImagePath = selectImage;
         tempModel.Number = [goodsNum.text substringFromIndex:1];
         tempModel.ProductPriceId = selectPriceId;
         tempModel.ProductPriceTotalPrice = [mPriceLbl.text substringFromIndex:1];
+        tempModel.ProductColorName = selectColor;
+        tempModel.ProductSizeName = selectSize;
         NSMutableArray *goodsArray = [[NSMutableArray alloc] init];
         [goodsArray addObject:tempModel];
         payOrderVC.goodsArr = goodsArray;
@@ -539,7 +541,14 @@
             UILabel *byLbl = [[UILabel alloc] initWithFrame:CGRectMake(14, priceLbl.frame.origin.y + priceLbl.frame.size.height + 5, SCREEN_WIDTH / 3, 21)];
             byLbl.font = [UIFont systemFontOfSize:15];
             byLbl.textColor = [UIColor colorWithRed:0.45 green:0.45 blue:0.45 alpha:1];
-            byLbl.text = [[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"LiveryPrice"]] isEqual:@"0"]?@"包邮":[NSString stringWithFormat:@"邮费:%@",[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"LiveryPrice"]]];
+            NSString *LiveryPrice= [Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"LiveryPrice"]];
+            if([LiveryPrice isEqual:@"-1"]){
+                byLbl.text = [NSString stringWithFormat:@"邮费:%@",@"到付"];
+            }else if([LiveryPrice isEqual:@"0"]){
+                byLbl.text = [NSString stringWithFormat:@"邮费:%@",@"卖家包邮"];
+            }else{
+                byLbl.text = [NSString stringWithFormat:@"邮费:%@",[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"LiveryPrice"]]];
+            }
             [cell addSubview:byLbl];
             
             UILabel *browseNum = [[UILabel alloc] initWithFrame:CGRectMake(byLbl.frame.origin.x + byLbl.frame.size.width, priceLbl.frame.origin.y + priceLbl.frame.size.height + 5, SCREEN_WIDTH / 3, 21)];

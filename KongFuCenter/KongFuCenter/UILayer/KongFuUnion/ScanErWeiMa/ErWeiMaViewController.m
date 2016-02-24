@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _lblTitle.text=@"扫描二维码";
+    _lblTitle.text=@"扫码";
     [self addLeftButton:@"left"];
     _lblStatus.hidden=YES;
 //    [self addLeftButton:@"Icon_Back@2x.png"];

@@ -63,7 +63,7 @@
     //初始化参数
     //self.view.backgroundColor = BACKGROUND_COLOR;
     mCellHeight = 70;
-    [self setBarTitle:@"结交武者"];
+    [self setBarTitle:@"交友"];
     [self addLeftButton:@"left"];
     
     mushaArray = [[NSArray alloc] init];

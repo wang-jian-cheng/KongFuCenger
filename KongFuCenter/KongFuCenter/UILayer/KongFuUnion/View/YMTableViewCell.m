@@ -158,6 +158,10 @@
 #pragma mark -  //头像 昵称 简介
     //_userHeaderImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tempDate.messageBody.posterImgstr]]];//[UIImage imageNamed:tempDate.messageBody.posterImgstr];
     [_userHeaderImage sd_setImageWithURL:[NSURL URLWithString:tempDate.messageBody.posterImgstr] placeholderImage:[UIImage imageNamed:@"me"]];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPhotoEvent:)];
+    _userHeaderImage.userInteractionEnabled = YES;
+    [_userHeaderImage addGestureRecognizer:tapGesture];
+    tapGesture.view.tag = [ymData.messageBody.userID intValue];
     _userNameLbl.text = tempDate.messageBody.posterName;
     WFMessageBody *m = ymData.messageBody;
     if ([[NSString stringWithFormat:@"%@",m.userID] isEqual:[NSString stringWithFormat:@"%@",get_sp(@"id")]]) {
@@ -462,10 +466,15 @@
 
 #pragma mark - 点击action
 - (void)tapImageView:(YMTapGestureRecongnizer *)tapGes{
-    
     [_delegate showImageViewWithImageViews:tapGes.appendArray byClickWhich:tapGes.view.tag];
-    
-    
+}
+
+-(void)clickPhotoEvent:(id)sender{
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer*)sender;
+    UIView *views = (UIView*) tap.view;
+    if ([self.delegate respondsToSelector:@selector(clickPhotoEvent:)]) {
+        [self.delegate clickPhotoEvent:[NSString stringWithFormat:@"%d",(int)views.tag]];
+    }
 }
 
 @end

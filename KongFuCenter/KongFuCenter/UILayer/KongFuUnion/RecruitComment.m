@@ -41,7 +41,7 @@
     
     //初始化参数
     mCellHeight = SCREEN_HEIGHT / 6;
-    [self setBarTitle:@"招聘合作"];
+    [self setBarTitle:@"创业"];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addLeftButton:@"left"];
     

@@ -11,6 +11,7 @@
 #import "MyFriendViewController.h"
 #import "NewConcernFriendViewController.h"
 #import "KongFuPowerViewController.h"
+#import "GrowHistoryViewController.h"
 
 @interface FriendInfoViewController ()
 {
@@ -143,7 +144,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 6;
+    return 7;
     
 }
 
@@ -219,7 +220,22 @@
             
         }
             break;
-        case 1:
+        case 1:{
+            UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 100, _cellHeight)];
+            NSLog(@"%@",[userInfoArray valueForKey:@"Sexuality"]);
+            if ([[Toolkit judgeIsNull:[userInfoArray valueForKey:@"Sexuality"]] isEqual:@"1"]) {
+                titleLab.text = @"他的记录";
+            }else{
+                titleLab.text = @"她的记录";
+            }
+            titleLab.textColor = [UIColor whiteColor];
+            titleLab.font = [UIFont systemFontOfSize:16];
+            [cell addSubview:titleLab];
+            
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+            break;
+        case 2:
         {
 
             UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 100, _cellHeight)];
@@ -231,7 +247,7 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
             break;
-        case 2:
+        case 3:
         {
 
             UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 100, _cellHeight)];
@@ -243,7 +259,7 @@
             
         }
             break;
-        case 3:
+        case 4:
         {
 
             UILabel *weightLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, (SCREEN_WIDTH-GapToLeft)/2, _cellHeight)];
@@ -278,7 +294,7 @@
 
         }
             break;
-        case 4:
+        case 5:
         {
            
             UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 100, _cellHeight)];
@@ -295,7 +311,7 @@
             [cell addSubview:timeLab];
         }
             break;
-        case 5:
+        case 6:
         {
 
             UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, SCREEN_WIDTH-cell.textLabel.frame.origin.x, _cellHeight)];
@@ -337,9 +353,10 @@
         case 2:
         case 3:
         case 4:
+        case 5:
             return _cellHeight;
             break;
-        case 5:
+        case 6:
             return 2*_cellHeight;
             break;
         default:
@@ -355,7 +372,14 @@
 
     
     switch (indexPath.row) {
-        case 1:
+        case 1:{
+            GrowHistoryViewController *growHistoryVC = [[GrowHistoryViewController alloc] init];
+            growHistoryVC.navtitle = @"记录";
+            growHistoryVC.userId = userInfoArray[@"Id"];
+            [self.navigationController pushViewController:growHistoryVC animated:YES];
+        }
+            break;
+        case 2:
         {
             MyNewsViewController *friendNews = [[MyNewsViewController alloc] init];
             friendNews.UserID = userInfoArray[@"Id"];
@@ -369,7 +393,7 @@
             [self.navigationController pushViewController:friendNews animated:YES];
         }
         break;
-        case 2:
+        case 3:
         {
             if(!([[NSString stringWithFormat:@"%@",userInfoArray[@"TeamId"]] isEqualToString:@""] || userInfoArray[@"TeamId"] ==nil||[[NSString stringWithFormat:@"%@",userInfoArray[@"TeamId"]] isEqualToString:@"0"]))
             {

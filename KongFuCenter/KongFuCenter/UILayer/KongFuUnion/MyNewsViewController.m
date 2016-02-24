@@ -773,6 +773,19 @@
     }
 }
 
+-(void)clickPhotoEvent:(NSString *)userId{
+    if ([userId isEqual:[NSString stringWithFormat:@"%@",get_sp(@"id")]]) {
+        PersonInfoViewController *personInfoVC = [[PersonInfoViewController alloc] init];
+        personInfoVC.navtitle = @"个人资料";
+        [self.navigationController pushViewController:personInfoVC animated:YES];
+    }else{
+        FriendInfoViewController *friendInfoVC = [[FriendInfoViewController alloc] init];
+        friendInfoVC.navtitle = @"好友资料";
+        friendInfoVC.userID = userId;
+        [self.navigationController pushViewController:friendInfoVC animated:YES];
+    }
+}
+
 ////////////////////////////////////////////////////////////////////
 
 #pragma mark - 按钮动画

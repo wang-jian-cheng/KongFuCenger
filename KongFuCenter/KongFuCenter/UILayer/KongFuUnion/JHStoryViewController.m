@@ -32,7 +32,7 @@
     //初始化参数
     self.view.backgroundColor = BACKGROUND_COLOR;
     mCellHeight = SCREEN_HEIGHT / 6;
-    [self setBarTitle:@"行业资讯"];
+    [self setBarTitle:@"资讯"];
     [self addLeftButton:@"left"];
     
     selectMenuIndex = 0;
