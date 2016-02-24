@@ -42,7 +42,7 @@
     //self.view.backgroundColor = BACKGROUND_COLOR;
     mCellHeight = SCREEN_HEIGHT / 6;
     newArr = [NSMutableArray array];
-    [self setBarTitle:@"联盟动态"];
+    [self setBarTitle:@"话题"];
     [self addLeftButton:@"left"];
 
     

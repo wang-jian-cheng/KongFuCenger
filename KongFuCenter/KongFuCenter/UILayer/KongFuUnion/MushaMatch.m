@@ -44,7 +44,7 @@ typedef enum _MatchMode
     
     //初始化参数
     mCellHeight = SCREEN_HEIGHT / 7;
-    [self setBarTitle:@"武者大赛"];
+    [self setBarTitle:@"赛事"];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addLeftButton:@"left"];
     
