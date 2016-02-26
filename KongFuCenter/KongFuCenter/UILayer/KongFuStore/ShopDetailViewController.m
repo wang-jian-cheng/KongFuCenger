@@ -86,14 +86,16 @@
 
 #pragma mark 自定义方法
 -(void)initShoppingCarNum{
-    dataProvider = [[DataProvider alloc] init];
-    [dataProvider setDelegateObject:self setBackFunctionName:@"getShoppingCarNumCallBack:"];
-    //dataProvider
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider *dataProvider1 = [[DataProvider alloc] init];
+    [dataProvider1 setDelegateObject:self setBackFunctionName:@"getShoppingCarNumCallBack:"];
+    [dataProvider1 getShoppingCartList:[Toolkit getUserID] andstartRowIndex:@"0" andmaximumRows:@"10000"];
 }
 
 -(void)getShoppingCarNumCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
-        [_btnRight showBadgeWithStyle:WBadgeStyleNumber value:0 animationType:WBadgeAnimTypeNone];
+        NSArray *shoppingCarNumArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+        [_btnRight showBadgeWithStyle:WBadgeStyleNumber value:shoppingCarNumArray.count animationType:WBadgeAnimTypeNone];
         _btnRight.badge.x = _btnRight.badge.x - 10;
         _btnRight.badge.y = 6;
     }
@@ -443,6 +445,7 @@
 -(void)joinShoppingCarCallBack:(id)dict{
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
+        [self initShoppingCarNum];
         [SVProgressHUD showSuccessWithStatus:@"加入购物车成功~" maskType:SVProgressHUDMaskTypeBlack];
         [self backViewEvent];
     }else{

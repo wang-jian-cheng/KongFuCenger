@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "DIYButton.h"
 
+@protocol MovieDelegate <NSObject>
+
+- (void)MovieBig:(BOOL) isBig;
+
+@end
+
 // 枚举值，包含水平移动方向和垂直移动方向
 typedef NS_ENUM(NSInteger, PanDirection){
     PanDirectionHorizontalMoved,
@@ -26,5 +32,7 @@ typedef NS_ENUM(NSInteger, PanDirection){
 - (instancetype)initWithFrame:(CGRect)frame URL:(NSURL *)url;
 //关闭播放
 -(void)stopPlayer;
+
+@property(nonatomic) id<MovieDelegate> delegate;
 
 @end

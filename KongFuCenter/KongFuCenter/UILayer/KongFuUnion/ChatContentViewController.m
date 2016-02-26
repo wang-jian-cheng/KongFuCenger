@@ -14,13 +14,14 @@
 #import "SimpleMessage.h"
 #import "SimpleMessageCell.h"
 #import "MoviePlayer.h"
+#import "PlayVideoView.h"
 
 @interface ChatContentViewController ()<RCLocationPickerViewControllerDelegate,WechatShortVideoDelegate,RCConversationCellDelegate,ClickImgDelegate,JvbaoDelegate>{
     UIView *topView;
     NSUserDefaults *userDefault;
     NSString *friendID;
     UIImage *selectImage;
-    UIButton *videoView;
+    UIButton *backView;
     MoviePlayer *player;
     UIButton *leftBtn;
     //UIView *coverView;
@@ -236,30 +237,12 @@
 }
 
 -(void)clickImgEvent:(NSString *)videoUrl{
-//    coverView =  [[UIView alloc]initWithFrame:[self topView].frame];
-//    coverView.backgroundColor = [UIColor blackColor];
-//    coverView.alpha = 0;
-//    coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    //[self.view addSubview:coverView];
-    
-    videoView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    videoView.backgroundColor = [UIColor grayColor];
-    //videoView.alpha = 0.6;
-    player = [[MoviePlayer alloc] initWithFrame:CGRectMake(0,0,SCREEN_WIDTH, SCREEN_HEIGHT) URL:[NSURL URLWithString:videoUrl]];
-    [videoView addSubview:player];
-    [self.view addSubview:videoView];
-    
-    [self show];
-    
-    //添加退出按钮
-    leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 60, 60)];
-    [leftBtn setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(backViewEvent) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:leftBtn];
+    PlayVideoView *playVideoView = [[PlayVideoView alloc] initWithContent:@"" andVideoUrl:videoUrl];
+    [playVideoView show];
 }
 
 -(void)backViewEvent{
-    [videoView removeFromSuperview];
+    [backView removeFromSuperview];
     [leftBtn removeFromSuperview];
     [self dismiss];
 }
@@ -304,16 +287,16 @@
     popAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
                                      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
                                      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    [videoView.layer addAnimation:popAnimation forKey:nil];
+    [backView.layer addAnimation:popAnimation forKey:nil];
 }
 
 - (void)hideAnimation{
     [UIView animateWithDuration:0.4 animations:^{
         //coverView.alpha = 0.0;
-        videoView.alpha = 0.0;
+        backView.alpha = 0.0;
         
     } completion:^(BOOL finished) {
-        [videoView removeFromSuperview];
+        [backView removeFromSuperview];
     }];
     
     

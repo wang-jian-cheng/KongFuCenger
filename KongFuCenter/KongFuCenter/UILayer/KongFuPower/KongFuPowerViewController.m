@@ -388,6 +388,7 @@
 
 -(void)btnClick:(UIButton *)sender
 {
+    [self positionDismissView:moreSettingBackView];
     if(sender.tag == Local_BtnTag)
     {
         

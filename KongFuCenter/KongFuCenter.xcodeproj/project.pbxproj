@@ -464,6 +464,7 @@
 		B7BED2271C5330590058CBF4 /* IntegralExchangeRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7BED2261C5330590058CBF4 /* IntegralExchangeRecordViewController.m */; };
 		B7BED22B1C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7BED2291C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.m */; };
 		B7BED22C1C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BED22A1C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.xib */; };
+		B7C22E0F1C7EEFA100ED2405 /* PlayVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C22E0E1C7EEFA100ED2405 /* PlayVideoView.m */; };
 		B7C428041C1524F3003F504F /* JHStoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */; };
 		B7C428061C1524F3003F504F /* JHStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C428021C1524F3003F504F /* JHStoryViewController.m */; };
 		B7CB2A711C3B4C5C009E62ED /* OneShuoshuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CB2A701C3B4C5C009E62ED /* OneShuoshuoViewController.m */; };
@@ -1301,6 +1302,8 @@
 		B7BED2281C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegralExchangeRecordTableViewCell.h; sourceTree = "<group>"; };
 		B7BED2291C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralExchangeRecordTableViewCell.m; sourceTree = "<group>"; };
 		B7BED22A1C5330E90058CBF4 /* IntegralExchangeRecordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntegralExchangeRecordTableViewCell.xib; sourceTree = "<group>"; };
+		B7C22E0D1C7EEFA100ED2405 /* PlayVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayVideoView.h; sourceTree = "<group>"; };
+		B7C22E0E1C7EEFA100ED2405 /* PlayVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayVideoView.m; sourceTree = "<group>"; };
 		B7C427FE1C1524F3003F504F /* JHStoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryTableViewCell.h; sourceTree = "<group>"; };
 		B7C427FF1C1524F3003F504F /* JHStoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStoryTableViewCell.m; sourceTree = "<group>"; };
 		B7C428011C1524F3003F504F /* JHStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStoryViewController.h; sourceTree = "<group>"; };
@@ -2055,6 +2058,8 @@
 				B57584A61C5C6869005EF831 /* SearchViewController.m */,
 				B55103551C733A7F005D9917 /* ZhuanFaView.h */,
 				B55103561C733A7F005D9917 /* ZhuanFaView.m */,
+				B7C22E0D1C7EEFA100ED2405 /* PlayVideoView.h */,
+				B7C22E0E1C7EEFA100ED2405 /* PlayVideoView.m */,
 			);
 			name = CommonUI;
 			sourceTree = "<group>";
@@ -3940,6 +3945,7 @@
 				B7617E3E1C1C298F00CF96E7 /* WFMessageBody.m in Sources */,
 				B5D345C61C28E97E00D39891 /* JKPhotoBrowser.m in Sources */,
 				B5F4E3A01C1E9212001F81F0 /* UnionNewsDetailViewController.m in Sources */,
+				B7C22E0F1C7EEFA100ED2405 /* PlayVideoView.m in Sources */,
 				B7D846521C22AB7500718E9E /* MJRefreshConst.m in Sources */,
 				B5B737711C3CAAF100DF7437 /* ChineseInclude.m in Sources */,
 				B7A18ED81C56FEC9004FF4FB /* UIView+SDExtension.m in Sources */,

@@ -156,4 +156,34 @@
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [SVProgressHUD showWithStatus:@"正在删除..."];
+        DataProvider *dataProvider = [[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"DelBackCall:"];
+        [dataProvider DeleteFriended:[NewConcernFriendArray[indexPath.row] valueForKey:@"Id"]];
+    }
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+    }
+}
+
+-(void)DelBackCall:(id)dict{
+    [SVProgressHUD dismiss];
+    if ([dict[@"code"] intValue] == 200) {
+        [SVProgressHUD showWithStatus:@"删除成功~"];
+        [self initData];
+    }else{
+        [SVProgressHUD showWithStatus:@"删除失败~"];
+    }
+}
+
 @end

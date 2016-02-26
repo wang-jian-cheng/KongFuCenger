@@ -475,7 +475,9 @@
     button.selected = !button.selected;
     if (button.selected) {
         // 放大
-        
+        if ([self.delegate respondsToSelector:@selector(MovieBig:)]) {
+            [self.delegate MovieBig:YES];
+        }
         self.transform=CGAffineTransformMakeRotation((90.0f * M_PI) / 180.0f); // M_PI_2是90度，M_PI * 1.5是180度
         self.frame=CGRectMake(0, 0,SCREEN_WIDTH, SCREEN_HEIGHT);
         self.moviePlayer.view.frame=CGRectMake(2, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
@@ -495,7 +497,9 @@
         self.progress.frame=CGRectMake(self.begin.frame.origin.x+self.begin.frame.size.width+5, 0, self.end.frame.origin.x-self.begin.frame.size.width-self.begin.frame.origin.x-10, self.progress.bounds.size.height);
     }else{
         //缩小
-        
+        if ([self.delegate respondsToSelector:@selector(MovieBig:)]) {
+            [self.delegate MovieBig:NO];
+        }
         self.transform=CGAffineTransformIdentity;
         self.frame=newFrame;
         self.moviePlayer.view.frame=CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);

@@ -21,6 +21,7 @@
 #import "UserHeadView.h"
 #import "CommentListViewController.h"
 #import "OneShuoshuoViewController.h"
+#import "PlayVideoView.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -443,6 +444,8 @@
             messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
             messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
             
+            messBody.sendTime = [NSString stringWithFormat:@"%@",[itemDict valueForKey:@"PublishTime"]];
+            
             NSMutableArray *videoArray = [[NSMutableArray alloc] init];
             [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[itemDict valueForKey:@"ImagePath"]]];
             [videoArray addObject:[itemDict valueForKey:@"VideoPath"]];
@@ -632,9 +635,13 @@
     UIView *views = (UIView*) tap.view;
     NSLog(@"%d",(int)views.tag);
     YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:views.tag];
-    PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
-    playVideoVC.videoPath = ymData.showVideoArray[1];
-    [self.navigationController pushViewController:playVideoVC animated:YES];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,ymData.showVideoArray[1]];
+    url = [url stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
+    PlayVideoView *playVideoView = [[PlayVideoView alloc] initWithContent:@"" andVideoUrl:url];
+    [playVideoView show];
+//    PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
+//    playVideoVC.videoPath = ymData.showVideoArray[1];
+//    [self.navigationController pushViewController:playVideoVC animated:YES];
 }
 
 -(void)jumpDetailEvent:(id)sender{

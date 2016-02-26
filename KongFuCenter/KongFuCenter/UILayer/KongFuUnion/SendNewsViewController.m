@@ -632,6 +632,13 @@
 #pragma mark - 图片截取
 
 - (void)editPortrait {
+    NSMutableArray *tempArr = [NSMutableArray array];
+    [tempArr addObjectsFromArray:allImgsPicked[PICPICKER_IMGS_KEY]];
+    [tempArr addObjectsFromArray:allImgsPicked[PHOTO_IMGS_KEY]];
+    if (tempArr.count >= 9) {
+        [SVProgressHUD showErrorWithStatus:@"最多选择9张图片~" maskType:SVProgressHUDMaskTypeBlack];
+        return;
+    }
     if ([Toolkit isCameraAvailable] && [Toolkit doesCameraSupportTakingPhotos]) {
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
         controller.sourceType = UIImagePickerControllerSourceTypeCamera;

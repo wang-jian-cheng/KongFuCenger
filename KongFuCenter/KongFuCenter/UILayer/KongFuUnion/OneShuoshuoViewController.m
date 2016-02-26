@@ -20,6 +20,7 @@
 #import "MJRefresh.h"
 #import "UserHeadView.h"
 #import "CommentListViewController.h"
+#import "PlayVideoView.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -465,9 +466,13 @@
     UIView *views = (UIView*) tap.view;
     NSLog(@"%d",(int)views.tag);
     YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:views.tag];
-    PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
-    playVideoVC.videoPath = ymData.showVideoArray[1];
-    [self.navigationController pushViewController:playVideoVC animated:YES];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,ymData.showVideoArray[1]];
+    url = [url stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
+    PlayVideoView *playVideoView = [[PlayVideoView alloc] initWithContent:@"" andVideoUrl:url];
+    [playVideoView show];
+//    PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
+//    playVideoVC.videoPath = ymData.showVideoArray[1];
+//    [self.navigationController pushViewController:playVideoVC animated:YES];
 }
 
 -(NSString *)compareDate:(NSDate *)date{

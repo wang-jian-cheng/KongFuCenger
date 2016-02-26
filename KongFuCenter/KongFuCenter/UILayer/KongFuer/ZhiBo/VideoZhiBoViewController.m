@@ -11,6 +11,7 @@
 #import "SDCycleScrollView.h"
 #import "ZhiBoViewController.h"
 #import "MoviePlayer.h"
+#import "PlayVideoView.h"
 
 @interface VideoZhiBoViewController (){
     UITableView *mTableView;
@@ -77,18 +78,20 @@
 
 -(void)selectVideoLiveEvent{
     NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[videoLiveDict valueForKey:@"LiveBack"]]];
-    videoView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    videoView.backgroundColor = [UIColor grayColor];
-    player = [[MoviePlayer alloc] initWithFrame:CGRectMake(0,0,SCREEN_WIDTH, SCREEN_HEIGHT) URL:[NSURL URLWithString:url]];
-    [videoView addSubview:player];
-    [self.view addSubview:videoView];
-    [self showAnimation];
-    
-    //添加退出按钮
-    leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 60, 60)];
-    [leftBtn setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(backViewEvent) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:leftBtn];
+    PlayVideoView *playVideoView = [[PlayVideoView alloc] initWithContent:@"" andVideoUrl:url];
+    [playVideoView show];
+//    videoView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//    videoView.backgroundColor = [UIColor grayColor];
+//    player = [[MoviePlayer alloc] initWithFrame:CGRectMake(0,0,SCREEN_WIDTH, SCREEN_HEIGHT) URL:[NSURL URLWithString:url]];
+//    [videoView addSubview:player];
+//    [self.view addSubview:videoView];
+//    [self showAnimation];
+//    
+//    //添加退出按钮
+//    leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 60, 60)];
+//    [leftBtn setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
+//    [leftBtn addTarget:self action:@selector(backViewEvent) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:leftBtn];
 }
 
 - (void)showAnimation {

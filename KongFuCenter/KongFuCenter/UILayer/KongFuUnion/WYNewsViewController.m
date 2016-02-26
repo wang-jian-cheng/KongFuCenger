@@ -27,6 +27,9 @@
 #import "CommentListViewController.h"
 #import "PersonInfoViewController.h"
 #import "FriendInfoViewController.h"
+#import <ALBBQuPaiPlugin/ALBBQuPaiPlugin.h>
+#import "UploadVideoViewController.h"
+#import "PlayVideoView.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -35,7 +38,7 @@
 #define sendNews  (2015+1)
 #define smallVideo  (2015+2)
 
-@interface WYNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate,WechatShortVideoDelegate,UIAlertViewDelegate>
+@interface WYNewsViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate,WechatShortVideoDelegate,UIAlertViewDelegate,QupaiSDKDelegate>
 {
     NSMutableArray *_imageDataSource;
     
@@ -77,6 +80,8 @@
     UIButton *noReadNumBtn;
     CommentListViewController *commentListVC;
     MyNewsViewController *myNewsVC;
+    
+    UIViewController *recordController;
     
 }
 
@@ -153,7 +158,7 @@
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             if ([isRepeat isEqual:@"1"]) {
-                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
+                messBody.posterContent =  ZY_NSStringFromFormat(@"%@\n//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
             }else{
                 messBody.posterContent = [itemDict valueForKey:@"Content"];
             }
@@ -319,7 +324,7 @@
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             if ([isRepeat isEqual:@"1"]) {
-                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
+                messBody.posterContent =  ZY_NSStringFromFormat(@"%@\n//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
             }else{
                 messBody.posterContent = [itemDict valueForKey:@"Content"];
             }
@@ -358,6 +363,8 @@
             messBody.posterFavour = [[NSMutableArray alloc] init];//[NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
             messBody.isFavour = [[NSString stringWithFormat:@"%@",[itemDict valueForKey:@"IsLike"]] isEqual:@"0"]?NO:YES;
             messBody.zanNum = [[itemDict valueForKey:@"LikeNum"] intValue];
+            
+            messBody.sendTime = [NSString stringWithFormat:@"%@",[itemDict valueForKey:@"PublishTime"]];
             
             NSMutableArray *videoArray = [[NSMutableArray alloc] init];
             [videoArray addObject:[NSString stringWithFormat:@"%@%@",Url,[itemDict valueForKey:@"ImagePath"]]];
@@ -617,12 +624,51 @@
     }
     else  if(sender.tag == smallVideo)
     {
-        wechatShortVideoController = [[WechatShortVideoController alloc] init];
+//        wechatShortVideoController = [[WechatShortVideoController alloc] init];
+//        
+//        wechatShortVideoController.delegate = self;
+//        
+//        [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
         
-        wechatShortVideoController.delegate = self;
+        QupaiSDK *sdkqupai = [QupaiSDK shared];
+        [sdkqupai setDelegte:(id<QupaiSDKDelegate>)self];
         
-        [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
+        /*可选设置*/
+        sdkqupai.thumbnailCompressionQuality =0.3;
+        sdkqupai.combine = YES;
+        sdkqupai.progressIndicatorEnabled = YES;
+        sdkqupai.beautySwitchEnabled = NO;
+        sdkqupai.flashSwitchEnabled = NO;
+        sdkqupai.tintColor = [UIColor orangeColor];
+        sdkqupai.localizableFileUrl = [[NSBundle mainBundle] URLForResource:@"QPLocalizable_en" withExtension:@"plist"];
+        sdkqupai.bottomPanelHeight = 120;
+        sdkqupai.recordGuideEnabled = YES;
+        
+        /*基本设置*/
+        CGSize videoSize = CGSizeMake(320, 240);
+        recordController = [sdkqupai createRecordViewControllerWithMinDuration:2
+                                                                   maxDuration:8
+                                                                       bitRate:500000
+                                                                     videoSize:videoSize];
+        [self presentViewController:recordController animated:YES completion:nil];
     }
+}
+
+//趣拍取消
+-(void)qupaiSDKCancel:(QupaiSDK *)sdk
+{
+    [recordController dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)qupaiSDK:(QupaiSDK *)sdk compeleteVideoPath:(NSString *)videoPath thumbnailPath:(NSString *)thumbnailPath
+{
+    NSLog(@"%@",videoPath);
+    
+    [recordController dismissViewControllerAnimated:YES completion:nil];
+    
+    SendVideoViewController *sendVideoVC = [[SendVideoViewController alloc] init];
+    sendVideoVC.VideoFilePath=[NSURL fileURLWithPath:videoPath];
+    [self.navigationController pushViewController:sendVideoVC animated:YES];
 }
 
 #define SHOW_ANIM_KEY   @"showSettingView"
@@ -801,9 +847,14 @@
     UIView *views = (UIView*) tap.view;
     NSLog(@"%d",(int)views.tag);
     YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:views.tag];
-    PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
-    playVideoVC.videoPath = ymData.showVideoArray[1];
-    [self.navigationController pushViewController:playVideoVC animated:YES];
+    NSString *url = [NSString stringWithFormat:@"%@%@",Url,ymData.showVideoArray[1]];
+    url = [url stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
+    PlayVideoView *playVideoView = [[PlayVideoView alloc] initWithContent:@"" andVideoUrl:url];
+    [playVideoView show];
+    
+//    PlayVideoViewController *playVideoVC = [[PlayVideoViewController alloc] init];
+//    playVideoVC.videoPath = ymData.showVideoArray[1];
+//    [self.navigationController pushViewController:playVideoVC animated:YES];
 }
 
 -(void)tapPhotoImg{

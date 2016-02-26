@@ -427,11 +427,19 @@
             nickLab.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
             if([NSString stringWithFormat:@"%@",tempDict[@"Phone"]].length>0)
             {
-                IdLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"Phone"]];
+                NSString *tempID;
+                if ([tempDict[@"Phone"] length] >= 10) {
+                    tempID = [NSString stringWithFormat:@"%@*****%@",[tempDict[@"Phone"] substringToIndex:3],[tempDict[@"Phone"] substringFromIndex:[tempDict[@"Phone"] length] - 3]];
+                    IdLab.text = [NSString stringWithFormat:@"ID:%@",tempID];
+                }else{
+                    IdLab.text = [NSString stringWithFormat:@"ID:%@",tempDict[@"Phone"]];
+                }
             }
             else
             {
-                IdLab.text = [NSString stringWithFormat:@"ID:%08d",[[Toolkit getUserID] intValue]];
+                NSString *idStr = [NSString stringWithFormat:@"%08d",[[Toolkit getUserID] intValue]];
+                NSString *tempID = [NSString stringWithFormat:@"%@**%@",[idStr substringToIndex:3],[idStr substringFromIndex:[idStr length] - 3]];
+                IdLab.text = tempID;
             }
 //            IdLab.text = [NSString stringWithFormat:@"ID:%08d",[[Toolkit getUserID] intValue]];
             NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];

@@ -230,7 +230,7 @@
     [self dismiss];
 }
 
--(UIView*)topView{
+-(UIView*)topView {
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     return  window.subviews[0];
 }
