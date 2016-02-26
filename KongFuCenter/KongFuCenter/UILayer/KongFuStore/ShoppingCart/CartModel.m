@@ -30,6 +30,11 @@
     _Id = NSStringFromFormat(@"%@",Id);
 }
 
+-(void)setProductId:(NSString *)ProductId
+{
+    _ProductId = ZY_NSStringFromFormat(@"%@",ProductId);
+}
+
 -(void)setNumber:(NSString *)Number
 {
     _Number = NSStringFromFormat(@"%@",Number);

@@ -342,7 +342,7 @@
 {
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"payJifenCallBack:"];
-    [dataProvider payByjiFen:[Toolkit getUserID] andProductId:self.goodsArr[0].Id andNum:@"1" andDeliveryId:addressDict[@"Id"] andDescription:DescriptionTextView.text];
+    [dataProvider payByjiFen:[Toolkit getUserID] andProductId:self.goodsArr[0].ProductId andNum:@"1" andDeliveryId:addressDict[@"Id"] andDescription:DescriptionTextView.text];
     
 }
 
@@ -370,7 +370,7 @@
 {
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"payImmediatelyCallBack:"];
-    [dataProvider BuyNow:self.goodsArr[0].Id
+    [dataProvider BuyNow:self.goodsArr[0].ProductId
                   andnum:self.goodsArr[0].Number
               andpriceId:self.goodsArr[0].ProductPriceId
                anduserId:[Toolkit getUserID]

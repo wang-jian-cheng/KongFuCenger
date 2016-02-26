@@ -266,7 +266,15 @@
                                                                           (dateLab.frame.origin.y+dateLab.frame.size.height),
                                                                           50,
                                                                           ((_cellHeight -10)/2))];
-            countLab.text = [NSString stringWithFormat:@"+%@个",tempDict[@"CreditNum"]];
+            
+            if([tempDict[@"CreditType"] intValue] == 0)
+            {
+                countLab.text = [NSString stringWithFormat:@"+%@个",tempDict[@"CreditNum"]];
+            }
+            else
+            {
+                countLab.text = [NSString stringWithFormat:@"-%@个",tempDict[@"CreditNum"]];
+            }
             countLab.textColor= [UIColor whiteColor];
             countLab.font = [UIFont systemFontOfSize:14];
             cell.backgroundColor = ItemsBaseColor;
