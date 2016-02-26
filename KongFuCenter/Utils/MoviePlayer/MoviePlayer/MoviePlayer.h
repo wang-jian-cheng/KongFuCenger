@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, PanDirection){
     PanDirectionVerticalMoved
 };
 
-@interface MoviePlayer : UIView
+@interface MoviePlayer : UIView<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong, readonly) DIYButton *back; // 返回按钮
 

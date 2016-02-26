@@ -10,7 +10,8 @@
 #import "BaseNavigationController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
-
+#import "ChineseInclude.h"
+#import "PinYinForObjc.h"
 
 @protocol AutoLocationDelegate  <NSObject>
 
@@ -18,6 +19,9 @@
 
 @end
 
-@interface AutoLocationViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+@interface AutoLocationViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UIGestureRecognizerDelegate>
+{
+    UITableView * tableview;
+}
 @property (nonatomic)id<AutoLocationDelegate> delegate;
 @end

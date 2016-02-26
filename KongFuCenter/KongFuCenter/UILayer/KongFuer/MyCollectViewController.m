@@ -423,6 +423,8 @@
 }
 
 -(void)getGoodsData{
+    
+    [_mainGoodsTableView.mj_footer setState:MJRefreshStateIdle];
     curpage = 0;
     goodsArray = [[NSArray alloc] init];
     DataProvider *dataProvider = [[DataProvider alloc] init];
@@ -431,8 +433,16 @@
 }
 
 -(void)getGoodsDataCallBack:(id)dict{
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
         goodsArray = dict[@"data"];
+        
+
+        if(goodsArray.count>=[dict[@"recordcount"] intValue])
+        {
+            [_mainGoodsTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
+
         [_mainGoodsTableView reloadData];
     }
 }
@@ -455,6 +465,12 @@
             [itemarray addObject:item];
         }
         goodsArray=[[NSArray alloc] initWithArray:itemarray];
+        
+        
+        if(goodsArray.count>=[dict[@"recordcount"] intValue])
+        {
+            [_mainGoodsTableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
     }
     [_mainTableView reloadData];
 }

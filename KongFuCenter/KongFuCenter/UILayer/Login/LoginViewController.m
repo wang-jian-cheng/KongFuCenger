@@ -35,6 +35,8 @@
     
     BOOL ThirdLogin;
     
+    BOOL rememberPassWord;
+    
 }
 
 @end
@@ -228,7 +230,21 @@
 
 -(void) initBtns
 {
-    UIButton *regBtn = [[UIButton alloc] initWithFrame:CGRectMake(0,  ZY_UIPART_SCREEN_HEIGHT * 55,  ZY_UIPART_SCREEN_WIDTH*40, 50)];
+    UIButton *rememberBtn = [[UIButton alloc] initWithFrame:CGRectMake(userText.frame.origin.x-10, ZY_UIPART_SCREEN_HEIGHT * 55,100, 18)];
+//    CGPoint tempPoint = rememberBtn.center;
+//    tempPoint.x = SCREEN_WIDTH/2;
+//    rememberBtn.center = tempPoint;
+    [rememberBtn setTitle:@"  记住密码" forState:UIControlStateNormal];
+    [rememberBtn setImage:[UIImage imageNamed:@"rect"] forState:UIControlStateNormal];
+    [rememberBtn setImage:[UIImage imageNamed:@"rectSelect"] forState:UIControlStateSelected];
+    rememberBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    rememberBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+//    rememberBtn.backgroundColor = ItemsBaseColor;
+    
+    [rememberBtn addTarget:self action:@selector(rememberBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:rememberBtn];
+    
+    UIButton *regBtn = [[UIButton alloc] initWithFrame:CGRectMake(0,  ZY_UIPART_SCREEN_HEIGHT * 60,  ZY_UIPART_SCREEN_WIDTH*40, 50)];
     regBtn.backgroundColor = ItemsBaseColor;
     [regBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [regBtn setTitle:@"新用户注册" forState:UIControlStateNormal];
@@ -237,7 +253,7 @@
     [self.view addSubview:regBtn];
     
     UIButton *loginBtn = [[UIButton alloc] init];
-    loginBtn.frame = CGRectMake(regBtn.frame.size.width + 2, ZY_UIPART_SCREEN_HEIGHT * 55, ZY_UIPART_SCREEN_WIDTH*60, 50);
+    loginBtn.frame = CGRectMake(regBtn.frame.size.width + 2, ZY_UIPART_SCREEN_HEIGHT * 60, ZY_UIPART_SCREEN_WIDTH*60, 50);
     loginBtn.backgroundColor = ItemsBaseColor;
     [loginBtn setTitle:@"登陆" forState:UIControlStateNormal];
     
@@ -628,8 +644,15 @@
         }
     }
 }
-
 #pragma  mark - key click action
+
+-(void)rememberBtnClick:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    
+    rememberPassWord = sender.selected;
+}
+
 -(void) btnClick:(id)sender
 {
     
@@ -733,6 +756,9 @@
         
 #pragma mark -  保存登录历史
         
+            if(rememberPassWord == NO)//没有选择记住密码
+                return;
+        
            [tempDict setObject:[dict valueForKey:@"UserName"] forKey:LogIn_UserID_key];
    //        [tempDict setObject:[dict valueForKey:@"PhotoPath"] forKey:@"avatar"];
            [tempDict setObject:passWordText.text forKey:LogIn_UserPass_key];
@@ -813,6 +839,8 @@
 }
 -(void)QQLogin:(UIButton *)sender
 {
+    
+    [ShareSDK cancelAuthorize:SSDKPlatformTypeQQ];//先取消之前的授权
     //例如QQ的登录
     [ShareSDK getUserInfo:SSDKPlatformTypeQQ
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
@@ -827,6 +855,9 @@
              
              NSLog(@"userdata = %@",user.rawData);
              NSLog(@"icon = %@",user.icon);
+             
+             set_sp(ThirdLoginHeadImg, user.rawData[@"figureurl_qq_2"]);
+             
              ThirdLogin = YES;
              
              DataProvider * dataprovider=[[DataProvider alloc] init];
@@ -845,16 +876,22 @@
 
 -(void)weChatLogin:(UIButton *)sender
 {
+    
+    [ShareSDK cancelAuthorize:SSDKPlatformTypeWechat];
+    
     [ShareSDK getUserInfo:SSDKPlatformTypeWechat
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
      {
          if (state == SSDKResponseStateSuccess)
          {
              ThirdLogin = YES;
-             NSLog(@"uid=%@",user.uid);
-             NSLog(@"%@",user.credential);
-             NSLog(@"token=%@",user.credential.token);
-             NSLog(@"nickname=%@",user.nickname);
+             DLog(@"uid=%@",user.uid);
+             DLog(@"%@",user.credential);
+             DLog(@"token=%@",user.credential.token);
+             DLog(@"nickname=%@",user.nickname);
+             DLog(@"wechat userdata = %@",user.rawData);
+             
+             set_sp(ThirdLoginHeadImg, user.rawData[@"headimgurl"]);
              DataProvider * dataprovider=[[DataProvider alloc] init];
              [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
              [dataprovider thridLogin:user.credential.rawData[@"openid"] andUserName:user.nickname];

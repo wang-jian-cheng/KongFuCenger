@@ -152,7 +152,7 @@
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             if ([isRepeat isEqual:@"1"]) {
-                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
+                messBody.posterContent =  ZY_NSStringFromFormat(@"%@\n//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
             }else{
                 messBody.posterContent = [itemDict valueForKey:@"Content"];
             }
@@ -404,7 +404,7 @@
             WFMessageBody *messBody = [[WFMessageBody alloc] init];
             NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
             if ([isRepeat isEqual:@"1"]) {
-                messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
+                messBody.posterContent =  ZY_NSStringFromFormat(@"%@\n//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
             }else{
                 messBody.posterContent = [itemDict valueForKey:@"Content"];
             }

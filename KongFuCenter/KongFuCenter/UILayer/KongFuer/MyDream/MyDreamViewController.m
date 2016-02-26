@@ -266,6 +266,8 @@
         [self addRightbuttontitle:@"确定"];
         myDream.editable = YES;
         myPlan.editable = YES;
+        
+        [myDream becomeFirstResponder];//resignFirstResponder
     }
     else
     {

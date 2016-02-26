@@ -200,6 +200,9 @@
 		B54F13891C46283B001EABE5 /* del@2x.PNG in Resources */ = {isa = PBXBuildFile; fileRef = B54F13881C46283B001EABE5 /* del@2x.PNG */; };
 		B55103541C72F0F0005D9917 /* GoodsCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B55103531C72F0F0005D9917 /* GoodsCommentViewController.m */; };
 		B55103571C733A7F005D9917 /* ZhuanFaView.m in Sources */ = {isa = PBXBuildFile; fileRef = B55103561C733A7F005D9917 /* ZhuanFaView.m */; };
+		B555EB101C7EA1B300683996 /* rect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B555EB0E1C7EA1B300683996 /* rect@2x.png */; };
+		B555EB111C7EA1B300683996 /* rectSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B555EB0F1C7EA1B300683996 /* rectSelect@2x.png */; };
+		B555EB131C7FF6F000683996 /* trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B555EB121C7FF6F000683996 /* trash@2x.png */; };
 		B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */; };
 		B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */; };
 		B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B569DB901C126F1C00325CFA /* temp2@2x.png */; };
@@ -881,6 +884,9 @@
 		B55103531C72F0F0005D9917 /* GoodsCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsCommentViewController.m; sourceTree = "<group>"; };
 		B55103551C733A7F005D9917 /* ZhuanFaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZhuanFaView.h; path = CommonUI/ZhuanFaView.h; sourceTree = "<group>"; };
 		B55103561C733A7F005D9917 /* ZhuanFaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZhuanFaView.m; path = CommonUI/ZhuanFaView.m; sourceTree = "<group>"; };
+		B555EB0E1C7EA1B300683996 /* rect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rect@2x.png"; sourceTree = "<group>"; };
+		B555EB0F1C7EA1B300683996 /* rectSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rectSelect@2x.png"; sourceTree = "<group>"; };
+		B555EB121C7FF6F000683996 /* trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trash@2x.png"; sourceTree = "<group>"; };
 		B569DB8A1C126BC600325CFA /* BaseVideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVideoCollectionViewCell.h; sourceTree = "<group>"; };
 		B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVideoCollectionViewCell.m; sourceTree = "<group>"; };
 		B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseVideoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -2481,6 +2487,7 @@
 		B594091B1C0FDB6A003DC15D /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B555EB121C7FF6F000683996 /* trash@2x.png */,
 				B57584AC1C5DF52C005EF831 /* doublerow@2x.png */,
 				B57584AD1C5DF52C005EF831 /* onerow@2x.png */,
 				B7E1CD161C4C9594008DFE49 /* KongFuStore */,
@@ -2878,6 +2885,8 @@
 		B5F90AF61C19848E00D7879D /* login */ = {
 			isa = PBXGroup;
 			children = (
+				B555EB0E1C7EA1B300683996 /* rect@2x.png */,
+				B555EB0F1C7EA1B300683996 /* rectSelect@2x.png */,
 				B5F90AF71C1985A100D7879D /* LoginAccount@2x.png */,
 				B5F90AF81C1985A100D7879D /* LoginPassword@2x.png */,
 				B5F90AF91C1985A100D7879D /* LoginQQ@2x.png */,
@@ -3575,6 +3584,7 @@
 				B5AF70641C17FA7300C041AF /* zhibo@2x.png in Resources */,
 				B5D89A0F1C118BB800F55BFA /* MyCollectTableViewCell.xib in Resources */,
 				B7F0D6381C51FECA002F1EEF /* myorder.png in Resources */,
+				B555EB131C7FF6F000683996 /* trash@2x.png in Resources */,
 				B7E4CD1B1C1FE1D600C2E69A /* jhgs.png in Resources */,
 				B529B7A91C2110BF003AC21C /* Pingpp.bundle in Resources */,
 				B53E73991C16E1EF009E7878 /* point@2x.png in Resources */,
@@ -3613,6 +3623,7 @@
 				B7F0D63A1C520C3E002F1EEF /* watchnum.png in Resources */,
 				802118EA1C1AFAE100DCEE73 /* nil.png in Resources */,
 				8049521E1C250B3800F5584A /* WechatShortVideo_scan_focus.png in Resources */,
+				B555EB101C7EA1B300683996 /* rect@2x.png in Resources */,
 				B5B7377C1C3CAAF100DF7437 /* Search-Info.plist in Resources */,
 				B7E4CD131C1FE19C00C2E69A /* lmdt.png in Resources */,
 				B5451CC31C279656001BB39F /* AutoLocationViewController.xib in Resources */,
@@ -3631,6 +3642,7 @@
 				B5F13B421C1FE6E600155038 /* 80@2x.png in Resources */,
 				B5905E0D1C1BC2CF00ECA9BA /* yijieshu.png in Resources */,
 				B5AF70731C18216C00C041AF /* selectRound@2x.png in Resources */,
+				B555EB111C7EA1B300683996 /* rectSelect@2x.png in Resources */,
 				8021E9001C279AB4005C7539 /* FirstScrollController.xib in Resources */,
 				B5F13B211C1FBAAC00155038 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				B53E73811C166BF9009E7878 /* left@2x.png in Resources */,
