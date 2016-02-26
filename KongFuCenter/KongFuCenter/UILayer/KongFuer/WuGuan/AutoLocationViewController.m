@@ -15,6 +15,8 @@
 @interface AutoLocationViewController ()
 @property(nonatomic,retain)NSMutableArray *indexArray;
 @property(nonatomic,retain)NSMutableArray *LetterResultArr;
+
+@property(nonatomic)NSMutableArray *searchArr;
 @end
 
 @implementation AutoLocationViewController
@@ -22,6 +24,9 @@
     NSDictionary * cityinfoWithFile;
     UIButton * btn_autolocation;
     NSArray * itemarray;
+    
+    
+    BOOL searchMode;
 }
 @synthesize indexArray;
 @synthesize LetterResultArr;
@@ -32,6 +37,11 @@
     _lblTitle.textColor=[UIColor whiteColor];
     itemarray=[[NSArray alloc] init];
    // [SVProgressHUD showWithStatus:@"正在加载数据。。" maskType:SVProgressHUDMaskTypeBlack];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
+    tapGesture.delegate = self;
+    [self.view addGestureRecognizer:tapGesture];
+    
     [self LoadAllData];
 }
 -(void)LoadAllData
@@ -138,6 +148,38 @@
     return myHeaderVeiw;
 }
 
+-(NSMutableArray *)searchArr
+{
+    if(_searchArr == nil)
+    {
+        _searchArr = [NSMutableArray array];
+    }
+    
+    return _searchArr;
+}
+
+
+-(void)tapViewAction:(id)sender
+{
+    [self.view endEditing:YES];
+}
+
+#pragma mark - 手势代理
+
+//设置点在某个view时部触发事件
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    // 输出点击的view的类名
+    NSLog(@"-%@", NSStringFromClass([touch.view class]));
+    
+    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]||[NSStringFromClass([touch.view class]) isEqualToString:@"UIButton"])
+    {
+        return NO;
+    }
+
+    return  YES;
+}
 
 #pragma mark - 定位相关
 
@@ -286,14 +328,21 @@
                 
                 [itemmutablearray addObject:itemarray[i][@"Name"]];
             }
+            UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 44)];
+            searchBar.delegate = self;
+            [self.view addSubview:searchBar];
+            
             self.indexArray = [ChineseString IndexArray:itemmutablearray];
             self.LetterResultArr = [ChineseString LetterSortArray:itemmutablearray];
-            UITableView * tableview=[[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
+            tableview=[[UITableView alloc] initWithFrame:CGRectMake(0, 64+44, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
             tableview.delegate=self;
             tableview.dataSource=self;
             tableview.tableHeaderView=[self BuildHeaderVeiw];
+            tableview.tableFooterView = [[UIView alloc] init];
             [self.view addSubview:tableview];
 
+            
+            
         }
         @catch (NSException *exception) {
             
@@ -311,19 +360,141 @@
     [SVProgressHUD dismiss];
 }
 
+#pragma mark -  搜索
+
+
+-(void)startSearchFunction:(NSString *)searchStr andDestArr:(NSArray *)destArr
+{
+ 
+    [self.searchArr removeAllObjects];
+    
+    if(destArr == 0 || destArr == nil)
+        return;
+    if(searchStr == nil || searchStr.length == 0 )
+    {
+        [self.searchArr addObjectsFromArray:destArr];
+        [tableview reloadData];
+    }
+    
+    
+    if (searchStr.length>0&&![ChineseInclude isIncludeChineseInString:searchStr]) /*无汉字*/{
+//        @try {
+//            for (int i=0; i<destArr.count/*按首字母分组的*/; i++) {
+//                
+//                NSArray *tempArr = destArr[i];
+//                for (int j = 0; j<tempArr.count; j++) {
+//                    
+//                    NSString *nickStr;
+//                    nickStr = tempArr[j];
+//                    if ([ChineseInclude isIncludeChineseInString:nickStr]) {
+//                        NSString *tempPinYinStr = [PinYinForObjc chineseConvertToPinYin:nickStr];
+//                        NSRange titleResult=[tempPinYinStr rangeOfString:searchStr options:NSCaseInsensitiveSearch];
+//                        if (titleResult.length>0) {
+//                            [self.searchArr addObject:destArr[i]];
+//                            continue;
+//                        }
+//                        NSString *tempPinYinHeadStr = [PinYinForObjc chineseConvertToPinYinHead:nickStr];
+//                        NSRange titleHeadResult=[tempPinYinHeadStr rangeOfString:searchStr options:NSCaseInsensitiveSearch];
+//                        if (titleHeadResult.length>0) {
+//                            [self.searchArr addObject:destArr[i]];
+//                            continue;
+//                        }
+//                    }
+//                    else {
+//                        NSRange titleResult=[nickStr rangeOfString:searchStr options:NSCaseInsensitiveSearch];
+//                        if (titleResult.length>0) {
+//                            [self.searchArr addObject:destArr[i]];
+//                            continue;
+//                        }
+//                    }
+//                }
+//               
+//                
+//            }
+//        }
+//        @catch (NSException *exception) {
+//            
+//        }
+//        @finally {
+//            
+//        }
+        
+    } else if (searchStr.length>0&&[ChineseInclude isIncludeChineseInString:searchStr]) {
+        for (int i = 0; i < destArr.count/*以城市首字母分组的*/; i++) {
+            NSArray *tempArr = destArr[i];
+            
+            for (NSString *nickStr in tempArr) {
+                
+                NSRange titleResult=[nickStr rangeOfString:searchStr options:NSCaseInsensitiveSearch];
+                if (titleResult.length>0) {
+                    [self.searchArr addObject:nickStr];
+                }
+            }
+        }
+        
+        
+    }
+    
+    searchMode = YES;
+    tableview.tableHeaderView = nil;
+    [tableview reloadData];
+}
+
+#pragma mark - search bar delegate 
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    DLog(@"Search bar btn click");
+    
+    
+    [self startSearchFunction:searchBar.text andDestArr:self.LetterResultArr];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    searchMode = NO;
+    tableview.tableHeaderView = [self BuildHeaderVeiw];
+    [tableview reloadData];
+}
+
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    if (searchText.length == 0) {
+        searchMode = NO;
+        tableview.tableHeaderView = [self BuildHeaderVeiw];
+        [tableview reloadData];
+    }
+}
 #pragma mark -Section的Header的值
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *key = [indexArray objectAtIndex:section];
-    return key;
+    if(searchMode == YES)
+    {
+        return @"";
+    }
+    else
+    {
+        NSString *key = [indexArray objectAtIndex:section];
+        return key;
+    }
 }
 #pragma mark - Section header view
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
-    lab.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
-    lab.text = [indexArray objectAtIndex:section];
-    lab.textColor = [UIColor grayColor];
-    return lab;
+    
+    if(searchMode == YES)
+    {
+        return [[UIView alloc] init];
+    }
+    else
+    {
+        
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+        lab.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
+        lab.text = [indexArray objectAtIndex:section];
+        lab.textColor = [UIColor grayColor];
+        return lab;
+    }
 }
 #pragma mark - row height
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -336,7 +507,14 @@
 #pragma mark -设置右方表格的索引数组
 -(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    return indexArray;
+    if(searchMode == YES)
+    {
+        return nil;
+    }
+    else
+    {
+        return indexArray;
+    }
 }
 
 #pragma mark -
@@ -348,12 +526,28 @@
 #pragma mark -允许数据源告知必须加载到Table View中的表的Section数。
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [indexArray count];
+    
+    if(searchMode == YES)
+    {
+        return 1;
+    }
+    else
+    {
+        return [indexArray count];
+    }
 }
 #pragma mark -设置表格的行数为数组的元素个数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.LetterResultArr objectAtIndex:section] count];
+    
+    if(searchMode == YES)
+    {
+        return self.searchArr.count;
+    }
+    else
+    {
+        return [[self.LetterResultArr objectAtIndex:section] count];
+    }
 }
 #pragma mark -每一行的内容为数组相应索引的值
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -366,7 +560,14 @@
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    cell.textLabel.text = [[self.LetterResultArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
+    if(searchMode == YES)
+    {
+        cell.textLabel.text =  self.searchArr[indexPath.row];
+    }
+    else
+    {
+        cell.textLabel.text = [[self.LetterResultArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
+    }
     return cell;
 }
 #pragma mark - Select内容为数组相应索引的值
@@ -380,7 +581,15 @@
         //                                                   delegate:nil
         //                                          cancelButtonTitle:@"YES" otherButtonTitles:nil];
         //    [alert show];
-        NSString * strCityName=[[self.LetterResultArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
+        NSString * strCityName;
+        if(searchMode == YES)
+        {
+            strCityName = self.searchArr[indexPath.row];
+        }
+        else
+        {
+            strCityName=[[self.LetterResultArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
+        }
         BOOL isexist=NO;
         NSDictionary * dict=[[NSDictionary alloc] init];
         for (NSDictionary *item in itemarray) {

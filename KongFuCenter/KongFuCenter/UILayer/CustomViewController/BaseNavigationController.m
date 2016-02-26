@@ -179,6 +179,9 @@
 //    return UIInterfaceOrientationMaskAll;
 //}
 
+
+
+//重写这两个方法，设置成UIInterfaceOrientationMaskAll 和return yes则支持转屏
 -(UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;

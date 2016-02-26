@@ -434,9 +434,16 @@
                 IdLab.text = [NSString stringWithFormat:@"ID:%08d",[[Toolkit getUserID] intValue]];
             }
 //            IdLab.text = [NSString stringWithFormat:@"ID:%08d",[[Toolkit getUserID] intValue]];
-            NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
-            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
             
+            if(tempDict[@"PhotoPath"] == nil || [tempDict[@"PhotoPath"] length] == 0)
+            {
+                [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:get_sp(ThirdLoginHeadImg)] placeholderImage:[UIImage imageNamed:@"me"]];
+            }
+            else
+            {
+                NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
+                [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+            }
         }
         @catch (NSException *exception) {
             

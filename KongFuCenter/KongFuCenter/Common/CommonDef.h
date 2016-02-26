@@ -33,6 +33,10 @@ typedef enum _VideoShowLayoutType
 #define img(a) [UIImage imageNamed:a]
 #define _app_ ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
+#pragma mark - 写入userdefault的关键字
+
+#define ThirdLoginHeadImg   @"ThirdLoginImg"
+
 
 #pragma mark - Error code Define
 #define OK          0

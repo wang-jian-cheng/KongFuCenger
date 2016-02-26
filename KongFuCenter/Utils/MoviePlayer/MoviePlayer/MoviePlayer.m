@@ -126,7 +126,7 @@
         
         
         //添加changeFrame按钮
-        _changeFrame=[[UIButton alloc] initWithFrame:CGRectMake(_sliderView.frame.size.width-35, 5, 30, 30)];
+        _changeFrame=[[UIButton alloc] initWithFrame:CGRectMake(_sliderView.frame.size.width-35, 5, 44, 44)];
         
         [self.changeFrame setImage:[UIImage imageNamed:@"big"] forState:UIControlStateNormal];
         [self.changeFrame setImage:[UIImage imageNamed:@"small"] forState:UIControlStateSelected];
@@ -305,6 +305,7 @@
     
     // 添加一个tap手势,在视频加载好之后添加轻拍
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction)];
+    tap.delegate = self;
     [self addGestureRecognizer:tap];
     
     
@@ -325,6 +326,18 @@
     [self addGestureRecognizer:pan];
     
 }
+
+#pragma mark - 手势代理 
+//-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+//{
+//    // 输出点击的view的类名
+//    NSLog(@"-%@", NSStringFromClass([touch.view class]));
+//    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]||[NSStringFromClass([touch.view class]) isEqualToString:@"UIButton"])
+//    {
+//        return NO;
+//    }
+//    return  YES;
+//}
 
 
 #pragma mark - 平移手势方法
@@ -475,6 +488,9 @@
     button.selected = !button.selected;
     if (button.selected) {
         // 放大
+//        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+
+        self.window.windowLevel = UIWindowLevelAlert;//遮住状态栏
         
         self.transform=CGAffineTransformMakeRotation((90.0f * M_PI) / 180.0f); // M_PI_2是90度，M_PI * 1.5是180度
         self.frame=CGRectMake(0, 0,SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -495,7 +511,7 @@
         self.progress.frame=CGRectMake(self.begin.frame.origin.x+self.begin.frame.size.width+5, 0, self.end.frame.origin.x-self.begin.frame.size.width-self.begin.frame.origin.x-10, self.progress.bounds.size.height);
     }else{
         //缩小
-        
+        self.window.windowLevel = UIWindowLevelNormal;//取消对状态栏的遮挡
         self.transform=CGAffineTransformIdentity;
         self.frame=newFrame;
         self.moviePlayer.view.frame=CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);

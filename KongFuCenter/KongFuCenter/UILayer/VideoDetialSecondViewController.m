@@ -316,6 +316,19 @@
     }
 }
 
+#pragma mark - 屏幕旋转控制
+
+//-(UIInterfaceOrientationMask)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskAll;
+//}
+
+-(BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+
 #pragma mark - 手势代理
 
 //设置点在某个view时部触发事件
@@ -576,7 +589,7 @@
                 [SVProgressHUD showSuccessWithStatus:@"取消收藏" maskType:SVProgressHUDMaskTypeBlack];
                 break;
             case setZhuanfa:
-                [SVProgressHUD showSuccessWithStatus:@"已转发" maskType:SVProgressHUDMaskTypeBlack];
+                [SVProgressHUD showSuccessWithStatus:@"已转发至动态" maskType:SVProgressHUDMaskTypeBlack];
                 break;
             case jubao:
                 [SVProgressHUD showSuccessWithStatus:@"举报已提交等待后台审核" maskType:SVProgressHUDMaskTypeBlack];

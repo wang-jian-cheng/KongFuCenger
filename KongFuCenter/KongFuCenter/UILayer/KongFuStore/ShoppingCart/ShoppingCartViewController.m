@@ -11,7 +11,7 @@
 #define GapToLeft   30
 
 @interface ShoppingCartViewController ()
-
+{}
 @property(nonatomic) NSMutableArray<CartModel *> *goodsArr;
 @property(nonatomic) NSMutableArray<CartModel *> *selectArr;
 @end
@@ -46,6 +46,7 @@
 
 -(void)initViews
 {
+    
     _cellHeight = 100;
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - 60 )];
     _mainTableView.backgroundColor = ItemsBaseColor;
@@ -290,6 +291,22 @@
 
 #pragma mark - click actions
 
+-(void)removeBtnClick:(UIButton *)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否从购物车中删除" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    alertView.tag = sender.tag;
+    [alertView show];
+//     [self delCartGoodsAction:self.goodsArr[sender.tag - 1].Id];
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 1)
+    {
+        [self delCartGoodsAction:self.goodsArr[alertView.tag - 1].Id];
+    }
+}
 -(void)actionBtnClick:(UIButton *)sender
 {
     if([sender.titleLabel.text isEqualToString:@"删除"])
@@ -555,6 +572,25 @@
             newPrice.text = NSStringFromFormat(@"¥%.02f",[tempDict.ProductPriceTotalPrice floatValue]);
             [cell addSubview:newPrice];
             
+            UIButton *removeBtn = [[UIButton alloc] init];
+            removeBtn.tag = indexPath.row;
+
+            removeBtn.frame = CGRectMake((SCREEN_WIDTH - 10 -40),
+                                         (newPrice.frame.size.height+newPrice.frame.origin.y)+10,
+                                          40, 40) ;
+            [removeBtn setImage:[UIImage imageNamed:@"trash"] forState:UIControlStateNormal];
+            if(EditMode == YES)
+            {
+                removeBtn.hidden = NO;
+            }
+            else
+            {
+                removeBtn.hidden = YES;
+            }
+            
+            [removeBtn addTarget:self action:@selector(removeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:removeBtn];
+            
             
             
 //            UILabel *oldPrice = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20 -180),
@@ -652,17 +688,18 @@
 //设置划动cell是否出现del按钮，可供删除数据里进行处理
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 0)
-        return NO;
-    
-    return YES;
+//    if(indexPath.row == 0)
+//        return NO;
+//    
+//    return YES;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"del");
  
-    [self delCartGoodsAction:self.goodsArr[indexPath.row - 1].Id];
+//    [self delCartGoodsAction:self.goodsArr[indexPath.row - 1].Id];
     
     
 }

@@ -418,10 +418,16 @@
             NSDictionary *tempDict = dict[@"data"];
             
             [[NSUserDefaults standardUserDefaults] setValue:[dict[@"data"] valueForKey:@"NicName"] forKey:@"NicName"];
-            NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
             
-            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
-            
+            if(tempDict[@"PhotoPath"] == nil || [tempDict[@"PhotoPath"] length] == 0)
+            {
+                [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:get_sp(ThirdLoginHeadImg)] placeholderImage:[UIImage imageNamed:@"me"]];
+            }
+            else
+            {
+                NSString * url=[NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
+                [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
+            }
             jiFenLab.text = [NSString stringWithFormat:@"积分：%@",tempDict[@"Credit"]];
             userName.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
             if([NSString stringWithFormat:@"%@",tempDict[@"Phone"]].length>0)
