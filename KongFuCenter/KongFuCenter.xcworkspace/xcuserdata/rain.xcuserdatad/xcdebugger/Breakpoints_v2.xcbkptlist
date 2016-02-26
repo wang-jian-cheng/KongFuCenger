@@ -1791,7 +1791,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "705"
             endingLineNumber = "705"
-            landmarkName = "-setLoginValue:"
+            landmarkName = "-loginBackcall:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1807,7 +1807,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "683"
             endingLineNumber = "683"
-            landmarkName = "-loginBackcall:"
+            landmarkName = "-loginBtnClick:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1823,7 +1823,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "707"
             endingLineNumber = "707"
-            landmarkName = "-setLoginValue:"
+            landmarkName = "-loginBackcall:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1903,7 +1903,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "708"
             endingLineNumber = "708"
-            landmarkName = "-setLoginValue:"
+            landmarkName = "-loginBackcall:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2959,7 +2959,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "786"
             endingLineNumber = "786"
-            landmarkName = "-setNotificate"
+            landmarkName = "-setLoginValue:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3055,7 +3055,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "716"
             endingLineNumber = "716"
-            landmarkName = "-setLoginValue:"
+            landmarkName = "-loginBackcall:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3135,7 +3135,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "715"
             endingLineNumber = "715"
-            landmarkName = "-setLoginValue:"
+            landmarkName = "-loginBackcall:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
