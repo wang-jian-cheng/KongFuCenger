@@ -466,10 +466,10 @@
     if (imageArray) {
         @try {
             NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-            [shareParams SSDKSetupShareParamsByText:[[@"艾特功夫上线啦！快来乐享" stringByAppendingString:@"降龙十八掌"] stringByAppendingString:strurl]
+            [shareParams SSDKSetupShareParamsByText:[[@"iKungfu上线啦！快来乐享" stringByAppendingString:@"降龙十八掌"] stringByAppendingString:strurl]
                                              images:imageArray
                                                 url:[NSURL URLWithString:strurl]
-                                              title:@"艾特功夫"
+                                              title:@"iKungfu"
                                                type:SSDKContentTypeAuto];
             
             

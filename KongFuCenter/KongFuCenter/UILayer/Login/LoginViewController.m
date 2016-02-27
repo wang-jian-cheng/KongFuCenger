@@ -692,6 +692,8 @@
 {
     if (_userData.phoneNum.length > 0) {
         ThirdLogin = NO;
+        
+        set_sp(ThirdLoginHeadImg, @"");
         [SVProgressHUD showWithStatus:@"登录中" maskType:SVProgressHUDMaskTypeBlack];
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];

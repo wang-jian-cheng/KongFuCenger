@@ -1337,7 +1337,7 @@
 
 #pragma mark - setting for cell
 
-#define BtnWidth    60
+#define BtnWidth  60
 //设置每行调用的cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -1528,7 +1528,7 @@
                     [cell addSubview:titlLab];
                     
                     provinceBtn.frame = CGRectMake((titlLab.frame.size.width + titlLab.frame.origin.x + 10) - 5,
-                                                   5, BtnWidth, _cellHeight - 10);
+                                                   5, 100, _cellHeight - 10);
                     provinceBtn.backgroundColor = BACKGROUND_COLOR;
                     [provinceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                     UIImageView *btnCornerView = [[UIImageView alloc] initWithFrame:CGRectMake((provinceBtn.frame.size.width - 15),
@@ -1540,7 +1540,7 @@
                     provinceBtn.tag = ProvinceTAG;
                     [cell addSubview:provinceBtn];
                     
-                    cityBtn.frame = CGRectMake((provinceBtn.frame.size.width + provinceBtn.frame.origin.x + 2), 5, BtnWidth, _cellHeight - 10);
+                    cityBtn.frame = CGRectMake((provinceBtn.frame.size.width + provinceBtn.frame.origin.x + 2), 5, 100, _cellHeight - 10);
                     cityBtn.backgroundColor = BACKGROUND_COLOR;
                     [cityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                     UIImageView *btnCornerView2 = [[UIImageView alloc] initWithFrame:CGRectMake((cityBtn.frame.size.width - 15),
@@ -1564,7 +1564,7 @@
                     btnCornerView3.image = [UIImage imageNamed:@"btnCorner"];
                     [areaBtn addSubview:btnCornerView3];
                     [areaBtn addTarget:self action:@selector(infoBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                    [cell addSubview:areaBtn];
+//                    [cell addSubview:areaBtn];
                     
                 }
                     break;
