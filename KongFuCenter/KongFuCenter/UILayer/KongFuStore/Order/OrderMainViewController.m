@@ -65,6 +65,15 @@
     [_mainTableView.mj_header beginRefreshing];
 }
 
+-(void)sureOrder{
+    orderType = OrderTypeNeedSend;
+    UIButton *mmmbtn = [[UIButton alloc] init];
+    mmmbtn.tag = 3;
+    ((UIButton *)btnArr[3]).selected = YES;
+    [self cateBtnClick:mmmbtn];
+    [SVProgressHUD showSuccessWithStatus:@"订单确认成功" maskType:SVProgressHUDMaskTypeBlack];
+}
+
 -(void)initViews
 {
     UIView *viewForBtns = [[UIView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, 44)];
@@ -338,13 +347,18 @@
 {
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
+        orderType = OrderTypeNeedSend;
+        UIButton *mmmbtn = [[UIButton alloc] init];
+        mmmbtn.tag = 3;
+        ((UIButton *)btnArr[3]).selected = YES;
+        [self cateBtnClick:mmmbtn];
+        //[_mainTableView.mj_header beginRefreshing];
         [SVProgressHUD showSuccessWithStatus:@"订单确认成功" maskType:SVProgressHUDMaskTypeBlack];
     }
     else
     {
         [SVProgressHUD showErrorWithStatus:@"订单确认出错" maskType:SVProgressHUDMaskTypeBlack];
     }
-    [_mainTableView.mj_header beginRefreshing];
 }
 
 #pragma mark - alert delegate

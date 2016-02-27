@@ -272,8 +272,8 @@
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200) {
         [SVProgressHUD showSuccessWithStatus:@"订单确认成功" maskType:SVProgressHUDMaskTypeBlack];
-        if([self.delegate respondsToSelector:@selector(cancelOrder)]){
-            [self.delegate cancelOrder];
+        if([self.delegate respondsToSelector:@selector(sureOrder)]){
+            [self.delegate sureOrder];
         }
         [self.navigationController popViewControllerAnimated:YES];
     }

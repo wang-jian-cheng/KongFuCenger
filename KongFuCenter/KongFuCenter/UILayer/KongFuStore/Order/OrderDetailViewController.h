@@ -20,7 +20,8 @@ typedef enum _orderMode{
 
 @protocol OrderDetailDelegate <NSObject>
 
-- (void)cancelOrder;
+-(void)cancelOrder;
+-(void)sureOrder;
 
 @end
 
