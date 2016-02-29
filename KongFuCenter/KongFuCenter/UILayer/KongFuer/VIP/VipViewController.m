@@ -11,6 +11,7 @@
 @interface VipViewController ()
 {
     UILabel *tipLab;
+    NSArray *vipPriceArray;
 }
 @end
 
@@ -20,6 +21,7 @@
     [super viewDidLoad];
     [self addLeftButton:@"left"];
     self.view.backgroundColor = BACKGROUND_COLOR;
+    vipPriceArray = [[NSArray alloc] init];
     [self initData];
     [self initViews];
     // Do any additional setup after loading the view from its nib.
@@ -33,10 +35,11 @@
 
 -(void)SelectUserPayListCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
-        self.taocan1.text = [NSString stringWithFormat:@"%@",@"套餐一：充值300，时间一个月"];
-        self.taocan2.text = [NSString stringWithFormat:@"%@",@"套餐二：充值600，时间三个月"];
-        self.taocan3.text = [NSString stringWithFormat:@"%@",@"套餐三：充值900，时间半年"];
-        self.taocan4.text = [NSString stringWithFormat:@"%@",@"套餐四：充值1200，时间1年"];
+        vipPriceArray = dict[@"data"];
+        self.taocan1.text = [NSString stringWithFormat:@"套餐一：充值%@，%@",[vipPriceArray[0] valueForKey:@"Price"],[vipPriceArray[0] valueForKey:@"Description"]];
+        self.taocan2.text = [NSString stringWithFormat:@"套餐二：充值%@，%@",[vipPriceArray[1] valueForKey:@"Price"],[vipPriceArray[1] valueForKey:@"Description"]];
+        self.taocan3.text = [NSString stringWithFormat:@"套餐三：充值%@，%@",[vipPriceArray[2] valueForKey:@"Price"],[vipPriceArray[2] valueForKey:@"Description"]];
+        self.taocan4.text = [NSString stringWithFormat:@"套餐四：充值%@，%@",[vipPriceArray[3] valueForKey:@"Price"],[vipPriceArray[3] valueForKey:@"Description"]];
     }
 }
 
@@ -163,13 +166,11 @@
 }
 
 - (IBAction)goPayPageClick:(id)sender {
-    
     PayForVipViewController *payPage = [[PayForVipViewController alloc] init];
-    
     payPage.navtitle = @"会员付费";
+    payPage.mMonthArray = [[NSArray alloc] initWithObjects:[vipPriceArray[0] valueForKey:@"Name"],[vipPriceArray[1] valueForKey:@"Name"],[vipPriceArray[2] valueForKey:@"Name"],[vipPriceArray[3] valueForKey:@"Name"], nil];
+    payPage.mPriceArray = [[NSArray alloc] initWithObjects:[vipPriceArray[0] valueForKey:@"Price"],[vipPriceArray[1] valueForKey:@"Price"],[vipPriceArray[2] valueForKey:@"Price"],[vipPriceArray[3] valueForKey:@"Price"], nil];
     [self.navigationController pushViewController:payPage animated:YES];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {

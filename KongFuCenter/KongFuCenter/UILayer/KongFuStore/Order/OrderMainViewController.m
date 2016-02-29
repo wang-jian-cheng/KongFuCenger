@@ -7,7 +7,8 @@
 //
 
 #import "OrderMainViewController.h"
-
+#import "WZLBadgeImport.h"
+#import "UIView+Frame.h"
 
 
 @interface OrderMainViewController ()<UIAlertViewDelegate,OrderDetailDelegate>
@@ -91,6 +92,11 @@
         [cateBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [cateBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
         cateBtn.tag = i;
+        
+        //显示
+        [cateBtn showBadgeWithStyle:WBadgeStyleNumber value:1 animationType:WBadgeAnimTypeNone];
+        cateBtn.badge.x = cateBtn.badge.x - 10;
+        cateBtn.badge.y = 6;
         
         [cateBtn addTarget:self action:@selector(cateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [viewForBtns addSubview:cateBtn];

@@ -14,4 +14,6 @@
 
 @interface PayForVipViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic, retain)NSString *channel;
+@property(nonatomic,strong) NSArray *mMonthArray;
+@property(nonatomic,strong) NSArray *mPriceArray;
 @end
