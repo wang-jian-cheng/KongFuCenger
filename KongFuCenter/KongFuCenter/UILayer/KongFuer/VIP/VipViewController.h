@@ -16,5 +16,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *payBtn;
 @property (weak, nonatomic) IBOutlet UILabel *vipExplainLab;
 @property (weak, nonatomic) IBOutlet UIView *backView;
+@property (weak, nonatomic) IBOutlet UILabel *taocan1;
+@property (weak, nonatomic) IBOutlet UILabel *taocan2;
+@property (weak, nonatomic) IBOutlet UILabel *taocan3;
+@property (weak, nonatomic) IBOutlet UILabel *taocan4;
 
 @end

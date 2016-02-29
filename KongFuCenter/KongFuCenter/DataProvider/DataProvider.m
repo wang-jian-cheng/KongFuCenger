@@ -171,6 +171,12 @@
     }
 
 }
+
+-(void)SelectUserPayList{
+    NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/SelectUserPayList",Url];
+    [self PostRequest:url andpram:nil];
+}
+
 #pragma mark - 支付
 -(void)getPingppCharge:(NSString *)userid andChannel:(NSString *)channel andAmount:(NSString *)amount andDescription:(NSString *)description andFlg:(NSString *)flg
 {
