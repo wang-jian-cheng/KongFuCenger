@@ -17,6 +17,7 @@
 @interface KongFuerViewController ()
 {
     
+    BOOL checkUserName;
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
     CGFloat _cellHeight;
@@ -217,8 +218,9 @@
    
 }
 
--(void)viewWillAppear:(BOOL)animated
+-(void)viewDidAppear:(BOOL)animated
 {
+    checkUserName = YES;
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
     [self getUserInfo];
     [locationManager startUpdatingLocation];
@@ -299,6 +301,8 @@
 
 -(void)getDatas
 {
+    
+//    checkUserName = YES;
     [self getUserInfo];
     
     
@@ -425,6 +429,9 @@
             jiFenNumLab.text = [NSString stringWithFormat:@"%@分",tempDict[@"Credit"]];
 //            jiFenNumLab.text = @"1000分";
             nickLab.text = [NSString stringWithFormat:@"%@",tempDict[@"NicName"]];
+            
+         
+            
             if([NSString stringWithFormat:@"%@",tempDict[@"Phone"]].length>0)
             {
                 NSString *tempID;
@@ -452,6 +459,15 @@
                 NSString *url = [NSString stringWithFormat:@"%@%@",Kimg_path,tempDict[@"PhotoPath"]];
                 [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"me"]];
             }
+            
+            
+            if(([tempDict[@"NicName"] isEqual:[NSNull null]] || [tempDict[@"NicName"] length]== 0)&&checkUserName == YES)
+            {
+                FirstLoginViewController *firstLoginViewCtl = [[FirstLoginViewController alloc] init];
+                firstLoginViewCtl.navtitle =@"请完善资料";
+                [self.navigationController pushViewController:firstLoginViewCtl animated:YES];
+            }
+            
         }
         @catch (NSException *exception) {
             

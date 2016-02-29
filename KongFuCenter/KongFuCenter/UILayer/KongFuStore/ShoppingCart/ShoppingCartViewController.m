@@ -273,8 +273,11 @@
         
         for (int i = 0; i<[dict[@"data"] count]; i++) {
             CartModel *tempModel = [[CartModel alloc] init];
+            
             [tempModel setValuesForKeysWithDictionary:dict[@"data"][i]];
+            tempModel.ProductId = tempModel.Id;
             [self.goodsArr addObject:tempModel];
+            
             
 //            self.moneySum += [tempModel.Number intValue] * [tempModel.ProductPriceTotalPrice floatValue];
             

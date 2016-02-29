@@ -203,6 +203,7 @@
 		B555EB101C7EA1B300683996 /* rect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B555EB0E1C7EA1B300683996 /* rect@2x.png */; };
 		B555EB111C7EA1B300683996 /* rectSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B555EB0F1C7EA1B300683996 /* rectSelect@2x.png */; };
 		B555EB131C7FF6F000683996 /* trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B555EB121C7FF6F000683996 /* trash@2x.png */; };
+		B555EB191C8045FA00683996 /* FirstLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B555EB181C8045FA00683996 /* FirstLoginViewController.m */; };
 		B569DB8D1C126BC600325CFA /* BaseVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */; };
 		B569DB8E1C126BC600325CFA /* BaseVideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */; };
 		B569DB911C126F1C00325CFA /* temp2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B569DB901C126F1C00325CFA /* temp2@2x.png */; };
@@ -892,6 +893,8 @@
 		B555EB0E1C7EA1B300683996 /* rect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rect@2x.png"; sourceTree = "<group>"; };
 		B555EB0F1C7EA1B300683996 /* rectSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rectSelect@2x.png"; sourceTree = "<group>"; };
 		B555EB121C7FF6F000683996 /* trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trash@2x.png"; sourceTree = "<group>"; };
+		B555EB171C8045FA00683996 /* FirstLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLoginViewController.h; sourceTree = "<group>"; };
+		B555EB181C8045FA00683996 /* FirstLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLoginViewController.m; sourceTree = "<group>"; };
 		B569DB8A1C126BC600325CFA /* BaseVideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVideoCollectionViewCell.h; sourceTree = "<group>"; };
 		B569DB8B1C126BC600325CFA /* BaseVideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVideoCollectionViewCell.m; sourceTree = "<group>"; };
 		B569DB8C1C126BC600325CFA /* BaseVideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseVideoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -2204,6 +2207,8 @@
 				B5F4E3A51C1EBBB6001F81F0 /* StrangerInfoViewController.m */,
 				B5B738101C40B1EC00DF7437 /* ChatSetViewController.h */,
 				B5B738111C40B1EC00DF7437 /* ChatSetViewController.m */,
+				B555EB171C8045FA00683996 /* FirstLoginViewController.h */,
+				B555EB181C8045FA00683996 /* FirstLoginViewController.m */,
 			);
 			path = PersonInfo;
 			sourceTree = "<group>";
@@ -3991,6 +3996,7 @@
 				B5B737781C3CAAF100DF7437 /* PinyinHelper.m in Sources */,
 				8074B0991C4376D60029C8B1 /* PlayerController.m in Sources */,
 				B5905DF81C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m in Sources */,
+				B555EB191C8045FA00683996 /* FirstLoginViewController.m in Sources */,
 				7BAA22C01C2D34FE001E7EBB /* model_UnionNew.m in Sources */,
 				B7A18ED71C56FEC9004FF4FB /* TAPageControl.m in Sources */,
 				B5AF707F1C1837F600C041AF /* NewPlanViewController.m in Sources */,

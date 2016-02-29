@@ -17,7 +17,7 @@
 #import "ZhiBo/ZhiBoViewController.h"
 #import "VipViewController.h"
 #import "TrainsPlanViewController.h"
-
+#import "FirstLoginViewController.h"
 #import "DataProvider.h"
 @interface KongFuerViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>
 {
