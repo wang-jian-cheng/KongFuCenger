@@ -179,7 +179,7 @@
             break;
         case 3:{
             OrderMainViewController *orderViewCtl = [[OrderMainViewController alloc] init];
-            orderViewCtl.navtitle = @"订单";
+            orderViewCtl.navtitle = @"订单中心";
             [orderViewCtl setBillType:Mode_Normal];
             [self.navigationController pushViewController:orderViewCtl animated:YES];
         }

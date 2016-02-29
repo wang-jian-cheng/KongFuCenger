@@ -476,14 +476,17 @@
                         cell.textLabel.textColor = [UIColor whiteColor];
                         
                         NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:taocanArr[indexPath.row - 1]];
-                        if (indexPath.row == 4) {
-                            [str addAttribute:NSForegroundColorAttributeName value:YellowBlock range:NSMakeRange(4,4)];
+                        
+                        NSUInteger mStartIndex;
+                        if ([_mMonthArray[indexPath.row - 1] intValue] == 10 || [_mMonthArray[indexPath.row - 1] intValue] == 11 || [_mMonthArray[indexPath.row - 1] intValue] == 12) {
+                            mStartIndex = 4;
                         }else{
-                            [str addAttribute:NSForegroundColorAttributeName value:YellowBlock range:NSMakeRange(3,4)];
+                            mStartIndex = 3;
                         }
+                        NSUInteger mEndIndex = [[NSString stringWithFormat:@"%@",_mPriceArray[indexPath.row - 1]] length] + 2;
+                        [str addAttribute:NSForegroundColorAttributeName value:YellowBlock range:NSMakeRange(mStartIndex,mEndIndex)];
                         cell.textLabel.attributedText = str;
                         cell.textLabel.font = [UIFont systemFontOfSize:14];
-
                         
                         if(selectBtnArr == nil || indexPath.row - 1 >selectBtnArr.count -1||selectBtnArr.count == 0 )
                         {
