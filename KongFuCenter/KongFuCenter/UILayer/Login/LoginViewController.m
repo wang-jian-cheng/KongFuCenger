@@ -255,7 +255,7 @@
     UIButton *loginBtn = [[UIButton alloc] init];
     loginBtn.frame = CGRectMake(regBtn.frame.size.width + 2, ZY_UIPART_SCREEN_HEIGHT * 60, ZY_UIPART_SCREEN_WIDTH*60, 50);
     loginBtn.backgroundColor = ItemsBaseColor;
-    [loginBtn setTitle:@"登陆" forState:UIControlStateNormal];
+    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     
     loginBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [loginBtn addTarget:self action:@selector(loginBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -511,7 +511,7 @@
 - (void)webViewDidStartLoad{
     if (myAlert==nil){
         myAlert = [[UIAlertView alloc] initWithTitle:nil
-                                             message: @"登陆中..."
+                                             message: @"登录中..."
                                             delegate: self
                                    cancelButtonTitle: nil
                                    otherButtonTitles: nil];
@@ -813,7 +813,7 @@
     //获取聊天Token
     [[NSNotificationCenter defaultCenter] postNotificationName:@"getTokenInfo" object:nil];
     
-    //登陆时重新获取头像
+    //登录时重新获取头像
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setHeadImg" object:nil];
     
     //获取左侧栏用户信息

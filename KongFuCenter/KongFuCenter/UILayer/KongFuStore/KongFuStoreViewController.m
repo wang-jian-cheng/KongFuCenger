@@ -135,7 +135,31 @@
 -(void)initData{
     [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListFootCallBack:"];
     [dataProvider GetRecomendCategoryAndProduct:[NSString stringWithFormat:@"%d",curpage * 3] andmaximumRows:@"3" anduserId:get_sp(@"id") andproductNum:@"5"];
+    
+    [self getIndexLunbo];
 }
+
+-(void)getIndexLunbo
+{
+    DataProvider *dataprovide = [[DataProvider alloc] init];
+    [dataprovide setDelegateObject:self setBackFunctionName:@"getindexLunboCallback:"];
+    [dataprovide getIndexLunbo];
+}
+
+-(void)getindexLunboCallback:(id)dict
+{
+    DLog(@"%@",dict);
+    
+    if([dict[@"code"] intValue] == 200)
+    {
+        
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"轮播图获取失败"];
+    }
+}
+
 
 -(void)getShopListFootCallBack:(id)dict{
     // 结束刷新
