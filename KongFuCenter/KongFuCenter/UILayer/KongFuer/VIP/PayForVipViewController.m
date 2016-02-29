@@ -38,10 +38,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    taocanArr = @[@"一个月 300元",
-                  @"三个月 600元",
-                  @" 半年 900元",
-                  @" 一年1200元"];
+    taocanArr = @[[NSString stringWithFormat:@"%@个月 %@元",_mMonthArray[0],_mPriceArray[0]],
+                  [NSString stringWithFormat:@"%@个月 %@元",_mMonthArray[1],_mPriceArray[1]],
+                  [NSString stringWithFormat:@"%@个月 %@元",_mMonthArray[2],_mPriceArray[2]],
+                  [NSString stringWithFormat:@"%@个月 %@元",_mMonthArray[3],_mPriceArray[3]]];
     selectBtnArr = [NSMutableArray array];
     roundBtnArr = [NSMutableArray array];
     PayFlag = 1000;
@@ -351,20 +351,20 @@
     
     switch (sender.tag) {
         case 2015+0:
-            realpaymoney = 300;
-            month = @"1";
+            realpaymoney = [_mPriceArray[0] floatValue];
+            month = _mMonthArray[0];
             break;
         case 2015+1:
-            realpaymoney = 600;
-            month = @"3";
+            realpaymoney = [_mPriceArray[1] floatValue];
+            month = _mMonthArray[1];
             break;
         case 2015+2:
-            realpaymoney = 900;
-            month = @"6";
+            realpaymoney = [_mPriceArray[2] floatValue];
+            month = _mMonthArray[2];
             break;
         case 2015+3:
-            realpaymoney = 1200;
-            month = @"12";
+            realpaymoney = [_mPriceArray[3] floatValue];
+            month = _mMonthArray[3];
             break;
         default:
             break;
@@ -476,7 +476,11 @@
                         cell.textLabel.textColor = [UIColor whiteColor];
                         
                         NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:taocanArr[indexPath.row - 1]];
-                        [str addAttribute:NSForegroundColorAttributeName value:YellowBlock range:NSMakeRange(3,4)];
+                        if (indexPath.row == 4) {
+                            [str addAttribute:NSForegroundColorAttributeName value:YellowBlock range:NSMakeRange(4,4)];
+                        }else{
+                            [str addAttribute:NSForegroundColorAttributeName value:YellowBlock range:NSMakeRange(3,4)];
+                        }
                         cell.textLabel.attributedText = str;
                         cell.textLabel.font = [UIFont systemFontOfSize:14];
 
