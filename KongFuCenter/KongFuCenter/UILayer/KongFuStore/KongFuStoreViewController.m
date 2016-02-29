@@ -21,6 +21,7 @@
     NSMutableArray *shopInfoArray;
     int allGoodsNum;
 }
+@property(nonatomic) NSMutableArray *LunboArr;
 
 @end
 
@@ -141,6 +142,7 @@
 
 -(void)getIndexLunbo
 {
+    [self.LunboArr removeAllObjects];
     DataProvider *dataprovide = [[DataProvider alloc] init];
     [dataprovide setDelegateObject:self setBackFunctionName:@"getindexLunboCallback:"];
     [dataprovide getIndexLunbo];
@@ -152,7 +154,8 @@
     
     if([dict[@"code"] intValue] == 200)
     {
-        
+        [self.LunboArr addObjectsFromArray:dict[@"data"]];
+        [mTableView reloadData];
     }
     else
     {
@@ -218,6 +221,23 @@
             break;
     }
 }
+#pragma mark -  self property
+
+-(NSMutableArray*)LunboArr
+{
+    if (_LunboArr == nil) {
+        _LunboArr = [NSMutableArray array];
+    }
+    
+    return _LunboArr;
+}
+
+-(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
+{
+    ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
+    shopDetailVC.goodsId = self.LunboArr[index][@"Id"];
+    [self.navigationController pushViewController:shopDetailVC animated:YES];
+}
 
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -257,13 +277,35 @@
     if (indexPath.section == 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
         cell.backgroundColor = ItemsBaseColor;
-        UIImageView *mIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
-        [mIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
-        [cell addSubview:mIv];
+//        UIImageView *mIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
+//        [mIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
+//        [cell addSubview:mIv];
+
+        NSMutableArray *images = [[NSMutableArray alloc] init];
+        if (self.LunboArr.count > 0) {
+            for (int i=0; i<self.LunboArr.count; i++) {
+                UIImageView * img=[[UIImageView alloc] init];
+                NSString *imgpath = [self.LunboArr[i] valueForKey:@"Path"];
+                NSString *url = [NSString stringWithFormat:@"%@%@",Url,imgpath];
+                [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
+                [images addObject:img];
+            }
+        }else{
+            UIImageView * img=[[UIImageView alloc] init];
+            img.image = [UIImage imageNamed:@"store_head_bg"];
+            [images addObject:img];
+        }
+        //创建带标题的图片轮播器
+        SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170) imagesGroup:images ];
+        cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+        cycleScrollView.autoScrollTimeInterval = 5;
+        cycleScrollView.delegate = self;
+        cycleScrollView.tag = indexPath.row;
+        [cell addSubview:cycleScrollView];
         
         //menu
         CGFloat mWidth = SCREEN_WIDTH / 4;
-        CGFloat mOriginY = mIv.frame.origin.y + mIv.frame.size.height;
+        CGFloat mOriginY =(0+170);// mIv.frame.origin.y + mIv.frame.size.height;
         
         UIButton *allClassBtn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, mOriginY, mWidth, 60)];
         allClassBtn1.tag = 1;
