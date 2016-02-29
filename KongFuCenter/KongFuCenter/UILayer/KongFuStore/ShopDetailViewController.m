@@ -167,19 +167,28 @@
     [mFooterView addSubview:telBtn];
     
     
-    UIButton *collectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(40, 0, 40, 50)];
+    UIButton *collectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(40, 0,50, 50)];
     collectionBtn.backgroundColor = [UIColor colorWithRed:0.16 green:0.16 blue:0.18 alpha:1];
     [collectionBtn addTarget:self action:@selector(collectionEvent) forControlEvents:UIControlEventTouchUpInside];
     collectionIv = [[UIImageView alloc] initWithFrame:CGRectMake((50 - 25) / 2, 2, 25, 25)];
+    CGPoint tempPoint =  collectionIv.center;
+    tempPoint.x = collectionBtn.frame.size.width/2;
+    collectionIv.center = tempPoint;
     [collectionBtn addSubview:collectionIv];
     collectionLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, collectionIv.frame.origin.y + collectionIv.frame.size.height + 2, 80, 21)];
+    
+
+    CGPoint tempPoint2 =  collectionLbl.center;
+    tempPoint2.x = collectionBtn.frame.size.width/2;
+    collectionLbl.center = tempPoint2;
+    
     collectionLbl.font = [UIFont systemFontOfSize:14];
     collectionLbl.textColor = [UIColor whiteColor];
     collectionLbl.textAlignment = NSTextAlignmentCenter;
     [collectionBtn addSubview:collectionLbl];
     [mFooterView addSubview:collectionBtn];
     
-    UIButton *joinShoppingCar = [[UIButton alloc] initWithFrame:CGRectMake(80, 0, (SCREEN_WIDTH - 80) / 2, 50)];
+    UIButton *joinShoppingCar = [[UIButton alloc] initWithFrame:CGRectMake(collectionBtn.frame.size.width+collectionBtn.frame.origin.x, 0, (SCREEN_WIDTH - 80) / 2, 50)];
     [joinShoppingCar setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [joinShoppingCar setTitle:@"加入购物车" forState:UIControlStateNormal];
     [joinShoppingCar addTarget:self action:@selector(joinShoppingCarEvent) forControlEvents:UIControlEventTouchUpInside];

@@ -20,6 +20,8 @@
     
     
     UITableView *_maintableView;
+    
+    DeltaView *deltaView;
 }
 
 @end
@@ -46,6 +48,7 @@
 {
 
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:) ];
+    tapGesture.delegate = self;
     [self addGestureRecognizer:tapGesture];
     
     
@@ -56,7 +59,7 @@
     
     
     showView.frame = [self calculateRect:point];
-    DeltaView *deltaView =[[DeltaView alloc] initWithPoint:CGPointMake(9, 10) andHeight:-10];
+    deltaView =[[DeltaView alloc] initWithPoint:CGPointMake(9, 10) andHeight:-10];
     deltaView.frame = CGRectMake(showView.frame.origin.x+10,
                                  showView.frame.origin.y+showView.frame.size.height,
                                  20, 10);
@@ -65,6 +68,30 @@
     
     
     [self initTableView];
+    
+}
+
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]||[NSStringFromClass([touch.view class]) isEqualToString:@"UIButton"])
+    {
+        return NO;
+    }
+    return YES;
+}
+
+
+- (void)hideAnimation{
+    [UIView animateWithDuration:0.5 animations:^{
+        coverView.alpha = 0.0;
+        showView.alpha = 0.0;
+        deltaView.alpha = 0.0;
+        
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
+    
     
 }
 
@@ -99,7 +126,23 @@
 }
 
 
+#pragma mark - tools
 
+-(void)makeCall:(NSString *)phoneNum
+{
+    if(phoneNum ==nil||phoneNum.length==0)
+    {
+        return;
+    }
+    
+    phoneNum = [phoneNum stringByReplacingOccurrencesOfString:@" " withString:@""];
+    phoneNum = [phoneNum stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",phoneNum];
+    NSLog(@"str======%@",str);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+
+}
 
 
 #pragma mark -  tableview  Delegate
@@ -150,6 +193,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
+    [self makeCall:@"188-1037-5184"];
     
 }
 

@@ -9,7 +9,7 @@
 #import "BaseALertView.h"
 #import "DeltaView.h"
 
-@interface TelAlertView : BaseALertView<UITableViewDelegate,UITableViewDataSource>
+@interface TelAlertView : BaseALertView<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 -(instancetype)initWithPhones:(NSArray *)phoneArr andShowPoint:(CGPoint)point;
 - (void)dismiss ;
 @end

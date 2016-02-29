@@ -398,6 +398,11 @@
 -(NSInteger)getUserInfo:(NSString *)userId andfriendid:(NSString *)friendid;
 
 #pragma mark - 核装备
+
+/**
+ * 获取首页轮播图
+ */
+-(void)getIndexLunbo;
 //获取一级分类
 -(void)SelectBigCategory;
 

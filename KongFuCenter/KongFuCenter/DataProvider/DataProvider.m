@@ -1509,6 +1509,13 @@
 }
 
 #pragma mark - 核装备
+
+-(void)getIndexLunbo
+{
+    NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectIndexImage",Url];
+    [self PostRequest:url andpram:nil];
+}
+
 -(void)SelectBigCategory{
     NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectBigCategory",Url];
     [self PostRequest:url andpram:nil];
