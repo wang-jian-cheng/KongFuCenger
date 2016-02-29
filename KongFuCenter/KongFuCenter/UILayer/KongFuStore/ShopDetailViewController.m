@@ -17,7 +17,7 @@
 #import "WZLBadgeImport.h"
 #import "UIView+Frame.h"
 
-@interface ShopDetailViewController (){
+@interface ShopDetailViewController ()<SDCycleScrollViewDelegate>{
     UITableView *mTableView;
     UIButton *bg_view;
     UIView *mView;
@@ -160,10 +160,17 @@
     
     UIView *mFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50)];
     
-    UIButton *collectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 50)];
+    UIButton *telBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 50)];
+    [telBtn setImage:[UIImage imageNamed:@"tel"] forState:UIControlStateNormal];
+    telBtn.backgroundColor = BACKGROUND_COLOR;
+    [telBtn addTarget:self action:@selector(telBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [mFooterView addSubview:telBtn];
+    
+    
+    UIButton *collectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(40, 0, 40, 50)];
     collectionBtn.backgroundColor = [UIColor colorWithRed:0.16 green:0.16 blue:0.18 alpha:1];
     [collectionBtn addTarget:self action:@selector(collectionEvent) forControlEvents:UIControlEventTouchUpInside];
-    collectionIv = [[UIImageView alloc] initWithFrame:CGRectMake((80 - 25) / 2, 2, 25, 25)];
+    collectionIv = [[UIImageView alloc] initWithFrame:CGRectMake((50 - 25) / 2, 2, 25, 25)];
     [collectionBtn addSubview:collectionIv];
     collectionLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, collectionIv.frame.origin.y + collectionIv.frame.size.height + 2, 80, 21)];
     collectionLbl.font = [UIFont systemFontOfSize:14];
@@ -208,6 +215,13 @@
 //    mTableView.mj_footer = footer;
 
 }
+-(void)telBtnClick:(UIButton *)sender
+{
+    TelAlertView *tempAlert = [[TelAlertView alloc] initWithPhones:@[@"1",@"2"] andShowPoint:CGPointMake(10, SCREEN_HEIGHT - 50 -10 - 70)];
+    
+    [tempAlert show];
+}
+
 
 -(void)showCustomView{
     if (bg_view) {
@@ -530,6 +544,41 @@
     UIView *view = [[UIView alloc] init];
     return view;
 }
+#pragma mark - 轮播图代理
+
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
+{
+    DLog(@"index = %d",index);
+    
+    UIView *maskview = [[UIView alloc] initWithFrame:self.view.bounds];
+    maskview.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:maskview];
+    NSMutableArray *imageViews = [[NSMutableArray alloc] init];
+    
+    NSArray *sliderArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"PicList"]];
+    
+    for (int i = 0 ; i < sliderArray.count; i++) {
+        NSString *url = [NSString stringWithFormat:@"%@%@",Url,sliderArray[i][@"Path"]];
+        [imageViews addObject:url];
+    }
+    
+    
+    
+    YMShowImageView *ymImageV = [[YMShowImageView alloc] initWithFrame:self.view.bounds byClick:9999 - index appendArray:imageViews];
+    [ymImageV show:maskview didFinish:^(){
+        
+        [UIView animateWithDuration:0.5f animations:^{
+            
+            ymImageV.alpha = 0.0f;
+            maskview.alpha = 0.0f;
+            
+        } completion:^(BOOL finished) {
+            [ymImageV removeFromSuperview];
+            [maskview removeFromSuperview];
+        }];
+    }];
+    
+}
 
 #pragma mark setting for cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -569,6 +618,7 @@
             SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170) imagesGroup:images ];
             cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
             cycleScrollView.autoScrollTimeInterval = 5;
+            cycleScrollView.delegate = self;
             [cell addSubview:cycleScrollView];
             
             mName = [[UILabel alloc] initWithFrame:CGRectMake(14, cycleScrollView.frame.origin.y + cycleScrollView.frame.size.height + (45 - 21) / 2, 200, 21)];

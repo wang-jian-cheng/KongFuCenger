@@ -313,6 +313,10 @@
 		B5D345DA1C2A792E00D39891 /* PictureShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345D91C2A792E00D39891 /* PictureShowView.m */; };
 		B5D345DD1C2A8B5A00D39891 /* UploadDataToServer.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345DC1C2A8B5A00D39891 /* UploadDataToServer.m */; };
 		B5D345E01C2BC71800D39891 /* TrainsPlanDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D345DF1C2BC71800D39891 /* TrainsPlanDetailViewController.m */; };
+		B5D799541C81851E00F91E45 /* tel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D799531C81851E00F91E45 /* tel@2x.png */; };
+		B5D7995B1C81898A00F91E45 /* BaseALertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D7995A1C81898A00F91E45 /* BaseALertView.m */; };
+		B5D7995E1C818ADE00F91E45 /* TelAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D7995D1C818ADE00F91E45 /* TelAlertView.m */; };
+		B5D799611C81909200F91E45 /* DeltaView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D799601C81909200F91E45 /* DeltaView.m */; };
 		B5D899F91C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */; };
 		B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899F81C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m */; };
 		B5D899FD1C113CDB00F55BFA /* btnFlag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */; };
@@ -1078,6 +1082,13 @@
 		B5D345DC1C2A8B5A00D39891 /* UploadDataToServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadDataToServer.m; sourceTree = "<group>"; };
 		B5D345DE1C2BC71800D39891 /* TrainsPlanDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainsPlanDetailViewController.h; sourceTree = "<group>"; };
 		B5D345DF1C2BC71800D39891 /* TrainsPlanDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainsPlanDetailViewController.m; sourceTree = "<group>"; };
+		B5D799531C81851E00F91E45 /* tel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tel@2x.png"; sourceTree = "<group>"; };
+		B5D799591C81898A00F91E45 /* BaseALertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseALertView.h; sourceTree = "<group>"; };
+		B5D7995A1C81898A00F91E45 /* BaseALertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseALertView.m; sourceTree = "<group>"; };
+		B5D7995C1C818ADE00F91E45 /* TelAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TelAlertView.h; sourceTree = "<group>"; };
+		B5D7995D1C818ADE00F91E45 /* TelAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TelAlertView.m; sourceTree = "<group>"; };
+		B5D7995F1C81909200F91E45 /* DeltaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeltaView.h; sourceTree = "<group>"; };
+		B5D799601C81909200F91E45 /* DeltaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeltaView.m; sourceTree = "<group>"; };
 		B5D899F51C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayout.h; sourceTree = "<group>"; };
 		B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMCollectionViewFlemishBondLayout.m; sourceTree = "<group>"; };
 		B5D899F71C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayoutAttributes.h; sourceTree = "<group>"; };
@@ -2047,6 +2058,7 @@
 		B53791A91C1525CD00C45BA7 /* CommonUI */ = {
 			isa = PBXGroup;
 			children = (
+				B5D799581C81894300F91E45 /* AlertViews */,
 				B7A4C0391C60E55400B695D7 /* XHPicView.h */,
 				B7A4C03A1C60E55400B695D7 /* XHPicView.m */,
 				B5B737C21C3E3D0100DF7437 /* AddressMapViewController.h */,
@@ -2114,6 +2126,7 @@
 		B53791B71C1579B100C45BA7 /* HeWuzhe */ = {
 			isa = PBXGroup;
 			children = (
+				B5D799531C81851E00F91E45 /* tel@2x.png */,
 				7BB6FF821C28E1B300713E06 /* 电话.png */,
 				B5451CBD1C2795C8001BB39F /* upsanjiao@2x.png */,
 				B5AF70801C183A9F00C041AF /* down@2x.png */,
@@ -2712,6 +2725,19 @@
 				B5D345D91C2A792E00D39891 /* PictureShowView.m */,
 			);
 			path = PictureShow;
+			sourceTree = "<group>";
+		};
+		B5D799581C81894300F91E45 /* AlertViews */ = {
+			isa = PBXGroup;
+			children = (
+				B5D799591C81898A00F91E45 /* BaseALertView.h */,
+				B5D7995A1C81898A00F91E45 /* BaseALertView.m */,
+				B5D7995C1C818ADE00F91E45 /* TelAlertView.h */,
+				B5D7995D1C818ADE00F91E45 /* TelAlertView.m */,
+				B5D7995F1C81909200F91E45 /* DeltaView.h */,
+				B5D799601C81909200F91E45 /* DeltaView.m */,
+			);
+			path = AlertViews;
 			sourceTree = "<group>";
 		};
 		B5D899F31C11211900F55BFA /* RamCollectionView */ = {
@@ -3582,6 +3608,7 @@
 				B53E738C1C1673B3009E7878 /* tip@2x.png in Resources */,
 				B5F90AFC1C1985A100D7879D /* LoginAccount@2x.png in Resources */,
 				8072E59F1C76E85700566D4C /* QPLocalizable_en.plist in Resources */,
+				B5D799541C81851E00F91E45 /* tel@2x.png in Resources */,
 				B7E4CD1F1C1FE24600C2E69A /* sys.png in Resources */,
 				B5F90AFE1C1985A100D7879D /* LoginQQ@2x.png in Resources */,
 				B7E096D61C1E5F1000E0E73B /* head_bg.png in Resources */,
@@ -3892,6 +3919,7 @@
 				B7CE7F3A1C16AF780035D8CA /* MushaMatch.m in Sources */,
 				B7617E721C1C29A500CF96E7 /* YMTableViewCell.m in Sources */,
 				B5F90ACD1C190CF900D7879D /* ChoosePlanTypeViewController.m in Sources */,
+				B5D7995E1C818ADE00F91E45 /* TelAlertView.m in Sources */,
 				B5F90AEE1C197D3D00D7879D /* LoginViewController.m in Sources */,
 				B7A6FC821C51C41B00B6D665 /* UIView+WZLBadge.m in Sources */,
 				B7A6FC891C51CCB800B6D665 /* ShopListViewController.m in Sources */,
@@ -3942,6 +3970,7 @@
 				B5207D861C52198C00CE729F /* OrderDetailViewController.m in Sources */,
 				8049520B1C250B3800F5584A /* SCPlayer.m in Sources */,
 				B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */,
+				B5D7995B1C81898A00F91E45 /* BaseALertView.m in Sources */,
 				80DBEA381C4796580012339C /* VideoDetialSecondViewController.m in Sources */,
 				80DB846E1C23D3A6008CA670 /* UIImageView+HighlightedWebCache.m in Sources */,
 				B5451CCA1C2796B6001BB39F /* pinyin.m in Sources */,
@@ -3993,6 +4022,7 @@
 				B7BED2271C5330590058CBF4 /* IntegralExchangeRecordViewController.m in Sources */,
 				80CE42D71C3CB26C00B027CC /* VSegmentSlider.m in Sources */,
 				804952141C250B3800F5584A /* SCSwipeableFilterView.m in Sources */,
+				B5D799611C81909200F91E45 /* DeltaView.m in Sources */,
 				B5B737781C3CAAF100DF7437 /* PinyinHelper.m in Sources */,
 				8074B0991C4376D60029C8B1 /* PlayerController.m in Sources */,
 				B5905DF81C1BA8BA00ECA9BA /* MushaMatchDetailViewController.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import "BaseNavigationController.h"
 #import "GoodsCommentViewController.h"
+#import "TelAlertView.h"
 @interface ShopDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,strong) NSString *goodsId;

@@ -1332,54 +1332,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KongFuCenter/UILayer/KongFuUnion/WYNewsViewController.m"
-            timestampString = "476179879.959356"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "835"
-            endingLineNumber = "835"
-            landmarkName = "-zanEvent:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[WYNewsViewController tableView:cellForRowAtIndexPath:]"
-                  moduleName = "KongFuCenter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wangjc/work/Project/KongFuCenter/code/KongFuCenter/KongFuCenter/UILayer/KongFuUnion/WYNewsViewController.m"
-                  timestampString = "478179334.539961"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "835"
-                  endingLineNumber = "835"
-                  offsetFromSymbolStart = "1584">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[WYNewsViewController tableView:cellForRowAtIndexPath:]"
-                  moduleName = "KongFuCenter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wangjc/work/Project/KongFuCenter/code/KongFuCenter/KongFuCenter/UILayer/KongFuUnion/WYNewsViewController.m"
-                  timestampString = "478179334.540201"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "835"
-                  endingLineNumber = "835"
-                  offsetFromSymbolStart = "5068">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1389,7 +1341,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "669"
             endingLineNumber = "669"
-            landmarkName = "-viewSetHidden:"
+            landmarkName = "-qupaiSDK:compeleteVideoPath:thumbnailPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1405,7 +1357,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "660"
             endingLineNumber = "660"
-            landmarkName = "-positionDismissView:"
+            landmarkName = "-qupaiSDKCancel:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1688,7 +1640,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/Common/CommonDef.h"
-            timestampString = "478160970.345147"
+            timestampString = "478249019.957421"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "101"
