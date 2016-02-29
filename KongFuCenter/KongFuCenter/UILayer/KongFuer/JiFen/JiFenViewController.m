@@ -70,7 +70,7 @@
     }];
 
     
-    headView = [[UserHeadView alloc] initWithFrame: CGRectMake(GapToLeft, 20,  3*_cellHeight - 20*2, 3*_cellHeight - 20*2) andImg:[UIImage imageNamed:@"headImg"] andNav:self.navigationController];
+    headView = [[UserHeadView alloc] initWithFrame: CGRectMake(GapToLeft, 20,  2*_cellHeight - 20*2, 2*_cellHeight - 20*2) andImg:[UIImage imageNamed:@"headImg"] andNav:self.navigationController];
     userName = [[UILabel alloc] init];
     jiFenLab = [[UILabel alloc] init];
     
@@ -198,15 +198,18 @@
     if(indexPath.section == 0)
     {
         @try {
-            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3)];
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*2)];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [headView makeSelfRound];
             
             userName.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
-                                        20+20, 100,((headView.frame.size.height - 40)/2 -5) );
+                                        (headView.frame.origin.y + 10),
+                                        100,
+                                        ((headView.frame.size.height)/2 -10) );
             //    userName.text = @"成龙";
             userName.textColor = [UIColor whiteColor];
+            userName.font = [UIFont systemFontOfSize:14];
             [cell addSubview:userName];
             
             jiFenLab.frame = CGRectMake((headView.frame.origin.x + headView.frame.size.width +10),
@@ -214,6 +217,7 @@
                                         userName.frame.size.height);
             //  jiFenLab.text = @"积分：1000个";
             jiFenLab.textColor = [UIColor whiteColor];
+            jiFenLab.font = [UIFont systemFontOfSize:14];
             [cell addSubview:jiFenLab];
             
             
@@ -303,7 +307,7 @@
     
     if(indexPath.section == 0)
     {
-        return 3*_cellHeight;
+        return 2*_cellHeight;
     }
     
     return _cellHeight;

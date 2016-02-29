@@ -309,7 +309,7 @@
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3)];
         cell.backgroundColor = ItemsBaseColor;
         
-        UIImageView *dreamImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*1.5)];
+        UIImageView *dreamImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*2)];
         dreamImgView.image = [UIImage imageNamed:@"temp2"];
         [cell addSubview:dreamImgView];
         
@@ -399,7 +399,7 @@
         NSString *dreamStr = theirDream[@"DreamDescription"];
         
         CGFloat labHeight = [Toolkit heightWithString:dreamStr fontSize:14 width:self.view.frame.size.width - 30];
-        return labHeight + _cellHeight*1.5 + 30;
+        return labHeight + _cellHeight*2 + 30;
 //        return 3*_cellHeight;
     }
     if(indexPath.section == 1)

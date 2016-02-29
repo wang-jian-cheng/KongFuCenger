@@ -1409,6 +1409,8 @@
                                                  , _cellHeight);
                     nickName.backgroundColor = ItemsBaseColor;
                     nickName.placeholder = @"请输入您的昵称";
+                    nickName.textColor = [UIColor whiteColor];
+                    
                     [cell addSubview:nickName];
                     
                 }

@@ -9,7 +9,9 @@
 #import "ErWeiMaViewController.h"
 
 @interface ErWeiMaViewController ()
-
+{
+    AVCaptureDevice *captureDevice;
+}
 @end
 
 @implementation ErWeiMaViewController
@@ -22,6 +24,10 @@
 //    [self addLeftButton:@"Icon_Back@2x.png"];
     _captureSession = nil;
     _isReading = NO;
+    
+    
+    [self addRightbuttontitle:@"开灯"];
+    
     [self startReading];
 }
 
@@ -30,14 +36,54 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)clickRightButton:(UIButton *)sender
+{
+    if([_lblRight.text isEqualToString:@"开灯"])
+    {
+        NSLog(@"ON");
+        
+        if([captureDevice hasTorch] && [captureDevice hasFlash])
+        {
+            if(captureDevice.torchMode == AVCaptureTorchModeOff)
+            {
+                [self.captureSession beginConfiguration];
+                [captureDevice lockForConfiguration:nil];
+                [captureDevice setTorchMode:AVCaptureTorchModeOn];
+                [captureDevice setFlashMode:AVCaptureFlashModeOn];
+                [captureDevice unlockForConfiguration];
+                [self.captureSession commitConfiguration];
+            }
+        }
+        _lblRight.text = @"关灯";
+//        [sender setTitle:@"关灯" forState:UIControlStateNormal];
+    }
+    else if([_lblRight.text isEqualToString:@"关灯"])
+    {
+         _lblRight.text = @"开灯";
+//        [sender setTitle:@"开灯" forState:UIControlStateNormal];
+        
+        [self.captureSession beginConfiguration];
+        [captureDevice lockForConfiguration:nil];
+        if(captureDevice.torchMode == AVCaptureTorchModeOn)
+        {
+            [captureDevice setTorchMode:AVCaptureTorchModeOff];
+            [captureDevice setFlashMode:AVCaptureFlashModeOff];
+        }
+        [captureDevice unlockForConfiguration];
+        [self.captureSession commitConfiguration];
+//        [self.captureSession stopRunning];
+    }
+}
+
 - (BOOL)startReading {
     
     _viewPreview.frame=CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64);
     
     NSError *error;
     
-    //1.初始化捕捉设备（AVCaptureDevice），类型为AVMediaTypeVideo
-    AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    //1.初始化捕捉设备（AVCaptureDevice），类型为AVMediaTypeVide
+    captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
     
     //2.用captureDevice创建输入流
     AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&error];
