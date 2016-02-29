@@ -106,7 +106,7 @@
     [self.view addSubview:viewForBtns];
     
     _cellHeight = 100;
-    pageSize = 5;
+    pageSize = 4;
     
 //    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height )];
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - 44 ) style:UITableViewStyleGrouped];
@@ -275,8 +275,8 @@
 -(void)getOrderlistCallBack:(id)dict
 {
     loading = NO;
-    NSLog(@"----------------------------------------%f",[NSDate timeIntervalSinceReferenceDate]);
-    //DLog(@"%@",dict);
+//    NSLog(@"----------------------------------------%f",[NSDate timeIntervalSinceReferenceDate]);
+    DLog(@"%@",dict);
     [_mainTableView.mj_header endRefreshing];
     [_mainTableView.mj_footer endRefreshing];
     if([dict[@"code"] intValue] == 200)
@@ -302,7 +302,7 @@
     {
         [SVProgressHUD showErrorWithStatus:dict[@"data"] maskType:SVProgressHUDMaskTypeBlack];
     }
-    NSLog(@"----------------------------------------%f",[NSDate timeIntervalSinceReferenceDate]);
+//    NSLog(@"----------------------------------------%f",[NSDate timeIntervalSinceReferenceDate]);
 }
 
 /**

@@ -11,5 +11,5 @@
 @interface ShopListViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 @property(nonatomic,strong) NSString *categoryId;
-
+@property(nonatomic,strong) NSString *isRecommend;
 @end

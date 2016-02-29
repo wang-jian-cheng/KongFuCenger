@@ -7,6 +7,7 @@
 //
 
 #import "BaseNavigationController.h"
+#import "ShopListViewController.h"
 
 @interface RecommendGoodsViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 

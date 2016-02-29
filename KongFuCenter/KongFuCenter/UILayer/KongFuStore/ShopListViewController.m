@@ -23,7 +23,7 @@
     NSString *isCommentAsc;
     NSString *isNewAsc;
     NSString *isCredit;
-    NSString *isRecommend;
+//    NSString *isRecommend;
     NSArray *shopInfoArray;
     NSMutableArray *shopInfoArrayCopy;
     UITextField *searchTxt;
@@ -55,7 +55,6 @@
     isCommentAsc = @"0";
     isNewAsc = @"0";
     isCredit = @"0";
-    isRecommend = @"0";
     
     //初始化View
     [self initViews];
@@ -73,14 +72,31 @@
 #pragma mark 自定义方法
 -(void)initData{
     curpage = 0;
-    shopInfoArray = [[NSArray alloc] init];
+//    shopInfoArray = [[NSArray alloc] init];
     searchFlag = NO;
-    searchTxt.text = @"";
+//    searchTxt.text = @"";
     [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListCallBack:"];
-    [dataProvider SelectProductBySearch:@"0" andmaximumRows:@"10" andsearch:search andcategoryId:_categoryId andisPriceAsc:isPriceAsc andisSalesAsc:isSalesAsc andisCommentAsc:isCommentAsc andisNewAsc:isNewAsc andisCredit:isCredit andisRecommend:isRecommend];
+    [dataProvider SelectProductBySearch:@"0" andmaximumRows:@"10" andsearch:search andcategoryId:_categoryId andisPriceAsc:isPriceAsc andisSalesAsc:isSalesAsc andisCommentAsc:isCommentAsc andisNewAsc:isNewAsc andisCredit:isCredit andisRecommend:self.isRecommend];
 }
 
+
+//-(void)setIsRecommend:(NSString *)isRecommend
+//{
+//    _isRecommend = isRecommend;
+//}
+
+-(NSString*)isRecommend
+{
+    if(_isRecommend == nil || _isRecommend.length == 0)
+    {
+        _isRecommend = @"0";
+    }
+    return _isRecommend;
+}
+
+
 -(void)getShopListCallBack:(id)dict{
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
         shopInfoArray = dict[@"data"];
         if(shopInfoArray.count >= [dict[@"recordcount"] intValue])
@@ -94,9 +110,9 @@
 -(void)TeamFootRefresh{
     curpage++;
     searchFlag = NO;
-    searchTxt.text = @"";
+//    searchTxt.text = @"";
     [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListFootCallBack:"];
-    [dataProvider SelectProductBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andsearch:search andcategoryId:_categoryId andisPriceAsc:isPriceAsc andisSalesAsc:isSalesAsc andisCommentAsc:isCommentAsc andisNewAsc:isNewAsc andisCredit:isCredit andisRecommend:isRecommend];
+    [dataProvider SelectProductBySearch:[NSString stringWithFormat:@"%d",curpage * 10] andmaximumRows:@"10" andsearch:search andcategoryId:_categoryId andisPriceAsc:isPriceAsc andisSalesAsc:isSalesAsc andisCommentAsc:isCommentAsc andisNewAsc:isNewAsc andisCredit:isCredit andisRecommend:self.isRecommend];
 }
 
 -(void)getShopListFootCallBack:(id)dict{
@@ -209,7 +225,7 @@
     
     [self.view addSubview:headView];
     
-    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, headView.frame.origin.y + headView.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
+    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, headView.frame.origin.y + headView.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT - (headView.frame.origin.y + headView.frame.size.height))];
     mTableView.delegate = self;
     mTableView.dataSource = self;
     mTableView.backgroundColor = BACKGROUND_COLOR;
@@ -288,20 +304,24 @@
 }
 
 -(void)searchData:(NSString *)searchStr{
-    NSLog(@"%@",shopInfoArray);
-    shopInfoArrayCopy = [[NSMutableArray alloc] init];
-    if (![searchStr isEqual:@""]) {
-        searchFlag = YES;
-        for (int i = 0; i < shopInfoArray.count; i++) {
-            if ([[shopInfoArray[i] valueForKey:@"Name"] containsString:searchStr]) {
-                [shopInfoArrayCopy addObject:shopInfoArray[i]];
-            }
-        }
-    }else{
-        searchFlag = YES;
-        shopInfoArrayCopy = [[NSMutableArray alloc] initWithArray:shopInfoArray];
-    }
-    [mTableView reloadData];
+//    DLog(@"%@",shopInfoArray);
+//    shopInfoArrayCopy = [[NSMutableArray alloc] init];
+//    if (![searchStr isEqual:@""]) {
+//        searchFlag = YES;
+//        for (int i = 0; i < shopInfoArray.count; i++) {
+//            NSString *name = shopInfoArray[i][@"Name"];
+//            
+//            if ([name containsString:searchStr]) {
+//                [shopInfoArrayCopy addObject:shopInfoArray[i]];
+//            }
+//        }
+//    }else{
+//        searchFlag = YES;
+//        shopInfoArrayCopy = [[NSMutableArray alloc] initWithArray:shopInfoArray];
+//    }
+//    [mTableView reloadData];
+    search = searchStr;
+    [mTableView.mj_header beginRefreshing];
 }
 
 #pragma mark tableview delegate
@@ -310,11 +330,13 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (!searchFlag) {
-        return shopInfoArray.count;
-    }else{
-        return shopInfoArrayCopy.count;
-    }
+//    if (!searchFlag) {
+//        return shopInfoArray.count;
+//    }else{
+//        return shopInfoArrayCopy.count;
+//    }
+    
+    return shopInfoArray.count;
 }
 
 #pragma mark setting for section
@@ -343,13 +365,13 @@
         cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",[Toolkit judgeIsNull:[shopInfoArray[indexPath.row] valueForKey:@"SaleNum"]]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }else{
-        NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"ImagePath"]]];
-        [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
-        cell.mName.text = [Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"Name"]];
-        cell.mPrice.text = [NSString stringWithFormat:@"¥%.02f",[[Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"Price"]] floatValue]];
-        cell.watchNum.text = [NSString stringWithFormat:@"%@人",[Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"VisitNum"]]];
-        cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",[Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"SaleNum"]]];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        NSString *url = [NSString stringWithFormat:@"%@%@",Url,[Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"ImagePath"]]];
+//        [cell.mImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
+//        cell.mName.text = [Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"Name"]];
+//        cell.mPrice.text = [NSString stringWithFormat:@"¥%.02f",[[Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"Price"]] floatValue]];
+//        cell.watchNum.text = [NSString stringWithFormat:@"%@人",[Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"VisitNum"]]];
+//        cell.salesNum.text = [NSString stringWithFormat:@"销量:%@",[Toolkit judgeIsNull:[shopInfoArrayCopy[indexPath.row] valueForKey:@"SaleNum"]]];
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     return cell;

@@ -103,23 +103,6 @@
 }
 
 
--(void)cateBtnClick:(UIButton *)sender
-{
-    sender.selected = YES;
-    [btnImgView removeFromSuperview];
-    btnImgView.frame = CGRectMake((sender.frame.size.width-15)/2, (sender.frame.size.height - 15), 15, 15);
-    [sender addSubview:btnImgView];
-    
-    for(int i =0;i<btnArr.count;i++)
-    {
-        if(i != sender.tag)
-        {
-            ((UIButton *)btnArr[i]).selected = NO;
-        }
-    }
-}
-
-
 #pragma mark - UICollectionViewDataSource
 
 //定义展示的UICollectionViewCell的个数
