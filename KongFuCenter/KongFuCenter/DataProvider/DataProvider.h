@@ -95,6 +95,7 @@
 
 //修改密码
 -(void)ChangePassWord:(NSString *)userid andoldpwd:(NSString *)oldpwd andpassword:(NSString *)password;
+-(void)SelectUserPayList;
 #pragma mark － 天气
 -(void)getWeatherInfo: (NSString*)httpUrl withHttpArg: (NSString*)HttpArg;
 #pragma mark - 成长记录

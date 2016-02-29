@@ -19,12 +19,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"left"];
-    
-    
     self.view.backgroundColor = BACKGROUND_COLOR;
-    
+    [self initData];
     [self initViews];
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)initData{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"SelectUserPayListCallBack:"];
+    [dataProvider SelectUserPayList];
+}
+
+-(void)SelectUserPayListCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        self.taocan1.text = [NSString stringWithFormat:@"%@",@"套餐一：充值300，时间一个月"];
+        self.taocan2.text = [NSString stringWithFormat:@"%@",@"套餐二：充值600，时间三个月"];
+        self.taocan3.text = [NSString stringWithFormat:@"%@",@"套餐三：充值900，时间半年"];
+        self.taocan4.text = [NSString stringWithFormat:@"%@",@"套餐四：充值1200，时间1年"];
+    }
 }
 
 -(void)initViews

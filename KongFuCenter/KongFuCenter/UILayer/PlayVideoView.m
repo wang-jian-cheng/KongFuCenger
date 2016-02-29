@@ -44,7 +44,7 @@
     [[self topView] addSubview:coverView];
     
     backView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    backView.backgroundColor = [UIColor whiteColor];
+    backView.backgroundColor = [UIColor blackColor];
     [backView addTarget:self action:@selector(backViewEvent) forControlEvents:UIControlEventTouchUpInside];
     [[self topView] addSubview:backView];
 
