@@ -460,6 +460,9 @@
 //根据订单ID获取订单详情
 -(void)SelectBillProduct:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows andbillId:(NSString *)billId;
 
+//根据用户ID，查询订单个数
+-(void)SelectBillCount:(NSString *)userId;
+
 #pragma mark - 购物车
 /**
  获取购物车列表

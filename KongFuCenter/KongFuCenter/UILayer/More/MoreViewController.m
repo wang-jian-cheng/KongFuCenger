@@ -17,6 +17,10 @@
     NSInteger _sectionNum;
     CGFloat _cellHeight;
     UITableView *_mainTableView;
+    
+    
+    
+    NSString  *telNum;
 }
 //公司信息
 @property (nonatomic, strong) UILabel * label_1;
@@ -31,6 +35,8 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"更多"];
     [self initViews];
+    
+    [self GetAboutUs];
     // Do any additional setup after loading the view.
 }
 
@@ -81,7 +87,24 @@
     self.label_2.font = [UIFont systemFontOfSize:13];
     [_mainTableView addSubview:self.label_2];
 }
+#pragma mark - self datasource
 
+-(void)GetAboutUs
+{
+    DataProvider *dataProvider = [[DataProvider alloc] init];
+    [dataProvider setDelegateObject:self setBackFunctionName:@"GetAboutUsCallBack:"];
+    [dataProvider GetAboutUs];
+}
+
+-(void)GetAboutUsCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    
+    if([dict[@"code"] intValue] == 200)
+    {
+        telNum = dict[@"data"][@"TelePhone"];
+    }
+}
 
 #pragma mark - 退出
 
@@ -178,7 +201,7 @@
         switch (indexPath.row) {
             case 0:
             {
-                cell.textLabel.text  = @"留言反馈";
+                cell.textLabel.text  = @"在线客服";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
                 break;
@@ -243,8 +266,21 @@
     {
         if(indexPath.row == 0)
         {
-            MessagefankuiViewController * messagefankuiViewController = [[MessagefankuiViewController alloc] init];
-            [self.navigationController pushViewController:messagefankuiViewController animated:YES];
+            if(telNum == nil || telNum.length == 0)
+            {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"客服信息获取失败" delegate:self cancelButtonTitle:@"确认" otherButtonTitles: nil];
+                
+                [alertView show];
+            }
+            else
+            {
+                [Toolkit makeCall:telNum];
+            }
+            
+            
+            
+//            MessagefankuiViewController * messagefankuiViewController = [[MessagefankuiViewController alloc] init];
+//            [self.navigationController pushViewController:messagefankuiViewController animated:YES];
 //            [self showViewController:messagefankuiViewController sender:nil];
         }
     }

@@ -735,9 +735,11 @@
         if (m.isFavour == YES) {//此时该取消赞
             m.isFavour = NO;
             m.zanNum--;
+            [SVProgressHUD showErrorWithStatus:@"点赞失败~" maskType:SVProgressHUDMaskTypeBlack];
         }else{
             m.isFavour = YES;
             m.zanNum++;
+            [SVProgressHUD showSuccessWithStatus:@"点赞成功~" maskType:SVProgressHUDMaskTypeBlack];
         }
         ymData.messageBody = m;
         //清空属性数组。否则会重复添加

@@ -55,7 +55,7 @@
 {
     if(openid&&photopath&&nicname)
     {
-        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/UpdateAreaIdByUserId",Url];
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/LoginByOtherWithInfor",Url];
         NSDictionary * prm=@{@"openid":openid,
                              @"nicname":nicname,
                              @"photopath":photopath};
@@ -1771,6 +1771,16 @@
         NSDictionary *prm = @{@"startRowIndex":startRowIndex,
                               @"maximumRows":maximumRows,
                               @"billId":billId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
+-(void)SelectBillCount:(NSString *)userId{
+    if (userId) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectBillCount",Url];
+        NSDictionary *prm = @{@"userId":userId};
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];

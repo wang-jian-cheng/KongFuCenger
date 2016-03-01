@@ -51,7 +51,8 @@
 + (BOOL) canUserPickPhotosFromPhotoLibrary;
 + (BOOL) cameraSupportsMedia:(NSString *)paramMediaType sourceType:(UIImagePickerControllerSourceType)paramSourceType;
 
-
+#pragma mark - 打电话
++(void)makeCall:(NSString *)phoneNum;
 #pragma mark - time 
 
 +(NSString *)GettitleForDate:(NSString *)dateStr;
