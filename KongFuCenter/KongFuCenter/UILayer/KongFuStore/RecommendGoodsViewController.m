@@ -30,6 +30,7 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self setBarTitle:@"推荐商品"];
     [self addLeftButton:@"left"];
+    [self addRightButton:@"search"];
     
     dataProvider = [[DataProvider alloc] init];
     recommendGoodsArray = [[NSArray alloc] init];
@@ -75,7 +76,7 @@
 -(void)initData{
     curpage = 0;
     [dataProvider setDelegateObject:self setBackFunctionName:@"recommendGoodsCallBack:"];
-    [dataProvider SelectProductBySearch:@"0" andmaximumRows:@"15" andsearch:@"" andcategoryId:@"0" andisPriceAsc:@"0" andisSalesAsc:@"0" andisCommentAsc:@"0" andisNewAsc:@"0" andisCredit:@"0" andisRecommend:@"1"];
+    [dataProvider SelectProductBySearch:@"0" andmaximumRows:@"15" andsearch:@"" andcategoryId:@"0" andisPriceAsc:@"0" andisSalesAsc:@"2" andisCommentAsc:@"0" andisNewAsc:@"0" andisCredit:@"0" andisRecommend:@"1"];
 }
 
 -(void)recommendGoodsCallBack:(id)dict{
@@ -83,6 +84,15 @@
         recommendGoodsArray = dict[@"data"];
         [mTableView reloadData];
     }
+}
+
+
+-(void)clickRightButton:(UIButton *)sender
+{
+    ShopListViewController *shopListVC = [[ShopListViewController alloc] init];
+    shopListVC.categoryId = @"0";
+    shopListVC.isRecommend = @"1";
+    [self.navigationController pushViewController:shopListVC animated:YES];
 }
 
 -(void)TeamFootRefresh{

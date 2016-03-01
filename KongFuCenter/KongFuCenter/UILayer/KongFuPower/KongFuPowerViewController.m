@@ -20,7 +20,7 @@
 #pragma mark - pram for tableView
     NSInteger _sectionNum;
     CGFloat _cellHeight;
-    UITableView *_mainTableView;
+    UITableView *_mainTableView;//最开始用的tableview 现在用不到了
     
     NSArray *dataArr;
     NSMutableArray *studyCateArr;
@@ -35,6 +35,16 @@
     BOOL isLocalHostVideo;
     
     UIViewController *recordController;
+    
+    
+#pragma mark - 频道部分变量
+    //Views
+    UICollectionView *mainChannelCollectionView;
+    
+    //datas
+    NSMutableArray *channelSecondCateArr;
+    
+    BOOL showChannel;
     
 }
 @end
@@ -68,7 +78,7 @@
     [self initDatas];
     
     [self initViews];
-    
+    [self initChannelViews];
     
     // Do any additional setup after loading the view.
 }
@@ -92,6 +102,8 @@
     [studyCateArr addObjectsFromArray:@[@"最新",@"热门",@"推荐",@"原创",@"频道"]];
     
     btnArr = [NSMutableArray array];
+    
+    [self initChannelDatas];
     
 }
 
@@ -355,15 +367,28 @@
             
         case CHANNEL_BTN:
         {
-            ChannelViewController *channelViewCtl = [[ChannelViewController alloc] init];
-            channelViewCtl.navtitle = @"频道";
-            [self.navigationController pushViewController:channelViewCtl animated:YES];
-            [self positionDismissView:moreSettingBackView];
-            return;
+//            ChannelViewController *channelViewCtl = [[ChannelViewController alloc] init];
+//            channelViewCtl.navtitle = @"频道";
+//            [self.navigationController pushViewController:channelViewCtl animated:YES];
+//            [self positionDismissView:moreSettingBackView];
+            
+            showChannel = YES;
+            
+            [mainCollectionView removeFromSuperview];
+//            [_mainTableView removeFromSuperview];
+            
+            [self.view addSubview:mainChannelCollectionView];
+            [mainChannelCollectionView reloadData];
+            [self hiddenFloatnBtn];
+//            return;
         }
             break;
             
         default:
+            [self showFloatBtn];
+            showChannel = NO;
+            [mainChannelCollectionView removeFromSuperview];
+            [self.view addSubview:mainCollectionView];
             [mainCollectionView.mj_header beginRefreshing];
             break;
     }
@@ -636,6 +661,70 @@
     moreSettingBackView.hidden = YES;
 }
 
+#pragma mark - 频道部分
+
+#define ChannelCollectionTag    101
+#define _CELL @ "acell"
+-(void)initChannelDatas
+{
+    //    studyCateArr = [NSMutableArray array];
+    //    [studyCateArr addObjectsFromArray:@[@"正向品格",@"极限武术",@"教练核能",@"运营管理"]];
+    
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetChannelDataCallBack:"];
+    
+    [dataprovider GetChinnel:@"0" andmaximumRows:@"100"];
+    
+    channelSecondCateArr = [NSMutableArray array];
+    //    [secondCateArr addObjectsFromArray:@[@"电影",@"励志",@"表演",@"理念",@"技术",@"赛事",@"运营",@"教学",@"大师",@"4",@"3",@"2",@"1"]];
+    
+    btnArr = [NSMutableArray array];
+}
+-(void)GetChannelDataCallBack:(id)dict
+{
+    NSLog(@"%@",dict);
+    
+    if ([dict[@"code"] intValue]==200) {
+        channelSecondCateArr=[[NSMutableArray alloc] initWithArray:dict[@"data"]];
+        [mainCollectionView reloadData];
+    }
+    
+}
+
+-(void)initChannelViews
+{
+    
+    
+    self.collectionViewLayout = [[RAMCollectionViewFlemishBondLayout alloc] init];
+    self.collectionViewLayout.delegate = self;
+    self.collectionViewLayout.numberOfElements = 3;
+    self.collectionViewLayout.highlightedCellHeight = (SCREEN_HEIGHT - Header_Height )/100*35;
+    self.collectionViewLayout.highlightedCellWidth = SCREEN_WIDTH/5*3;
+    //  layout.itemSize = CGSizeMake(318, 286);
+    
+    // layout.sectionInset = UIEdgeInsetsMake(5, 0, 5, 0);
+    
+    mainChannelCollectionView = [[UICollectionView alloc]  initWithFrame:CGRectMake(0, Header_Height+44, SCREEN_WIDTH ,SCREEN_HEIGHT-(Header_Height + 44  + TabBar_HEIGHT )) collectionViewLayout:self.collectionViewLayout];
+    
+//     SCREEN_HEIGHT-(Header_Height - 44 - Header_Height - TabBar_HEIGHT)
+    [mainChannelCollectionView registerClass :[ UICollectionViewCell class ] forCellWithReuseIdentifier : _CELL ];
+    
+    mainChannelCollectionView.delegate= self;
+    mainChannelCollectionView.dataSource =self;
+    mainChannelCollectionView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*2);
+    mainChannelCollectionView.showsHorizontalScrollIndicator = YES;
+    mainChannelCollectionView.showsVerticalScrollIndicator = NO;
+    mainChannelCollectionView.backgroundColor = BACKGROUND_COLOR;
+    mainChannelCollectionView.tag = ChannelCollectionTag;
+
+//    [self.view addSubview:mainChannelCollectionView];
+    
+}
+
+
+
+
 #pragma mark -  tableview  Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -850,6 +939,45 @@
 }
 
 
+#pragma mark - RAMCollectionViewVunityLayoutDelegate
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(RAMCollectionViewFlemishBondLayout *)collectionViewLayout estimatedSizeForHeaderInSection:(NSInteger)section
+//{
+//    return CGSizeMake(CGRectGetWidth(mainCollectionView.frame), 100);
+//}
+//
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(RAMCollectionViewFlemishBondLayout *)collectionViewLayout estimatedSizeForFooterInSection:(NSInteger)section
+//{
+//    return CGSizeMake(CGRectGetWidth(mainCollectionView.frame), 100);
+//}
+
+- (RAMCollectionViewFlemishBondLayoutGroupDirection)collectionView:(UICollectionView *)collectionView layout:(RAMCollectionViewFlemishBondLayout *)collectionViewLayout highlightedCellDirectionForGroup:(NSInteger)group atIndexPath:(NSIndexPath *)indexPath
+{
+    RAMCollectionViewFlemishBondLayoutGroupDirection direction;
+    
+    
+    
+    if ((indexPath.row/3) % 2) {
+        direction = RAMCollectionViewFlemishBondLayoutGroupDirectionRight;
+    } else {
+        direction = RAMCollectionViewFlemishBondLayoutGroupDirectionLeft;
+    }
+    
+    if(indexPath.row %3 ==1)
+    {
+        direction |= RAMCollectionViewUnHighlightedCellInTop;
+    }
+    else if(indexPath.row %3 ==2)
+    {
+        direction |= RAMCollectionViewUnHighlightedCellInBottom;
+    }
+    
+    
+    
+    return direction;
+}
+
+
+
 
 
 #pragma mark - UICollectionViewDataSource
@@ -858,7 +986,13 @@
 
 -( NSInteger )collectionView:( UICollectionView *)collectionView numberOfItemsInSection:( NSInteger )section
 {
+    
+    if(showChannel == YES)
+    {
+        return channelSecondCateArr.count;
+    }
     return dataArr.count;
+    
 }
 
 //定义展示的Section的个数
@@ -874,149 +1008,191 @@
 
 -( UICollectionViewCell *)collectionView:( UICollectionView *)collectionView cellForItemAtIndexPath:( NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BaseVideoCell" forIndexPath:indexPath];
     
-    if(cell != nil)
+//    if(showChannel == YES)
+    if(collectionView.tag == ChannelCollectionTag)
     {
-        for (UIView *view in cell.subviews) {
-            [view removeFromSuperview];
+        
+        UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:_CELL forIndexPath:indexPath];
+        cell.backgroundColor = [UIColor whiteColor];
+        
+        if(cell != nil)
+        {
+            //        for (int i =0 ; i<cell.subviews.count; i++) {
+            //            [ [cell.subviews objectAtIndex:i] removeFromSuperview];//清空一下原来cell上面的view'防止cell的重用影响到后面section的显示
+            //        }
+            for (UIView *view in cell.contentView.subviews) {
+                [view removeFromSuperview];
+            }
         }
-    }
-    UIView *lineView = [[UIView alloc] init];
-    UILabel *titleLab = [[UILabel alloc] init] ;
-    UIButton *relayBtn = [[UIButton alloc] init];
-    UserHeadView *headView;
-    
-    UILabel *nameLab = [[UILabel alloc] init];
-    UIButton *commentBtn = [[UIButton alloc] init];
-    UIButton *timeBtn = [[UIButton alloc] init];
-    
-    CGFloat fontsize;
-    CGFloat lineHeight;
-    if (layoutType == DoubleRowMode) {
-        fontsize = 12;
-        lineHeight = 40;
-        
-        lineView.frame =  CGRectMake(GapToLeft/2, (cell.frame.size.height - lineHeight), (cell.frame.size.width - GapToLeft/2), 1);
-        lineView.backgroundColor = Separator_Color;
-        [cell addSubview:lineView];
-        //线上
-        titleLab.frame = CGRectMake(GapToLeft/2, (lineView.frame.origin.y - 30), cell.frame.size.width - GapToLeft/2, 30);
-        
-        titleLab.textColor = [UIColor whiteColor];
-        titleLab.font = [UIFont boldSystemFontOfSize:(fontsize)];
-        [cell addSubview:titleLab];
-        
-        //        relayBtn.frame = CGRectMake((cell.frame.size.width - 30 -10), (lineView.frame.origin.y - 30), 30, 30);
-        
-        //        [cell addSubview:relayBtn];
-        
-        //under line
-        headView = [[UserHeadView alloc] initWithFrame:CGRectMake(5, lineView.frame.origin.y+(lineHeight - 25)/2, 25, 25) andImgName:@"me" andNav:(self.navigationController)];
-        
-        nameLab.frame = CGRectMake((headView.frame.origin.x+headView.frame.size.width + 5),
-                                   (headView.frame.size.height/4+headView.frame.origin.y),(cell.frame.size.width - (headView.frame.origin.x+headView.frame.size.width + 5)), headView.frame.size.height/2);
-        
-        nameLab.textColor = [UIColor whiteColor];
-        nameLab.font = [UIFont systemFontOfSize:fontsize];
         
         
+        
+        UIImageView * img_BackGround=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+        [img_BackGround sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,channelSecondCateArr[indexPath.row][@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@"temp2"]];
+        [cell.contentView addSubview:img_BackGround];
+        
+        UIView *coverView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+        coverView.backgroundColor = [UIColor blackColor];
+        coverView.alpha = 0.3;
+        [cell.contentView addSubview:coverView];
+        
+        UILabel *cateNameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+        cateNameLab.text = channelSecondCateArr[indexPath.row][@"Name"];
+        cateNameLab.textColor = [UIColor orangeColor];
+        cateNameLab.font = [UIFont boldSystemFontOfSize:20];
+        //    cateNameLab.backgroundColor = [UIColor blackColor];
+        cateNameLab.textAlignment = NSTextAlignmentCenter;
+        //    cateNameLab.alpha = 0.3;
+        [cell.contentView addSubview:cateNameLab];
+        return cell;
     }
     else
     {
-        fontsize = 14;
-        lineHeight = 50;
-        lineView.frame =  CGRectMake(GapToLeft/2, (cell.frame.size.height - lineHeight), (SCREEN_WIDTH - GapToLeft/2), 1);
-        lineView.backgroundColor = Separator_Color;
-        [cell addSubview:lineView];
-        //线上
-        titleLab.frame = CGRectMake(GapToLeft, (lineView.frame.origin.y - 30), 200, 30);
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BaseVideoCell" forIndexPath:indexPath];
         
-        titleLab.textColor = [UIColor whiteColor];
-        titleLab.font = [UIFont boldSystemFontOfSize:(fontsize+2)];
-        [cell addSubview:titleLab];
-        
-        relayBtn.frame = CGRectMake((SCREEN_WIDTH - 30 -20), (lineView.frame.origin.y - 30), 30, 30);
-        
-        [cell addSubview:relayBtn];
-        
-        //under line
-        headView = [[UserHeadView alloc] initWithFrame:CGRectMake(5, lineView.frame.origin.y+(lineHeight - 35)/2, 35, 35) andImgName:@"80" andNav:(self.navigationController)];
-        
-        nameLab.frame = CGRectMake((headView.frame.origin.x+headView.frame.size.width + 5),
-                                   (headView.frame.size.height/4+headView.frame.origin.y), 100, headView.frame.size.height/2);
-        
-        nameLab.textColor = [UIColor whiteColor];
-        nameLab.font = [UIFont systemFontOfSize:fontsize];
-        
-        commentBtn.frame = CGRectMake(((nameLab.frame.origin.x+nameLab.frame.size.width)),
-                                      (headView.frame.size.height/4+headView.frame.origin.y),
-                                      (SCREEN_WIDTH - (nameLab.frame.origin.x+nameLab.frame.size.width + 10) -10)/2,
-                                      headView.frame.size.height/2);
-        
-        commentBtn.titleLabel.font = [UIFont systemFontOfSize:fontsize];
-        
-        timeBtn = [[UIButton alloc] initWithFrame:CGRectMake(((commentBtn.frame.origin.x+commentBtn.frame.size.width + 5)),
-                                                             (headView.frame.size.height/4+headView.frame.origin.y),
-                                                             commentBtn.frame.size.width+15,//(SCREEN_WIDTH - (nameLab.frame.origin.x+nameLab.frame.size.width + 10) -10)/2,
-                                                             headView.frame.size.height/2)];
-        timeBtn.titleLabel.font = [UIFont systemFontOfSize:fontsize];
-        
-        [cell addSubview:commentBtn];
-        [cell addSubview:timeBtn];
-        
-        
-    }
-    
-    //    NSLog(@"")
-    
-    NSDictionary *tempDict = dataArr[indexPath.row];
-    cell.backgroundColor = ItemsBaseColor;
-    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width , cell.frame.size.height)];
-    
-    [backgroundView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,tempDict[@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@"temp2"]];
-    
-    //    backgroundView.image = [UIImage imageNamed:dataArr[indexPath.section][@""]];
-    cell.backgroundView = backgroundView;
-    {
-        
-        titleLab.text = tempDict[@"Title"];
-        [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
-        
-        //under line
-        headView.userId =[NSString stringWithFormat:@"%@",tempDict[@"UserId"]];
-        if([headView.userId isEqualToString:@"0"])
+        if(cell != nil)
         {
-            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,tempDict[@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@"80"]];
-        }else
-        {
-            [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,tempDict[@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@"80"]];
+            for (UIView *view in cell.subviews) {
+                [view removeFromSuperview];
+            }
         }
-        [headView makeSelfRound];
+        UIView *lineView = [[UIView alloc] init];
+        UILabel *titleLab = [[UILabel alloc] init] ;
+        UIButton *relayBtn = [[UIButton alloc] init];
+        UserHeadView *headView;
         
-        [cell addSubview:headView];
+        UILabel *nameLab = [[UILabel alloc] init];
+        UIButton *commentBtn = [[UIButton alloc] init];
+        UIButton *timeBtn = [[UIButton alloc] init];
+        
+        CGFloat fontsize;
+        CGFloat lineHeight;
+        if (layoutType == DoubleRowMode) {
+            fontsize = 12;
+            lineHeight = 40;
+            
+            lineView.frame =  CGRectMake(GapToLeft/2, (cell.frame.size.height - lineHeight), (cell.frame.size.width - GapToLeft/2), 1);
+            lineView.backgroundColor = Separator_Color;
+            [cell addSubview:lineView];
+            //线上
+            titleLab.frame = CGRectMake(GapToLeft/2, (lineView.frame.origin.y - 30), cell.frame.size.width - GapToLeft/2, 30);
+            
+            titleLab.textColor = [UIColor whiteColor];
+            titleLab.font = [UIFont boldSystemFontOfSize:(fontsize)];
+            [cell addSubview:titleLab];
+            
+            //        relayBtn.frame = CGRectMake((cell.frame.size.width - 30 -10), (lineView.frame.origin.y - 30), 30, 30);
+            
+            //        [cell addSubview:relayBtn];
+            
+            //under line
+            headView = [[UserHeadView alloc] initWithFrame:CGRectMake(5, lineView.frame.origin.y+(lineHeight - 25)/2, 25, 25) andImgName:@"me" andNav:(self.navigationController)];
+            
+            nameLab.frame = CGRectMake((headView.frame.origin.x+headView.frame.size.width + 5),
+                                       (headView.frame.size.height/4+headView.frame.origin.y),(cell.frame.size.width - (headView.frame.origin.x+headView.frame.size.width + 5)), headView.frame.size.height/2);
+            
+            nameLab.textColor = [UIColor whiteColor];
+            nameLab.font = [UIFont systemFontOfSize:fontsize];
+            
+            
+        }
+        else
+        {
+            fontsize = 14;
+            lineHeight = 50;
+            lineView.frame =  CGRectMake(GapToLeft/2, (cell.frame.size.height - lineHeight), (SCREEN_WIDTH - GapToLeft/2), 1);
+            lineView.backgroundColor = Separator_Color;
+            [cell addSubview:lineView];
+            //线上
+            titleLab.frame = CGRectMake(GapToLeft, (lineView.frame.origin.y - 30), 200, 30);
+            
+            titleLab.textColor = [UIColor whiteColor];
+            titleLab.font = [UIFont boldSystemFontOfSize:(fontsize+2)];
+            [cell addSubview:titleLab];
+            
+            relayBtn.frame = CGRectMake((SCREEN_WIDTH - 30 -20), (lineView.frame.origin.y - 30), 30, 30);
+            
+            [cell addSubview:relayBtn];
+            
+            //under line
+            headView = [[UserHeadView alloc] initWithFrame:CGRectMake(5, lineView.frame.origin.y+(lineHeight - 35)/2, 35, 35) andImgName:@"80" andNav:(self.navigationController)];
+            
+            nameLab.frame = CGRectMake((headView.frame.origin.x+headView.frame.size.width + 5),
+                                       (headView.frame.size.height/4+headView.frame.origin.y), 100, headView.frame.size.height/2);
+            
+            nameLab.textColor = [UIColor whiteColor];
+            nameLab.font = [UIFont systemFontOfSize:fontsize];
+            
+            commentBtn.frame = CGRectMake(((nameLab.frame.origin.x+nameLab.frame.size.width)),
+                                          (headView.frame.size.height/4+headView.frame.origin.y),
+                                          (SCREEN_WIDTH - (nameLab.frame.origin.x+nameLab.frame.size.width + 10) -10)/2,
+                                          headView.frame.size.height/2);
+            
+            commentBtn.titleLabel.font = [UIFont systemFontOfSize:fontsize];
+            
+            timeBtn = [[UIButton alloc] initWithFrame:CGRectMake(((commentBtn.frame.origin.x+commentBtn.frame.size.width + 5)),
+                                                                 (headView.frame.size.height/4+headView.frame.origin.y),
+                                                                 commentBtn.frame.size.width+15,//(SCREEN_WIDTH - (nameLab.frame.origin.x+nameLab.frame.size.width + 10) -10)/2,
+                                                                 headView.frame.size.height/2)];
+            timeBtn.titleLabel.font = [UIFont systemFontOfSize:fontsize];
+            
+            [cell addSubview:commentBtn];
+            [cell addSubview:timeBtn];
+            
+            
+        }
+        
+        //    NSLog(@"")
+        
+        NSDictionary *tempDict = dataArr[indexPath.row];
+        cell.backgroundColor = ItemsBaseColor;
+        UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width , cell.frame.size.height)];
+        
+        [backgroundView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,tempDict[@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@"temp2"]];
+        
+        //    backgroundView.image = [UIImage imageNamed:dataArr[indexPath.section][@""]];
+        cell.backgroundView = backgroundView;
+        {
+            
+            titleLab.text = tempDict[@"Title"];
+            [relayBtn setImage:[UIImage imageNamed:@"relay"] forState:UIControlStateNormal];
+            
+            //under line
+            headView.userId =[NSString stringWithFormat:@"%@",tempDict[@"UserId"]];
+            if([headView.userId isEqualToString:@"0"])
+            {
+                [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,tempDict[@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@"80"]];
+            }else
+            {
+                [headView.headImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,tempDict[@"PhotoPath"]]] placeholderImage:[UIImage imageNamed:@"80"]];
+            }
+            [headView makeSelfRound];
+            
+            [cell addSubview:headView];
+            
+            
+            
+            
+            nameLab.text = [tempDict[@"NicName"] isEqual:[NSNull null]]?@"":tempDict[@"NicName"];
+            [cell addSubview:nameLab];
+            
+            
+            
+            
+            [commentBtn setImage:[UIImage imageNamed:@"chat"] forState:UIControlStateNormal];
+            [commentBtn setTitle:[NSString stringWithFormat:@"%@条评论",[tempDict[@"CommentNum"] isEqual:[NSNull null]]?@"0":tempDict[@"CommentNum"]] forState:UIControlStateNormal];
+            
+            
+            
+            [timeBtn setImage:[UIImage imageNamed:@"clock"] forState:UIControlStateNormal];
+            [timeBtn setTitle:[Toolkit GettitleForDate:[tempDict[@"PublishTime"] isEqual:[NSNull null]]?@"0":tempDict[@"PublishTime"]] forState:UIControlStateNormal];
+            
+        }
         
         
-        
-        
-        nameLab.text = [tempDict[@"NicName"] isEqual:[NSNull null]]?@"":tempDict[@"NicName"];
-        [cell addSubview:nameLab];
-        
-        
-        
-        
-        [commentBtn setImage:[UIImage imageNamed:@"chat"] forState:UIControlStateNormal];
-        [commentBtn setTitle:[NSString stringWithFormat:@"%@条评论",[tempDict[@"CommentNum"] isEqual:[NSNull null]]?@"0":tempDict[@"CommentNum"]] forState:UIControlStateNormal];
-        
-        
-        
-        [timeBtn setImage:[UIImage imageNamed:@"clock"] forState:UIControlStateNormal];
-        [timeBtn setTitle:[Toolkit GettitleForDate:[tempDict[@"PublishTime"] isEqual:[NSNull null]]?@"0":tempDict[@"PublishTime"]] forState:UIControlStateNormal];
-        
+        return cell;
     }
-    
-    
-    return cell;
 }
 
 
@@ -1027,10 +1203,23 @@
 
 -( void )collectionView:( UICollectionView *)collectionView didSelectItemAtIndexPath:( NSIndexPath *)indexPath
 {
-    VideoDetialSecondViewController *videoDetailViewCtl = [[VideoDetialSecondViewController alloc] init];
-    videoDetailViewCtl.navtitle =@"视频";
-    videoDetailViewCtl.videoID=[NSString stringWithFormat:@"%@" ,dataArr[indexPath.row][@"Id"]];
-    [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
+    if(showChannel == YES)
+    {
+
+        ChannelVideosViewController *videoList = [[ChannelVideosViewController alloc] init];
+        videoList.navtitle = channelSecondCateArr[indexPath.row][@"Name"];
+        videoList.cateid=channelSecondCateArr[indexPath.row][@"Id"];
+        [self.navigationController pushViewController:videoList animated:YES];
+  
+    }
+    else
+    {
+    
+        VideoDetialSecondViewController *videoDetailViewCtl = [[VideoDetialSecondViewController alloc] init];
+        videoDetailViewCtl.navtitle =@"视频";
+        videoDetailViewCtl.videoID=[NSString stringWithFormat:@"%@" ,dataArr[indexPath.row][@"Id"]];
+        [self.navigationController pushViewController:videoDetailViewCtl animated:YES];
+    }
 }
 
 //返回这个UICollectionViewCell是否可以被选择
@@ -1061,7 +1250,8 @@
 
 -( UIEdgeInsets )collectionView:( UICollectionView *)collectionView layout:( UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:( NSInteger )section
 {
-    //if()
+    if(showChannel == YES)
+        return UIEdgeInsetsMake(10, 10, 10, 10);
     
     return UIEdgeInsetsMake ( 5 , 5 , 5 , 5 );
     

@@ -9,6 +9,8 @@
 #import "BaseNavigationController.h"
 #import "ShoppingCart/ShoppingCartViewController.h"
 #import "OrderMainViewController.h"
-@interface KongFuStoreViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
+#import "SDCycleScrollView.h"
+
+@interface KongFuStoreViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate>
 
 @end

@@ -11,10 +11,13 @@
 #import "ChannelViewController.h"
 #import "SearchViewController.h"
 //#import "VideoDetailViewController.h"
-@interface KongFuPowerViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface KongFuPowerViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,RAMCollectionViewFlemishBondLayoutDelegate>
 {
     UIView *moreSettingBackView;
     UICollectionView *mainCollectionView;
     VideoShowLayoutType layoutType;
 }
+
+@property (nonatomic, strong) RAMCollectionViewFlemishBondLayout *collectionViewLayout;
+
 @end
