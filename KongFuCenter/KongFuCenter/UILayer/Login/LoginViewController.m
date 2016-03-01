@@ -705,8 +705,6 @@
 {
     [SVProgressHUD dismiss];
     
-    
-    
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200 ) {
 
@@ -792,7 +790,10 @@
 #pragma mark -  保存登录历史
         
             if(rememberPassWord == NO)//没有选择记住密码
+            {
+                [self removeAccount:_userData.phoneNum];
                 return;
+            }
         
            [tempDict setObject:[dict valueForKey:@"UserName"] forKey:LogIn_UserID_key];
    //        [tempDict setObject:[dict valueForKey:@"PhotoPath"] forKey:@"avatar"];
@@ -838,6 +839,29 @@
     }
     
 }
+
+
+-(void)removeAccount:(NSString *)account
+{
+    NSMutableArray *mutaArray = [[NSMutableArray alloc] init];//反复给_AccountArrCache赋值会崩溃 这里参考网上的解决方案
+    [mutaArray addObjectsFromArray:_AccountArrCache];
+//    [mutaArray removeObject:_AccountArrCache[indexPath.row]];
+    
+    for (int i = 0; i< mutaArray.count; i++) {
+        NSDictionary *tempDict = mutaArray[i];
+        if ([account isEqualToString:tempDict[LogIn_UserID_key]]) {
+            [mutaArray removeObjectAtIndex:i];
+            break;
+        }
+    }
+    
+    
+    _AccountArrCache = mutaArray;
+    
+    _cellCount = _AccountArrCache.count;
+    [mUserDefault setValue:_AccountArrCache forKey:LogIn_UserHistory_key];
+}
+
 
 -(void)setNotificate{
     //重新获取好友信息
@@ -1149,6 +1173,8 @@
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
 }
+
+
 
 
 

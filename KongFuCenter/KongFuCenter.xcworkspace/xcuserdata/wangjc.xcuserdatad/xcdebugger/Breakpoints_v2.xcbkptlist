@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/GrowHistoryViewController.m"
-            timestampString = "474556186.03609"
+            timestampString = "478514119.015682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
             landmarkName = "-clickRightButton:"
             landmarkType = "5">
          </BreakpointContent>
