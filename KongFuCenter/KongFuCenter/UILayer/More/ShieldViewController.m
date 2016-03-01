@@ -87,7 +87,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell_shield" forIndexPath:indexPath];
+    //UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell_shield" forIndexPath:indexPath];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
     
     cell.backgroundColor = ItemsBaseColor;
     cell.textLabel.textColor = [UIColor whiteColor];

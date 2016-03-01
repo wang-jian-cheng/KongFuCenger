@@ -407,7 +407,6 @@
         UIAlertView *tipAlert = [[UIAlertView alloc] initWithTitle:@"成功" message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
         tipAlert.tag = 101;
         [tipAlert show];
-        
     }
     else
     {

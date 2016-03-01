@@ -241,7 +241,7 @@
         WFMessageBody *messBody = [[WFMessageBody alloc] init];
         NSString *isRepeat = [Toolkit judgeIsNull:[itemDict valueForKey:@"IsRepeat"]];
         if ([isRepeat isEqual:@"1"]) {
-            messBody.posterContent =  ZY_NSStringFromFormat(@"%@//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
+            messBody.posterContent =  ZY_NSStringFromFormat(@"%@\n//转发:%@",[Toolkit judgeIsNull:[itemDict valueForKey:@"Description"]],[Toolkit judgeIsNull:[itemDict valueForKey:@"Content"]]);
         }else{
             messBody.posterContent = [itemDict valueForKey:@"Content"];
         }
@@ -922,9 +922,11 @@
         if (m.isFavour == YES) {//此时该取消赞
             m.isFavour = NO;
             m.zanNum--;
+            [SVProgressHUD showErrorWithStatus:@"点赞失败~" maskType:SVProgressHUDMaskTypeBlack];
         }else{
             m.isFavour = YES;
             m.zanNum++;
+            [SVProgressHUD showSuccessWithStatus:@"点赞成功~" maskType:SVProgressHUDMaskTypeBlack];
         }
         ymData.messageBody = m;
         //清空属性数组。否则会重复添加

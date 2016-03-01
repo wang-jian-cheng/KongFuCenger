@@ -25,6 +25,8 @@
     UIButton *selectBtn;
     BOOL loading;
     BOOL headLoading;
+    
+    NSMutableArray *menuBtnArray;
 }
 
 @end
@@ -75,8 +77,36 @@
     [SVProgressHUD showSuccessWithStatus:@"订单确认成功" maskType:SVProgressHUDMaskTypeBlack];
 }
 
+-(void)initData{
+    DataProvider *dataProvider1 = [[DataProvider alloc] init];
+    [dataProvider1 setDelegateObject:self setBackFunctionName:@"getBillCountCallBack:"];
+    [dataProvider1 SelectBillCount:get_sp(@"id")];
+}
+
+-(void)getBillCountCallBack:(id)dict{
+    if ([dict[@"code"] intValue] == 200) {
+        //显示
+        [((UIButton *)menuBtnArray[0]) showBadgeWithStyle:WBadgeStyleNumber value:[dict[@"data"][@"State1"] intValue] animationType:WBadgeAnimTypeNone];
+        ((UIButton *)menuBtnArray[0]).badge.x = ((UIButton *)menuBtnArray[0]).badge.x - 10;
+        ((UIButton *)menuBtnArray[0]).badge.y = 6;
+        
+        [((UIButton *)menuBtnArray[1]) showBadgeWithStyle:WBadgeStyleNumber value:[dict[@"data"][@"State2"] intValue] animationType:WBadgeAnimTypeNone];
+        ((UIButton *)menuBtnArray[1]).badge.x = ((UIButton *)menuBtnArray[1]).badge.x - 10;
+        ((UIButton *)menuBtnArray[1]).badge.y = 6;
+        
+        [((UIButton *)menuBtnArray[2]) showBadgeWithStyle:WBadgeStyleNumber value:[dict[@"data"][@"State3"] intValue] animationType:WBadgeAnimTypeNone];
+        ((UIButton *)menuBtnArray[2]).badge.x = ((UIButton *)menuBtnArray[2]).badge.x - 10;
+        ((UIButton *)menuBtnArray[2]).badge.y = 6;
+        
+        [((UIButton *)menuBtnArray[3]) showBadgeWithStyle:WBadgeStyleNumber value:[dict[@"data"][@"State4"] intValue] animationType:WBadgeAnimTypeNone];
+        ((UIButton *)menuBtnArray[3]).badge.x = ((UIButton *)menuBtnArray[3]).badge.x - 10;
+        ((UIButton *)menuBtnArray[3]).badge.y = 6;
+    }
+}
+
 -(void)initViews
 {
+    menuBtnArray = [[NSMutableArray alloc] init];
     UIView *viewForBtns = [[UIView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, 44)];
     for (int i = orderNeedPay;i< (cateArr.count+orderNeedPay); i++) {
         UIButton *cateBtn = [[UIButton alloc] initWithFrame:CGRectMake(0 + i*(SCREEN_WIDTH/cateArr.count), 0,(SCREEN_WIDTH/cateArr.count) , viewForBtns.frame.size.height)];
@@ -92,15 +122,10 @@
         [cateBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [cateBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
         cateBtn.tag = i;
-        
-        //显示
-        [cateBtn showBadgeWithStyle:WBadgeStyleNumber value:1 animationType:WBadgeAnimTypeNone];
-        cateBtn.badge.x = cateBtn.badge.x - 10;
-        cateBtn.badge.y = 6;
-        
         [cateBtn addTarget:self action:@selector(cateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [viewForBtns addSubview:cateBtn];
         [btnArr addObject:cateBtn];
+        [menuBtnArray addObject:cateBtn];
     }
     
     [self.view addSubview:viewForBtns];
@@ -264,6 +289,8 @@
  
 -(void)getOrderlist
 {
+    [self initData];
+    
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getOrderlistCallBack:"];
     [dataProvider getOrderList:[Toolkit getUserID] andState:ZY_NSStringFromFormat(@"%d",orderType) andProNum:ZY_NSStringFromFormat(@"%u",1000) andStartRowIndex:ZY_NSStringFromFormat(@"%d",pageNo*pageSize) andMaximumRows:ZY_NSStringFromFormat(@"%d",pageSize)];

@@ -93,7 +93,7 @@
     
     
     
-    [self addLeftButton:@"goback@2x.png"];
+    [self addLeftButton:@"left"];
     [self addRightbuttontitle:@"完成"];
     
     
@@ -114,7 +114,7 @@
 
 - (void)addLeftButton:(NSString *)strImage
 {
-    UIImage *imgBtn = [UIImage imageWithBundleName:strImage];
+    UIImage *imgBtn = [UIImage imageNamed:strImage];
     _imgLeft.image = imgBtn;
     [_imgLeft setFrame:CGRectMake(_btnLeft.frame.origin.x + 10, _btnLeft.frame.origin.y, imgBtn.size.width , imgBtn.size.height )];
     _imgLeft.center = CGPointMake(_imgLeft.center.x, _lblTitle.center.y);
@@ -157,7 +157,8 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setleftbtn" object:nil userInfo:[NSDictionary dictionaryWithObject:@"YES" forKey:@"hide"]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"tabbar" object:nil userInfo:[NSDictionary dictionaryWithObject:@"YES" forKey:@"hide"]];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

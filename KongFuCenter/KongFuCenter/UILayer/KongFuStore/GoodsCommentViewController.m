@@ -159,7 +159,7 @@
         UILabel *mName = [[UILabel alloc] initWithFrame:CGRectMake(userHeadView.frame.origin.x + userHeadView.frame.size.width + 5, 5 + (40 - 21) / 2, 150, 21)];
         mName.font = [UIFont systemFontOfSize:15];
         mName.textColor = [UIColor whiteColor];
-        mName.text = [self.commentArr[indexPath.row] valueForKey:@"UserName"];
+        mName.text = [self.commentArr[indexPath.row] valueForKey:@"NicName"];
         [cell addSubview:mName];
         
         NSString *mContentStr = [Toolkit judgeIsNull:[self.commentArr[indexPath.row] valueForKey:@"Content"]];//@"东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.东西不错，用着很好，很喜欢.";

@@ -1739,6 +1739,16 @@
     }
 }
 
+-(void)SelectBillCount:(NSString *)userId{
+    if (userId) {
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectBillCount",Url];
+        NSDictionary *prm = @{@"userId":userId};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark -  购物车
 
 -(void)getShoppingCartList:(NSString *)userId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows
