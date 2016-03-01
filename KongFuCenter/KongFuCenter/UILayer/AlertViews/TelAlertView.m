@@ -35,7 +35,7 @@
     {
         _phoneArr = phoneArr;
         _cellHeight = 30;
-        _viewHeight = phoneArr.count * _cellHeight;
+        _viewHeight = (phoneArr.count+1) * _cellHeight;
         _deltaPoint = point;
         
         
@@ -81,6 +81,21 @@
     return YES;
 }
 
+
+-(void)show
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        coverView.alpha = 0.5;
+        showView.alpha = 1.0;
+        deltaView.alpha = 1.0;
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+    [[self topView] addSubview:self];
+    [self showAnimation];
+}
 
 - (void)hideAnimation{
     [UIView animateWithDuration:0.5 animations:^{
@@ -157,7 +172,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return _phoneArr.count;
+    return _phoneArr.count+1;
     
 }
 
@@ -170,12 +185,22 @@
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
     cell.backgroundColor = BACKGROUND_COLOR;
-    cell.textLabel.text = @"188-1037-5184";
-    cell.textLabel.font = [UIFont systemFontOfSize:14];
     if(_phoneArr == nil || _phoneArr.count == 0 )
         return cell;
+    if(indexPath.row == 0)
+    {
+        cell.textLabel.text = @"客服电话";
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+    }
+    else
+    {
+        cell.textLabel.text = _phoneArr[indexPath.row -1];
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        cell.imageView.image = [UIImage imageNamed:@"tel"];
+    }
     
-    cell.imageView.image = [UIImage imageNamed:@"tel"];
+    
+  
     
     return cell;
 }
@@ -192,8 +217,8 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
-    
-    [self makeCall:@"188-1037-5184"];
+    if(indexPath.row>0)
+        [self makeCall:_phoneArr[indexPath.row - 1]];
     
 }
 

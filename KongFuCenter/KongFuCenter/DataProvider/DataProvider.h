@@ -38,6 +38,8 @@
  *  @param nicname  昵称
  */
 -(void)thridLogin:(NSString *)openid andUserName:(NSString *)nicname;
+-(void)thridLogin:(NSString *)openid andUserName:(NSString *)nicname andImg:(NSString *)photopath;
+-(void)uploadLocationForUser:(NSString *)userId andLat:(NSString *)lat anLng:(NSString *)lng;
 /**
  *  登陆
  *
@@ -197,6 +199,7 @@
 -(void)delePlan:(NSString*)planId;
 
 #pragma mark - 核联盟
+-(void) getProductServerNum;
 //获取好友信息
 -(void)getFriendForKeyValue:(NSString *)uid;
 

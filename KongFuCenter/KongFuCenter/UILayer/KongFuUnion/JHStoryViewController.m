@@ -254,7 +254,7 @@
     NSLog(@"%@",jhStoryArray);
     unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
     unionNewsViewCtl.webId =[ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"Id"]];
-    unionNewsViewCtl.navtitle = jhStoryArray[indexPath.row][@"Title"];
+    unionNewsViewCtl.navtitle =@"行业资讯"; //jhStoryArray[indexPath.row][@"Title"];
     unionNewsViewCtl.collectNum = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"FavoriteNum"]];
     unionNewsViewCtl.isFavorite = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"IsFavorite"]];
     unionNewsViewCtl.readNum = [ NSString stringWithFormat:@"%@",jhStoryArray[indexPath.row][@"VisitNum"]];

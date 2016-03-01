@@ -10,7 +10,9 @@
 #import "GoodsCommentViewController.h"
 #import "TelAlertView.h"
 @interface ShopDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
-
+{
+    TelAlertView *phoneAlert ;
+}
 @property(nonatomic,strong) NSString *goodsId;
 
 @end

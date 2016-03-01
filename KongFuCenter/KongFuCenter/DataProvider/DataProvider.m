@@ -42,11 +42,42 @@
 {
     if(openid)
     {
-        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/LoginByOther",Url];
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/LoginByOtherWithInfor",Url];
         NSDictionary * prm=@{@"openid":openid,
                              @"nicname":nicname};
         DLog(@"prm = %@",prm);
         [self PostRequest:url andpram:prm];
+    }
+}
+
+
+-(void)thridLogin:(NSString *)openid andUserName:(NSString *)nicname andImg:(NSString *)photopath
+{
+    if(openid&&photopath&&nicname)
+    {
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/UpdateAreaIdByUserId",Url];
+        NSDictionary * prm=@{@"openid":openid,
+                             @"nicname":nicname,
+                             @"photopath":photopath};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)uploadLocationForUser:(NSString *)userId andLat:(NSString *)lat anLng:(NSString *)lng
+{
+    if(userId&&lat&&lng)
+    {
+        NSString * url=[NSString stringWithFormat:@"%@LoginAndRegister.asmx/UpdateAreaIdByUserId",Url];
+        NSDictionary * prm=@{@"userId":userId,
+                             @"lat":lat,
+                             @"lng":lng};
+        DLog(@"prm = %@",prm);
+        [self PostRequest:url andpram:prm];
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -1515,6 +1546,13 @@
 }
 
 #pragma mark - 核装备
+
+-(void) getProductServerNum
+{
+    NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectProductPhone",Url];
+    [self PostRequest:url andpram:nil];
+}
+
 
 -(void)getIndexLunbo
 {

@@ -14,6 +14,7 @@
     UIView *showView;
 }
 -(UIView*)topView;
+- (void)showAnimation;
 - (void)show;
 
 @end

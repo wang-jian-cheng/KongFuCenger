@@ -317,6 +317,7 @@
 		B5D7995B1C81898A00F91E45 /* BaseALertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D7995A1C81898A00F91E45 /* BaseALertView.m */; };
 		B5D7995E1C818ADE00F91E45 /* TelAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D7995D1C818ADE00F91E45 /* TelAlertView.m */; };
 		B5D799611C81909200F91E45 /* DeltaView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D799601C81909200F91E45 /* DeltaView.m */; };
+		B5D799631C85312F00F91E45 /* kefutouxiang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D799621C85312F00F91E45 /* kefutouxiang@2x.png */; };
 		B5D899F91C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */; };
 		B5D899FA1C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D899F81C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.m */; };
 		B5D899FD1C113CDB00F55BFA /* btnFlag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D899FC1C113CDB00F55BFA /* btnFlag@2x.png */; };
@@ -1089,6 +1090,7 @@
 		B5D7995D1C818ADE00F91E45 /* TelAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TelAlertView.m; sourceTree = "<group>"; };
 		B5D7995F1C81909200F91E45 /* DeltaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeltaView.h; sourceTree = "<group>"; };
 		B5D799601C81909200F91E45 /* DeltaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeltaView.m; sourceTree = "<group>"; };
+		B5D799621C85312F00F91E45 /* kefutouxiang@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kefutouxiang@2x.png"; path = "KongFuStore/kefutouxiang@2x.png"; sourceTree = "<group>"; };
 		B5D899F51C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayout.h; sourceTree = "<group>"; };
 		B5D899F61C1121A600F55BFA /* RAMCollectionViewFlemishBondLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMCollectionViewFlemishBondLayout.m; sourceTree = "<group>"; };
 		B5D899F71C1121A600F55BFA /* RAMCollectionViewFlemishBondLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMCollectionViewFlemishBondLayoutAttributes.h; sourceTree = "<group>"; };
@@ -3366,6 +3368,7 @@
 		B7E1CD161C4C9594008DFE49 /* KongFuStore */ = {
 			isa = PBXGroup;
 			children = (
+				B5D799621C85312F00F91E45 /* kefutouxiang@2x.png */,
 				B7FA4AC41C746912005884BD /* shoppingcar_img.png */,
 				B7053BC31C5F05F600A7E7A4 /* adress_choose_normal.png */,
 				B7053BC41C5F05F600A7E7A4 /* adress_choose.png */,
@@ -3741,6 +3744,7 @@
 				B5905E0F1C1BC34A00ECA9BA /* dingwei@2x.png in Resources */,
 				B5F90AD61C192A2200D7879D /* zhenzidan@2x.png in Resources */,
 				B53791BE1C1579F500C45BA7 /* helianmeng@2x.png in Resources */,
+				B5D799631C85312F00F91E45 /* kefutouxiang@2x.png in Resources */,
 				B53E737A1C166389009E7878 /* collect_h@2x.png in Resources */,
 				B5F13AED1C1FA80000155038 /* SMS_SDKLocalizable.strings in Resources */,
 				8021E8FB1C2799F8005C7539 /* Index_APP1.png in Resources */,

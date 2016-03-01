@@ -243,7 +243,7 @@
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     unionNewsViewCtl = [[UnionNewsDetailViewController alloc] init];
     unionNewsViewCtl.webId =[ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"Id"]];
-    unionNewsViewCtl.navtitle = zhInfoArray[indexPath.row][@"Title"];
+    unionNewsViewCtl.navtitle = @"招聘合作";//zhInfoArray[indexPath.row][@"Title"];
     unionNewsViewCtl.collectNum = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"FavoriteNum"]];
     unionNewsViewCtl.isFavorite = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"IsFavorite"]];
     unionNewsViewCtl.readNum = [ NSString stringWithFormat:@"%@",zhInfoArray[indexPath.row][@"VisitNum"]];

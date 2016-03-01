@@ -327,7 +327,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
     unionNew = [[UnionNewsDetailViewController alloc] init];
-    unionNew.navtitle = @"联盟详情";
+    unionNew.navtitle = @"联盟动态";
     unionNew.webId =[ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"Id"]];
     unionNew.collectNum =[ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"FavoriteNum"]];
     unionNew.isFavorite = [ NSString stringWithFormat:@"%@",newArr[indexPath.row][@"IsFavorite"]];

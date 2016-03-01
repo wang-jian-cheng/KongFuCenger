@@ -704,6 +704,9 @@
 -(void)loginBackcall:(id)dict
 {
     [SVProgressHUD dismiss];
+    
+    
+    
     DLog(@"%@",dict);
     if ([dict[@"code"] intValue]==200 ) {
 
@@ -711,6 +714,30 @@
             
         //设置默认值
         [self setLoginValue:itemdict];
+        
+        
+        if (ThirdLogin == YES) {//如果是第三方登录则上传地址信息
+            [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+                
+                NSString *lng;
+                NSString *lat;
+                
+                lng = [NSString stringWithFormat:@"%.02f",locationCorrrdinate.longitude];
+                lat = [NSString stringWithFormat:@"%.02f",locationCorrrdinate.latitude];
+                //[dataprovider GetcityInfoWithlng:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] andlat:[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude]];
+                
+                [[CCLocationManager shareLocation] getCity:^(NSString *addressString) {
+                    // NSLog(@"City : %@",addressString);
+                    DataProvider * dataprovider=[[DataProvider alloc] init];
+                    [dataprovider setDelegateObject:self setBackFunctionName:@"uploadLocationForUserCallBack:"];
+                    [dataprovider uploadLocationForUser:[Toolkit getUserID] andLat:lat anLng:lng];
+                    
+                }];
+                
+            }];
+        }
+        
+        
         //设置通知
         [self setNotificate];
         
@@ -723,6 +750,12 @@
         [alert show];
     }
     printf("[%s] end\r\n",__FUNCTION__);
+}
+
+
+-(void)uploadLocationForUserCallBack:(id)dict
+{
+    DLog(@"%@",dict);
 }
 
 -(void)setLoginValue:(NSDictionary *)dict{
@@ -865,6 +898,7 @@
              DataProvider * dataprovider=[[DataProvider alloc] init];
              [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
              [dataprovider thridLogin:user.credential.rawData[@"openid"] andUserName:user.nickname];
+             [dataprovider thridLogin:user.credential.rawData[@"openid"] andUserName:user.nickname andImg:user.rawData[@"figureurl_qq_2"]];
          }
          
          else
@@ -896,7 +930,8 @@
              set_sp(ThirdLoginHeadImg, user.rawData[@"headimgurl"]);
              DataProvider * dataprovider=[[DataProvider alloc] init];
              [dataprovider setDelegateObject:self setBackFunctionName:@"loginBackcall:"];
-             [dataprovider thridLogin:user.credential.rawData[@"openid"] andUserName:user.nickname];
+//             [dataprovider thridLogin:user.credential.rawData[@"openid"] andUserName:user.nickname];
+             [dataprovider thridLogin:user.credential.rawData[@"openid"] andUserName:user.nickname andImg:user.rawData[@"headimgurl"]];
          }
          
          else

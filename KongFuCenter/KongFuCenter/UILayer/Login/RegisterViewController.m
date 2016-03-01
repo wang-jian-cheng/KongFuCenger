@@ -404,9 +404,29 @@
     [SVProgressHUD dismiss];
     DLog(@"注册返回数据%@",dict);
     if ([dict[@"code"] intValue]==200) {
-        UIAlertView *tipAlert = [[UIAlertView alloc] initWithTitle:@"成功" message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        tipAlert.tag = 101;
-        [tipAlert show];
+        
+        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+            
+            NSString *lng;
+            NSString *lat;
+            
+            lng = [NSString stringWithFormat:@"%.02f",locationCorrrdinate.longitude];
+            lat = [NSString stringWithFormat:@"%.02f",locationCorrrdinate.latitude];
+            //[dataprovider GetcityInfoWithlng:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] andlat:[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude]];
+            
+            [[CCLocationManager shareLocation] getCity:^(NSString *addressString) {
+                // NSLog(@"City : %@",addressString);
+                
+                [SVProgressHUD showWithStatus:@"定位中"];
+                DataProvider * dataprovider=[[DataProvider alloc] init];
+                [dataprovider setDelegateObject:self setBackFunctionName:@"uploadLocationForUserCallBack:"];
+                [dataprovider uploadLocationForUser:[NSString stringWithFormat:@"%@",dict[@"data"]]  andLat:lat anLng:lng];
+                
+            }];
+            
+        }];
+        
+       
         
     }
     else
@@ -414,6 +434,14 @@
         [SVProgressHUD showErrorWithStatus:dict[@"data"] maskType:SVProgressHUDMaskTypeBlack];
         
     }
+}
+-(void)uploadLocationForUserCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    [SVProgressHUD dismiss];
+    UIAlertView *tipAlert = [[UIAlertView alloc] initWithTitle:@"成功" message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+    tipAlert.tag = 101;
+    [tipAlert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

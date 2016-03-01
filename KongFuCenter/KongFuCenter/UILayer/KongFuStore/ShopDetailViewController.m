@@ -106,8 +106,35 @@
     [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getGoodsDetailCallBack:"];
     [dataProvider SelectProduct:_goodsId anduserid:get_sp(@"id") andmaximumRows:@"5"];
+    
+    
+    [self getServerPhone];
 }
+#pragma mark - data source
 
+-(void)getServerPhone
+{
+    DataProvider *dataprovider = [[DataProvider alloc] init];;
+    [dataprovider setDelegateObject:self setBackFunctionName:@"getServerPhoneCallBack:"];
+    [dataprovider getProductServerNum];
+}
+-(void)getServerPhoneCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    if ([dict[@"code"] intValue] == 200) {
+        NSMutableArray *tempArr = [NSMutableArray array];
+        
+        for (int i = 0; i<[dict[@"data"] count]; i++) {
+            [tempArr addObject:dict[@"data"][i][@"Phone"]];
+        }
+        phoneAlert = [[TelAlertView alloc] initWithPhones:tempArr andShowPoint:CGPointMake(10, SCREEN_HEIGHT - 50 -10 - ((tempArr.count+1)*30))];
+    }else{
+      
+    }
+
+    
+    
+}
 -(void)getGoodsDetailCallBack:(id)dict{
     DLog(@"%@",dict);
     [SVProgressHUD dismiss];
@@ -160,12 +187,21 @@
     
     UIView *mFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50)];
     
-    UIButton *telBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 50)];
-    [telBtn setImage:[UIImage imageNamed:@"tel"] forState:UIControlStateNormal];
+    UIButton *telBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
+    [telBtn setImage:[UIImage imageNamed:@"kefutouxiang"] forState:UIControlStateNormal];
     telBtn.backgroundColor = BACKGROUND_COLOR;
     [telBtn addTarget:self action:@selector(telBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [mFooterView addSubview:telBtn];
     
+    
+    UILabel *kefuLab = [[UILabel alloc] initWithFrame:CGRectMake(telBtn.frame.origin.x,
+                                                                (telBtn.frame.origin.y+telBtn.frame.size.height),
+                                                                 telBtn.frame.size.width, 20)];
+    kefuLab.text = @"客服";
+    kefuLab.textAlignment = NSTextAlignmentCenter;
+    kefuLab.textColor = [UIColor grayColor];
+    kefuLab.font = [UIFont boldSystemFontOfSize:14];
+    [mFooterView addSubview:kefuLab];
     
     UIButton *collectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(40, 0,50, 50)];
     collectionBtn.backgroundColor = [UIColor colorWithRed:0.16 green:0.16 blue:0.18 alpha:1];
@@ -226,9 +262,7 @@
 }
 -(void)telBtnClick:(UIButton *)sender
 {
-    TelAlertView *tempAlert = [[TelAlertView alloc] initWithPhones:@[@"1",@"2"] andShowPoint:CGPointMake(10, SCREEN_HEIGHT - 50 -10 - 70)];
-    
-    [tempAlert show];
+    [phoneAlert show];
 }
 
 

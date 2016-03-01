@@ -10,6 +10,7 @@
 #import "BaseNavigationController.h"
 #import "DataProvider.h"
 #import <SMS_SDK/SMSSDK.h>
+#import "CCLocationManager.h"
 typedef enum _pageMode
 {
     MODE_Reg = 0,
