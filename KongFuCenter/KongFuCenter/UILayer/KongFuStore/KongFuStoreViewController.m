@@ -200,8 +200,13 @@
         }
             break;
         case 2:{
-            RecommendGoodsViewController *recommendGoodsVC = [[RecommendGoodsViewController alloc] init];
-            [self.navigationController pushViewController:recommendGoodsVC animated:YES];
+//            RecommendGoodsViewController *recommendGoodsVC = [[RecommendGoodsViewController alloc] init];
+//            [self.navigationController pushViewController:recommendGoodsVC animated:YES];
+            ShopListViewController *shopListVC = [[ShopListViewController alloc] init];
+            [shopListVC setShopListType:Mode_RecommendShop];
+            shopListVC.categoryId = @"0";
+            shopListVC.isRecommend = @"1";
+            [self.navigationController pushViewController:shopListVC animated:YES];
         }
             break;
         case 3:{

@@ -8,7 +8,7 @@
 
 #import "BaseNavigationController.h"
 
-@interface ZhiBoViewController : BaseNavigationController
+@interface ZhiBoViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,strong) NSString *videoLiveID;
 

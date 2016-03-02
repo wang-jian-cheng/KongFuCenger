@@ -11,6 +11,7 @@
 #import "MJRefresh.h"
 #import "VideoZhiBoViewController.h"
 #import "MushaMatchCell.h"
+#import "ZhiBoViewController.h"
 
 #define cellIdentifier @"CellIdentifier"
 
@@ -192,19 +193,25 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    VideoZhiBoViewController *videoZhiBoVC = [[VideoZhiBoViewController alloc] init];
-    videoZhiBoVC.videoLiveID = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"Id"]];
     
     MushaMatchCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     NSInteger mState = cell.tag;
     if (mState == 0) {
+        VideoZhiBoViewController *videoZhiBoVC = [[VideoZhiBoViewController alloc] init];
+        videoZhiBoVC.videoLiveID = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"Id"]];
         [videoZhiBoVC setVideoZhiBoState:Mode_NoStart];
+        [self.navigationController pushViewController:videoZhiBoVC animated:YES];
     }else if(mState == 1){
-       [videoZhiBoVC setVideoZhiBoState:Mode_Playing];
+        ZhiBoViewController *zhiboVC = [[ZhiBoViewController alloc] init];
+        zhiboVC.videoLiveID = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"Id"]];
+        zhiboVC.navtitle = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"Title"]];
+        [self.navigationController pushViewController:zhiboVC animated:YES];
     }else{
+        VideoZhiBoViewController *videoZhiBoVC = [[VideoZhiBoViewController alloc] init];
+        videoZhiBoVC.videoLiveID = [Toolkit judgeIsNull:[videoLiveArray[indexPath.row] valueForKey:@"Id"]];
         [videoZhiBoVC setVideoZhiBoState:Mode_End];
+        [self.navigationController pushViewController:videoZhiBoVC animated:YES];
     }
-    [self.navigationController pushViewController:videoZhiBoVC animated:YES];
 }
 
 @end

@@ -166,11 +166,19 @@
         for (int i = 0; i < itemArray.count; i++) {
             [countryArray addObject:itemArray[i]];
         }
-        if (![provinceCode isEqual:@"0"] && ![cityCode isEqual:@"0"] && ![countryCode isEqual:@"0"]) {
-            [addressPickView selectRow:[[provinceArray valueForKey:@"Code"] indexOfObject:provinceCode] inComponent:0 animated:YES];
-            [addressPickView selectRow:[[cityArray valueForKey:@"Code"] indexOfObject:cityCode] inComponent:1 animated:YES];
-            [addressPickView selectRow:[[countryArray valueForKey:@"Code"] indexOfObject:countryCode] inComponent:2 animated:YES];
-            [addressPickView reloadAllComponents];
+        @try {
+            if (![provinceCode isEqual:@"0"] && ![cityCode isEqual:@"0"] && ![countryCode isEqual:@"0"]) {
+                [addressPickView selectRow:[[provinceArray valueForKey:@"Code"] indexOfObject:provinceCode] inComponent:0 animated:YES];
+                [addressPickView selectRow:[[cityArray valueForKey:@"Code"] indexOfObject:cityCode] inComponent:1 animated:YES];
+                [addressPickView selectRow:[[countryArray valueForKey:@"Code"] indexOfObject:countryCode] inComponent:2 animated:YES];
+                [addressPickView reloadAllComponents];
+            }
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
         }
     }
 }
