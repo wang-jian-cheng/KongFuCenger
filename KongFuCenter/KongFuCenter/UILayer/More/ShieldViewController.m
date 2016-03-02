@@ -68,7 +68,7 @@
     
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 30, 0, 0);
     self.tableView.separatorColor = Separator_Color;
-    
+    self.tableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.tableView];
     //注册
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell_shield"];

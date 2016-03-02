@@ -79,7 +79,7 @@
 
 -(void)getCommentInfoCallBack:(id)dict{
     [SVProgressHUD dismiss];
-    NSLog(@"%@",dict);
+    DLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
         commentArray = dict[@"data"];
         [mTableView reloadData];
@@ -88,7 +88,7 @@
 
 -(void)FootRefireshBackCall:(id)dict
 {
-    NSLog(@"上拉刷新");
+    DLog(@"%@",dict);
     // 结束刷新
     [mTableView.mj_footer endRefreshing];
     NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:commentArray];
@@ -100,6 +100,22 @@
         }
         commentArray=[[NSArray alloc] initWithArray:itemarray];
         [mTableView reloadData];
+    }
+}
+
+
+-(void)delCommentCallBack:(id)dict
+{
+    DLog(@"%@",dict);
+    
+    if([dict[@"code"] intValue] == 200)
+    {
+        [mTableView.mj_header beginRefreshing];
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:self cancelButtonTitle:@"确认" otherButtonTitles: nil];
+        [alertView show];
     }
 }
 
@@ -208,5 +224,38 @@
     oneShuoshuoVC.shuoshuoID = [commentArray[indexPath.row] valueForKey:@"MessageId"];
     [self.navigationController pushViewController:oneShuoshuoVC animated:YES];
 }
+
+
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    //    if(indexPath.row == 0)
+    //        return NO;
+    //
+    //    return YES;
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"del");
+    
+    DataProvider *dataProver = [[DataProvider alloc] init];
+    [dataProver setDelegateObject:self setBackFunctionName:@"delCommentCallBack:"];
+    [dataProver delComment:commentArray[indexPath.row][@"Id"]];
+    
+    //    [self delCartGoodsAction:self.goodsArr[indexPath.row - 1].Id];
+    
+    
+}
+
+
+
+- (UITableViewCellEditingStyle)tableView: (UITableView *)tableView editingStyleForRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+
+
 
 @end

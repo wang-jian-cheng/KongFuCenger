@@ -40,6 +40,13 @@
     delArr = [NSMutableArray array];
     [self initViews];
     
+    if (![_userId isEqualToString:[Toolkit getUserID]]) {
+        _btnRight.hidden = YES;
+        _lblRight.hidden = YES;
+        
+//         [self addRightbuttontitle:@"编辑"];
+    }
+    
     //[self getDatas];
     // Do any additional setup after loading the view.
 }
@@ -117,10 +124,17 @@
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
+
+-(void)setUserId:(NSString *)userId
+{
+    _userId = [NSString stringWithFormat:@"%@",userId];
+    if (![_userId isEqualToString:[Toolkit getUserID]]) {
+        _btnRight.hidden = YES;
+        _lblRight.hidden = YES;
+    }
+}
+
 #pragma mark - self data source
-
-
-
 -(void)delVideos
 {
     if (delArr.count == 0) {
