@@ -12,5 +12,7 @@
 #import "SDCycleScrollView.h"
 
 @interface KongFuStoreViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate>
-
+{
+    SDCycleScrollView *cycleScrollView;
+}
 @end

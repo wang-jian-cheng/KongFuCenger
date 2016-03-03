@@ -85,6 +85,9 @@
 
 #pragma mark 自定义方法
 -(void)initViews{
+    
+//    cycleScrollView = [[SDCycleScrollView  alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];//cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170) imagesGroup:images
+    
     mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - TabBar_HEIGHT)];
     mTableView.delegate = self;
     mTableView.dataSource = self;
@@ -100,6 +103,7 @@
         curpage = 0;
         allGoodsNum = 0;
         shopInfoArray = [[NSMutableArray alloc] init];
+        [self getIndexLunbo];
         [weakSelf initData];
     }];
     
@@ -111,6 +115,9 @@
         [weakSelf initData];
         [mTableView.mj_footer endRefreshing];
     }];
+    
+    
+    
 }
 
 //-(void)initData{
@@ -137,7 +144,7 @@
     [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListFootCallBack:"];
     [dataProvider GetRecomendCategoryAndProduct:[NSString stringWithFormat:@"%d",curpage * 3] andmaximumRows:@"3" anduserId:get_sp(@"id") andproductNum:@"5"];
     
-    [self getIndexLunbo];
+    
 }
 
 -(void)getIndexLunbo
@@ -155,6 +162,26 @@
     if([dict[@"code"] intValue] == 200)
     {
         [self.LunboArr addObjectsFromArray:dict[@"data"]];
+        
+        
+        NSMutableArray *images = [[NSMutableArray alloc] init];
+        if (self.LunboArr.count > 0) {
+            for (int i=0; i<self.LunboArr.count; i++) {
+                UIImageView * img=[[UIImageView alloc] init];
+                NSString *imgpath = [self.LunboArr[i] valueForKey:@"Path"];
+                NSString *url = [NSString stringWithFormat:@"%@%@",Url,imgpath];
+                [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
+                [images addObject:img];
+            }
+        }else{
+            UIImageView * img=[[UIImageView alloc] init];
+            img.image = [UIImage imageNamed:@"store_head_bg"];
+            [images addObject:img];
+        }
+        //创建带标题的图片轮播器
+        cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170) imagesGroup:images ];
+//        cycleScrollView.imagesGroup = images;
+        
         [mTableView reloadData];
     }
     else
@@ -286,22 +313,7 @@
 //        [mIv sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
 //        [cell addSubview:mIv];
 
-        NSMutableArray *images = [[NSMutableArray alloc] init];
-        if (self.LunboArr.count > 0) {
-            for (int i=0; i<self.LunboArr.count; i++) {
-                UIImageView * img=[[UIImageView alloc] init];
-                NSString *imgpath = [self.LunboArr[i] valueForKey:@"Path"];
-                NSString *url = [NSString stringWithFormat:@"%@%@",Url,imgpath];
-                [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
-                [images addObject:img];
-            }
-        }else{
-            UIImageView * img=[[UIImageView alloc] init];
-            img.image = [UIImage imageNamed:@"store_head_bg"];
-            [images addObject:img];
-        }
-        //创建带标题的图片轮播器
-        SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170) imagesGroup:images ];
+       
         cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
         cycleScrollView.autoScrollTimeInterval = 5;
         cycleScrollView.delegate = self;

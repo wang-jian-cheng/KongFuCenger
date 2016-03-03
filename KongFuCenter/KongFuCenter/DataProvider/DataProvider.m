@@ -1709,6 +1709,8 @@
                               @"maximumRows":maximumRows,
                               @"userId":userId,
                               @"productNum":productNum};
+        
+        DLog(@"%@",prm);
         [self PostRequest:url andpram:prm];
     }else{
         [SVProgressHUD dismiss];
