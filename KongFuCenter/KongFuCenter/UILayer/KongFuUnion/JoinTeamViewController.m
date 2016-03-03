@@ -148,7 +148,7 @@
 
 -(void)getInitCountryCallBack:(id)dict{
     [SVProgressHUD dismiss];
-    
+
     @try {
         if ([dict[@"code"] intValue] == 200) {
             NSLog(@"%@",dict[@"data"]);

@@ -488,11 +488,19 @@
                 case orderNeedSend:
                     paytimeLab.text = [NSString stringWithFormat:@"付款时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"PayTime"]]];
                     break;
-                case orderNeedReceive:
+                case orderNeedReceive:{
+                    NSLog(@"%@",orderDetailArray);
                     paytimeLab.text = [NSString stringWithFormat:@"发货时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"SendTime"]]];
+                    UILabel *mlabel1 = [[UILabel alloc] initWithFrame:CGRectMake(paytimeLab.frame.origin.x, paytimeLab.frame.origin.y + paytimeLab.frame.size.height + (_cellHeight-10*2)/3, SCREEN_WIDTH, (_cellHeight-10*2)/3)];
+                    mlabel1.textColor = [UIColor whiteColor];
+                    mlabel1.font = [UIFont systemFontOfSize:14];
+                    mlabel1.text = [NSString stringWithFormat:@"物流单号：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"LiveryNo"]]];
+                    [cell.contentView addSubview:mlabel1];
+                }
                     break;
-                case orderFinish:
+                case orderFinish:{
                     paytimeLab.text = [NSString stringWithFormat:@"收货时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"ReceiveTime"]]];
+                }
                     break;
                 default:
                     break;
@@ -533,6 +541,8 @@
         {
             return 50;
         }
+    }else if(indexPath.section == 2){
+        return _cellHeight + 40;
     }
     
     return _cellHeight;

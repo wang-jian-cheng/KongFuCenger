@@ -218,6 +218,7 @@
         [threeTableView deselectRowAtIndexPath:indexPath animated:YES];
         ShopListViewController *shopListVC = [[ShopListViewController alloc] init];
         shopListVC.categoryId = [threeShopArray[indexPath.row] valueForKey:@"Id"];
+        [shopListVC setShopListType:Mode_NormalShop];
         [self.navigationController pushViewController:shopListVC animated:YES];
     }
 }

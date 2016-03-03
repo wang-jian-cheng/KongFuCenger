@@ -59,7 +59,7 @@
 }
 
 -(void)initViews{
-    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height)];
+    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_Height, SCREEN_WIDTH, SCREEN_HEIGHT - Header_Height - 50)];
     mTableView.delegate = self;
     mTableView.dataSource = self;
     mTableView.backgroundColor = BACKGROUND_COLOR;
@@ -67,6 +67,27 @@
     mTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     mTableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:mTableView];
+    
+    UIButton *viewCourseBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50)];
+    viewCourseBtn.backgroundColor = ItemsBaseColor;
+    [viewCourseBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    if(_videoZhiBoState == Mode_NoStart){
+        [viewCourseBtn setTitle:@"直播未开始" forState:UIControlStateNormal];
+    }else if (_videoZhiBoState == Mode_Playing){
+        [viewCourseBtn setTitle:@"正在直播" forState:UIControlStateNormal];
+        [viewCourseBtn addTarget:self action:@selector(viewCourseEvent) forControlEvents:UIControlEventTouchUpInside];
+    }else{
+        NSString *liveBack = [Toolkit judgeIsNull:[NSString stringWithFormat:@"%@%@",Url,[videoLiveDict valueForKey:@"LiveBack"]]];
+        if ([liveBack isEqual:Url]) {
+            [viewCourseBtn setTitle:@"直播已结束" forState:UIControlStateNormal];
+        }else{
+            [viewCourseBtn setTitle:@"查看直播回放" forState:UIControlStateNormal];
+            [viewCourseBtn addTarget:self action:@selector(selectVideoLiveEvent) forControlEvents:UIControlEventTouchUpInside];
+        }
+    }
+    viewCourseBtn.layer.masksToBounds = YES;
+    viewCourseBtn.layer.cornerRadius = 8;
+    [self.view addSubview:viewCourseBtn];
 }
 
 -(void)viewCourseEvent{
@@ -135,11 +156,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section == 2) {
-        return 2;
-    }else{
-        return 1;
-    }
+    return 1;
 }
 
 #pragma mark setting for section
@@ -221,46 +238,22 @@
         endTime.text = [Toolkit judgeIsNull:[videoLiveDict valueForKey:@"TimeEnd"]];
         [cell addSubview:endTime];
     }else{
-        if (indexPath.row == 0) {
-            UILabel *contentTitle = [[UILabel alloc] initWithFrame:CGRectMake(14, 10, 100, 21)];
-            contentTitle.textColor = [UIColor whiteColor];
-            contentTitle.font = [UIFont systemFontOfSize:18];
-            contentTitle.text = @"内容介绍:";
-            [cell addSubview:contentTitle];
-            
-            NSString *mContentStr = [NSString stringWithFormat:@"%@%@",@"        ",[Toolkit judgeIsNull:[videoLiveDict valueForKey:@"Content"]]];
-            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+15;
-            UITextView *contentTv = [[UITextView alloc] initWithFrame:CGRectMake(14, contentTitle.frame.origin.y + contentTitle.frame.size.height, SCREEN_WIDTH - 28, contentHeight)];
-            contentTv.editable = NO;
-            contentTv.scrollEnabled = NO;
-            contentTv.font = [UIFont systemFontOfSize:14];
-            contentTv.backgroundColor = ItemsBaseColor;
-            contentTv.textColor = [UIColor whiteColor];
-            contentTv.text = mContentStr;
-            [cell addSubview:contentTv];
-        }else{
-            cell.backgroundColor = BACKGROUND_COLOR;
-            UIButton *viewCourseBtn = [[UIButton alloc] initWithFrame:CGRectMake(14, 10, SCREEN_WIDTH - 28, 45)];
-            viewCourseBtn.backgroundColor = ItemsBaseColor;
-            [viewCourseBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            if(_videoZhiBoState == Mode_NoStart){
-                [viewCourseBtn setTitle:@"直播未开始" forState:UIControlStateNormal];
-            }else if (_videoZhiBoState == Mode_Playing){
-                [viewCourseBtn setTitle:@"正在直播" forState:UIControlStateNormal];
-                [viewCourseBtn addTarget:self action:@selector(viewCourseEvent) forControlEvents:UIControlEventTouchUpInside];
-            }else{
-                NSString *liveBack = [Toolkit judgeIsNull:[NSString stringWithFormat:@"%@%@",Url,[videoLiveDict valueForKey:@"LiveBack"]]];
-                if ([liveBack isEqual:Url]) {
-                    [viewCourseBtn setTitle:@"直播已结束" forState:UIControlStateNormal];
-                }else{
-                    [viewCourseBtn setTitle:@"查看直播回放" forState:UIControlStateNormal];
-                    [viewCourseBtn addTarget:self action:@selector(selectVideoLiveEvent) forControlEvents:UIControlEventTouchUpInside];
-                }
-            }
-            viewCourseBtn.layer.masksToBounds = YES;
-            viewCourseBtn.layer.cornerRadius = 8;
-            [cell addSubview:viewCourseBtn];
-        }
+        UILabel *contentTitle = [[UILabel alloc] initWithFrame:CGRectMake(14, 10, 100, 21)];
+        contentTitle.textColor = [UIColor whiteColor];
+        contentTitle.font = [UIFont systemFontOfSize:18];
+        contentTitle.text = @"内容介绍:";
+        [cell addSubview:contentTitle];
+        
+        NSString *mContentStr = [NSString stringWithFormat:@"%@%@",@"        ",[Toolkit judgeIsNull:[videoLiveDict valueForKey:@"Content"]]];
+        CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+15;
+        UITextView *contentTv = [[UITextView alloc] initWithFrame:CGRectMake(14, contentTitle.frame.origin.y + contentTitle.frame.size.height, SCREEN_WIDTH - 28, contentHeight)];
+        contentTv.editable = NO;
+        contentTv.scrollEnabled = NO;
+        contentTv.font = [UIFont systemFontOfSize:14];
+        contentTv.backgroundColor = ItemsBaseColor;
+        contentTv.textColor = [UIColor whiteColor];
+        contentTv.text = mContentStr;
+        [cell addSubview:contentTv];
     }
     return cell;
 }
@@ -271,13 +264,9 @@
     }else if (indexPath.section == 1){
         return 45;
     }else{
-        if (indexPath.row == 0) {
-            NSString *mContentStr = [NSString stringWithFormat:@"%@%@",@"        ",[Toolkit judgeIsNull:[videoLiveDict valueForKey:@"Content"]]];
-            CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+15;
-            return 10 + 21 + 5 + contentHeight + 10;
-        }else{
-            return 65;
-        }
+        NSString *mContentStr = [NSString stringWithFormat:@"%@%@",@"        ",[Toolkit judgeIsNull:[videoLiveDict valueForKey:@"Content"]]];
+        CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+15;
+        return 10 + 21 + 5 + contentHeight + 10;
     }
 }
 

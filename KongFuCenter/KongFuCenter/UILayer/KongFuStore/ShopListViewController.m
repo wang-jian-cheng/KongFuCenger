@@ -27,7 +27,9 @@
     NSArray *shopInfoArray;
     NSMutableArray *shopInfoArrayCopy;
     UITextField *searchTxt;
-    UIImageView *mIv1;
+    //UIImageView *mIv1;
+    UIImageView *mIvUp1;
+    UIImageView *mIvDown1;
     UIImageView *mIvUp2;
     UIImageView *mIvDown2;
     UIImageView *mIv3;
@@ -44,7 +46,11 @@
     
     //初始化参数
     self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"商品列表"];
+    if (_shopListType == Mode_NormalShop) {
+        [self setBarTitle:@"商品列表"];
+    }else{
+        [self setBarTitle:@"推荐商品"];
+    }
     [self addLeftButton:@"left"];
     
     dataProvider = [[DataProvider alloc] init];
@@ -72,9 +78,7 @@
 #pragma mark 自定义方法
 -(void)initData{
     curpage = 0;
-//    shopInfoArray = [[NSArray alloc] init];
     searchFlag = NO;
-//    searchTxt.text = @"";
     [dataProvider setDelegateObject:self setBackFunctionName:@"getShopListCallBack:"];
     [dataProvider SelectProductBySearch:@"0" andmaximumRows:@"10" andsearch:search andcategoryId:_categoryId andisPriceAsc:isPriceAsc andisSalesAsc:isSalesAsc andisCommentAsc:isCommentAsc andisNewAsc:isNewAsc andisCredit:isCredit andisRecommend:self.isRecommend];
 }
@@ -160,13 +164,31 @@
     mBtn1.tag = 1;
     [mBtn1 addTarget:self action:@selector(sortReloadDataEvent:) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:mBtn1];
-    mIv1 = [[UIImageView alloc] initWithFrame:CGRectMake(mWidth - 17, (45 - 8) / 2, 15, 8)];
-    mIv1.image = [UIImage imageNamed:@"store_shop_selectdown"];
-    [headView addSubview:mIv1];
-    UIButton *mIv1Btn = [[UIButton alloc] initWithFrame:mIv1.frame];
+    
+    UIView *mIvView1 = [[UIView alloc] initWithFrame:CGRectMake(mWidth - 17, (45 - 17) / 2, 15, 17)];
+    [headView addSubview:mIvView1];
+    mIvUp1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 8)];
+    mIvUp1.image = [UIImage imageNamed:@"store_shop_up"];
+    [mIvView1 addSubview:mIvUp1];
+    
+    mIvDown1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 9, 15, 8)];
+    mIvDown1.image = [UIImage imageNamed:@"store_shop_selectdown"];
+    [mIvView1 addSubview:mIvDown1];
+    UIButton *mIv1Btn = [[UIButton alloc] initWithFrame:mIvView1.frame];
     mIv1Btn.tag = 1;
     [mIv1Btn addTarget:self action:@selector(sortReloadDataEvent:) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:mIv1Btn];
+    
+//    mIv1 = [[UIImageView alloc] initWithFrame:CGRectMake(mWidth - 17, (45 - 8) / 2, 15, 8)];
+//    mIv1.image = [UIImage imageNamed:@"store_shop_selectdown"];
+//    [headView addSubview:mIv1];
+//    UIButton *mIv1Btn = [[UIButton alloc] initWithFrame:mIv1.frame];
+//    mIv1Btn.tag = 1;
+//    [mIv1Btn addTarget:self action:@selector(sortReloadDataEvent:) forControlEvents:UIControlEventTouchUpInside];
+//    [headView addSubview:mIv1Btn];
+    
+    //------------------------------------------------------------
+    
     UIButton *mBtn2 = [[UIButton alloc] initWithFrame:CGRectMake(mWidth, 0, mWidth, 45)];
     mBtn2.titleLabel.font = [UIFont systemFontOfSize:16];
     [mBtn2 setTitle:@"价格" forState:UIControlStateNormal];
@@ -255,16 +277,36 @@
 -(void)sortReloadDataEvent:(UIButton *)btn{
     switch (btn.tag) {
         case 1:{
+            isPriceAsc = @"0";
+            mIvUp2.image = [UIImage imageNamed:@"store_shop_up"];
+            mIvDown2.image = [UIImage imageNamed:@"store_shop_down"];
+            
+            isCommentAsc = @"0";
+            mIv3.image = [UIImage imageNamed:@"store_shop_down"];
+            
+            isNewAsc = @"0";
+            mIv4.image = [UIImage imageNamed:@"store_shop_down"];
             if ([isSalesAsc isEqual:@"2"]) {
                 isSalesAsc = @"1";
-                mIv1.image = [UIImage imageNamed:@"store_shop_down"];
+                mIvUp1.image = [UIImage imageNamed:@"store_shop_selectup"];
+                mIvDown1.image = [UIImage imageNamed:@"store_shop_down"];
             }else{
                 isSalesAsc = @"2";
-                mIv1.image = [UIImage imageNamed:@"store_shop_selectdown"];
+                mIvUp1.image = [UIImage imageNamed:@"store_shop_up"];
+                mIvDown1.image = [UIImage imageNamed:@"store_shop_selectdown"];
             }
         }
             break;
         case 2:{
+            isSalesAsc = @"0";
+            mIvUp1.image = [UIImage imageNamed:@"store_shop_up"];
+            mIvDown1.image = [UIImage imageNamed:@"store_shop_down"];
+            
+            isCommentAsc = @"0";
+            mIv3.image = [UIImage imageNamed:@"store_shop_down"];
+            
+            isNewAsc = @"0";
+            mIv4.image = [UIImage imageNamed:@"store_shop_down"];
             if ([isPriceAsc isEqual:@"2"]) {
                 isPriceAsc = @"1";
                 mIvUp2.image = [UIImage imageNamed:@"store_shop_selectup"];
@@ -277,6 +319,16 @@
         }
             break;
         case 3:{
+            isSalesAsc = @"0";
+            mIvUp1.image = [UIImage imageNamed:@"store_shop_up"];
+            mIvDown1.image = [UIImage imageNamed:@"store_shop_down"];
+            
+            isPriceAsc = @"0";
+            mIvUp2.image = [UIImage imageNamed:@"store_shop_up"];
+            mIvDown2.image = [UIImage imageNamed:@"store_shop_down"];
+            
+            isNewAsc = @"0";
+            mIv4.image = [UIImage imageNamed:@"store_shop_down"];
             if ([isCommentAsc isEqual:@"2"]) {
                 isCommentAsc = @"1";
                 mIv3.image = [UIImage imageNamed:@"store_shop_down"];
@@ -287,6 +339,16 @@
         }
             break;
         case 4:{
+            isSalesAsc = @"0";
+            mIvUp1.image = [UIImage imageNamed:@"store_shop_up"];
+            mIvDown1.image = [UIImage imageNamed:@"store_shop_down"];
+            
+            isPriceAsc = @"0";
+            mIvUp2.image = [UIImage imageNamed:@"store_shop_up"];
+            mIvDown2.image = [UIImage imageNamed:@"store_shop_down"];
+            
+            isCommentAsc = @"0";
+            mIv3.image = [UIImage imageNamed:@"store_shop_down"];
             if ([isNewAsc isEqual:@"2"]) {
                 isNewAsc = @"1";
                 mIv4.image = [UIImage imageNamed:@"store_shop_down"];
