@@ -160,18 +160,27 @@
 
 -(void)getInitCountryCallBack:(id)dict{
     [SVProgressHUD dismiss];
-    if ([dict[@"code"] intValue] == 200) {
-        NSLog(@"%@",dict[@"data"]);
-        NSArray *itemArray = dict[@"data"];
-        for (int i = 0; i < itemArray.count; i++) {
-            [countryArray addObject:itemArray[i]];
+    @try {
+        if ([dict[@"code"] intValue] == 200) {
+            NSLog(@"%@",dict[@"data"]);
+            NSArray *itemArray = dict[@"data"];
+            for (int i = 0; i < itemArray.count; i++) {
+                [countryArray addObject:itemArray[i]];
+            }
+            
+            if (![provinceCode isEqual:@"0"] && ![cityCode isEqual:@"0"] && ![countryCode isEqual:@"0"]) {
+                [addressPickView selectRow:[[provinceArray valueForKey:@"Code"] indexOfObject:[NSNumber numberWithLong:[provinceCode intValue]]  ] inComponent:0 animated:YES];
+                [addressPickView selectRow:[[cityArray valueForKey:@"Code"] indexOfObject:[NSNumber numberWithLong:[cityCode intValue]]] inComponent:1 animated:YES];
+                [addressPickView selectRow:[[countryArray valueForKey:@"Code"] indexOfObject:[NSNumber numberWithLong:[countryCode intValue]]] inComponent:2 animated:YES];
+                [addressPickView reloadAllComponents];
+            }
         }
-        if (![provinceCode isEqual:@"0"] && ![cityCode isEqual:@"0"] && ![countryCode isEqual:@"0"]) {
-            [addressPickView selectRow:[[provinceArray valueForKey:@"Code"] indexOfObject:provinceCode] inComponent:0 animated:YES];
-            [addressPickView selectRow:[[cityArray valueForKey:@"Code"] indexOfObject:cityCode] inComponent:1 animated:YES];
-            [addressPickView selectRow:[[countryArray valueForKey:@"Code"] indexOfObject:countryCode] inComponent:2 animated:YES];
-            [addressPickView reloadAllComponents];
-        }
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
     }
 }
 
