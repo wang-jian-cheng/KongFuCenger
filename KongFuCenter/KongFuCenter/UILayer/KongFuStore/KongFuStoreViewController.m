@@ -270,8 +270,9 @@
 
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
+    NSLog(@"%@",self.LunboArr);
     ShopDetailViewController *shopDetailVC = [[ShopDetailViewController alloc] init];
-    shopDetailVC.goodsId = self.LunboArr[index][@"Id"];
+    shopDetailVC.goodsId = self.LunboArr[index][@"ProductId"];
     [self.navigationController pushViewController:shopDetailVC animated:YES];
 }
 
