@@ -475,8 +475,17 @@
             orderNum.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:orderNum];
             
-            UILabel *paytimeLab = [[UILabel alloc] initWithFrame:CGRectMake(orderNum.frame.origin.x,
-                                                                          (orderNum.frame.origin.y+orderNum.frame.size.height),
+            UILabel *createtimeLab = [[UILabel alloc] initWithFrame:CGRectMake(orderNum.frame.origin.x,
+                                                                               (orderNum.frame.origin.y+orderNum.frame.size.height),
+                                                                               SCREEN_WIDTH,
+                                                                               (_cellHeight-10*2)/3)];
+            createtimeLab.textColor = [UIColor whiteColor];
+            createtimeLab.text = [NSString stringWithFormat:@"创建订单：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"BuildTime"]]];
+            createtimeLab.font = [UIFont systemFontOfSize:14];
+            [cell.contentView addSubview:createtimeLab];
+            
+            UILabel *paytimeLab = [[UILabel alloc] initWithFrame:CGRectMake(createtimeLab.frame.origin.x,
+                                                                          (createtimeLab.frame.origin.y+createtimeLab.frame.size.height),
                                                                             SCREEN_WIDTH,
                                                                           (_cellHeight-10*2)/3)];
             paytimeLab.textColor = [UIColor whiteColor];
@@ -490,16 +499,41 @@
                     break;
                 case orderNeedReceive:{
                     NSLog(@"%@",orderDetailArray);
-                    paytimeLab.text = [NSString stringWithFormat:@"发货时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"SendTime"]]];
-                    UILabel *mlabel1 = [[UILabel alloc] initWithFrame:CGRectMake(paytimeLab.frame.origin.x, paytimeLab.frame.origin.y + paytimeLab.frame.size.height + (_cellHeight-10*2)/3, SCREEN_WIDTH, (_cellHeight-10*2)/3)];
+                    paytimeLab.text = [NSString stringWithFormat:@"付款时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"PayTime"]]];
+                    
+                    UILabel *mlabel1 = [[UILabel alloc] initWithFrame:CGRectMake(paytimeLab.frame.origin.x, paytimeLab.frame.origin.y + paytimeLab.frame.size.height, SCREEN_WIDTH, (_cellHeight-10*2)/3)];
                     mlabel1.textColor = [UIColor whiteColor];
                     mlabel1.font = [UIFont systemFontOfSize:14];
-                    mlabel1.text = [NSString stringWithFormat:@"物流单号：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"LiveryNo"]]];
+                    mlabel1.text = [NSString stringWithFormat:@"发货时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"SendTime"]]];
                     [cell.contentView addSubview:mlabel1];
+                    
+                    UILabel *mlabel2 = [[UILabel alloc] initWithFrame:CGRectMake(mlabel1.frame.origin.x, mlabel1.frame.origin.y + mlabel1.frame.size.height, SCREEN_WIDTH, (_cellHeight-10*2)/3)];
+                    mlabel2.textColor = [UIColor whiteColor];
+                    mlabel2.font = [UIFont systemFontOfSize:14];
+                    mlabel2.text = [NSString stringWithFormat:@"物流单号：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"LiveryNo"]]];
+                    [cell.contentView addSubview:mlabel2];
                 }
                     break;
                 case orderFinish:{
-                    paytimeLab.text = [NSString stringWithFormat:@"收货时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"ReceiveTime"]]];
+                    paytimeLab.text = [NSString stringWithFormat:@"付款时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"PayTime"]]];
+                    
+                    UILabel *mlabel1 = [[UILabel alloc] initWithFrame:CGRectMake(paytimeLab.frame.origin.x, paytimeLab.frame.origin.y + paytimeLab.frame.size.height, SCREEN_WIDTH, (_cellHeight-10*2)/3)];
+                    mlabel1.textColor = [UIColor whiteColor];
+                    mlabel1.font = [UIFont systemFontOfSize:14];
+                    mlabel1.text = [NSString stringWithFormat:@"发货时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"SendTime"]]];
+                    [cell.contentView addSubview:mlabel1];
+                    
+                    UILabel *mlabel2 = [[UILabel alloc] initWithFrame:CGRectMake(mlabel1.frame.origin.x, mlabel1.frame.origin.y + mlabel1.frame.size.height, SCREEN_WIDTH, (_cellHeight-10*2)/3)];
+                    mlabel2.textColor = [UIColor whiteColor];
+                    mlabel2.font = [UIFont systemFontOfSize:14];
+                    mlabel2.text = [NSString stringWithFormat:@"物流单号：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"LiveryNo"]]];
+                    [cell.contentView addSubview:mlabel2];
+                    
+                    UILabel *mlabel3 = [[UILabel alloc] initWithFrame:CGRectMake(mlabel2.frame.origin.x, mlabel2.frame.origin.y + mlabel2.frame.size.height, SCREEN_WIDTH, (_cellHeight-10*2)/3)];
+                    mlabel3.textColor = [UIColor whiteColor];
+                    mlabel3.font = [UIFont systemFontOfSize:14];
+                    mlabel3.text = [NSString stringWithFormat:@"收货时间：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"ReceiveTime"]]];
+                    [cell.contentView addSubview:mlabel3];
                 }
                     break;
                 default:
@@ -508,16 +542,6 @@
             
             paytimeLab.font = [UIFont systemFontOfSize:14];
             [cell.contentView addSubview:paytimeLab];
-        
-            UILabel *createtimeLab = [[UILabel alloc] initWithFrame:CGRectMake(paytimeLab.frame.origin.x,
-                                                                            (paytimeLab.frame.origin.y+paytimeLab.frame.size.height),
-                                                                               SCREEN_WIDTH,
-                                                                            (_cellHeight-10*2)/3)];
-            createtimeLab.textColor = [UIColor whiteColor];
-            createtimeLab.text = [NSString stringWithFormat:@"创建订单：%@",[Toolkit judgeIsNull:[orderDetailArray[0] valueForKey:@"BuildTime"]]];
-            createtimeLab.font = [UIFont systemFontOfSize:14];
-            [cell.contentView addSubview:createtimeLab];
-            
         }
     }
     @catch (NSException *exception) {
@@ -542,9 +566,24 @@
             return 50;
         }
     }else if(indexPath.section == 2){
-        return _cellHeight + 40;
+        switch (self.orderMode) {
+            case orderNeedPay:
+                return _cellHeight - 30;
+                break;
+            case orderNeedSend:
+                return _cellHeight;
+                break;
+            case orderNeedReceive:
+                return _cellHeight + 40;
+                break;
+            case orderFinish:
+                return _cellHeight + 80;
+                break;
+            default:
+                return 0;
+                break;
+        }
     }
-    
     return _cellHeight;
 }
 

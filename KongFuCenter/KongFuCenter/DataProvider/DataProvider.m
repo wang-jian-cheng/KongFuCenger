@@ -1626,7 +1626,7 @@
 
 -(void)SelectProduct:(NSString *)sid anduserid:(NSString *)userid andmaximumRows:(NSString *)maximumRows{
     if (sid && userid && maximumRows) {
-        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectProduct",Url];
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectProductNew",Url];
         NSDictionary *prm = @{@"id":sid,
                               @"userid":userid,
                               @"maximumRows":maximumRows};

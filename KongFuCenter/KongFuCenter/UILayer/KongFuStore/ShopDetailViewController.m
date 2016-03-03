@@ -41,6 +41,9 @@
     UILabel *goodsNum;
     UILabel *mName;
     NSString *selectImage;
+    VOTagList *tagList1;
+    VOTagList *tagList;
+    int storeNum;
 }
 
 @end
@@ -316,7 +319,7 @@
         [scrollView addSubview:mColorLbl];
         
         NSArray *tags = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"ColorList"]];
-        VOTagList *tagList = [[VOTagList alloc] initWithTags:[tags valueForKey:@"Name"]];
+        tagList = [[VOTagList alloc] initWithTags:[tags valueForKey:@"Name"]];
         
         tagList.frame = CGRectMake(10, mColorLbl.frame.size.height + 5, scrollView.frame.size.width - 10, [self getHeight:[tags valueForKey:@"Name"] andHoriWidth:scrollView.frame.size.width - 10]);
         tagList.multiLine = YES;
@@ -340,12 +343,12 @@
         [scrollView addSubview:mSizeLbl];
 
         NSArray *tags1 = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"SizeList"]];
-        VOTagList *tagList1 = [[VOTagList alloc] initWithTags:[tags1 valueForKey:@"Name"]];
+        tagList1 = [[VOTagList alloc] initWithTags:[tags1 valueForKey:@"Name"]];
         
         tagList1.frame = CGRectMake(10, mSizeLbl.frame.origin.y + mSizeLbl.frame.size.height + 5, scrollView.frame.size.width - 10, [self getHeight:[tags1 valueForKey:@"Name"] andHoriWidth:scrollView.frame.size.width - 10]);
         tagList1.multiLine = YES;
         tagList1.multiSelect = NO;
-        tagList1.allowNoSelection = NO;
+        tagList1.allowNoSelection = YES;
         tagList1.vertSpacing = 10;
         tagList1.horiSpacing = 10;
         tagList1.font = [UIFont systemFontOfSize:13];
@@ -392,7 +395,12 @@
 
 -(void)addBtnEvent{
     int mNum = [[goodsNum.text substringFromIndex:1] intValue];
-    goodsNum.text = [NSString stringWithFormat:@"×%d",++mNum];
+    if (mNum < storeNum) {
+        goodsNum.text = [NSString stringWithFormat:@"×%d",++mNum];
+    }else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"超出库存" delegate:self cancelButtonTitle:@"知道了~" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 -(void)delBtnEvent{
@@ -414,10 +422,10 @@
     [mTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
--(void)selectColorSpecEvent:(VOTagList *)tagList{
+-(void)selectColorSpecEvent:(VOTagList *)tagListTemp{
     NSArray *colorArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"ColorList"]];
-    selectColorId = [NSString stringWithFormat:@"%@",[colorArray[tagList.selectedIndexSet.firstIndex] valueForKey:@"Id"]];
-    selectColor = [NSString stringWithFormat:@"%@",[colorArray[tagList.selectedIndexSet.firstIndex] valueForKey:@"Name"]];
+    selectColorId = [NSString stringWithFormat:@"%@",[colorArray[tagListTemp.selectedIndexSet.firstIndex] valueForKey:@"Id"]];
+    selectColor = [NSString stringWithFormat:@"%@",[colorArray[tagListTemp.selectedIndexSet.firstIndex] valueForKey:@"Name"]];
     
     selectSpec = selectColor;
     if (![selectSize isEqual:@""]) {
@@ -426,12 +434,26 @@
     mSelectSpecLbl.text = selectSpec;
     
     [self updateImgAndPrice];
+    
+    NSArray *tags1 = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"SizeList"]];
+    [tagList1 setTags:[tags1 valueForKey:@"Name"]];
+    NSArray *priceListArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"PriceList"]];
+    for (NSDictionary *dict in priceListArray) {
+        if ([[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]] isEqual:selectColorId] && ([[Toolkit judgeIsNull:[dict valueForKey:@"StockNum"]] intValue] == 0 || [[Toolkit judgeIsNull:[dict valueForKey:@"StockNum"]] isEqual:@""])) {
+            for (int i = 0; i < tags1.count; i++) {
+                if ([[Toolkit judgeIsNull:[tags1[i] valueForKey:@"Id"]] isEqual:[Toolkit judgeIsNull:[dict valueForKey:@"SizeId"]]]) {
+                    [tagList1 removeTags:[[NSArray alloc] initWithObjects:[tags1[i] valueForKey:@"Name"],
+                    nil]];
+                }
+            }
+        }
+    }
 }
 
--(void)selectSizeSpecEvent:(VOTagList *)tagList{
+-(void)selectSizeSpecEvent:(VOTagList *)tagListTemp{
     NSArray *sizeArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"SizeList"]];
-    selectSizeId = [NSString stringWithFormat:@"%@",[sizeArray[tagList.selectedIndexSet.firstIndex] valueForKey:@"Id"]];
-    selectSize = [NSString stringWithFormat:@"%@",[sizeArray[tagList.selectedIndexSet.firstIndex] valueForKey:@"Name"]];
+    selectSizeId = [NSString stringWithFormat:@"%@",[sizeArray[tagListTemp.selectedIndexSet.firstIndex] valueForKey:@"Id"]];
+    selectSize = [NSString stringWithFormat:@"%@",[sizeArray[tagListTemp.selectedIndexSet.firstIndex] valueForKey:@"Name"]];
     
     if (![selectColor isEqual:@""]) {
         selectSpec = [NSString stringWithFormat:@"%@/%@",selectColor,selectSize];
@@ -441,6 +463,20 @@
     mSelectSpecLbl.text = selectSpec;
     
     [self updateImgAndPrice];
+    
+    NSArray *tags = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"ColorList"]];
+    [tagList setTags:[tags valueForKey:@"Name"]];
+    NSArray *priceListArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"PriceList"]];
+    for (NSDictionary *dict in priceListArray) {
+        if ([[Toolkit judgeIsNull:[dict valueForKey:@"SizeId"]] isEqual:selectSizeId] && ([[Toolkit judgeIsNull:[dict valueForKey:@"StockNum"]] intValue] == 0 || [[Toolkit judgeIsNull:[dict valueForKey:@"StockNum"]] isEqual:@""])) {
+            for (int i = 0; i < tags.count; i++) {
+                if ([[Toolkit judgeIsNull:[tags[i] valueForKey:@"Id"]] isEqual:[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]]]) {
+                    [tagList removeTags:[[NSArray alloc] initWithObjects:[tags[i] valueForKey:@"Name"],
+                                          nil]];
+                }
+            }
+        }
+    }
 }
 
 -(void)updateImgAndPrice{
@@ -455,6 +491,7 @@
                 mPriceLbl.text = [NSString stringWithFormat:@"¥%@",[dict valueForKey:@"Price"]];
                 selectPriceId = [Toolkit judgeIsNull:[dict valueForKey:@"Id"]];
                 selectPrice = [Toolkit judgeIsNull:[dict valueForKey:@"Price"]];
+                storeNum = [[Toolkit judgeIsNull:[dict valueForKey:@"StockNum"]] intValue];
                 break;
             }
         }
@@ -591,7 +628,7 @@
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
-    DLog(@"index = %d",index);
+    DLog(@"index = %ld",(long)index);
     
     UIView *maskview = [[UIView alloc] initWithFrame:self.view.bounds];
     maskview.backgroundColor = [UIColor blackColor];
