@@ -71,14 +71,14 @@
     _mainTableView.dataSource = self;
     _mainTableView.separatorColor =  Separator_Color;
     
-    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight*3)];
+    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50)];
     
-    UIButton *opBtn = [[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, _cellHeight-15, SCREEN_WIDTH- 2*GapToLeft, _cellHeight)];
+    UIButton *opBtn = [[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, 0, SCREEN_WIDTH- 2*GapToLeft, 21)];
     opBtn.backgroundColor = YellowBlock;
     [opBtn setTitle:@"发送消息" forState:UIControlStateNormal];
     [opBtn addTarget:self action:@selector(sendMessageEvent) forControlEvents:UIControlEventTouchUpInside];
     [tempView addSubview:opBtn];
-    _mainTableView.tableFooterView = tempView;
+    [self.view addSubview:tempView];
     //_mainTableView.scrollEnabled = NO;
     
   //  _mainTableView.contentSize = CGSizeMake(SCREEN_WIDTH, 15*_cellHeight);

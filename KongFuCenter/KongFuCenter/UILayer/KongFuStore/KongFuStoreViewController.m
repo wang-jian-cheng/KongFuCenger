@@ -20,6 +20,7 @@
     int curpage;
     NSMutableArray *shopInfoArray;
     int allGoodsNum;
+    int downNum;
 }
 @property(nonatomic) NSMutableArray *LunboArr;
 
@@ -102,6 +103,7 @@
     mTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         curpage = 0;
         allGoodsNum = 0;
+        downNum = 1;
         shopInfoArray = [[NSMutableArray alloc] init];
         [self getIndexLunbo];
         [weakSelf initData];
@@ -196,7 +198,6 @@
     [mTableView.mj_header endRefreshing];
     [mTableView.mj_footer endRefreshing];
     if ([dict[@"code"] intValue] == 200) {
-        curpage++;
         NSArray * arrayitem=[[NSArray alloc] init];
         arrayitem=dict[@"data"];
         for (id item in arrayitem) {
@@ -211,11 +212,14 @@
         {
             [mTableView.mj_footer setState:MJRefreshStateNoMoreData];
         }else{
-            if (shopInfoArray.count != 3) {
+            if (shopInfoArray.count < 3 * downNum) {
                 [mTableView.mj_footer beginRefreshing];
+            }else{
+                downNum++;
             }
         }
     }
+    curpage++;
     [mTableView reloadData];
 }
 

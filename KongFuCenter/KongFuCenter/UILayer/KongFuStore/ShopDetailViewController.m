@@ -444,10 +444,10 @@
 }
 
 -(void)updateImgAndPrice{
-    if (![selectColor isEqual:@""] && ![selectSize isEqual:@""]) {
+    if (![selectColor isEqual:@""]) {
         NSArray *priceListArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"PriceList"]];
         for (NSDictionary *dict in priceListArray) {
-            if ([[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]] isEqual:selectColorId] && [[Toolkit judgeIsNull:[dict valueForKey:@"SizeId"]] isEqual:selectSizeId]) {
+            if ([[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]] isEqual:selectColorId]) {
                 selectImage = [Toolkit judgeIsNull:[dict valueForKey:@"ImagePath"]];
                 NSString *url = [NSString stringWithFormat:@"%@%@",Url,selectImage];
                 [mHeadIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
