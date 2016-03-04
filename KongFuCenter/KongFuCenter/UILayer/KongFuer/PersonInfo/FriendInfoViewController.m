@@ -73,7 +73,7 @@
     
     UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50)];
     
-    UIButton *opBtn = [[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, 0, SCREEN_WIDTH- 2*GapToLeft, 21)];
+    UIButton *opBtn = [[UIButton alloc] initWithFrame:CGRectMake(GapToLeft, 0, SCREEN_WIDTH- 2*GapToLeft, 50)];
     opBtn.backgroundColor = YellowBlock;
     [opBtn setTitle:@"发送消息" forState:UIControlStateNormal];
     [opBtn addTarget:self action:@selector(sendMessageEvent) forControlEvents:UIControlEventTouchUpInside];
