@@ -617,11 +617,13 @@
     //tempView.layer.delegate = self;
     group.delegate= self;
     [moreSettingBackView.layer addAnimation:group forKey:SHOW_ANIM_KEY];
+    
 }
 
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
+    [self.view bringSubviewToFront:moreSettingBackView];
     NSLog(@"anim stop");
 
 }

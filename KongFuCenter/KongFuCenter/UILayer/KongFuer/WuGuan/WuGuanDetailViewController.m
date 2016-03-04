@@ -132,6 +132,8 @@
                                                 url:[NSURL URLWithString:strurl]
                                               title:@"@功夫"
                                                type:SSDKContentTypeAuto];
+
+            
             
             
             [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响

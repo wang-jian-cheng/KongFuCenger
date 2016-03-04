@@ -14,6 +14,8 @@
 #import "IntegralExchangeViewController.h"
 #import "VideoZhiBoList.h"
 
+#define VIP     0
+
 @interface KongFuerViewController ()
 {
     
@@ -341,7 +343,11 @@
                 if(server > over)
                 {
                     set_sp(@"IsPay", @"0");
+#if VIP
                     isPayLab.text= @"成为会员";
+#else
+                    isPayLab.text = @"会员";
+#endif
                     DataProvider *dataProvider = [[DataProvider alloc] init];
                     [dataProvider setDelegateObject:self setBackFunctionName:@"closeVipCallBack:"];
                     [dataProvider closeVip:[Toolkit getUserID]];
@@ -416,7 +422,11 @@
             lvLab.text = [NSString stringWithFormat:@"lv%@",tempDict[@"Rank"]];
             if([tempDict[@"IsPay"] integerValue ] == 0)
             {
-                isPayLab.text = @"成为会员";
+#if VIP
+                isPayLab.text= @"成为会员";
+#else
+                isPayLab.text = @"会员";
+#endif
                 set_sp(@"IsPay", @"0");
             }
             else
@@ -668,14 +678,15 @@
                 isPayLab.frame = CGRectMake(0, 0, 42, 20);
                 isPayLab.center = CGPointMake(vipImgView.frame.size.width / 2 , vipImgView.frame.size.height / 4 + 20);
                 [vipImgView addSubview:isPayLab];
-                
+#if VIP
                 UIButton * vip_btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+
                 vip_btn.frame = CGRectMake(20 , CGRectGetMinY(headView.frame) + 40 - 20, 65, 50);
 //                vip_btn.backgroundColor = [UIColor orangeColor];
                 [cell addSubview:vip_btn];
                 [vip_btn addTarget:self action:@selector(vipClickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
 
-                
+#endif
                 
                 UIImageView *jiFenImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liubianxing"]];
                 jiFenImgView.frame = CGRectMake(SCREEN_WIDTH - 80 , CGRectGetMinY(headView.frame) + 40 - 20, 65, 50);
