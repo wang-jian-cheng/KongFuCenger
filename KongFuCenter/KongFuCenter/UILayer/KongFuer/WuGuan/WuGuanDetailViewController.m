@@ -28,6 +28,8 @@
     NSString *telStr;
     UIImageView *mainImg;
     
+    UILabel *tipLab;
+    
     
     
 }
@@ -61,11 +63,18 @@
     //_mainTableView.scrollEnabled = NO;
     
     
-    mainImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,3*_cellHeight )];
+    mainImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,4*_cellHeight )];
     
     NSString *url = [NSString stringWithFormat:@"%@%@",Url,wuGuanDetailDict[@"ImagePath"]];
     [mainImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"wuguanimg"]];
-    _mainTableView.tableHeaderView = mainImg;
+
+    tipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,4*_cellHeight )];
+    tipLab.backgroundColor = ItemsBaseColor;
+    tipLab.text = @"没有视频";
+    tipLab.textColor = [UIColor whiteColor];
+    tipLab.textAlignment = NSTextAlignmentCenter;
+    tipLab.font = [UIFont boldSystemFontOfSize:18];
+    _mainTableView.tableHeaderView = tipLab;
 //    [tempView addSubview:mainImg];
 
     
@@ -88,6 +97,13 @@
     
 }
 #pragma mark - click actions
+
+-(void)clickLeftButton:(UIButton *)sender
+{
+    [moviePlayerview stopPlayer];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 
 -(void)addresssBtnClick:(id)dict
@@ -324,6 +340,18 @@
             
             lat = [dict[@"data"][@"Lat"] doubleValue];
             lng = [dict[@"data"][@"Lng"] doubleValue];
+            NSString *tempVideoPath = dict[@"data"][@"VideoPath"];
+            
+            if (!(tempVideoPath == nil || tempVideoPath.length == 0)) {
+                tipLab.text = @"";
+                VideoPath = ZY_NSStringFromFormat(@"%@%@",Kimg_path,tempVideoPath);
+                
+                
+                moviePlayerview = [[MoviePlayer alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 4*_cellHeight) URL:[NSURL URLWithString:VideoPath]];
+            }
+            
+            [self.view addSubview:moviePlayerview];
+//            self
         }
         @catch (NSException *exception) {
             

@@ -61,7 +61,7 @@
     
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
-    _mainTableView.separatorColor = [UIColor clearColor];
+    _mainTableView.separatorColor = [UIColor clearColor];//去掉group mode的白线
     _mainTableView.tableFooterView = [[UIView alloc] init];
     _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //_mainTableView.scrollEnabled = NO;
@@ -283,6 +283,7 @@
 }
 
 #pragma mark - click actions
+
 
 -(void)LocationBtnClick:(UIButton *)sender
 {

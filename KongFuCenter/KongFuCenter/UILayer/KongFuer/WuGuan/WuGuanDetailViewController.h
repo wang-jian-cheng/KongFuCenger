@@ -15,6 +15,7 @@
 #import <ShareSDKInterfaceAdapter/ISSContainer.h>
 #import "PictureShowView.h"
 #import "MapViewController.h"
+#import "MoviePlayer.h"
 #define _CELL @ "acell"
 
 @interface WuGuanDetailViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
@@ -27,6 +28,9 @@
     CLLocationDegrees lng;
     
     UILabel *numLab;
+    NSString *VideoPath;
+    
+    MoviePlayer *moviePlayerview;
     
 }
 @property (nonatomic, retain,readonly) UICollectionView *collectionView;
