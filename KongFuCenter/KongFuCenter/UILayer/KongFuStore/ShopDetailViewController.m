@@ -44,6 +44,10 @@
     VOTagList *tagList1;
     VOTagList *tagList;
     int storeNum;
+    int selectColorIndex;
+    int selectSizeIndex;
+    NSMutableArray *currentColorArray;
+    NSMutableArray *currentSizeArray;
 }
 
 @end
@@ -62,12 +66,15 @@
     dataProvider =[[DataProvider alloc] init];
     goodsInfoDict = [[NSDictionary alloc] init];
     commentListArray = [[NSArray alloc] init];
+    currentColorArray = [[NSMutableArray alloc] init];
+    currentSizeArray = [[NSMutableArray alloc] init];
     
     selectColor = @"";
     selectSize = @"";
     selectSpec = @"";
     isFavorite = @"0";
     selectPrice = @"";
+    selectColorIndex = -1;
     
     //初始化购物车数量
     [self initShoppingCarNum];
@@ -143,6 +150,11 @@
     [SVProgressHUD dismiss];
     if ([dict[@"code"] intValue] == 200) {
         goodsInfoDict = dict[@"data"];
+        NSArray *tags = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"ColorList"]];
+        [currentColorArray addObjectsFromArray:tags];
+        NSArray *tags1 = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"SizeList"]];
+        [currentSizeArray addObjectsFromArray:tags1];
+        
         commentListArray = [goodsInfoDict valueForKey:@"CommentList"];
         isFavorite = [Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"isFavorite"]];
         collectionIv.image = [isFavorite isEqual:@"0"]?[UIImage imageNamed:@"store_nocollection"]:[UIImage imageNamed:@"store_collection"];
@@ -324,7 +336,7 @@
         tagList.frame = CGRectMake(10, mColorLbl.frame.size.height + 5, scrollView.frame.size.width - 10, [self getHeight:[tags valueForKey:@"Name"] andHoriWidth:scrollView.frame.size.width - 10]);
         tagList.multiLine = YES;
         tagList.multiSelect = NO;
-        tagList.allowNoSelection = NO;
+        tagList.allowNoSelection = YES;
         tagList.vertSpacing = 10;
         tagList.horiSpacing = 10;
         tagList.font = [UIFont systemFontOfSize:13];
@@ -395,12 +407,7 @@
 
 -(void)addBtnEvent{
     int mNum = [[goodsNum.text substringFromIndex:1] intValue];
-    if (mNum < storeNum) {
-        goodsNum.text = [NSString stringWithFormat:@"×%d",++mNum];
-    }else{
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"超出库存" delegate:self cancelButtonTitle:@"知道了~" otherButtonTitles:nil, nil];
-        [alertView show];
-    }
+    goodsNum.text = [NSString stringWithFormat:@"×%d",++mNum];
 }
 
 -(void)delBtnEvent{
@@ -423,9 +430,13 @@
 }
 
 -(void)selectColorSpecEvent:(VOTagList *)tagListTemp{
-    NSArray *colorArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"ColorList"]];
-    selectColorId = [NSString stringWithFormat:@"%@",[colorArray[tagListTemp.selectedIndexSet.firstIndex] valueForKey:@"Id"]];
-    selectColor = [NSString stringWithFormat:@"%@",[colorArray[tagListTemp.selectedIndexSet.firstIndex] valueForKey:@"Name"]];
+    if ((int)tagListTemp.selectedIndexSet.firstIndex == -1) {
+        return;
+    }
+    selectColorIndex = (int)tagListTemp.selectedIndexSet.firstIndex;
+    //NSArray *colorArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"ColorList"]];
+    selectColorId = [NSString stringWithFormat:@"%@",[currentColorArray[tagListTemp.selectedIndexSet.firstIndex] valueForKey:@"Id"]];
+    selectColor = [NSString stringWithFormat:@"%@",[currentColorArray[tagListTemp.selectedIndexSet.firstIndex] valueForKey:@"Name"]];
     
     selectSpec = selectColor;
     if (![selectSize isEqual:@""]) {
@@ -435,15 +446,21 @@
     
     [self updateImgAndPrice];
     
+    [currentSizeArray removeAllObjects];
     NSArray *tags1 = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"SizeList"]];
     [tagList1 setTags:[tags1 valueForKey:@"Name"]];
+    [currentSizeArray addObjectsFromArray:tags1];
     NSArray *priceListArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"PriceList"]];
     for (NSDictionary *dict in priceListArray) {
         if ([[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]] isEqual:selectColorId] && ([[Toolkit judgeIsNull:[dict valueForKey:@"StockNum"]] intValue] == 0 || [[Toolkit judgeIsNull:[dict valueForKey:@"StockNum"]] isEqual:@""])) {
-            for (int i = 0; i < tags1.count; i++) {
+            int tagsNum = (int)tags1.count;
+            for (int i = 0; i < tagsNum; i++) {
                 if ([[Toolkit judgeIsNull:[tags1[i] valueForKey:@"Id"]] isEqual:[Toolkit judgeIsNull:[dict valueForKey:@"SizeId"]]]) {
                     [tagList1 removeTags:[[NSArray alloc] initWithObjects:[tags1[i] valueForKey:@"Name"],
                     nil]];
+                    [tagList1 deSelectIndex:selectSizeIndex];
+                    [currentSizeArray removeObject:tags1[i]];
+                    break;
                 }
             }
         }
@@ -451,9 +468,13 @@
 }
 
 -(void)selectSizeSpecEvent:(VOTagList *)tagListTemp{
-    NSArray *sizeArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"SizeList"]];
-    selectSizeId = [NSString stringWithFormat:@"%@",[sizeArray[tagListTemp.selectedIndexSet.firstIndex] valueForKey:@"Id"]];
-    selectSize = [NSString stringWithFormat:@"%@",[sizeArray[tagListTemp.selectedIndexSet.firstIndex] valueForKey:@"Name"]];
+    if ((int)tagListTemp.selectedIndexSet.firstIndex == -1) {
+        return;
+    }
+    selectSizeIndex = (int)tagListTemp.selectedIndexSet.firstIndex;
+    //NSArray *sizeArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"SizeList"]];
+    selectSizeId = [NSString stringWithFormat:@"%@",[currentSizeArray[tagListTemp.selectedIndexSet.firstIndex] valueForKey:@"Id"]];
+    selectSize = [NSString stringWithFormat:@"%@",[currentSizeArray[tagListTemp.selectedIndexSet.firstIndex] valueForKey:@"Name"]];
     
     if (![selectColor isEqual:@""]) {
         selectSpec = [NSString stringWithFormat:@"%@/%@",selectColor,selectSize];
@@ -464,15 +485,21 @@
     
     [self updateImgAndPrice];
     
+    [currentColorArray removeAllObjects];
     NSArray *tags = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"ColorList"]];
     [tagList setTags:[tags valueForKey:@"Name"]];
+    [currentColorArray addObjectsFromArray:tags];
     NSArray *priceListArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"PriceList"]];
     for (NSDictionary *dict in priceListArray) {
         if ([[Toolkit judgeIsNull:[dict valueForKey:@"SizeId"]] isEqual:selectSizeId] && ([[Toolkit judgeIsNull:[dict valueForKey:@"StockNum"]] intValue] == 0 || [[Toolkit judgeIsNull:[dict valueForKey:@"StockNum"]] isEqual:@""])) {
-            for (int i = 0; i < tags.count; i++) {
+            int tagsNum = (int)tags.count;
+            for (int i = 0; i < tagsNum; i++) {
                 if ([[Toolkit judgeIsNull:[tags[i] valueForKey:@"Id"]] isEqual:[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]]]) {
                     [tagList removeTags:[[NSArray alloc] initWithObjects:[tags[i] valueForKey:@"Name"],
                                           nil]];
+                    [tagList deSelectIndex:selectColorIndex];
+                    [currentColorArray removeObject:tags[i]];
+                    break;
                 }
             }
         }
@@ -530,9 +557,14 @@
     if ([selectColor isEqual:@""] || [selectSize isEqual:@""]) {
         [self showCustomView];
     }else{
-        [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
-        [dataProvider setDelegateObject:self setBackFunctionName:@"joinShoppingCarCallBack:"];
-        [dataProvider InsertBasket:_goodsId andnum:[goodsNum.text substringFromIndex:1] andpriceId:selectPriceId anduserId:get_sp(@"id") andprice:[mPriceLbl.text substringFromIndex:1]];
+        if ([[goodsNum.text substringFromIndex:1] intValue] <= storeNum) {
+            [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
+            [dataProvider setDelegateObject:self setBackFunctionName:@"joinShoppingCarCallBack:"];
+            [dataProvider InsertBasket:_goodsId andnum:[goodsNum.text substringFromIndex:1] andpriceId:selectPriceId anduserId:get_sp(@"id") andprice:[mPriceLbl.text substringFromIndex:1]];
+        }else{
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"超出库存" delegate:self cancelButtonTitle:@"知道了~" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
     }
 }
 
@@ -551,24 +583,29 @@
     if ([selectColor isEqual:@""] || [selectSize isEqual:@""]) {
         [self showCustomView];
     }else{
-        [self backViewEvent];
-        PayOrderViewController *payOrderVC = [[PayOrderViewController alloc] init];
-        payOrderVC.navtitle = @"确认订单";
-        payOrderVC.paytype = PayByImmediately;
-        CartModel *tempModel = [[CartModel alloc] init];
-        tempModel.ProductId = _goodsId;
-        tempModel.ProductName = mName.text;
-        tempModel.MiddleImagePath = selectImage;
-        tempModel.Number = [goodsNum.text substringFromIndex:1];
-        tempModel.ProductPriceId = selectPriceId;
-        tempModel.ProductPriceTotalPrice = [mPriceLbl.text substringFromIndex:1];
-        tempModel.ProductColorName = selectColor;
-        tempModel.ProductSizeName = selectSize;
-        NSMutableArray *goodsArray = [[NSMutableArray alloc] init];
-        [goodsArray addObject:tempModel];
-        payOrderVC.goodsArr = goodsArray;
-        payOrderVC.postage = [[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"LiveryPrice"]] floatValue];
-        [self.navigationController pushViewController:payOrderVC animated:YES];
+        if ([[goodsNum.text substringFromIndex:1] intValue] <= storeNum) {
+            [self backViewEvent];
+            PayOrderViewController *payOrderVC = [[PayOrderViewController alloc] init];
+            payOrderVC.navtitle = @"确认订单";
+            payOrderVC.paytype = PayByImmediately;
+            CartModel *tempModel = [[CartModel alloc] init];
+            tempModel.ProductId = _goodsId;
+            tempModel.ProductName = mName.text;
+            tempModel.MiddleImagePath = selectImage;
+            tempModel.Number = [goodsNum.text substringFromIndex:1];
+            tempModel.ProductPriceId = selectPriceId;
+            tempModel.ProductPriceTotalPrice = [mPriceLbl.text substringFromIndex:1];
+            tempModel.ProductColorName = selectColor;
+            tempModel.ProductSizeName = selectSize;
+            NSMutableArray *goodsArray = [[NSMutableArray alloc] init];
+            [goodsArray addObject:tempModel];
+            payOrderVC.goodsArr = goodsArray;
+            payOrderVC.postage = [[Toolkit judgeIsNull:[goodsInfoDict valueForKey:@"LiveryPrice"]] floatValue];
+            [self.navigationController pushViewController:payOrderVC animated:YES];
+        }else{
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"超出库存" delegate:self cancelButtonTitle:@"知道了~" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
     }
 }
 
