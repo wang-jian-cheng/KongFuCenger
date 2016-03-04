@@ -773,6 +773,12 @@
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"PhotoPath"]] forKey:@"PhotoPath"];
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"TeamId"]] forKey:@"TeamId"];
         
+            [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"HomeAreaId"]] forKey:@"HomeAreaId"];
+            [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"HomeCode"]] forKey:@"HomeCode"];
+            [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"HomeAreaprovinceName"] ]forKey:@"HomeAreaprovinceName"];
+            [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"HomeAreaCityName"]] forKey:@"HomeAreaCityName"];
+            [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"HomeAreaCountyName"]] forKey:@"HomeAreaCountyName"];
+        
             [mUserDefault setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:@"IsPay"]] forKey:@"IsPay"];//是否是付费会员
             [mUserDefault setValue:[NSString stringWithFormat:@"%d",ThirdLogin] forKey:@"ThirdLogin"];//是否是第三方登录
             //连接融云服务器
