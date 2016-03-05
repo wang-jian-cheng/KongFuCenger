@@ -77,30 +77,30 @@
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveImage) name:@"saveImage" object:nil];
     
     //会话页面注册 UI
-    [self registerClass:[SimpleMessageCell class] forCellWithReuseIdentifier:@"SimpleMessageCell"];
+    //[self registerClass:[SimpleMessageCell class] forCellWithReuseIdentifier:@"SimpleMessageCell"];
     
     //自定义面板功能扩展
-    [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"sendVideo"]
-                                        title:@"视频"
-                                          tag:101];
+//    [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"sendVideo"]
+//                                        title:@"视频"
+//                                          tag:101];
 }
 
-- (void)willDisplayConversationTableCell:(RCMessageBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    RCMessageModel *messageModel = self.conversationDataRepository[indexPath.row];
-    NSString *mExtra = ((RCImageMessage *)messageModel.content).extra;
-    NSString *sendContentType = [mExtra substringToIndex:6];
-    if ([sendContentType isEqual:@"123456"]) {
-        UIImageView *playIv = [[UIImageView alloc] init];
-        NSString *sendUserId = messageModel.senderUserId;
-        if ([sendUserId isEqual:get_sp(@"id")]) {
-            playIv.frame = CGRectMake(SCREEN_WIDTH - 125 / 2 - 70, 5 + (185 - 15) / 2, 15, 15);
-        }else{
-            playIv.frame = CGRectMake(70 + 100 / 2, 5 + (225 - 15) / 2, 15, 15);
-        }
-        playIv.image = [UIImage imageNamed:@"play"];
-        [cell addSubview:playIv];
-    }
-}
+//- (void)willDisplayConversationTableCell:(RCMessageBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+//    RCMessageModel *messageModel = self.conversationDataRepository[indexPath.row];
+//    NSString *mExtra = ((RCImageMessage *)messageModel.content).extra;
+//    NSString *sendContentType = [mExtra substringToIndex:6];
+//    if ([sendContentType isEqual:@"123456"]) {
+//        UIImageView *playIv = [[UIImageView alloc] init];
+//        NSString *sendUserId = messageModel.senderUserId;
+//        if ([sendUserId isEqual:get_sp(@"id")]) {
+//            playIv.frame = CGRectMake(SCREEN_WIDTH - 125 / 2 - 70, 5 + (185 - 15) / 2, 15, 15);
+//        }else{
+//            playIv.frame = CGRectMake(70 + 100 / 2, (cell.frame.size.height - 15) / 2, 15, 15);
+//        }
+//        playIv.image = [UIImage imageNamed:@"play"];
+//        [cell addSubview:playIv];
+//    }
+//}
 
 #pragma mark - 重写方法实现自定义消息的显示
 -(RCMessageBaseCell *)rcConversationCollectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -140,12 +140,12 @@
                 [self.navigationController pushViewController:chatlocationVC animated:YES];
             }
             break;
-        case 101:{
-            WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
-            wechatShortVideoController.delegate = self;
-            [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
-        }
-            break;
+//        case 101:{
+//            WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
+//            wechatShortVideoController.delegate = self;
+//            [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
+//        }
+            //break;
         default:
             [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
             break;
