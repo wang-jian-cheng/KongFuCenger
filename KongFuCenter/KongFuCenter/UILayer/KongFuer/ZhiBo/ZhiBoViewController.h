@@ -9,7 +9,9 @@
 #import "BaseNavigationController.h"
 
 @interface ZhiBoViewController : BaseNavigationController<UITableViewDataSource,UITableViewDelegate>
-
+{
+    UIWebView *webView;
+}
 @property(nonatomic,strong) NSString *videoLiveID;
 
 @end

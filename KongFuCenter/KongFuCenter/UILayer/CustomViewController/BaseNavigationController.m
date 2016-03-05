@@ -182,14 +182,14 @@
 
 
 //重写这两个方法，设置成UIInterfaceOrientationMaskAll 和return yes则支持转屏
--(UIInterfaceOrientationMask)supportedInterfaceOrientations
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations//支持的转屏方向
 {
     return UIInterfaceOrientationMaskPortrait;
 }
 
--(BOOL)shouldAutorotate
+-(BOOL)shouldAutorotate//是否支持转屏
 {
-    return NO;
+    return YES;
 }
 - (void)addStarToNavigtionBar
 {

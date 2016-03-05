@@ -85,6 +85,23 @@
                                           tag:101];
 }
 
+- (void)willDisplayConversationTableCell:(RCMessageBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    RCMessageModel *messageModel = self.conversationDataRepository[indexPath.row];
+    NSString *mExtra = ((RCImageMessage *)messageModel.content).extra;
+    NSString *sendContentType = [mExtra substringToIndex:6];
+    if ([sendContentType isEqual:@"123456"]) {
+        UIImageView *playIv = [[UIImageView alloc] init];
+        NSString *sendUserId = messageModel.senderUserId;
+        if ([sendUserId isEqual:get_sp(@"id")]) {
+            playIv.frame = CGRectMake(SCREEN_WIDTH - 125 / 2 - 70, 5 + (185 - 15) / 2, 15, 15);
+        }else{
+            playIv.frame = CGRectMake(70 + 100 / 2, 5 + (225 - 15) / 2, 15, 15);
+        }
+        playIv.image = [UIImage imageNamed:@"play"];
+        [cell addSubview:playIv];
+    }
+}
+
 #pragma mark - 重写方法实现自定义消息的显示
 -(RCMessageBaseCell *)rcConversationCollectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -150,10 +167,19 @@
 }
 
 - (void)presentImagePreviewController:(RCMessageModel *)model{
-    BigImageShowViewController *bigImageShowVC = [[BigImageShowViewController alloc] init];
-    bigImageShowVC.imgUrl = ((RCImageMessage *)model.content).imageUrl;
-    selectImage = [UIImage imageWithData:[NSData dataWithContentsOfFile:((RCImageMessage *)model.content).imageUrl]];
-    [self.navigationController pushViewController:bigImageShowVC animated:YES];
+    NSString *mExtra = ((RCImageMessage *)model.content).extra;
+    NSString *sendContentType = [mExtra substringToIndex:6];
+    if ([sendContentType isEqual:@"123456"]) {
+        NSString *videoUrl = [mExtra substringFromIndex:7];
+        PlayVideoView *playVideoView = [[PlayVideoView alloc] initWithContent:@"" andVideoUrl:videoUrl];
+        [playVideoView show];
+    }else{
+        BigImageShowViewController *bigImageShowVC = [[BigImageShowViewController alloc] init];
+        bigImageShowVC.imgUrl = ((RCImageMessage *)model.content).imageUrl;
+        NSLog(@"%@",model.extra);
+        selectImage = [UIImage imageWithData:[NSData dataWithContentsOfFile:((RCImageMessage *)model.content).imageUrl]];
+        [self.navigationController pushViewController:bigImageShowVC animated:YES];
+    }
 }
 
 - (void)saveNewPhotoToLocalSystemAfterSendingSuccess:(UIImage *)newImage{
@@ -231,8 +257,12 @@
     NSLog(@"%@",dict);
     if ([dict[@"code"] intValue] == 200) {
         //SimpleMessage *simpleMsg = [SimpleMessage messageWithContent:[NSString stringWithFormat:@"%@;%@",@"http://img.ivsky.com/img/tupian/pre/201312/04/nelumbo_nucifera-009.jpg",[NSString stringWithFormat:@"%@%@",Url,@"UpLoad/Video/b584d41b-82fe-4677-a492-dd9f3791105d.mp4"]] imageUrl:@"" url:@""];
-        SimpleMessage *simpleMsg = [SimpleMessage messageWithContent:[NSString stringWithFormat:@"%@;%@",[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"] valueForKey:@"ImageName"]],[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"] valueForKey:@"VideoName"]]] imageUrl:@"" url:@""];
-        [self sendMessage:simpleMsg pushContent:@"Hello World"];
+        //SimpleMessage *simpleMsg = [SimpleMessage messageWithContent:[NSString stringWithFormat:@"%@;%@",[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"] valueForKey:@"ImageName"]],[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"] valueForKey:@"VideoName"]]] imageUrl:@"" url:@""];
+        RCImageMessage *imageMsg = [RCImageMessage messageWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"] valueForKey:@"ImageName"]]]]]];
+        imageMsg.extra = [NSString stringWithFormat:@"%@;%@",@"123456",[NSString stringWithFormat:@"%@%@",Url,[dict[@"data"] valueForKey:@"VideoName"]]];
+        imageMsg.imageUrl = [NSString stringWithFormat:@"%@%@",Url,[dict[@"data"] valueForKey:@"ImageName"]];
+        [self sendImageMessage:imageMsg pushContent:@"nihao"];
+        //[self sendMessage:imageMsg pushContent:@"Hello World"];
     }
 }
 
