@@ -72,7 +72,7 @@
 -(void)showAnimation {
     CAKeyframeAnimation *popAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
     popAnimation.duration = 1.0;
-    popAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.2f, 0.2f, 0.2f)],
+    popAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.2f, 0.2f, 1.0f)],
                             [NSValue valueWithCATransform3D:CATransform3DIdentity]];
     popAnimation.keyTimes = @[@0.0f, @1.0f];
     popAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
