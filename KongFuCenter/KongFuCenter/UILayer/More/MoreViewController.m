@@ -185,7 +185,7 @@
             }
                 break;
             case 1:
-                cell.textLabel.text = @"关于iKungfu";
+                cell.textLabel.text = @"关于C-iKungfu";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 break;
             case 2:{
