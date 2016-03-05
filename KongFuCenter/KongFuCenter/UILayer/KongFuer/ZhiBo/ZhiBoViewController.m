@@ -11,6 +11,8 @@
 @interface ZhiBoViewController (){
     NSDictionary *videoLiveDict;
     UITableView *mTableView;
+    BOOL OrientationFlag;
+    CGAffineTransform t;
 }
 @end
 
@@ -21,10 +23,50 @@
     [self addLeftButton:@"left"];
     
     self.view.backgroundColor = BACKGROUND_COLOR;
-    
+    t = self.view.transform;
     videoLiveDict = [[NSDictionary alloc] init];
     
+    
+    webView = [[UIWebView alloc] init];
     [self initData];
+    
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+    //    [[UIApplication sharedApplication] setStatusBarStyle:];
+}
+
+- (void)deviceOrientationDidChange: (NSNotification *)notification
+{
+//    if (self.view.frame.size.width > self.view.frame.size.height) {
+//        OrientationFlag = YES;
+//    }
+//    else
+//    {
+//        OrientationFlag = NO;
+//    }
+    
+    DLog(@"%ld",(long)self.interfaceOrientation);
+    
+    
+    mTableView.frame = CGRectMake(mTableView.frame.origin.x, mTableView.frame.origin.y,self.view.frame.size.width  , self.view.frame.size.height - 64);
+    DLog(@"%@",NSStringFromCGRect(mTableView.frame));
+    [mTableView reloadData];
+    
+    [self relayoutHeadView];
+}
+
+
+//重写这两个方法，设置成UIInterfaceOrientationMaskAll 和return yes则支持转屏
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;//只支持Portrait方向的旋转
+}
+
+-(BOOL)shouldAutorotate
+{
+    return YES;
 }
 
 -(void)initData{
@@ -42,11 +84,17 @@
     }
 }
 
+-(void)relayoutHeadView
+{
+    _topView.frame = CGRectMake(0, 0, self.view.frame.size.width, 64);
+    _lblTitle.center = CGPointMake(self.view.frame.size.width/2, 64/2);
+}
+
 -(void)initViews
 {
     self.view.backgroundColor = BACKGROUND_COLOR;
     
-    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64)];
+    mTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
     mTableView.backgroundColor = BACKGROUND_COLOR;
     mTableView.delegate  = self;
     mTableView.dataSource = self;
@@ -63,15 +111,15 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
     cell.backgroundColor = ItemsBaseColor;
     
     if (indexPath.section == 0) {
-        UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 270)];
+        webView.frame = CGRectMake(0, 0, self.view.frame.size.width,200);
         webView.scalesPageToFit = YES;
         webView.backgroundColor = ItemsBaseColor;
         webView.scrollView.bounces = NO;
-        [self.view addSubview:webView];
+//        [self.view addSubview:webView];
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@zhibo.aspx?id=%@",Url,_videoLiveID]];
         NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
         [webView loadRequest:request];
@@ -89,15 +137,15 @@
         startTime.text = [Toolkit judgeIsNull:[videoLiveDict valueForKey:@"TimeStart"]];
         [cell addSubview:startTime];
         
-        [Toolkit drawLine:SCREEN_WIDTH/2 +20 andSY:0 andEX:SCREEN_WIDTH/2-18 andEY:45 andLW:1 andColor:Separator_Color andView:cell];
+        [Toolkit drawLine:self.view.frame.size.width/2 +20 andSY:0 andEX:self.view.frame.size.width/2-18 andEY:45 andLW:1 andColor:Separator_Color andView:cell];
         
-        UILabel *endTimeStr = [[UILabel alloc] initWithFrame:CGRectMake(16 + SCREEN_WIDTH / 2, 2, 120, 21)];
+        UILabel *endTimeStr = [[UILabel alloc] initWithFrame:CGRectMake(16 + self.view.frame.size.width / 2, 2, 120, 21)];
         endTimeStr.textColor = [UIColor whiteColor];
         endTimeStr.font = [UIFont systemFontOfSize:14];
         endTimeStr.text = @"直播结束时间:";
         [cell addSubview:endTimeStr];
         
-        UILabel *endTime = [[UILabel alloc] initWithFrame:CGRectMake(10 + SCREEN_WIDTH / 2, endTimeStr.frame.origin.y + endTimeStr.frame.size.height + 2, 140, 21)];
+        UILabel *endTime = [[UILabel alloc] initWithFrame:CGRectMake(10 + self.view.frame.size.width / 2, endTimeStr.frame.origin.y + endTimeStr.frame.size.height + 2, 140, 21)];
         endTime.textColor = YellowBlock;
         endTime.font = [UIFont systemFontOfSize:13];
         endTime.text = [Toolkit judgeIsNull:[videoLiveDict valueForKey:@"TimeEnd"]];
@@ -110,8 +158,8 @@
         [cell addSubview:contentTitle];
         
         NSString *mContentStr = [NSString stringWithFormat:@"%@%@",@"        ",[Toolkit judgeIsNull:[videoLiveDict valueForKey:@"Content"]]];
-        CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+15;
-        UITextView *contentTv = [[UITextView alloc] initWithFrame:CGRectMake(14, contentTitle.frame.origin.y + contentTitle.frame.size.height, SCREEN_WIDTH - 28, contentHeight)];
+        CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:self.view.frame.size.width-64]+15;
+        UITextView *contentTv = [[UITextView alloc] initWithFrame:CGRectMake(14, contentTitle.frame.origin.y + contentTitle.frame.size.height, self.view.frame.size.width - 28, contentHeight)];
         contentTv.editable = NO;
         contentTv.scrollEnabled = NO;
         contentTv.font = [UIFont systemFontOfSize:14];
@@ -125,12 +173,12 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 270;
+        return 200;
     }else if (indexPath.section == 1){
         return 45;
     }else{
         NSString *mContentStr = [NSString stringWithFormat:@"%@%@",@"        ",[Toolkit judgeIsNull:[videoLiveDict valueForKey:@"Content"]]];
-        CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:SCREEN_WIDTH-64]+15;
+        CGFloat contentHeight = [Toolkit heightWithString:mContentStr fontSize:14 width:self.view.frame.size.width-64]+15;
         return 10 + 21 + 5 + contentHeight + 10;
     }
 }
