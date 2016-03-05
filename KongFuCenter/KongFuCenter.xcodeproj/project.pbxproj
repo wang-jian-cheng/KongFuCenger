@@ -4308,7 +4308,7 @@
 					"\"SVProgressHUD\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.HeWuZheForDistribution;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/KongFuCenter/ThirdFramework/JPush";
@@ -4380,7 +4380,7 @@
 					"\"SVProgressHUD\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.HeWuZheForDistribution;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/KongFuCenter/ThirdFramework/JPush";
