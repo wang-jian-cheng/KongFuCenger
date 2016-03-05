@@ -336,7 +336,7 @@
         tagList.frame = CGRectMake(10, mColorLbl.frame.size.height + 5, scrollView.frame.size.width - 10, [self getHeight:[tags valueForKey:@"Name"] andHoriWidth:scrollView.frame.size.width - 10]);
         tagList.multiLine = YES;
         tagList.multiSelect = NO;
-        tagList.allowNoSelection = YES;
+        tagList.allowNoSelection = NO;
         tagList.vertSpacing = 10;
         tagList.horiSpacing = 10;
         tagList.font = [UIFont systemFontOfSize:13];
@@ -360,7 +360,7 @@
         tagList1.frame = CGRectMake(10, mSizeLbl.frame.origin.y + mSizeLbl.frame.size.height + 5, scrollView.frame.size.width - 10, [self getHeight:[tags1 valueForKey:@"Name"] andHoriWidth:scrollView.frame.size.width - 10]);
         tagList1.multiLine = YES;
         tagList1.multiSelect = NO;
-        tagList1.allowNoSelection = YES;
+        tagList1.allowNoSelection = NO;
         tagList1.vertSpacing = 10;
         tagList1.horiSpacing = 10;
         tagList1.font = [UIFont systemFontOfSize:13];
@@ -514,7 +514,8 @@
                 selectImage = [Toolkit judgeIsNull:[dict valueForKey:@"ImagePath"]];
                 NSString *url = [NSString stringWithFormat:@"%@%@",Url,selectImage];
                 [mHeadIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
-                NSLog(@"%@",dict);
+            }
+            if ([[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]] isEqual:selectColorId] && [[Toolkit judgeIsNull:[dict valueForKey:@"SizeId"]] isEqual:selectSizeId]) {
                 mPriceLbl.text = [NSString stringWithFormat:@"¥%@",[dict valueForKey:@"Price"]];
                 selectPriceId = [Toolkit judgeIsNull:[dict valueForKey:@"Id"]];
                 selectPrice = [Toolkit judgeIsNull:[dict valueForKey:@"Price"]];
