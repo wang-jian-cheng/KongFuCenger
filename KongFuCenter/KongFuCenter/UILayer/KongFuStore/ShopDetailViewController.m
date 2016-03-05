@@ -681,7 +681,7 @@
     
     
     
-    YMShowImageView *ymImageV = [[YMShowImageView alloc] initWithFrame:self.view.bounds byClick:9999 - index appendArray:imageViews];
+    YMShowImageView *ymImageV = [[YMShowImageView alloc] initWithFrame:self.view.bounds byClick:9999 + index appendArray:imageViews];
     [ymImageV show:maskview didFinish:^(){
         
         [UIView animateWithDuration:0.5f animations:^{
