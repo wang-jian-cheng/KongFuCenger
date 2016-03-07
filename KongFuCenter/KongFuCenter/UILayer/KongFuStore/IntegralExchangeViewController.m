@@ -86,6 +86,16 @@
 }
 
 -(void)exchangeEvent:(UIButton *)btn{
+    
+     NSDictionary *tempDict = self.goodList[btn.tag -1];
+    
+    if([[Toolkit judgeIsNull:tempDict[@"StockNum"]] intValue] < 1)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"超出库存" delegate:self cancelButtonTitle:@"知道了~" otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
     ExchangeDetailViewController *exchangeDetailVC = [[ExchangeDetailViewController alloc] init];
     exchangeDetailVC.goodsId = [_goodList[btn.tag - 1] valueForKey:@"Id"];
     exchangeDetailVC.billDetailId = @"0";
