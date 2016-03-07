@@ -82,6 +82,7 @@
 }
 
 -(void)backViewEvent{
+    [player stopPlayer];
     [backView removeFromSuperview];
     [self dismiss];
 }
