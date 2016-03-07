@@ -1794,7 +1794,7 @@
 -(void)getShoppingCartList:(NSString *)userId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows
 {
     if (startRowIndex && maximumRows && userId ) {
-        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectBasketProduct",Url];
+        NSString *url = [NSString stringWithFormat:@"%@Hezhuangbei.asmx/SelectBasketProductNew",Url];
         NSDictionary *prm = @{@"startRowIndex":startRowIndex,
                               @"maximumRows":maximumRows,
                               @"userId":userId};

@@ -104,10 +104,18 @@
 
 -(void)getShoppingCarNumCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
-        NSArray *shoppingCarNumArray = [[NSArray alloc] initWithArray:dict[@"data"]];
-        [_btnRight showBadgeWithStyle:WBadgeStyleNumber value:shoppingCarNumArray.count animationType:WBadgeAnimTypeNone];
-        _btnRight.badge.x = _btnRight.badge.x - 10;
-        _btnRight.badge.y = 6;
+        @try {
+            NSArray *shoppingCarNumArray = [[NSArray alloc] initWithArray:dict[@"data"]];
+            [_btnRight showBadgeWithStyle:WBadgeStyleNumber value:shoppingCarNumArray.count animationType:WBadgeAnimTypeNone];
+            _btnRight.badge.x = _btnRight.badge.x - 10;
+            _btnRight.badge.y = 6;
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
     }
 }
 
