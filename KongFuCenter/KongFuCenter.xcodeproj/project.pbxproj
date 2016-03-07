@@ -3511,7 +3511,7 @@
 				TargetAttributes = {
 					B59408C31C0FC9E8003DC15D = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = M7YC435M3S;
+						DevelopmentTeam = 7X578356T4;
 					};
 					B59408DC1C0FC9E9003DC15D = {
 						CreatedOnToolsVersion = 7.1;
@@ -4273,7 +4273,7 @@
 				);
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4308,7 +4308,7 @@
 					"\"SVProgressHUD\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.HeWuZheForDistribution;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/KongFuCenter/ThirdFramework/JPush";
@@ -4338,7 +4338,7 @@
 				);
 				GCC_PREFIX_HEADER = KongFuCenter/PrefixHeader.pch;
 				INFOPLIST_FILE = KongFuCenter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4380,7 +4380,7 @@
 					"\"SVProgressHUD\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.KongFuCenter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zykj.HeWuZheForDistribution;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/KongFuCenter/ThirdFramework/JPush";
