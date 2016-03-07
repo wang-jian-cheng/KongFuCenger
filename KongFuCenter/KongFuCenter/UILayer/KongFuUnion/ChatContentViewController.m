@@ -25,6 +25,7 @@
     MoviePlayer *player;
     UIButton *leftBtn;
     //UIView *coverView;
+    PlayVideoView *playVideoView;
 }
 
 @end
@@ -80,9 +81,9 @@
     //[self registerClass:[SimpleMessageCell class] forCellWithReuseIdentifier:@"SimpleMessageCell"];
     
     //自定义面板功能扩展
-//    [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"sendVideo"]
-//                                        title:@"视频"
-//                                          tag:101];
+    [self.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"sendVideo"]
+                                        title:@"小视频"
+                                          tag:101];
 }
 
 //- (void)willDisplayConversationTableCell:(RCMessageBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -140,12 +141,12 @@
                 [self.navigationController pushViewController:chatlocationVC animated:YES];
             }
             break;
-//        case 101:{
-//            WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
-//            wechatShortVideoController.delegate = self;
-//            [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
-//        }
-            //break;
+        case 101:{
+            WechatShortVideoController *wechatShortVideoController = [[WechatShortVideoController alloc] init];
+            wechatShortVideoController.delegate = self;
+            [self presentViewController:wechatShortVideoController animated:YES completion:^{}];
+        }
+            break;
         default:
             [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
             break;
@@ -171,7 +172,7 @@
     NSString *sendContentType = [mExtra substringToIndex:6];
     if ([sendContentType isEqual:@"123456"]) {
         NSString *videoUrl = [mExtra substringFromIndex:7];
-        PlayVideoView *playVideoView = [[PlayVideoView alloc] initWithContent:@"" andVideoUrl:videoUrl];
+        playVideoView = [[PlayVideoView alloc] initWithContent:@"" andVideoUrl:videoUrl];
         [playVideoView show];
     }else{
         BigImageShowViewController *bigImageShowVC = [[BigImageShowViewController alloc] init];
@@ -267,7 +268,7 @@
 }
 
 -(void)clickImgEvent:(NSString *)videoUrl{
-    PlayVideoView *playVideoView = [[PlayVideoView alloc] initWithContent:@"" andVideoUrl:videoUrl];
+    playVideoView = [[PlayVideoView alloc] initWithContent:@"" andVideoUrl:videoUrl];
     [playVideoView show];
 }
 

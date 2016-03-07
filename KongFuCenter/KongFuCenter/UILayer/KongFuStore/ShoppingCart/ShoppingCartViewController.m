@@ -137,6 +137,17 @@
 
 -(void)getPostage
 {
+    NSLog(@"%@",_selectArr);
+    for (int i = 0; i < _selectArr.count; i++) {
+        CartModel *cartModel = _selectArr[i];
+        NSLog(@"%@--------%@",cartModel.Number,cartModel.StockNum);
+        if ([cartModel.Number intValue] > [cartModel.StockNum intValue]) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"商品:%@超出库存~",cartModel.ProductName] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alertView show];
+            return;
+        }
+    }
+    
     [SVProgressHUD showWithStatus:@"请稍候"];
     DataProvider *dataProvider = [[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getPostageCallBack:"];
