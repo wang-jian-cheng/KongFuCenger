@@ -445,7 +445,7 @@
     
     NSArray *tempArr = self.orderArr[section][@"ProList"];
     
-    return tempArr.count+2;
+    return (tempArr.count == 0?1:tempArr.count)+2;
     
 }
 
@@ -458,6 +458,7 @@
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _cellHeight)];
     cell.backgroundColor = ItemsBaseColor;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     @try {
         
         NSArray *tempArr = self.orderArr[indexPath.section][@"ProList"];
@@ -467,7 +468,7 @@
             mBillNoLbl.textColor = [UIColor whiteColor];
             mBillNoLbl.text = [NSString stringWithFormat:@"订单编号:%@",[Toolkit judgeIsNull:[self.orderArr[indexPath.section] valueForKey:@"BillNo"]]];
             [cell addSubview:mBillNoLbl];
-        }else if(indexPath.row == tempArr.count + 1)
+        }else if(indexPath.row == (tempArr.count == 0?1:tempArr.count) + 1)
         {
             UILabel *goodsPrice = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 - 100, 10, 100, 21)];
             goodsPrice.text = [NSString stringWithFormat:@"合计:¥%@",[Toolkit judgeIsNull:[self.orderArr[indexPath.section] valueForKey:@"Price"]]];
@@ -502,6 +503,10 @@
                     [btnRight setTitle:@"去付款" forState:UIControlStateNormal];
                     [btnLeft setTitle:@"取消订单" forState:UIControlStateNormal];
                     btnLeft.hidden = NO;
+                    if (tempArr.count == 0) {
+                        btnRight.hidden = YES;
+                        btnLeft.frame = btnRight.frame;
+                    }
                 }
                     break;
                 case orderNeedSend:
@@ -543,60 +548,68 @@
         }
         else
         {
-            
-            NSDictionary *tempDict = tempArr[indexPath.row - 1];
-            
-            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 10, _cellHeight, _cellHeight - 20)];
-//            imgView.image = [UIImage imageNamed:@"KongFuStoreProduct"];
-            
-            NSString *url = ZY_NSStringFromFormat(@"%@%@",Kimg_path,tempDict[@"MiddleImagePath"]);
-            [imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
-            [cell addSubview:imgView];
-            
-            UILabel *nowPriceLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 10 - 80), 10, 80, 30)];
-            nowPriceLab.textColor = Separator_Color;
-            nowPriceLab.text = ZY_NSStringFromFormat(@"¥%.02f",[tempDict[@"ProductPriceTotalPrice"] floatValue]);
-            nowPriceLab.textAlignment = NSTextAlignmentRight;
-            nowPriceLab.font = [UIFont systemFontOfSize:14];
-            [cell addSubview:nowPriceLab];
-            
-//            UILabel *oldPriceLab = [[UILabel alloc] initWithFrame:CGRectMake(nowPriceLab.frame.origin.x,
-//                                                                             (nowPriceLab.frame.origin.y+nowPriceLab.frame.size.height),
-//                                                                             nowPriceLab.frame.size.width, 20)];
-//            oldPriceLab.textColor = Separator_Color;
-//            oldPriceLab.text = @"¥20.00";
-//            oldPriceLab.textAlignment = NSTextAlignmentRight;
-//            oldPriceLab.font = [UIFont systemFontOfSize:12];
-//            [cell addSubview:oldPriceLab];
-
-            UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake(nowPriceLab.frame.origin.x,
-                                                                             (nowPriceLab.frame.origin.y+nowPriceLab.frame.size.height),
-                                                                             nowPriceLab.frame.size.width, 20)];
-            numLab.textColor = Separator_Color;
-            numLab.text = ZY_NSStringFromFormat(@"x%d",[tempDict[@"Number"] intValue]);
-            numLab.textAlignment = NSTextAlignmentRight;
-            numLab.font = [UIFont systemFontOfSize:12];
-            [cell addSubview:numLab];
-            
-            UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((imgView.frame.origin.x + imgView.frame.size.width)+5,
-                                                                          10, (SCREEN_WIDTH - ((imgView.frame.origin.x + imgView.frame.size.width)+ 40)), 30)];
-            titleLab.text = tempDict[@"ProductName"];
-            titleLab.textColor = [UIColor whiteColor];
-            
-            titleLab.font = [UIFont systemFontOfSize:14];
-            [cell addSubview:titleLab];
-            
-            
-            UILabel *infolab = [[UILabel alloc] initWithFrame:CGRectMake(titleLab.frame.origin.x,
-                                                                        titleLab.frame.size.height+titleLab.frame.origin.y,
-                                                                         titleLab.frame.size.width, 40)];
-            infolab.textColor = [UIColor grayColor];
-            infolab.font = [UIFont systemFontOfSize:14];
-            infolab.numberOfLines = 0;
-            infolab.text = ZY_NSStringFromFormat(@"规格:%@/%@",tempDict[@"ProductColorName"],tempDict[@"ProductSizeName"]);
-            [cell addSubview:infolab];
-            
-            
+            if (tempArr.count == 0) {
+                UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 10, _cellHeight, _cellHeight - 20)];
+                imgView.image = [UIImage imageNamed:@"KongFuStoreProduct"];
+                [cell addSubview:imgView];
+                
+                UILabel *goodsDesLbl = [[UILabel alloc] initWithFrame:CGRectMake(imgView.frame.origin.x + imgView.frame.size.width + 5, (_cellHeight - 21) / 2, 300, 21)];
+                goodsDesLbl.textColor = [UIColor whiteColor];
+                goodsDesLbl.text = @"此商品已下架";
+                [cell addSubview:goodsDesLbl];
+            }else{
+                NSDictionary *tempDict = tempArr[indexPath.row - 1];
+                
+                UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(GapToLeft, 10, _cellHeight, _cellHeight - 20)];
+                //            imgView.image = [UIImage imageNamed:@"KongFuStoreProduct"];
+                
+                NSString *url = ZY_NSStringFromFormat(@"%@%@",Kimg_path,tempDict[@"MiddleImagePath"]);
+                [imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
+                [cell addSubview:imgView];
+                
+                UILabel *nowPriceLab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 10 - 80), 10, 80, 30)];
+                nowPriceLab.textColor = Separator_Color;
+                nowPriceLab.text = ZY_NSStringFromFormat(@"¥%.02f",[tempDict[@"ProductPriceTotalPrice"] floatValue]);
+                nowPriceLab.textAlignment = NSTextAlignmentRight;
+                nowPriceLab.font = [UIFont systemFontOfSize:14];
+                [cell addSubview:nowPriceLab];
+                
+                //            UILabel *oldPriceLab = [[UILabel alloc] initWithFrame:CGRectMake(nowPriceLab.frame.origin.x,
+                //                                                                             (nowPriceLab.frame.origin.y+nowPriceLab.frame.size.height),
+                //                                                                             nowPriceLab.frame.size.width, 20)];
+                //            oldPriceLab.textColor = Separator_Color;
+                //            oldPriceLab.text = @"¥20.00";
+                //            oldPriceLab.textAlignment = NSTextAlignmentRight;
+                //            oldPriceLab.font = [UIFont systemFontOfSize:12];
+                //            [cell addSubview:oldPriceLab];
+                
+                UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake(nowPriceLab.frame.origin.x,
+                                                                            (nowPriceLab.frame.origin.y+nowPriceLab.frame.size.height),
+                                                                            nowPriceLab.frame.size.width, 20)];
+                numLab.textColor = Separator_Color;
+                numLab.text = ZY_NSStringFromFormat(@"x%d",[tempDict[@"Number"] intValue]);
+                numLab.textAlignment = NSTextAlignmentRight;
+                numLab.font = [UIFont systemFontOfSize:12];
+                [cell addSubview:numLab];
+                
+                UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((imgView.frame.origin.x + imgView.frame.size.width)+5,
+                                                                              10, (SCREEN_WIDTH - ((imgView.frame.origin.x + imgView.frame.size.width)+ 40)), 30)];
+                titleLab.text = tempDict[@"ProductName"];
+                titleLab.textColor = [UIColor whiteColor];
+                
+                titleLab.font = [UIFont systemFontOfSize:14];
+                [cell addSubview:titleLab];
+                
+                
+                UILabel *infolab = [[UILabel alloc] initWithFrame:CGRectMake(titleLab.frame.origin.x,
+                                                                             titleLab.frame.size.height+titleLab.frame.origin.y,
+                                                                             titleLab.frame.size.width, 40)];
+                infolab.textColor = [UIColor grayColor];
+                infolab.font = [UIFont systemFontOfSize:14];
+                infolab.numberOfLines = 0;
+                infolab.text = ZY_NSStringFromFormat(@"规格:%@/%@",tempDict[@"ProductColorName"],tempDict[@"ProductSizeName"]);
+                [cell addSubview:infolab];
+            }
         }
     }
     @catch (NSException *exception) {
@@ -618,7 +631,7 @@
     NSArray *tempArr = self.orderArr[indexPath.section][@"ProList"];
     if (indexPath.row == 0) {
         return 40;
-    }else if(indexPath.row == tempArr.count + 1)
+    }else if(indexPath.row == (tempArr.count == 0 ?1:tempArr.count) + 1)
     {
         return 10 + 21 + 5 + 30 + 5;
     }
@@ -633,7 +646,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     NSLog(@"click cell section : %ld row : %ld",(long)indexPath.section,(long)indexPath.row);
     
-    if(self.orderArr==nil || self.orderArr.count ==0 || self.orderArr.count-1<indexPath.section)
+    NSArray *tempArr = self.orderArr[indexPath.section][@"ProList"];
+    if(self.orderArr==nil || self.orderArr.count ==0 || self.orderArr.count-1<indexPath.section || tempArr.count == 0)
     {
         return;
     }
