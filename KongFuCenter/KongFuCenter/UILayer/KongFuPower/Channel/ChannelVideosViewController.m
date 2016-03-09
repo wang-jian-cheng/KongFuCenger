@@ -51,10 +51,11 @@
     [self initViews];
 }
 
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [self showFloatBtn];
-    
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
     if (layoutType == OneRowMode) {
         self.floatButton.selected = YES;
     }
@@ -81,7 +82,7 @@
 -(void)initCollectionView
 {
     UICollectionViewFlowLayout *layout=[[ UICollectionViewFlowLayout alloc ] init ];
-    layout.minimumLineSpacing = 10;
+    layout.minimumLineSpacing = 5;
     layout.minimumInteritemSpacing = 0;
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;//设置collection
     
@@ -432,14 +433,14 @@
     CGFloat fontsize;
     CGFloat lineHeight;
     if (layoutType == DoubleRowMode) {
-        fontsize = 12;
-        lineHeight = 40;
+        fontsize = 10;
+        lineHeight = 30;
         
         lineView.frame =  CGRectMake(GapToLeft/2, (cell.frame.size.height - lineHeight), (cell.frame.size.width - GapToLeft/2), 1);
         lineView.backgroundColor = Separator_Color;
         [cell addSubview:lineView];
         //线上
-        titleLab.frame = CGRectMake(GapToLeft/2, (lineView.frame.origin.y - 30), cell.frame.size.width - GapToLeft/2, 30);
+        titleLab.frame = CGRectMake(GapToLeft/2, (lineView.frame.origin.y - 20), cell.frame.size.width - GapToLeft/2, 20);
         
         titleLab.textColor = [UIColor whiteColor];
         titleLab.font = [UIFont boldSystemFontOfSize:(fontsize)];
@@ -512,10 +513,23 @@
     cell.backgroundColor = ItemsBaseColor;
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width , cell.frame.size.height)];
     
+    if(layoutType == DoubleRowMode)
+    {
+        backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width , cell.frame.size.height - 50)];
+    }
+    else
+    {
+        backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width , cell.frame.size.height)];
+    }
+    
     [backgroundView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Url,tempDict[@"ImagePath"]]] placeholderImage:[UIImage imageNamed:@"temp2"]];
     
     //    backgroundView.image = [UIImage imageNamed:dataArr[indexPath.section][@""]];
-    cell.backgroundView = backgroundView;
+    UIView *BackView = [[UIView alloc] initWithFrame:backgroundView.frame];
+    [BackView addSubview:backgroundView];
+    BackView.backgroundColor = ItemsBaseColor;
+    
+    cell.backgroundView = BackView;
     {
         
         titleLab.text = tempDict[@"Title"];
@@ -537,7 +551,7 @@
         
         
         
-        nameLab.text = [tempDict[@"NicName"] isEqual:[NSNull null]]?@"":tempDict[@"NicName"];
+        nameLab.text = [tempDict[@"NicName"] isEqual:[NSNull null]]?@"":tempDict[@"UserNicName"];
         [cell addSubview:nameLab];
         
         
@@ -587,7 +601,7 @@
     
     if(layoutType == DoubleRowMode)
     {
-        return CGSizeMake ( SCREEN_WIDTH/2-10 ,  SCREEN_WIDTH/2-10);
+        return CGSizeMake ( SCREEN_WIDTH/2-7.5 ,  SCREEN_WIDTH/2+10);
     }
     else
     {
