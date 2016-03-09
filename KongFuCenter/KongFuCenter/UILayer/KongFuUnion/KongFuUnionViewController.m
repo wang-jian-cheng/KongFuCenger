@@ -214,7 +214,7 @@
             NSString *value = get_sp(@"TeamId");
             if(value == nil || value.length == 0||[value isEqualToString:@"0"])
             {
-                UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"未加入战队" message:@"还没有加入战队呦～～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"未加入圈子" message:@"还没有加入圈子呦～～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
                 [alertView show];
                 return;
             }

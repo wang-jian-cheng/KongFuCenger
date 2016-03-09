@@ -739,7 +739,7 @@
         {
             
             UIButton *joinBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 20, SCREEN_WIDTH - 30*2, 50)];
-            [joinBtn setTitle:@"加入战队" forState:UIControlStateNormal];
+            [joinBtn setTitle:@"加入圈子" forState:UIControlStateNormal];
             joinBtn.backgroundColor = YellowBlock;
             [joinBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [joinBtn addTarget:self action:@selector(joinTeamBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -748,7 +748,7 @@
             UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                                         (joinBtn.frame.origin.y+joinBtn.frame.size.height)+5,
                                                                         SCREEN_WIDTH, 30)];
-            tipLab.text = @"每人仅限加入一个战队";
+            tipLab.text = @"每人仅限加入一个圈子";
             tipLab.textAlignment = NSTextAlignmentCenter;
             tipLab.textColor = [UIColor whiteColor];
             [headView addSubview:tipLab];
@@ -786,7 +786,7 @@
 {
     
     if(get_sp(@"TeamId")!=nil && [get_sp(@"TeamId") isEqualToString:@"0"]!=YES){
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您已经有战队,请先退出~" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您已加入其它圈子,请先退出~" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alertView show];
         return;
     }
@@ -802,7 +802,7 @@
     
     if ([dict[@"code"] intValue] == 200) {
 
-        [SVProgressHUD showSuccessWithStatus:@"加入战队成功~"];
+        [SVProgressHUD showSuccessWithStatus:@"加入圈子成功~"];
         [userDefault setValue:self.teamId forKey:@"TeamId"];
         [userDefault setValue:self.teamImg forKey:@"TeamImg"];
         [userDefault setValue:self.teamName forKey:@"TeamName"];
@@ -915,7 +915,7 @@
     label1.font = [UIFont systemFontOfSize:13];
     label1.textAlignment = NSTextAlignmentCenter;
     label1.textColor = [UIColor whiteColor];
-    label1.text = @"战队成员";
+    label1.text = @"成员";
     [menuView addSubview:label1];
     UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth, 2, 1, menuView.frame.size.height - 4)];
     line1.backgroundColor = [UIColor colorWithRed:0.23 green:0.23 blue:0.25 alpha:1];
@@ -935,7 +935,7 @@
     label2.font = [UIFont systemFontOfSize:13];
     label2.textAlignment = NSTextAlignmentCenter;
     label2.textColor = [UIColor whiteColor];
-    label2.text = @"战队介绍";
+    label2.text = @"介绍";
     [menuView addSubview:label2];
     UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth * 2, 2, 1, menuView.frame.size.height - 4)];
     line2.backgroundColor = [UIColor colorWithRed:0.23 green:0.23 blue:0.25 alpha:1];
@@ -955,7 +955,7 @@
     label3.font = [UIFont systemFontOfSize:13];
     label3.textAlignment = NSTextAlignmentCenter;
     label3.textColor = [UIColor whiteColor];
-    label3.text = @"战队公告";
+    label3.text = @"公告";
     [menuView addSubview:label3];
     UILabel *line3 = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth * 3, 2, 1, menuView.frame.size.height - 4)];
     line3.backgroundColor = [UIColor colorWithRed:0.23 green:0.23 blue:0.25 alpha:1];
@@ -973,7 +973,7 @@
     [menuView addSubview:iv4];
     UIButton *label4 = [[UIButton alloc] initWithFrame:CGRectMake(itemWidth * 3, iv4.frame.origin.y + iv4.frame.size.height + 1, itemWidth, 21)];
     [label4 addTarget:self action:@selector(chatBtkClick:) forControlEvents:UIControlEventTouchUpInside];
-    [label4 setTitle:@"战队聊天" forState:UIControlStateNormal];
+    [label4 setTitle:@"聊天" forState:UIControlStateNormal];
     label4.titleLabel.font = [UIFont systemFontOfSize:13];
 //    label4.font = [UIFont systemFontOfSize:13];
 //    label4.textAlignment = NSTextAlignmentCenter;
@@ -1013,7 +1013,7 @@
     {
         if(![self.teamId isEqualToString:get_sp(@"TeamId")])
         {
-            UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"提示" message:@"您不是该战队成员" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"提示" message:@"您不是该圈子成员" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
             [alertView show];
             return;
         }
@@ -1030,7 +1030,7 @@
     {
         if(![self.teamId isEqualToString:get_sp(@"TeamId")])
         {
-            UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"提示" message:@"您不是该战队成员" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"提示" message:@"您不是该圈子成员" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
             [alertView show];
             return;
         }
@@ -1056,7 +1056,7 @@
     {
         if(![self.teamId isEqualToString:get_sp(@"TeamId")])
         {
-            UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"提示" message:@"您不是该战队成员" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"提示" message:@"您不是该圈子成员" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
             [alertView show];
             return;
         }
@@ -1071,7 +1071,7 @@
     {
         if(![self.teamId isEqualToString:get_sp(@"TeamId")])
         {
-            UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"提示" message:@"您不是该战队成员" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"提示" message:@"您不是该圈子成员" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
             [alertView show];
             return;
         }

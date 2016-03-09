@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setBarTitle:@"战队管理"];
+    [self setBarTitle:@"管理"];
     [self addLeftButton:@"left"];
     self.view.backgroundColor = ItemsBaseColor;
     
@@ -49,7 +49,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell * cell=[[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
-    cell.textLabel.text=@"退出战队";
+    cell.textLabel.text=@"退出圈子";
     cell.textLabel.textColor=[UIColor whiteColor];
     cell.backgroundColor=ItemsBaseColor;
     

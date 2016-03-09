@@ -371,12 +371,12 @@
 //        NSString *teamID = get_sp(@"TeamId");
     
         if(get_sp(@"TeamId")!=nil && [get_sp(@"TeamId") isEqualToString:@"0"]!=YES){
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您已经有战队,请先退出~" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您已加入其它圈子,请先退出~" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
             [alertView show];
             return;
         }
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认加入战队？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认加入圈子？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
         alertView.tag = 2016-btn.tag;
         [alertView show];
         
@@ -386,7 +386,7 @@
     }
     else if ([btn.titleLabel.text isEqualToString:@"退出"])
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认退出战队？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认退出圈子？" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:@"取消", nil];
         alertView.tag = 2017+btn.tag;
         [alertView show];
        
@@ -415,13 +415,13 @@
 
 -(void)joinTeamCallBack:(id)dict{
     if ([dict[@"code"] intValue] == 200) {
-        [SVProgressHUD showSuccessWithStatus:@"加入战队成功~"];
+        [SVProgressHUD showSuccessWithStatus:@"加入圈子成功~"];
         [userDefault setValue:teamId forKey:@"TeamId"];
         [userDefault setValue:teamImg forKey:@"TeamImg"];
         [userDefault setValue:teamName forKey:@"TeamName"];
         [mTableView.mj_header beginRefreshing];
     }else{
-        [SVProgressHUD showSuccessWithStatus:@"加入战队失败~"];
+        [SVProgressHUD showSuccessWithStatus:@"加入圈子失败~"];
     }
 }
 
@@ -432,7 +432,7 @@
         remove_sp(@"TeamId");
         remove_sp(@"TeamImg");
         remove_sp(@"TeamName");
-        [SVProgressHUD showSuccessWithStatus:@"成功退出战队~" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showSuccessWithStatus:@"成功退出圈子~" maskType:SVProgressHUDMaskTypeBlack];
         [mTableView.mj_header beginRefreshing];
     }else{
         UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"data"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
@@ -497,7 +497,7 @@
             searchTxt.delegate = self;
             searchTxt.returnKeyType = UIReturnKeySearch;
             searchTxt.textColor = [UIColor whiteColor];
-            searchTxt.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索战队昵称" attributes:@{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.44 green:0.43 blue:0.44 alpha:1]}];
+            searchTxt.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索圈子昵称" attributes:@{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.44 green:0.43 blue:0.44 alpha:1]}];
             UIImageView *searchIv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 20)];
             searchIv.contentMode = UIViewContentModeScaleAspectFit;
             searchIv.image = [UIImage imageNamed:@"search"];

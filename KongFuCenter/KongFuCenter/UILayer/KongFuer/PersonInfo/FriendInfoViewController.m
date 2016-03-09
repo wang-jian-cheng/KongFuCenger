@@ -277,7 +277,7 @@
         {
 
             UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(GapToLeft, 0, 100, _cellHeight)];
-            titleLab.text = @"好友战队";
+            titleLab.text = @"好友圈子";
             titleLab.textColor = [UIColor whiteColor];
             titleLab.font = [UIFont systemFontOfSize:16];
             [cell addSubview:titleLab];
@@ -430,7 +430,7 @@
             }
             else
             {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"他还未加入战队" delegate:self cancelButtonTitle:@"确认" otherButtonTitles: nil];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"他还未加入圈子" delegate:self cancelButtonTitle:@"确认" otherButtonTitles: nil];
                 [alertView show];
             }
         }
