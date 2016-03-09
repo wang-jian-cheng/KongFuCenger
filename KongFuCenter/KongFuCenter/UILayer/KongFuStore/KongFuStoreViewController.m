@@ -169,7 +169,7 @@
         NSMutableArray *images = [[NSMutableArray alloc] init];
         if (self.LunboArr.count > 0) {
             for (int i=0; i<self.LunboArr.count; i++) {
-                UIImageView * img=[[UIImageView alloc] init];
+                UIImageView * img=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
                 NSString *imgpath = [self.LunboArr[i] valueForKey:@"Path"];
                 NSString *url = [NSString stringWithFormat:@"%@%@",Url,imgpath];
                 [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];

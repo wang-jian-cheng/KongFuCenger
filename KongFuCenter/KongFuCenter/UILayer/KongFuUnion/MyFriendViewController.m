@@ -212,7 +212,7 @@
     if (section == 0 || section == 1) {
         
     }else if (section == 2){
-        titleLabel.text = @"我的战队";
+        titleLabel.text = @"我的圈子";
     }else{
         titleLabel.text = [indexArray objectAtIndex:section - 3];
     }
