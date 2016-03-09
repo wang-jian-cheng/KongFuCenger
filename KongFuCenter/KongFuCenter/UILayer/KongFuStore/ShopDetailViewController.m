@@ -309,6 +309,7 @@
         [self.view addSubview:mView];
         
         mHeadIv = [[UIImageView alloc] initWithFrame:CGRectMake(14, -(SCREEN_WIDTH / 3 / 2), SCREEN_WIDTH / 3, SCREEN_WIDTH / 3)];
+        mHeadIv.contentMode = UIViewContentModeScaleToFill;
         NSArray *sliderArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"PicList"]];
         NSString *url;
         if (sliderArray && sliderArray.count > 0) {
@@ -318,7 +319,7 @@
             mHeadIv.userInteractionEnabled = YES;
             [mHeadIv addGestureRecognizer:headIvTap];
         }
-        [mHeadIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
+        [mHeadIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
         [mView addSubview:mHeadIv];
         
         mPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(mHeadIv.frame.origin.x + mHeadIv.frame.size.width + 5, 5, 200, 21)];
@@ -525,7 +526,7 @@
             if ([[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]] isEqual:selectColorId]) {
                 selectImage = [Toolkit judgeIsNull:[dict valueForKey:@"ImagePath"]];
                 NSString *url = [NSString stringWithFormat:@"%@%@",Url,selectImage];
-                [mHeadIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
+                [mHeadIv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"KongFuStoreProduct"]];
             }
             if ([[Toolkit judgeIsNull:[dict valueForKey:@"ColorId"]] isEqual:selectColorId] && [[Toolkit judgeIsNull:[dict valueForKey:@"SizeId"]] isEqual:selectSizeId]) {
                 mPriceLbl.text = [NSString stringWithFormat:@"¥%@",[dict valueForKey:@"Price"]];
@@ -736,8 +737,7 @@
                     UIImageView * img=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
                     NSString *imgpath = [sliderArray[i] valueForKey:@"Path"];
                     NSString *url = [NSString stringWithFormat:@"%@%@",Url,imgpath];
-                    [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"store_head_bg"]];
-//                    [img sd_setImageWithURL:[NSURL URLWithString:url]];
+                    [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"productimg"]];
                     [images addObject:img];
                 }
             }else{
