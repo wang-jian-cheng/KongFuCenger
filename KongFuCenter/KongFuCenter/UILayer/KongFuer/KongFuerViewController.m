@@ -78,12 +78,16 @@
     categoryVIndex = 0;
     application = [UIApplication sharedApplication];
     cateGoryH = [NSMutableArray array];
-    [cateGoryH addObjectsFromArray:@[@"梦想",@"学习",@"场馆",@"收藏"]];
+    //[cateGoryH addObjectsFromArray:@[@"梦想",@"学习",@"场馆",@"收藏"]];
+    [cateGoryH addObjectsFromArray:@[@"课程",@"场馆",@"私教",@"直播"]];
     
     cateGoryV = [NSMutableArray array];
-    [cateGoryV addObjectsFromArray:@[@"直播",
-                                     @"课程",@"记录",
-                                     @"兑换"]
+    //[cateGoryV addObjectsFromArray:@[@"直播",
+                                     //@"课程",@"记录",
+                                     //@"兑换"]
+    [cateGoryV addObjectsFromArray:@[@"学习计划",
+                                      @"成长记录",@"精品收藏",
+                                      @"积分兑换"]
                                     ];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     
@@ -532,31 +536,28 @@
     switch (sender.tag) {
         case DreamBtn:
         {
-            MyDreamViewController *myDreamViewCtl = [[MyDreamViewController alloc] init];
-            myDreamViewCtl.navtitle= cateGoryH[DreamBtn];
-            [self.navigationController pushViewController:myDreamViewCtl animated:YES];
+            TrainsPlanViewController *trainsPlanViewCtl = [[TrainsPlanViewController alloc] init];
+            trainsPlanViewCtl.navtitle = @"课程";
+            [self.navigationController pushViewController:trainsPlanViewCtl animated:YES];
             
         }
             break;
         case StudyOnLineBtn:
         {
-            StudyOnLineViewController *studyOnlineViewCtl = [[StudyOnLineViewController alloc]init];
-            studyOnlineViewCtl.navtitle = cateGoryH[StudyOnLineBtn];
-            [self.navigationController pushViewController:studyOnlineViewCtl animated:YES];
+            WuGuanViewController *wuGuanSugViewCtl= [[WuGuanViewController alloc]init];
+            // wuGuanSugViewCtl.navtitle = cateGoryH[KongFuHomeSugBtn];
+            [self.navigationController pushViewController:wuGuanSugViewCtl animated:YES];
         }
             break;
         case KongFuHomeSugBtn:
         {
-            WuGuanViewController *wuGuanSugViewCtl= [[WuGuanViewController alloc]init];
-           // wuGuanSugViewCtl.navtitle = cateGoryH[KongFuHomeSugBtn];
-            [self.navigationController pushViewController:wuGuanSugViewCtl animated:YES];
+            
         }
             break;
         case MyCollectBtn:
         {
-            MyCollectViewController *myCollectViewCtl= [[MyCollectViewController alloc]init];
-            myCollectViewCtl.navtitle = cateGoryH[MyCollectBtn];
-            [self.navigationController pushViewController:myCollectViewCtl animated:YES];
+            VideoZhiBoList *videoZhiBoList = [[VideoZhiBoList alloc] init];
+            [self.navigationController pushViewController:videoZhiBoList animated:YES];
         }
             break;
         default:
@@ -733,7 +734,7 @@
         if(categoryVIndex > cateGoryV.count - 1)
             return cell;
         
-        UILabel *gategoryNameLab = [[UILabel alloc ] initWithFrame:CGRectMake(10, 0, 40, _cellHeight)];
+        UILabel *gategoryNameLab = [[UILabel alloc ] initWithFrame:CGRectMake(10, 0, 80, _cellHeight)];
         
         gategoryNameLab.center = CGPointMake(SCREEN_WIDTH/2, _cellHeight/2);
         gategoryNameLab.text =cateGoryV[indexPath.row];
@@ -771,17 +772,18 @@
     
     if(indexPath.section == 2){
         if (indexPath.row == 0) {
-            VideoZhiBoList *videoZhiBoList = [[VideoZhiBoList alloc] init];
-            [self.navigationController pushViewController:videoZhiBoList animated:YES];
+            StudyOnLineViewController *studyOnlineViewCtl = [[StudyOnLineViewController alloc]init];
+            studyOnlineViewCtl.navtitle = @"学习计划";
+            [self.navigationController pushViewController:studyOnlineViewCtl animated:YES];
         }else if(indexPath.row == 1){
-            TrainsPlanViewController *trainsPlanViewCtl = [[TrainsPlanViewController alloc] init];
-            trainsPlanViewCtl.navtitle = cateGoryV[indexPath.row];
-            [self.navigationController pushViewController:trainsPlanViewCtl animated:YES];
-        }else if (indexPath.row == 2){
             GrowHistoryViewController *growHistoryViewCtl= [[GrowHistoryViewController alloc] init];
             growHistoryViewCtl.userId = get_sp(@"id");
             growHistoryViewCtl.navtitle = cateGoryV[indexPath.row];
             [self.navigationController pushViewController:growHistoryViewCtl animated:YES];
+        }else if (indexPath.row == 2){
+            MyCollectViewController *myCollectViewCtl= [[MyCollectViewController alloc]init];
+            myCollectViewCtl.navtitle = @"精品收藏";
+            [self.navigationController pushViewController:myCollectViewCtl animated:YES];
         }else if (indexPath.row == 3){
             IntegralExchangeViewController *integralExchangeVC = [[IntegralExchangeViewController alloc] init];
             [self.navigationController pushViewController:integralExchangeVC animated:YES];

@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1534"
-            endingLineNumber = "1534"
+            startingLineNumber = "1545"
+            endingLineNumber = "1545"
             landmarkName = "-GetVideoByCategory:andmaximumRows:andcateid:andSearch:"
             landmarkType = "5">
          </BreakpointContent>
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1559"
-            endingLineNumber = "1559"
+            startingLineNumber = "1570"
+            endingLineNumber = "1570"
             landmarkName = "-getIndexLunbo"
             landmarkType = "5">
          </BreakpointContent>
@@ -399,7 +399,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "97"
             endingLineNumber = "97"
-            landmarkName = "-initShoppingCarNum"
+            landmarkName = "-clickRightButton:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -618,11 +618,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1572"
-            endingLineNumber = "1572"
+            startingLineNumber = "1583"
+            endingLineNumber = "1583"
             landmarkName = "-SelectSmallCategory:"
             landmarkType = "5">
          </BreakpointContent>
@@ -639,7 +639,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "416"
             endingLineNumber = "416"
-            landmarkName = "-addBtnEvent"
+            landmarkName = "-getHeight:andHoriWidth:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -714,11 +714,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1609"
-            endingLineNumber = "1609"
+            startingLineNumber = "1620"
+            endingLineNumber = "1620"
             landmarkName = "-SelectProductBySearch:andmaximumRows:andsearch:andcategoryId:andisPriceAsc:andisSalesAsc:andisCommentAsc:andisNewAsc:andisCredit:andisRecommend:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1050,11 +1050,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478418017.396362"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1753"
-            endingLineNumber = "1753"
+            startingLineNumber = "1764"
+            endingLineNumber = "1764"
             landmarkName = "-SelectPageChangeBillByUserId:andmaximumRows:anduserId:andstate:andproNum:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1066,11 +1066,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478418017.396362"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1754"
-            endingLineNumber = "1754"
+            startingLineNumber = "1765"
+            endingLineNumber = "1765"
             landmarkName = "-SelectPageChangeBillByUserId:andmaximumRows:anduserId:andstate:andproNum:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1258,11 +1258,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478418017.396362"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1771"
-            endingLineNumber = "1771"
+            startingLineNumber = "1782"
+            endingLineNumber = "1782"
             landmarkName = "-SelectBillProduct:andmaximumRows:andbillId:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1295,8 +1295,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "96"
             endingLineNumber = "96"
-            landmarkName = "@implementation ShopDetailViewController"
-            landmarkType = "3">
+            landmarkName = "-clickRightButton:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1370,11 +1370,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1685"
-            endingLineNumber = "1685"
+            startingLineNumber = "1696"
+            endingLineNumber = "1696"
             landmarkName = "-InsertBasket:andnum:andpriceId:anduserId:andprice:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1407,7 +1407,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "554"
             endingLineNumber = "554"
-            landmarkName = "-CancelCollectionCallBack:"
+            landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1418,11 +1418,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1606"
-            endingLineNumber = "1606"
+            startingLineNumber = "1617"
+            endingLineNumber = "1617"
             landmarkName = "-SelectProductBySearch:andmaximumRows:andsearch:andcategoryId:andisPriceAsc:andisSalesAsc:andisCommentAsc:andisNewAsc:andisCredit:andisRecommend:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1439,7 +1439,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "560"
             endingLineNumber = "560"
-            landmarkName = "-CancelCollectionCallBack:"
+            landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1530,11 +1530,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1696"
-            endingLineNumber = "1696"
+            startingLineNumber = "1707"
+            endingLineNumber = "1707"
             landmarkName = "-SelectCommentByProductId:andstartRowIndex:andmaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2394,11 +2394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1659"
-            endingLineNumber = "1659"
+            startingLineNumber = "1670"
+            endingLineNumber = "1670"
             landmarkName = "-CancleFavoriteProduct:andproductId:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3082,12 +3082,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/KongFuerViewController.m"
-            timestampString = "477390097.075851"
+            timestampString = "479199621.073786"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3098,12 +3098,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/KongFuerViewController.m"
-            timestampString = "477390118.341422"
+            timestampString = "479199621.073786"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407"
-            landmarkName = "-getUserInfoCallBack:"
+            startingLineNumber = "411"
+            endingLineNumber = "411"
+            landmarkName = "-getUserInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3210,11 +3210,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1617"
-            endingLineNumber = "1617"
+            startingLineNumber = "1628"
+            endingLineNumber = "1628"
             landmarkName = "-SelectProductBySearch:andmaximumRows:andsearch:andcategoryId:andisPriceAsc:andisSalesAsc:andisCommentAsc:andisNewAsc:andisCredit:andisRecommend:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3226,11 +3226,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1618"
-            endingLineNumber = "1618"
+            startingLineNumber = "1629"
+            endingLineNumber = "1629"
             landmarkName = "-SelectProductBySearch:andmaximumRows:andsearch:andcategoryId:andisPriceAsc:andisSalesAsc:andisCommentAsc:andisNewAsc:andisCredit:andisRecommend:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3242,11 +3242,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1626"
-            endingLineNumber = "1626"
+            startingLineNumber = "1637"
+            endingLineNumber = "1637"
             landmarkName = "-SelectProduct:anduserid:andmaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3386,11 +3386,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478418017.396362"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1944"
-            endingLineNumber = "1944"
+            startingLineNumber = "1955"
+            endingLineNumber = "1955"
             landmarkName = "-DeleteDeliveryAddress:anduserId:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3471,7 +3471,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "517"
             endingLineNumber = "517"
-            landmarkName = "-updateImgAndPrice"
+            landmarkName = "-selectSizeSpecEvent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3546,11 +3546,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1535"
-            endingLineNumber = "1535"
+            startingLineNumber = "1546"
+            endingLineNumber = "1546"
             landmarkName = "-GetVideoByCategory:andmaximumRows:andcateid:andSearch:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3818,11 +3818,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478418017.396362"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1815"
-            endingLineNumber = "1815"
+            startingLineNumber = "1826"
+            endingLineNumber = "1826"
             landmarkName = "-delShopCartGoods:andIdList:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3866,11 +3866,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478418017.396362"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1927"
-            endingLineNumber = "1927"
+            startingLineNumber = "1938"
+            endingLineNumber = "1938"
             landmarkName = "-EditDeliveryAddress:andareaId:andaddress:andisDefaul:anduserId:andreceiverName:andphone:andcodeForAddress:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4698,11 +4698,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478418017.396362"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1845"
-            endingLineNumber = "1845"
+            startingLineNumber = "1856"
+            endingLineNumber = "1856"
             landmarkName = "-getPostage:andGoodIds:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4730,11 +4730,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478418017.396362"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1922"
-            endingLineNumber = "1922"
+            startingLineNumber = "1933"
+            endingLineNumber = "1933"
             landmarkName = "-SelectAllDeliveryAddress:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4874,11 +4874,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1583"
-            endingLineNumber = "1583"
+            startingLineNumber = "1594"
+            endingLineNumber = "1594"
             landmarkName = "-SaveComment:andbillid:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4906,11 +4906,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1673"
-            endingLineNumber = "1673"
+            startingLineNumber = "1684"
+            endingLineNumber = "1684"
             landmarkName = "-BuyNow:andnum:andpriceId:anduserId:andprice:anddeliveryId:anddescription:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4922,11 +4922,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1674"
-            endingLineNumber = "1674"
+            startingLineNumber = "1685"
+            endingLineNumber = "1685"
             landmarkName = "-BuyNow:andnum:andpriceId:anduserId:andprice:anddeliveryId:anddescription:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4950,7 +4950,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuer/MyCollectViewController.m"
@@ -5370,11 +5370,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MakeMushaViewController.m"
-            timestampString = "478601428.640164"
+            timestampString = "479181547.324761"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "422"
-            endingLineNumber = "422"
+            startingLineNumber = "423"
+            endingLineNumber = "423"
             landmarkName = "-addFriendCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5466,11 +5466,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478255600.051416"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1540"
-            endingLineNumber = "1540"
+            startingLineNumber = "1551"
+            endingLineNumber = "1551"
             landmarkName = "-SetNickName:andfriend:andrname:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5871,7 +5871,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "518"
             endingLineNumber = "518"
-            landmarkName = "-updateImgAndPrice"
+            landmarkName = "-selectSizeSpecEvent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6399,7 +6399,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "107"
             endingLineNumber = "107"
-            landmarkName = "-getShoppingCarNumCallBack:"
+            landmarkName = "-initShoppingCarNum"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6906,11 +6906,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MakeMushaViewController.m"
-            timestampString = "478601151.461614"
+            timestampString = "479181547.324761"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "-getInitCountryCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6922,11 +6922,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MakeMushaViewController.m"
-            timestampString = "478601428.640164"
+            timestampString = "479181547.324761"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "-getInitCountryCallBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6954,11 +6954,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478602796.123634"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1603"
-            endingLineNumber = "1603"
+            startingLineNumber = "1614"
+            endingLineNumber = "1614"
             landmarkName = "-SelectProductBySearch:andmaximumRows:andsearch:andcategoryId:andisPriceAsc:andisSalesAsc:andisCommentAsc:andisNewAsc:andisCredit:andisRecommend:"
             landmarkType = "5">
          </BreakpointContent>
@@ -7007,7 +7007,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "519"
             endingLineNumber = "519"
-            landmarkName = "-updateImgAndPrice"
+            landmarkName = "-selectSizeSpecEvent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7066,11 +7066,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/DataProvider/DataProvider.m"
-            timestampString = "478679299.033376"
+            timestampString = "479183051.907473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1628"
-            endingLineNumber = "1628"
+            startingLineNumber = "1639"
+            endingLineNumber = "1639"
             landmarkName = "-SelectProduct:anduserid:andmaximumRows:"
             landmarkType = "5">
          </BreakpointContent>
@@ -7087,7 +7087,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "157"
             endingLineNumber = "157"
-            landmarkName = "-getGoodsDetailCallBack:"
+            landmarkName = "-getServerPhoneCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7135,7 +7135,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "520"
             endingLineNumber = "520"
-            landmarkName = "-updateImgAndPrice"
+            landmarkName = "-selectSizeSpecEvent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7327,7 +7327,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "442"
             endingLineNumber = "442"
-            landmarkName = "-selectColorSpecEvent:"
+            landmarkName = "-backViewEvent"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7535,7 +7535,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "567"
             endingLineNumber = "567"
-            landmarkName = "-joinShoppingCarEvent"
+            landmarkName = "-CancelCollectionCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7562,11 +7562,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KongFuCenter/UILayer/KongFuUnion/MakeMushaViewController.m"
-            timestampString = "478767547.024378"
+            timestampString = "479181547.324761"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -7727,7 +7727,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "107"
             endingLineNumber = "107"
-            landmarkName = "-getShoppingCarNumCallBack:"
+            landmarkName = "-initShoppingCarNum"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7792,6 +7792,326 @@
             startingLineNumber = "345"
             endingLineNumber = "345"
             landmarkName = "-getWuguanDetailCallBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MakeMushaViewController.m"
+            timestampString = "479181765.940268"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "481"
+            endingLineNumber = "481"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/MakeMushaViewController.m"
+            timestampString = "479181861.91122"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "465"
+            endingLineNumber = "465"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "-matchAddressBackCall:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "-address"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "-address"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "-matchAddressBackCall:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "-address"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "-address"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "-address"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "-address"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "-matchAddressBackCall:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "-matchAddressBackCall:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "-matchAddressBackCall:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "412"
+            endingLineNumber = "412"
+            landmarkName = "-setUserSource"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "-matchAddressBackCall:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "608"
+            endingLineNumber = "608"
+            landmarkName = "-applyAddFriend:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KongFuCenter/UILayer/KongFuUnion/AddressLocalViewController.m"
+            timestampString = "479201949.39878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "613"
+            endingLineNumber = "613"
+            landmarkName = "-addFriendCallBack:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

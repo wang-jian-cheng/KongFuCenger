@@ -403,6 +403,12 @@
 		B7172D771C50B32C009C4ABE /* store_nocollection.png in Resources */ = {isa = PBXBuildFile; fileRef = B7172D751C50B32C009C4ABE /* store_nocollection.png */; };
 		B7172D781C50B32C009C4ABE /* store_collection.png in Resources */ = {isa = PBXBuildFile; fileRef = B7172D761C50B32C009C4ABE /* store_collection.png */; };
 		B7172D7B1C50B93F009C4ABE /* ClassificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7172D7A1C50B93F009C4ABE /* ClassificationViewController.m */; };
+		B71FF7051C8FB51D000AEFBE /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = B71FF7041C8FB51D000AEFBE /* Model.m */; };
+		B71FF7121C8FB7CF000AEFBE /* AddressLocalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B71FF70D1C8FB7CF000AEFBE /* AddressLocalCell.m */; };
+		B71FF7131C8FB7CF000AEFBE /* AddressLocalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B71FF70E1C8FB7CF000AEFBE /* AddressLocalCell.xib */; };
+		B71FF7141C8FB7CF000AEFBE /* AddressLocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B71FF7101C8FB7CF000AEFBE /* AddressLocalViewController.m */; };
+		B71FF7151C8FB7CF000AEFBE /* AddressLocalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B71FF7111C8FB7CF000AEFBE /* AddressLocalViewController.xib */; };
+		B71FF7171C8FBA6C000AEFBE /* addressBook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71FF7161C8FBA6C000AEFBE /* addressBook@2x.png */; };
 		B728F67C1C2BD7AD004E90F3 /* wyzan_no.png in Resources */ = {isa = PBXBuildFile; fileRef = B728F67B1C2BD7AD004E90F3 /* wyzan_no.png */; };
 		B72C3CBE1C1558F000D3250A /* KongFuUnionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */; };
 		B72C3CC31C15668800D3250A /* RecruitComment.m in Sources */ = {isa = PBXBuildFile; fileRef = B72C3CC21C15668800D3250A /* RecruitComment.m */; };
@@ -1209,6 +1215,15 @@
 		B7172D761C50B32C009C4ABE /* store_collection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_collection.png; sourceTree = "<group>"; };
 		B7172D791C50B93F009C4ABE /* ClassificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassificationViewController.h; sourceTree = "<group>"; };
 		B7172D7A1C50B93F009C4ABE /* ClassificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassificationViewController.m; sourceTree = "<group>"; };
+		B71FF7031C8FB51D000AEFBE /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		B71FF7041C8FB51D000AEFBE /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
+		B71FF70C1C8FB7CF000AEFBE /* AddressLocalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressLocalCell.h; sourceTree = "<group>"; };
+		B71FF70D1C8FB7CF000AEFBE /* AddressLocalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressLocalCell.m; sourceTree = "<group>"; };
+		B71FF70E1C8FB7CF000AEFBE /* AddressLocalCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressLocalCell.xib; sourceTree = "<group>"; };
+		B71FF70F1C8FB7CF000AEFBE /* AddressLocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressLocalViewController.h; sourceTree = "<group>"; };
+		B71FF7101C8FB7CF000AEFBE /* AddressLocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressLocalViewController.m; sourceTree = "<group>"; };
+		B71FF7111C8FB7CF000AEFBE /* AddressLocalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressLocalViewController.xib; sourceTree = "<group>"; };
+		B71FF7161C8FBA6C000AEFBE /* addressBook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addressBook@2x.png"; sourceTree = "<group>"; };
 		B728F67B1C2BD7AD004E90F3 /* wyzan_no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wyzan_no.png; sourceTree = "<group>"; };
 		B72C3CBB1C1558F000D3250A /* KongFuUnionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KongFuUnionViewController.h; sourceTree = "<group>"; };
 		B72C3CBC1C1558F000D3250A /* KongFuUnionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KongFuUnionViewController.m; sourceTree = "<group>"; };
@@ -2298,6 +2313,7 @@
 		B5905DF91C1BC2CF00ECA9BA /* KongFuUnion */ = {
 			isa = PBXGroup;
 			children = (
+				B71FF7161C8FBA6C000AEFBE /* addressBook@2x.png */,
 				B7FA4AC21C73FD73005884BD /* sendVideo.png */,
 				B70207FF1C45F15E00AF1687 /* newconcernfriend.png */,
 				B7E4CD201C1FE26C00C2E69A /* main_icon */,
@@ -2446,6 +2462,9 @@
 				B569DB9B1C12B6C000325CFA /* UITableViewCell+EditMode.m */,
 				B5D345DB1C2A8B5A00D39891 /* UploadDataToServer.h */,
 				B5D345DC1C2A8B5A00D39891 /* UploadDataToServer.m */,
+				B71FF7031C8FB51D000AEFBE /* Model.h */,
+				B71FF7041C8FB51D000AEFBE /* Model.m */,
+				B71FF70A1C8FB796000AEFBE /* pinyin */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2970,6 +2989,26 @@
 			name = MyNews;
 			sourceTree = "<group>";
 		};
+		B71FF70A1C8FB796000AEFBE /* pinyin */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = pinyin;
+			sourceTree = "<group>";
+		};
+		B71FF70B1C8FB7B9000AEFBE /* AddresBook */ = {
+			isa = PBXGroup;
+			children = (
+				B71FF70F1C8FB7CF000AEFBE /* AddressLocalViewController.h */,
+				B71FF7101C8FB7CF000AEFBE /* AddressLocalViewController.m */,
+				B71FF7111C8FB7CF000AEFBE /* AddressLocalViewController.xib */,
+				B71FF70C1C8FB7CF000AEFBE /* AddressLocalCell.h */,
+				B71FF70D1C8FB7CF000AEFBE /* AddressLocalCell.m */,
+				B71FF70E1C8FB7CF000AEFBE /* AddressLocalCell.xib */,
+			);
+			name = AddresBook;
+			sourceTree = "<group>";
+		};
 		B72C3CC01C15660800D3250A /* RecruitComment */ = {
 			isa = PBXGroup;
 			children = (
@@ -2993,6 +3032,7 @@
 		B72E39F11C1AB4A6007356C4 /* MakeMusha */ = {
 			isa = PBXGroup;
 			children = (
+				B71FF70B1C8FB7B9000AEFBE /* AddresBook */,
 				B72E39F21C1AB4D0007356C4 /* MakeMushaViewController.h */,
 				B72E39F31C1AB4D0007356C4 /* MakeMushaViewController.m */,
 				B72E39F51C1AB5AD007356C4 /* MakeMushaCell.h */,
@@ -3576,6 +3616,7 @@
 				B53E737C1C166389009E7878 /* relay@2x.png in Resources */,
 				B7617E571C1C299700CF96E7 /* zan@2x.png in Resources */,
 				B5F13B411C1FE6E600155038 /* 58@2x.png in Resources */,
+				B71FF7171C8FBA6C000AEFBE /* addressBook@2x.png in Resources */,
 				B72E39F91C1AB5AD007356C4 /* MakeMushaCell.xib in Resources */,
 				B5D89A051C11641000F55BFA /* WuGuanTableViewCell.xib in Resources */,
 				B7172D781C50B32C009C4ABE /* store_collection.png in Resources */,
@@ -3642,6 +3683,8 @@
 				8021E9061C279AE7005C7539 /* index_31.png in Resources */,
 				B57584AE1C5DF52C005EF831 /* doublerow@2x.png in Resources */,
 				B53E73921C16AB0C009E7878 /* wuguanimg@2x.png in Resources */,
+				B71FF7131C8FB7CF000AEFBE /* AddressLocalCell.xib in Resources */,
+				B71FF7151C8FB7CF000AEFBE /* AddressLocalViewController.xib in Resources */,
 				B5451CBE1C2795C8001BB39F /* upsanjiao@2x.png in Resources */,
 				B7EE7EF51C8ECED500225B88 /* helianmeng@2x.png in Resources */,
 				B7E0BF301C2A919A000DD4E1 /* wyhf.png in Resources */,
@@ -3905,6 +3948,7 @@
 				B7D846431C22AB7500718E9E /* MJRefreshAutoFooter.m in Sources */,
 				804952271C2523FA00F5584A /* UploadVideoViewController.m in Sources */,
 				B7617E701C1C29A500CF96E7 /* YMReplyInputView.m in Sources */,
+				B71FF7121C8FB7CF000AEFBE /* AddressLocalCell.m in Sources */,
 				B5F90ADE1C196AB800D7879D /* ChannelViewController.m in Sources */,
 				B59409101C0FCF05003DC15D /* KongFuPowerViewController.m in Sources */,
 				B569DB941C12822900325CFA /* GrowHistoryViewController.m in Sources */,
@@ -4025,6 +4069,7 @@
 				B7D846471C22AB7500718E9E /* MJRefreshHeader.m in Sources */,
 				804952171C250B3800F5584A /* SCWeakSelectorTarget.m in Sources */,
 				B7CB2A711C3B4C5C009E62ED /* OneShuoshuoViewController.m in Sources */,
+				B71FF7051C8FB51D000AEFBE /* Model.m in Sources */,
 				B7CCA2D41C21036400B7AC8C /* ChatLocationViewController.m in Sources */,
 				7BA3A3161C2289070028C8A3 /* ShieldViewController.m in Sources */,
 				B53791A71C151FEB00C45BA7 /* UserHeadView.m in Sources */,
@@ -4071,6 +4116,7 @@
 				B5D345C91C28E97E00D39891 /* JKUtil.m in Sources */,
 				B5AF705A1C17C21400C041AF /* MBProgressHUD.m in Sources */,
 				B5B738171C451AB300DF7437 /* JvbaoView.m in Sources */,
+				B71FF7141C8FB7CF000AEFBE /* AddressLocalViewController.m in Sources */,
 				B7A4C0381C60B8DD00B695D7 /* BigImageShowViewController.m in Sources */,
 				7BA38E961C215CFB000996EE /* IntroduceViewController.m in Sources */,
 				B5B737771C3CAAF100DF7437 /* PinYinForObjc.m in Sources */,

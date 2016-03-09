@@ -339,6 +339,9 @@
 //删除被关注列表武友
 -(void)DeleteFriended:(NSString *)friendListId;
 
+//通讯录匹配，未注册不返回，注册之后判断是否为好友
+-(void)ContactsMatch:(NSString *)userid andcontacts:(NSString *)contacts;
+
 #pragma mark - 战队赛事评论
 -(void)getMatchComment:(NSString *)memberId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows;
 -(void)commentMatch:(NSString *)memberId andUserID:(NSString *)userId andComment:(NSString *)comment;

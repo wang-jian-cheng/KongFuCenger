@@ -10,6 +10,7 @@
 #import "MakeMushaCell.h"
 #import "MJRefresh.h"
 #import "UserHeadView.h"
+#import "AddressLocalViewController.h"
 
 @interface MakeMushaViewController (){
     
@@ -321,7 +322,7 @@
 {
     [BackView removeFromSuperview];
     [addressPickView removeFromSuperview];
-    [mTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [mTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:2]] withRowAnimation:UITableViewRowAnimationAutomatic];
     
     searchTxt.text = @"";
     [self TeamTopRefresh];
@@ -336,7 +337,7 @@
 
 -(void)TeamTopRefresh
 {
-    [mTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [mTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:2]] withRowAnimation:UITableViewRowAnimationAutomatic];
     curpage=0;
     NSString *arreaCode = @"";
     if ([countryCode isEqual:@"0"]) {
@@ -378,7 +379,7 @@
     NSLog(@"店铺列表%@",dict);
     if ([dict[@"code"] intValue] == 200) {
         mushaArray=dict[@"data"];
-        [mTableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [mTableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
@@ -397,7 +398,7 @@
         }
         mushaArray=[[NSArray alloc] initWithArray:itemarray];
     }
-    [mTableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [mTableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 -(void)selectAgeEvent{
@@ -435,13 +436,13 @@
 
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 4;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if(section == 0){
+    if(section == 0 || section == 1){
         return 1;
-    }else if (section == 1){
+    }else if (section == 2){
         return 2;
     }else{
         return mushaArray.count;
@@ -477,6 +478,19 @@
         [cell addSubview:searchTxt];
         return cell;
     }else if (indexPath.section == 1){
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
+        cell.backgroundColor = ItemsBaseColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        UIImageView *mImgView = [[UIImageView alloc] initWithFrame:CGRectMake(14, 5, 40, 40)];
+        mImgView.image = [UIImage imageNamed:@"addressBook@2x"];
+        [cell addSubview:mImgView];
+        UILabel *mName = [[UILabel alloc] initWithFrame:CGRectMake(mImgView.frame.origin.x + mImgView.frame.size.width + 10, (45 - 21) / 2, 200, 21)];
+        mName.textColor = [UIColor whiteColor];
+        mName.text = @"通讯录";
+        [cell addSubview:mName];
+        return cell;
+        
+    }else if (indexPath.section == 2){
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
         cell.backgroundColor = ItemsBaseColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -590,6 +604,8 @@
     if (indexPath.section == 0) {
         return 45;
     }else if (indexPath.section == 1){
+        return 50;
+    }else if (indexPath.section == 2){
         if (indexPath.row == 0) {
             return 40;
         }else{
@@ -602,6 +618,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [mTableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.section == 1){
+        AddressLocalViewController *addressLocalVC = [[AddressLocalViewController alloc] init];
+        [self.navigationController pushViewController:addressLocalVC animated:YES];
+    }
 }
 
 #pragma mark - pickerView delegate

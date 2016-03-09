@@ -1206,6 +1206,17 @@
     }
 }
 
+-(void)ContactsMatch:(NSString *)userid andcontacts:(NSString *)contacts{
+    if (userid && contacts) {
+        NSString *url = [NSString stringWithFormat:@"%@Helianmeng.asmx/ContactsMatch",Url];
+        NSDictionary *prm = @{@"userid":userid,
+                              @"contacts":contacts};
+        [self PostRequest:url andpram:prm];
+    }else{
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark - 战队赛事评论
 
 -(void)getMatchComment:(NSString *)memberId andstartRowIndex:(NSString *)startRowIndex andmaximumRows:(NSString *)maximumRows
