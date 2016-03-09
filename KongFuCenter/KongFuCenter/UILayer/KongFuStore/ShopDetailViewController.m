@@ -48,6 +48,10 @@
     int selectSizeIndex;
     NSMutableArray *currentColorArray;
     NSMutableArray *currentSizeArray;
+    
+    
+    UIImageView *_coverImg;
+    
 }
 
 @end
@@ -730,7 +734,7 @@
             NSArray *sliderArray = [[NSArray alloc] initWithArray:[goodsInfoDict valueForKey:@"PicList"]];
             if (sliderArray.count > 0) {
                 for (int i=0; i<sliderArray.count; i++) {
-                    UIImageView * img=[[UIImageView alloc] init];
+                    UIImageView * img=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
                     NSString *imgpath = [sliderArray[i] valueForKey:@"Path"];
                     NSString *url = [NSString stringWithFormat:@"%@%@",Url,imgpath];
                     [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"productimg"]];
@@ -742,11 +746,15 @@
                 [images addObject:img];
             }
             //创建带标题的图片轮播器
+           
             SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170) imagesGroup:images ];
             cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
             cycleScrollView.autoScrollTimeInterval = 5;
             cycleScrollView.delegate = self;
             [cell addSubview:cycleScrollView];
+            
+//            _coverImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cycleScrollView.frame.size.width, cycleScrollView.frame.size.height)];
+            
             
             mName = [[UILabel alloc] initWithFrame:CGRectMake(14, cycleScrollView.frame.origin.y + cycleScrollView.frame.size.height + (45 - 21) / 2, 200, 21)];
             mName.textColor = [UIColor whiteColor];

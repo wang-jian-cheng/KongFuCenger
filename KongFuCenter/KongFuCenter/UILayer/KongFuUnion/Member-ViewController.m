@@ -235,7 +235,7 @@
 - (void)p_navigation
 {
     self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"战队成员"];
+    [self setBarTitle:@"成员"];
     [self addLeftButton:@"left"];
 }
 
@@ -257,7 +257,7 @@
                                                                    15,
                                                                    SCREEN_WIDTH  - (searchBtn.frame.origin.x+searchBtn.frame.size.width),
                                                                    35)];
-    self.textField.placeholder = @"搜索战队昵称、id号";
+    self.textField.placeholder = @"搜索圈子昵称、id号";
     [self.textField setValue:Separator_Color forKeyPath:@"_placeholderLabel.textColor"];
     self.textField.textColor = [UIColor whiteColor];
 //    self.textField.backgroundColor = [UIColor orangeColor];

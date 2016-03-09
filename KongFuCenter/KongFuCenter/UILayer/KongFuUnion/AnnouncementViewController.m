@@ -79,7 +79,7 @@
 - (void)p_navigation
 {
     self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"战队公告"];
+    [self setBarTitle:@"公告"];
     [self addLeftButton:@"left"];
     
 //    self.automaticallyAdjustsScrollViewInsets = NO;

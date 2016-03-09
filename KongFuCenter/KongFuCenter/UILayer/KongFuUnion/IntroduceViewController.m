@@ -84,7 +84,7 @@
 - (void)p_navigation
 {
     self.view.backgroundColor = BACKGROUND_COLOR;
-    [self setBarTitle:@"战队介绍"];
+    [self setBarTitle:@"介绍"];
     [self addLeftButton:@"left"];
 }
 
